@@ -1,0 +1,873 @@
+<!--{if $c=='article_category'}-->
+<div  id='box' style="display:none">
+  <form method="post" action="<!--{$cpfile}-->&c=article_category&a=add">
+  <table cellspacing="0" cellpadding="0" border="0" align="center" width="473"><tr>
+<td height="40" style="text-align:right">分类名：</td>
+<td>
+<input name="catname" type="text" class="box_input" />
+</td>
+</tr>
+
+<tr>
+<td height="40" style="text-align:right">链接地址：</td>
+<td><input class="box_input"  name="url" type="text"></td>
+</tr><tr>
+<td height="40" style="text-align:right">所属分类：</td>
+<td><select name="parentid"   style="height:auto!important">
+        <!--{if $smarty.get.catid!=null}-->
+        <option value="<!--{$smarty.get.catid}-->" checked="checked"><!--{$smarty.get.catname}--></option>
+        <!--{/if}-->
+        <option value="0">顶级分类</option>
+        <!--{foreach $data as $volist}-->
+        
+        <option value="<!--{$volist.catid}-->"> 
+        
+        <!--{section name=customer loop=$volist.depth-1}-->| 
+        <!--{/section}--><!--{section name=customer loop=$volist.depth-1}-->--<!--{/section}--> 
+        <!--{$volist.catname}--></option>
+        
+        <!--{/foreach}-->
+      </select></td>
+</tr>
+<tr>
+<td height="40" style="text-align:right">排序：</td>
+<td><input  class="box_input"  name="orders" type="text"></td>
+</tr>
+<tr>
+<td height="40" style="text-align:right">状态：</td>
+<td>
+<select name="flag">
+        <option value='0'>正常</option>
+        <option value='1'>锁定</option>
+      </select></tr>
+<tr>
+<td height="40" style="text-align:right">meta标题：</td>
+<td><input  class="box_input"  name="metatitle" type="text"></td>
+</tr>      
+ <tr>
+<td height="40" style="text-align:right">meta关键词：</td>
+<td><input  class="box_input"  name="metakeyword" type="text"></td>
+</tr>     
+      
+   <tr>
+<td height="50" style="text-align:right">meta描述：</td>
+<td><textarea class="modify_input" value=" 提  交 "  name="metadesc" type="text"></textarea></td>
+</tr>     
+      
+
+<tr>
+<td height="40" align="left"></td>
+<td><input name="" value="提 交" class="oe_boxbut" type="submit"></td></tr>
+</table>
+  
+  </form>
+</div>
+
+
+
+<!--{elseif $c=='backstagemenu'}-->
+<div  id='add_ht' style="display:none">
+<form method="post" action="<!--{url action="add"}-->"> 
+
+  <table cellspacing="0" cellpadding="0" border="0" align="center" width="473">
+      <tr>
+        <td height="40" style="text-align:right;">菜单名：</td>
+        <td>
+        <input name="catname" class="box_input" type="text">
+        </td>
+      </tr>
+      <tr>
+        <td height="40" style="text-align:right;">链接模块：</td>
+        <td>
+        <input name="mod" class="box_input" type="text">
+        </td>
+      </tr>
+    <tr>
+      <td height="40" style="text-align:right;">链接控制器：</td>
+      <td>
+        <input name="action" class="box_input" type="text">
+        </td>
+    </tr>
+      <tr>
+        <td height="40" style="text-align:right;">排序：</td>
+        <td>
+        <input name="orders" class="box_input" type="text">
+        </td>
+      </tr>
+      <tr>
+        <td height="40" style="text-align:right;">所属栏目：</td>
+        <td>
+         <!--{assign var='tpldata' value=vo_list("mod={backstage_menu} fun={get_child} array={catid,0,parentid} field={catid,catname}")}-->
+       
+        <select name="parentid"   style="height:auto!important">
+       
+       <option value="0">顶级栏目</option>
+        <!--{foreach $tpldata as $volist}-->
+          
+        <option value="<!--{$volist.catid}-->">
+        
+        <!--{section name=customer loop=$volist.depth-1}-->|
+<!--{/section}--><!--{section name=customer loop=$volist.depth-1}-->--<!--{/section}-->
+<!--{$volist.catname}--></option>
+        
+       
+     
+        <!--{/foreach}-->
+    </select>
+        </td>
+      </tr>
+      <tr>
+        <td height="40" style="text-align:right;">状态：</td>
+        <td>
+        <select name=>
+        <option value=0>显示</option>
+        <option value=1>隐藏</option>
+        </select>
+        </td>
+      </tr>
+      <tr>
+        <td height="40" style="text-align:right;"></td>
+        <td>
+        <input name="" type="submit" value="提 交" class="oe_boxbut" />
+        </td>
+      </tr>
+      <tr>
+  </table>
+ </form>
+</div>
+
+
+
+
+
+
+<!--{elseif $c='article_category'}-->
+<div  id='boxadd_1' style="display:none">
+  <form method="post" action="<!--{$cpfile}-->&c=merchant_classify&a=add">
+    <table cellspacing="0" cellpadding="0" border="0" align="center" width="473">
+      <tr>
+        <td height="40" style="text-align:right">分类名：</td>
+        <td>
+        <input name="catname" type="text" class="box_input" />
+        </td>
+      </tr>
+      <tr>
+        <td height="40" style="text-align:right">链接地址：</td>
+        <td>
+        <input name="url" class="box_input" type="text">
+        </td>
+      </tr>
+      <tr>
+        <td height="40" style="text-align:right">所属类目：</td>
+        <td>
+        <!--{assign var='tpldata' value=vo_list("mod={merchant_classify} fun={get_child} param1={catid}")}-->
+      <select name="parentid"   style="height:auto!important">
+        <!--{if $smarty.get.catid!=null}-->
+        <option value="<!--{$smarty.get.catid}-->" checked="checked">
+        <!--{$smarty.get.catname}-->
+        </option>
+        <!--{/if}-->
+        <option value="0">顶级类目</option>
+        <!--{foreach $tpldata as $volist}-->
+        <option value="<!--{$volist.catid}-->">
+        <!--{section name=customer loop=$volist.depth-1}-->
+        |
+        <!--{/section}-->
+        <!--{section name=customer loop=$volist.depth-1}-->
+        --
+        <!--{/section}-->
+        <!--{$volist.catname}-->
+        </option>
+        <!--{/foreach}-->
+      </select>
+        </td>
+      </tr>
+      
+      <tr>
+        <td height="40" style="text-align:right">排序：</td>
+        <td>
+        <input name="orders" class="box_input" type="text">
+        </td>
+      </tr>
+      
+      <tr>
+        <td height="40" style="text-align:right">meta标题：</td>
+        <td>
+        <input class="box_input" name="metatitle" type="text">
+        </td>
+      </tr>
+      <tr>
+        <td height="40" style="text-align:right">meta关键词：</td>
+        <td>
+        <input name="metakeyword" class="box_input" type="text">
+        </td>
+      </tr>
+      <tr>
+        <td height="40" style="text-align:right">meta描述：</td>
+        <td>
+        <textarea name="metadesc" class="modify_input" type="text"></textarea>
+        </td>
+      </tr>
+      <tr>
+        <td height="40" style="text-align:right"></td>
+        <td>
+        <input class="oe_boxbut" name="" type="submit" value="确认添加">
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+
+<!--{elseif $c=='article_category'}-->
+<div id="box_2" style="display:none">
+<form action="<!--{$cpfile}-->&c=productcategory&a=add" method="post" >
+  <table cellspacing="0" cellpadding="0" border="0" align="center" width="473">
+      <tr>
+        <td height="40" style="text-align:right">类目名称：</td>
+        <td>
+        <input name="catname" class="box_input" type="text">
+        </td>
+      </tr>
+      <tr>
+        <td height="40" style="text-align:right">类目继承：</td>
+        <td>
+        <select name="parentid">
+
+    
+       <option value="0">顶级菜单</option>
+       <!--{foreach $data as $volist}-->
+          
+        <option value="<!--{$volist.catid}-->"<!--{if $smarty.get.catid==$volist.catid}--> selected<!--{/if}-->>
+       
+         <!--{section name=customer loop=$volist.depth-1}-->|
+    <!--{/section}--><!--{section name=customer loop=$volist.depth-1}-->--<!--{/section}--> 
+<!--{$volist.catname}--></option>
+        
+       
+     
+        <!--{/foreach}-->
+  
+  </select>
+        </td>
+      </tr>
+      <tr>
+        <td height="40" style="text-align:right">目录标识：</td>
+        <td>
+        <input name="dirpath" class="box_input" type="text">
+        </td>
+      </tr>
+      <tr>
+        <td height="40" style="text-align:right">meta标题：</td>
+        <td>
+        <input name="metatitle"  class="box_input" type="text">
+        </td>
+      </tr>
+      <tr>
+        <td height="40" style="text-align:right">meta关键词：</td>
+        <td>
+        <input name="metakeyword" class="box_input" type="text">
+        </td>
+      </tr>
+      <tr>
+        <td height="40" style="text-align:right">meta描述：</td>
+        <td>
+        <textarea class="modify_input" name="metadesc" type="text"></textarea>
+        </td>
+      </tr>
+      <tr>
+        <td height="40" style="text-align:right"></td>
+        <td>
+        <input name=""  class="oe_boxbut" type="submit" value="提 交 ">
+        </td>
+      </tr>
+  </table>
+
+
+</form>
+
+
+</div>
+
+<!--添加菜单-->
+<!--{elseif $c=='article_category'}-->
+<div  id='addmenu' style="display:none">
+<form method="post" action="<!--{$cpfile}-->&c=main_category&a=add"> 
+
+  <table cellspacing="0" cellpadding="0" border="0" align="center" width="473">
+      <tr>
+        <td height="40" style="text-align:right;">菜单名：</td>
+        <td>
+        <input name="catname" class="box_input" type="text">
+        </td>
+      </tr>
+      <tr>
+        <td height="40" style="text-align:right;">链接地址：</td>
+        <td>
+        <input name="url" class="box_input" type="text">
+        </td>
+      </tr>
+      <tr>
+        <td height="40" style="text-align:right;">排序：</td>
+        <td>
+        <input name="orders" class="box_input" type="text">
+        </td>
+      </tr>
+      <tr>
+        <td height="40" style="text-align:right;">所属栏目：</td>
+        <td>
+         <!--{assign var='tpldata' value=vo_list("mod={category} fun={get_child} param1={catid}")}-->
+       
+        <select name="parentid"   style="height:auto!important">
+        <!--{if $smarty.get.catid!=null}--><option value="<!--{$smarty.get.catid}-->" checked="checked"><!--{$smarty.get.catname}--></option><!--{/if}-->
+       <option value="0">顶级栏目</option>
+        <!--{foreach $tpldata as $volist}-->
+          
+        <option value="<!--{$volist.catid}-->">
+        
+        <!--{section name=customer loop=$volist.depth-1}-->|
+<!--{/section}--><!--{section name=customer loop=$volist.depth-1}-->--<!--{/section}-->
+<!--{$volist.catname}--></option>
+        
+       
+     
+        <!--{/foreach}-->
+    </select>
+        </td>
+      </tr>
+      <tr>
+        <td height="40" style="text-align:right;">状态：</td>
+        <td>
+        <select name=>
+        <option value=0>显示</option>
+        <option value=1>隐藏</option>
+        </select>
+        </td>
+      </tr>
+      <tr>
+        <td height="40" style="text-align:right;"></td>
+        <td>
+        <input name="" type="submit" value="提 交" class="oe_boxbut" />
+        </td>
+      </tr>
+      <tr>
+  </table>
+ </form>
+</div>
+
+
+<!--会员中心菜单-->
+
+<!--{elseif $c=='article_category'}-->
+<div  id='usermember_add' style="display:none">
+  <form method="post" action="<!--{$cpfile}-->&c=member_category&a=add">
+  <table cellspacing="0" cellpadding="0" border="0" align="center" width="473">
+    <tr>
+      <td height="40" style="text-align:right;">菜单名：</td>
+      <td>
+      <input name="catname" class="box_input" type="text">
+      </td>
+    </tr>
+    <tr>
+      <td height="40" style="text-align:right;">链接地址：</td>
+      <td>
+      <input name="url" class="box_input" type="text">
+      </td>
+    </tr>
+    <tr>
+      <td height="40" style="text-align:right;">排序：</td>
+      <td>
+      <input name="orders" class="box_input" type="text">
+      </td>
+    </tr>
+    <tr>
+      <td height="40" style="text-align:right;">所属栏目：</td>
+      <td>
+      <!--{assign var='tpldata' value=vo_list("mod={member_category} fun={get_child} param1={usercatid}")}-->
+      <select name="parentid"   style="height:auto!important">
+        <!--{if $smarty.get.usercatid!=null}-->
+        <option value="<!--{$smarty.get.usercatid}-->" checked="checked">
+        <!--{$smarty.get.catname}-->
+        </option>
+        <!--{/if}-->
+        <option value="0">顶级栏目</option>
+        <!--{foreach $tpldata as $volist}-->
+        <option value="<!--{$volist.usercatid}-->">
+        <!--{section name=customer loop=$volist.depth-1}-->
+        |
+        <!--{/section}-->
+        <!--{section name=customer loop=$volist.depth-1}-->
+        --
+        <!--{/section}-->
+        <!--{$volist.catname}-->
+        </option>
+        <!--{/foreach}-->
+      </select>
+      </td>
+    </tr>
+    <tr>
+      <td height="40" style="text-align:right;">状态：</td>
+      <td>
+      <select name=>
+        <option value=0>显示</option>
+        <option value=1>隐藏</option>
+      </select>
+      </td>
+    </tr>
+    <tr>
+      <td height="40" style="text-align:right;"></td>
+      <td>
+      <input name="" type="submit" value="提 交" class="oe_boxbut">
+      </td>
+    </tr>
+  </table>
+  </form>
+</div>
+
+<!--商户中心菜单-->
+<!--{elseif $c=='article_category'}-->
+<div  id='merchant_addbox' style="display:none">
+<form method="post" action="<!--{$cpfile}-->&c=merchant_category&a=add">
+  <table cellspacing="0" cellpadding="0" border="0" align="center" width="473">
+    <tr>
+      <td height="40" style="text-align:right;">菜单名：</td>
+      <td>
+      <input name="catname" class="box_input" type="text">
+      </td>
+    </tr>
+    <tr>
+      <td height="40" style="text-align:right;">链接地址：</td>
+      <td>
+      <input name="url" class="box_input" type="text">
+      </td>
+    </tr>
+    <tr>
+      <td height="40" style="text-align:right;">排序：</td>
+      <td>
+      <input name="orders" class="box_input" type="text">
+      </td>
+    </tr>
+    <tr>
+      <td height="40" style="text-align:right;">所属栏目：</td>
+      <td>
+      <!--{assign var='tpldata' value=vo_list("mod={merchant_category} fun={get_child} param1={catid}")}-->
+       
+        <select name="parentid"   style="height:auto!important">
+        <!--{if $smarty.get.catid!=null}--><option value="<!--{$smarty.get.catid}-->" checked="checked"><!--{$smarty.get.catname}--></option><!--{/if}-->
+       <option value="0">顶级栏目</option>
+        <!--{foreach $tpldata as $volist}-->
+        <option value="<!--{$volist.catid}-->">
+        <!--{section name=customer loop=$volist.depth-1}-->|
+        <!--{/section}--><!--{section name=customer loop=$volist.depth-1}-->--<!--{/section}-->
+        <!--{$volist.catname}--></option>
+        <!--{/foreach}-->
+    </select>
+      </td>
+    </tr>
+    <tr>
+      <td height="40" style="text-align:right;">状态：</td>
+      <td>
+      <select name=>
+<option value=0>显示</option>
+<option value=1>隐藏</option>
+</select>
+      </td>
+    </tr>
+    <tr>
+      <td height="40" style="text-align:right;"></td>
+      <td>
+      <input name="" type="submit" value="提 交" class="oe_boxbut">
+      </td>
+    </tr>
+  </table>
+  
+    
+
+ </form>
+
+
+</div>
+
+
+<!--地区-->
+<!--{elseif $c=='article_category'}-->
+<div  id='area_box' style="display:none">
+  <form method="post" action="<!--{$cpfile}-->&c=area&a=add">
+    <table cellspacing="0" cellpadding="0" border="0" align="center" width="473">
+    <tr>
+      <td height="40" style="text-align:right;">地区名：</td>
+      <td>
+      <input name="areaname" class="box_input" type="text">
+      </td>
+    </tr>
+    <tr>
+      <td height="40" style="text-align:right;">排序：</td>
+      <td>
+      <input name="orders" class="box_input" type="text">
+      </td>
+    </tr>
+    <tr>
+      <td height="40" style="text-align:right;">所属城市：</td>
+      <td>
+      <!--{assign var='tpldata' value=vo_list("mod={city} fun={get_all}")}-->
+      <select name="cityid">
+        <option value=""> 待选择</option>
+        <!--{foreach $tpldata as $volist}-->
+        <option value="<!--{$volist.cityid}-->">
+        <!--{$volist.cityname}-->
+        </option>
+        <!--{/foreach}-->
+      </select>
+      </td>
+    </tr>
+    <tr>
+      <td height="40" style="text-align:right;">状态：</td>
+      <td>
+      <select name="flag">
+<option value='0'>显示</option>
+<option value='1'>隐藏</option>
+</select>
+      </td>
+    </tr>
+    <tr>
+      <td height="40" style="text-align:right;"></td>
+      <td>
+      <input name="" type="submit" value="提 交" class="oe_boxbut">
+      </td>
+    </tr>
+   </table>
+    
+    
+   
+   
+  </form>
+</div>
+
+<!--创建店铺-->
+<!--{elseif $c=='article_category'}-->
+<div style="display:none;" id="addstore">
+  <form method="post"  action="<!--{$cpfile}-->&c=store&a=add">
+  <div class="dlbox" style="width:400px;">
+      <dl>
+      	<dt>所属商家：</dt>
+      	<dd>
+          <!--{assign var='tpldata' value=vo_list("mod={merchant} fun={get_all}")}-->
+           <select name="muid">
+           <!--{foreach $tpldata as $volist}-->
+           <option value="<!--{$volist.muid}-->"><!--{$volist.merchantname}--></option>
+           <!--{/foreach}-->
+           </select>
+        </dd>
+        <div class="clear"></div>
+      </dl>
+      <dl>
+      	<dt>上传LOGO：</dt>
+      	<dd><button class="logo" clas="upone" type="button">上传相片</button></dd>
+        <div class="clear"></div>
+      </dl>
+      <dl>
+      	<dt>上传banner：</dt>
+      	<dd><button class="banner" clas="upone" type="button">上传相片</button></dd>
+        <div class="clear"></div>
+      </dl>
+      <dl>
+      	<dt>店铺简介：</dt>
+      	<dd><textarea class="box_textarea" name="described" cols="" rows=""></textarea></dd>
+        <div class="clear"></div>
+      </dl>
+      <dl>
+      	<dt>推荐到首页：</dt>
+      	<dd>
+        <select name="elite">
+          <option value="0">否</option>
+          <option value="1">是</option>
+        </select>
+        </dd>
+        <div class="clear"></div>
+      </dl>
+      <dl>
+      	<dt>店铺关键词：</dt>
+      	<dd><textarea class="box_textarea" name="keyword" cols="" rows=""></textarea></dd>
+        <div class="clear"></div>
+      </dl>
+      <dl>
+      	<dt></dt>
+      	<dd><input name="" type="submit" value="提 交" class="oe_boxbut"></dd>
+        <div class="clear"></div>
+      </dl>
+    <div class="clear"></div>
+    </div>
+    
+
+  </form></div>
+
+<!--{elseif $c=='article_category'}-->
+<div  id='adstorebox' style="display:none">
+<form method="post" action="<!--{$cpfile}-->&c=store_store_category&a=add">
+  <table cellspacing="0" cellpadding="0" border="0" align="center" width="473">
+      <tr>
+        <td height="40" style="text-align:right;">菜单名：</td>
+        <td>
+        <input name="catname" class="box_input" type="text">
+        </td>
+      </tr>
+      <tr>
+        <td height="40" style="text-align:right;">链接地址：</td>
+        <td>
+        <input name="url" class="box_input" type="text">
+        </td>
+      </tr>
+      <tr>
+        <td height="40" style="text-align:right;">所属栏目：</td>
+        <td>
+        <!--{assign var='tpldata' value=vo_list("mod={store_category} fun={get_child} param1={catid}")}-->
+        <select name="parentid"   style="height:auto!important">
+        <!--{if $smarty.get.catid!=null}--><option value="<!--{$smarty.get.catid}-->" checked="checked"><!--{$smarty.get.catname}--></option><!--{/if}-->
+       <option value="0">顶级栏目</option>
+        <!--{foreach $tpldata as $volist}-->
+        <option value="<!--{$volist.catid}-->">
+        <!--{section name=customer loop=$volist.depth-1}-->|
+        <!--{/section}--><!--{section name=customer loop=$volist.depth-1}-->--<!--{/section}-->
+        <!--{$volist.catname}--></option>
+        <!--{/foreach}-->
+      </select>
+        </td>
+      </tr>
+      <tr>
+        <td height="40" style="text-align:right;">排序：</td>
+        <td>
+        <input name="orders" class="box_input" type="text">
+        </td>
+      </tr>
+      <tr>
+        <td height="40" style="text-align:right;">状态：</td>
+        <td>
+        <select name=>
+        <option value=0>显示</option>
+        <option value=1>隐藏</option>
+        </select>
+        </td>
+      </tr>
+      <tr>
+        <td height="40" style="text-align:right;"></td>
+        <td>
+        <input name="" type="submit" value="提 交" class="oe_boxbut">
+        </td>
+      </tr>
+    </table>
+ </form>
+</div>
+<!--{elseif $c=='article_category'}-->
+<div style="display:none;" id="photobox">
+  <form method="post" action="<!--{$cpfile}-->&c=photo_list&a=add">
+    <div class="dlbox" style="width:400px;">
+      <dl>
+      	<dt>相册名称：</dt>
+      	<dd><input name="name" class="box_input" type="text"></dd>
+        <div class="clear"></div>
+      </dl>
+      <dl>
+      	<dt>所属商家：</dt>
+      	<dd>
+        <!--{assign var='tpldata' value=vo_list("mod={merchant} fun={get_all}")}-->
+         <select name="muid">
+         <!--{foreach $tpldata as $volist}-->
+         <option value="<!--{$volist.muid}-->"><!--{$volist.merchantname}--></option>
+         <!--{/foreach}-->
+         </select>
+        </dd>
+        <div class="clear"></div>
+      </dl>
+      <dl>
+      	<dt>相册封面：</dt>
+      	<dd><button class="photo" clas="upone" type="button">上传封面</button></dd>
+        <div class="clear"></div>
+      </dl>
+      <dl>
+      	<dt>排序：</dt>
+      	<dd><input name="orders" class="box_input" type="text"></dd>
+        <div class="clear"></div>
+      </dl>
+      <dl>
+      	<dt></dt>
+      	<dd><input name="" type="submit" value="提 交" class="oe_boxbut"></dd>
+        <div class="clear"></div>
+      </dl>
+      <div class="clear"></div>
+    </div>
+    
+   
+  </form></div>
+<!--{elseif $c=='article_category'}-->
+<div style="display:none;" id="addphoto">
+  <form method="post" style="width:400px;" action="<!--{$cpfile}-->&c=photo&a=add">
+    <div class="dlbox" style="width:400px;">
+      <dl>
+      	<dt>相片名称：</dt>
+      	<dd><input name="title" class="box_input" type="text"></dd>
+        <div class="clear"></div>
+      </dl>
+      <dl>
+      	<dt>所属分类：</dt>
+      	<dd>
+        <!--{assign var='tpldata' value=vo_list("mod={photo_category} fun={get_child} param1={catid}")}-->
+     <select name="catid"   style="height:auto!important">
+        <!--{if $smarty.get.catid!=null}--><option value="<!--{$smarty.get.catid}-->" checked="checked"><!--{$smarty.get.catname}--></option><!--{/if}-->
+        <!--{foreach $tpldata as $volist}--> 
+        <option value="<!--{$volist.catid}-->">
+        <!--{section name=customer loop=$volist.depth-1}-->|
+        <!--{/section}--><!--{section name=customer loop=$volist.depth-1}-->--<!--{/section}-->
+        <!--{$volist.catname}--></option>
+                <!--{/foreach}-->
+     </select>
+        </dd>
+        <div class="clear"></div>
+      </dl>
+      <dl>
+      	<dt>所属相册：</dt>
+      	<dd>
+          <!--{assign var='tpldata' value=vo_list("mod={photo_list} fun={get_all}")}-->
+         <select name="listid">
+         <!--{foreach $tpldata as $volist}-->
+         <option value="<!--{$volist.listid}-->"><!--{$volist.name}--></option>
+         <!--{/foreach}-->
+     </select>
+        </dd>
+        <div class="clear"></div>
+      </dl>
+      <dl>
+      	<dt>上传相片：</dt>
+      	<dd> <button class="drawimg" clas="upone" type="button">上传相片</button></dd>
+        <div class="clear"></div>
+      </dl>
+      <dl>
+      	<dt>META标题：</dt>
+      	<dd><input type="text"  class="box_input" name="metatitle" clas="" ></dd>
+        <div class="clear"></div>
+      </dl>
+      <dl>
+      	<dt>相片名称：</dt>
+      	<dd><input name="title" class="box_input" type="text"></dd>
+        <div class="clear"></div>
+      </dl>
+      <dl>
+      	<dt>META关键词：</dt>
+      	<dd><input name="metakeyword" class="box_input" type="text"></dd>
+        <div class="clear"></div>
+      </dl>
+      <dl>
+      	<dt>META描述：</dt>
+      	<dd><input name="metadesc" class="box_input" type="text"></dd>
+        <div class="clear"></div>
+      </dl>
+      <dl>
+      	<dt>状态：</dt>
+      	<dd>
+        <select name="flag">
+        <option value="0">显示</option>
+         <option value="1">隐藏</option>
+        </select>
+        </dd>
+        <div class="clear"></div>
+      </dl>
+      <dl>
+      	<dt>推荐：</dt>
+      	<dd>
+        <select name="elite">
+      <option value="0">否</option>
+       <option value="1">是</option>
+      </select>
+        </dd>
+        <div class="clear"></div>
+      </dl>
+      <dl>
+      	<dt>排序：</dt>
+      	<dd><input name="orders" class="box_input" type="text"></dd>
+        <div class="clear"></div>
+      </dl>
+      <dl>
+      	<dt></dt>
+      	<dd><input name="" type="submit" value="提 交" class="oe_boxbut"></dd>
+        <div class="clear"></div>
+      </dl>
+      <div class="clear"></div>
+    </div>
+    
+  </form></div>
+
+<!--{elseif $c=='article_category'}-->
+  
+  
+<div  id='photocatbox' style="display:none">
+  <form method="post" action="<!--{$cpfile}-->&c=photo_category&a=add">
+    <div class="dlbox" style="width:400px;">
+      <dl>
+      	<dt>分类名：</dt>
+      	<dd><input name="catname" class="box_input" type="text"></dd>
+        <div class="clear"></div>
+      </dl>
+      <dl>
+      	<dt>链接地址：</dt>
+      	<dd><input name="url" class="box_input" type="text"></dd>
+        <div class="clear"></div>
+      </dl>
+      <dl>
+      	<dt>所属地区：</dt>
+      	<dd>
+          <!--{assign var='tpldata' value=vo_list("mod={photo_category} fun={get_child} param1={catid}")}-->
+       
+        <select name="parentid"   style="height:auto!important">
+        <!--{if $smarty.get.catid!=null}--><option value="<!--{$smarty.get.catid}-->" checked="checked"><!--{$smarty.get.catname}--></option><!--{/if}-->
+       <option value="0">顶级菜单</option>
+        <!--{foreach $tpldata as $volist}-->
+          
+        <option value="<!--{$volist.catid}-->">
+        
+        <!--{section name=customer loop=$volist.depth-1}-->|
+<!--{/section}--><!--{section name=customer loop=$volist.depth-1}-->--<!--{/section}-->
+<!--{$volist.catname}--></option>
+        
+       
+     
+        <!--{/foreach}-->
+    </select>
+        </dd>
+        <div class="clear"></div>
+      </dl>
+      <dl>
+      	<dt>排序：</dt>
+      	<dd><input name="orders" class="box_input" type="text"></dd>
+        <div class="clear"></div>
+      </dl>
+      <dl>
+      	<dt>状态：</dt>
+      	<dd><input name="flag" class="box_input" type="text"></dd>
+        <div class="clear"></div>
+      </dl>
+      <dl>
+      	<dt>meta标题：</dt>
+      	<dd><input name="metatitle" class="box_input" type="text"></dd>
+        <div class="clear"></div>
+      </dl>
+      <dl>
+      	<dt>meta关键词：</dt>
+      	<dd><input name="metakeyword" class="box_input" type="text"></dd>
+        <div class="clear"></div>
+      </dl>
+      <dl>
+      	<dt>meta描述：</dt>
+      	<dd><textarea name="metadesc" class="box_textarea" type="text"></textarea></dd>
+        <div class="clear"></div>
+      </dl>
+      <dl>
+      	<dt></dt>
+      	<dd><input name="" type="submit" value="提 交" class="oe_boxbut"></dd>
+        <div class="clear"></div>
+      </dl>
+      <div class="clear"></div>
+    </div>
+   
+ </form>
+
+
+</div>
+<!--{/if}-->

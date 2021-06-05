@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="css/commonality.css?v=20190618">
+    <link rel="stylesheet" href="css/add_discuss.css?v=20190618">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151366452-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-151366452-1');
+    </script>
+</head>
+
+<body>
+    <div class="back_nav">
+        <div class="back_button flexCenter">
+            <img src="images/goleft24_12@2x.png" class="back_button_img">
+        </div>
+        <!-- <p class="back_p">精彩点评</p> -->
+    </div>
+    <div class="main">
+        <div class="top flexCenter">
+            <!-- <span class="top_span1">Komentar</span> -->
+            <div class="img_page">
+                <img src="images/dp_StarclickCopy2@2x.png" data-number="1">
+                <img src="images/dp_StarclickCopy2@2x.png" data-number="2">
+                <img src="images/dp_StarclickCopy2@2x.png" data-number="3">
+                <img src="images/dp_StarclickCopy2@2x.png" data-number="4">
+                <img src="images/dp_StarclickCopy2@2x.png" data-number="5">
+            </div>
+            <!-- <span class="top_span2">(Harus Diisi)</span> -->
+        </div>
+        <div class="flexCenter">
+            <textarea placeholder="ความคิดเห็นเกี่ยวกับหนังสือ" maxlength="1000" class="discuss_textarea"></textarea>
+        </div>
+        <div class="book_show">
+            <div class="flexCenter-ai-center flex-wrap-nowrap w-100 h-100">
+                <img src="" class="cursor book_show_cover" onerror="this.src='images/replace_2.png'">
+                <div>
+                    <p class="book_show_name p2-hidden"></p>
+                    <p class="book_show_writer_name p1-hidden">ผู้แต่ง:<span></span></p>
+                </div>
+            </div>
+        </div>
+        <div class="flexCenter">
+            <button class="discuss_button">ส่ง</button>
+        </div>
+    </div>
+    <!-- 加载 -->
+    <div class="load-mask">
+        <div class="flexCenter w-100 h-100 flexCenter-column ">
+            <img src="images/jiazai60_60@2x.png" alt="" class="load-ant">
+            <p>กำลังโหลด</p>
+        </div>
+    </div>
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/md5.js"></script>
+<script src="js/commonality.js?v=20190618"></script>
+<script src="js/showText.js"></script>
+<script src="js/add_discuss.js?v=20190618"></script>
+
+</html>

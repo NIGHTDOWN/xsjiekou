@@ -1,0 +1,56 @@
+html,body { background-color: #f5f5f5; }
+html,body,div,button,a,img,h1,h2,h3,h4,h5,h6,p { padding: 0; margin: 0; outline-width: 0; font-weight: 400; text-decoration: none; font-family: "Chinese Quote", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+
+
+
+.list-head { height: 0.64rem; line-height: 0.64rem; font-size: 0.3733rem; display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-box-pack: center; -webkit-justify-content: center; -ms-flex-pack: center; justify-content: center; margin-bottom: 0.2133rem; }
+.list-head .title.typo-yellow { margin-right: .5em; }
+.list-head .date { color: #fff; }
+.list-head .text { color: #fff; }
+.list-head .count-time { color: #fff; }
+.list-head .count-time .time {
+  display: inline-block; width: 0.5333rem; height: 0.5333rem; line-height: 0.5333rem; color: #fff;
+  border-radius: 2px; background-color: #b4082e; text-align: center; margin: 0 2px;
+}
+.typo-yellow { color: #ffde00 }
+
+
+
+/*会员中心2018-12-8*/
+
+.media img.bg{display:block;border: 0;  width:100%;}
+.media .logo img{display:block;border: 0;  width:100%;}
+.media { position:relative; margin: 0 auto; padding: 0; display: block;}
+.media .logo {position:absolute;margin:0 auto;top: 1.333rem;left: 50%; transform: translateX(-50%);width: 3.68rem; height: 3.3rem;}
+.media .btn{margin: 0 5%; width:90%; padding: 0 ; position:absolute;top:5.92rem;left: 0;display: flex; flex-direction:row; justify-content: space-between;}
+.media .btn a{ width: 46%; height:1.3rem; line-height: 1.3rem; border-radius: 0.65rem;border: 1px solid #fff; color: #fff;font-size: 0.426rem;text-align: center;box-shadow:0px 4px 14px #000;-moz-box-shadow:0px 4px 14px #000; -webkit-box-shadow:0px 4px 14px #000;text-shadow: 0px 4px 14px #000;}
+.media .btn a.iphone i{position: relative;top: 5px;margin-right: 5px; width: 0.613rem; height: 0.72rem;display: inline-block;background:url(../imgs/iphone-icon.png);background-repeat: no-repeat; background-size:0.613rem 0.72rem; background-position: center top;box-shadow:0px 4px 14px #000;-moz-box-shadow:0px 4px 14px #000; -webkit-box-shadow:0px 4px 14px #000;}
+.media .btn a.android i{position: relative;top: 5px;margin-right: 5px; width: 0.6933rem; height: 0.6933rem;display: inline-block;background:url(../imgs/android-icon.png);background-repeat: no-repeat; background-size:0.6933rem 0.6933rem; background-position: center top; margin-top: 5px;box-shadow:0px 4px 14px #000;-moz-box-shadow:0px 4px 14px #000; -webkit-box-shadow:0px 4px 14px #000;}
+
+.media .bott{width:100%;position: absolute; bottom:0;left: 0; margin: 0 auto; padding: 0;}
+.media .bott img{display:block;border: 0;  width:100%;}
+
+
+
+/*电脑访问优化*/
+@media only screen and (min-width: 1024px){
+	html{position: relative; width:640px; height: 100%; margin: 0 auto; background: #f6f6f6;}
+	body{height: 100%;}
+	}
+	
+	
+	.clearfix:before, .clearfix:after {
+	  content: "";
+	  display: table;
+	}
+	
+	.clearfix:after {
+	  clear: both;
+	}
+	
+	.clearfix {
+	  zoom: 1;
+	}
+
+

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>การ์ตูน</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <link rel="stylesheet" href="css/commonality.css">
+    <link rel="stylesheet" href="css/fictionDetailPage.css">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151366452-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-151366452-1');
+    </script>
+</head>
+
+<body>
+    <!-- 顶部返回导航 -->
+    <div class="back_nav">
+        <div class="back_button flexCenter">
+            <img src="images/goleft24_12@2x.png" class="back_button_img">
+        </div>
+        <div class="home_button flexCenter">
+            <a href="index.html"><img src="images/home.png" class="home_button_img"></a>
+        </div>
+    </div>
+    <!-- 详情 -->
+    <div class="fiction_detail flex-wrap-nowrap">
+        <img src="" class="cursor fiction_detail_cover" onerror="this.src='images/replace_2.png'">
+        <div>
+            <p class="book_name p2-hidden"></p>
+            <p class="writer_name p1-hidden">
+                <!-- 作者:<span></span> -->
+                ผู้แต่ง:<span></span>
+            </p>
+            <p class="book_state p1-hidden">
+                <!-- 状态:<span></span> -->
+                สถานะ:<span></span>
+            </p>
+            <p class="number_words p1-hidden">
+                <!-- 字数:<span></span> -->
+                จำนวนตัวอักษร:
+                <span></span>
+            </p>
+        </div>
+    </div>
+    <!-- 按钮区域 -->
+    <div class="fiction_button flexCenter-jc-sb">
+        <button class="book_rack_button cursor" data-isCollect=''>เพิ่มเข้าคลัง</button>
+        <button class="book_read_button cursor">อ่านทันที</button>
+    </div>
+    <!-- 可缩展介绍 -->
+    <div class="articleIntroduces">
+        <p class="p4-hidden">
+        </p>
+        <img src="images/wcwt_down@2x.png" alt="">
+        <div class="articleIntroduces_bottom_line">
+        </div>
+    </div>
+    <!-- 目录 -->
+    <div class="catalogue flex-wrap-nowrap flexCenter-ai-center">
+        <div class="catalogue_button flexCenter-ai-center cursor">
+            <img src="images/xqy_mulu@2x.png" alt=""> <span>สารบัญ</span>
+        </div>
+        <p class="p1-hidden catalogue_text"></p>
+    </div>
+    <div class="line"></div>
+    <!-- 广告 -->
+    <!-- <div class="advertising">
+       广告
+    </div> -->
+    <div class="line"></div>
+    <!-- 其他信息 -->
+    <div class="rests flexCenter-ai-center flexCenter-jc-sa">
+        <div>
+            <p class="hits_number"></p>
+            <!-- <span>人气</span> -->
+            <span>ความนิยม</span>
+        </div>
+        <div>
+            <p class="replynum_number"></p>
+            <!-- <span>评分</span> -->
+            <span>คะแนน</span>
+        </div>
+        <div>
+            <p class="read_number"></p>
+            <!-- <span>在读</span> -->
+            <span>กำลังอ่าน</span>
+        </div>
+    </div>
+    <div class="line"></div>
+    <!-- 点评标题 -->
+    <div class="set_title flexCenter-ai-center flexCenter-jc-sb">
+        <!-- <p>精彩点评</p> -->
+        <p>คำวิจารณ์ที่ยอดเยี่ยม</p>
+        <div class="flexCenter comment_title_button cursor">
+            <img src="images/xqy_pl@2x.png" alt="">
+            <!-- <p>写点评</p> -->
+            <p>เขียนคำวิจารณ์</p>
+        </div>
+    </div>
+    <!-- 点评列表 -->
+    <div class="comment_list">
+        <!-- <div class="comment_lists">
+            <div class="flex-wrap-nowrap flexCenter-ai-center comment_lists_top">
+                <img src="images/me_click@2x.png" alt="" class="comment_lists_head">
+                <p class="comment_lists_name">半朵幽莲</p>
+                <div class="comment_lists_start flex-wrap-nowrap">
+                    <img src="images/dp_StarclickCopy2@2x.png" alt="">
+                    <img src="images/dp_Star@2x.png" alt="">
+                    <img src="images/dp_Star@2x.png" alt="">
+                    <img src="images/dp_Star@2x.png" alt="">
+                    <img src="images/dp_Star@2x.png" alt="">
+                </div>
+            </div>
+            <p class="comment_lists_desc">岁月摇曳的长河里，注定有明媚的忧伤 没有长夜痛哭过的人，不足语人生 念念不忘，必有回响 繁华中沉醉，灵犀中回眸 中国文学的荒芜凋零</p>
+        </div> -->
+    </div>
+    <!-- 点评列表更多按钮 -->
+    <div class="comment_list_button flexCenter ">
+        <!-- <p class="cursor">查看更多(<span>1890</span>)</p><img src="images/go_right@2x.png" alt=""> -->
+        <p class="cursor">ดูเพิ่มเติม(<span></span>)</p><img src="images/go_right@2x.png" alt="">
+    </div>
+    <div class="line"></div>
+    <!-- 猜你喜欢 -->
+    <div class="set_title flexCenter-ai-center flexCenter-jc-sb youlike_set_title">
+        <p>คุณอาจชอบ</p>
+        <i></i>
+    </div>
+    <div class="youlike">
+        <div class="swiper-wrapper">
+            <!-- <div class="swiper-slide"> <img src="images/replace_2.png" class="cursor" onerror="this.src='images/replace_2.png'">
+                <p class="p2-hidden marging_top_0-3">BILL FREE WILLINGG…BILL FREE WILLINGG…
+                </p>
+            </div>
+            <div class="swiper-slide"> <img src="images/replace_2.png" class="cursor" onerror="this.src='images/replace_2.png'">
+                <p class="p2-hidden marging_top_0-3">BILL FREE WILLINGG…BILL FREE WILLINGG…
+                </p>
+            </div>
+            <div class="swiper-slide"> <img src="images/replace_2.png" class="cursor" onerror="this.src='images/replace_2.png'">
+                <p class="p2-hidden marging_top_0-3">BILL FREE WILLINGG…BILL FREE WILLINGG…
+                </p>
+            </div>
+            <div class="swiper-slide"> <img src="images/replace_2.png" class="cursor" onerror="this.src='images/replace_2.png'">
+                <p class="p2-hidden marging_top_0-3">BILL FREE WILLINGG…BILL FREE WILLINGG…
+                </p>
+            </div> -->
+        </div>
+        <!-- 轮播按钮 -->
+        <div class="swiper-pagination"></div>
+    </div>
+    <!-- 目录列表 -->
+    <div class="menu_icon_page">
+        <div class="menu_icon_page_close"></div>
+        <div class="list">
+            <ul>
+                <!-- <li class="list_" data-bid="1015" data-section_id="76" id="md76">
+                    <p class="p1-hidden">ตอนที่1 เรียกจิ๊กโกโล่</p>
+                    <img src="https://mland.qrxs.cn/static/down/m/images/lock_icon.png">
+                </li> -->
+            </ul>
+        </div>
+    </div>
+    <!-- 下方下载APP -->
+    <div class="bottom_download">
+        <div class="flexCenter-ai-center">
+            <img src="images/denglu_logo@2x.png" alt="">
+            <div>
+                <p>อ่านเลย</p>
+                <p>หนังสือดี อ่านได้อย่างอิสระ</p>
+            </div>
+        </div>
+        <div>
+            <button>ดาวน์โหลดตอนนี้</button>
+        </div>
+    </div>
+    <!-- 加载 -->
+    <div class="load-mask">
+        <div class="flexCenter w-100 h-100 flexCenter-column ">
+            <img src="images/jiazai60_60@2x.png" alt="" class="load-ant">
+            <p>กำลังโหลด</p>
+        </div>
+    </div>
+    <!-- ___________________________脚本___________________________ -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/swiper.min.js"></script>
+    <script src="js/md5.js"></script>
+    <script src="js/commonality.js"></script>
+    <script src="js/showText.js"></script>
+    <script src="js/cartoonDetailPage.js"></script>
+    <script>
+    var articleIntroduces_open = true;
+    $('.articleIntroduces img').click(function() {
+        if (articleIntroduces_open) {
+            $('.articleIntroduces p').removeClass('p4-hidden');
+            $(this).css({ 'transform': 'rotate(180deg)' }); //在回调函数里面改变css属性来实现transform中的动画变换&nbsp;
+            $('.articleIntroduces').addClass('max-height-4');
+            articleIntroduces_open = !articleIntroduces_open;
+        } else {
+            $('.articleIntroduces').removeClass('max-height-4');
+            setTimeout(function() {
+                $('.articleIntroduces p').addClass('p4-hidden');
+            }, 1000)
+
+            $(this).css({ 'transform': 'rotate(0deg)' });
+
+            articleIntroduces_open = !articleIntroduces_open;
+        }
+
+    });
+    </script>
+</body>
+
+</html>

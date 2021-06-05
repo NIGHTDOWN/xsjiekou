@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <meta name="format-detection" content="telephone=no">
+    <!-- google登录 -->
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="953879927054-78n9532oik4609magf2plev2ighde966.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <!-- ______________________________- -->
+    <link rel="stylesheet" href="css/commonality.css?v=20190618">
+    <link rel="stylesheet" href="css/login.css">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151366452-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-151366452-1');
+    </script>
+</head>
+
+<body>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/md5.js"></script>
+    <script src="js/commonality.js"></script>
+    <div id="status" style="display: none;">
+    </div>
+    <!-- 上方导航栏 -->
+    <div class="back_nav">
+        <div class="back_button flexCenter">
+            <img src="images/goleft24_12@2x.png" class="back_button_img">
+        </div>
+        <!-- <p class="back_p">精彩点评</p> -->
+    </div>
+    <!-- 主体 -->
+    <div class="main">
+        <!-- 上方产品展示 -->
+        <div class="cover_page flexCenter">
+            <img src="images/denglu_logo@2x.png" alt="">
+        </div>
+        <!-- FB登录按钮 -->
+        <div class="fb_button">
+            <div class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with" data-auto-logout-link="false" data-use-continue-as="false" onlogin="checkLoginState();"></div>
+        </div>
+        <!-- google登录按钮 -->
+        <div class="google_button flexCenter">
+            <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+        </div>
+    </div>
+    <script>
+    //——————————————————————————————————————————————FB登录————————————————————————————————————
+    // Load the SDK asynchronously
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId: '642299609555471',
+            xfbml: true,
+            version: 'v4.0'
+        });
+
+        FB.getLoginStatus(function(response) {
+            statusChangeCallback(response);
+        });
+
+    };
+
+    // 请求接口连接
+    var fbId, accessToken;
+
+    function statusChangeCallback(response) {
+        console.log('statusChangeCallback');
+        console.log(response);
+
+        if (response.status === 'connected') {
+            // Logged into your app and Facebook.
+            fbId = response.authResponse.userID;
+            accessToken = response.authResponse.accessToken;
+            testAPI();
+            var fb_ajax_url = `https://graph.facebook.com/` + fbId + `?fields=id,name,token_for_business,gender,picture&access_token=` + accessToken;
+            var check_token = localStorage.getItem('token');
+            console.log(check_token);
+            if (check_token) {
+                window.history.back(-1);
+            } else {
+                getFb(fb_ajax_url);
+            }
+
+            // getUserInfo();
+
+        } else {
+            document.getElementById('status').innerHTML = 'Please log ' +
+                'into this app.';
+        }
+    }
+
+    function checkLoginState() {
+        FB.getLoginStatus(function(response) {
+            statusChangeCallback(response);
+        });
+    }
+    // Here we run a very simple test of the Graph API after login is
+    // successful.  See statusChangeCallback() for when this call is made.
+    function testAPI() {
+        console.log('Welcome!  Fetching your information.... ');
+        FB.api('/me', function(response) {
+            console.log(response);
+            console.log('Successful login for: ' + response.name);
+            // document.getElementById('status').innerHTML =
+            //     'Thanks for logging in, ' + response.name + '!';
+        });
+    }
+
+    //获取用户
+    function getFb(fb_ajax_url) {
+        $.ajax({
+            type: "post",
+            url: fb_ajax_url,
+            dataType: 'json',
+            data: {},
+            success: function(res) {
+                console.log(res);
+                fb_login_run(res);
+            },
+            error: function(e) {
+                // alert("错误！！");
+            }
+        });
+
+    }
+
+
+    // 注册FB用户信息
+    function fb_login_run(res) {
+        var data = get_ajax_header();
+
+        $.ajax({
+            type: "post",
+            url: api_url + "login/run",
+            beforeSend: function(request) {
+                request.setRequestHeader("apiKey", data.apiKey);
+                request.setRequestHeader("timestamp", data.timestamp);
+                request.setRequestHeader("token", data.token);
+                request.setRequestHeader("deviceType", data.deviceType);
+                request.setRequestHeader("viceos", data.viceos);
+                request.setRequestHeader("devicetoken", data.devicetoken);
+                request.setRequestHeader("uid", data.uid);
+                request.setRequestHeader("apiSign", data.apiSign);
+            },
+
+            dataType: 'json',
+            data: {
+                "uid": res.id,
+                "token": res.token_for_business,
+                "nickname": res.name,
+                "icon": res.picture.data.url,
+                "sex": 0,
+                "login_type": "facebook",
+                "channel_id": 0,
+                "plat_id": 0,
+                "deviceToken": 0,
+                "invite_code": 0,
+                "access_token": accessToken
+            },
+            success: function(res_) {
+                console.log('注册FB用户信息 user/discuss');
+                console.log(res_);
+
+                if (res_.code == 1) {
+                    console.log("登录成功");
+                    var result = res_.result;
+                    // 设置头像
+                    localStorage.setItem('avater', result.avater);
+                    // 设置名字
+                    localStorage.setItem('nickname', result.nickname);
+                    // 设置vip
+                    localStorage.setItem('isvip', result.isvip);
+                    // 设置token
+                    localStorage.setItem('token', result.token);
+                    // 设置openid
+                    localStorage.setItem('openid', result.openid);
+                    // 设置uid
+                    localStorage.setItem('uid', result.uid);
+                    // 设置登录类型
+                    localStorage.setItem('login_type', 'facebook');
+                    // 是否新用户
+                    localStorage.setItem('isnew', result.isnew);
+                    // 金豆余额
+                    localStorage.setItem('remainder', result.remainder);
+                    // 书券余额
+                    localStorage.setItem('golden_bean', result.golden_bean);
+
+                    window.history.back(-1);
+                }
+
+
+            },
+            error: function(e) {
+                console.log('注册FB用户信息 错误');
+            }
+        });
+    }
+
+
+    //——————————————————————————————————————————————FB登录————————————————————————————————————
+
+    function onSignIn(googleUser) {
+
+        // "uid": res.id,
+        //         "token": res.token_for_business,
+        //         "nickname": res.name,
+        //         "icon": res.picture.data.url,
+        //         "sex": 0,
+        //         "login_type": "facebook",
+        //         "channel_id": 0,
+        //         "plat_id": 0,
+        //         "deviceToken": 0,
+        //         "invite_code": 0,
+        //         "access_token": accessToken
+        // Useful data for your client-side scripts:
+        var profile = googleUser.getBasicProfile();
+        var res = {};
+        // id
+        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        res.id = profile.getId();
+        // 名字
+        console.log('Full Name: ' + profile.getName());
+        res.nickname = profile.getName();
+        // 头像
+        console.log("Image URL: " + profile.getImageUrl());
+        res.header = profile.getImageUrl()
+        // The ID token you need to pass to your backend:
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log("ID Token: " + id_token);
+        res.token = id_token;
+
+
+
+        var check_token = localStorage.getItem('token');
+        console.log(check_token);
+        if (check_token) {
+            window.history.back(-1);
+        } else {
+            getGG(res);
+        }
+    }
+
+
+    // 注册FB用户信息
+    function getGG(res) {
+        var data = get_ajax_header();
+
+        $.ajax({
+            type: "post",
+            url: api_url + "login/run",
+            beforeSend: function(request) {
+                request.setRequestHeader("apiKey", data.apiKey);
+                request.setRequestHeader("timestamp", data.timestamp);
+                request.setRequestHeader("token", data.token);
+                request.setRequestHeader("deviceType", data.deviceType);
+                request.setRequestHeader("viceos", data.viceos);
+                request.setRequestHeader("devicetoken", data.devicetoken);
+                request.setRequestHeader("uid", data.uid);
+                request.setRequestHeader("apiSign", data.apiSign);
+            },
+
+            dataType: 'json',
+            data: {
+                "uid": res.id,
+                "token": res.token,
+                "nickname": res.nickname,
+                "icon": res.header,
+                "sex": 0,
+                "login_type": "google",
+                "channel_id": 0,
+                "plat_id": 0,
+                "deviceToken": 0,
+                "invite_code": 0,
+                "access_token": res.token
+            },
+            success: function(res_) {
+                console.log('注册GG用户信息 user/discuss');
+                console.log(res_);
+
+                if (res_.code == 1) {
+                    console.log("登录成功");
+                    var result = res_.result;
+                    // 设置头像
+                    localStorage.setItem('avater', result.avater);
+                    // 设置名字
+                    localStorage.setItem('nickname', result.nickname);
+                    // 设置vip
+                    localStorage.setItem('isvip', result.isvip);
+                    // 设置token
+                    localStorage.setItem('token', result.token);
+                    // 设置openid
+                    localStorage.setItem('openid', result.openid);
+                    // 设置uid
+                    localStorage.setItem('uid', result.uid);
+                    // 设置登录类型
+                    localStorage.setItem('login_type', 'google');
+                    // 是否新用户
+                    localStorage.setItem('isnew', result.isnew);
+                    // 金豆余额
+                    localStorage.setItem('remainder', result.remainder);
+                    // 书券余额
+                    localStorage.setItem('golden_bean', result.golden_bean);
+
+                    window.history.back(-1);
+                }
+
+
+            },
+            error: function(e) {
+                console.log('注册GG用户信息 错误');
+            }
+        });
+    }
+    </script>
+</body>
+
+</html>

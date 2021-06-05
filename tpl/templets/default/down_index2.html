@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="shrink-to-fit=no, viewport-fit=cover, width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <script>
+        ! function(a, b) {
+            function c() {
+                var b = f.getBoundingClientRect().width;
+                b / i > 540 && (b = 540 * i);
+                var c = b / 10;
+                f.style.fontSize = c + "px", k.rem = a.rem = c
+            }
+            var d, e = a.document,
+                f = e.documentElement,
+                g = e.querySelector('meta[name="viewport"]'),
+                h = e.querySelector('meta[name="flexible"]'),
+                i = 0,
+                j = 0,
+                k = b.flexible || (b.flexible = {});
+            if (g) {
+                console.warn("将根据已有的meta标签来设置缩放比例");
+                var l = g.getAttribute("content").match(/initial\-scale=([\d\.]+)/);
+                l && (j = parseFloat(l[1]), i = parseInt(1 / j))
+            } else if (h) {
+                var m = h.getAttribute("content");
+                if (m) {
+                    var n = m.match(/initial\-dpr=([\d\.]+)/),
+                        o = m.match(/maximum\-dpr=([\d\.]+)/);
+                    n && (i = parseFloat(n[1]), j = parseFloat((1 / i).toFixed(2))), o && (i = parseFloat(o[1]), j = parseFloat((1 / i).toFixed(2)))
+                }
+            }
+            if (!i && !j) {
+                var p = (a.navigator.appVersion.match(/android/gi), a.navigator.appVersion.match(/iphone/gi)),
+                    q = a.devicePixelRatio;
+                i = p ? q >= 3 && (!i || i >= 3) ? 3 : q >= 2 && (!i || i >= 2) ? 2 : 1 : 1, j = 1 / i
+            }
+            if (f.setAttribute("data-dpr", i), !g)
+                if (g = e.createElement("meta"), g.setAttribute("name", "viewport"), g.setAttribute("content", "initial-scale=" + 1 + ", maximum-scale=" + 1 + ", minimum-scale=" + 1 + ", user-scalable=no"), f.firstElementChild) f.firstElementChild.appendChild(g);
+                else {
+                    var r = e.createElement("div");
+                    r.appendChild(g), e.write(r.innerHTML)
+                }
+            a.addEventListener("resize", function() {
+                clearTimeout(d), d = setTimeout(c, 300)
+            }, !1), a.addEventListener("pageshow", function(a) {
+                a.persisted && (clearTimeout(d), d = setTimeout(c, 300))
+            }, !1), "complete" === e.readyState ? e.body.style.fontSize = 12 * i + "px" : e.addEventListener("DOMContentLoaded", function() {
+                e.body.style.fontSize = 12 * i + "px"
+            }, !1), c(), k.dpr = a.dpr = i, k.refreshRem = c, k.rem2px = function(a) {
+                var b = parseFloat(a) * this.rem;
+                return "string" == typeof a && a.match(/rem$/) && (b += "px"), b
+            }, k.px2rem = function(a) {
+                var b = parseFloat(a) / this.rem;
+                return "string" == typeof a && a.match(/px$/) && (b += "rem"), b
+            }
+        }(window, window.lib || (window.lib = {}));
+    </script>
+    <title>อ่านเลย</title>
+    <meta name="Description" content="แอปอ่านเลย มีทั้งนิยายสดใหม่และการ์ตูนเด็ด มีทั้งแนวปัจจุบัน แนวจีนโบราณ นิยายเรื่องสั้น เนือหาเร้าใจ ให้ท่านได้เข้าสู่สถานการณ์จริง" />
+    <link rel="stylesheet" href="<!--{$indextpl}-->/styles/style.css" />
+    <script src="<!--{$staticjs}-->/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="media">
+        <input type="hidden" name="users_id" id="users_id" value="<!--{$uid}-->">
+        <div class="logo"><img src="<!--{$indextpl}-->/imgs/logo.png"></div>
+        <div class="btn">
+            <a href="javascript:;" class="iphone"><i></i>iphone</a>
+            <a href="https://down.tlandnovels.com/android/index3.php?userid=<!--{$uid}-->&type=down&share_type=2" class="android"><i></i>Android</a>
+        </div>
+        <div class="bott"><img src="<!--{$indextpl}-->/imgs/iphone.png"></div>
+        <img src="<!--{$indextpl}-->/imgs/bg.jpg" class="bg" />
+    </div>
+
+</body>
+<script>
+    $(function() {
+        $(".iphone").click(function() {
+            $.post("/index/down/downiphone", {
+                    users_id: $('#users_id').val(),
+                    type: 2
+                },
+                function(data) {
+                    if (data.code == "1") {
+                        window.location.href = "https://itunes.apple.com/us/app/hi-read/id1450349316?l=zh&ls=1&mt=8";
+                    } else {
+                        window.location.reload();
+                    }
+                },
+                "json");
+        })
+    })
+</script>
+
+</html>

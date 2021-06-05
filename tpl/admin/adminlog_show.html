@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=<!--{$page_charset}-->" />
+    <!--{include file={$admintpl}"top/headerjs.html"}-->
+</head>
+
+<body>
+    <div class="oemarry_layout">
+  <div class="oe_top_nav">
+	 <!--{include file={$admintpl}"a_nav.html"}-->
+	<span><a href="javascript:;" url="<!--{url action='run'}-->" tag="back">&lt;&lt;返回列表</a></span>
+  </div>
+  <div class="a_content oe_dlv">
+<form method="post" action="<!--{url action="save"}-->" >
+    <input disabled="disabled" name="adminid" type="hidden" value="<!--{$<!--{$c}-->.adminid}-->">
+     <table class="oe_table_warp">
+     <tr>
+	    <th width="5%">管理员账号：</th>
+		<td width="35%">
+             <input disabled="disabled" type="text" name="adminname" value="<!--{$<!--{$c}-->.adminname}-->" class="input-b" tag="notnull isnumen" /> <span class="oe_trap"><em></em></span>
+              </td></tr>
+       
+         <tr>
+             <th width="5%">操作模块：</th>
+             <td width="35%">
+                 <input disabled="disabled" type="text" name="alias" value="<!--{ac mod="<!--{$<!--{$c}-->.mod}-->" action="" group="admin"}-->" class="input-b" /><span class="oe_trap"><em></em></span>
+              </td>
+         </tr>
+        <tr>
+             <th width="5%">执行动作：</th>
+             <td width="35%">
+                 <input disabled="disabled" type="text" name="tel" value="<!--{ac mod="<!--{$<!--{$c}-->.mod}-->" action="<!--{$<!--{$c}-->.action}-->" group="admin"}-->"" class="input-b" tag="cannull isphone"/>
+              </td>
+         </tr>
+         <tr>
+             <th width="5%">操作人IP：</th>
+             <td width="35%">
+                 
+                 <input disabled="disabled" type="text" name="mobile" value="<!--{$<!--{$c}-->.ip}-->" class="input-b" tag="cannull ismobile "/>
+              </td>
+         </tr>
+         <tr>
+             <th width="5%">操作时间：</th>
+             <td width="35%">
+                 <input disabled="disabled" type="text" name="qq" value="<!--{$<!--{$c}-->.addtime|date_format:"%Y-%m-%d %H:%M:%S"}-->" class="input-b" tag="cannull isqq" /><span class="oe_trap"><em></em></span>
+              </td>
+         </tr>
+         <tr>
+             <th width="5%">操作状态：</th>
+             <td width="35%">
+                 <input disabled="disabled" type="text" name="weixin" value="<!--{if <!--{$<!--{$c}-->.status}-->==1}-->成功<!--{else}-->失败<!--{/if}-->" class="input-b" /><span class="oe_trap"><em></em></span>
+              </td>
+         </tr>
+         <tr>
+             <th width="5%">条件参数：</th>
+             <td width="35%">
+                
+                
+             
+                   <textarea id="TextArea1" cols="45" rows="2" disabled> <!--{if <!--{$<!--{$c}-->.where|unserialize}-->}--><!--{$<!--{$c}-->.where|unserialize|json_encode}--> <!--{/if}--></textarea>
+                  
+              </td>
+         </tr>
+         <tr>
+             <th width="5%">更新参数：</th>
+             <td width="35%">
+                 <textarea id="TextArea1" cols="45" rows="2" disabled><!--{if <!--{$<!--{$c}-->.update|unserialize}-->}--><!--{$<!--{$c}-->.where|unserialize|json_encode}--> <!--{/if}--></textarea>
+
+              </td>
+         </tr>
+         <tr>
+             <th width="5%">url信息：</th>
+             <td width="35%">
+                 <textarea id="TextArea1" cols="45" rows="2" disabled><!--{$<!--{$c}-->.url}--></textarea>
+                 
+              </td>
+         </tr>
+         <tr>
+	    <th width="5%">消息：</th>
+		<td width="35%">
+            <textarea id="TextArea1" cols="45" rows="2" disabled><!--{$<!--{$c}-->.info}--></textarea>
+          
+              </td></tr>
+
+         </table>
+
+  <div class="oe_button_layout">
+	  <input  type="button" class="button_2" value="返回" tag="back" /> 
+	  <span id="submit_tips" class="error"></span>
+	</div>
+</form>
+</div>
+</div>
+</body>

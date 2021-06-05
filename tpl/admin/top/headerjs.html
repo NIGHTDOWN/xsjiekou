@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=<!--{$page_charset}-->" />
+    <title>
+        <!--{$data.title}--><!--{$config.site_name}-->
+    </title>
+
+    <meta name="author" content="NG" />
+    <!--ȫ�ֵĊS-->
+    <script
+        type='text/javascript' src='<!--{$static}-->js/jquery.min.js'>
+    </script>
+    <script
+        type='text/javascript' src='<!--{$static}-->js/manhuaDate.js'>
+    </script>
+    
+    <script
+        type='text/javascript' src='<!--{$static}-->js/night_Trad.v1.0.js'>
+    </script>
+    <script
+        type='text/javascript' src='<!--{$static}-->js/kindeditor.js'>
+    </script>
+    <script
+        type='text/javascript' src='<!--{$static}-->js/zh_CN.js'>
+    </script>
+    <script
+        type='text/javascript' src='<!--{$static}-->js/ajaxfileupload.js'>
+    </script>
+     <script
+        type='text/javascript' src='<!--{$static}-->js/TableOrder.js'>
+    </script>
+     <script
+        type='text/javascript' src='<!--{$static}-->js/ZhCN_Pinyin.min.js'>
+    </script>
+     <script
+        type='text/javascript' src='<!--{$static}-->js/data2.js'>
+    </script>
+    <!--ȫ�ֵĊS-->
+    <!--ҳæ�ĊS-->
+    <script
+        type='text/javascript' src="<!--{$admintpl}-->js/page.js" >
+    </script>
+    <!--ȫ�ֵĊS-->
+    <!--ҳæ�ĊS-->
+    <!--ȫ�ֵăSS--> 
+      <link rel="stylesheet" type="text/css" href='<!--{$static}-->js/data2.css' />
+    <link rel="stylesheet" type="text/css" href='<!--{$static}-->css/date.css' />
+    <link rel="stylesheet" type="text/css" href='<!--{$static}-->css/global.css' />
+    <!--ȫ�ֵăSS-->
+    <!--ҳæ�ăSS-->
+    <link rel="stylesheet" type="text/css" href="<!--{$urlpath}-->tpl/admin/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="<!--{$urlpath}-->tpl/admin/css/admin.css" />
+    <link rel="stylesheet" type="text/css" href="<!--{$urlpath}-->tpl/admin/css/font_icon.css" />
+    <!--ҳæ�ăSS-->
+
+
+    <link type="image/x-icon" href="/favicon.ico" rel="icon">
+
+
+    <script>
+        //��ʼ��ͼƬɏ��·��
+        _ajax_file_url='<!--{url  group='index' action='run' mod='upimg'}-->';
+        //��ʼ��ajax�ٗ�·��
+        _admin_ajax_url='<!--{url group="admin" mod="ajax" action="run" }-->';
+        _ajax_area_url = '<!--{url action="ajax" mod="area" group="index"}-->';
+        _ajax_edit_url = '<!--{url action="json_up" mod="upimg" group="index" }-->';
+        // ��ʼ��404ͼƬ
+        $(function(){
+                $('img').error(function(){
+                        this.src='<!--{$img404}-->';
+                    });
+            });
+        $use_K_item=[ "fullscreen","source", "quickformat", "justifyleft", "justifycenter", "justifyright", "justifyfull", "insertorderedlist", "insertunorderedlist",  "formatblock", "fontname", "fontsize", "|", "forecolor", "hilitecolor", "bold", "italic", "underline", "strikethrough", "removeformat", "|", "image", "multiimage", "emoticons"];
+        //afterBlur: function () { this.sync(); } ���攚,ԲӃjq̡����,��ȡ����΄��ǸӲ�Ė�
+        //   KindEditor.options.items =  $use_K_item;
+        KindEditor.ready(function(K) {
+                window.editor = K.create('#editor_id', { uploadJson: _ajax_edit_url, afterBlur: function () { this.sync(); } });
+window.editor = K.create('.editor_id', { uploadJson: _ajax_edit_url, afterBlur: function () { this.sync(); } });
+            });
+        //KindEditor.sync();
+        var prevshow = null;
+
+
+        function openurl($url,$obj){
+            closebox();
+            $top=($obj.offset().top)+20;
+            $html="<iframe src='"+$url+"' onload='SetCwinHeight(this);'></iframe>";
+            if($top>($(window).height())){$top=($(window).height())/2;}
+            msgbox('',$html,$('body').width(),'auto',1,$top,0,999);
+         
+        }
+        function SetCwinHeight(obj)
+        {
+            var cwin=obj;
+            if (document.getElementById)
+            {
+                if (cwin && !window.opera)
+                {
+                    if (cwin.contentDocument && cwin.contentDocument.body.offsetHeight)
+                    cwin.height = cwin.contentDocument.body.offsetHeight + 20;
+                    else if(cwin.Document && cwin.Document.body.scrollHeight)
+                    cwin.height = cwin.Document.body.scrollHeight + 10;
+                }
+            }
+        }
+
+        
+    </script>
+    <style>
+    	.jtu{background:url('<!--{$admintpl}-->images/jtu.png') no-repeat right center; background-size: 5%}
+    	.jtd{background:url('<!--{$admintpl}-->images/jtd.png') no-repeat right center; background-size: 5%}
+    </style>
+</head>

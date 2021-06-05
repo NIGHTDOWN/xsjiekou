@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <!-- TODO: 分享链接， 最好不带query条作 -->
+    <meta property="og:url" content="<!--{$share.url}-->">
+    <!-- TODO: 标题 -->
+    <meta property="og:title" content="<!--{$share.sharetitle}-->">
+    <!-- TODO: 描述 -->
+    <meta property="og:description" content="<!--{$share.sharecontent}-->">
+    <!-- TODO: 分享时显示的图片, 具体要求 ➡ https://developers.facebook.com/docs/sharing/best-practices#images -->
+    <meta property="og:image" content="<!--{$share.shareimg}-->">
+    <meta property="fb:app_id" content="1440719422">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="อ่านเลย">
+    <meta property="og:locale" content="vi_VN">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv=refresh content="2;url=https://apiv1.aikoversea.com/h5/share.html?cartoon_id=<!--{$cid}-->&uid=<!--{$uid}-->">
+    <script type="text/javascript">
+        ! function(a, b) {
+            function c() {
+                var b = f.getBoundingClientRect().width;
+                b / i > 540 && (b = 540 * i);
+                var c = b / 10;
+                f.style.fontSize = c + "px", k.rem = a.rem = c
+            }
+            var d, e = a.document,
+                f = e.documentElement,
+                g = e.querySelector('meta[name="viewport"]'),
+                h = e.querySelector('meta[name="flexible"]'),
+                i = 0,
+                j = 0,
+                k = b.flexible || (b.flexible = {});
+            if (g) {
+                console.warn("将根据已有的meta标签来设置缩放比例");
+                var l = g.getAttribute("content").match(/initial\-scale=([\d\.]+)/);
+                l && (j = parseFloat(l[1]), i = parseInt(1 / j))
+            } else if (h) {
+                var m = h.getAttribute("content");
+                if (m) {
+                    var n = m.match(/initial\-dpr=([\d\.]+)/),
+                        o = m.match(/maximum\-dpr=([\d\.]+)/);
+                    n && (i = parseFloat(n[1]), j = parseFloat((1 / i).toFixed(2))), o && (i = parseFloat(o[1]), j = parseFloat((1 / i).toFixed(2)))
+                }
+            }
+            if (!i && !j) {
+                var p = (a.navigator.appVersion.match(/android/gi), a.navigator.appVersion.match(/iphone/gi)),
+                    q = a.devicePixelRatio;
+                i = p ? q >= 3 && (!i || i >= 3) ? 3 : q >= 2 && (!i || i >= 2) ? 2 : 1 : 1, j = 1 / i
+            }
+            if (f.setAttribute("data-dpr", i), !g)
+                if (g = e.createElement("meta"), g.setAttribute("name", "viewport"), g.setAttribute("content", "initial-scale=" + 1 + ", maximum-scale=" + 1 + ", minimum-scale=" + 1 + ", user-scalable=no"), f.firstElementChild) f.firstElementChild.appendChild(g);
+                else {
+                    var r = e.createElement("div");
+                    r.appendChild(g), e.write(r.innerHTML)
+                }
+            a.addEventListener("resize", function() {
+                clearTimeout(d), d = setTimeout(c, 300)
+            }, !1), a.addEventListener("pageshow", function(a) {
+                a.persisted && (clearTimeout(d), d = setTimeout(c, 300))
+            }, !1), "complete" === e.readyState ? e.body.style.fontSize = 12 * i + "px" : e.addEventListener("DOMContentLoaded", function() {
+                e.body.style.fontSize = 12 * i + "px"
+            }, !1), c(), k.dpr = a.dpr = i, k.refreshRem = c, k.rem2px = function(a) {
+                var b = parseFloat(a) * this.rem;
+                return "string" == typeof a && a.match(/rem$/) && (b += "px"), b
+            }, k.px2rem = function(a) {
+                var b = parseFloat(a) / this.rem;
+                return "string" == typeof a && a.match(/px$/) && (b += "rem"), b
+            }
+        }(window, window.lib || (window.lib = {}));
+    </script>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="designWidth=750, width=device-width,user-scalable=no,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta http-equiv="Cache-Control" content="no-transform " />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="applicable-device" content="mobile" />
+    <title>
+        123
+        <!--{$book.other_name}-->
+    </title>
+    <meta name="Keywords" content="แอปอ่านเลย มีทั้งนิยายสดใหม่และการ์ตูนเด็ด มีทั้งแนวปัจจุบัน แนวจีนโบราณ นิยายเรื่องสั้น เนือหาเร้าใจ ให้ท่านได้เข้าสู่สถานการณ์จริง" />
+    <meta name="Description" content="" />
+    <link rel="stylesheet" type="text/css" href="<!--{$indextpl}-->/styles/protal.css" />
+</head>
+
+<body class="share-root">
+    <div class="bd-box">
+        <div class="item clearfix">
+            <a href="javascript:;">
+                <img src="<!--{$book.bpic}-->" class="avatar">
+                <div class="body">
+                    <span class="t">
+                        <!--{$book.other_name}-->
+                    </span>
+                    <p style="text-align: justify;">
+                        <!--{$book.desc}-->
+                    </p>
+                </div>
+            </a>
+        </div>
+    </div>
+    <!--书籍信息 end-->
+
+    <article class="article-box clearfix">
+        <header class="header clearfix">
+            <h1 class="title center">
+                <!--{$section.title}-->
+            </h1>
+        </header>
+        <div class="entry" id="read_conent_box">
+            <!--{$content.sec_content}-->
+        </div>
+        <aside class="action">
+            <a href="/down/run?uid=<!--{$uid}-->" class="btn">อ่านต่อ</a>
+        </aside>
+    </article>
+
+
+    <div class="ph-box mb-2d9 clearfix">
+        <div class="head clearfix">
+            <div class="title">นิยายยอดฮิต</div>
+        </div>
+        <ul class="list clearfix">
+
+            <!--{foreach $groom as $v}-->
+
+            <li>
+                <a href="/index/share/book?bid=<!--{$v['book_id']}-->>&uid=<!--{$uid}-->" class="clearfix">
+                    <img src="<!--{$v['bpic']}-->">
+                    <p>
+                        <!--{$v['other_name']}-->
+                    </p>
+                </a>
+            </li>
+            <!--{/foreach}-->
+        </ul>
+    </div>
+
+
+    <div class="protal-bar">
+        <div class="inner clearfix">
+            <img src="<!--{$indextpl}-->/imgs/logo.png" width="60" height="60" class="bk" />
+            <div class="body">
+                <div class="title">อ่านเลย</div>
+                <div class="text">นิยายแปลถูกลิขสิทธิ์ ลงตอนไหม่ทุกวัน</div>
+            </div>
+            <div class="action">
+                <a href="/down/run?uid=<!--{$uid}-->" class="btn">ดาวน์โหลด</a>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?8e2e6c2405cdf19a41db4e629313ef37";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
+
+</html>

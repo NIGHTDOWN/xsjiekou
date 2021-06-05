@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=<!--{$page_charset}-->" />
+	<!--{include file={$admintpl}"top/headerjs.html"}-->
+	<script>
+    
+		function selectmore($obj){
+			if($obj.attr('checked')){
+				$('#'+$obj.val()).find('[type=checkbox]').attr('checked','checked');
+			}else{
+				$('#'+$obj.val()).find('[type=checkbox]').attr('checked',false);
+	
+			}
+		}
+	</script>
+</head>
+<body>
+	<div class="oemarry_layout">
+		<style>
+			.lab {
+				margin: 15px 0px;
+			}
+
+			.a_content.oe_dlv {
+				padding-left: 15px;
+			}
+			.oe_table_warp {
+  
+				display: flex;
+			}
+			.dpower{
+				display: inline-block;
+				margin: 4px;
+				max-width: 200px;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+			}
+			.dpower span {
+				font-size: 110%;
+				margin-right: 8px;
+			}
+		</style>
+		<div class="oe_top_nav">
+			<!--{include file={$admintpl}"a_nav.html"}-->
+			<span><a href="javascript:;" url="<!--{url action='run'}-->" tag="back">&lt;&lt;返回列表</a></span>
+		</div>
+		<div class="a_content oe_dlv">
+			<form method="post" action="<!--{url action='add'}-->" >
+				<input type="hidden" name="roleid" value="<!--{$data.roleid}-->"/>
+			
+				<div class="lab">角色名称 <input type="text" name="rolename" tag="notnull" value="<!--{$data.rolename}-->" class="input-b"></div>
+				<div  class="lab">角色继承
+					<!--{assign var="cat" vo_list("fun={get_child} mod={admins_roles} field={roleid,rolename,depath,parentid} array={roleid}")}-->
+           
+					<select name='parentid'>
+						<option value=''>顶级分类</option>
+						<!--{foreach $cat as $volist}-->
+						<option value='<!--{$volist.roleid}-->'
+							<!--{if $data.parentid==$volist.roleid}-->
+							selected="selected"
+							<!--{/if}-->
+							>
+							<!--{section name=customer loop=$volist.depath}-->
+							|
+							<!--{/section}-->
+							<!--{section name=customer loop=$volist.depath}-->
+							--<!--{/section}-->
+                    
+							<!--{$volist.rolename}--></option>
+						<!--{/foreach}-->
+					</select>
+            
+             
+				</div>
+
+				<!--{foreach $action as $k=>$list}-->
+				<!--{if $list|is_array && $list.alias}-->
+				<div style="border-bottom-style: ridge;
+    margin-top: 10px;"><h3 style="color: green;display: inline-block;width: 100px;"><!--{$list.alias}-->  </h3> 
+					<div style="color: blue;display: inline-block;font-size: 50%;width: 200px"><input type="checkbox"  value="<!--{$k}-->" onclick="selectmore($(this))" />全选</div></div>
+				
+				<!--{if $list.action|is_array}-->
+				
+				<div class="oe_table_warp" id='<!--{$k}-->'>
+					<!--{foreach $list.action as $v=>$power}-->
+					<!--{if $power.alias}-->
+					<div class="dpower">
+						<!--{set $p=($k.'+'.$v)}-->
+						<!--{assign var="bool" vo_list("mod={power} type={am} fun={checkuser} param1={$p}")}-->
+						<!--{if $bool}-->
+						<!--{set $bol=in_array($p,$userpower)}-->
+						<span><!--{$power.alias}--></span>
+						<input type="checkbox" name='profiles[]' <!--{if $bol}-->
+						checked="checked" <!--{/if}-->  	
+						value="<!--{$p}-->" /><!--{/if}--> </div>
+					<!--{/if}-->  	
+					<!--{/foreach}-->   
+				</div>
+				<!--{/if}-->   
+				<!--{/if}-->   
+				<!--{/foreach}-->      
+				<div class="oe_button_layout">
+					<input type="button" class="button_2" value="提交保存" tag="submit" /> 
+					<span id="submit_tips" class="error"></span>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <meta name="format-detection" content="telephone=no">
+    <title></title>
+    <link rel="stylesheet" href="css/commonality.css">
+    <link rel="stylesheet" href="css/index.css">
+    <style>
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="list">
+        </div>
+        <div class="button_page">
+            <div class="flexCenter ">
+                <button onclick='_go_url("jump")'>意见反馈</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="/tpl/static/js/night_Trad.v1.0.js"></script>
+<script>
+$('html').css('font-size', document.body.clientWidth / 7.5 + 'px');
+
+var arr = [{
+        "title": "金币/邀请好友/提现",
+        "href": "p1.html",
+    },
+    {
+        "title": "网络/闪退/卡顿/无响应",
+        "href": "p2.html",
+    },
+    {
+        "title": "分享",
+        "href": "p3.html",
+    },
+    {
+        "title": "咨询建议",
+        "href": "p4.html",
+    }
+];
+
+set();
+
+function set() {
+    console.log(arr.length);
+
+    var html = '';
+    for (var i = 0; i < arr.length; i++) {
+        html += `
+              <a href="` + arr[i]["href"] + `">
+                <div class="lists flexCenter-ai-center flexCenter-jc-sb">
+                  <p>` + arr[i]["title"] + `</p>
+                  <img src="images/icon.png">
+                </div>
+              </a>
+      `;
+    }
+    $('.list').append(html);
+
+}
+</script>
+
+</html>

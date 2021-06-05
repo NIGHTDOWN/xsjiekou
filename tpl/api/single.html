@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <meta name="format-detection" content="telephone=no">
+    <title><!--{$data.title}--></title>
+    <link rel="stylesheet" href="<!--{$indextpl}-->css/list.css">
+    <style>
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <h2 class="title" readid='<!--{$data.readid}-->' endtime='<!--{$data.time}-->'><!--{$data.title}--></h2>
+        <p class="title_time"><!--{$data.addtime|date_format:"%Y-%m-%d %H:%M:%S"}--></p>
+        <hr  class="hr_line"/>
+        <div class="list ">
+        <!--{$data.content}-->
+        </div>
+    </div>
+</body>
+<script src="<!--{$indextpl}-->js/jquery.min.js"></script>
+<script src="<!--{$indextpl}-->js/list.js"></script>
+
+</html>

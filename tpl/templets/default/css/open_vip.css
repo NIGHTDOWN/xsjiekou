@@ -1,0 +1,252 @@
+body {
+    background: #fff;
+    padding-bottom: 1.2rem;
+    padding-top: 1.2rem;
+}
+
+.back_nav {
+    box-shadow: none;
+    background: url(../images/vip_line_bg.png)no-repeat;
+    background-size: 100% 100%;
+}
+
+.vip_line {
+    width: 100%;
+    height: 1.5rem;
+    background: url(../images/vip_line_bg.png)no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.vip {
+    width: 6.7rem;
+    height: 2.16rem;
+    background: url(../images/vip_backgrund@2x.png)no-repeat;
+    background-size: 100% 100%;
+    padding: 0 0.4rem;
+    position: absolute;
+    top: 0.3rem;
+    left: 0.4rem;
+}
+
+.vip_icon {
+    width: 1.2rem;
+    margin-right: 0.4rem;
+    margin-top: 0.3rem;
+}
+
+.vip_title {
+
+    font-size: .32rem;
+    font-family: PingFangSC;
+    font-weight: 600;
+    color: rgba(255, 208, 127, 1);
+    line-height: .45rem;
+    margin-bottom: 0.1rem;
+}
+
+.vip_time {
+    font-size: .28rem;
+    font-family: PingFang-SC;
+    font-weight: 500;
+    color: rgba(255, 208, 127, 0.5);
+    line-height: .4rem;
+    /*margin-top: .1rem;*/
+}
+
+.vip_button {
+    font-size: .28rem;
+    font-family: PingFang-SC;
+    font-weight: 500;
+    color: rgba(255, 162, 0, 1);
+    line-height: .4rem;
+    margin-left: 0.32rem;
+}
+
+.vip_button_icon {
+    width: 0.16rem;
+    height: 0.3rem;
+    margin-left: 0.1rem;
+}
+
+.vip_fw {
+    width: 6.7rem;
+    /*padding: 0 0.4rem;*/
+    padding-bottom: .45rem;
+    margin: 0 auto;
+    border-bottom: 1px solid #dddddd;
+}
+
+.vip_fw .flexCenter-column {
+    -webkit-justify-content: flex-start;
+    justify-content: flex-start;
+}
+
+.vip_fw div {
+    max-width: 33%;
+    text-align: center;
+    padding: 0 0.1rem;
+
+}
+
+.vip_fw img {
+    width: 0.6rem;
+
+}
+
+.vip_fw h6 {
+
+    font-size: .28rem;
+    font-family: PingFang-SC;
+    font-weight: 500;
+    color: rgba(52, 48, 45, 1);
+    line-height: .4rem;
+    margin-top: 0.25rem;
+}
+
+.vip_fw p {
+
+    font-size: .24rem;
+    font-family: PingFang-SC;
+    font-weight: 500;
+    color: rgba(153, 153, 153, 1);
+    line-height: .33rem;
+    margin-top: 0.04rem;
+}
+
+.vip_desc {
+    width: 100%;
+    padding: 0.4rem 0.4rem;
+}
+
+.vip_desc p {
+
+    font-size: .28rem;
+    font-family: PingFang-SC;
+    font-weight: 500;
+    color: rgba(101, 99, 95, 1);
+    line-height: .4rem;
+}
+
+.vip_open_list {
+    width: 100%;
+    padding: 0 0.4rem;
+}
+
+.vip_open_list li {
+    width: 100%;
+    padding: 0 0.4rem;
+    height: 1.2rem;
+    border: 1px solid #ddd;
+    margin-bottom: 0.3rem;
+    border-radius: 10px;
+    font-size: .32rem;
+    font-family: PingFang-SC-Medium, PingFang-SC;
+    font-weight: 500;
+    color: rgba(101, 99, 95, 1);
+    position: relative;
+
+}
+
+.vip_open_list img {
+    width: 0.32rem;
+    margin-right: 0.22rem;
+}
+
+.vip_open_list .isOn {
+    border: 2px solid #ffa200;
+}
+
+.open_button_page button {
+    width: 100%;
+    font-size: .32rem;
+    font-family: PingFang-SC-Medium, PingFang-SC;
+    font-weight: 500;
+    color: #fff;
+    /*line-height: 32px;*/
+    height: 1.2rem;
+    border: none;
+    margin-bottom: 0.3rem;
+    border-radius: 10px;
+    background: #ffa200;
+}
+
+.open_button_page {
+    padding: 0 0.4rem;
+
+
+
+
+}
+
+.question_link {
+    width: 100%;
+}
+
+.question_link a {
+    font-size: .28rem;
+    font-family: PingFang-SC-Medium, PingFang-SC;
+    font-weight: 500;
+    color: rgba(255, 162, 0, 1);
+    border-bottom: 1px solid rgba(255, 162, 0, 1);
+}
+
+.small_title {
+    padding: 0 0.4rem;
+    margin-top: 0.6rem;
+
+}
+
+.small_title p {
+    font-size: .28rem;
+    font-family: PingFang-SC-Medium, PingFang-SC;
+    font-weight: 500;
+    color: rgba(52, 48, 45, 1);
+}
+
+.help_content {
+    padding: 0 0.4rem;
+    margin: 0.2rem 0;
+}
+
+.help_content p {
+    font-size: .24rem;
+    font-family: PingFang-SC-Medium, PingFang-SC;
+    font-weight: 500;
+    color: rgba(153, 153, 153, 1);
+}
+
+.help_link {
+    padding: 0 0.4rem;
+    margin: 0.1rem 0;
+}
+
+.help_link p {
+    font-size: .24rem;
+    font-family: PingFang-SC-Medium, PingFang-SC;
+    font-weight: 500;
+    color: rgba(101, 99, 95, 1);
+    /*line-height:36px;*/
+}
+
+.vip_open_lists_top_right {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.isOn .vip_open_lists_top_right div {
+    display: block;
+}
+
+.vip_open_lists_top_right div {
+    font-size: .24rem;
+    font-family: PingFang-SC-Medium, PingFang-SC;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 1);
+    background: #ffa200;
+    padding: 0.05rem 0.1rem;
+    border-radius: 0 0.1rem 0 0.1rem;
+    display: none;
+}

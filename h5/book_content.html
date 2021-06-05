@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="css/commonality.css?v=20190618">
+    <link rel="stylesheet" href="css/book_content.css?v=20190629d">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151366452-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-151366452-1');
+    </script>
+</head>
+
+<body class="ps-r">
+    <!-- 头部 -->
+    <div class="back_nav header">
+        <div class="back_button flexCenter">
+            <img src="images/yd_syy@2x.png" class="back_button_img">
+        </div>
+        <!-- <p class="back_p">精彩点评</p> -->
+        <div class="home_button flexCenter">
+            <div class="error_button flexCenter-ai-center cursor">
+                <img src="images/yd_notice@2x.png" class="cursor">
+                <p class="cursor">แก้ไขข้อผิดพลาด</p>
+            </div>
+            <img src="images/yd_jiaru@2x.png" class="home_button_img add_bookrack_button cursor">
+        </div>
+    </div>
+    <div class="main">
+        <p class="main_title"></p>
+        <div class="main_content"></div>
+        <div class="main_button">
+            <div class="flexCenter-jc-sa">
+                <button id="previous_page">Previous page</button>
+                <button id="next_page" class="main_button_on">Next page</button>
+            </div>
+        </div>
+    </div>
+    <div class="center_button"></div>
+    <div class="bottom_nav onShow">
+        <div class="flexCenter" style="width: 100%">
+            <div class="flexCenter" id="menu_icon"><img src="images/yd_mulu@2x.png" alt=""></div>
+            <div class="flexCenter" id="night_mode_icon"><img src="images/yd_moshi@2x.png" alt=""></div>
+            <div class="flexCenter" id="font_icon"><img src="images/yd_set@2x.png" alt=""></div>
+            <div class="flexCenter" id="review_icon"><img src="images/yd_pl@2x.png" alt=""></div>
+        </div>
+    </div>
+    <div class="font_icon_page onHide">
+        <div class="font_size_page flexCenter">
+            <button class="font_cut_down cursor flexCenter cursor">A-</button>
+            <div class="font_size_ flexCenter">14</div>
+            <button class="font_add cursor flexCenter cursor">A+</button>
+        </div>
+        <div class="bg_color_page flexCenter-jc-sa flexCenter-ai-center">
+            <div class="bg_color_1" data-bg_color="bg_color_1"></div>
+            <div class="bg_color_2" data-bg_color="bg_color_2"></div>
+            <div class="bg_color_3" data-bg_color="bg_color_3"></div>
+            <div class="bg_color_4" data-bg_color="bg_color_4"></div>
+            <div class="bg_color_5" data-bg_color="bg_color_5"></div>
+            <div class="bg_color_6" data-bg_color="bg_color_6"></div>
+            <div class="bg_color_7" data-bg_color="bg_color_7"></div>
+        </div>
+    </div>
+    <div class="menu_icon_page">
+        <div class="menu_icon_page_close"></div>
+        <div class="list">
+            <div class="book_detail flexCenter-ai-center">
+                <img src="" onerror="this.src='images/replace_2.png'">
+                <div>
+                    <p class="book_detail_book_name"></p>
+                    <p class="book_detail_writer_name"></p>
+                </div>
+            </div>
+            <ul>
+            </ul>
+        </div>
+    </div>
+    <!-- 解锁 -->
+    <div class="unlock_page">
+        <div class="unlock_page_colse"></div>
+        <div class="unlock">
+            <div class="">
+                <p class="need_coin">ปลดล็อคบทนี้:<span></span>gold</p>
+                <!-- <img src="images/gold_icon.png"> -->
+            </div>
+            <div class="">
+                <p class="my_coin">ยอดเงินในบัญชี:<span></span>gold</p>
+                <!-- <img src="images/gold_icon.png"> -->
+            </div>
+            <div class="flexCenter">
+                <button>ปลดล็อคบทนี้</button>
+            </div>
+        </div>
+    </div>
+    <!-- 加载 -->
+    <div class="load-mask">
+        <div class="flexCenter w-100 h-100 flexCenter-column ">
+            <img src="images/jiazai60_60@2x.png" alt="" class="load-ant">
+            <p>กำลังโหลด</p>
+        </div>
+    </div>
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/md5.js"></script>
+<script src="js/base64.js"></script>
+<script src="https://cdn.bootcss.com/jsencrypt/3.0.0-beta.1/jsencrypt.js"></script>
+<script src="js/showText.js"></script>
+<script src="js/commonality.js?v=20190629d"></script>
+<script src="js/book_content.js?v=20190629d"></script>
+
+</html>

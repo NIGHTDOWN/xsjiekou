@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ค้นหา</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="css/commonality.css">
+    <link rel="stylesheet" href="css/search.css">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151366452-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-151366452-1');
+</script>
+</head>
+
+<body>
+    <div class="main">
+        <div class="searchPage ">
+            <div class="flexCenter-ai-center flexCenter-jc-sb">
+                <div class="search_text_div">
+                    <input type="text" name="" id="searchPageText" placeholder="โปรดป้อนชื่อหนังสือหรือชื่อผู้แต่ง">
+                    <img src="images/sj_search@2x.png">
+                    <div class="search_input_clear cursor">
+                        x
+                    </div>
+                </div>
+                <div class="search_button cursor" onclick='goBack()'>
+                    <!-- 取消 -->
+                    ยกเลิก
+                </div>
+            </div>
+        </div>
+        <div class="hot">
+            <div class="set_title flexCenter-ai-center flexCenter-jc-sb">
+                <p>ค้นหายอดนิยม</p>
+                <i></i>
+            </div>
+            <div class="hot_list">
+                <!-- <div class="hot_lists">
+                    <div class="flexCenter-ai-center flex-wrap-nowrap w-100">
+                        <img src="https://p.tlandnovels.com/book/20190702/d138f33064f023f21bc1213e749e448a.jpg" class="cursor book_show_cover" onerror="this.src='images/replace_2.png'">
+                        <div class="max_5">
+                            <p class="book_name p1-hidden">sweet heart เธอคือหัวใจของฉันsweet heart เธอคือหัวใจของฉันsweet heart เธอคือหัวใจของฉันsweet heart เธอคือหัวใจของฉันsweet heart เธอคือหัวใจของฉันsweet heart เธอคือหัวใจของฉันsweet heart เธอคือหัวใจของฉันsweet heart เธอคือหัวใจของฉันsweet heart เธอคือหัวใจของฉันsweet heart เธอคือหัวใจของฉันsweet heart เธอคือหัวใจของฉันsweet heart เธอคือหัวใจของฉันsweet heart เธอคือหัวใจของฉันsweet heart เธอคือหัวใจของฉันsweet heart เธอคือหัวใจของฉันsweet heart เธอคือหัวใจของฉัน</p>
+                            <p class="book_desc p1-hidden">作者:<span>หร่วนเจียหร่วนเจียหร่วนเจียหร่วนเจียหร่วนเจียหร่วนเจียหร่วนเจียหร่วนเจียหร่วนเจียหร่วนเจียหร่วนเจียหร่วนเจียหร่วนเจียหร่วนเจียหร่วนเจียหร่วนเจียหร่วนเจีย</span></p>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+        <!-- 搜索结果页面 -->
+        <div class="book_search_page">
+            <div class="book_search_head">
+                <div class="book_search_book_button cursor on">
+                    <!-- 小说 -->
+                    นิยาย
+                </div>
+                <div class="book_search_cartoon_button cursor">
+                    <!-- 漫画 -->
+                    การ์ตูน
+                </div>
+            </div>
+            <!-- 小说 -->
+            <div class="book_search_book">
+            </div>
+            <!-- 漫画 -->
+            <div class="book_search_cartoon">
+            </div>
+        </div>
+    </div>
+    <!-- 加载 -->
+    <div class="load-mask">
+        <div class="flexCenter w-100 h-100 flexCenter-column ">
+            <img src="images/jiazai60_60@2x.png" alt="" class="load-ant">
+            <p>กำลังโหลด</p>
+        </div>
+    </div>
+    <!-- ___________________________脚本___________________________ -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/commonality.js?v=20190618"></script>
+    <script src="js/md5.js"></script>
+    <script src="js/showText.js"></script>
+    <script src="js/search.js"></script>
+</body>
+
+</html>

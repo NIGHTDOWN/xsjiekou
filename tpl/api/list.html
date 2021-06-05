@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>
+        <!--{$data.title}-->
+    </title>
+    <link rel="stylesheet" href="<!--{$indextpl}-->css/list.css">
+    <style>
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <h2 class="title" readid='<!--{$data.readid}-->' alt='<!--{$data.title}-->' endtime='<!--{$data.time}-->'>
+            <!--{$data.title}-->
+        </h2>
+        <p class="title_time">
+            <!--{$data.addtime|date_format:"%Y-%m-%d %H:%M:%S"}-->
+        </p>
+        <hr class="hr_line" />
+        <div class="list max-height">
+            <!--{$data.content}-->
+            <div class="remove_max_height">阅读全文<img src="<!--{$indextpl}-->images/icon.png"></div>
+        </div>
+        <!-- 更多列表 -->
+        <div class="more_list">
+            <!-- 渲染 -->
+            <!--{foreach $more as $list}-->
+            <a href="<!--{url args="articleid:{$list.articleid},token:{$get.token},uid:{$get.uid}" mod='article' action='detail'}-->">
+            <div class="more_lists">
+                <img src="<!--{$list.drawimg}-->" class="more_lists_img">
+                <div class="more_lists_detail ">
+                    <p class="p2-hidden"><!--{$list.title}--></p>
+                    <div class="flexCenter-ai-center more_lists_transmit">
+                        <span class="transmit_number_text"><!--{$list.relays}--></span>
+                        <img src="<!--{$indextpl}-->images/transmit_number.png" class="transmit_number">
+                        <span class="transmit_read_number">每阅读<!--{$list.coin}-->金</span>
+                        <img src="<!--{$indextpl}-->images/transmit_icon.png" class="transmit_icon">
+                    </div>
+                </div>
+            </div></a>
+<!--{/foreach}-->
+            
+        </div>
+    </div>
+</body>
+<script src="<!--{$indextpl}-->js/jquery.min.js"></script>
+<script src="<!--{$indextpl}-->js/list.js"></script>
+
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <title><!--{$msg}--></title>
+    <link rel="stylesheet" type="text/css" href="<!--{$config.site_url}-->/tpl/general/development/files/cmstop-error.css" media="all">
+        <style type="text/css"> 
+    a,a:link,a:visited,a:hover{color:#666; margin-right:10px;}
+    </style>
+</head>
+<body class="body-bg">
+<div class="main">
+    <p class="title"><!--{$msg}--></p>
+    <a href="javascript:history.back();" class="btn"   style="color:#fff;">返回上一页</a>
+</div>
+
+<div style=" text-align:center; font-size:12px; line-height:24px;">
+<!--{assign var='sigle' value=vo_list("mod={siglepage} fun={get_all} array={identify=>help}")}-->
+    <!--{foreach $sigle as $volist}-->
+    <a href="<!--{if $volist.useurl==0}--><!--{$cpfile}-->?c=siglepage&a=show&abid=<!--{$volist.abid}--><!--{else}--><!--{$volist.tplname}--><!--{/if}-->" title="<!--{$volist.metatitle}-->" class="to<!--{$volist.orders}-->" target="_blank"><!--{$volist.title}--></a>
+    <!--{/foreach}-->
+    <br>
+
+<!--{$config.copyright}--></div>
+</body></html>

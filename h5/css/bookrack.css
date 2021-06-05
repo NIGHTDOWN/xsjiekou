@@ -1,0 +1,255 @@
+body {
+    background: #fff;
+    min-height: 100%;
+    padding-top: 1.2rem;
+}
+
+.bookrack_name {
+    /*    width:120px;
+height:84px;*/
+    font-size: .6rem;
+    font-family: PingFangSC;
+    font-weight: 600;
+    color: rgba(52, 48, 45, 1);
+    line-height: .84rem;
+}
+
+body .nav {
+    border: none;
+    background: #fff;
+}
+
+.main {
+    width: 100%;
+    background: #fff;
+}
+
+.recommend_row {
+    width: 100%;
+    /*height: 1.8rem;*/
+    padding: 0.2rem 0.4rem;
+}
+
+.recommend_list {
+    width: 6.7rem;
+    /*height: 1.5rem;*/
+    border-radius: 0.2rem;
+    box-shadow: 1px 1px 10px #ccc;
+    padding: 0.2rem;
+
+}
+
+.recommend_cover_img {
+    width: 1rem;
+    height: 1.2rem;
+    border: 1px solid #b5b4c3;
+    object-fit: cover;
+    margin-right: 0.2rem;
+}
+
+.recommend_row .hot_img {
+    width: 0.26rem;
+    height: .32rem;
+    object-fit: cover;
+    margin-left: 0.1rem;
+}
+
+.recommend_list .book_name {
+    /*    width:140px;
+height:40px;*/
+    font-size: .28rem;
+    font-family: PingFang-SC;
+    font-weight: 600;
+    color: rgba(52, 48, 45, 1);
+    line-height: .4rem;
+}
+
+.recommend_list .recommend_desc {
+
+    font-size: .24rem;
+    font-family: PingFang-SC;
+    font-weight: 500;
+    color: rgba(101, 99, 95, 1);
+    line-height: .33rem;
+    margin-top: 0.1rem;
+    letter-spacing: 1px;
+}
+
+.bookrack_row {
+    padding: 0.4rem;
+}
+
+.bookrack_row .bookrack_lists_cover_img {
+    width: 1rem;
+    height: 1.4rem;
+    object-fit: cover;
+    border: 1px solid #f2f2f2;
+}
+
+.the_book_detail {
+    width: 3.6rem;
+
+}
+
+.the_book_detail p:nth-child(1) {
+    /*    width:540px;
+height:45px;*/
+    font-size: .32rem;
+    font-family: PingFang-SC;
+    font-weight: 600;
+    color: rgba(52, 48, 45, 1);
+    line-height: .45rem;
+    margin-bottom: .1rem;
+}
+
+.the_book_detail p:nth-child(2) {
+
+    font-size: .28rem;
+    font-family: PingFang-SC;
+    font-weight: 500;
+    color: rgba(101, 99, 95, 1);
+    line-height: .4rem;
+
+}
+
+.the_book_read {
+    width: 1.5rem;
+}
+
+.the_book_read span {
+    /*width:112px;
+height:40px;*/
+    font-size: .28rem;
+    font-family: PingFang-SC;
+    font-weight: 500;
+    color: rgba(255, 162, 0, 1);
+    line-height: .4rem;
+    /*margin-top: 0.1rem;*/
+}
+
+.the_book_read img {
+    width: 0.14rem;
+    height: 0.23rem;
+    object-fit: cover;
+    margin-left: 0.1rem;
+}
+
+.the_book_del {
+    width: 1.5rem;
+    text-align: right;
+    display: none;
+}
+
+.the_book_del img {
+    width: 0.4rem;
+
+}
+
+.bookrack_list li {
+    margin-bottom: 0.4rem;
+}
+
+.bianji_close {
+    /*    width:64px;
+height:45px;*/
+    font-size: .32rem;
+    font-family: PingFang-SC;
+    font-weight: 500;
+    color: rgba(255, 162, 0, 1);
+    line-height: .45rem;
+    display: none;
+}
+
+.youlike {
+    width: 100%;
+    padding: 0 0.4rem;
+}
+
+.youlike_lists {
+    width: 100%;
+    padding-bottom: 0.4rem;
+}
+
+.youlike_lists_cover_img {
+    width: 1rem;
+    height: 1.4rem;
+    object-fit: cover;
+    border: 1px solid #f2f2f2;
+}
+
+.youlike_the_book_detail {
+    margin-left: 0.3rem;
+}
+
+.youlike_the_book_detail p:nth-child(1) {
+    /*    width:540px;
+height:45px;*/
+    font-size: .32rem;
+    font-family: PingFang-SC;
+    /*font-weight: 600;*/
+    color: rgba(52, 48, 45, 1);
+    line-height: .45rem;
+    margin-bottom: .1rem;
+}
+
+.youlike_the_book_detail p:nth-child(2) {
+
+    font-size: .28rem;
+    font-family: PingFang-SC;
+    font-weight: 500;
+    color: rgba(101, 99, 95, 1);
+    line-height: .4rem;
+
+}
+
+.add_youlike {
+    width: 100%;
+    padding: 0.4rem;
+}
+
+.add_youlike img {
+    width: 1rem;
+    height: 1rem;
+    object-fit: cover;
+}
+
+.add_youlike p {
+    /*    width:224px;
+height:40px;*/
+    font-size: .28rem;
+    font-family: PingFang-SC;
+    font-weight: 500;
+    color: rgba(153, 153, 153, 1);
+    line-height: .4rem;
+    margin-left: 0.3rem;
+}
+.bottom_del_nav{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    min-width: 320px;
+    max-width: 414px;
+    height: 1rem;
+    background: #fff;
+    border-top: 1px solid #999;
+    display: none;
+}
+.bottom_del_nav div{
+    /*width: 50%;*/
+    height: 1rem;
+    line-height: 1rem;
+    text-align: center;
+
+font-size:.32rem;
+font-family:PingFang-SC;
+font-weight:500;
+color:rgba(52,48,45,1);
+}
+.bottom_del_nav .del_button{
+
+font-size:.32rem;
+font-family:PingFang-SC;
+font-weight:500;
+color:rgba(255,162,0,1);
+border-left: 1px solid #999;
+}

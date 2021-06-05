@@ -1,0 +1,55 @@
+body {
+    padding-top: 1.2rem;
+}
+
+.main {
+    border-bottom: none;
+    position: relative;
+}
+
+.h2_title {
+    text-align: center;
+    width: 100%;
+    margin: 0.6rem 0;
+    font-size: 0.36rem;
+
+}
+
+.lists img {
+    width: 2.5rem;
+}
+
+.lists {
+    margin: 0.2rem 0.4rem;
+}
+
+.list {
+    padding: 0 0.4rem;
+
+}
+
+.ack_button_page {
+    width: 100%;
+    text-align: center;
+    margin-top: 0.6rem;
+}
+
+.ack_button {
+    width: 4.6rem;
+    height: 0.8rem;
+    line-height: 0.8rem;
+    text-align: center;
+    background-image: -webkit-gradient(linear, left top, right top, from(#ff7100), to(#ffdbbf)) !important;
+    background-image: linear-gradient(to right, #ff7100 0%, #ffdbbf 100%) !important;
+    font-size: 0.3rem;
+    color: #fff;
+    border: none;
+    border-radius: 0.5rem;
+}
+
+.list .onclick img {
+    /*width: 2.5rem;*/
+    border: 5px solid #ff7100;
+    border-radius: 0.15rem
+
+}

@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=<!--{$page_charset}-->" />
+    <!--{include file={$admintpl}"top/headerjs.html"}-->
+</head>
+<body>
+    <div class="oemarry_layout">
+	<div class="oe_top_nav">
+	 <!--{include file={$admintpl}"a_nav.html"}-->
+  </div>
+  <div class="oe_content">
+    <h6>站点设置<span style="font-size:12px; font-weight:normal; color:#999;">  使用($config.对应的标识)既可调用</span></h6>
+          <form action="<!--{url action="save" mod="siteset" group="admin"}-->" method="post" name="config_form">
+    <table class="oe_table_warp">
+         <!--{foreach $options as $volist}-->
+	  <tr>
+	    <th width="5%"><!--{$volist.name}-->：<span class="oe_lable_gray">(标识: <!--{$volist.optionname}-->)</span></th>
+		<td width="35%">
+               <!--{if $volist.htmltype=='1'}-->
+                 <input class="input-b" type="text" value="<!--{$volist.optionvalue}-->" name="<!--{$volist.optionname}-->" />
+              <!--{elseif $volist.htmltype=='2'}-->
+              <div class="img">
+             <button tag='img_up_one' class='<!--{$volist.optionname}-->' type="button" id="oe_img_button">上传图片</button>宽高尺寸为<!--{if $volist.optionname=='logo'}--><!--{$config.logo_img_size}--><!--{elseif $volist.optionname=='weixin'}--><!--{$config.default_img_size}--><!--{else}--><!--{/if}-->
+            <span class="oe_img">  
+                <span id="viewimg_<!--{$volist.optionname}-->">  
+                <!--{if $volist.optionvalue!=''}-->
+                <div style="float:left;width:auto;"><div style="height:80px;width:80px;overflow:hidden;margin-top:5px;" class="upimg_view">
+                    <img src="<!--{$volist.optionvalue}-->"  width="80px"> </div>
+                     <input type="hidden" name="<!--{$volist.optionname}-->" value="<!--{$volist.optionvalue}-->">
+                   <button onclick="javascript:delobj($(this).parent('div'));" style=" background: none repeat scroll 0 0 #fafafa; border: 1px solid #ebebeb;border-radius: 3px; cursor: pointer;display: block;margin-top: 10px;width: 80px;" type="button">删除</button></div>
+                  <!--{/if}-->
+                 </span></div>
+              <!--{elseif $volist.htmltype=='3'}-->
+                      <textarea name="<!--{$volist.optionname}-->" style="width:60%;height:80px;"><!--{$volist.optionvalue}--></textarea>
+              <!--{elseif $volist.htmltype=='4'}-->
+            <select name="<!--{$volist.optionname}-->">
+                            <option value="1" 
+                                <!--{if $volist.optionvalue=='1'}-->selected
+                                <!--{/if}-->
+                                 >开启</option>
+                               <option value="0"
+                                   <!--{if $volist.optionvalue=='0'}-->
+                                   selected
+                                <!--{/if}-->
+                                   >关闭</option>
+                        </select>
+              <!--{/if}-->
+		  <span class="oe_trap"><label></label><em> <!--{$volist.desc}--></em></span>
+		</td>
+	  </tr>
+           <!--{/foreach}-->
+	</table>
+             
+	<div class="oe_button_layout">
+	  <input type="button" class="button_2" value="提交保存" tag="submit_uncheck" /> 
+	  <span id="submit_tips" class="error"></span>
+	</div>
+ </form>
+  </div>
+</div>
+    
+</body>
+</html>

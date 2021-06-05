@@ -1,0 +1,126 @@
+ <!--{include file={$admintpl}"top/headerjs.html"}-->
+
+<body>
+   <div id='box' style='dispaly:none'>
+   	<div  id='add_ht' style="display:none">
+<form method="post" action="<!--{url action="add"}-->"> 
+
+  <table cellspacing="0" cellpadding="0" border="0" align="center" width="473">
+      <tr>
+        <td height="40" style="text-align:right;">菜单名：</td>
+        <td>
+        <input name="catname" class="box_input" type="text">
+        </td>
+      </tr>
+      <tr>
+        <td height="40" style="text-align:right;">链接模块：</td>
+        <td>
+        <input name="mod" class="box_input" type="text">
+        </td>
+      </tr>
+    <tr>
+      <td height="40" style="text-align:right;">链接控制器：</td>
+      <td>
+        <input name="action" class="box_input" type="text">
+        </td>
+    </tr>
+      <tr>
+        <td height="40" style="text-align:right;">排序：</td>
+        <td>
+        <input name="orders" class="box_input" type="text">
+        </td>
+      </tr>
+      <tr>
+        <td height="40" style="text-align:right;">所属栏目：</td>
+        <td>
+         <!--{assign var='tpldata' value=vo_list("mod={backstage_menu} fun={get_child} array={catid,0,parentid} field={catid,catname}")}-->
+       
+        <select name="parentid"   style="height:auto!important">
+       
+       <option value="0">顶级栏目</option>
+        <!--{foreach $tpldata as $volist}-->
+          
+        <option value="<!--{$volist.catid}-->">
+        
+        <!--{section name=customer loop=$volist.depth-1}-->|
+<!--{/section}--><!--{section name=customer loop=$volist.depth-1}-->--<!--{/section}-->
+<!--{$volist.catname}--></option>
+        
+       
+     
+        <!--{/foreach}-->
+    </select>
+        </td>
+      </tr>
+      <tr>
+        <td height="40" style="text-align:right;">状态：</td>
+        <td>
+        <select name=>
+        <option value=0>显示</option>
+        <option value=1>隐藏</option>
+        </select>
+        </td>
+      </tr>
+      <tr>
+        <td height="40" style="text-align:right;"></td>
+        <td>
+        <input name="" type="submit" value="提 交" class="oe_boxbut" />
+        </td>
+      </tr>
+      <tr>
+  </table>
+ </form>
+</div>
+   </div>
+<div class="oemarry_layout"> 
+     <div class="oe_top_nav"><!--{include file={$admintpl}"a_nav.html"}--></div>
+  
+  <div class="a_content">
+    <form action="" method="post">
+      <div class="oe_tools_bar clearfix">
+           <a class="icon-checkbox-checked icon-checkbox-unchecked" href="javascript:;" onClick="tools_select('catid[]',this)" title="全选" data="true"> 全选 </a> 
+          <a class="icon-remove-2" href="javascript:;" do="tools_submit({action:'<!--{url  action="del" group="admin"}-->',id:'catid'})" title="删除" onclick="boxyn($(this))"> 删除</a>
+            <a href="javascript:msgbox('菜单',$('#add_ht'));" class="icon-plus"> 添加</a>
+        <div style="display:none" id="area_serach">
+          <input id="areaname" type="text">
+          <input name="查找" value="查找" type="button" onClick="search_str($(this).prev('#areaname').val())">
+        </div>
+        <span class="fr"><a href="javascript:;"  onClick="msgbox('搜索菜单',$('#area_serach'))"  id="condition" class="icon-search" style=""> 搜索菜单</a>
+        <input id="condition_input" name="condition" value="" type="hidden">
+        </span> </div>
+      <table class="oe_table_list table_cs"  id="paixun">
+    <tbody><tr>
+        <th style="width:4%; text-align:center;">选择</th>
+        <th style="width:10%">菜单名</th>
+        <th style="width:15%">链接模块</th>
+        <th style="width:15%">链接控制器</th>
+        <th style="text-align:center;">菜单组</th>
+        <th style="text-align:center;">排序</th>
+        <th style="text-align:center;">状态</th>
+        <th style="text-align:center;">操作</th>
+    </tr>
+       <!--{foreach $backstagemenu as $volist}--><tr>
+      <td  style="text-align:center;"><input type="checkbox" value="<!--{$volist.catid}-->" name="catid[]"></input></td>
+      <td who="backstage_menu" key="<!--{$volist.catid}-->" name="catname" tag="ajaxtext" style="cursor:pointer" >
+         <!--{section name=customer loop=$volist.depth-1}-->|
+         <!--{/section}--><!--{section name=customer loop=$volist.depth-1}-->--<!--{/section}-->
+         <!--{$volist.catname}--></td>
+              <td who="backstage_menu" key="<!--{$volist.catid}-->" name="mod" tag="ajaxtext" style="cursor:pointer"><!--{$volist.mod}--></td>
+                                         <td style="text-align:center;" who="backstage_menu" key="<!--{$volist.catid}-->" name="action" tag="ajaxtext" style="cursor:pointer"><!--{$volist.action}--></td>
+    <td  style="text-align:center;"><!--{$volist.group}--></td>
+      <td  style="text-align:center;cursor:pointer" who="backstage_menu" key="<!--{$volist.catid}-->" name="orders" tag="ajaxtext" ><!--{$volist.orders}--></td>
+      <td style="text-align:center;cursor:pointer" who="backstage_menu" key="<!--{$volist.catid}-->" name="flag" tag="ajaxchoose"  ><!--{if $volist.flag==0}--><div class="yes"></div><!--{else}--><div class="no"></div><!--{/if}--></td>
+     <td style="text-align:center;" class="a_edit_del"><a class="a_add" href="javascript:;" onBlur="" onClick="addchild('<!--{$volist.catid}-->','<!--{$volist.name}-->',$('#add_ht'))">添加子菜单</a>
+         <a class="a_del" a=" <!--{url action="del" args="catid:{$volist.catid}"}-->" onclick="boxyn($(this))">删除</a>
+        
+        </td>
+      </tr>
+    <!--{/foreach}-->
+      </tbody></table>
+</form>
+</div>
+</div>
+
+
+
+</body>

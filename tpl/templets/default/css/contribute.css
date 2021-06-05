@@ -1,0 +1,112 @@
+.banner {
+    width: 100%;
+    height: 4rem;
+    background: url(../images/contribute/1.png)no-repeat;
+    background-size: 100% 100%;
+}
+
+.page_2 {
+    width: 100%;
+    height: 5.56rem;
+    background: url(../images/contribute/2.png)no-repeat;
+    background-size: 100% 100%;
+}
+
+.page_3 {
+    width: 100%;
+    height: 5.24rem;
+    background: url(../images/contribute/3.png)no-repeat;
+    background-size: 100% 100%;
+}
+
+.page_4 {
+    width: 100%;
+    height: 4.94rem;
+    background: url(../images/contribute/4.png)no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+}
+
+.fb_button {
+    /*position: absolute;
+    top: 0.3rem;
+    left: 2rem;*/
+    font-size: 0.28rem;
+    color: #ffa407;
+    margin-bottom: 0.2rem;
+
+}
+
+.fb_button span {
+    border-bottom: 1px solid #ffa407;
+}
+
+.e_mail_button {
+    /*position: absolute;
+    top: 0.9rem;
+    left: 2rem;*/
+    font-size: 0.28rem;
+    color: #ffa407;
+}
+
+.e_mail_button span {
+    border-bottom: 1px solid #ffa407;
+}
+
+
+body,
+.main {
+    background: #fffaf0;
+}
+
+.text_show_page {
+    width: 100%;
+    padding: 1rem 0.4rem;
+}
+
+.text_show {
+    height: 15rem;
+    width: 100%;
+    background: url(../images/contribute/5.png)no-repeat;
+    background-size: 100% 100%;
+
+    padding: 0 0.7rem;
+    padding-top: 1.7rem;
+}
+
+.title {
+    width: 100%;
+    margin-bottom: 0.4rem;
+}
+
+.title img {
+    width: 0.37rem;
+}
+
+.title h6 {
+    font-size: 0.4rem;
+    color: #000;
+    margin: 0 0.2rem;
+}
+
+.text_p {
+    font-size: 0.28rem;
+    line-height: 0.5rem;
+    color: #585753;
+    margin-bottom: 0.6rem;
+}
+
+.button_page {
+    width: 5.1rem;
+    margin: 0 auto;
+    /*background: url(../images/contribute/4.png)no-repeat;
+    background-size: 100% 100%;*/
+    border: 2px solid #e0a754;
+    border-radius: 0.1rem;
+    padding:0.25rem 0.25rem;
+    margin-bottom: 0.4rem;
+}
+.button_page img{
+    width: 0.4rem;
+    margin-right: 0.1rem;
+}

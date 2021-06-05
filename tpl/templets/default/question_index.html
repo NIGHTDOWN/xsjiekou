@@ -1,0 +1,231 @@
+<!-- <volist name="question" id="v">
+	{$v['question_title']}<br/>
+	<if condition="$v.question_type eq 1">
+	<volist name="answer" id="vo">	
+			<if condition="$v.question_id eq $vo.question_id">
+				<input type="radio" name="answer_{$vo.question_id}" value="{$vo.answer_id}">{$vo['answer_title']}<br/>
+			</if>
+	</volist>
+	<else/>
+		<input type="text" name="user_answer"><br/>
+	</if>
+</volist> -->
+
+
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>แบบสอบถาม</title>
+    <link rel="stylesheet" href="<!--{$indextpl}-->/down/styles/swiper.min.css">
+    <link rel="stylesheet" href="<!--{$indextpl}-->/down/styles/index.css">
+    <script src="<!--{$indextpl}-->/down/js/jquery-3.2.1.min.js"></script>
+    <script src="<!--{$indextpl}-->/down/js/swiper.min.js"></script>
+    <script>
+        (function(doc, win) {
+            var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function() {
+                    var clientWidth = docEl.clientWidth;
+                    if (!clientWidth) return;
+                    if (clientWidth >= 750) {
+                        docEl.style.fontSize = '100px';
+                    } else {
+                        docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';
+                    }
+                };
+
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false);
+        })(document, window);
+    </script>
+</head>
+
+<body>
+    <div class='container'>
+
+        <div class='swiper-container'>
+
+            <div class='swiper-wrapper'>
+                <!-- 第一题 -->
+                <dl class="question swiper-slide">
+
+                    <!-- <p class='ques_tit'>Câu hỏi 1</p> -->
+
+
+                    <!--{foreach $question as $v}-->
+                    <div style="background-color: white;margin: 0.8rem;border-radius: 0.5rem;box-shadow:1px 1px 1px 1px #ccc inset">
+                        <dt class='ques_subject'><!--{$v['question_title']}--></dt>
+
+                        <!--{if $v['question_type']==1}-->
+                        <div style="padding-bottom: 0.3rem">
+
+                            <!--{foreach $answer as $vo}-->
+
+                            <!--{if $v['question_id']==$vo['question_id']}-->
+                            <if condition="$vo.answer_id eq 8">
+                                <!--{if $v['answer_id']==8}-->
+                                <dd class='ques_options'>
+                                    <input type="radio" name="answer_{$vo.question_id}" value="{$vo['answer_id']}_{$vo.question_id}" class="yuan" id="answer_id_{$vo.answer_id}"><label for="answer_id_{$vo.answer_id}">{$vo['answer_title']}</label></dd>
+                                <dd class='ques_optionss'><input type="text" value="" id="user_answers"></dd>
+                                <else/>
+                                <dd class='ques_options'><input type="radio" name="answer_{$vo.question_id}" value="{$vo['answer_id']}_{$vo.question_id}" class="yuan" id="answer_id_{$vo.answer_id}"><label for="answer_id_{$vo.answer_id}">{$vo['answer_title']}</label></dd>
+                            </if>
+
+                            <!--{/if}-->
+                            <!--{/foreach}-->
+                        </div>
+                        <!--{else}-->
+                        <div style="padding-bottom: 0.3rem">
+
+                            <!--{if $v['question_type']==2}-->
+                            <dd class='ques_options'><textarea name="answer_{$v.question_id}" id="answer_{$v.question_id}" cols="30" rows="10" placeholder="โปรดกรอกหนังสือที่คุณชอบ"></textarea></dd>
+
+                            <!--{elseif $v['question_id']==4}-->
+                            <dd class='ques_options'><input type="text" name="answer_{$v.question_id}_1" id="answer_{$v.question_id}" class='ques_options4_inp' placeholder="โปรดกรอก1วิธีชำระเงินออนไลน์ที่คุณชอบ"></dd>
+                            <dd class='ques_options'><input type="text" name="answer_{$v.question_id}_2" id="answer_{$v.question_id}" class='ques_options4_inp' placeholder="โปรดกรอก2วิธีชำระเงินออนไลน์ที่คุณชอบ"></dd>
+                            <!--{else}-->
+                            <dd class='ques_options'><textarea name="answer_{$v.question_id}" id="answer_{$v.question_id}" cols="30" rows="10" placeholder="โปรดกรอกความคิดเห็นของคุณ"></textarea></dd>
+
+                            <!--{/if}-->
+                        </div>
+                        <!--{/if}-->
+                        <!-- <dd class='ques_options'><span class="yuan"><span></span></span> 2 tiếng</dd>
+	                    <dd class='ques_options'><span class="yuan"><span></span></span> 3 tiếng</dd>
+	                    <dd  class='ques_options'><span class="yuan"><span></span></span> 3 tiếng trở lên</dd>-->
+                    </div>
+                    <!--{/foreach}-->
+
+                    <input type="hidden" name="users_id" id="users_id" value="<!--{$users_id}-->">
+                    <div class='ques_btn'>
+                        <div onclick="submit();">ส่ง</div>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <!-- 答题成功后的弹窗 -->
+    <div class='mask' style="display: none">
+        <div class='suc'>
+            <div class='suc_btn'>ขอบคุณ</div>
+        </div>
+    </div>
+    <script>
+        window.alert = function(msg, callback) {
+            var div = document.createElement("div");
+            div.innerHTML = "<style type=\"text/css\">" +
+                ".nbaMask { position: fixed; z-index: 1000; top: 0; right: 0; left: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); }                                                                                                                                                                       " +
+                ".nbaMaskTransparent { position: fixed; z-index: 1000; top: 0; right: 0; left: 0; bottom: 0; }                                                                                                                                                                                            " +
+                ".nbaDialog { position: fixed; z-index: 5000; width: 80%; max-width: 300px; top: 50%; left: 50%; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%); background-color: #fff; text-align: center; border-radius: 8px; overflow: hidden; opacity: 1; color: white; }" +
+                ".nbaDialog .nbaDialogHd { padding: .2rem .27rem .08rem .27rem; }                                                                                                                                                                                                                         " +
+                ".nbaDialog .nbaDialogHd .nbaDialogTitle { font-size: 17px; font-weight: 400; }                                                                                                                                                                                                           " +
+                ".nbaDialog .nbaDialogBd { padding: 0 .27rem; font-size: 15px; line-height: 1.3; word-wrap: break-word; word-break: break-all; color: #000000; }                                                                                                                                          " +
+                ".nbaDialog .nbaDialogFt { position: relative; line-height: 48px; font-size: 17px; display: -webkit-box; display: -webkit-flex; display: flex; }                                                                                                                                          " +
+                ".nbaDialog .nbaDialogFt:after { content: \" \"; position: absolute; left: 0; top: 0; right: 0; height: 1px; border-top: 1px solid #e6e6e6; color: #e6e6e6; -webkit-transform-origin: 0 0; transform-origin: 0 0; -webkit-transform: scaleY(0.5); transform: scaleY(0.5); }               " +
+                ".nbaDialog .nbaDialogBtn { display: block; -webkit-box-flex: 1; -webkit-flex: 1; flex: 1; color: #09BB07; text-decoration: none; -webkit-tap-highlight-color: transparent; position: relative; margin-bottom: 0; }                                                                       " +
+                ".nbaDialog .nbaDialogBtn:after { content: \" \"; position: absolute; left: 0; top: 0; width: 1px; bottom: 0; border-left: 1px solid #e6e6e6; color: #e6e6e6; -webkit-transform-origin: 0 0; transform-origin: 0 0; -webkit-transform: scaleX(0.5); transform: scaleX(0.5); }             " +
+                ".nbaDialog a { text-decoration: none; -webkit-tap-highlight-color: transparent; }" +
+                "</style>" +
+                "<div id=\"dialogs2\" style=\"display: none\">" +
+                "<div class=\"nbaMask\"></div>" +
+                "<div class=\"nbaDialog\">" +
+                " <div class=\"nbaDialogHd\">" +
+                "     <strong class=\"nbaDialogTitle\"></strong>" +
+                " </div>" +
+                " <div class=\"nbaDialogBd\" id=\"dialog_msg2\">弹窗内容，告知当前状态、信息和解决方法，描述文字尽量控制在三行内</div>" +
+                " <div class=\"nbaDialogHd\">" +
+                "     <strong class=\"nbaDialogTitle\"></strong>" +
+                " </div>" +
+                " <div class=\"nbaDialogFt\">" +
+                "     <a href=\"javascript:;\" class=\"nbaDialogBtn nbaDialogBtnPrimary\" id=\"dialog_ok2\">ยืนยัน</a>" +
+                " </div></div></div>";
+            document.body.appendChild(div);
+
+            var dialogs2 = document.getElementById("dialogs2");
+            dialogs2.style.display = 'block';
+
+            var dialog_msg2 = document.getElementById("dialog_msg2");
+            dialog_msg2.innerHTML = msg;
+
+            // var dialog_cancel = document.getElementById("dialog_cancel");
+            // dialog_cancel.onclick = function() {
+            // dialogs2.style.display = 'none';
+            // };
+            var dialog_ok2 = document.getElementById("dialog_ok2");
+            dialog_ok2.onclick = function() {
+                dialogs2.style.display = 'none';
+                // callback();
+            };
+        };
+        // 这里为了展示 开启轮播,实际操作禁止滑动轮播选项做逻辑判断
+        // 利用swiper轮播的每个swiper-slide下标来切换题目选项 具体参考swiper官方文档
+        var mySwiper = new Swiper('.swiper-container', {});
+        $(".suc_btn").click(function() {
+            $(".mask").hide();
+            location.href = "question://finish=1";
+        });
+
+        function submit() {
+            var answer_1 = $('input[name="answer_1"]:checked').val();
+            var answer_3 = $('input[name="answer_3"]:checked').val();
+            var answer_2 = "2_" + $('textarea[name="answer_2"]').val();
+            var answer_4_1 = "4_" + $('input[name="answer_4_1"]').val();
+            var answer_4_2 = "4_" + $('input[name="answer_4_2"]').val();
+            var answer_5 = "5_" + $('textarea[name="answer_5"]').val();
+            var answer_3_user = '3_D_' + $("#user_answers").val();
+            var users_id = $("#users_id").val();
+            if (answer_1 == null) {
+                alert("โปรกเขียนข้อที่1ให้สมบูรณ์");
+                // $('input[name="answer_1"]').focus();
+            } else if (answer_2 == '2_') {
+                alert("โปรกเขียนข้อที่2ให้สมบูรณ์");
+                // $('textarea[name="answer_2"]').focus();
+            } else if (answer_3 == null) {
+                alert("โปรกเขียนข้อที่3ให้สมบูรณ์");
+                // $('input[name="answer_3"]').focus();
+            } else if (answer_4_1 == '4_' || answer_4_2 == '4_') {
+                alert("โปรกเขียนข้อที่4ให้สมบูรณ์");
+                // $('input[name="answer_4_1"]').focus();
+            } else if (answer_5 == '5_') {
+                alert("โปรกเขียนข้อที่5ให้สมบูรณ์");
+                // $('textarea[name="answer_5"]').focus();
+            } else {
+                if (answer_3 == '8_3' && answer_3_user == '3_D_') {
+                    alert("ปรกเขียนข้อที่3ข้อเลือกDให้สมบูรณ์");
+                    // $('#user_answers').focus();
+                } else {
+                    $.ajax({
+                        type: "POST",
+                        url: "{:url('index/question/answer')}",
+                        data: {
+                            answer_1: answer_1,
+                            answer_3: answer_3,
+                            answer_2: answer_2,
+                            answer_4_1: answer_4_1,
+                            answer_4_2: answer_4_2,
+                            answer_3_user: answer_3_user,
+                            answer_5: answer_5,
+                            users_id: users_id
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            // var json = JSON.parse(data);
+                            if (data.code == 0) {
+                                $(".mask").show();
+                            } else {
+                                alert(data.message);
+                            }
+
+                        }
+                    });
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

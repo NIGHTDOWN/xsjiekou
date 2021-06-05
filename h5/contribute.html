@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>นักเขียนส่งผลงาน</title>
+    <link rel="stylesheet" href="css/commonality.css?v=20190618">
+    <link rel="stylesheet" href="css/contribute.css?v=20190618">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151366452-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-151366452-1');
+    </script>
+</head>
+
+<body>
+    <div class="main">
+        <div class="banner">
+        </div>
+        <div class="text_show_page">
+            <div class="text_show">
+                <div class="title flexCenter">
+                    <img src="images/contribute/title.png" alt="">
+                    <h6>กลายเป็นนักเขียน</h6>
+                    <img src="images/contribute/title.png" alt="">
+                </div>
+                <p class="text_p">
+                    นักเขียน คุณอยู่ที่ไหน？<br>
+                    รีบเข้าร่วมแอพและมาสร้างหนังสือที่ยอดเยี่ยมกันเถอะ!<br>
+                    ให้ตัวเองได้ฝึกฝนและสร้างความสำเร็จที่ยอดเยี่ยมไม่เหมือนใคร<br>
+                </p>
+                <div class="title flexCenter">
+                    <img src="images/contribute/title.png" alt="">
+                    <h6>กลายเป็นนักเขียน</h6>
+                    <img src="images/contribute/title.png" alt="">
+                </div>
+                <p class="text_p">
+                    และเริ่มต้นด้วยเงินเดือนสูง เพียงแค่ผลงานของคุณได้ลงในแอพเราก็มีคนอ่านได้หลายพันคน<br>
+                    คุณสามารถเข้าร่วม อ่านเพลิน ได้สองวิธี:<br>
+                    1. การถ่ายโอนลิขสิทธิ์ (โปรดแนบใบรับรองลิขสิทธิ์ของคุณ)<br>
+                    2. การสรรหานักเขียน (ส่งบทครั้งแรก 10 บทขึ้นไป)
+                </p>
+                <div class="button_page">
+                    <!-- FB按钮 -->
+                    <div>
+                        <a href="https://www.facebook.com/อ่านเลย-นิยายและกสร์ตูนออนไลน์-1699295950216055/?ref=bookmarks">
+                            <div class="fb_button flexCenter-ai-center cursor">
+                                <img src="images/contribute/fb.png" alt="">
+                                <span>บริการลูกค้าออนไลน์</span>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- email -->
+                    <div>
+                        <div class="e_mail_button flexCenter-ai-center cursor" onclick="copy()">
+                            <img src="images/contribute/e_mail.png" alt="">
+                            <span>neyayanlie@outlook.com</span>
+                        </div>
+                    </div>
+                    <textarea id="input" style="display: none;">neyayanlie@outlook.com</textarea>
+                </div>
+                <p class="text_p">
+                    ยังลังเลอะไรอยู่ล่ะ รีบติดต่อ“อ่านเพลิน”มาเลย
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- <a href="https://www.facebook.com/อ่านเลย-นิยายและกสร์ตูนออนไลน์-1699295950216055/?ref=bookmarks">
+    <div class="fb_button ">
+        <span>บริการลูกค้าออนไลน์</span>
+    </div>
+</a>
+<div class="e_mail_button" onclick="copy()">
+    <span>neyayanlie@outlook.com</span>
+</div>
+<textarea id="input" style="display: none;">neyayanlie@outlook.com</textarea> -->
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/md5.js"></script>
+<script src="js/commonality.js?v=20190618"></script>
+<script src="js/showText.js"></script>
+<script>
+function copy() {
+    var Url2 = document.getElementById("input");
+    Url2.select(); // 选择对象
+    document.execCommand("Copy");
+
+    showToast({
+        text: 'ก้อบปี้สำเร็จ',
+        top: '45%',
+        zindex: 9999,
+        speed: 500,
+        time: 2000
+    });
+}
+</script>
+
+</html>

@@ -1,0 +1,205 @@
+body {
+    padding-bottom: 2rem;
+}
+body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    hr,
+    p,
+    blockquote,
+    dl,
+    dt,
+    dd,
+    ul,
+    ol,
+    li,
+    pre,
+    form,
+    fieldset,
+    legend,
+    button,
+    input,
+    textarea,
+    th,
+    td {
+        vertical-align: top;
+    }
+
+.main {
+    border-bottom: none;
+    position: relative;
+}
+
+.mode_of_payment {
+    margin-top: 0.1rem;
+    /*height: 2rem;*/
+}
+
+.mode_of_payment ul {
+    /*background: blue;*/
+    padding: 0 0.4rem;
+    white-space: nowrap;
+    /*文本不会换行，文本会在在同一行上继续*/
+    overflow-y: auto;
+    /*可滑动*/
+    padding-bottom: 0.2rem;
+}
+
+/*.mode_of_payment ul::-webkit-scrollbar {
+    display: none;
+}*/
+
+.mode_of_payment ul li {
+    width: 1.5rem;
+    margin-right: 0.4rem;
+
+    display: inline-block;
+    text-align: center;
+    /*行内块元素*/
+}
+
+.mode_of_payment .mode_list_img {
+    width: 100%;
+    height: 1rem;
+    /* margin-bottom: 0.1rem;*/
+}
+
+.mode_lists p {
+    width: 1.5rem;
+    margin: 0.1rem 0;
+    font-family: Thonburi-Bold;
+    font-size: .24rem;
+    color: #333333;
+    text-align: center;
+}
+
+.mode_lists span {
+    display: inline-block;
+    background: #FFA200;
+    font-family: PingFang-SC-Medium;
+    font-size: .24rem;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 0 0.1rem;
+    border-radius: 0.1rem;
+}
+
+.mode_lists_img_page {
+    width: 100%;
+    height: 1rem;
+    border-radius: 0.2rem;
+    background: #ccc;
+    overflow: hidden;
+    position: relative;
+
+}
+
+.mode_list .on .mode_lists_img_page {
+    border: 2px solid #FFA200;
+}
+
+.choose_img {
+    width: 0.3rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: none;
+}
+
+.on .choose_img {
+    display: block;
+}
+
+.gold_list_row {
+    padding: 0 0.4rem;
+}
+
+.gold_list {
+    display: none;
+}
+
+.gold_list_row .gold_list_on {
+    display: block;
+}
+
+.gold_lists {
+    width: 6.7rem;
+    height: 1rem;
+    background: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-radius: 10px;
+    padding: 0 0.4rem;
+    margin-bottom: 0.2rem;
+}
+
+.gold_lists img {
+    width: 0.32rem;
+    margin-right: 0.1rem;
+}
+
+.gold_lists p {
+    font-family: PingFang-SC-Medium;
+    font-size: .32rem;
+    color: #65635F;
+    /*font-weight: bold;*/
+}
+
+.gold_lists p span {
+    color: #ff5026;
+}
+
+.gold_number {
+    font-family: Thonburi;
+    font-size: .32rem;
+    color: #34302D;
+    /*font-weight: bold;*/
+}
+
+.gold_lists .on p {
+    color: #34302D;
+}
+
+.gold_list .on {
+    background: #FFFAEF;
+    background: #FFFAEF;
+    border: 2px solid #FFA200;
+}
+
+.gold_list .on p {
+    color: #34302D;
+}
+
+.bottom_page {
+    width: 100%;
+    height: 1.8rem;
+    min-width: 320px;
+    max-width: 414px;
+    background: #fff;
+    position: fixed;
+    bottom: 0;
+    border-bottom: 1px solid #ddd;
+    -moz-box-shadow: 1px 1px 10px #ddd;
+    -webkit-box-shadow: 1px 1px 10px #ddd;
+    box-shadow: 1px 1px 10px #ddd;
+}
+
+.bottom_page button {
+    width: 6.7rem;
+    height: 1rem;
+    background: #FFA200;
+    border-radius: 0.1rem;
+    border: none;
+    font-family: Thonburi-Bold;
+    font-size: .32rem;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+body .set_title p {
+    font-size: 0.28rem;
+    font-weight: none;
+}

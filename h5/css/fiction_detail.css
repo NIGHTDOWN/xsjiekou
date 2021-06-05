@@ -1,0 +1,144 @@
+.TitlePage {
+    background: none;
+}
+
+.fiction_bg {
+    width: 100%;
+    height: 3rem;
+    object-fit: cover;
+    opacity: 0.6;
+    filter: blur(5px);
+}
+
+.fiction_bg_bg {
+    height: 3rem;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    position: absolute;
+    top: 0;
+}
+
+.fiction_bg_page {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+}
+
+.header .TitlePage {
+
+    position: relative;
+
+}
+
+.main {
+    position: relative;
+}
+
+.book_detail_page {
+    width: 100%;
+    padding: 0 0.4rem;
+    margin-top: 0.6rem;
+}
+
+.the_book_img {
+    width: 1.55rem;
+    height: 2.05rem;
+    object-fit: cover;
+}
+
+.book_name {
+    font-family: PingFang-SC-Medium;
+    font-size: .36rem;
+    color: #FFFFFF;
+    margin-bottom: 0.1rem;
+}
+
+.book_author {
+    font-family: PingFang-SC-Medium;
+    font-size: .24rem;
+    color: #FFFFFF;
+    margin-bottom: 0.1rem;
+}
+
+.book_star_page img {
+    width: 0.28rem;
+    height: 0.28rem;
+    object-fit: cover;
+    margin: 0 0.01rem 0 0;
+}
+
+.book_star_page p {
+    font-family: PingFang-SC-Medium;
+    font-size: .24rem;
+    color: #FFFFFF;
+    margin-left: .1rem;
+}
+
+.book_update_status {
+    padding: 0.01rem 0.05rem;
+    border: 1px solid #15C5B8;
+    border-radius: 4px;
+    font-family: PingFang-SC-Medium;
+    font-size: .2rem;
+    color: #15C5B8;
+}
+
+.book_time {
+    opacity: 0.92;
+    font-family: PingFang-SC-Medium;
+    font-size: .24rem;
+    color: #15C5B8;
+    /*line-height: 36px;*/
+    margin-left: .2rem;
+}
+
+.the_book_img_page {
+    margin-right: 0.3rem;
+}
+
+.book_star_page {
+    margin-bottom: 0.46rem;
+}
+
+.articleIntroduces {
+    width: 100%;
+    padding: 10px 0.5rem;
+    position: relative;
+    /* display: inline-block; */
+    overflow: hidden;
+    /* background-color: orange; */
+    /* max-height: 100px; */
+    /* min-height: 100px; */
+    overflow: hidden;
+    -webkit-transition: max-height 1s;
+    transition: max-height 1s;
+}
+
+.max-height-4 {
+    max-height: 10rem;
+}
+
+.articleIntroduces p {
+    font-size: 0.3rem;
+
+    font-weight: 400;
+
+    line-height: 0.43rem;
+    font-family: PingFang-SC-Medium;
+
+    color: #989D9D;
+
+}
+
+.articleIntroduces-button {
+    width: 20px;
+    height: 10px;
+    background: url(../images/more.png)no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+    border: none;
+    -webkit-transition: all 1s;
+    transition: all 1s;
+}   

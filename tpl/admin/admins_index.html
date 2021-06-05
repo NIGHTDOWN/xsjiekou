@@ -1,0 +1,103 @@
+<!--{include file={$admintpl}"top/headerjs.html"}-->
+<body>
+<div class="oemarry_layout"> 
+   <div class="oe_top_nav">
+	 <!--{include file={$admintpl}"a_nav.html"}-->
+  </div>
+  <div class="a_content">
+<form action="" method="post">
+<div class="oe_tools_bar clearfix">
+    <a class="icon-checkbox-checked icon-checkbox-unchecked" href="javascript:;" onClick="tools_select('adminid[]',this)" title="全选" data="true"> 全选 </a>
+    <a class="icon-remove-2" href="javascript:;" onClick="tools_submit({action:'<!--{url action="del" }-->',id:'adminid'})" title="删除"> 删除</a>
+    <a href="<!--{url action="add_view" }-->" class="icon-plus"> 添加管理员</a>
+
+    <span class="fr"><a href="javascript:;"  onClick="lbox('筛选条件')"  id="condition" class="icon-search <!--{if $where}-->red<!--{/if}-->"> 筛选条件</a></span>
+</div>
+<table class="oe_table_list table_cs"  id="paixun">
+    <tr>
+        <th style="width:4%; text-align:center;">选择</th>
+        <th style="width:8%">账号</th>
+          <th style="width:8%">别名</th>
+         <th style="width:10%">登入时间</th>
+         <th style="width:10%">角色</th>
+        <th style="width:10%">手机</th>
+        <th style="width:10%">邮箱</th>
+        <th style="width:8%">超级管理员</th>
+        <th style="width:5%; text-align:center;">状态</th>
+        <th style="text-align:center;">操作</th>
+    </tr>
+    <tbody>
+    <!--{foreach $admins as $volist}--><tr>
+      <td  style="text-align:center;"><input type="checkbox" value="<!--{$volist.adminid}-->" name="adminid[]"></input></td>
+      <td ><!--{$volist.adminname}--></td>
+      <td style="text-overflow:ellipsis"  ><!--{$volist.alias}--></td>
+      <td ><!--{$volist.logintime|date_format:"%y-%m-%d %H:%M:%S"}--></td>
+         <td style="text-align:center;"><!--{$volist.rolename}--></td>
+      <td ><!--{$volist.mobile}--></td>
+       <td style="text-align:center;" style="cursor:pointer" ><!--{$volist.email}--></td>
+       <td  style="cursor:pointer;text-align:center;">  
+             <!--{if $volist.super==1}--><div class="yes"></div><!--{else}--><div class="no"></div><!--{/if}--></td></td>
+       <td  style="cursor:pointer;text-align:center;">
+          <!--{if $volist.flag==0}--><div class="yes"></div><!--{else}--><div class="no"></div><!--{/if}--></td>
+        <td  style="text-align:center;" class="a_edit_del">  
+        <a class="oe_ico_blue" href="<!--{url action="cgpwd"  args="adminid:{$volist.adminid}"}-->">修改密码</a>  
+        <a class="oe_ico_blue" href="<!--{url action="show"  args="adminid:{$volist.adminid}"}-->">编辑</a>
+        <a class="oe_ico_red" href="<!--{url action="del"  args="adminid:{$volist.adminid}"}-->">删除</a>
+        </td>
+      </tr>
+    <!--{/foreach}--></tbody>
+       </table>
+               
+   <div class="oe_page_box">
+                   <!--{$page}-->
+                </div>
+</form>
+
+<style>
+
+#boxbody form div label{
+display: block;
+ text-align: justify;
+    float: left;
+    width: 68px !important;
+    text-justify: distribute-all-lines;
+    text-kashida-space : 50%;
+    text-justify : auto;
+    margin-right:2px;
+    text-align:right;
+      }
+     #boxbody form div label *{
+
+    float: right;
+   
+      }
+#boxbody form div input{width:60%}
+#boxbody form div textarea{width: 137px; height: 23px;}
+    .yes {
+        height: 16px;
+    }
+</style>
+<div style="display:none;" id="searchbox">
+  <form method="post" style="width:400px;" action="">
+       <input name="sflag" type="hidden" value="1">
+     <table  align="center" width="473" class="oe_table_warp">
+      <tr>
+        <td height="40"  style="text-align:right;">管理员：</td>
+        <td>
+        <input name="adminname" class="input-b" type="text" value="<!--{$where.adminname}-->" />
+            
+        </td>
+           
+      </tr>
+        
+        
+    </table>
+        <div style="text-align:center">
+           <input name="" value="清空" class="oe_boxbut" tag="reset" type="button">
+        <span style="padding-left:50px;"></span>
+          <input name="" value="提交查询" class="oe_boxbut" tag="submit" type="button">
+    </div>
+  </form>
+</div>
+ <!--{include file={$admintpl}"paix.html"}-->
+</body>

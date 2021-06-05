@@ -1,0 +1,59 @@
+body {
+    background: #fff;
+    padding-bottom: 1.2rem;
+    padding-top: 1.2rem;
+}
+.comment_title_button img {
+    width: 0.32rem;
+}
+.comment_title_button p {
+    font-size: .28rem;
+    font-family: PingFang-SC-Medium, PingFang-SC;
+    font-weight: 500;
+    color: rgba(255, 162, 0, 1);
+    line-height: .4rem;
+    margin-left: 0.1rem;
+}
+.comment_list {
+    width: 100%;
+    padding: 0 0.4rem;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+.comment_lists {
+    width: 100%;
+    padding: 0.48rem 0;
+    border-bottom: 1px solid #ddd;
+}
+.comment_lists_head {
+    width: 0.42rem;
+    height: 0.42rem;
+    object-fit: cover;
+    border-radius: 50% 50%;
+    margin-right: 0.2rem;
+}
+.comment_lists_name {
+    font-size: .28rem;
+    font-family: PingFang-SC-Medium, PingFang-SC;
+    font-weight: 500;
+    color: rgba(153, 153, 153, 1);
+    line-height: .4rem;
+    margin-right: 0.2rem;
+}
+.comment_lists_start img {
+    width: .3rem;
+    height: .3rem;
+    object-fit: cover;
+    margin-right: 0.02rem;
+}
+.comment_lists_desc {
+    margin-top: .3rem;
+    font-size: .28rem;
+    font-family: PingFang-SC-Medium, PingFang-SC;
+    font-weight: 500;
+    color: rgba(52, 48, 45, 1);
+    line-height: .44rem;
+}
+.comment_list .comment_lists:last-child {
+    border-bottom: none;
+}

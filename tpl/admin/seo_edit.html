@@ -1,0 +1,179 @@
+<!--{include file={$admintpl}"top/headerjs.html"}-->
+<body>
+<div class="oemarry_layout">
+<div class="oe_top_nav">
+	 <!--{include file={$admintpl}"a_nav.html"}-->
+<span><a href="javascript:;" url="<!--{url action='run'}-->" tag="back">&lt;&lt;返回列表</a></span>  </div>
+     <div  id='label' style="display:none">
+ 
+  <div>
+  标签以'【'开始，以'】'结束;
+  </div>
+  <div>《站点标签》</div>
+  <div>
+    <!--{foreach $seo_global as $key=>$volist}-->
+    <!--{if $volist|is_array}-->
+    
+        <button type="button" name="<!--{$volist}-->" onClick="getbq(this)" class="oe_ico_green"  value=" <!--{foreach $volist as $volist1}--><!--{$bqs}--><!--{$volist1}--><!--{$bqe}--> <!--{/foreach}-->"><!--{$key}--></button>
+
+    <!--{else}--> 
+    <button type="button" onClick="getbq(this)" name="<!--{$volist}-->" class="oe_ico_green"  value="<!--{$bqs}--><!--{$volist}--><!--{$bqe}-->">
+    <!--{$key}-->
+    </button>
+    <!--{/if}-->   
+     <!--{/foreach}--> 
+    
+    </div>
+    <div>《分类标签》</div>
+    <div>
+    
+    <!--{foreach $seo_category as $key=>$volist}-->
+    <!--{if $volist|is_array}-->
+    
+        <button type="button" name="<!--{$volist}-->" onClick="getbq(this)" class="oe_ico_green"   value=" <!--{foreach $volist as $volist1}--><!--{$bqs}--><!--{$volist1}--><!--{$bqe}--> <!--{/foreach}-->"><!--{$key}--></button>
+
+    
+    
+    <!--{else}--> <button type="button" onClick="getbq(this)" name="<!--{$volist}-->" class="oe_ico_green"  value="<!--{$bqs}--><!--{$volist}--><!--{$bqe}-->"><!--{$key}--></button><!--{/if}-->   
+
+ <!--{/foreach}--> 
+    </div>
+    
+    <div>《页内标签》</div>
+    <div>
+    
+    <!--{foreach $seo_local as $key=>$volist}-->
+    <!--{if $volist|is_array}-->
+    
+        <button type="button" name="<!--{$volist}-->" onClick="getbq(this)"  class="oe_ico_green"  value=" <!--{foreach $volist as $volist1}--><!--{$bqs}--><!--{$volist1}--><!--{$bqe}--> <!--{/foreach}-->"><!--{$key}--></button>
+
+    
+    
+    <!--{else}--> <button type="button" onClick="getbq(this)" name="<!--{$volist}-->" class="oe_ico_green"  value="<!--{$bqs}--><!--{$volist}--><!--{$bqe}-->"><!--{$key}--></button><!--{/if}-->   
+
+
+
+
+
+ <!--{/foreach}--> 
+    </div>
+    
+    
+    
+    
+    
+    
+
+  <script>
+      var fobj = null;
+      var fobjsstr = null;
+      var fobjestr = null;
+      var iestr = null;
+      $('input').focus(function ()
+      {
+
+          fobj = $(this);
+          fixval();
+      });
+      $('textarea').focus(function ()
+      {
+          fobj = $(this);
+          fixval();
+      });
+      function fixval()
+      {
+          $obj = fobj.get(0);
+          str = null;
+          if (document.selection)
+          { 
+           
+              iestr = document.selection.createRange();
+             
+          } else if (typeof $obj.selectionStart === 'number' && typeof $obj.selectionEnd === 'number')
+          { 
+              tmpStr = $obj.value;
+              fobjsstr = tmpStr.substring(0, $obj.selectionStart);
+              fobjestr = tmpStr.substring($obj.selectionEnd, tmpStr.length);
+          } else
+          {
+          }
+      }
+      function getbq(bq)
+      {
+          $boj = $(bq);
+          $val = $boj.val();
+          if (fobj == undefined)
+          {
+              adebug('请先点击文本框，再选择');
+          } else
+          {
+              if (iestr != null)
+              {
+               
+                  iestr.text = $val;
+              } else
+              {
+                  fobj.val(fobjsstr + $val + fobjestr);
+              }
+
+
+           
+          }
+      }
+  </script>
+</div>
+<div class="a_content oe_dlv">
+    <div class="oe_txtwrap">
+     &nbsp;&nbsp;&nbsp;
+     标识与模块的model名称以及control对应
+           <a id="send_email" class="oe_ico_blue" href="javascript:;" onclick="msgbox('标签',$('#label'),null,null,null,null,99)">查看标签</a>
+	</div>
+    <form action="<!--{url action="save"}-->" method="post" name="form">
+      <dl class="lineD">
+        <dt>标识：</dt>
+        <dd>
+          <span class="w2 red" >
+              <input name="identify"  value="<!--{$seo.identify}-->" type="hidden" /><!--{$seo.identify}--></span>
+       
+             
+        </dd>
+      </dl>
+      <dl class="lineD">
+        <dt>别名：</dt>
+        <dd>
+          <input class="w2" type="text" value="<!--{$seo.name}-->" id="textfield" name="name" class="  valid-text" >
+          <label class="valid-msg">方便用户记忆的标识</label>
+        </dd>
+      </dl>
+      <dl class="lineD">
+        <dt>meta标题：</dt>
+        <dd>
+          <input class="w2" type="text" value="<!--{$seo.metatitle}-->" id="textfield" name="metatitle" class=" valid-text" >
+          <label class="valid-msg">页面标题</label>
+        </dd>
+      </dl>
+      <dl class="lineD">
+        <dt>meta关键词：</dt>
+        <dd>
+          <input class="w2" type="text" value="<!--{$seo.metakeyword}-->" id="textfield"  name="metakeyword">
+          <label>页面关键词</label>
+        </dd>
+      </dl>
+      <dl class="lineD">
+        <dt>meta描述：</dt>
+        <dd>
+          <input class="w2" type="text" value="<!--{$seo.metadesc}-->" id="textfield" name="metadesc">
+          <label>页面描述</label>
+        </dd>
+      </dl>   
+      <div class="oe_bbut">
+      <input style="margin-left:100px; margin-top:10px;" type="button" value="返回" class="oe_boxbut" tag="back" url="<!--{url action="run"}-->">
+     <input class="oe_boxbut" style="margin-left: 100px; margin-top: 10px;" tag="submit_uncheck" type="button" url="" value="保存">
+    </div>
+      
+    </form>
+  </div>
+  
+</div>
+</body>
+</html>

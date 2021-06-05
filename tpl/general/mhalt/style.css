@@ -1,0 +1,113 @@
+.halt-body{
+	display:block;
+	position:absolute;
+	top:0;
+	/* left: 15%; */
+	top: 40%;
+	/* margin-left:-175px!important; */
+	margin-top:-70px!important;
+	margin-top:0;
+	position:fixed!important;
+	position:absolute;
+}
+
+.halt-box {
+	/* margin:50px auto; */
+	width: 100%;
+	/* min-height: 145px; */
+	position: absolute;
+    z-index: 99999;
+	font-size: 1rem;
+}
+.halt-box h2 {
+	margin:0;padding:0;
+	background:#F5F5F5;
+	height:30px;line-height:30px;
+	font-size:14px;font-weight:normal;
+	padding-left:10px;
+}
+
+.halt-content {
+	width: 65%;
+	margin: 0 auto;
+	overflow: hidden;
+	background: #3c3c3f;
+	filter: alpha(opacity=90);
+	-moz-opacity: 0.9;
+	-khtml-opacity: 0.9;
+	opacity: 0.8;
+	border-radius: 15px;
+	min-height: 150px;
+}
+.halt-left {
+	float:left;
+ margin-top: 25%;;
+	width:60px;
+	height:60px;
+	text-align:center;
+	width: 19%;
+}
+.halt-left span {
+	display:block;width:32px;height:32px;margin-left:10px;
+}
+.halt-right {
+	float:right;
+	/* width:260px; */
+	padding-top:10px;
+	width: 80%;
+	min-width: 100px;
+	max-width: 300px;
+}
+.halt-ok {
+	background: url("ok.png") center no-repeat;
+}
+.halt-fail {
+	background: url("attention.png") center no-repeat;
+}
+.halt-msg {
+	background: url("msg.png") center no-repeat;
+}
+.p-text {
+	font-size: 1.2em;
+	color: #ffffff;
+	line-height: 1.9em;
+	margin:0;
+	padding:0;
+	/* padding-top:10px; */
+	word-wrap: break-word;
+	min-height: 60px;
+}
+.p-refresh {
+	font-size:12px;
+	color: #ffffff;
+	line-height:20px;
+}
+.p-refresh a {
+	border: none;
+    padding: 0.02rem 0;
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 1.5rem;
+    background: -webkit-linear-gradient(left,#e93b3d,#ff9474);
+    background: linear-gradient(90deg,#e93b3d,#ff9474);
+    box-shadow: 2px 3px 0rem 0px rgba(233,59,61,.2);
+    width: 70%;
+    display: block;
+    height: 1.8rem;
+    line-height: 1.7rem;
+    position: relative;
+   
+}
+.zz {
+    /* background-color: #000; */
+    position: absolute;
+    z-index: 9999;
+   
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    /* opacity: 0.6;
+    filter: alpha(opacity=60); */
+}

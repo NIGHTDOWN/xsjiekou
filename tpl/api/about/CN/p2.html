@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <meta name="format-detection" content="telephone=no">
+    <title></title>
+    <link rel="stylesheet" href="css/commonality.css">
+    <link rel="stylesheet" href="css/index.css">
+    <style>
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="list">
+        </div>
+    </div>
+</body>
+<script src="js/jquery.min.js"></script>
+<script>
+$('html').css('font-size', document.body.clientWidth / 7.5 + 'px');
+
+var arr = [{
+        "title": "网络",
+        "href": "p2-1.html",
+    },
+    {
+        "title": "闪退",
+        "href": "p2-2.html",
+    },
+    {
+        "title": "卡顿",
+        "href": "p2-3.html",
+    },
+    {
+        "title": "无响应",
+        "href": "p2-4.html",
+    },
+    {
+        "title": "其他异常",
+        "href": "p2-5.html",
+    }
+];
+
+set();
+
+function set() {
+    console.log(arr.length);
+
+    var html = '';
+    for (var i = 0; i < arr.length; i++) {
+        html += `
+              <a href="` + arr[i]["href"] + `">
+                <div class="lists flexCenter-ai-center flexCenter-jc-sb">
+                  <p>` + arr[i]["title"] + `</p>
+                  <img src="images/icon.png">
+                </div>
+              </a>
+      `;
+    }
+    $('.list').append(html);
+
+}
+</script>
+
+</html>

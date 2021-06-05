@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=<!--{$page_charset}-->" />
+    <!--{include file={$admintpl}"top/headerjs.html"}-->
+</head>
+
+<body>
+    <div class="oemarry_layout">
+  <div class="oe_top_nav">
+	 <!--{include file={$admintpl}"a_nav.html"}-->
+	<span><a href="javascript:;" url="<!--{url action='run'}-->" tag="back">&lt;&lt;返回列表</a></span>
+  </div>
+  <div class="a_content oe_dlv">
+<form method="post" action="<!--{url action="add"}-->" >
+    <input name="uid" type="hidden" value="<!--{$data.uid}-->">
+     <table class="oe_table_warp">
+         <tr>
+	    <th width="5%"><span class="red">*</span>广告账号归属：</th>
+		<td width="35%"><input type="text" name="username" tag="notnull " value="<!--{$data.username}-->"  class="input-b"/>
+            <span class="oe_trap"><label></label><em></em></span>
+		</td></tr>
+	  <tr>
+	    <th width="5%"><span class="red">*</span>广告账号名称：</th>
+		<td width="35%"><input type="text" name="name" tag="notnull " value="<!--{$data.name}-->"  class="input-b"/>
+            <span class="oe_trap"><label></label><em></em></span>
+		</td></tr>
+ <tr>
+	    <th width="5%"><span class="red">*</span>广告账号编号：</th>
+		<td width="35%"><input type="text" name="acountid" tag="notnull " value="<!--{$data.acountid}-->"  class="input-b"/>
+            <span class="oe_trap"><label></label><em>根据本编号查询第三方数据</em></span>
+		</td></tr>
+		<tr>
+	    <th width="5%">设备类型：</th>
+		<td width="35%">
+            <select name="devices" tag="notnull ">
+            <option value=""
+                    <!--{if !$data.devices}-->
+                    selected
+                                <!--{/if}-->
+                   >==请选择== </option>
+                <option value="1"
+                    <!--{if $data.devices=='1'}-->
+                    selected
+                                <!--{/if}-->
+                   >IOS </option>
+                <option value="2"
+                    <!--{if $data.devices=='2'}-->
+                    selected
+                                <!--{/if}-->
+                   >ANDROID</option>
+            </select></td></tr>
+            <tr>
+	    <th width="5%">国家：</th>
+		<td width="35%">
+            <select name="countryid" tag="notnull ">
+                <option value=""
+                    <!--{if $data.countryid==''}-->
+                    selected
+                                <!--{/if}-->
+                   >==请选择== </option>
+                <!--{foreach $country as $k=>$val}-->
+							<option value="<!--{$k}-->"
+								<!--{if $data.countryid==$k}-->
+								selected
+								<!--{/if}-->
+								><!--{$val}--></option>
+								<!--{/foreach}-->
+            </select></td></tr>
+            
+            <tr>
+	    <th width="5%">项目：</th>
+		<td width="35%">
+            <select name="item" tag="notnull ">
+               
+               <!--{foreach $item as $k=>$val}-->
+							<option value="<!--{$k}-->"
+								<!--{if $data.item==$k}-->
+								selected
+								<!--{/if}-->
+								><!--{$val}--></option>
+								<!--{/foreach}-->
+               
+               
+               
+               
+               
+               
+               
+            </select></td></tr>
+            
+ <tr>
+	    <th width="5%">是否启用：</th>
+		<td width="35%">
+            <select name="flag" tag="notnull ">
+                <option value="0"
+                    <!--{if $data.flag=='0'}-->
+                    selected
+                                <!--{/if}-->
+                   >是 </option>
+                <option value="1"
+                    <!--{if $data.flag=='1'}-->
+                    selected
+                                <!--{/if}-->
+                   >否</option>
+            </select></td></tr>
+     </table>
+
+  <div class="oe_button_layout">
+	  <input type="button" class="button_2" value="提交保存" tag="submit" /> 
+	  <span id="submit_tips" class="error"></span>
+	</div>
+</form>
+</div>
+</div>
+</body>

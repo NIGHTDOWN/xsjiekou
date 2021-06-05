@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=<!--{$page_charset}-->" />
+    <!--{include file={$admintpl}"top/headerjs.html"}-->
+    
+    <style>
+    	h3{
+    		border-top-style: groove;
+    font-size: 18px;
+    padding: 6px 0;margin: 5px 0px;
+    width: auto;
+    	}
+    </style>
+</head>
+<body>
+    <div class="oemarry_layout">
+  <div class="oe_top_nav">
+	 <!--{include file={$admintpl}"a_nav.html"}-->
+<span><a href="javascript:;" url="<!--{url action='run'}-->" tag="back">&lt;&lt;返回列表</a></span>
+  </div>
+  <div class="a_content oe_dlv">
+<form method="post" action="<!--{url action=$a}-->" >
+ <input  type="hidden" name="adid" value="<!--{$data.adid}-->"/>
+    <h3>广告位：</h3>
+     <table class="oe_table_warp">
+     
+	  <tr>
+	    <th width="15%"><span class="red">*</span>选择广告位：</th>
+		<td width="35%">
+	 <!--{assign var="cat" vo_list("fun={get_all} mod={ads}  array={flag:0}")}-->
+            <select name='adsid' <!--{if $a=='show'}-->disabled<!--{/if}-->>
+                 <option value='0'>-请选择-</option>
+                <!--{foreach $cat as $volist}-->
+               
+                <option value='<!--{$volist.adsid}-->'
+                    <!--{if $data.adsid==$volist.adsid}-->
+                  selected="selected"
+                                <!--{/if}-->
+                                 <!--{if $select.adsid==$volist.adsid}-->
+                  selected="selected"
+                                <!--{/if}-->
+                    >
+                    <!--{$volist.adname}--></option>
+                <!--{/foreach}-->
+            </select>
+		
+            
+		</td>
+       
+	  </tr>
+<tr>
+	    <th width="15%">广告名称</th>
+		<td width="35%"><input type="text" name="alt" tag="notnull" value="<!--{$data.alt}-->"   class="input-b"/>
+		
+		</td>
+	  </tr>
+<tr>
+	    <th width="15%">广告图片：(尺寸<!--{$data.width}-->*<!--{$data.height}-->)</th>
+		<td class="img" >
+		 <button tag='img_up_one' class='pic' type="button" id="oe_img_button">上传图片</button>
+                 <!--{if $data.pic}-->
+				 <span id="viewimg_img"><div style="float:left;width:auto;"><div class="upimg_view" style="height:80px;width:80px;overflow:hidden;cursor:pointer;margin-top:5px;"><img alt="点击查看大图" src="<!--{$data.pic}-->" width="80px" onclick="window.open('<!--{$data.pic}-->');" style="height: 80px; width: 79px; margin-top: 0px; margin-left: 0.5px;"></div><input type="hidden" value="<!--{$data.pic}-->" name="pic"> <button type="button" style=" background: none repeat scroll 0 0 #fafafa; border: 1px solid #ebebeb;border-radius: 3px; cursor: pointer;display: block;margin-top: 10px;width: 80px;" onclick="javascript:delobj($(this).parent('div'));">删除</button></div></span>
+                 
+              <!--{/if}-->   
+		
+		
+		
+		</td>
+	  </tr>
+	  <tr>
+	    <th width="15%">广告链接：</th>
+		<td width="35%"><input type="text" name="href" tag="notnull " value="<!--{$data.href}-->"   class="input-b"/>
+		
+		</td>
+	  </tr>
+
+<tr>
+	    <th width="15%">投放时间</th>
+		<td width="35%">开始时间：<input type="text" name="stime" tag="cannull " value="<!--{$data.stime|date_format:"%Y-%m-%d %H:%M:%S"}-->"   class="input-b date"/>
+		结束时间：<input type="text" name="etime" tag="cannull " value="<!--{$data.etime|date_format:"%Y-%m-%d %H:%M:%S"}-->"   class="input-b date"/>
+		</td>
+	  </tr>
+ <tr>
+	    <th width="15%">广告排序：</th>
+		<td width="35%"><input type="text" name="orders" tag="cannull fixnum isnum" value="<!--{$data.orders}-->"   class="input-b"/>
+		
+		</td>
+	  </tr>
+<tr>
+	    <th width="15%"><span class="red">*</span>状态：</th>
+		<td width="35%">
+		<select name='aflag'>
+                <option value=''>-选择-</option>
+                
+              
+                <option value='0'  
+                    <!--{if $data.aflag==0}-->
+                  selected="selected"
+                                <!--{/if}-->
+                    >
+                    正常</option>
+                 <option value='1'  
+                    <!--{if $data.aflag==1}-->
+                  selected="selected"
+                                <!--{/if}-->
+                    >
+                    关闭</option>
+                  
+            </select>
+		
+            
+		</td>
+       
+	  </tr>
+
+         </table>
+    
+  <div class="oe_button_layout">
+	  <input type="button" class="button_2" value="提交保存" tag="submit" /> 
+	  <span id="submit_tips" class="error"></span>
+	</div>
+</form>
+</div>
+</div>
+</body>

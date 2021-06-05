@@ -1,0 +1,112 @@
+<!--{include file={$admintpl}"top/headerjs.html"}-->
+<body>
+<div class="oemarry_layout"> 
+     <div class="oe_top_nav"><!--{include file={$admintpl}"a_nav.html"}--></div>
+  <div class="a_content">
+    <form action="" method="post">
+      <div class="oe_tools_bar clearfix">
+           <a class="icon-checkbox-checked icon-checkbox-unchecked" href="javascript:;" onClick="tools_select('adid[]',this)" title="全选" data="true"> 全选 </a> 
+          <a class="icon-remove-2" href="javascript:;" onclick="boxyn($(this))" do="tools_submit({action:'<!--{url  action="del" group="admin"}-->',id:'adid'})" title="删除"> 删除</a>
+           <a href="<!--{url group='admin' action='add'}-->" class="icon-plus"> 添加</a>
+            <div style="display:none" id="area_serach">
+          <input id="areaname" type="text">
+          <input name="查找" value="查找" type="button" onClick="search_str($(this).prev('#areaname').val())">
+        </div>
+            <span class="fr"><a href="javascript:;"  onClick="lbox('筛选条件')"  id="condition" class="icon-search <!--{if $where}-->red<!--{/if}-->"> 筛选条件</a></span>
+ </div>
+      <table class="oe_table_list table_cs"  id="paixun">
+        <tbody>
+          <tr>
+            <th style="width:5%;text-align:center;">选择</th>
+              <th style="width:15%;">广告名称</th>
+                 <th style="width:15%;">图片</th>
+              <th style="width:8%;">广告位</th>
+                 <th style="width:7%;text-align:center;">广告位类型</th>
+               <th style="width:10%;text-align:center;">展示时间</th>
+           
+                <th style="width:8%;text-align:center;">展示位置级别</th>
+                <th style="width:10%;text-align:center;">点击量</th>
+            <th style="width:5%;text-align:center;">状态</th>
+            <th style="text-align:center;">操作</th>
+          </tr>
+          <!--{foreach $ad as $volist}-->
+          <tr>
+            <td style="text-align:center;"><input type="checkbox" value="<!--{$volist.adid}-->" name="adid[]" />
+              </td>
+              <td > <!--{$volist.alt}--></td>
+              <td > <!--{if $volist.pic}--><img src='<!--{$volist.pic}-->' style='width:80px;height:80px'> <!--{/if}--></td>
+               <td > <!--{$volist.adname}--></td>
+               
+               
+               <td  >
+
+                           <!--{if $volist.adtype=='0'}-->
+                             单图
+                           <!--{elseif $volist.adtype=='1'}-->
+                           幻灯片
+                          <!--{elseif $volist.adtype=='2'}-->
+                                     文字
+                                        <!--{/if}-->
+                         </td>
+                <td ><!--{$volist.stime|date_format:"%Y-%m-%d %H:%M:%S"}-->--<!--{$volist.etime|date_format:"%Y-%m-%d %H:%M:%S"}--></td>
+             
+              <td  >
+
+                           <!--{if $volist.arealevel=='0'}-->
+                             全国
+                           <!--{elseif $volist.arealevel=='1'}-->
+                           省级
+                          <!--{elseif $volist.arealevel=='2'}-->
+                                     市级
+                                       <!--{elseif $volist.arealevel=='3'}-->区域
+                                        <!--{/if}-->
+                         </td>
+          <td > <!--{$volist.hits}--></td>
+              <td who="ad" key="<!--{$volist.adid}-->" name="flag" tag="ajaxchoose" style="cursor:pointer">  <!--{if $volist.flag=='0'}-->
+                  <div class="yes"></div>
+                           <!--{else}--> <div class="no"></div>
+                    <!--{/if}-->
+              </td>
+            <td style="text-align:center;" class="a_edit_del">
+             
+                <a class="oe_ico_blue" href="<!--{url action="show" args="adid:{$volist.adid}"}-->">编辑</a> 
+                <a class="oe_ico_red" a="<!--{url action="del" args="adid:{$volist.adid}"}-->" onClick="boxyn($(this))">删除</a>
+            </td>
+          </tr>
+          <!--{/foreach}-->
+        </tbody>
+      </table>
+      <div class="oe_page_box"> 
+        <!--{$page}--> 
+      </div>
+    </form>
+  </div>
+</div>
+<div style="display: none;" id="searchbox">
+  <form method="post" style="width:400px;" action="">
+       <input name="sflag" type="hidden" value="1">
+     <table align="center" width="473" class="oe_table_warp">
+      
+          <tbody>
+         <tr>
+        <td height="40" style="text-align:right;">标识：</td>
+        <td>
+        <input name="identify" class="input-b" type="text" value="<!--{$where.identify}-->">
+            
+        </td>
+           
+      </tr>
+
+       
+        
+       
+    </tbody></table>
+   
+    <div style="text-align:center">
+           <input name="" value="清空" class="oe_boxbut" tag="reset" type="button">
+        <span style="padding-left:50px;"></span>
+          <input name="" value="提交查询" class="oe_boxbut" tag="submit" type="button">
+    </div>
+  </form>
+</div>
+</body>

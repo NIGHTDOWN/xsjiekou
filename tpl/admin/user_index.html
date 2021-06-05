@@ -1,0 +1,118 @@
+<!--{include file={$admintpl}"top/headerjs.html"}-->
+<body>
+<div class="oemarry_layout"> 
+     <div class="oe_top_nav"><!--{include file={$admintpl}"a_nav.html"}--></div>
+  <div class="a_content">
+    <form action="" method="post">
+      <div class="oe_tools_bar clearfix">
+           <a class="icon-checkbox-checked icon-checkbox-unchecked" href="javascript:;" onClick="tools_select('uid[]',this)" title="全选" data="true"> 全选 </a> 
+          <a class="icon-remove-2" href="javascript:;" onclick="boxyn($(this))" do="tools_submit({action:'<!--{url  action="del" group="admin"}-->',id:'uid'})" title="删除"> 删除</a>
+           <a href="<!--{url group='admin' action='add'}-->" class="icon-plus"> 添加</a>
+            <div style="display:none" id="area_serach">
+          <input id="areaname" type="text">
+          <input name="查找" value="查找" type="button" onClick="search_str($(this).prev('#areaname').val())">
+        </div>
+            <span class="fr"><a href="javascript:;"  onClick="lbox('筛选条件')"  id="condition" class="icon-search <!--{if $where}-->red<!--{/if}-->"> 筛选条件</a></span>
+ </div>
+      <table class="oe_table_list table_cs"  id="paixun">
+        <tbody>
+          <tr>
+            <th style="width:5%;text-align:center;">选择</th>
+            <th >ID</th>
+            <th >归属</th>
+            <th >广告账号名称</th>
+              <th >广告账号编号</th>
+             <th >国家</th>
+              <th >设备类型</th>
+                 <th >添加时间</th>
+               
+            <th >状态</th>
+            <th style="text-align:center;">操作</th>
+          </tr>
+          <!--{foreach $data as $volist}-->
+          <tr>
+            <td style="text-align:center;"><input type="checkbox" value="<!--{$volist.uid}-->" name="uid[]" />
+              </td>
+               <td > <!--{$volist.uid}--></td>
+               <td > <!--{$volist.username}--></td>
+               <td > <!--{$volist.name}--></td>
+               <td > <!--{$volist.acountid}--></td>
+                <td  >  <!--{if $volist.devices=='0'}-->
+                             未知
+                           <!--{elseif $volist.devices=='1'}-->
+                           IOS
+                         <!--{elseif $volist.devices=='2'}-->
+                           ANDROID
+                                        <!--{/if}--></td>
+                <td>
+                                        	
+                                        	<!--{$country[$volist.countryid]}-->
+                                        	
+                                        </td>
+              <td > <!--{$volist.addtime|date_format:"%Y-%m-%d %H:%M:%S"}--></td>
+         
+              <td >  <!--{if $volist.flag=='0'}-->
+                  <div class="yes"></div>
+                           <!--{else}--> <div class="no"></div>
+                    <!--{/if}-->
+              </td>
+            <td style="text-align:center;" class="a_edit_del">
+              
+                  <a class="oe_ico_orange" href="<!--{url action="run" mod="census"  args="acountid:{$volist.uid}"}-->">查看报表</a> 
+                <a class="oe_ico_blue" href="<!--{url action="show" args="uid:{$volist.uid}"}-->">编辑</a> 
+                <a class="oe_ico_red" a="<!--{url action="del" args="uid:{$volist.uid}"}-->" onClick="boxyn($(this))">删除</a>
+            </td>
+          </tr>
+          <!--{/foreach}-->
+        </tbody>
+      </table>
+      <div class="oe_page_box"> 
+        <!--{$page}--> 
+      </div>
+    </form>
+  </div>
+</div>
+<div style="display:none;" id="searchbox">
+  <form method="post" style="width:400px;" action="<!--{url mod='user'}-->">
+       <input name="sflag" type="hidden" value="1">
+     <table align="center" width="473" class="oe_table_warp">
+      
+          <tbody>
+           <tr>
+        <td height="40" style="text-align:right;">广告名称</td>
+        <td>
+        <input name="name" class="input-b" type="text" value="<!--{$where.name}-->" >
+            
+        </td>
+           
+      </tr>
+         <tr>
+        <td height="40" style="text-align:right;">归属</td>
+        <td>
+        <input name="username" class="input-b" type="text" value="<!--{$where.username}-->" >
+            
+        </td>
+           
+      </tr>
+         <tr>
+        <td height="40" style="text-align:right;">广告编号</td>
+        <td>
+        <input name="acountid" class="input-b" type="text" value="<!--{$where.acountid}-->" >
+            
+        </td>
+           
+      </tr>
+
+       
+        
+       
+    </tbody></table>
+   
+    <div style="text-align:center">
+           <input name="" value="清空" class="oe_boxbut" tag="reset" type="button" style="background: #fea03e">
+        <span style="padding-left:50px;"></span>
+          <input name="" value="提交查询" class="oe_boxbut" tag="submit" type="button" style="background: #fea03e">
+    </div>
+  </form>
+</div>
+</body>

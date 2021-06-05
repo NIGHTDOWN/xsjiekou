@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<!--{$page_charset}-->" />
+<!--{include file={$admintpl}"top/headerjs.html"}-->
+<body>
+
+<div class="a_main oemarry_layout">
+    <div class="oe_top_nav">
+	 <!--{include file={$admintpl}"a_nav.html"}-->
+  </div>
+  <div class="a_content">
+  <h2>系统信息</h2>
+    <div class="a_system">
+      <table class="a_table">
+        <tr>
+         <th width="20%">站点域名：</th>
+          <td width="30%"><!--{$config.site_url}--></td>
+          <th width="20%">操作系统：</th>
+          <td width="30%"><!--{$sysdata.os}--></td>         
+        </tr>
+        <tr>
+          <th>服务器IP：</th>
+          <td><!--{$sysdata.serverip}--></td>
+          <th>客户端IP：</th>
+          <td><!--{$sysdata.clientip}--></td>
+        </tr>
+
+        <tr>
+          <th>PHP版本：</th>
+          <td><!--{$sysdata.phpversion}--></td>
+          <th>curl支持：</th>
+          <td><!--{$sysdata.curl}--></td>
+        </tr>
+        <tr>
+          <th>GD版本：</th>
+          <td><!--{$sysdata.gd}--></td>
+          <th>iconv支持：</th>
+          <td><!--{$sysdata.iconv}--></td>
+        </tr>
+        <tr>
+          <th>url fopen：</th>
+          <td><!--{$sysdata.urlopen}--></td>
+           <th>web引擎：</th>
+          <td><!--{$sysdata.webengine}--></td>
+        </tr>
+      </table>
+    </div>  
+  </div>  
+  <div class="a_content">
+    <h2>网站信息统计</h2>
+    <div class="a_system">
+      <table class="a_table">      
+        <tr>
+          <th width="20%">广告账号总数：</th>
+          <td width="30%"><label class="red" onclick="_go_url('<!--{url mod='user'}-->')"><!--{$sysdata.unum}--></label></td>
+                  
+        </tr>
+      </table>
+    </div>
+  
+  </div>
+</div>
+
+</body>
+</html>

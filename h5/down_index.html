@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Download</title>
+    <!-- TODO: 分享标题 -->
+    <!-- TODO: 分享链接， 最好不带query条作 -->
+    <meta property="og:url" content="https://api.tlandnovels.com/home/down/invite">
+    <!-- TODO: 标题 -->
+    <meta property="og:title" content="อ่านเลย">
+    <!-- TODO: 描述 -->
+    <meta property="og:description" content="แอปอ่านเลย มีทั้งนิยายสดใหม่และการ์ตูนเด็ด มีทั้งแนวปัจจุบัน แนวจีนโบราณ นิยายเรื่องสั้น เนือหาเร้าใจ ให้ท่านได้เข้าสู่สถานการณ์จริง">
+    <!-- TODO: 分享时显示的图片, 具体要求 ➡ https://developers.facebook.com/docs/sharing/best-practices#images -->
+    <meta property="og:image" content="https://api.tlandnovels.com/static/down/imgs/share.jpg">
+    <meta property="fb:app_id" content="1440719422">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="อ่านเลย">
+    <meta property="og:locale" content="vi_VN">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="https://apiv1.aikoversea.com/h5/css/commonality.css">
+    <link rel="stylesheet" href="https://apiv1.aikoversea.com/h5/css/download.css">
+</head>
+
+<body>
+    <div class="main">
+        <div class="page_1">
+        </div>
+        <div class="download_page flexCenter flexCenter-column">
+            <a href="javascript:;"><img src="https://apiv1.aikoversea.com/h5/images/2.png" class="cursor iphone"></a>
+            <a href="https://down.tlandnovels.com/android/index3.php?userid=<!--{$uid}-->&type=down&share_type=2"><img src="https://apiv1.aikoversea.com/h5/images/1.png" class="cursor"></a>
+        </div>
+    </div>
+    <!-- ___________________________脚本___________________________ -->
+    <script src="https://apiv1.aikoversea.com/h5/js/jquery.min.js"></script>
+    <script src="https://apiv1.aikoversea.com/h5/js/md5.js"></script>
+    <script src="https://apiv1.aikoversea.com/h5/js/swiper.min.js"></script>
+    <script src="https://apiv1.aikoversea.com/h5/js/commonality.js"></script>
+    <!-- <script src="https://apiv1.aikoversea.com/h5/js/index.js"></script> -->
+    <script>
+    $(function() {
+        $(".iphone").click(function() {
+            var u = navigator.userAgent,
+                app = navigator.appVersion;
+            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; // Android
+            var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios
+            if (isIOS) {
+                $.post("/index/down/downiphone", {
+                        users_id: "1",
+                        type: 2
+                    },
+                    function(data) {
+                        if (data.code == "1") {
+                            alert("is iphone");
+                            var ios_bookid;
+                            var ios_type = GetQueryString("type");
+                            if (ios_type == "1") {
+                                ios_bookid = GetQueryString("bid");
+                            } else if (ios_type == "2") {
+                                ios_bookid = GetQueryString("cid");
+                            }
+                            var ios_uid = GetQueryString("uid");
+                            var ios_cn = GetQueryString('cn');
+                            window.location.href = "https://yxbookread.page.link/?link=https://apiv1.aikoversea.com/h5/share.html?params=type:" + ios_type + "-bookid:" + ios_bookid + "-uid:" + ios_uid + "-cn:" + ios_cn + "&apn=com.example.android&isi=1484770042&ibi=com.jdljf.net";
+
+
+                        } else {
+                            window.location.reload();
+                        }
+                    },
+                    "json");
+            }
+        })
+    })
+    </script>
+</body>
+
+</html>

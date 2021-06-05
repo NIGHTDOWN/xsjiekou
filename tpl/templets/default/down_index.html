@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Download</title>
+    <!-- TODO: 分享标题 -->
+    <!-- TODO: 分享链接， 最好不带query条作 -->
+    <meta property="og:url" content="<!--{$url}-->">
+    <!-- TODO: 标题 -->
+    <meta property="og:title" content="LookStory">
+    <!-- TODO: 描述 -->
+    <meta property="og:description" content="<!--{$description}-->">
+    <!-- TODO: 分享时显示的图片, 具体要求 ➡ https://developers.facebook.com/docs/sharing/best-practices#images -->
+    <meta property="og:image" content="http://api.lookstory.xyz/<!--{$static}-->logo/logo.png">
+    <meta property="fb:app_id" content="2090299167929890">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="LookStory">
+    <meta property="og:locale" content="<!--{$locale}-->">
+    <meta name="format-detection" content="telephone=no">
+
+    <meta name="viewport" content="shrink-to-fit=no, viewport-fit=cover, width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src='<!--{$staticjs}-->jquery.min.js'></script>
+    <script src='<!--{$staticjs}-->night_Trad.v1.0.js'></script>
+
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+            font-size: 1rem;
+        }
+        
+        .tbody {
+            width: 100%;
+            height: 100%;
+            display: block;
+            position: absolute;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+        
+        .txing {
+            width: 100%;
+            height: 70%;
+            display: block;
+            position: absolute;
+            bottom: 0px;
+            /* background: green; */
+            /* transform: scaleY(2) perspective(0.5em) rotateX(5deg);
+            transform-origin: top right; */
+            transform: skewY(-15deg) translate(0px, 30%);
+            -ms-transform: skewY(-15deg) translate(0px, 30%);
+            -moz-transform: skewY(-15deg) translate(0px, 30%);
+            -webkit-transform: skewY(-15deg) translate(0px, 30%);
+            -o-transform: skewY(-15deg) translate(0px, 30%);
+        }
+        
+        .jb {
+            background: -moz-linear-gradient(top, #f3a372 0%, #f04f54 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f3a372), color-stop(100%, #f04f54));
+            background: -webkit-linear-gradient(top, #f3a372 0%, #f04f54 100%);
+            background: -o-linear-gradient(top, #f3a372 0%, #f04f54 100%);
+            background: -ms-linear-gradient(top, #f3a372 0%, #f04f54 100%);
+            background: linear-gradient(to bottom, #f3a372 0%, #f04f54 100%);
+        }
+        
+        .jb2 {
+            background: -moz-linear-gradient(top, #f28e6c 0%, #f04f54 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f28e6c), color-stop(100%, #f04f54));
+            background: -webkit-linear-gradient(top, #f28e6c 0%, #f04f54 100%);
+            background: -o-linear-gradient(top, #f28e6c 0%, #f04f54 100%);
+            background: -ms-linear-gradient(top, #f28e6c 0%, #f04f54 100%);
+            background: linear-gradient(to bottom, #f28e6c 0%, #f04f54 100%);
+        }
+        
+        .bg {
+            max-width: 500px;
+            width: 65%;
+            margin: 0 auto 0 auto;
+        }
+        
+        .bg img {
+            width: 100%;
+        }
+        
+        .t1 {
+            text-align: center;
+            color: white;
+            font-size: 150%;
+            margin-top: 15%;
+        }
+        
+        .t2 {
+            text-align: center;
+            color: white;
+            font-size: 100%;
+            margin-top: 2%;
+            margin-bottom: 10%;
+        }
+        
+        .bottombody {
+            position: absolute;
+            bottom: 0px;
+            margin: 0 auto 10% auto;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+        
+        .btn1 {
+            border-radius: 10px;
+            background: white;
+            padding: 15px 13%;
+            margin: 4% auto 0 auto;
+            font-size: 120%;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            width: 120px;
+        }
+        
+        .bt3 {
+            color: #f1625b;
+        }
+        
+        .bt4 {
+            color: #0f7cf5;
+        }
+        
+        .btn2 {
+            /* border-radius: 10px; */
+            /* background: white; */
+            /* padding: 15px 13%; */
+            margin: 3% auto 0 auto;
+            font-size: 80%;
+            color: white;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .btn1 .btn1ico {
+            width: 1.5rem;
+            margin-right: 0.3rem;
+        }
+        
+        .btn2 .btn1ico {
+            width: 0.8rem;
+            margin-right: 0.2rem;
+        }
+        
+        #input {
+            border: none;
+            width: 0px;
+            height: 0px;
+            position: absolute;
+            top: -6rem;
+        }
+        
+        .stopxz {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tbody jb">
+        <div class="t1">LoosStory</div>
+        <div class="t2"><!--{$t2}--></div>
+        <textarea id="input" readonly>￥lookstory￥<!--{$uid}-->￥</textarea>
+        <div id='cp_btn' class="bg ">
+            <img src="<!--{$indextpl}-->images/poone.png" />
+        </div>
+        <div class="txing jb2">
+        </div>
+        <div class="bottombody ">
+            <div class="btn1 bt3 zl stopxz">
+                <img class="btn1ico " src="<!--{$indextpl}-->images/hand.png"> <span><!--{$zl}--> </span></div>
+            <div class="btn1 bt4 appdown stopxz">
+                <img class="btn1ico " src="<!--{$indextpl}-->images/android.png"> <span><!--{$downplay}--></span>
+            </div>
+            <div class="btn2 down stopxz">
+                <img class="btn1ico " src="<!--{$indextpl}-->images/down.png"><span><!--{$down}--></span>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ___________________________脚本___________________________ -->
+
+    <script>
+        var downlink = "<!--{$apk_url}-->";
+        // ￥lookstory￥123456￥
+        var downcode = "￥lookstory￥<!--{$uid}-->￥";
+        var playlink = "https://play.google.com/store/apps/details?id=com.ng.story";
+        var applink = "lookstory://com.ng.story/reg?pid=<!--{$uid}-->";
+        // lookstory://com.ng.story/item.html?id=41700658839
+        function initsize() {
+            //检查宽度高度比例
+            //宽度大于高度，强制屏幕宽度高度变成16：9
+            $h = $(window).height();
+            $w = $(window).width();
+            if ($w > ($h * 0.7)) {
+                $hw = $h * (9 / 16);
+                $('.tbody').width($hw);
+                $('.tbody').height($h);
+                $fs = $hw / 24;
+                $("body").css("font-size", $fs);
+            }
+        }
+
+        function copycode() {
+            var obj = document.getElementById("input");
+            obj.select();
+            try {
+                //进行复制到剪切板
+                if (document.execCommand("Copy", "false", null)) {
+                    //如果复制成功
+                    d("复制成功！");
+                } else {
+                    //如果复制失败
+                    d("复制失败！");
+                }
+            } catch (err) {
+                //如果报错
+                d("复制错误！")
+            }
+
+        }
+
+
+        function down() {
+            copycode();
+            _go_url(playlink);
+        }
+
+        function ddown() {
+            copycode();
+            _go_url(downlink);
+        }
+
+
+
+        function _openAppUrl(appUrl) {
+            var ua = navigator.userAgent.toLocaleLowerCase(),
+                openBrowser = null,
+                deviceVersion = 0,
+                matchVersion = null,
+                openAppType = "",
+                downLoadUrl = playlink;
+
+            //如果是在微信内部点击的时候
+            if (ua.indexOf("micromessenger") != -1) {
+                _openAppUrl = function() {
+                    // alert("DEMO，请在移动端的浏览器查看！");
+                    alert("<!--{$alert}-->!");
+                }
+            } else {
+                //在浏览器打开，判断是在移动端还是在PC端
+                if (matchVersion = navigator.userAgent.match(/OS\s*(\d+)/)) {
+                    //赋值，并且判断
+                    //IOS设备的浏览器
+                    deviceVersion = matchVersion[1] || 0;
+
+                    if (deviceVersion - 9 >= 0) {
+                        openAppType = "newType";
+                    }
+                } else if (matchVersion = navigator.userAgent.match(/Android\s*(\d+)/)) {
+                    //Android的设备
+                    deviceVersion = matchVersion[1] || 0;
+
+                    if (deviceVersion - 5 >= 0) {
+                        openAppType = "newType";
+                    }
+
+                } else {
+                    //PC端的设备
+                    openAppType = "pc";
+                }
+
+
+                if (openAppType == "pc") {
+                    _openAppUrl = function() {
+                        alert("<!--{$alert}-->!");
+                    }
+                } else if (openAppType == "newType") {
+                    //使用新的方法，尝试打开APP
+                    //IOS>9,Android>5的版本
+
+                    _openAppUrl = function(url) {
+                        // alert("โปรดติดตั้งแอปก่อนโปรดติดตั้งแอพก่อนดำเนินการต่อ");
+                        // down();
+                        //复制口令
+                        copycode();
+
+                        var history = window.history,
+                            body = $("body").eq(0),
+                            ifr = $('<iframe class = "full-screen dn" style = "z-index:101;border:none;width:100%;height:100%;" src="' + downLoadUrl + '"></iframe>');
+
+                        body.append(ifr);
+                        $(window).on("popstate", function(e) {
+                            var state = history.state;
+
+                            if (!state) {
+                                ifr.addClass("dn");
+                            }
+                        });
+
+                        function _show() {
+                            history.pushState({}, "DownPage", "");
+                            ifr.removeClass("dn");
+                        }
+
+                        _openAppUrl = function(url) {
+                            location.href = url;
+                            _show();
+                        }
+
+                        _openAppUrl(url);
+
+                    }
+                } else {
+                    //使用计算时差的方案打开APP
+                    var checkOpen = function(cb) {
+                        var _clickTime = +(new Date()),
+                            _count = 0,
+                            intHandle = 0;
+
+                        //启动间隔20ms运行的定时器，并检测累计消耗时间是否超过3000ms，超过则结束
+                        intHandle = setInterval(function() {
+                            _count++;
+                            var elsTime = +(new Date()) - _clickTime;
+
+                            if (_count >= 100 || elsTime > 3000) {
+                                clearInterval(intHandle);
+                                //计算结束，根据不同，做不同的跳转处理，0表示已经跳转APP成功了
+                                if (elsTime > 3000 || document.hidden || document.webkitHidden) {
+                                    cb(0);
+                                } else {
+                                    cb(1);
+                                }
+
+                            }
+                        }, 20);
+                    }
+
+                    _openAppUrl = function(url) {
+                        var ifr = document.createElement('iframe');
+
+                        ifr.src = url;
+                        ifr.style.display = 'none';
+
+                        checkOpen(function(opened) {
+                            if (opened === 1) {
+                                location.href = downLoadUrl;
+                            }
+                        });
+
+                        document.body.appendChild(ifr);
+
+                        setTimeout(function() {
+                            document.body.removeChild(ifr);
+                        }, 2000);
+                    }
+
+                }
+
+            }
+            _openAppUrl(appUrl);
+        }
+
+        $(function() {
+            initsize();
+            $('.zl').on('click', function() {
+                //判断app是否安装
+                //安装就打开app传入参数
+                //没安装就下载
+                //并且复制口令
+                _openAppUrl(applink);
+                // openapp();
+            });
+            $('#cp_btn').on('click', function() {
+                //判断app是否安装
+                //安装就打开app传入参数
+                //没安装就下载
+                //并且复制口令
+                _go_url(applink);
+                // openapp();
+            });
+            $('.appdown').on('click', function() {
+                //打开应用市场
+                //复制口令
+                down();
+            });
+            $('.down').on('click', function() {
+                //下载app
+                //复制口令
+                ddown();
+            });
+
+        });
+    </script>
+</body>
+
+</html>

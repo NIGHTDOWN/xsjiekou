@@ -1,0 +1,595 @@
+2016-12-06 22:34:18, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\cert_util.php ], Line[37]------ 读取签名证书…… 
+2016-12-06 22:34:18, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\cert_util.php ], Line[62]------ 签名证书读取成功，序列号：68759663125 
+2016-12-06 22:34:18, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[22]------ =====签名报文开始====== 
+2016-12-06 22:34:18, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[28]------ 签名key=val&...串 >accessType=0&backUrl=http://222.222.222.222/upacp_demo_b2c/demo/api_01_gateway/BackReceive.php&bizType=000201&certId=68759663125&channelType=08&currencyCode=156&encoding=utf-8&frontUrl=http://localhost:8085/upacp_demo_b2c/demo/api_01_gateway/FrontReceive.php&merId=&orderId=ng16916120622341814028&reqReserved=小米 红米Note增强版 标准版手机&signMethod=01&txnAmt=2019&txnSubType=01&txnTime=20161206223418&txnType=01&version=5.0.0 
+2016-12-06 22:34:18, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[31]------ 摘要sha1x16 >17e37d676f9c477596a585a59d5d79e7f5f7fe67 
+2016-12-06 22:34:18, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[39]------ 签名串为 >1Kmxpse4Ifd/YKF7gNLD/wJmZoZSrME/5ZaxYGzetxn0jF2JrU9CqiLFzH84eg1uL/HN0AtHeVylwb2GuZ4Z5CcQygqVhpBHqEySV0w34qxKUTjMELazFemePWZ/06q2o2YqwpF2utebxOfrCILbkzpeoWMpgECCG4ShBUgl0IJGvY5vMglrfMUX3cYiJWWoF6thYBkDECOFY/hYYiacpmLyNQ7ULN7I3hJXUylWEt3X+ydIpJ4x/IdW2XII6qREO0PT4+xSqTu3uVrLkZxw4BG5vwH6aUBIdu3CSXY0wxP0RcVAQ3DHXUSfXykh9zAzpsFmb29qRgUa+e6zwBvCAA== 
+2016-12-06 22:34:18, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[44]------ =====签名报文结束====== 
+2016-12-06 22:34:18, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[200]------ 自动跳转html><html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body onload="javascript:document.pay_form.submit();">
+    <form id="pay_form" name="pay_form" action="https://101.231.204.80:5000/gateway/api/frontTransReq.do" method="post">
+	    <input type="hidden" name="version" id="version" value="5.0.0" />
+    <input type="hidden" name="encoding" id="encoding" value="utf-8" />
+    <input type="hidden" name="txnType" id="txnType" value="01" />
+    <input type="hidden" name="txnSubType" id="txnSubType" value="01" />
+    <input type="hidden" name="bizType" id="bizType" value="000201" />
+    <input type="hidden" name="frontUrl" id="frontUrl" value="http://localhost:8085/upacp_demo_b2c/demo/api_01_gateway/FrontReceive.php" />
+    <input type="hidden" name="backUrl" id="backUrl" value="http://222.222.222.222/upacp_demo_b2c/demo/api_01_gateway/BackReceive.php" />
+    <input type="hidden" name="signMethod" id="signMethod" value="01" />
+    <input type="hidden" name="channelType" id="channelType" value="08" />
+    <input type="hidden" name="accessType" id="accessType" value="0" />
+    <input type="hidden" name="currencyCode" id="currencyCode" value="156" />
+    <input type="hidden" name="merId" id="merId" value="" />
+    <input type="hidden" name="orderId" id="orderId" value="ng16916120622341814028" />
+    <input type="hidden" name="txnTime" id="txnTime" value="20161206223418" />
+    <input type="hidden" name="txnAmt" id="txnAmt" value="2019" />
+    <input type="hidden" name="reqReserved" id="reqReserved" value="小米 红米Note增强版 标准版手机" />
+    <input type="hidden" name="certId" id="certId" value="68759663125" />
+    <input type="hidden" name="signature" id="signature" value="1Kmxpse4Ifd/YKF7gNLD/wJmZoZSrME/5ZaxYGzetxn0jF2JrU9CqiLFzH84eg1uL/HN0AtHeVylwb2GuZ4Z5CcQygqVhpBHqEySV0w34qxKUTjMELazFemePWZ/06q2o2YqwpF2utebxOfrCILbkzpeoWMpgECCG4ShBUgl0IJGvY5vMglrfMUX3cYiJWWoF6thYBkDECOFY/hYYiacpmLyNQ7ULN7I3hJXUylWEt3X+ydIpJ4x/IdW2XII6qREO0PT4+xSqTu3uVrLkZxw4BG5vwH6aUBIdu3CSXY0wxP0RcVAQ3DHXUSfXykh9zAzpsFmb29qRgUa+e6zwBvCAA==" />
+   <!-- <input type="submit" type="hidden">-->
+    </form>
+</body>
+</html> 
+2016-12-06 22:35:52, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\cert_util.php ], Line[37]------ 读取签名证书…… 
+2016-12-06 22:35:52, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\cert_util.php ], Line[62]------ 签名证书读取成功，序列号：68759663125 
+2016-12-06 22:35:52, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[22]------ =====签名报文开始====== 
+2016-12-06 22:35:52, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[28]------ 签名key=val&...串 >accessType=0&backUrl=http://222.222.222.222/upacp_demo_b2c/demo/api_01_gateway/BackReceive.php&bizType=000201&certId=68759663125&channelType=08&currencyCode=156&encoding=utf-8&frontUrl=http://localhost:8085/upacp_demo_b2c/demo/api_01_gateway/FrontReceive.php&merId=777290058110048&orderId=ng16916120622355232144&reqReserved=小米 红米Note增强版 标准版手机&signMethod=01&txnAmt=2019&txnSubType=01&txnTime=20161206223552&txnType=01&version=5.0.0 
+2016-12-06 22:35:52, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[31]------ 摘要sha1x16 >f7e69af78a63884b6801b561f07b7101c820f7f7 
+2016-12-06 22:35:52, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[39]------ 签名串为 >hV1ct5Y0dE1Tfs8dcbFRJQCMHdCQVhyMokmWLSyMBictKUtux94uSQscqSuL9/ie0TO/igs0NU48euYqKd6DLaSS7USM8W1Lsi7pB8LW0LEeeZIU0gW4aUDs0XIBeHV8hFq3qrQSKeDw8IG2kefKL2+11bS4nQy2L24/2h+YoJpcU9JczSEobvGPOxlwcZyLTVbCS2e7a2um4yoGAUAcGZLGdoRuNdB6K/idJEcKXouWa2DCJetijJGCxWTV+Q23E/ZvIYvcAoObzf3K257iwXz/cQUo/nse0pHknA5lSpjXJTQw38ZlDvOWv2/2L+WXlFX1IDBVrx8xW3712LQsJg== 
+2016-12-06 22:35:52, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[44]------ =====签名报文结束====== 
+2016-12-06 22:35:52, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[200]------ 自动跳转html><html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body onload="javascript:document.pay_form.submit();">
+    <form id="pay_form" name="pay_form" action="https://101.231.204.80:5000/gateway/api/frontTransReq.do" method="post">
+	    <input type="hidden" name="version" id="version" value="5.0.0" />
+    <input type="hidden" name="encoding" id="encoding" value="utf-8" />
+    <input type="hidden" name="txnType" id="txnType" value="01" />
+    <input type="hidden" name="txnSubType" id="txnSubType" value="01" />
+    <input type="hidden" name="bizType" id="bizType" value="000201" />
+    <input type="hidden" name="frontUrl" id="frontUrl" value="http://localhost:8085/upacp_demo_b2c/demo/api_01_gateway/FrontReceive.php" />
+    <input type="hidden" name="backUrl" id="backUrl" value="http://222.222.222.222/upacp_demo_b2c/demo/api_01_gateway/BackReceive.php" />
+    <input type="hidden" name="signMethod" id="signMethod" value="01" />
+    <input type="hidden" name="channelType" id="channelType" value="08" />
+    <input type="hidden" name="accessType" id="accessType" value="0" />
+    <input type="hidden" name="currencyCode" id="currencyCode" value="156" />
+    <input type="hidden" name="merId" id="merId" value="777290058110048" />
+    <input type="hidden" name="orderId" id="orderId" value="ng16916120622355232144" />
+    <input type="hidden" name="txnTime" id="txnTime" value="20161206223552" />
+    <input type="hidden" name="txnAmt" id="txnAmt" value="2019" />
+    <input type="hidden" name="reqReserved" id="reqReserved" value="小米 红米Note增强版 标准版手机" />
+    <input type="hidden" name="certId" id="certId" value="68759663125" />
+    <input type="hidden" name="signature" id="signature" value="hV1ct5Y0dE1Tfs8dcbFRJQCMHdCQVhyMokmWLSyMBictKUtux94uSQscqSuL9/ie0TO/igs0NU48euYqKd6DLaSS7USM8W1Lsi7pB8LW0LEeeZIU0gW4aUDs0XIBeHV8hFq3qrQSKeDw8IG2kefKL2+11bS4nQy2L24/2h+YoJpcU9JczSEobvGPOxlwcZyLTVbCS2e7a2um4yoGAUAcGZLGdoRuNdB6K/idJEcKXouWa2DCJetijJGCxWTV+Q23E/ZvIYvcAoObzf3K257iwXz/cQUo/nse0pHknA5lSpjXJTQw38ZlDvOWv2/2L+WXlFX1IDBVrx8xW3712LQsJg==" />
+   <!-- <input type="submit" type="hidden">-->
+    </form>
+</body>
+</html> 
+2016-12-06 22:36:21, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\cert_util.php ], Line[37]------ 读取签名证书…… 
+2016-12-06 22:36:21, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\cert_util.php ], Line[62]------ 签名证书读取成功，序列号：68759663125 
+2016-12-06 22:36:21, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[22]------ =====签名报文开始====== 
+2016-12-06 22:36:21, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[28]------ 签名key=val&...串 >accessType=0&backUrl=http://222.222.222.222/upacp_demo_b2c/demo/api_01_gateway/BackReceive.php&bizType=000201&certId=68759663125&channelType=08&currencyCode=156&encoding=utf-8&frontUrl=http://localhost:8085/upacp_demo_b2c/demo/api_01_gateway/FrontReceive.php&merId=777290058110048&orderId=ng16916120622362172742&reqReserved=Jumper/中柏 EZbook2 4G 四核14英寸游戏办公超薄手提笔记本电脑&signMethod=01&txnAmt=2520&txnSubType=01&txnTime=20161206223621&txnType=01&version=5.0.0 
+2016-12-06 22:36:21, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[31]------ 摘要sha1x16 >414f408d5b998603b234dd19352b50c055f08e6c 
+2016-12-06 22:36:21, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[39]------ 签名串为 >D2XnXevK3r3EyrBebexHWRDIe2TCk0CeV0ERfSjGlSYvzYh/BOgvU3eXKA6I7XGeaM9752Lg2G4sel95VqLPVzlP2eQDgYtdW0boR+oZrCEHVKuV/K3dKV8HBwS51UDUtWFRUewaNOcn8DcW4D4Hvf06kzbsfF78AV6h3ELTVTwNKPwQIsZiULdEXMo/LfKIsDTt4Nsld+7xL5iM3ywBeICa6TwdC4MCjU8It63jPEIp7XSqoa6KEjzRZJDiMYWtMg7ObQmtzDsADXP+piDg0TjC8YOfRLAgnlA4ox93knHl8lTA+zpWGQ4Nwl+mvnlIFAnIWGGFnq9K+4z3gHsROA== 
+2016-12-06 22:36:21, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[44]------ =====签名报文结束====== 
+2016-12-06 22:36:21, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[200]------ 自动跳转html><html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body onload="javascript:document.pay_form.submit();">
+    <form id="pay_form" name="pay_form" action="https://101.231.204.80:5000/gateway/api/frontTransReq.do" method="post">
+	    <input type="hidden" name="version" id="version" value="5.0.0" />
+    <input type="hidden" name="encoding" id="encoding" value="utf-8" />
+    <input type="hidden" name="txnType" id="txnType" value="01" />
+    <input type="hidden" name="txnSubType" id="txnSubType" value="01" />
+    <input type="hidden" name="bizType" id="bizType" value="000201" />
+    <input type="hidden" name="frontUrl" id="frontUrl" value="http://localhost:8085/upacp_demo_b2c/demo/api_01_gateway/FrontReceive.php" />
+    <input type="hidden" name="backUrl" id="backUrl" value="http://222.222.222.222/upacp_demo_b2c/demo/api_01_gateway/BackReceive.php" />
+    <input type="hidden" name="signMethod" id="signMethod" value="01" />
+    <input type="hidden" name="channelType" id="channelType" value="08" />
+    <input type="hidden" name="accessType" id="accessType" value="0" />
+    <input type="hidden" name="currencyCode" id="currencyCode" value="156" />
+    <input type="hidden" name="merId" id="merId" value="777290058110048" />
+    <input type="hidden" name="orderId" id="orderId" value="ng16916120622362172742" />
+    <input type="hidden" name="txnTime" id="txnTime" value="20161206223621" />
+    <input type="hidden" name="txnAmt" id="txnAmt" value="2520" />
+    <input type="hidden" name="reqReserved" id="reqReserved" value="Jumper/中柏 EZbook2 4G 四核14英寸游戏办公超薄手提笔记本电脑" />
+    <input type="hidden" name="certId" id="certId" value="68759663125" />
+    <input type="hidden" name="signature" id="signature" value="D2XnXevK3r3EyrBebexHWRDIe2TCk0CeV0ERfSjGlSYvzYh/BOgvU3eXKA6I7XGeaM9752Lg2G4sel95VqLPVzlP2eQDgYtdW0boR+oZrCEHVKuV/K3dKV8HBwS51UDUtWFRUewaNOcn8DcW4D4Hvf06kzbsfF78AV6h3ELTVTwNKPwQIsZiULdEXMo/LfKIsDTt4Nsld+7xL5iM3ywBeICa6TwdC4MCjU8It63jPEIp7XSqoa6KEjzRZJDiMYWtMg7ObQmtzDsADXP+piDg0TjC8YOfRLAgnlA4ox93knHl8lTA+zpWGQ4Nwl+mvnlIFAnIWGGFnq9K+4z3gHsROA==" />
+   <!-- <input type="submit" type="hidden">-->
+    </form>
+</body>
+</html> 
+2016-12-06 22:37:34, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\cert_util.php ], Line[37]------ 读取签名证书…… 
+2016-12-06 22:37:34, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\cert_util.php ], Line[62]------ 签名证书读取成功，序列号：68759663125 
+2016-12-06 22:37:34, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[22]------ =====签名报文开始====== 
+2016-12-06 22:37:34, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[28]------ 签名key=val&...串 >accessType=0&backUrl=http://222.222.222.222/upacp_demo_b2c/demo/api_01_gateway/BackReceive.php&bizType=000201&certId=68759663125&channelType=08&currencyCode=156&encoding=utf-8&frontUrl=http://localhost:8085/upacp_demo_b2c/demo/api_01_gateway/FrontReceive.php&merId=777290058110048&orderId=ng16916120622373439228&reqReserved=Jumper/中柏 EZbook2 4G 四核14英寸游戏办公超薄手提笔记本电脑&signMethod=01&txnAmt=252000&txnSubType=01&txnTime=20161206223734&txnType=01&version=5.0.0 
+2016-12-06 22:37:34, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[31]------ 摘要sha1x16 >4f4441a09f38a234d3d9d52ad6fa65e043658e96 
+2016-12-06 22:37:34, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[39]------ 签名串为 >bHU5GZuf53FiOv98ENOIA46EFuD+JM0Hsty7riYSyNjdWyRbleb1QA/DXHSmRh4aIglqSiMRnyCfMB4pZ5znopiQO+4YiLf/IykCx68YUKEH21zhORnwyAwQ36MG9c/BV8FbyzgFWkq5ZnOifdgSvPrZuQcTTB5H4f/tUCpg1BoDsiM9W5ixILiYmV0IfQxkwfHjzJm7W6eAsjOzHi4qZ5pOvIqWht4ZUD6t6HdLlhkw47P6Is2c1S7DGfWRoBlMI9KliWLBzCgQ5pAn98KS0OraApEAIl9xLmFwQ4YYR4U/ZXOpZdWpl5dO+8y9soWnUXQB++aE2ts2qwNJQ1CHRA== 
+2016-12-06 22:37:34, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[44]------ =====签名报文结束====== 
+2016-12-06 22:37:34, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[200]------ 自动跳转html><html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body onload="javascript:document.pay_form.submit();">
+    <form id="pay_form" name="pay_form" action="https://101.231.204.80:5000/gateway/api/frontTransReq.do" method="post">
+	    <input type="hidden" name="version" id="version" value="5.0.0" />
+    <input type="hidden" name="encoding" id="encoding" value="utf-8" />
+    <input type="hidden" name="txnType" id="txnType" value="01" />
+    <input type="hidden" name="txnSubType" id="txnSubType" value="01" />
+    <input type="hidden" name="bizType" id="bizType" value="000201" />
+    <input type="hidden" name="frontUrl" id="frontUrl" value="http://localhost:8085/upacp_demo_b2c/demo/api_01_gateway/FrontReceive.php" />
+    <input type="hidden" name="backUrl" id="backUrl" value="http://222.222.222.222/upacp_demo_b2c/demo/api_01_gateway/BackReceive.php" />
+    <input type="hidden" name="signMethod" id="signMethod" value="01" />
+    <input type="hidden" name="channelType" id="channelType" value="08" />
+    <input type="hidden" name="accessType" id="accessType" value="0" />
+    <input type="hidden" name="currencyCode" id="currencyCode" value="156" />
+    <input type="hidden" name="merId" id="merId" value="777290058110048" />
+    <input type="hidden" name="orderId" id="orderId" value="ng16916120622373439228" />
+    <input type="hidden" name="txnTime" id="txnTime" value="20161206223734" />
+    <input type="hidden" name="txnAmt" id="txnAmt" value="252000" />
+    <input type="hidden" name="reqReserved" id="reqReserved" value="Jumper/中柏 EZbook2 4G 四核14英寸游戏办公超薄手提笔记本电脑" />
+    <input type="hidden" name="certId" id="certId" value="68759663125" />
+    <input type="hidden" name="signature" id="signature" value="bHU5GZuf53FiOv98ENOIA46EFuD+JM0Hsty7riYSyNjdWyRbleb1QA/DXHSmRh4aIglqSiMRnyCfMB4pZ5znopiQO+4YiLf/IykCx68YUKEH21zhORnwyAwQ36MG9c/BV8FbyzgFWkq5ZnOifdgSvPrZuQcTTB5H4f/tUCpg1BoDsiM9W5ixILiYmV0IfQxkwfHjzJm7W6eAsjOzHi4qZ5pOvIqWht4ZUD6t6HdLlhkw47P6Is2c1S7DGfWRoBlMI9KliWLBzCgQ5pAn98KS0OraApEAIl9xLmFwQ4YYR4U/ZXOpZdWpl5dO+8y9soWnUXQB++aE2ts2qwNJQ1CHRA==" />
+   <!-- <input type="submit" type="hidden">-->
+    </form>
+</body>
+</html> 
+2016-12-06 22:55:19, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\cert_util.php ], Line[37]------ 读取签名证书…… 
+2016-12-06 22:55:19, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\cert_util.php ], Line[62]------ 签名证书读取成功，序列号：68759663125 
+2016-12-06 22:55:19, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[22]------ =====签名报文开始====== 
+2016-12-06 22:55:19, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[28]------ 签名key=val&...串 >accessType=0&backUrl=ds.com/callback/asynpayback.4.php&bizType=000201&certId=68759663125&channelType=08&currencyCode=156&encoding=utf-8&frontUrl=ds.com/callback/syncpayback.4.php&merId=777290058110048&orderId=ng16916120622551981081&reqReserved=小米 红米Note增强版 标准版手机&signMethod=01&txnAmt=201900&txnSubType=01&txnTime=20161206225519&txnType=01&version=5.0.0 
+2016-12-06 22:55:19, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[31]------ 摘要sha1x16 >6110d242eee295916debcdaa5a89e28e8dcf9685 
+2016-12-06 22:55:20, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[39]------ 签名串为 >L/m37LqLLJf/79QhYOy7+5dT5L6VyXLPt9tkxZrZui672UzrFjPHjTLaUNtAqYEOlF6Y7KGBaBR5pSz9ytHfR0h0/Z8jPxrdeiBkho0TWwoOc6yRs5+YM0CaZHj45UgbX9AfGgzrH5emRqFfjgVqkAURZVE7mrx95HtY5tfASA5F0Abv5qbS9RGIg9mSM6KW7AxWB9kqAFv+jCXkyD32nTOuYshorL46Ai3VzNYz0zJWcMq9pU+k4NNT/JoMLm/tYpdyD+tmpwPpV5lAYrz23ZFHnz6EnO9mTYFX9AlbOu/BGA1bxBEl5fLTBMyCj1GO4wfaXK4Ah80v1BXBkrh8yQ== 
+2016-12-06 22:55:20, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[44]------ =====签名报文结束====== 
+2016-12-06 22:55:20, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[200]------ 自动跳转html><html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body onload="javascript:document.pay_form.submit();">
+    <form id="pay_form" name="pay_form" action="https://101.231.204.80:5000/gateway/api/frontTransReq.do" method="post">
+	    <input type="hidden" name="version" id="version" value="5.0.0" />
+    <input type="hidden" name="encoding" id="encoding" value="utf-8" />
+    <input type="hidden" name="txnType" id="txnType" value="01" />
+    <input type="hidden" name="txnSubType" id="txnSubType" value="01" />
+    <input type="hidden" name="bizType" id="bizType" value="000201" />
+    <input type="hidden" name="frontUrl" id="frontUrl" value="ds.com/callback/syncpayback.4.php" />
+    <input type="hidden" name="backUrl" id="backUrl" value="ds.com/callback/asynpayback.4.php" />
+    <input type="hidden" name="signMethod" id="signMethod" value="01" />
+    <input type="hidden" name="channelType" id="channelType" value="08" />
+    <input type="hidden" name="accessType" id="accessType" value="0" />
+    <input type="hidden" name="currencyCode" id="currencyCode" value="156" />
+    <input type="hidden" name="merId" id="merId" value="777290058110048" />
+    <input type="hidden" name="orderId" id="orderId" value="ng16916120622551981081" />
+    <input type="hidden" name="txnTime" id="txnTime" value="20161206225519" />
+    <input type="hidden" name="txnAmt" id="txnAmt" value="201900" />
+    <input type="hidden" name="reqReserved" id="reqReserved" value="小米 红米Note增强版 标准版手机" />
+    <input type="hidden" name="certId" id="certId" value="68759663125" />
+    <input type="hidden" name="signature" id="signature" value="L/m37LqLLJf/79QhYOy7+5dT5L6VyXLPt9tkxZrZui672UzrFjPHjTLaUNtAqYEOlF6Y7KGBaBR5pSz9ytHfR0h0/Z8jPxrdeiBkho0TWwoOc6yRs5+YM0CaZHj45UgbX9AfGgzrH5emRqFfjgVqkAURZVE7mrx95HtY5tfASA5F0Abv5qbS9RGIg9mSM6KW7AxWB9kqAFv+jCXkyD32nTOuYshorL46Ai3VzNYz0zJWcMq9pU+k4NNT/JoMLm/tYpdyD+tmpwPpV5lAYrz23ZFHnz6EnO9mTYFX9AlbOu/BGA1bxBEl5fLTBMyCj1GO4wfaXK4Ah80v1BXBkrh8yQ==" />
+   <!-- <input type="submit" type="hidden">-->
+    </form>
+</body>
+</html> 
+2016-12-06 22:56:51, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\cert_util.php ], Line[37]------ 读取签名证书…… 
+2016-12-06 22:56:51, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\cert_util.php ], Line[62]------ 签名证书读取成功，序列号：68759663125 
+2016-12-06 22:56:51, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[22]------ =====签名报文开始====== 
+2016-12-06 22:56:51, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[28]------ 签名key=val&...串 >accessType=0&backUrl=http://222.222.222.222/upacp_demo_b2c/demo/api_01_gateway/BackReceive.php&bizType=000201&certId=68759663125&channelType=08&currencyCode=156&encoding=utf-8&frontUrl=http://localhost:8085/upacp_demo_b2c/demo/api_01_gateway/FrontReceive.php&merId=777290058110048&orderId=ng16916120622565142897&reqReserved=小米 红米Note增强版 标准版手机&signMethod=01&txnAmt=201900&txnSubType=01&txnTime=20161206225651&txnType=01&version=5.0.0 
+2016-12-06 22:56:51, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[31]------ 摘要sha1x16 >66596c979f908a48b71bcccc33dc20d8eb0699ae 
+2016-12-06 22:56:51, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[39]------ 签名串为 >Qen0fCPQV03Bl2Y61TTeSRFwPu3oJNaa5NLz5Hl1lYFPfp7e2g18ps+ZbLCSHJkVAT7GNMmSx6W5r9AfsXbO1XXYnD524Je0aJP0V2luxq+ZO3AnI2cKOWFYVni3JUcK5VlR1hOotvSZIOZ7qKFNFtjrik7Ic+2FUunzC7NLYpBp9FuDnbTmI3eqByvcVHcJ/IfzD3OnDg2trHRn/ptrvymEoaXkbZ6qsAdrOdZnidBjUIbDICoa8sGj5UoRmN5oekIMEqL2bKpJ3y1DN2qnT1XVu4my+AuEzSTeLKagesHWnh399xwQVv1++Mt47+Ddcq3/0nT9oIw8hTpxeBGcDw== 
+2016-12-06 22:56:51, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[44]------ =====签名报文结束====== 
+2016-12-06 22:56:51, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[200]------ 自动跳转html><html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body onload="javascript:document.pay_form.submit();">
+    <form id="pay_form" name="pay_form" action="https://101.231.204.80:5000/gateway/api/frontTransReq.do" method="post">
+	    <input type="hidden" name="version" id="version" value="5.0.0" />
+    <input type="hidden" name="encoding" id="encoding" value="utf-8" />
+    <input type="hidden" name="txnType" id="txnType" value="01" />
+    <input type="hidden" name="txnSubType" id="txnSubType" value="01" />
+    <input type="hidden" name="bizType" id="bizType" value="000201" />
+    <input type="hidden" name="frontUrl" id="frontUrl" value="http://localhost:8085/upacp_demo_b2c/demo/api_01_gateway/FrontReceive.php" />
+    <input type="hidden" name="backUrl" id="backUrl" value="http://222.222.222.222/upacp_demo_b2c/demo/api_01_gateway/BackReceive.php" />
+    <input type="hidden" name="signMethod" id="signMethod" value="01" />
+    <input type="hidden" name="channelType" id="channelType" value="08" />
+    <input type="hidden" name="accessType" id="accessType" value="0" />
+    <input type="hidden" name="currencyCode" id="currencyCode" value="156" />
+    <input type="hidden" name="merId" id="merId" value="777290058110048" />
+    <input type="hidden" name="orderId" id="orderId" value="ng16916120622565142897" />
+    <input type="hidden" name="txnTime" id="txnTime" value="20161206225651" />
+    <input type="hidden" name="txnAmt" id="txnAmt" value="201900" />
+    <input type="hidden" name="reqReserved" id="reqReserved" value="小米 红米Note增强版 标准版手机" />
+    <input type="hidden" name="certId" id="certId" value="68759663125" />
+    <input type="hidden" name="signature" id="signature" value="Qen0fCPQV03Bl2Y61TTeSRFwPu3oJNaa5NLz5Hl1lYFPfp7e2g18ps+ZbLCSHJkVAT7GNMmSx6W5r9AfsXbO1XXYnD524Je0aJP0V2luxq+ZO3AnI2cKOWFYVni3JUcK5VlR1hOotvSZIOZ7qKFNFtjrik7Ic+2FUunzC7NLYpBp9FuDnbTmI3eqByvcVHcJ/IfzD3OnDg2trHRn/ptrvymEoaXkbZ6qsAdrOdZnidBjUIbDICoa8sGj5UoRmN5oekIMEqL2bKpJ3y1DN2qnT1XVu4my+AuEzSTeLKagesHWnh399xwQVv1++Mt47+Ddcq3/0nT9oIw8hTpxeBGcDw==" />
+   <!-- <input type="submit" type="hidden">-->
+    </form>
+</body>
+</html> 
+2016-12-06 22:57:28, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\cert_util.php ], Line[37]------ 读取签名证书…… 
+2016-12-06 22:57:28, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\cert_util.php ], Line[62]------ 签名证书读取成功，序列号：68759663125 
+2016-12-06 22:57:28, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[22]------ =====签名报文开始====== 
+2016-12-06 22:57:28, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[28]------ 签名key=val&...串 >accessType=0&backUrl=http://ds.com/callback/asynpayback.4.php&bizType=000201&certId=68759663125&channelType=08&currencyCode=156&encoding=utf-8&frontUrl=http://ds.com/callback/syncpayback.4.php&merId=777290058110048&orderId=ng16916120622572862690&reqReserved=小米 红米Note增强版 标准版手机&signMethod=01&txnAmt=201900&txnSubType=01&txnTime=20161206225728&txnType=01&version=5.0.0 
+2016-12-06 22:57:28, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[31]------ 摘要sha1x16 >4619a889f51a045be3a33dc9e7376b1f658d40ed 
+2016-12-06 22:57:28, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[39]------ 签名串为 >UouMV+9+uEw+0aawXgHLf2XqGpEQ2JRIkmQg7pkVEvLMsNXQQdm4pfozeT1NPx2wfniuuCZ3AD5iz2f0+4Qzv2VbdOkbAzt2+NLftNVr98xz50nYtUfmwe0/zS24hVevOVOF9dATV8VveFCUURMTeScu6KLr5NDYEbw6T2nX58GB3gwCM3lhaTPv/C6gA0JADjht+ymxxhoI0AZtxDeYsZiag6quJ5zh/F+grqxDIKzWZZnnlNb6ssOWWULZ7Ogc5OPVTVggBEnpyBddK45n5G/F3Z2PmPQlbLECMT5On9kPk8s8haXqUjp9SBuFYDIPc5KC6ksNj9c+7jFBjKRfMg== 
+2016-12-06 22:57:28, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[44]------ =====签名报文结束====== 
+2016-12-06 22:57:28, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[200]------ 自动跳转html><html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body onload="javascript:document.pay_form.submit();">
+    <form id="pay_form" name="pay_form" action="https://101.231.204.80:5000/gateway/api/frontTransReq.do" method="post">
+	    <input type="hidden" name="version" id="version" value="5.0.0" />
+    <input type="hidden" name="encoding" id="encoding" value="utf-8" />
+    <input type="hidden" name="txnType" id="txnType" value="01" />
+    <input type="hidden" name="txnSubType" id="txnSubType" value="01" />
+    <input type="hidden" name="bizType" id="bizType" value="000201" />
+    <input type="hidden" name="frontUrl" id="frontUrl" value="http://ds.com/callback/syncpayback.4.php" />
+    <input type="hidden" name="backUrl" id="backUrl" value="http://ds.com/callback/asynpayback.4.php" />
+    <input type="hidden" name="signMethod" id="signMethod" value="01" />
+    <input type="hidden" name="channelType" id="channelType" value="08" />
+    <input type="hidden" name="accessType" id="accessType" value="0" />
+    <input type="hidden" name="currencyCode" id="currencyCode" value="156" />
+    <input type="hidden" name="merId" id="merId" value="777290058110048" />
+    <input type="hidden" name="orderId" id="orderId" value="ng16916120622572862690" />
+    <input type="hidden" name="txnTime" id="txnTime" value="20161206225728" />
+    <input type="hidden" name="txnAmt" id="txnAmt" value="201900" />
+    <input type="hidden" name="reqReserved" id="reqReserved" value="小米 红米Note增强版 标准版手机" />
+    <input type="hidden" name="certId" id="certId" value="68759663125" />
+    <input type="hidden" name="signature" id="signature" value="UouMV+9+uEw+0aawXgHLf2XqGpEQ2JRIkmQg7pkVEvLMsNXQQdm4pfozeT1NPx2wfniuuCZ3AD5iz2f0+4Qzv2VbdOkbAzt2+NLftNVr98xz50nYtUfmwe0/zS24hVevOVOF9dATV8VveFCUURMTeScu6KLr5NDYEbw6T2nX58GB3gwCM3lhaTPv/C6gA0JADjht+ymxxhoI0AZtxDeYsZiag6quJ5zh/F+grqxDIKzWZZnnlNb6ssOWWULZ7Ogc5OPVTVggBEnpyBddK45n5G/F3Z2PmPQlbLECMT5On9kPk8s8haXqUjp9SBuFYDIPc5KC6ksNj9c+7jFBjKRfMg==" />
+   <!-- <input type="submit" type="hidden">-->
+    </form>
+</body>
+</html> 
+2016-12-06 23:33:50, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\cert_util.php ], Line[37]------ 读取签名证书…… 
+2016-12-06 23:33:50, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\cert_util.php ], Line[62]------ 签名证书读取成功，序列号：68759663125 
+2016-12-06 23:33:50, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[22]------ =====签名报文开始====== 
+2016-12-06 23:33:50, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[28]------ 签名key=val&...串 >accessType=0&backUrl=http://ds.com/callback/asynpayback.4.php&bizType=000201&certId=68759663125&channelType=08&currencyCode=156&encoding=utf-8&frontUrl=http://ds.com/callback/syncpayback.4.php&merId=777290058110048&orderId=ng16916120623335028016&reqReserved=小米 红米Note增强版 标准版手机&signMethod=01&txnAmt=201900&txnSubType=01&txnTime=20161206233350&txnType=01&version=5.0.0 
+2016-12-06 23:33:50, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[31]------ 摘要sha1x16 >cafa4702daaeb1f420a392725f748025ac36348b 
+2016-12-06 23:33:51, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[39]------ 签名串为 >E+BoTT9kasb61tPB5Ne78uMNctthPXIYKW5IaxmTcnVJb3pNKyAfKyuG3sQ4OLSc1WCV66hsNQ2cowyOJLXRg/EFlsxGmWIeE3FOG8mrTHhNdJ9N6HON73qExBDFgk9T8IpAwr2VNR6Zp/IDG4hK40FO/koWl6vgHGRyrwCqy6g+20ODE84FOu5FGj8JG8a9JFn+ewvr90E8fjvglteOSwERq30vEHuRNr7Zd2gYVIILM44x3GgMwaliSV8IrhBxKQi1qDr+QyOladUZ3HviqHEzCQyEHz6faLJu+5SVEltRD75e4MvsNFUy+kat+igQCLyXgwz5k3Cr/oyRZ4rWJw== 
+2016-12-06 23:33:51, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[44]------ =====签名报文结束====== 
+2016-12-06 23:33:51, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[200]------ 自动跳转html><html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body onload="javascript:document.pay_form.submit();">
+    <form id="pay_form" name="pay_form" action="https://101.231.204.80:5000/gateway/api/frontTransReq.do" method="post">
+	    <input type="hidden" name="version" id="version" value="5.0.0" />
+    <input type="hidden" name="encoding" id="encoding" value="utf-8" />
+    <input type="hidden" name="txnType" id="txnType" value="01" />
+    <input type="hidden" name="txnSubType" id="txnSubType" value="01" />
+    <input type="hidden" name="bizType" id="bizType" value="000201" />
+    <input type="hidden" name="frontUrl" id="frontUrl" value="http://ds.com/callback/syncpayback.4.php" />
+    <input type="hidden" name="backUrl" id="backUrl" value="http://ds.com/callback/asynpayback.4.php" />
+    <input type="hidden" name="signMethod" id="signMethod" value="01" />
+    <input type="hidden" name="channelType" id="channelType" value="08" />
+    <input type="hidden" name="accessType" id="accessType" value="0" />
+    <input type="hidden" name="currencyCode" id="currencyCode" value="156" />
+    <input type="hidden" name="merId" id="merId" value="777290058110048" />
+    <input type="hidden" name="orderId" id="orderId" value="ng16916120623335028016" />
+    <input type="hidden" name="txnTime" id="txnTime" value="20161206233350" />
+    <input type="hidden" name="txnAmt" id="txnAmt" value="201900" />
+    <input type="hidden" name="reqReserved" id="reqReserved" value="小米 红米Note增强版 标准版手机" />
+    <input type="hidden" name="certId" id="certId" value="68759663125" />
+    <input type="hidden" name="signature" id="signature" value="E+BoTT9kasb61tPB5Ne78uMNctthPXIYKW5IaxmTcnVJb3pNKyAfKyuG3sQ4OLSc1WCV66hsNQ2cowyOJLXRg/EFlsxGmWIeE3FOG8mrTHhNdJ9N6HON73qExBDFgk9T8IpAwr2VNR6Zp/IDG4hK40FO/koWl6vgHGRyrwCqy6g+20ODE84FOu5FGj8JG8a9JFn+ewvr90E8fjvglteOSwERq30vEHuRNr7Zd2gYVIILM44x3GgMwaliSV8IrhBxKQi1qDr+QyOladUZ3HviqHEzCQyEHz6faLJu+5SVEltRD75e4MvsNFUy+kat+igQCLyXgwz5k3Cr/oyRZ4rWJw==" />
+   <!-- <input type="submit" type="hidden">-->
+    </form>
+</body>
+</html> 
+2016-12-06 23:34:46, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\cert_util.php ], Line[37]------ 读取签名证书…… 
+2016-12-06 23:34:46, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\cert_util.php ], Line[62]------ 签名证书读取成功，序列号：68759663125 
+2016-12-06 23:34:46, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[22]------ =====签名报文开始====== 
+2016-12-06 23:34:46, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[28]------ 签名key=val&...串 >accessType=0&backUrl=http://ds.com/callback/asynpayback.4.php&bizType=000201&certId=68759663125&channelType=08&currencyCode=156&encoding=utf-8&frontUrl=http://ds.com/callback/syncpayback.4.php&merId=777290058110048&orderId=ng16916120623344682902&reqReserved=小米 红米Note增强版 标准版手机&signMethod=01&txnAmt=201900&txnSubType=01&txnTime=20161206233446&txnType=01&version=5.0.0 
+2016-12-06 23:34:46, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[31]------ 摘要sha1x16 >e22b1ddbd1625b4d2233ad6da133f91a9d68e840 
+2016-12-06 23:34:46, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[39]------ 签名串为 >iYOUShtQycHAXeif3aWfi9ZPHJ+DjMWt/3b9Utgpo44dP8zLF302uiR/eAl5GTcCPyY7Y6dPkHgVJpOrwDKGaI3gA85pZmUkDokhyZOd+Zl6coxzJrXZrNWHplqovVogzowfYF8zJGZqpbz3lQ0cQhzlLS1V24uqLXaP8B5IP8eVSYP+XsMjCNeNkjNGY0OH84Rc/P6IFNfPAyGb9PmbzGzQTvD9ZAzB5oq5c/FFXu4HrrynrMLbdw/Ss9cvQP8OmfSBhJcyeQE2dncNNhNTEX/pM2RTIvsPrAji7juF8me+HBb1hSC2SA6GI4kbxk6cqMP1EyvjrBazsrMfpeakUQ== 
+2016-12-06 23:34:46, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[44]------ =====签名报文结束====== 
+2016-12-06 23:34:46, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[200]------ 自动跳转html><html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body onload="javascript:document.pay_form.submit();">
+    <form id="pay_form" name="pay_form" action="https://101.231.204.80:5000/gateway/api/frontTransReq.do" method="post">
+	    <input type="hidden" name="version" id="version" value="5.0.0" />
+    <input type="hidden" name="encoding" id="encoding" value="utf-8" />
+    <input type="hidden" name="txnType" id="txnType" value="01" />
+    <input type="hidden" name="txnSubType" id="txnSubType" value="01" />
+    <input type="hidden" name="bizType" id="bizType" value="000201" />
+    <input type="hidden" name="frontUrl" id="frontUrl" value="http://ds.com/callback/syncpayback.4.php" />
+    <input type="hidden" name="backUrl" id="backUrl" value="http://ds.com/callback/asynpayback.4.php" />
+    <input type="hidden" name="signMethod" id="signMethod" value="01" />
+    <input type="hidden" name="channelType" id="channelType" value="08" />
+    <input type="hidden" name="accessType" id="accessType" value="0" />
+    <input type="hidden" name="currencyCode" id="currencyCode" value="156" />
+    <input type="hidden" name="merId" id="merId" value="777290058110048" />
+    <input type="hidden" name="orderId" id="orderId" value="ng16916120623344682902" />
+    <input type="hidden" name="txnTime" id="txnTime" value="20161206233446" />
+    <input type="hidden" name="txnAmt" id="txnAmt" value="201900" />
+    <input type="hidden" name="reqReserved" id="reqReserved" value="小米 红米Note增强版 标准版手机" />
+    <input type="hidden" name="certId" id="certId" value="68759663125" />
+    <input type="hidden" name="signature" id="signature" value="iYOUShtQycHAXeif3aWfi9ZPHJ+DjMWt/3b9Utgpo44dP8zLF302uiR/eAl5GTcCPyY7Y6dPkHgVJpOrwDKGaI3gA85pZmUkDokhyZOd+Zl6coxzJrXZrNWHplqovVogzowfYF8zJGZqpbz3lQ0cQhzlLS1V24uqLXaP8B5IP8eVSYP+XsMjCNeNkjNGY0OH84Rc/P6IFNfPAyGb9PmbzGzQTvD9ZAzB5oq5c/FFXu4HrrynrMLbdw/Ss9cvQP8OmfSBhJcyeQE2dncNNhNTEX/pM2RTIvsPrAji7juF8me+HBb1hSC2SA6GI4kbxk6cqMP1EyvjrBazsrMfpeakUQ==" />
+   <!-- <input type="submit" type="hidden">-->
+    </form>
+</body>
+</html> 
+2016-12-06 23:40:28, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\cert_util.php ], Line[37]------ 读取签名证书…… 
+2016-12-06 23:40:28, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\cert_util.php ], Line[62]------ 签名证书读取成功，序列号：68759663125 
+2016-12-06 23:40:28, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[22]------ =====签名报文开始====== 
+2016-12-06 23:40:28, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[28]------ 签名key=val&...串 >accessType=0&backUrl=http://ds.com/callback/asynpayback.4.php&bizType=000201&certId=68759663125&channelType=08&currencyCode=156&encoding=utf-8&frontUrl=http://ds.com/callback/syncpayback.4.php&merId=777290058110048&orderId=ng16916120623402866353&reqReserved=小米 红米Note增强版 标准版手机&signMethod=01&txnAmt=201900&txnSubType=01&txnTime=20161206234028&txnType=01&version=5.0.0 
+2016-12-06 23:40:28, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[31]------ 摘要sha1x16 >667a008a10b63947497ac3e2dbab9f35fb453196 
+2016-12-06 23:40:28, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[39]------ 签名串为 >mrsziFN22ASIT8mmD2Mq98hsEghht5yxzTcNxVfzs1TEFK2YG7Bn7Pl1QuTpZjgdvTcjH212IChYY1J3QNcgQBy73xldvSjIfMqh352SArpB62UnI+SSUrYj/cFQYA52ciRL2OH2GakWjwnCfihm36XYl9KMbLoQBGaJohGmmKJ4rCeXlJAIQmIYHE14pfp9x7O7XS7lj28F4mvL7lC8xmGU1DtIOdberY2J8Uh+yR1b8QT6lSxuIJ48jIA+/4RdaWbKFplds82u6CmlRhiLWeyJE9UCa3xt4dQeNvhrfr5EqMq2zvoCxU/4LHI1oSUjFXTuavwSFCEwiXd+sq9yyw== 
+2016-12-06 23:40:28, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[44]------ =====签名报文结束====== 
+2016-12-06 23:40:28, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[200]------ 自动跳转html><html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body onload="javascript:document.pay_form.submit();">
+    <form id="pay_form" name="pay_form" action="https://101.231.204.80:5000/gateway/api/frontTransReq.do" method="post">
+	    <input type="hidden" name="version" id="version" value="5.0.0" />
+    <input type="hidden" name="encoding" id="encoding" value="utf-8" />
+    <input type="hidden" name="txnType" id="txnType" value="01" />
+    <input type="hidden" name="txnSubType" id="txnSubType" value="01" />
+    <input type="hidden" name="bizType" id="bizType" value="000201" />
+    <input type="hidden" name="frontUrl" id="frontUrl" value="http://ds.com/callback/syncpayback.4.php" />
+    <input type="hidden" name="backUrl" id="backUrl" value="http://ds.com/callback/asynpayback.4.php" />
+    <input type="hidden" name="signMethod" id="signMethod" value="01" />
+    <input type="hidden" name="channelType" id="channelType" value="08" />
+    <input type="hidden" name="accessType" id="accessType" value="0" />
+    <input type="hidden" name="currencyCode" id="currencyCode" value="156" />
+    <input type="hidden" name="merId" id="merId" value="777290058110048" />
+    <input type="hidden" name="orderId" id="orderId" value="ng16916120623402866353" />
+    <input type="hidden" name="txnTime" id="txnTime" value="20161206234028" />
+    <input type="hidden" name="txnAmt" id="txnAmt" value="201900" />
+    <input type="hidden" name="reqReserved" id="reqReserved" value="小米 红米Note增强版 标准版手机" />
+    <input type="hidden" name="certId" id="certId" value="68759663125" />
+    <input type="hidden" name="signature" id="signature" value="mrsziFN22ASIT8mmD2Mq98hsEghht5yxzTcNxVfzs1TEFK2YG7Bn7Pl1QuTpZjgdvTcjH212IChYY1J3QNcgQBy73xldvSjIfMqh352SArpB62UnI+SSUrYj/cFQYA52ciRL2OH2GakWjwnCfihm36XYl9KMbLoQBGaJohGmmKJ4rCeXlJAIQmIYHE14pfp9x7O7XS7lj28F4mvL7lC8xmGU1DtIOdberY2J8Uh+yR1b8QT6lSxuIJ48jIA+/4RdaWbKFplds82u6CmlRhiLWeyJE9UCa3xt4dQeNvhrfr5EqMq2zvoCxU/4LHI1oSUjFXTuavwSFCEwiXd+sq9yyw==" />
+   <!-- <input type="submit" type="hidden">-->
+    </form>
+</body>
+</html> 
+2016-12-06 23:40:33, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\cert_util.php ], Line[37]------ 读取签名证书…… 
+2016-12-06 23:40:33, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\cert_util.php ], Line[62]------ 签名证书读取成功，序列号：68759663125 
+2016-12-06 23:40:33, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[22]------ =====签名报文开始====== 
+2016-12-06 23:40:33, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[28]------ 签名key=val&...串 >accessType=0&backUrl=http://ds.com/callback/asynpayback.4.php&bizType=000201&certId=68759663125&channelType=08&currencyCode=156&encoding=utf-8&frontUrl=http://ds.com/callback/syncpayback.4.php&merId=777290058110048&orderId=ng16916120623403312613&reqReserved=小米 红米Note增强版 标准版手机&signMethod=01&txnAmt=201900&txnSubType=01&txnTime=20161206234033&txnType=01&version=5.0.0 
+2016-12-06 23:40:33, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[31]------ 摘要sha1x16 >9f1ffab5d1d728cba31617750d327f5d7ca3af6e 
+2016-12-06 23:40:33, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[39]------ 签名串为 >B4oDMYQd/euJ9ARPIcZ9Ih8Bi1s4nV20m2MEDlGHAZbKjNkcFNbcENNQyq6IJt887xAZzvAvc/An6e65sGuCvmFAgYXXyNunDy+csQ8aPXSlesO5K095zCM9aVjHmQQhMP7j2st8BHHrEKRAWJw9Jvrn54A/iJzP2ktwhcb9WvHdf6ZliYw/UDN/i87F+HHNi9qAmmgI1Mj7KcUjLTJhBHwjtvvGekl302x52kKsbZN/DD76FvGct56wjyrNwoHQjCsPMkJEfbnbtW75LcENPm4WjC5VovFN/8VOjeDDlhIZ3I8RF8t2AuVC+QKv8wISoC1kzR36cfe08Y7Hbw+xzA== 
+2016-12-06 23:40:33, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[44]------ =====签名报文结束====== 
+2016-12-06 23:40:33, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[200]------ 自动跳转html><html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body onload="javascript:document.pay_form.submit();">
+    <form id="pay_form" name="pay_form" action="https://101.231.204.80:5000/gateway/api/frontTransReq.do" method="post">
+	    <input type="hidden" name="version" id="version" value="5.0.0" />
+    <input type="hidden" name="encoding" id="encoding" value="utf-8" />
+    <input type="hidden" name="txnType" id="txnType" value="01" />
+    <input type="hidden" name="txnSubType" id="txnSubType" value="01" />
+    <input type="hidden" name="bizType" id="bizType" value="000201" />
+    <input type="hidden" name="frontUrl" id="frontUrl" value="http://ds.com/callback/syncpayback.4.php" />
+    <input type="hidden" name="backUrl" id="backUrl" value="http://ds.com/callback/asynpayback.4.php" />
+    <input type="hidden" name="signMethod" id="signMethod" value="01" />
+    <input type="hidden" name="channelType" id="channelType" value="08" />
+    <input type="hidden" name="accessType" id="accessType" value="0" />
+    <input type="hidden" name="currencyCode" id="currencyCode" value="156" />
+    <input type="hidden" name="merId" id="merId" value="777290058110048" />
+    <input type="hidden" name="orderId" id="orderId" value="ng16916120623403312613" />
+    <input type="hidden" name="txnTime" id="txnTime" value="20161206234033" />
+    <input type="hidden" name="txnAmt" id="txnAmt" value="201900" />
+    <input type="hidden" name="reqReserved" id="reqReserved" value="小米 红米Note增强版 标准版手机" />
+    <input type="hidden" name="certId" id="certId" value="68759663125" />
+    <input type="hidden" name="signature" id="signature" value="B4oDMYQd/euJ9ARPIcZ9Ih8Bi1s4nV20m2MEDlGHAZbKjNkcFNbcENNQyq6IJt887xAZzvAvc/An6e65sGuCvmFAgYXXyNunDy+csQ8aPXSlesO5K095zCM9aVjHmQQhMP7j2st8BHHrEKRAWJw9Jvrn54A/iJzP2ktwhcb9WvHdf6ZliYw/UDN/i87F+HHNi9qAmmgI1Mj7KcUjLTJhBHwjtvvGekl302x52kKsbZN/DD76FvGct56wjyrNwoHQjCsPMkJEfbnbtW75LcENPm4WjC5VovFN/8VOjeDDlhIZ3I8RF8t2AuVC+QKv8wISoC1kzR36cfe08Y7Hbw+xzA==" />
+   <!-- <input type="submit" type="hidden">-->
+    </form>
+</body>
+</html> 
+2016-12-06 23:49:38, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\cert_util.php ], Line[37]------ 读取签名证书…… 
+2016-12-06 23:49:38, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\cert_util.php ], Line[62]------ 签名证书读取成功，序列号：68759663125 
+2016-12-06 23:49:38, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[22]------ =====签名报文开始====== 
+2016-12-06 23:49:38, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[28]------ 签名key=val&...串 >accessType=0&backUrl=http://ds.com/callback/asynpayback.4.php&bizType=000201&certId=68759663125&channelType=08&currencyCode=156&encoding=utf-8&frontUrl=http://ds.com/callback/syncpayback.4.php&merId=777290058110048&orderId=ng16916120623493879491&reqReserved=小米 红米Note增强版 标准版手机&signMethod=01&txnAmt=201900&txnSubType=01&txnTime=20161206234938&txnType=01&version=5.0.0 
+2016-12-06 23:49:38, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[31]------ 摘要sha1x16 >8837bcaff663681863b294c4dfc2679530ffdfb5 
+2016-12-06 23:49:39, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[39]------ 签名串为 >GRE8C/Vf3907nK3yIHCx4TUyL1SDohMX/EJRsOKbHyJCgGRkXfDS5qUy/380fbzWnbFrK/Ae96oYp2uWgNmxpiJRpgVjTFsB3915tMfqV2PErxNjd73WYhDwmYbNpV7Yq3kGvETGP5NrdR+G5pcDJTEOvjWUF0VD/x7UDjjZYKSFaqy0nhz8vyrpa3s40vuCTiM/1Z2SL0h44E0o/QQsbQr0mE1J/vfIoyk1obfD0rO96Mfyxhk5uUH6Q8QUuuXSNEPdeglj0rKoBSG0/bknqPJc8V0uxKhaMI516NJ8oUMyTDy4lCkmkgs/D1JmNxPSZxDsWEqv8XHwtXHidL05qA== 
+2016-12-06 23:49:39, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[44]------ =====签名报文结束====== 
+2016-12-06 23:49:39, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[200]------ 自动跳转html><html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body onload="javascript:document.pay_form.submit();">
+    <form id="pay_form" name="pay_form" action="https://101.231.204.80:5000/gateway/api/frontTransReq.do" method="post">
+	    <input type="hidden" name="version" id="version" value="5.0.0" />
+    <input type="hidden" name="encoding" id="encoding" value="utf-8" />
+    <input type="hidden" name="txnType" id="txnType" value="01" />
+    <input type="hidden" name="txnSubType" id="txnSubType" value="01" />
+    <input type="hidden" name="bizType" id="bizType" value="000201" />
+    <input type="hidden" name="frontUrl" id="frontUrl" value="http://ds.com/callback/syncpayback.4.php" />
+    <input type="hidden" name="backUrl" id="backUrl" value="http://ds.com/callback/asynpayback.4.php" />
+    <input type="hidden" name="signMethod" id="signMethod" value="01" />
+    <input type="hidden" name="channelType" id="channelType" value="08" />
+    <input type="hidden" name="accessType" id="accessType" value="0" />
+    <input type="hidden" name="currencyCode" id="currencyCode" value="156" />
+    <input type="hidden" name="merId" id="merId" value="777290058110048" />
+    <input type="hidden" name="orderId" id="orderId" value="ng16916120623493879491" />
+    <input type="hidden" name="txnTime" id="txnTime" value="20161206234938" />
+    <input type="hidden" name="txnAmt" id="txnAmt" value="201900" />
+    <input type="hidden" name="reqReserved" id="reqReserved" value="小米 红米Note增强版 标准版手机" />
+    <input type="hidden" name="certId" id="certId" value="68759663125" />
+    <input type="hidden" name="signature" id="signature" value="GRE8C/Vf3907nK3yIHCx4TUyL1SDohMX/EJRsOKbHyJCgGRkXfDS5qUy/380fbzWnbFrK/Ae96oYp2uWgNmxpiJRpgVjTFsB3915tMfqV2PErxNjd73WYhDwmYbNpV7Yq3kGvETGP5NrdR+G5pcDJTEOvjWUF0VD/x7UDjjZYKSFaqy0nhz8vyrpa3s40vuCTiM/1Z2SL0h44E0o/QQsbQr0mE1J/vfIoyk1obfD0rO96Mfyxhk5uUH6Q8QUuuXSNEPdeglj0rKoBSG0/bknqPJc8V0uxKhaMI516NJ8oUMyTDy4lCkmkgs/D1JmNxPSZxDsWEqv8XHwtXHidL05qA==" />
+   <!-- <input type="submit" type="hidden">-->
+    </form>
+</body>
+</html> 
+2016-12-06 23:53:17, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\cert_util.php ], Line[37]------ 读取签名证书…… 
+2016-12-06 23:53:17, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\cert_util.php ], Line[62]------ 签名证书读取成功，序列号：68759663125 
+2016-12-06 23:53:17, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[22]------ =====签名报文开始====== 
+2016-12-06 23:53:17, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[28]------ 签名key=val&...串 >accessType=0&backUrl=http://ds.com/callback/asynpayback.4.php&bizType=000201&certId=68759663125&channelType=08&currencyCode=156&encoding=utf-8&frontUrl=http://ds.com/callback/syncpayback.4.php&merId=&orderId=ng16916120623531778623&reqReserved=小米 红米Note增强版 标准版手机&signMethod=01&txnAmt=201900&txnSubType=01&txnTime=20161206235317&txnType=01&version=5.0.0 
+2016-12-06 23:53:17, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[31]------ 摘要sha1x16 >72eeb539ffe7d3492b3d4eec6e649daa4e938279 
+2016-12-06 23:53:17, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[39]------ 签名串为 >FU6FfclNhDK9U0yIeM1w7nY7NRuA/Q1Yw5GrUZKJUvF2J9DsgEbGTmYNqQDmDZwxwqsC85Soa5X3Mf8HUNiq39nq8PLrV339yKeNxXZiTaf+auNJvPA6jX2QzhqPUgZp92PRTwnwP0HwP0oAFvNacLBqjqTbtgyMBpfjDaS+zvUlyVriJXHCilEdjyZ31XeR8exrJy7XHp0kEAGAZwf5N+OSX/SzyeuS+mjNeGsBfKSVr/Fbktl/XgJSmvM80Oarl2r4F7anDZ9A8dqH7ZRBbLBEhIEic0i7JS4O2Q+z6j9jrQTcHwbFrgVH9nzSnlL8rKvhBoJZlKN1V0ee2i5CWw== 
+2016-12-06 23:53:17, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[44]------ =====签名报文结束====== 
+2016-12-06 23:53:17, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[200]------ 自动跳转html><html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body onload="javascript:document.pay_form.submit();">
+    <form id="pay_form" name="pay_form" action="https://101.231.204.80:5000/gateway/api/frontTransReq.do" method="post">
+	    <input type="hidden" name="version" id="version" value="5.0.0" />
+    <input type="hidden" name="encoding" id="encoding" value="utf-8" />
+    <input type="hidden" name="txnType" id="txnType" value="01" />
+    <input type="hidden" name="txnSubType" id="txnSubType" value="01" />
+    <input type="hidden" name="bizType" id="bizType" value="000201" />
+    <input type="hidden" name="frontUrl" id="frontUrl" value="http://ds.com/callback/syncpayback.4.php" />
+    <input type="hidden" name="backUrl" id="backUrl" value="http://ds.com/callback/asynpayback.4.php" />
+    <input type="hidden" name="signMethod" id="signMethod" value="01" />
+    <input type="hidden" name="channelType" id="channelType" value="08" />
+    <input type="hidden" name="accessType" id="accessType" value="0" />
+    <input type="hidden" name="currencyCode" id="currencyCode" value="156" />
+    <input type="hidden" name="merId" id="merId" value="" />
+    <input type="hidden" name="orderId" id="orderId" value="ng16916120623531778623" />
+    <input type="hidden" name="txnTime" id="txnTime" value="20161206235317" />
+    <input type="hidden" name="txnAmt" id="txnAmt" value="201900" />
+    <input type="hidden" name="reqReserved" id="reqReserved" value="小米 红米Note增强版 标准版手机" />
+    <input type="hidden" name="certId" id="certId" value="68759663125" />
+    <input type="hidden" name="signature" id="signature" value="FU6FfclNhDK9U0yIeM1w7nY7NRuA/Q1Yw5GrUZKJUvF2J9DsgEbGTmYNqQDmDZwxwqsC85Soa5X3Mf8HUNiq39nq8PLrV339yKeNxXZiTaf+auNJvPA6jX2QzhqPUgZp92PRTwnwP0HwP0oAFvNacLBqjqTbtgyMBpfjDaS+zvUlyVriJXHCilEdjyZ31XeR8exrJy7XHp0kEAGAZwf5N+OSX/SzyeuS+mjNeGsBfKSVr/Fbktl/XgJSmvM80Oarl2r4F7anDZ9A8dqH7ZRBbLBEhIEic0i7JS4O2Q+z6j9jrQTcHwbFrgVH9nzSnlL8rKvhBoJZlKN1V0ee2i5CWw==" />
+   <!-- <input type="submit" type="hidden">-->
+    </form>
+</body>
+</html> 
+2016-12-06 23:53:32, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\cert_util.php ], Line[37]------ 读取签名证书…… 
+2016-12-06 23:53:32, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\cert_util.php ], Line[62]------ 签名证书读取成功，序列号：68759663125 
+2016-12-06 23:53:32, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[22]------ =====签名报文开始====== 
+2016-12-06 23:53:32, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[28]------ 签名key=val&...串 >accessType=0&backUrl=http://ds.com/callback/asynpayback.4.php&bizType=000201&certId=68759663125&channelType=08&currencyCode=156&encoding=utf-8&frontUrl=http://ds.com/callback/syncpayback.4.php&merId=&orderId=ng16916120623533285409&reqReserved=小米 红米Note增强版 标准版手机&signMethod=01&txnAmt=201900&txnSubType=01&txnTime=20161206235332&txnType=01&version=5.0.0 
+2016-12-06 23:53:32, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[31]------ 摘要sha1x16 >ce9b087ed9e15b5c5342f3d547cbf5776b7871e0 
+2016-12-06 23:53:32, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[39]------ 签名串为 >tRWof8aeYMi1GQubgv2kM5Fct0YRAJhWhHpG0HfzMrACvK/RR6lGl0dRGrxy/om5f+uWw+TRPKYHNrdK8H1jrJvVR1GQtKGAr1wNW8ly98FOT0DLaPv2P5jTMlN/tqSCsoDYI1+rrZRblKkhtAnaNnQLXtUOe7XR9RG0OfU5N4O+umwX8/onJfAkIb190pi24/akzv3W5fJH2UFyW864cx1OVCtduuP0EjNsUx2zz01XdN2ort7fwCNP6+ZaF8aaGSooJx5xH8iMgQsh9m5Q+eZ+JUPCIZNF9uQkF+wWrzHyWRYdY27ItYVhukv6Fl8gbbfp7OT9siQQfDQseE0m+g== 
+2016-12-06 23:53:32, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[44]------ =====签名报文结束====== 
+2016-12-06 23:53:32, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[200]------ 自动跳转html><html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body onload="javascript:document.pay_form.submit();">
+    <form id="pay_form" name="pay_form" action="https://101.231.204.80:5000/gateway/api/frontTransReq.do" method="post">
+	    <input type="hidden" name="version" id="version" value="5.0.0" />
+    <input type="hidden" name="encoding" id="encoding" value="utf-8" />
+    <input type="hidden" name="txnType" id="txnType" value="01" />
+    <input type="hidden" name="txnSubType" id="txnSubType" value="01" />
+    <input type="hidden" name="bizType" id="bizType" value="000201" />
+    <input type="hidden" name="frontUrl" id="frontUrl" value="http://ds.com/callback/syncpayback.4.php" />
+    <input type="hidden" name="backUrl" id="backUrl" value="http://ds.com/callback/asynpayback.4.php" />
+    <input type="hidden" name="signMethod" id="signMethod" value="01" />
+    <input type="hidden" name="channelType" id="channelType" value="08" />
+    <input type="hidden" name="accessType" id="accessType" value="0" />
+    <input type="hidden" name="currencyCode" id="currencyCode" value="156" />
+    <input type="hidden" name="merId" id="merId" value="" />
+    <input type="hidden" name="orderId" id="orderId" value="ng16916120623533285409" />
+    <input type="hidden" name="txnTime" id="txnTime" value="20161206235332" />
+    <input type="hidden" name="txnAmt" id="txnAmt" value="201900" />
+    <input type="hidden" name="reqReserved" id="reqReserved" value="小米 红米Note增强版 标准版手机" />
+    <input type="hidden" name="certId" id="certId" value="68759663125" />
+    <input type="hidden" name="signature" id="signature" value="tRWof8aeYMi1GQubgv2kM5Fct0YRAJhWhHpG0HfzMrACvK/RR6lGl0dRGrxy/om5f+uWw+TRPKYHNrdK8H1jrJvVR1GQtKGAr1wNW8ly98FOT0DLaPv2P5jTMlN/tqSCsoDYI1+rrZRblKkhtAnaNnQLXtUOe7XR9RG0OfU5N4O+umwX8/onJfAkIb190pi24/akzv3W5fJH2UFyW864cx1OVCtduuP0EjNsUx2zz01XdN2ort7fwCNP6+ZaF8aaGSooJx5xH8iMgQsh9m5Q+eZ+JUPCIZNF9uQkF+wWrzHyWRYdY27ItYVhukv6Fl8gbbfp7OT9siQQfDQseE0m+g==" />
+   <!-- <input type="submit" type="hidden">-->
+    </form>
+</body>
+</html> 
+2016-12-06 23:53:51, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\cert_util.php ], Line[37]------ 读取签名证书…… 
+2016-12-06 23:53:51, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\cert_util.php ], Line[62]------ 签名证书读取成功，序列号：68759663125 
+2016-12-06 23:53:51, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[22]------ =====签名报文开始====== 
+2016-12-06 23:53:51, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[28]------ 签名key=val&...串 >accessType=0&backUrl=http://ds.com/callback/asynpayback.4.php&bizType=000201&certId=68759663125&channelType=08&currencyCode=156&encoding=utf-8&frontUrl=http://ds.com/callback/syncpayback.4.php&merId=&orderId=ng16916120623535123819&reqReserved=小米 红米Note增强版 标准版手机&signMethod=01&txnAmt=201900&txnSubType=01&txnTime=20161206235351&txnType=01&version=5.0.0 
+2016-12-06 23:53:51, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[31]------ 摘要sha1x16 >af868bff1bf42fd0c36970ed4a9182efc4b7ae57 
+2016-12-06 23:53:51, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[39]------ 签名串为 >B99Jaa0f0VaN/Pfk2y1U0vCBaRS89V82csumQjm2sydgdkvgCSmaAMz7nf9zUdv0ZlSwb3zhGF5sAb2J5dUD5/mKrTKBlzNfZtfXbcKD0a/dJ+a8rlfgn4QCZFFNRFbx+qQk1jQ9hTv+Y1r0wRkHDzz8n1ELw8leFcOTDqlqC/ZhI9zEvIOVQSczzNLY4Jmz9KFhCe3cEb9jxY2zkXLl7qSl+PVKQeYbmTPpCPYoIY2XFo11SVYofRztqKNEHncsSdfuH6jEObITziMn0kobMvoqtgGFK8UtfNrCmvjyxTB7TeKwWWkgDTsDH+yY7q5L6VYq4vKN9XkwCQKlmB7jrw== 
+2016-12-06 23:53:51, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[44]------ =====签名报文结束====== 
+2016-12-06 23:53:51, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[200]------ 自动跳转html><html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body onload="javascript:document.pay_form.submit();">
+    <form id="pay_form" name="pay_form" action="https://101.231.204.80:5000/gateway/api/frontTransReq.do" method="post">
+	    <input type="hidden" name="version" id="version" value="5.0.0" />
+    <input type="hidden" name="encoding" id="encoding" value="utf-8" />
+    <input type="hidden" name="txnType" id="txnType" value="01" />
+    <input type="hidden" name="txnSubType" id="txnSubType" value="01" />
+    <input type="hidden" name="bizType" id="bizType" value="000201" />
+    <input type="hidden" name="frontUrl" id="frontUrl" value="http://ds.com/callback/syncpayback.4.php" />
+    <input type="hidden" name="backUrl" id="backUrl" value="http://ds.com/callback/asynpayback.4.php" />
+    <input type="hidden" name="signMethod" id="signMethod" value="01" />
+    <input type="hidden" name="channelType" id="channelType" value="08" />
+    <input type="hidden" name="accessType" id="accessType" value="0" />
+    <input type="hidden" name="currencyCode" id="currencyCode" value="156" />
+    <input type="hidden" name="merId" id="merId" value="" />
+    <input type="hidden" name="orderId" id="orderId" value="ng16916120623535123819" />
+    <input type="hidden" name="txnTime" id="txnTime" value="20161206235351" />
+    <input type="hidden" name="txnAmt" id="txnAmt" value="201900" />
+    <input type="hidden" name="reqReserved" id="reqReserved" value="小米 红米Note增强版 标准版手机" />
+    <input type="hidden" name="certId" id="certId" value="68759663125" />
+    <input type="hidden" name="signature" id="signature" value="B99Jaa0f0VaN/Pfk2y1U0vCBaRS89V82csumQjm2sydgdkvgCSmaAMz7nf9zUdv0ZlSwb3zhGF5sAb2J5dUD5/mKrTKBlzNfZtfXbcKD0a/dJ+a8rlfgn4QCZFFNRFbx+qQk1jQ9hTv+Y1r0wRkHDzz8n1ELw8leFcOTDqlqC/ZhI9zEvIOVQSczzNLY4Jmz9KFhCe3cEb9jxY2zkXLl7qSl+PVKQeYbmTPpCPYoIY2XFo11SVYofRztqKNEHncsSdfuH6jEObITziMn0kobMvoqtgGFK8UtfNrCmvjyxTB7TeKwWWkgDTsDH+yY7q5L6VYq4vKN9XkwCQKlmB7jrw==" />
+   <!-- <input type="submit" type="hidden">-->
+    </form>
+</body>
+</html> 
+2016-12-06 23:54:06, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\cert_util.php ], Line[37]------ 读取签名证书…… 
+2016-12-06 23:54:06, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\cert_util.php ], Line[62]------ 签名证书读取成功，序列号：68759663125 
+2016-12-06 23:54:06, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[22]------ =====签名报文开始====== 
+2016-12-06 23:54:06, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[28]------ 签名key=val&...串 >accessType=0&backUrl=http://ds.com/callback/asynpayback.4.php&bizType=000201&certId=68759663125&channelType=08&currencyCode=156&encoding=utf-8&frontUrl=http://ds.com/callback/syncpayback.4.php&merId=&orderId=ng16916120623540667611&reqReserved=小米 红米Note增强版 标准版手机&signMethod=01&txnAmt=201900&txnSubType=01&txnTime=20161206235406&txnType=01&version=5.0.0 
+2016-12-06 23:54:06, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[31]------ 摘要sha1x16 >85114e84e9f702dc817de6d4820db2c92692ddfe 
+2016-12-06 23:54:06, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[39]------ 签名串为 >zChR34Lvg3gtPSd/fGmoFcBgAEqv1fSUq34Ip71yRHUYw2oMm5rWOGuAgifgpRhLmbElmTXuLuj2kX450LtPxsWQnHP3emNU0WPNDIWsyuRycebNl33ueHCYXkbxsTpQBTwZfNmZZYeu52yWeVZAZpVBSO6kZvqHt5eUASv8TxAizjpOW+vJ1Y6RjNRQWC6HQ//BPUOg4v76ZtsVQh6lxfm+xvRHr5WLA325IiINYq+XjB/vcNKGU9YsWnvGG7pC7JoC3NZAiwnip6TtiA7CEwAsT0o5BFqtckIQ0YIw/QR7LKuoLZiNIJU7knzyAe+Zu/CEL/O5j0OgXb9R14Wl8Q== 
+2016-12-06 23:54:06, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[44]------ =====签名报文结束====== 
+2016-12-06 23:54:06, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[200]------ 自动跳转html><html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body onload="javascript:document.pay_form.submit();">
+    <form id="pay_form" name="pay_form" action="https://101.231.204.80:5000/gateway/api/frontTransReq.do" method="post">
+	    <input type="hidden" name="version" id="version" value="5.0.0" />
+    <input type="hidden" name="encoding" id="encoding" value="utf-8" />
+    <input type="hidden" name="txnType" id="txnType" value="01" />
+    <input type="hidden" name="txnSubType" id="txnSubType" value="01" />
+    <input type="hidden" name="bizType" id="bizType" value="000201" />
+    <input type="hidden" name="frontUrl" id="frontUrl" value="http://ds.com/callback/syncpayback.4.php" />
+    <input type="hidden" name="backUrl" id="backUrl" value="http://ds.com/callback/asynpayback.4.php" />
+    <input type="hidden" name="signMethod" id="signMethod" value="01" />
+    <input type="hidden" name="channelType" id="channelType" value="08" />
+    <input type="hidden" name="accessType" id="accessType" value="0" />
+    <input type="hidden" name="currencyCode" id="currencyCode" value="156" />
+    <input type="hidden" name="merId" id="merId" value="" />
+    <input type="hidden" name="orderId" id="orderId" value="ng16916120623540667611" />
+    <input type="hidden" name="txnTime" id="txnTime" value="20161206235406" />
+    <input type="hidden" name="txnAmt" id="txnAmt" value="201900" />
+    <input type="hidden" name="reqReserved" id="reqReserved" value="小米 红米Note增强版 标准版手机" />
+    <input type="hidden" name="certId" id="certId" value="68759663125" />
+    <input type="hidden" name="signature" id="signature" value="zChR34Lvg3gtPSd/fGmoFcBgAEqv1fSUq34Ip71yRHUYw2oMm5rWOGuAgifgpRhLmbElmTXuLuj2kX450LtPxsWQnHP3emNU0WPNDIWsyuRycebNl33ueHCYXkbxsTpQBTwZfNmZZYeu52yWeVZAZpVBSO6kZvqHt5eUASv8TxAizjpOW+vJ1Y6RjNRQWC6HQ//BPUOg4v76ZtsVQh6lxfm+xvRHr5WLA325IiINYq+XjB/vcNKGU9YsWnvGG7pC7JoC3NZAiwnip6TtiA7CEwAsT0o5BFqtckIQ0YIw/QR7LKuoLZiNIJU7knzyAe+Zu/CEL/O5j0OgXb9R14Wl8Q==" />
+   <!-- <input type="submit" type="hidden">-->
+    </form>
+</body>
+</html> 
+2016-12-06 23:54:23, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\cert_util.php ], Line[37]------ 读取签名证书…… 
+2016-12-06 23:54:23, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\cert_util.php ], Line[62]------ 签名证书读取成功，序列号：68759663125 
+2016-12-06 23:54:23, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[22]------ =====签名报文开始====== 
+2016-12-06 23:54:23, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[28]------ 签名key=val&...串 >accessType=0&backUrl=http://ds.com/callback/asynpayback.4.php&bizType=000201&certId=68759663125&channelType=08&currencyCode=156&encoding=utf-8&frontUrl=http://ds.com/callback/syncpayback.4.php&merId=777290058110048&orderId=ng16916120623542395204&reqReserved=小米 红米Note增强版 标准版手机&signMethod=01&txnAmt=201900&txnSubType=01&txnTime=20161206235423&txnType=01&version=5.0.0 
+2016-12-06 23:54:23, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[31]------ 摘要sha1x16 >5a304fdc683dcdca0f5d950ad1551c647ad400b8 
+2016-12-06 23:54:23, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[39]------ 签名串为 >f2rVmAXZLrgx+P3aUo9NvqLHdePd+HucjtZExR4ex6CR35nvUwcyN5xIWmyp3hNOxdi3MWenmQ8WwIOIOfKTCmGnHvTVtES3S9pgqC4KTXFd9VqJgZI5299Ihgi+P3sTkPwiU2031VBng+zU/W0+XZCYSSLYfMTJIM9WSBWzy/w+M/eQLFZ18weH46sfrEU8hfNEXEpWTBn/CQVpJkht8dPFUtuBGwzJwKsBrjbsw8DLaPQ6CbBMcKFz5HI8wQtm7pZU8aq0EjcYpM0Df/bkUBBY4ywDTRqgZHzIY7zXFeefyUdwAvHiiWfMGibIPb/fllCIda0ZU+NqKH9/sXsRzA== 
+2016-12-06 23:54:23, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[44]------ =====签名报文结束====== 
+2016-12-06 23:54:23, INFO, 127.0.0.1, File[ H:\www\ds\source\core\api\4\sdk\acp_service.php ], Line[200]------ 自动跳转html><html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body onload="javascript:document.pay_form.submit();">
+    <form id="pay_form" name="pay_form" action="https://101.231.204.80:5000/gateway/api/frontTransReq.do" method="post">
+	    <input type="hidden" name="version" id="version" value="5.0.0" />
+    <input type="hidden" name="encoding" id="encoding" value="utf-8" />
+    <input type="hidden" name="txnType" id="txnType" value="01" />
+    <input type="hidden" name="txnSubType" id="txnSubType" value="01" />
+    <input type="hidden" name="bizType" id="bizType" value="000201" />
+    <input type="hidden" name="frontUrl" id="frontUrl" value="http://ds.com/callback/syncpayback.4.php" />
+    <input type="hidden" name="backUrl" id="backUrl" value="http://ds.com/callback/asynpayback.4.php" />
+    <input type="hidden" name="signMethod" id="signMethod" value="01" />
+    <input type="hidden" name="channelType" id="channelType" value="08" />
+    <input type="hidden" name="accessType" id="accessType" value="0" />
+    <input type="hidden" name="currencyCode" id="currencyCode" value="156" />
+    <input type="hidden" name="merId" id="merId" value="777290058110048" />
+    <input type="hidden" name="orderId" id="orderId" value="ng16916120623542395204" />
+    <input type="hidden" name="txnTime" id="txnTime" value="20161206235423" />
+    <input type="hidden" name="txnAmt" id="txnAmt" value="201900" />
+    <input type="hidden" name="reqReserved" id="reqReserved" value="小米 红米Note增强版 标准版手机" />
+    <input type="hidden" name="certId" id="certId" value="68759663125" />
+    <input type="hidden" name="signature" id="signature" value="f2rVmAXZLrgx+P3aUo9NvqLHdePd+HucjtZExR4ex6CR35nvUwcyN5xIWmyp3hNOxdi3MWenmQ8WwIOIOfKTCmGnHvTVtES3S9pgqC4KTXFd9VqJgZI5299Ihgi+P3sTkPwiU2031VBng+zU/W0+XZCYSSLYfMTJIM9WSBWzy/w+M/eQLFZ18weH46sfrEU8hfNEXEpWTBn/CQVpJkht8dPFUtuBGwzJwKsBrjbsw8DLaPQ6CbBMcKFz5HI8wQtm7pZU8aq0EjcYpM0Df/bkUBBY4ywDTRqgZHzIY7zXFeefyUdwAvHiiWfMGibIPb/fllCIda0ZU+NqKH9/sXsRzA==" />
+   <!-- <input type="submit" type="hidden">-->
+    </form>
+</body>
+</html> 

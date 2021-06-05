@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- <title>首页</title> -->
+    <title>นิยาย</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <link rel="stylesheet" href="css/commonality.css">
+    <link rel="stylesheet" href="css/index.css">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151366452-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-151366452-1');
+    </script>
+</head>
+
+<body>
+    <!-- 顶部导航 -->
+    <div class="nav  ">
+        <div class="w-100 h-100 flexCenter-ai-center flexCenter-jc-sb">
+            <div class="nav_logo flexCenter">
+                <img src="images/denglu_logo@2x.png" class="logo_img">
+                <h5>อ่านเลย</h5>
+            </div>
+            <div class="nav_button">
+                <a href="mine.html">
+                    <img src="images/db_me@2x.png" class="nav_user_button cursor"></a>
+                <img src="images/db_shucheng@2x.png" class="nav_bookrack_button cursor">
+                <img src="images/sj_search@2x.png" class="nav_search_button cursor">
+            </div>
+        </div>
+    </div>
+    <!-- 顶部分类 -->
+    <div class="header flexCenter-ai-center">
+        <div>
+            <ul class="flexCenter-ai-center">
+                <li class="header_on" data-page_name="fiction_page_button">
+                    <span class="cursor">นิยาย</span>
+                    <span class="header_line"></span>
+                </li>
+                <a href="index_cartoon.html">
+                    <li data-page_name="cartoon_page_button">
+                        <span class="cursor">การ์ตูน</span>
+                        <span class="header_line"></span>
+                    </li>
+                </a>
+            </ul>
+        </div>
+    </div>
+    <div class="main">
+        <!-- 广告轮播 -->
+        <div class="fiction_page_banner">
+            <div class="swiper-wrapper">
+                <!-- <div class="swiper-slide"> <img src="images/replace_2.png" class="cursor" onerror="this.src='images/replace_2.png'"></div>
+                <div class="swiper-slide"> <img src="images/replace_2.png" class="cursor" onerror="this.src='images/replace_2.png'"></div> -->
+            </div>
+            <!-- 轮播按钮 -->
+            <div class="swiper-pagination"></div>
+        </div>
+        <!-- 类型分类按钮 -->
+        <div class="category flexCenter-ai-center flexCenter-jc-sb">
+            <a href="more.html?list_name=phb">
+                <div>
+                    <img src="images/sc_phb@2x.png">
+                    <!-- <p>排行</p> -->
+                    <p>จัดอันดับ</p>
+                </div>
+            </a>
+            <a href="more.html?list_name=new_book">
+                <div>
+                    <img src="images/sc_zx@2x.png">
+                    <!-- <p>最新</p> -->
+                    <p>ใหม่ล่าสุด</p>
+                </div>
+            </a>
+            <a href="mission.html">
+                <div>
+                    <img src="images/sc_rw@2x.png">
+                    <!-- <p>任务</p> -->
+                    <p>ภารกิจ</p>
+                </div>
+            </a>
+            <a href="open_vip.html">
+                <div>
+                    <img src="images/sc_bn@2x.png">
+                    <!-- <p>包年</p> -->
+                    <p>รายปี</p>
+                </div>
+            </a>
+        </div>
+        <!-- 推荐小说标题 -->
+        <div class="set_title flexCenter-ai-center flexCenter-jc-sb recommend_fiction_title">
+            <p>นิยายแนะนำ</p>
+            <i></i>
+        </div>
+        <!-- 推荐小说 -->
+        <div class="recommend_fiction">
+            <div class="swiper-wrapper">
+                <!-- <div class="swiper-slide"> <img src="images/replace_2.png" class="cursor" onerror="this.src='images/replace_2.png'">
+                    <p class="p2-hidden marging_top_0-3">BILL FREE WILLINGG…BILL FREE WILLINGG…
+                    </p>
+                </div> -->
+            </div>
+            <!-- 轮播按钮 -->
+            <div class="swiper-pagination"></div>
+        </div>
+        <!-- 间隔线 -->
+        <div class="line"></div>
+        <!-- 免费阅读标题 -->
+        <div class="set_title flexCenter-ai-center flexCenter-jc-sb free_read_title">
+            <p>อ่านฟรี</p>
+            <div class="flexCenter cursor">
+                <a href="more.html?list_name=free_read">
+                    <span class="cursor">ดูเพิ่มเติม</span>
+                </a>
+                <img src="images/go_right@2x.png">
+            </div>
+        </div>
+        <!--免费阅读  -->
+        <div class="free_read flexCenter-jc-sb">
+            <!-- <div class="book_list_css_1">
+    <img src="images/replace_2.png" class="cursor" onerror="this.src='images/replace_2.png'">
+    <p class="p2-hidden marging_top_0-3">BILL FREE WILLINGG…BILL FREE WILLINGG…
+    </p>
+</div> -->
+        </div>
+        <!-- 间隔线 -->
+        <div class="line"></div>
+        <!-- 推荐漫画标题 -->
+        <div class="set_title flexCenter-ai-center flexCenter-jc-sb recommend_cartoon_title">
+            <p>การ์ตูนแนะนำ</p>
+            <div class="flexCenter cursor">
+                <a href="more.html?list_name=recommend_cartoon">
+                    <span class="cursor">ดูเพิ่มเติม</span>
+                </a>
+                <img src="images/go_right@2x.png">
+            </div>
+        </div>
+        <!--推荐漫画  -->
+        <div class="recommend_cartoon flexCenter-jc-sb">
+            <!-- <div class="book_list_css_1">
+                <img src="images/replace_2.png" class="cursor" onerror="this.src='images/replace_2.png'">
+                <p class="p2-hidden marging_top_0-3">BILL FREE WILLINGG…BILL FREE WILLINGG…
+                </p>
+            </div> -->
+        </div>
+        <!-- 间隔线 -->
+        <div class="line"></div>
+        <!-- 热门小说标题 -->
+        <div class="set_title flexCenter-ai-center flexCenter-jc-sb hot_fiction_title">
+            <p>นิยายขายดี</p>
+            <div class="flexCenter cursor">
+                <a href="more.html?list_name=hot_fiction">
+                    <span class="cursor">ดูเพิ่มเติม</span>
+                </a>
+                <img src="images/go_right@2x.png">
+            </div>
+        </div>
+        <!--热门小说  -->
+        <div class="hot_fiction hot_fiction">
+            <!-- <div class="book_list_css_2">
+                <img src="images/replace_2.png" class="cursor cover" onerror="this.src='images/replace_2.png'">
+                <div class="row">
+                    <p class="p1-hidden cursor">BILL FREE WILLINGG…BILL FREE WILLINGG…
+                    </p>
+                    <p class="p1-hidden cursor">作者名称</p>
+                    <p class="p2-hidden cursor">雪球专刊为雪球上有趣有料文章的合集，不久前就发生了很好的案例，…</p>
+                    <div class="state">
+                        <div>
+                            <i>完结</i>
+                        </div>
+                        <div>
+                            <span class="cursor">阅读</span>
+                            <img src="images/go_right@2x.png">
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+    <!-- 下方下载APP -->
+    <div class="bottom_download">
+        <div class="flexCenter-ai-center">
+            <img src="images/denglu_logo@2x.png" alt="">
+            <div>
+                <p>อ่านเลย</p>
+                <p>หนังสือดี อ่านได้อย่างอิสระ</p>
+            </div>
+        </div>
+        <div>
+            <button>ดาวน์โหลดตอนนี้</button>
+        </div>
+    </div>
+    <!-- 加载 -->
+    <div class="load-mask">
+        <div class="flexCenter w-100 h-100 flexCenter-column ">
+            <img src="images/jiazai60_60@2x.png" alt="" class="load-ant">
+            <p>กำลังโหลด</p>
+        </div>
+    </div>
+    <!-- ___________________________脚本___________________________ -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/md5.js"></script>
+    <script src="js/swiper.min.js"></script>
+    <script src="js/showText.js"></script>
+    <script src="js/commonality.js"></script>
+    <script src="js/index.js?v=20191104a"></script>
+</body>
+
+</html>

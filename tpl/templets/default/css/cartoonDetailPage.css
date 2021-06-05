@@ -1,0 +1,477 @@
+.main {
+    background: #f9f9f9;
+    padding-bottom: 0.99rem;
+    border-bottom: none;
+}
+
+.header {
+    width: 100%;
+    height: 0.8rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#header-backButton {
+    width: 0.8rem;
+    height: 0.8rem;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+#header-backButton img {
+    width: 60%;
+}
+
+/*封面*/
+.cartoonCover {
+    width: 100%;
+    height: 4.53rem;
+    position: relative;
+}
+
+.cartoonCoverBg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.rewardPage {
+    width: 100%;
+}
+
+.rewardPage-top {
+    height: 0.55rem;
+}
+
+.rewardPage-top span {
+    /*    width: 0.42rem;*/
+    height: 0.55rem;
+    line-height: 0.55rem;
+    font-size: 0.22rem;
+    font-family: PingFang-SC-Medium;
+    font-weight: 500;
+    color: rgba(245, 109, 82, 1);
+}
+
+.rewardPage-top div {
+    width: 3.3rem;
+    border-top: 1px solid #f7d2ca;
+}
+
+.rewardPage-usersHead {
+    width: 100%;
+    height: 0.65rem;
+}
+
+.rewardPage-usersHead-List {
+    width: 7rem;
+    height: 0.65rem;
+    overflow: hidden;
+}
+
+
+.rewardPage-usersHead-List img {
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50% 50%;
+}
+
+.swiper-container {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.rewardPage-buttonPage {
+    width: 100%;
+    height: 1.05rem;
+
+}
+
+.user-gold {
+    height: 0.65rem;
+}
+
+.rewardPage-buttonPage-goldIcon {
+    width: 0.3rem;
+    margin-right: 0.1rem;
+}
+
+.user-gold-nmuber {
+
+    font-size: 0.22rem;
+    font-family: PingFang-SC-Medium;
+    font-weight: 500;
+    color: rgba(250, 85, 108, 1);
+
+}
+
+.rewardButton {
+    width: 1.06rem;
+    height: 0.4rem;
+    line-height: 0.4rem;
+    border: none;
+    background: rgba(250, 85, 108, 1);
+    border-radius: 0.3rem;
+    font-size: 0.22rem;
+    font-family: PingFang-SC-Medium;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 1);
+    margin-left: 0.3rem;
+}
+
+/*.articleIntroduces {
+    width: 100%;
+    height: 1rem;
+    padding: 0 0.5rem;
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    max-height: 1rem;
+    -webkit-transition: max-height 1s;
+    transition: max-height 1s;
+}*/
+
+.articleIntroduces p {
+    font-size: 0.3rem;
+    font-family: TimesNewRomanPSMT;
+    font-weight: 400;
+    color: rgba(102, 102, 102, 1);
+    line-height: 0.4rem;
+}
+
+body .articleIntroduces-max-height {
+    max-height: 2rem;
+}
+
+.articleIntroduces {
+    width: 100%;
+    padding: 10px 0.5rem;
+    position: relative;
+    /*display: inline-block;*/
+    overflow: hidden;
+    /*background-color: orange;*/
+    max-height: 120px;
+    min-height: 120px;
+    overflow: hidden;
+    -webkit-transition: max-height 1s;
+    transition: max-height 1s;
+}
+
+
+.max-height-4 {
+    max-height: 20rem;
+}
+
+.articleIntroduces-button {
+    width: 20px;
+    height: 20px;
+    background: url(../images/articleIntroduces-button.png)no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    bottom: 25px;
+    right: 5px;
+    border: none;
+    -webkit-transition: all 1s;
+    transition: all 1s;
+}
+
+.footer {
+    width: 100%;
+    min-width: 320px;
+    max-width: 414px;
+    height: 1rem;
+    border-top: 1px solid #ebebeb;
+    position: fixed;
+    bottom: 0;
+    background: #fff;
+    z-index: 999;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: space-around;
+    justify-content: space-around;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+#commentTitle span {
+    font-size: 0.3rem;
+    font-family: MicrosoftYaHei;
+    font-weight: 400;
+    color: rgba(51, 51, 51, 1);
+}
+
+#commentTitle img {
+    width: 0.6rem;
+}
+
+.commentList {
+    width: 100%;
+
+}
+
+.commentLists {
+    width: 100%;
+    padding: 0.35rem 0.4rem;
+    border-bottom: 1px solid #f9f9f9;
+}
+
+.commentListsHead {
+    width: 0.7rem;
+    height: 0.7rem;
+    margin-right: 0.1rem;
+    border-radius: 50% 50%;
+}
+
+.commentListsMain {
+    width: 5.7rem;
+}
+
+.commentListsTop {
+    width: 100%;
+    margin-bottom: 0.1rem;
+}
+
+.commentListsTop p {
+    height: 0.5rem;
+    line-height: 0.5rem;
+}
+
+.commentLists-userName {
+    max-width: 2rem;
+
+    font-family: MicrosoftYaHei;
+    font-weight: 400;
+    color: rgba(102, 102, 102, 1);
+    float: left;
+    margin-right: 0.3rem;
+}
+
+.commentLists-time {
+
+    font-size: 0.22rem;
+    font-family: Adobe Heiti Std R;
+    font-weight: normal;
+    color: rgba(153, 153, 153, 1);
+    float: left;
+}
+
+.graded img {
+    width: 0.25rem;
+    margin: 0 0.02rem;
+}
+
+.commentListsText p {
+    width: 100%;
+
+    font-size: 0.26rem;
+    font-family: MicrosoftYaHei;
+    font-weight: 400;
+    color: rgba(102, 102, 102, 1);
+    line-height: 0.38rem;
+}
+
+.commentListMoreButton {
+    width: 100%;
+    height: 0.8rem;
+    font-size: 0.22rem;
+    font-family: Adobe Heiti Std R;
+    font-weight: normal;
+    color: rgba(153, 153, 153, 1);
+}
+
+.recommendPage {
+    width: 100%;
+    background: #fff;
+    padding-bottom: 0.2rem;
+}
+
+.bookList {
+    width: 100%;
+    /*padding: 0.2rem 0;*/
+}
+
+.bookLists {
+    width: 2.06rem;
+    position: relative;
+}
+
+.bookLists img {
+    width: 100%;
+    height: 2.5rem;
+    border-radius: 0.1rem;
+    object-fit: cover;
+}
+
+.bookLists p {
+    width: 100%;
+    text-align: center;
+    font-size: 0.24rem;
+    font-family: TimesNewRomanPSMT;
+    font-weight: 400;
+    color: rgba(51, 51, 51, 1);
+    line-height: 0.35rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    margin-top: 0.1rem;
+}
+
+.topTitlePage {
+    width: 100%;
+    height: 0.8rem;
+}
+
+.topTitleName {
+    width: 50%;
+    height: 100%;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    padding-left: 0.3rem;
+    float: left;
+}
+
+
+.topTitleName span {
+    display: inline-block;
+    font-size: 0.3rem;
+    font-family: MicrosoftYaHei;
+    font-weight: bold;
+    color: rgba(51, 51, 51, 1);
+}
+
+.footerButton-pink {
+    width: 2.11rem;
+    height: 100%;
+    background: rgba(250, 85, 108, 1);
+    font-size: 0.3rem;
+    font-family: MicrosoftYaHei;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 1);
+    border: none;
+}
+
+.footerButton-white {
+    width: 2.69rem;
+    height: 100%;
+    background: rgba(255, 255, 255, 1);
+    font-size: 0.3rem;
+    font-family: MicrosoftYaHei;
+    font-weight: 400;
+    color: rgba(250, 85, 108, 1);
+    border: none;
+}
+
+.nav {
+    width: 100%;
+    height: 0.7rem;
+    background: #fff;
+
+}
+
+.cartoonCoverName {
+    width: 100%;
+    padding-left: 0.4rem;
+    position: absolute;
+    bottom: 0.5rem;
+    left: 0;
+    font-size: 0.38rem;
+    font-family: TimesNewRomanPSMT;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 1);
+    -webkit-text-stroke: 0.02px rgba(51, 51, 51, 0);
+    text-stroke: 0.02px rgba(51, 51, 51, 0);
+}
+
+.nav span {
+    width: 0.7rem;
+    height: 0.7rem;
+    line-height: 0.7rem;
+    font-size: 0.3rem;
+    font-family: MicrosoftYaHei;
+    font-weight: 400;
+    color: rgba(51, 51, 51, 1);
+}
+
+.onNav {
+    border-bottom: 0.06rem solid rgba(252, 66, 92, 1);
+}
+
+#show {
+    width: 100%;
+    overflow: hidden;
+}
+
+#show .swiper-container1 {
+    width: 100%;
+    /*height: 100%;*/
+}
+
+#show .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.dataCartoon {
+    width: 100%;
+    height: 1rem;
+}
+
+.dataCartoon-text {
+    font-size: 0.24rem;
+    font-family: PingFang-SC-Medium;
+    font-weight: 500;
+    color: rgba(153, 153, 153, 1);
+}
+
+.dataCartoon-title {
+    font-size: 0.28rem;
+    font-family: PingFang-SC-Medium;
+    font-weight: 500;
+    color: rgba(250, 85, 108, 1);
+}
+
+.dataCartoon span {
+    border-right: 1px solid rgba(211, 211, 211, 1);
+    height: 0.4rem;
+
+}

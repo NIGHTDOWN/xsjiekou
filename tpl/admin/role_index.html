@@ -1,0 +1,52 @@
+<!--{include file={$admintpl}"top/headerjs.html"}-->
+<body>
+<div class="oemarry_layout"> 
+     <div class="oe_top_nav"><!--{include file={$admintpl}"a_nav.html"}--></div>
+  <div class="a_content">
+    <form action="" method="post">
+      <div class="oe_tools_bar clearfix">
+          <a class="icon-checkbox-checked icon-checkbox-unchecked" href="javascript:;" onClick="tools_select('roleid[]',this)" title="全选" data="true"> 全选 </a> 
+           <a href="<!--{url group="admin" action="add"}-->" class="icon-plus"> 添加</a>
+        <div style="display:none" id="area_serach">
+          <input id="areaname" type="text" class="input-b">
+          <input name="查找" value="查找" class="oe_boxbut" type="button" onClick="search_str($(this).prev('#areaname').val())">
+        </div>
+        <span class="fr"><a href="javascript:;"  onClick="msgbox('搜索分类',$('#area_serach'))"  id="condition" class="icon-search" style=""> 搜索分类</a>
+        
+        </span> </div>
+      <table class="oe_table_list table_cs"  id="paixun">
+        <tbody>
+          <tr>
+            <th style="width:4%;text-align:center;">选择</th>
+            <th style="width:30%;">角色名称</th>  
+            <th style="text-align:center;">操作</th>
+          </tr>
+          <!--{foreach $role as $volist}-->
+          <tr>
+            <td style="text-align:center;"><input type="checkbox" value="<!--{$volist.roleid}-->" name="roleid[]">
+              </input></td>
+            <td >
+                <!--{section name=customer loop=$volist.depath}--> 
+              | 
+              <!--{/section}--> 
+              <!--{section name=customer loop=$volist.depath}--> 
+              -- 
+              <!--{/section}--> 
+              <!--{$volist.rolename}--></td>
+ <td >
+                <a class="oe_ico_blue" href="<!--{url action="show" args="roleid:{$volist.roleid}"}-->">编辑</a> 
+                <a class="oe_ico_red" a="<!--{url action="del" args="roleid:{$volist.roleid}"}-->" onclick="boxyn($(this))">删除</a>
+               
+               </td>
+          </tr>
+          <!--{/foreach}-->
+        </tbody>
+      </table>
+      <div class="page_nav"> 
+        <!--{$page}--> 
+      </div>
+    </form>
+  </div>
+</div>
+
+</body>

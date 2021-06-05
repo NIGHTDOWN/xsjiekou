@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <meta name="format-detection" content="telephone=no">
+    <title></title>
+    <link rel="stylesheet" href="css/commonality.css">
+    <style>
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="list">
+        </div>
+    </div>
+</body>
+<script src="js/jquery.min.js"></script>
+<script>
+$('html').css('font-size', document.body.clientWidth / 7.5 + 'px');
+
+var arr = [{
+        "title": "客户端闪退",
+        "href": "p2-2-1.html",
+    }
+];
+
+set();
+
+function set() {
+    console.log(arr.length);
+
+    var html = '';
+    for (var i = 0; i < arr.length; i++) {
+        html += `
+              <a href="` + arr[i]["href"] + `">
+                <div class="lists flexCenter-ai-center flexCenter-jc-sb">
+                  <p>` + arr[i]["title"] + `</p>
+                  <img src="images/icon.png">
+                </div>
+              </a>
+      `;
+    }
+    $('.list').append(html);
+
+}
+</script>
+
+</html>

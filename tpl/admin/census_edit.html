@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=<!--{$page_charset}-->" />
+    <!--{include file={$admintpl}"top/headerjs.html"}-->
+</head>
+
+<body>
+    <div class="oemarry_layout">
+  <div class="oe_top_nav">
+	
+	<span><a href="javascript:;" url="<!--{url action='run'}-->" tag="back">&lt;&lt;返回列表</a></span>
+  </div>
+  <div class="a_content oe_dlv">
+<form method="post" action="<!--{url action="edit"}-->" >
+    <input name="id" type="hidden" value="<!--{$data.id}-->">
+     <table class="oe_table_warp">
+      <tr>
+	    <th width="5%"><span class="red"></span>UID：</th>
+		<td width="35%"><input type="text" name="uid" disabled="disabled " value="<!--{$data.uid}-->"  class="input-b"/>
+            <span class="oe_trap"><label></label><em></em></span>
+		</td></tr>
+         <tr>
+	    <th width="5%"><span class="red"></span>广告账号归属：</th>
+		<td width="35%"><input type="text" name="username" disabled="disabled " value="<!--{$data.username}-->"  class="input-b"/>
+            <span class="oe_trap"><label></label><em></em></span>
+		</td></tr>
+	  <tr>
+	    <th width="5%"><span class="red"></span>广告账号名称：</th>
+		<td width="35%"><input type="text" name="name" disabled="disabled " value="<!--{$data.name}-->"  class="input-b"/>
+            <span class="oe_trap"><label></label><em></em></span>
+		</td></tr>
+ <tr>
+	    <th width="5%"><span class="red"></span>广告账号编号：</th>
+		<td width="35%"><input type="text" name="acountid" disabled="disabled " value="<!--{$data.acountid}-->"  class="input-b"/>
+            <span class="oe_trap"><label></label><em></em></span>
+		</td></tr>
+		<tr>
+	    <th width="5%">设备类型：</th>
+		<td width="35%">
+            <select name="devices" disabled="disabled ">
+            <option value=""
+                    <!--{if !$data.devices}-->
+                    selected
+                                <!--{/if}-->
+                   >==请选择== </option>
+                <option value="1"
+                    <!--{if $data.devices=='1'}-->
+                    selected
+                                <!--{/if}-->
+                   >IOS </option>
+                <option value="2"
+                    <!--{if $data.devices=='2'}-->
+                    selected
+                                <!--{/if}-->
+                   >ANDROID</option>
+            </select></td></tr>
+            <tr>
+	    <th width="5%">国家：</th>
+		<td width="35%">
+            <select name="countryid" disabled="disabled ">
+                <option value=""
+                    <!--{if $data.countryid==''}-->
+                    selected
+                                <!--{/if}-->
+                   >==请选择== </option>
+                <!--{foreach $country as $k=>$val}-->
+							<option value="<!--{$k}-->"
+								<!--{if $data.countryid==$k}-->
+								selected
+								<!--{/if}-->
+								><!--{$val}--></option>
+								<!--{/foreach}-->
+            </select></td></tr>
+            
+            							
+             <tr>
+	    <th width="5%"><span class="red"></span>覆盖人数</th>
+		<td width="35%"><input type="text" name="fgnum" tag="notnull " value="<!--{$data.fgnum}-->"  class="input-b"/>
+            <span class="oe_trap"><label></label><em></em></span>
+		</td></tr>
+		  <tr>
+	    <th width="5%"><span class="red"></span>展示次数</th>
+		<td width="35%"><input type="text" name="zsnum" tag="notnull " value="<!--{$data.zsnum}-->"  class="input-b"/>
+            <span class="oe_trap"><label></label><em></em></span>
+		</td></tr>
+		  <tr>
+	    <th width="5%"><span class="red"></span>点击量</th>
+		<td width="35%"><input type="text" name="djl" tag="notnull " value="<!--{$data.djl}-->"  class="input-b"/>
+            <span class="oe_trap"><label></label><em></em></span>
+		</td></tr>
+   <tr>
+	    <th width="5%"><span class="red"></span>点击率</th>
+		<td width="35%"><input type="text" name="djrate" tag="notnull " value="<!--{$data.djrate}-->"  class="input-b"/>%
+            <span class="oe_trap"><label></label><em></em></span>
+		</td></tr>
+		<tr>
+	    <th width="5%"><span class="red"></span>花费金额</th>
+		<td width="35%"><input type="text" name="hf" tag="notnull " value="<!--{$data.hf}-->"  class="input-b"/>
+            <span class="oe_trap"><label></label><em></em></span>
+		</td></tr>
+		
+		<tr>
+	    <th width="5%"><span class="red"></span>应用安装(28天)</th>
+		<td width="35%"><input type="text" name="az28" tag="notnull " value="<!--{$data.az28}-->"  class="input-b"/>
+            <span class="oe_trap"><label></label><em></em></span>
+		</td></tr>
+			<tr>
+	    <th width="5%"><span class="red"></span>购买(28天)</th>
+		<td width="35%"><input type="text" name="buy28" tag="notnull " value="<!--{$data.buy28}-->"  class="input-b"/>
+            <span class="oe_trap"><label></label><em></em></span>
+		</td></tr>
+		<tr>
+	    <th width="5%"><span class="red"></span>购物独立用户数(28天)</th>
+		<td width="35%"><input type="text" name="buydl28" tag="notnull " value="<!--{$data.buydl28}-->"  class="input-b"/>
+            <span class="oe_trap"><label></label><em></em></span>
+		</td></tr>
+		<tr>
+	    <th width="5%"><span class="red"></span>购物转化价值(1天)</th>
+		<td width="35%"><input type="text" name="buyzh1" tag="notnull " value="<!--{$data.buyzh1}-->"  class="input-b"/>
+            <span class="oe_trap"><label></label><em></em></span>
+		</td></tr>
+		<tr>
+	    <th width="5%"><span class="red"></span>购物转化价值(7天)</th>
+		<td width="35%"><input type="text" name="buyzh7" tag="notnull " value="<!--{$data.buyzh7}-->"  class="input-b"/>
+            <span class="oe_trap"><label></label><em></em></span>
+		</td></tr>
+		<tr>
+	    <th width="5%"><span class="red"></span>购物转化价值(28天)</th>
+		<td width="35%"><input type="text" name="buyzh28" tag="notnull " value="<!--{$data.buyzh28}-->"  class="input-b"/>
+            <span class="oe_trap"><label></label><em></em></span>
+		</td></tr>
+     </table>
+
+  <div class="oe_button_layout">
+	  <input type="button" class="button_2" value="提交保存" tag="submit" /> 
+	  <span id="submit_tips" class="error"></span>
+	</div>
+</form>
+</div>
+</div>
+</body>

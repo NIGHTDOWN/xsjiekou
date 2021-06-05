@@ -1,0 +1,94 @@
+<!--{include file={$admintpl}"top/headerjs.html"}-->
+<body>
+<div class="oemarry_layout"> 
+   <div class="oe_top_nav"><!--{include file={$admintpl}"a_nav.html"}--></div>
+  <div class="a_content">
+<form action="" method="post">
+<div class="oe_tools_bar clearfix">
+    <a class="icon-checkbox-checked icon-checkbox-unchecked" href="javascript:;" onClick="tools_select('logid[]',this)" title="全选" data="true"> 全选 </a>
+    <a class="icon-remove-2" href="javascript:;" do="tools_submit({action:'<!--{url action="del" }-->',id:'logid'})" title="删除" onclick="boxyn($(this))"> 删除</a>
+    <a a="<!--{url action="clear" }-->" onclick="boxyn($(this))" class="icon-remove-2">清空全部</a>
+
+     <span class="fr"><a id="condition" class="icon-search <!--{if $where}-->red<!--{/if}-->" href="javascript:;" onclick="lbox('筛选条件')"> 筛选条件</a></span> </div>
+</div>
+<table class="oe_table_list table_cs"  id="paixun">
+    <tr>
+        <th style="width:4%; text-align:center;">选择</th>
+        <th style="width:8%" key="opuser" data="<!--{if $orderby.f=="opuser" && $orderby.s=="up"}-->down<!--{else if $orderby.f=="opuser" && $orderby.s=="down"}-->up<!--{/if}-->"   >账号</th>
+         <th style="width:8%" key="mod" data="<!--{if $orderby.f=="mod" && $orderby.s=="up"}-->down<!--{else if $orderby.f=="mod" && $orderby.s=="down"}-->up<!--{/if}-->"   >操作模块</th>
+         <th style="width:8%" key="action" data="<!--{if $orderby.f=="action" && $orderby.s=="up"}-->down<!--{else if $orderby.f=="action" && $orderby.s=="down"}-->up<!--{/if}-->"   >执行动作</th>
+        <th style="width:12%" key="ip" data="<!--{if $orderby.f=="ip" && $orderby.s=="up"}-->down<!--{else if $orderby.f=="ip" && $orderby.s=="down"}-->up<!--{/if}-->"   >操作人IP</th>
+        <th style="width:12%" key="addtime" data="<!--{if $orderby.f=="addtime" && $orderby.s=="up"}-->down<!--{else if $orderby.f=="addtime" && $orderby.s=="down"}-->up<!--{/if}-->"   >操作时间</th>
+          <th style="width:8%" key="area" data="<!--{if $orderby.f=="area" && $orderby.s=="up"}-->down<!--{else if $orderby.f=="area" && $orderby.s=="down"}-->up<!--{/if}-->"   >操作人地址</th>
+        <th style="width:8%" key="status" data="<!--{if $orderby.f=="status" && $orderby.s=="up"}-->down<!--{else if $orderby.f=="status" && $orderby.s=="down"}-->up<!--{/if}-->"   >执行状态</th>
+        <th style="width:15%; text-align:center;">消息</th>
+        <th style="text-align:center;">操作</th>
+    </tr>
+    <tbody>
+    <!--{foreach $<!--{$c}--> as $volist}-->
+    <tr>
+      <td  style="text-align:center;"><input type="checkbox" value="<!--{$volist.logid}-->" name="logid[]"></input></td>
+      <td tag="" key="<!--{$volist.logid}-->" who="admins" name="adminname"> <!--{if $volist.adminname}--><!--{$volist.adminname}-->
+        <!--{else}-->用户未登入
+        <!--{/if}--></td>
+         <td style="text-align:center;"><!--{<!--{$volist.mod}-->|getmodname:"admin"}--></td>
+      <td tag="" key="<!--{$volist.logid}-->" who="admins" name="mobile"><!--{ac mod="<!--{$volist.mod}-->" action="<!--{$volist.action}-->" group="admin"}--></td>
+         <td style="text-align:center;"><!--{$volist.ip}--></td>
+       <td style="text-align:center;" who="admins" key="<!--{$volist.logid}-->" name="email" tag="" style="cursor:pointer" ><!--{$volist.addtime|date_format:"%Y-%m-%d %H:%M:%S"}--></td>
+         <td style="text-align:center;">
+             <!--{$volist.area}-->
+                </td>
+                 <td style="text-align:center;">
+             <!--{if $volist.status==1}--> 成功
+             <!--{else}-->失败
+             <!--{/if}-->
+                </td>
+         <td style="text-align:center;"><!--{$volist.info}--></td>
+        <td  style="text-align:center;" class="a_edit_del">  
+        <a class="oe_ico_blue" href="<!--{url action="show"  args="logid=><!--{$volist.logid}-->"}-->">查看详情</a>
+        <a class="oe_ico_red" a="<!--{url action="del"  args="logid=><!--{$volist.logid}-->"}-->" onclick="boxyn($(this))">删除</a>
+        </td>
+      </tr>
+    <!--{/foreach}--></tbody>
+       </table>
+   <div class="oe_page_box">
+                   <!--{$page}-->
+                </div>
+</form>
+</div>
+</div>
+
+ <!--{include file={$admintpl}"paix.html"}-->
+
+
+
+<div style="display:none;" id="searchbox">
+  <form method="post" style="width:400px;" action="">
+       <input name="sflag" type="hidden" value="1">
+     <table  align="center" width="473" class="oe_table_warp">
+     
+            <tr>
+        <td height="40"  style="text-align:right;">管理员：</td>
+        <td>
+        <input name="adminname" class="input-b" type="text" value="<!--{$where.adminname}-->" />
+            
+        </td>
+           
+      </tr> 
+       <tr>
+        <td height="40"  style="text-align:right;">ip：</td>
+        <td>
+        <input name="ip" class="input-b" type="text" value="<!--{$where.ip}-->" />
+            
+        </td>
+           
+      </tr> 
+    </table>
+        <div style="text-align:center">
+           <input name="" value="清空" class="oe_boxbut" tag="reset" type="button">
+        <span style="padding-left:50px;"></span>
+          <input name="" value="提交查询" class="oe_boxbut" tag="submit" type="button">
+    </div>
+  </form>
+</div>
+</body>

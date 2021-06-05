@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ของฉัน</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <link rel="stylesheet" href="css/commonality.css">
+    <link rel="stylesheet" href="css/mine.css">
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="953879927054-78n9532oik4609magf2plev2ighde966.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151366452-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-151366452-1');
+    </script>
+</head>
+
+<body>
+    <!-- 顶部返回导航 -->
+    <div class="back_nav">
+        <div class="back_button flexCenter">
+            <img src="images/goleft24_12@2x.png" class="back_button_img" onerror="this.src='images/replace_2.png'">
+        </div>
+        <!-- <p class="back_p">404</p> -->
+    </div>
+    <!-- 用户信息 -->
+    <div class="user_page flexCenter-ai-center">
+        <div>
+            <img src="images/mrtx@2x.png" class="user_head">
+        </div>
+        <div>
+            <div class="click_login cursor go_login">
+                เข้าสู่ระบบโดย
+            </div>
+            <div class="user_desc">
+                <div class="flexCenter-ai-center marging_bottom_0-1">
+                    <p class="user_name">user_name</p>
+                </div>
+                <div>
+                    <p class="user_id">ID:33333</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 是会员 -->
+    <!-- <div class="is_vip">
+        <div class="flexCenter">
+            <div class="vip_bg flexCenter-ai-center flexCenter-jc-sb">
+                <img src="images/vip40@2x.png" class="vip_icon">
+                <div>
+                    <p>会员</p>
+                    <p>2020/12/10 12：00 到期 </p>
+                </div>
+                <button>续费</button>
+            </div>
+        </div>
+    </div> -->
+    <!-- 不是会员 -->
+    <div class="no_vip">
+        <div class="flexCenter">
+            <div class="vip_bg flexCenter-ai-center flexCenter-jc-sb">
+                <img src="images/vip40@2x.png" class="vip_icon">
+                <div>
+                    <!-- <p>会员</p> -->
+                    <p>สมาชิก</p>
+                    <!-- <p>无限制畅读</p> -->
+                    <p>ไม่จำกัดจำนวนการอ่าน</p>
+                </div>
+                <!-- <button class="cursor">开通会员</button> -->
+                <button class="cursor" onclick="go_download()">เปิดสมาชิก</button>
+            </div>
+        </div>
+    </div>
+    <!-- 列表 -->
+    <div class="list">
+        <ul>
+            <li>
+                <div class="flexCenter-ai-center flex-wrap-nowrap w-100 h-100">
+                    <img src="images/shubi32_32@2x.png" class="list_icon">
+                    <div class=" flexCenter-ai-center m-w-3  flexCenter-jc-sb">
+                        <div class="flex-wrap-nowrap">
+                            <p class="list_name cursor">goldเหลือ</p>
+                            <p class="yu_e cursor">-</p>
+                        </div>
+                        <button class="cursor">เติมเงิน</button>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="flexCenter-ai-center flex-wrap-nowrap w-100 h-100">
+                    <img src="images/wd_xfjl@2x.png" class="list_icon">
+                    <div class="m-w-3 flex-wrap-nowrap flexCenter-ai-center">
+                        <p class="list_name cursor">บันทึกการใช้</p>
+                    </div>
+                </div>
+            </li>
+            <a href="https://www.facebook.com/%E0%B8%AD%E0%B9%88%E0%B8%B2%E0%B8%99%E0%B9%80%E0%B8%A5%E0%B8%A2-%E0%B8%99%E0%B8%B4%E0%B8%A2%E0%B8%B2%E0%B8%A2%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%81%E0%B8%AA%E0%B8%A3%E0%B9%8C%E0%B8%95%E0%B8%B9%E0%B8%99%E0%B8%AD%E0%B8%AD%E0%B8%99%E0%B9%84%E0%B8%A5%E0%B8%99%E0%B9%8C-1699295950216055/">
+                <li>
+                    <div class="flexCenter-ai-center flex-wrap-nowrap w-100 h-100">
+                        <img src="images/wd_zxkf@2x.png" class="list_icon">
+                        <div class="m-w-3 flex-wrap-nowrap flexCenter-ai-center">
+                            <!-- <p class="list_name cursor">在线客服</p> -->
+                            <p class="list_name cursor">บริการลูกค้าออนไลน์</p>
+                        </div>
+                    </div>
+                </li>
+            </a>
+            <!--             <li>
+                <div class="flexCenter-ai-center flex-wrap-nowrap w-100 h-100">
+                    <img src="images/wd_zztg@2x.png" class="list_icon">
+                    <div class="m-w-3 flex-wrap-nowrap flexCenter-ai-center">
+                        <p class="list_name cursor">作者投稿</p>
+                    </div>
+                </div>
+            </li> -->
+        </ul>
+    </div>
+    <div class="line"></div>
+    <div class="list" style="padding-top: 0">
+        <ul>
+            <a href="privacy.html">
+                <li>
+                    <div class="flexCenter-ai-center flex-wrap-nowrap w-100 h-100">
+                        <img src="images/wd_bqsm@2x.png" class="list_icon">
+                        <div class="m-w-3 flex-wrap-nowrap flexCenter-ai-center">
+                            <p class="list_name cursor">ประกาศเกี่ยวกับลิขสิทธิ์</p>
+                        </div>
+                    </div>
+                </li>
+            </a>
+            <a href="fqa_android.html">
+                <li>
+                    <div class="flexCenter-ai-center flex-wrap-nowrap w-100 h-100">
+                        <img src="images/wd_cjwt@2x.png" class="list_icon">
+                        <div class="m-w-3 flex-wrap-nowrap flexCenter-ai-center">
+                            <p class="list_name cursor">คำถามที่พบบ่อย</p>
+                        </div>
+                    </div>
+                </li>
+            </a>
+            <a href="feedback.html">
+                <li>
+                    <div class="flexCenter-ai-center flex-wrap-nowrap w-100 h-100">
+                        <img src="images/wd_yjfk@2x.png" class="list_icon">
+                        <div class="m-w-3 flex-wrap-nowrap flexCenter-ai-center">
+                            <p class="list_name cursor">คำติชม</p>
+                        </div>
+                    </div>
+                </li>
+            </a>
+            <li class="logout_button">
+                <div class="flexCenter">
+                    <p class="logout_button">ออกจากระบบ</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!-- 下方下载APP -->
+    <div class="bottom_download">
+        <div class="flexCenter-ai-center">
+            <img src="images/denglu_logo@2x.png" alt="">
+            <div>
+                <p>อ่านเลย</p>
+                <p>หนังสือดี อ่านได้อย่างอิสระ</p>
+            </div>
+        </div>
+        <div>
+            <button>ดาวน์โหลดตอนนี้</button>
+        </div>
+    </div>
+    <!-- 加载 -->
+    <div class="load-mask">
+        <div class="flexCenter w-100 h-100 flexCenter-column ">
+            <img src="images/jiazai60_60@2x.png" alt="" class="load-ant">
+            <p>loading . . .</p>
+        </div>
+    </div>
+    <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" style="display: none;"></div>
+    <!-- ___________________________脚本___________________________ -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/swiper.min.js"></script>
+    <script src="js/commonality.js"></script>
+    <script src="js/md5.js"></script>
+    <script src="js/showText.js"></script>
+    <script src="js/mine.js"></script>
+</body>
+
+</html>

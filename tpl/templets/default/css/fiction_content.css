@@ -1,0 +1,187 @@
+.main {
+    background: #f3f3f3;
+    padding-bottom: 0.99rem;
+    border-bottom: none;
+    padding-top: 0.8rem;
+
+}
+
+body {
+    overflow: hidden;
+    /*background: #e7e7e7;*/
+}
+
+.header {
+    width: 100%;
+    min-width: 320px;
+    max-width: 414px;
+    height: 0.8rem;
+    background: #fff;
+    position: fixed;
+    top: 0;
+
+}
+
+#header-backButton {
+    width: 0.8rem;
+    height: 0.8rem;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+#header-backButton img {
+    width: .17rem;
+    height: .32rem;
+}
+
+.main ul,
+.main li {
+    width: 100%;
+}
+
+.main li {
+    height: 0.8rem;
+}
+
+.main_title {
+    width: 100%;
+    /*height: 0.8rem;*/
+    line-height: 0.8rem;
+    font-size: 0.4rem;
+    padding-left: 0.2rem;
+}
+
+.main_content {
+    width: 100%;
+    padding-left: 0.2rem;
+    padding-right: 0.2rem;
+    margin-top: 0.3rem;
+}
+
+.main_content p {
+    width: 100%;
+    line-height: 0.8rem;
+    font-size: 0.3rem;
+    margin-bottom: 0.6rem;
+}
+
+
+
+.unlock_page {
+    width: 100%;
+    height: 100%;
+    min-width: 320px;
+    max-width: 414px;
+    position: fixed;
+    top: 0;
+    /*left: 0;*/
+    display: none;
+}
+
+.unlock_page_colse {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.unlock {
+    width: 100%;
+    padding: 0.5rem 0;
+    background: #fff;
+    position: absolute;
+    bottom: 0;
+    left: 0
+}
+
+.unlock img {
+    width: 0.3rem;
+}
+
+.unlock span {
+    font-size: 0.3rem;
+}
+
+.unlock button {
+    width: 6rem;
+    height: 0.78rem;
+    background: rgba(255, 102, 102, 1);
+    border-radius: 0.5rem;
+    border: none;
+    font-size: 0.3rem;
+    font-family: PingFang-SC-Medium;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 1);
+}
+
+.unlock div {
+    margin: 0.2rem 0;
+}
+
+.need_coin {
+    color: #000;
+}
+
+.my_coin {
+    color: #ccc;
+}
+
+.loading {
+    width: 100%;
+    height: 100%;
+    min-width: 320px;
+    max-width: 414px;
+    position: fixed;
+    top: 0;
+    /*left: 0;*/
+    /*display: none;*/
+}
+
+
+.loading div {
+    width: 2rem;
+    height: 2rem;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 0.1rem;
+}
+
+.loading img {
+    width: 0.8rem;
+}
+
+.main_button button {
+    width: 3rem;
+    height: 0.78rem;
+    border: 1px solid #e6dede;
+    /* border: none; */
+    font-size: 0.3rem;
+    font-family: PingFang-SC-Medium;
+    font-weight: 500;
+    color: #e6dede;
+    background: none;
+}
+
+.main_button {
+    width: 100%;
+    display: none;
+    margin-top: 0.2rem;
+}
+
+.main_button .main_button_on {
+    border: 1px solid #868686;
+    color: #868686;
+}
+
+.unlock_page button {
+    width: 6rem;
+    height: 0.78rem;
+    background: rgba(255, 102, 102, 1);
+    border-radius: 0.5rem;
+    border: none;
+    font-size: 0.3rem;
+    font-family: PingFang-SC-Medium;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 1);
+    margin-top: 0.2rem;
+    /*display: none;*/
+}

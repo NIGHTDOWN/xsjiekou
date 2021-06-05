@@ -1,0 +1,310 @@
+
+
+<!--{include file={$admintpl}"top/headerjs.html"}-->
+<body>
+	<div class="oemarry_layout"> 
+		<div class="oe_top_nav"><!--{include file={$admintpl}"a_nav.html"}--></div>
+		<div class="a_content">
+			<form action="<!--{url mod='census' }-->" method="post">
+				<input type="hidden" name="sflag" value="1"/>
+				<script>
+					function dcexcel($html){
+						$url='<!--{url mod='user' action='excel'}-->';
+						$('[name=html]').val($html.get(0).outerHTML);
+						$('form:first').attr('action',$url);
+						$('form:first').submit();
+					}
+
+				</script>
+				<div class="oe_tools_bar clearfix">
+					
+					<a class="icon-list" href="javascript:;" > 
+						<input type="text" class="select date1" name="start" placeholder="选择开始时间" autocomplete="off" value="<!--{$gettime.start|date_format:"%Y-%m-%d"}-->"/>
+					</a>
+					<a class="icon-list" href="javascript:;" >  
+						<input type="text" class="select date1" name="end" placeholder="选择结束时间" autocomplete="off" value="<!--{$gettime.end|date_format:"%Y-%m-%d"}-->"/></a>
+					<a class="icon-list" href="javascript:;" >  <input name="acountid" placeholder="账号ID" type="text" value="<!--{$where.acountid}-->"></a>
+					<a class="icon-list" href="javascript:;" > 
+						<select name="devices"  >
+							<option value=""
+								<!--{if $where.devices==''}-->
+								selected
+								<!--{/if}-->
+								>==设备类型== </option>
+							<option value="1"
+								<!--{if $where.devices=='1'}-->
+								selected
+								<!--{/if}-->
+								>IOS </option>
+							<option value="2"
+								<!--{if $where.devices=='2'}-->
+								selected
+								<!--{/if}-->
+								>ANDROID</option>
+						</select>
+					</a>	
+					<a class="icon-list" href="javascript:;" > 
+						<select name="countryid"  >
+							<option value=""
+								<!--{if $where.countryid==''}-->
+								selected
+								<!--{/if}-->
+								>==请选择国家== </option>
+								<!--{foreach $country as $k=>$val}-->
+							<option value="<!--{$k}-->"
+								<!--{if $where.countryid==$k}-->
+								selected
+								<!--{/if}-->
+								><!--{$val}--></option>
+								<!--{/foreach}-->
+						
+						</select>
+					</a>
+					<a class="" href="javascript:submit();" tag='submit'> 确定</a>
+					<a class="" href="javascript:dcexcel($('.oe_table_list'));"> 导出excel</a>
+					
+				</div>
+				<table class="oe_table_list table_cs"  id="paixun">
+					<tbody>
+						<tr>
+							<th >日期</th>
+							<th style="">账号</th>
+							<th style="">归属</th>
+							<th style="">编号</th>
+							
+							<th style="">国家</th>
+							<th style="">设备</th>
+							<th style="">覆盖人数</th>
+							<th style="">展示次数</th>
+							<th style="">点击量</th>
+							<th style="">点击率</th>
+							<th style="">花费金额</th>
+							
+							
+							<th style="">应用安装(28天)</th>
+						
+							
+							<th style="">购买(28天)</th>
+							
+							<th style="">购物独立用户数(28天)</th>
+							<th style="">购物转化价值(1天)</th>
+							<th style="">购物转化价值(7天)</th>
+							<th style="">购物转化价值(28天)</th>
+							<th style="">操作</th>
+							
+						</tr>
+						<!--{foreach $data as $volist}-->
+						<tr class="list">
+							<td > <!--{$volist.indate}--></td>
+							<td > 
+								<!--{$volist.uid}-->
+								
+								
+								
+							</td>
+							<td > 
+								<!--{$volist.username}-->
+								
+								
+								
+							</td>
+							<td > 
+								<!--{$volist.acountid}-->
+								
+								
+								
+							</td>
+							<td > <!--{$country[$volist.countryid]}-->
+								
+								
+								
+								
+							</td>
+							<td >  <!--{if $volist.devices=='0'}-->
+								未知
+								<!--{elseif $volist.devices=='1'}-->
+								IOS
+								<!--{elseif $volist.devices=='2'}-->
+								ANDROID
+								<!--{/if}--></td>
+							<td > <!--{$volist.fgnum}--></td>
+							<td > <!--{$volist.zsnum}--></td>
+							<td > <!--{$volist.djl}--></td>
+							<td > <!--{$volist.djrate}-->%</td>
+							<td > <!--{$volist.hf}--><!--{$config.currency}--></td>
+							
+							
+							<td > <!--{$volist.az28}--></td>
+							
+							
+							<td > <!--{$volist.buy28}--></td>
+						
+							<td > <!--{$volist.buydl28}--></td>
+							<td > <!--{$volist.buyzh1}--><!--{$config.currency}--></td>
+							<td > <!--{$volist.buyzh7}--><!--{$config.currency}--></td>
+							<td > <!--{$volist.buyzh28}--><!--{$config.currency}--></td>
+							<td > <a class="oe_ico_red" a="<!--{url action='edit' args="id:{$volist.id}"}-->" onclick="boxyn($(this),'确定要编辑么？？？？？')">编辑</a></td>
+							
+						</tr>
+						<!--{/foreach}-->
+						<tr style="text-align:center;background: #ddd" class="sum">
+							<td >合计</td>
+							<td > </td>
+							<td > </td>
+							<td > </td>
+							<td > </td>
+							<td > </td>
+							<td > </td>
+							<td > </td>
+							<td > </td>
+							<td > </td>
+							<td > </td>
+							<td > </td>
+							<td > </td>
+							<td > </td>
+							<td > </td>
+							<td > </td>
+							<td colspan="2"> </td>
+							
+						</tr>
+					</tbody>
+				</table>
+				<div class="oe_page_box"> 
+					<!--{$page}--> 
+				</div>
+			</form>
+		</div>
+	</div>
+	<div style="position: fixed;
+    bottom: 0px;
+    background: bisque;
+    height: auto;
+    width: 100%;"> 
+					<!--{$url}--> 
+				</div>
+	<script>
+		function tj($i){
+			$k=0;
+			$('.list').each(function($ii,$v){
+					$int=parseFloat($($v).children('td').eq($i).text());
+					$k+=$int;
+				});
+			$k=$k.toFixed(2);
+			$('.sum').children('td').eq($i).text($k);
+			/*return $i;*/
+		}
+		$(function(){
+				$l=$('.list').eq(0).children('td').length;
+				$i=5;
+				while($i<=$l){
+					$i++;
+					if($i==9 ){
+						$k=parseFloat($('.sum').children('td').eq($i-1).text())/parseFloat($('.sum').children('td').eq($i-2).text())*100;
+						//						$k=Math.ceil($k,2);
+						$k=$k.toFixed(2);
+						$('.sum').children('td').eq($i).text($k+"%");
+					}
+					else{tj($i);}	
+				}
+			});
+	</script>
+	<div style="display: none;" id="searchbox">
+		<form method="post" style="width:400px;" action="">
+			<input name="sflag" type="hidden" value="1">
+			<table align="center" width="473" class="oe_table_warp">
+      
+				<tbody>
+					<tr>
+						<td height="40" style="text-align:right;">广告编号：</td>
+						<td>
+        	
+            
+						</td>
+           
+					</tr><tr>
+						<td height="40" style="text-align:right;">国家：</td>
+						<td>
+						
+        				
+            
+						</td>
+           
+					</tr>
+					<tr>
+						<td height="40" style="text-align:right;">设备类型：</td>
+						<td>
+						
+						 
+						
+        				
+            
+						</td>
+           
+					</tr>
+       
+        
+       
+				</tbody></table>
+   
+			<div style="text-align:center">
+				<input name="" value="清空" class="oe_boxbut" tag="reset" type="button">
+				<span style="padding-left:50px;"></span>
+				<input name="" value="提交查询" class="oe_boxbut" tag="submit" type="button">
+			</div>
+		</form>
+	</div>
+	<style>
+		.oem_alert_btt input {
+    border: none;
+    outline: none;
+}
+.oem_alert_btt input:nth-child(odd){
+	      color: #fff !important;
+    border: 1px solid #4d4d4d;
+    background-image: -moz-linear-gradient(#656565, #454545) !important;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#454545), to(#656565)) !important;
+    background-image: -webkit-linear-gradient(#656565, #454545) !important;
+    background-image: -o-linear-gradient(#656565, #454545) !important;
+    text-shadow: 1px 1px 1px #6d6d6d;
+    background-color: #454545 !important;
+  
+    font-size: 12px;
+    text-decoration: none!important;
+    font-family: Helvetica, Arial, sans serif;
+    padding: 8px 12px!important;
+    border-radius: 3px!important;
+    -moz-border-radius: 3px!important;
+    box-shadow: inset 0px 0px 2px #fff;
+   
+}
+.oem_alert_btt input:nth-child(even){
+    color: #fff !important;
+    border: 1px solid #4d4d4d;
+    border: 1px solid #ef0119;
+    background-image: -moz-linear-gradient(#f90225, #e21414) !important;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#e21414), to(#ff0427))!important;
+    background-image: -webkit-linear-gradient(#f90225, #e21414)!important;
+    background-image: -o-linear-gradient(#f90225, #e21414)!important;
+    background-color: #e21414;
+    text-shadow: 1px 1px 1px #6d6d6d;
+    background-color: #454545 !important;
+    font-size: 12px;
+    text-decoration: none!important;
+    font-family: Helvetica, Arial, sans serif;
+    padding: 8px 12px!important;
+    border-radius: 3px!important;
+    -moz-border-radius: 3px!important;
+    box-shadow: inset 0px 0px 2px #fff;
+}
+div#msgbox {
+    moz-user-select: -moz-none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+	</style>
+</body>
+

@@ -1,0 +1,55 @@
+    body {
+        padding-top: 1.2rem;
+    }
+
+    .cover_page {
+        width: 100%;
+        height: 7rem;
+        text-align: center;
+    }
+
+    .cover_page img {
+        width: 1.5rem;
+        /* margin-top: 2rem;
+        margin-bottom: 1rem;*/
+    }
+
+    .fb_button {
+        width: 100%;
+        padding: 0 0 0 1.5rem;
+    }
+
+    .button_show {
+        width: 100%;
+        position: relative;
+    }
+
+    .fb_show {
+        width: 4.92rem;
+        height: 0.88rem;
+        border: 1px solid rgba(191, 191, 191, 1);
+        border-radius: 0.5rem;
+        margin: 0 auto;
+    }
+
+    .header {
+        width: 100%;
+        height: 0.8rem;
+    }
+
+    #header-backButton {
+        width: 0.8rem;
+        height: 0.8rem;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    #header-backButton img {
+        width: .17rem;
+        height: .32rem;
+    }
+
+    .google_button {
+        margin-top: 0.5rem;
+    }

@@ -1,0 +1,129 @@
+<script>
+
+Date.prototype.format = function(fmt) { 
+     var o = { 
+        "M+" : (this.getMonth()+1).toString().padStart(2,'0'),                 //月份 
+        "d+" : (this.getDate()).toString().padStart(2,'0'),                    //日 
+        "h+" : this.getHours(),                   //小时 
+        "m+" : this.getMinutes(),                 //分 
+        "s+" : this.getSeconds(),                 //秒 
+        "q+" : Math.floor((this.getMonth()+3)/3), //季度 
+        "S"  : this.getMilliseconds()             //毫秒 
+    }; 
+    if(/(y+)/.test(fmt)) {
+//    	d(this.getFullYear());
+            fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"")); 
+    }
+     for(var k in o) {
+        if(new RegExp("("+ k +")").test(fmt)){
+             fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+         }
+     }
+    return fmt; 
+}
+	$(function(){
+			$('.select').ondragstart= function(event) {
+
+				return false;
+			};
+			document.ondragstart = function(event) {
+
+				return false;
+			};
+	
+	
+		});
+	function s1($num){
+		$endo=$('input[name="end"]');
+		$starto=$('input[name="start"]');
+
+		$now=new Date().getTime();
+		day=3600*24*1000;
+
+		
+		var today = new Date();
+		    var oneday = 1000 * 60 * 60 * 24;
+		    var nowDate= new Date();
+		    //当前日
+		    var nowDay = nowDate.getDate();
+		    //今天是本周的第几天
+		    var nowDayOfWeek= nowDate.getDay();
+		    //当前月
+		    var nowMonth = nowDate.getMonth();
+		    //当前年
+		    var nowYear = nowDate.getFullYear();
+		   
+		    nowYear += (nowYear < 2000) ? 1900 : 0;
+		    //上月日期
+		    var lastMonthDate = new Date();
+		    lastMonthDate.setDate(1);
+		 
+		    lastMonthDate.setMonth(lastMonthDate.getMonth()-1);
+		   
+		    var lastYear = lastMonthDate.getYear();
+		  
+		    var lastMonth = lastMonthDate.getMonth();
+		  
+	
+		
+		switch($num){
+			case 0:
+//			$t=new Date($now);
+			S=new Date($now-day).format('y-M-d');
+			E=new Date($now).format('y-M-d');
+			break;
+			case 1:
+			S=new Date($now-day*7).format('y-M-d');
+			E=new Date($now).format('y-M-d');
+			break;
+			case 2:
+			S=new Date($now-day*14).format('y-M-d');
+			E=new Date($now).format('y-M-d');
+			break;
+			case 3:
+			S=new Date($now-day*30).format('y-M-d');
+			E=new Date($now).format('y-M-d');
+			break;
+			case 4:
+			
+			S=new Date(nowYear, nowMonth, nowDay - nowDayOfWeek+1).format('y-M-d');
+			E=new Date(nowYear, nowMonth, nowDay - nowDayOfWeek+7).format('y-M-d');
+			break;
+			case 5:
+			S=new Date(nowYear, nowMonth, nowDay - nowDayOfWeek -6).format('y-M-d');
+			E=new Date(nowYear, nowMonth, nowDay - nowDayOfWeek).format('y-M-d');
+			break;
+			case 6:
+			S=new Date(nowYear, nowMonth, 1).format('y-M-d');
+			E=new Date(new Date(nowYear, nowMonth+1, 1)-day).format('y-M-d');
+			break;	
+			case 7:
+			
+			S=new Date(nowYear, nowMonth-1, 1).format('y-M-d');
+			E=new Date(new Date(nowYear, nowMonth, 1)-day).format('y-M-d');
+			break;
+			
+			
+		}
+		$endo.val(E);
+		$starto.val(S);
+	}
+</script>
+<noscript>都TM禁用JS了；还用毛线。</noscript>
+<!--{if $c=='census' ||$c=='ucensus' }-->
+<div class="oe_tools_bar clearfix" style='padding: 0px'>		
+	<a class="" href="javascript:s1(0);" > 昨天</a>
+	<a class="" href="javascript:s1(1);" > 过去7天</a>
+	<a class="" href="javascript:s1(2);" > 过去14天</a>
+	<a class="" href="javascript:s1(3);" > 过去30天</a>
+	<a class="" href="javascript:s1(4);" > 本周</a>
+	<a class="" href="javascript:s1(5);" > 上周</a>
+	<a class="" href="javascript:s1(6);" > 本月</a>
+	<a class="" href="javascript:s1(7);" > 上月</a>				
+</div>
+<!--{/if}-->
+<style>
+	.oe_top_nav {
+		padding-left: 0px!important;
+	}
+</style>

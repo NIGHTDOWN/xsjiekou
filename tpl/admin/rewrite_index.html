@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=<!--{$page_charset}-->" />
+    <!--{include file={$admintpl}"top/headerjs.html"}-->
+</head>
+<body>
+  <div class="oemarry_layout">
+  <div class="oe_top_nav">
+	 <!--{include file={$admintpl}"a_nav.html"}-->
+	<span><a href="javascript:;" tag="back" url="<!--{url action='run'}-->">&lt;&lt;返回列表</a></span>
+  </div>
+  <div class="a_content oe_dlv">
+      <div class="oe_txtwrap">站点伪静态设置（开启Rewrite功能会将URL静态化，提高搜索引擎的抓取）
+	</div>
+      <div class="oe_txtwrap"><span style="color: rgb(102, 102, 102); font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 20px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none;">如果使用HTML伪静态必须满足以下条件：</span><br style="padding: 0px; margin: 0px; color: rgb(102, 102, 102); font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 20px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);" />
+            <span style="color: rgb(102, 102, 102); font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 20px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none;">1、网站根目录必须有0777权限，能写入、修改、删除.htaccess规则配置文件；</span><br style="padding: 0px; margin: 0px; color: rgb(102, 102, 102); font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 20px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);" />
+            <span style="color: rgb(102, 102, 102); font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 20px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none;">2、选择Apache引擎，Apache必须安装了Rewrite模块，并且Apache配置文件AllowOverride设置为all；</span><br style="padding: 0px; margin: 0px; color: rgb(102, 102, 102); font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 20px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);" />
+            <span style="color: rgb(102, 102, 102); font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 20px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none;">3、选择IIS引擎，IIS必须已经安装Rewrite3.1扩展组件，如果Rewrite版本低于3.1，无法使用伪静态；</span><br style="padding: 0px; margin: 0px; color: rgb(102, 102, 102); font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 20px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);" />
+            <span style="color: rgb(102, 102, 102); font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 20px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none;">4、选择Nginx引擎，Nginx必须支持Rewrite模块。</span>
+	</div>
+<form method="post" action="<!--{url action="save" }-->" >
+     <table class="oe_table_warp">
+         <tr>
+	    <th  width="15%">状态：</th>
+		<td >
+            <select name="rewrite">
+                <option value="1"
+                    <!--{if $config.rewrite=='1'}-->
+                    selected
+                                <!--{/if}-->
+                   >开启</option>
+                <option value="0"
+                    <!--{if $config.rewrite=='0'}-->
+                    selected
+                                <!--{/if}-->
+                   >关闭</option>
+            </select>
+              </td></tr>
+         <tr>
+	    <th  width="15%">后缀：</th>
+		<td >
+         <input type="text" value="<!--{$config.rewritepre}-->"  name="rewritepre" class="input-b" />
+              </td></tr>
+         </table>
+  <div class="oe_button_layout">
+	  <input type="button" class="button_2" value="提交保存" tag="submit" /> 
+	  <span id="submit_tips" class="error"></span>
+	</div>
+</form>
+        
+</div>
+</div>
+</body>
+    </html>

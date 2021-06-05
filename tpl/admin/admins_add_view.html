@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=<!--{$page_charset}-->" />
+    <!--{include file={$admintpl}"top/headerjs.html"}-->
+</head>
+
+<body>
+    <div class="oemarry_layout">
+  <div class="oe_top_nav">
+	 <!--{include file={$admintpl}"a_nav.html"}-->
+<span><a href="javascript:;" url="<!--{url action='run'}-->" tag="back">&lt;&lt;返回列表</a></span>
+  </div>
+  <div class="a_content oe_dlv">
+<form method="post" action="<!--{url action="add"}-->" >
+    <input name="adminid" type="hidden" value="<!--{$admins.adminid}-->">
+     <table class="oe_table_warp">
+       
+     <tr>
+	    <th width="5%"><span class="red">*</span>管理员账号：</th>
+		<td width="35%">
+             <input type="text" name="adminname" value="<!--{$admins.adminname}-->" class="input-b" tag="notnull isnumen" /> <span class="oe_trap"><em>管理员账号</em></span>
+              </td></tr>
+         <tr>
+	    <th width="5%"><span class="red">*</span>管理员密码：</th>
+		<td width="35%">
+             <input type="password" name="password" value="<!--{$admins.password}-->" class="input-b" tag="notnull iscomplex" /> <span class="oe_trap"><em>管理员密码</em></span>
+              </td></tr>
+         <tr>
+	    <th width="5%"><span class="red">*</span>确认密码：</th>
+		<td width="35%">
+             <input type="password" name="cpassword" value="<!--{$admins.cpassword}-->" class="input-b" tag="notnull isequal" /> <span class="oe_trap"><em>请再次输入密码</em></span>
+              </td></tr>
+         <tr>
+             <th width="5%">别名：</th>
+             <td width="35%">
+                 <input type="text" name="alias" value="<!--{$admins.alias}-->" class="input-b" /><span class="oe_trap"><em>管理员别名</em></span>
+              </td>
+         </tr>
+        <tr>
+             <th width="5%">联系电话：</th>
+             <td width="35%">
+                 <input type="text" name="tel" value="<!--{$admins.tel}-->" class="input-b" tag="cannull isphone"/><span class="oe_trap"><em>填写管理员电话</em></span>
+              </td>
+         </tr>
+         <tr>
+             <th width="5%">手机：</th>
+             <td width="35%">
+                 <input type="text" name="mobile" value="<!--{$admins.mobile}-->" class="input-b" tag="cannull ismobile "/><span class="oe_trap"><em>填写管理员电话</em></span>
+              </td>
+         </tr>
+         <tr>
+             <th width="5%">QQ：</th>
+             <td width="35%">
+                 <input type="text" name="qq" value="<!--{$admins.qq}-->" class="input-b" tag="cannull isqq" /><span class="oe_trap"><em>填写联系QQ</em></span>
+              </td>
+         </tr>
+         <tr>
+             <th width="5%">微信：</th>
+             <td width="35%">
+                 <input type="text" name="weixin" value="<!--{$admins.weixin}-->" class="input-b" /><span class="oe_trap"><em>填写管理员微信</em></span>
+              </td>
+         </tr>
+         <tr>
+             <th width="5%">邮箱：</th>
+             <td width="35%">
+                 <input type="text" name="email" value="<!--{$admins.email}-->" class="input-b" /><span class="oe_trap"><em>填写管理员邮箱</em></span>
+              </td>
+         </tr>
+           <tr>
+             <th width="5%">角色</th>
+             <td width="35%">
+                 <!--{assign var="cat" vo_list("fun={get_child} mod={admins_roles} field={roleid,rolename,depath,parentid} array={roleid}")}-->
+            <select name='roleids'>
+               
+                <!--{foreach $cat as $volist}-->
+                <option value='<!--{$volist.roleid}-->'
+                    <!--{if $admins.roleids==$volist.roleid}-->
+                  selected="selected"
+                                <!--{/if}-->
+                    >
+                     <!--{section name=customer loop=$volist.depath}-->
+                    |
+                    <!--{/section}-->
+                    <!--{section name=customer loop=$volist.depath}-->
+                    --<!--{/section}-->
+                    
+                    <!--{$volist.rolename}--></option>
+                <!--{/foreach}-->
+            </select>
+                
+                
+                
+              </td>
+         </tr>
+         <tr>
+	    <th width="5%">是否超级管理员：</th>
+		<td width="35%">
+            <select name="super">
+                <option value="0"
+                    <!--{if $admins.super=='0'}-->
+                    select
+                                <!--{/if}-->
+                   >否</option>
+                <option value="1"
+                    <!--{if $admins.super=='1'}-->
+                    select
+                                <!--{/if}-->
+                   >是</option>
+            </select><span class="oe_trap"><em>超级管理员不受角色权限控制</em></span>
+              </td></tr>
+
+         <tr>
+	    <th width="5%">状态：</th>
+		<td width="35%">
+            <select name="flag">
+                <option value="0"
+                    <!--{if $admins.flag=='0'}-->
+                    select
+                                <!--{/if}-->
+                   >显示</option>
+                <option value="1"
+                    <!--{if $admins.flag=='1'}-->
+                    select
+                                <!--{/if}-->
+                   >隐藏</option>
+            </select><span class="oe_trap"><em>设置管理员账号的状态</em></span>
+              </td></tr>
+
+         <tr>
+             <th width="5%">备注：</th>
+             <td width="35%">
+               
+
+                 <textarea name="remark" cols="45" rows="2"><!--{$admins.remark}--></textarea>
+               <span class="oe_trap"><em>
+                填写备注信息</em></span>
+              </td>
+         </tr>
+     </table>
+
+
+  
+  <div class="oe_button_layout">
+	  <input type="button" class="button_2" value="提交保存" tag="submit" /> 
+	  <span id="submit_tips" class="error"></span>
+	</div>
+</form>
+</div>
+</div>
+</body>

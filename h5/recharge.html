@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="css/commonality.css?v=20190618">
+    <link rel="stylesheet" href="css/recharge.css?v=20190618">
+</head>
+
+<body>
+    <div class="main">
+        <!-- 支付方式 -->
+        <div class="mode_of_payment">
+            <div class="set_title flexCenter-ai-center flexCenter-jc-sb recommend_fiction_title">
+                <p>เลือกวิธีเติมเงิน</p>
+                <i></i>
+            </div>
+            <ul class="mode_list">
+                <!-- 列表渲染 -->
+                <li class="mode_lists  on" data-key="100">
+                    <div class="mode_lists_img_page">
+                        <img src="" class="cursor mode_list_img" onerror="this.src='images/replace_2.png'">
+                        <img src="images/recharge/choose.png" class="choose_img">
+                    </div>
+                    <p class="p1-hidden">google_pay</p>
+                    <span class="p1-hidden">ประหยัด30%</span>
+                </li>
+                <li class="mode_lists" data-key="101">
+                    <div class="mode_lists_img_page">
+                        <img src="" class="cursor mode_list_img" onerror="this.src='images/replace_2.png'">
+                        <img src="images/recharge/choose.png" class="choose_img">
+                    </div>
+                    <p class="p1-hidden">google_pay</p>
+                    <span class="p1-hidden">ประหยัด30%</span>
+                </li>
+            </ul>
+        </div>
+        <div class="set_title flexCenter-ai-center flexCenter-jc-sb recommend_fiction_title">
+            <p>ยอดเงินที่เติม</p>
+            <i></i>
+        </div>
+        <!-- 充值列表 -->
+        <div class="gold_list_row">
+            <!-- 类型 -->
+            <div class="gold_list gold_list_100 gold_list_on">
+                <!-- 渲染 -->
+                <div class="gold_lists on  flexCenter-jc-sb flexCenter-ai-center cursor">
+                    <div class="flexCenter">
+                        <img src="images/gold_icon.png" alt="">
+                        <p> 1<span>+96</span></p>
+                    </div>
+                    <span class="gold_number">฿22000</span>
+                </div>
+                <div class="gold_lists   flexCenter-jc-sb flexCenter-ai-center cursor">
+                    <div class="flexCenter">
+                        <img src="images/gold_icon.png" alt="">
+                        <p> 1<span>+96</span></p>
+                    </div>
+                    <span class="gold_number">฿22000</span>
+                </div>
+            </div>
+            <!-- 类型 -->
+            <div class="gold_list gold_list_101">
+                <!-- 渲染 -->
+                <div class="gold_lists  flexCenter-jc-sb flexCenter-ai-center cursor">
+                    <div class="flexCenter">
+                        <img src="images/gold_icon.png" alt="">
+                        <p> 480<span>+96</span></p>
+                    </div>
+                    <span class="gold_number">฿22000</span>
+                </div>
+                <div class="gold_lists on  flexCenter-jc-sb flexCenter-ai-center cursor">
+                    <div class="flexCenter">
+                        <img src="images/gold_icon.png" alt="">
+                        <p> 480<span>+96</span></p>
+                    </div>
+                    <span class="gold_number">฿22000</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom_page flexCenter">
+        <button class="send">เติมตอนนี้</button>
+    </div>
+</body>
+<script src="js/jquery.min.js"></script>
+<script>
+$('html').css('font-size', document.body.clientWidth / 7.5 + 'px');
+window.addEventListener('resize', function() {
+    $('html').css('font-size', document.body.clientWidth / 7.5 + 'px');
+});
+
+
+
+var key;
+// 充值方式
+$('body').on('click', '.mode_lists', function(event) {
+    $(this).siblings().removeClass('on');
+    $(this).addClass('on');
+    key = $(this).data('key');
+
+    $('.gold_list_' + key).siblings().removeClass('gold_list_on');
+    $('.gold_list_' + key).addClass('gold_list_on');
+});
+// 列表选择
+$('body').on('click', '.gold_lists', function(event) {
+    $(this).siblings().removeClass('on');
+    $(this).addClass('on');
+});
+
+
+// 获取网页参数
+function GetQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]);
+    return null;
+}
+
+
+function get() {
+    $.ajax({
+        type: "post",
+        url: "book/get_banner",
+        dataType: 'json',
+        data: {},
+        success: function(res) {
+
+        },
+        error: function(e) {
+            check_load();
+            // alert('小说页面banner book/get_banner 请求失败');
+            console.log('小说页面banner book/get_banner 请求失败');
+        }
+    });
+}
+</script>
+
+</html>

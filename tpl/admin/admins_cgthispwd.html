@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=<!--{$page_charset}-->" />
+    <!--{include file={$admintpl}"top/headerjs.html"}-->
+</head>
+
+<body>
+    <div class="oemarry_layout">
+  <div class="oe_top_nav">
+	 <!--{include file={$admintpl}"a_nav.html"}-->
+	<span><a href="javascript:;" tag="back">&lt;&lt;返回列表</a></span>
+  </div>
+  <div class="a_content oe_dlv">
+<form method="post" action="<!--{url action=$a}-->" >
+    <input name="adminid" type="hidden" value="<!--{$admins.adminid}-->">
+     <table class="oe_table_warp">
+        <tr>
+	    <th width="5%"><span class="red">*</span>输入原密码：</th>
+		<td width="35%">
+             <input type="password" name="old" value="" class="input-b" tag="notnull" /> <span class="oe_trap"><em></em></span>
+              </td></tr>
+     <tr>
+	    <th width="5%"><span class="red">*</span>输入新密码：</th>
+		<td width="35%">
+             <input type="password" name="password" value="<!--{$admins.adminname}-->" class="input-b" tag="notnull iscomplex" /> <span class="oe_trap"><em></em></span>
+              </td></tr>
+       
+         <tr>
+             <th width="5%"><span class="red">*</span>确认信密码：</th>
+             <td width="35%">
+                 <input type="password" name="cpassword" value="<!--{$admins.alias}-->" class="input-b" tag="notnull isequal"/><span class="oe_trap"><em></em></span>
+              </td>
+         </tr>
+        </table>
+
+
+  
+  <div class="oe_button_layout">
+	  <input type="button" class="button_2" value="提交保存" tag="submit" /> 
+	  <span id="submit_tips" class="error"></span>
+	</div>
+</form>
+</div>
+</div>
+</body>
