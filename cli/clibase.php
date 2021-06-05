@@ -11,6 +11,7 @@ use \ng169\Y;
 use \ng169\tool\Curl;
 
 define('ROOT', dirname(__FILE__) . '/../');
+
 require_once ROOT . 'source/core/enter.php';
 
 define('FTYPE', 1);
@@ -46,6 +47,7 @@ class Clibase  extends Cli
         $in['type'] = $this->booktype;
         $in['flag'] = 0;
         $in['day'] = date('Ymd');
+
         $this->logid = T('spiner')->add($in);
     }
     public function __construct()
@@ -142,7 +144,7 @@ class Clibase  extends Cli
     public function do_lastrepet_fail()
     {
         d('执行上次失败重试开始');
-        
+
         if ($this->failcatchold) {
             foreach ($this->failcatchold as $index => $book) {
                 $bookids = explode('_', $index);
@@ -151,7 +153,7 @@ class Clibase  extends Cli
                 }
             }
         }
-      
+
         d('执行上次失败重试结束');
     }
     //保存失败记录
@@ -639,6 +641,10 @@ class Clibase  extends Cli
         $data["other_name"] = $this->xhth($data[$refield["bookname"]]);
         $data["book_desc"] = $this->xhth($data[$refield["desc"]]);
         //这里加缓存，避免多次数据库操作
+        if (!$id) {
+            d('书籍不存在');
+            return false;
+        }
         $fcache_index = "spiner_" . $id . "_" . $this->booklang . "_" . $this->booktype . $this->bookdstdesc;
 
         $cache = Y::$cache->get($fcache_index);
@@ -841,14 +847,14 @@ class Clibase  extends Cli
     //远程章节入库
     public function insetsec($remotedata, $listorder, $field, $id, $dbid, $rmsecid)
     {
-       
+
         $seccontrent = $this->getcontent($id, $rmsecid, $listorder);
-       
+
         if (!$seccontrent) {
             //内容获取失败
             return false;
         }
-        
+
         $secadd = [
             // "section_id"   => "",
             "title"        => $this->xhth($remotedata[$field["title"]]),

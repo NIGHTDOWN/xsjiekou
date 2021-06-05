@@ -1,91 +1,141 @@
 <?php
-/**
- * 本服务接收两个参数  IP 端口
- * 列子 ：php opsock 192.168.1.1 8080
- */
-/*
-header('Access-Control-Allow-Origin:*');
-// 响应类型
-header('Access-Control-Allow-Methods:POST');
-// 响应头设置
-header('Access-Control-Allow-Headers:x-requested-with,content-type');*/
-define('ROOT', dirname(__FILE__) . '/');
-#相对URL路径
+require_once   dirname(dirname(__FILE__)) . "/clibase.php";
 
-if (!defined('PATH_URL')) {
-    define('PATH_URL', '/');
-}
 
-require_once ROOT . 'source/core/enter.php';
-use \ng169\tool\Image;
 
-//图片本地化
-function imgtolocal($table, $prikey, $imgkey)
+use ng169\Y;
+use ng169\lib\Job;
+
+class phpjob extends Clibase
 {
-    $list = T($table)->set_field("$prikey,$imgkey")->get_all();
-    $domain = "http://xspic.ng169.com";
-    foreach ($list as $key => $val) {
-        # code...
-        //判断是否当前域名
-        if (strpos($val[$imgkey], $domain) !== false) {
-            echo '本地';
-        } else {
-            $file = Image::imgtolocal($val[$imgkey]);
-            $new = $domain . '/' . $file;
-            T($table)->update([$imgkey => $new], $val);
-        }
-        //$file=Image::imgtolocal($val[$imgkey]);
+    public  $_booktype = 1; //书籍类型
+    public  $_booklang = 6;  //书籍语言
+    public  $_bookdstdesc_int = 2; //书籍来源描述
+    public  $_bookdstdesc = "修复重复"; //书籍来源描述
+    public  $_domian = "https://www.sogou.com/websearch/api/getcity "; //书籍来源描述
+    public  $debug = true;
+    public  $wordrate = 3;  //计算字数的时候的倍数比列
+    // -------------------app 破解获取的相关信息
+    // 签名密钥盐
 
+    // aes iv
+    public $aesiv = "";
+    // aes密钥
+    public $aeskey = "";
+    //用户token
+    public $token = "";
+    public $appneedinfo = [
+        "version" => "1.3.5",
+        "language" => "MS",
+    ];
+    public $cacheindex = 'phpjob_list';
+
+    public function start()
+    {
+
+
+        $this->logstart(__FILE__);
+
+        Job::add(10, function () {
+            $data = $this->gettask();
+            $this->listintime($data);
+            d($data);
+        });
+
+        // Y::$cache->set($this->cacheindex, json_encode($this->ok));
+
+
+        $this->logend(sizeof($this->ok), [], 1);
+
+        d("任务结束");
     }
-}
-//拉取目录图片
-//  imgtolocal('book', 'book_id', 'bpic');
- imgtolocal('cartoon', 'cartoon_id', 'bpic');
-//  imgtolocal('cartoon', 'cartoon_id', 'bpic_detail');
+    public function apisign($api, $parem)
+    {
+        $this->head($this->appneedinfo);
+        $data = $this->post($api, $parem);
 
-function imgtolocal2($table, $prikey, $imgkey)
-{
-    $list = T($table)->set_field("$prikey,$imgkey")->get_all();
-    $domain = "http://xspic.ng169.com";
-    foreach ($list as $key => $val) {
-        # code...
-        //判断是否当前域名
-        $json = json_decode($val[$imgkey], 1);
-        $json = $json['cart_sec_content'];
-        foreach ($json as $key2 => $value) {
-            # code...
-            if (strpos($value['url'], $domain) !== false) {
-                echo '本地';
-            } else {
-                $file = Image::imgtolocal($value['url']);
-                // $file = 'aa333333sss33' . $value['url'];
-				//判断文件大小为0保持原图。
-				$fsize=filesize('/d/xs/pic/'.$file);
-			
-				if($fsize>1000){
-					$new = $domain . '/' . $file;
-	
-					$json[$key2]['url'] = $new;
-				}
-			
-                //T($table)->update([$imgkey=>$new],$val);
+        return $data;
+    }
+    public function listintime($list)
+    {
+        foreach ($list as $k => $v) {
+            if ($v['hour'] == date('H')) {
+                if ($v['doday'] != date('Ymd')) {
+                    d('执行');
+                    //执行
+                    T('phptask')->update(['doday' => date('Ymd')], ['id' => $v['id']]);
+                    unset($list[$k]);
+                    $this->dotask($v);
+                    //更新数据库
+                } else {
+                    unset($list[$k]);
+                    //更新缓存
+                }
             }
         }
-        //d($json, 1);
-        $json = ['cart_sec_content' => $json];
-
-        //d(json_encode($json), 1);
-        T($table)->update(['cart_sec_content' => json_encode($json)], [$prikey => $val[$prikey]]);
-        // if (strpos($val[$imgkey], $domain) !== false) {
-        //     echo '本地';
-        // } else {
-        //     $file = Image::imgtolocal($val[$imgkey]);
-        //     $new = $domain . '/' . $file;
-        //     //T($table)->update([$imgkey=>$new],$val);
-        // }
-        
-        //$file=Image::imgtolocal($val[$imgkey]);
+        Y::$cache->set($this->cacheindex, $list, strtotime('+1 day') - time());
     }
-}
- imgtolocal2('cart_sec_content', 'cart_sec_content_id', 'cart_sec_content');
+    public function dotask($taskinfo)
+    {
+        $shell = 'php  ' . $taskinfo['execfile'];
+        // exec($shell . " > /dev/null &");
+        $this->execInBackground($shell);
+    }
+    public function gettask()
+    {
+        list($bool, $data) = Y::$cache->get($this->cacheindex);
+        if ($bool) {
+            // d('cache');
+            return $data;
+        } else {
+            $data = T('phptask')->get_all(['flag' => 0]);
+            // d('db');
+            Y::$cache->set($this->cacheindex, $data, G_DAY);
+            return $data;
+        }
+    }
+    public function clear()
+    {
+        Y::$cache->set($this->cacheindex, null, 0);
+    }
+    public function crontab()
+    {
+        //列出数据库所有任务
+        //生成crontab 记录
+        $data = T('phptask')->get_all(['flag' => 0]);
+        d($data);
+        foreach ($data as $key => $value) {
+            # code...
+        }
+    }
+    // 一些非不要类---------------------------------
+    //初始化进程
+    public function __construct()
+    {
 
+        parent::__construct(); //初始化帮助信息
+        $gt = $this->getargv(['clear', 'proxy', 'url', 'crontab', 'max']);
+        if ($gt['clear']) {
+            $this->clear();
+            die();
+        }
+        if ($gt['crontab']) {
+            $this->crontab();
+            die();
+        }
+    }
+
+
+
+    public function help()
+    {
+        d('1、开启定时任务,clear=1,清空缓存');
+        d('2、开启系统定时任务,crontab=1，目前只支持每日执行');
+    }
+    //重新排序书籍
+
+}
+$ob = new phpjob();
+
+
+$ob->start();

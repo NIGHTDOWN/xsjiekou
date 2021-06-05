@@ -108,6 +108,7 @@ class cart_aikan extends Clibase
             // "type" => "1",
             // "token" => $this->token
         ]);
+
         //第三方内容中对应与本数据库字段对应
         $refield = [
             "bookname" => "other_name",
@@ -132,7 +133,6 @@ class cart_aikan extends Clibase
         "secid" => "cart_section_id",
         'secnum' => 'secnum'
     ];
-
     // 获取远程章节列表，根据实际情况修改fun
     public function getseclist($id, $dbid)
     {

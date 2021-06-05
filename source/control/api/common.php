@@ -66,20 +66,25 @@ class common extends apibase
     }
     public function control_testandroid()
     {
+        // d(bindec('0110100010010111100001110010100110010110010001011'));
+        // d(4 ^ 7, 1);
         // $get = get(['string' => ['requesttime', 'devicesinfo', 'apps', 'utime']]);
         // $code = \ng169\tool\Code();
         $get2 = get(['string' => ['data']]);
         // $this->log($get2);
         $code      = Y::import('code', 'tool');
         $user = parent::$wrap_user;
-        if ($user) {
-            $key = $this->head['token'];
-        } else {
-            $key = 'lookstory';
-        }
+        // if ($user) {
+        //     $key = $this->head['token'];
+        // } else {
+        //     $key = 'lookstory';
+        // }
+        $key = 'lookstory';
+
         $userinfo = $code->appdecode($get2['data'], $key);
-        // d($userinfo,1);
+        d($userinfo);
         $get = json_decode($userinfo, 1);
+        d($get);
         $get['idfa'] = $this->head['idfa'];
         // $get['apps'] = $get2['data'];
         $get['uid'] = $this->head['uid'];

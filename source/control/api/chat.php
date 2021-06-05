@@ -33,15 +33,15 @@ class chat extends apibase
         //没消息
         $this->returnSuccess(0);
     }
-    //语言设置开关
+    //语言设置开关 0关闭，1显示
     public function control_set()
     {
         //关闭语言选择
         if ($this->head['cityid'] == 1) {
-            //美国直接关闭语言选择ddd
-            $this->returnSuccess(1);
+            //美国直接关闭语言选择 0关闭，1显示
+            $this->returnSuccess(0);
         }
-        $this->returnSuccess(1);
+        $this->returnSuccess(0);
     }
     public function control_send()
     {

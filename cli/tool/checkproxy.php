@@ -8,6 +8,7 @@
 require_once   dirname(dirname(__FILE__)) . "/clibase.php";
 
 
+
 use ng169\Y;
 
 class checkproxy extends Clibase
@@ -43,36 +44,51 @@ class checkproxy extends Clibase
     public function proxy()
     {
         $list = [
-
-            // '46.4.96.137:3128',
-            // '178.48.68.61:4145',
-            // '184.178.172.13:15311',
-            // '139.162.78.109:3128',
-            // '85.26.146.169:80',
-            // '68.188.59.198:80',
-            // '139.162.78.109:8080',
-            // '68.185.57.66:80',
-            // '159.203.61.169:3128',
-            // '184.178.172.18:15280',
-            // '184.178.172.18:15280',
-            // '184.178.172.13:15311',
-            // '39.106.223.134:80',
-            // '184.178.172.25:15291',
-            // '71.13.131.142:80',
+            '202.169.255.4:8181',
+            '202.57.2.19:8080',
+            '179.189.226.186:8080',
+            '46.254.217.54:53281',
+            '182.253.112.194:8080',
+            '103.242.205.90:3128',
+            '78.140.6.68:53281',
+            '185.37.213.76:30695',
+            '181.209.86.212:999',
+            '102.33.21.37:8080',
+            '62.152.36.169:8080',
+            '138.36.149.12:8090',
+            '202.70.84.1:8080',
+            '94.189.133.93:8080',
+            '186.250.56.135:8080',
+            '177.37.175.222:8080',
+            '194.152.235.171:8080',
+            '51.77.123.247:80',
+            '114.6.88.238:60811',
+            '213.14.32.73:9090',
+            '201.65.226.82:3128',
+            '103.136.36.14:8080',
+            '201.168.210.122:3128',
+            '24.172.82.94:53281',
+            '197.248.30.125:80',
 
         ];
-        $data = T('option')->set_where(['option_name' => 'site_info'])->get_one();
-        $jdata = json_decode($data['option_value'], true);
+        if (!sizeof($list)) {
+            $data = T('option')->set_where(['option_name' => 'site_info'])->get_one();
+            $jdata = json_decode($data['option_value'], true);
 
-        $list = explode(',', $jdata['site_analytics']);
+            $list = explode(',', $jdata['site_analytics']);
+        }
+
 
         $this->list = $list;
         return $list;
     }
     public function start()
     {
+
         // Y::$cache->set($this->cacheindex, 1111);
+
         $this->logstart(__FILE__);
+
         $list = $this->proxy();
 
         foreach ($list as $v => $b) {
@@ -145,6 +161,7 @@ class checkproxy extends Clibase
     //初始化进程
     public function __construct()
     {
+
         parent::__construct(); //初始化帮助信息
         $gt = $this->getargv(['showret', 'proxy', 'url', 'showlast', 'max']);
         // if (isset($gt['type'])) {
