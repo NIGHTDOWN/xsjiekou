@@ -85,7 +85,7 @@ class common extends apibase
         $userinfo = $code->appdecode($get2['data'], $key);
         
         $get = json_decode($userinfo, 1);
-        d($get,1);
+       
         $get['idfa'] = $this->head['idfa'];
         // $get['apps'] = $get2['data'];
         $get['uid'] = $this->head['uid'];
