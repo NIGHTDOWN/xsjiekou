@@ -145,7 +145,7 @@ class Code
 	private $size = 7;
 	public function appdecode($str, $key)
 	{
-		d($key);
+		
 		$key = md5($key);
 		$s1 = substr($key, 0, 16);
 		$s2 = substr($key, 16, 16);
