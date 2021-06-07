@@ -159,7 +159,7 @@ class Code
         $strs = [(substr($code, 0, $step)), (substr($code, $step))];
 
         $strs[0] = $this->toyh2($strs[0], $keyb);
-
+d($strs[0]);
         $strs[1] = $this->toyh2($strs[1], $keya);
 
         $strings = $strs[0] . $strs[1];
@@ -179,7 +179,7 @@ class Code
 
         $tmp = '';
         $l = strlen($value);
-		d($value);
+	
         $index = 0;
         for (
             $i = 0;
