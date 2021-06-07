@@ -157,9 +157,9 @@ class Code
 		$step = intval(strlen($code) / 2);
 		// $step = int.parse((code.length / 2).toStringAsFixed(0));
 		$strs = [(substr($code, 0, $step)), (substr($code, $step))];
-		d($strs[0]);
+		
 		$strs[0] = $this->toyh2($strs[0], $keyb);
-		d($strs[0]);
+		
 		$strs[1] = $this->toyh2($strs[1], $keya);
 
 		$strings = $strs[0] . $strs[1];
@@ -268,7 +268,9 @@ class Code
 				break;
 			}
 			$tmp = (substr($str, $index, $step2));
+			d($tmp);
 			$tp = $this->xhor($tmp, $keyss);
+			d($tp,1);
 			// $tp = $tmp ^ $keyss;
 			$ttt = str_pad($tp, $step1, '0', STR_PAD_LEFT);
 			$tmp2 .= $ttt;
