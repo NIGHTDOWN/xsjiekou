@@ -39,9 +39,9 @@ class chat extends apibase
         //关闭语言选择
         if ($this->head['cityid'] == 1) {
             //美国直接关闭语言选择 0关闭，1显示
-            $this->returnSuccess(0);
+            $this->returnSuccess(1);
         }
-        $this->returnSuccess(0);
+        $this->returnSuccess(1);
     }
     public function control_send()
     {
