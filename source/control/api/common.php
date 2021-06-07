@@ -74,17 +74,18 @@ class common extends apibase
         // $this->log($get2);
         $code      = Y::import('code', 'tool');
         $user = parent::$wrap_user;
-        // if ($user) {
-        //     $key = $this->head['token'];
-        // } else {
-        //     $key = 'lookstory';
-        // }
-        $key = 'lookstory';
+       
+        if ($this->head['token']) {
+            $key = $this->head['token'];
+        } else {
+            $key = 'lookstory';
+        }
+        // $key = 'lookstory';
 
         $userinfo = $code->appdecode($get2['data'], $key);
-        d($userinfo,1);
+        
         $get = json_decode($userinfo, 1);
-        d($get);
+        d($get,1);
         $get['idfa'] = $this->head['idfa'];
         // $get['apps'] = $get2['data'];
         $get['uid'] = $this->head['uid'];

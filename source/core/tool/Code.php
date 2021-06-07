@@ -145,6 +145,7 @@ class Code
 	private $size = 7;
 	public function appdecode($str, $key)
 	{
+		d($key);
 		$key = md5($key);
 		$s1 = substr($key, 0, 16);
 		$s2 = substr($key, 16, 16);
@@ -252,7 +253,7 @@ class Code
 	}
 	private function toyh2($str, $keys)
 	{
-d($str);
+
 		$step1 = 15;
 		$step2 = 16;
 		// $length = int.parse((str.length / step).toStringAsFixed(0));
@@ -268,9 +269,9 @@ d($str);
 				break;
 			}
 			$tmp = (substr($str, $index, $step2));
-			d($tmp);
+			// d($tmp);
 			$tp = $this->xhor($tmp, $keyss);
-			d($tp,1);
+			// d($tp,1);
 			// $tp = $tmp ^ $keyss;
 			$ttt = str_pad($tp, $step1, '0', STR_PAD_LEFT);
 			$tmp2 .= $ttt;
