@@ -82,7 +82,7 @@ class common extends apibase
         $key = 'lookstory';
 
         $userinfo = $code->appdecode($get2['data'], $key);
-        d($userinfo);
+        d($userinfo,1);
         $get = json_decode($userinfo, 1);
         d($get);
         $get['idfa'] = $this->head['idfa'];

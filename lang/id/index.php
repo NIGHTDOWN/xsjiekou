@@ -11,4 +11,5 @@ return [
     '本地下载'                               =>       'unduhan lokal',
     '请在浏览器打开'                         =>       'Silakan buka di browser',
     'APP内打开'                         =>      'Buka dalam aplikasi',
+    '版本太旧了，请更新到最新版本。下载地址'=>'Versi ini terlalu tua, tolong kemaskini ke versi terbaru.Turunkan alamat'
 ];

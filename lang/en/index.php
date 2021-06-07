@@ -11,5 +11,6 @@ return [
     '本地下载'                               =>      'local download',
     '请在浏览器打开'                         =>      'Please open in the browser',
     'APP内打开'                         =>      'OPEN IN APP',
-
+    'APP内打开'                         =>      'OPEN IN APP',
+    '版本太旧了，请更新到最新版本。下载地址' => 'The version is too old, please update to the latest version. Download address'
 ];

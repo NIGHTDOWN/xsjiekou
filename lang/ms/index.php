@@ -11,4 +11,5 @@ return [
     '本地下载'                               =>       'muat turun tempatan',
     '请在浏览器打开'                         =>       'Sila buka di penyemak imbas',
     'APP内打开'                         =>      'Buka dalam aplikasi',
+    '版本太旧了，请更新到最新版本。下载地址'=>'The version is too old, please update to the latest version.Muat turun alamat'
 ];

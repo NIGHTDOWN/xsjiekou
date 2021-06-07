@@ -152,9 +152,9 @@ class apibase extends general
         //         parent::$wrap_city = $country['countryid'];
         //     }
         // }
-        // Lang::init($lang);
-        // Lang::load();
-        // return true;
+        Lang::init($lang);
+        Lang::load();
+        return true;
     }
     public function returnSuccess($data)
     {

@@ -437,6 +437,7 @@ class book extends apibase
     // 获取小说内容
     public function control_get_wap_content()
     {
+        M('version', 'im')->lockold($this->head['version']);
         $get = get(['int' => ['book_id' => 1, 'section_id' => 1]]);
         $book_id = $get['book_id'];
         $section_id = $get['section_id'];
@@ -584,7 +585,7 @@ class book extends apibase
     //随机获取书籍
     public function control_get_randList()
     {
-
+        M('version', 'im')->cheknew($this->head['version']);
         // $nums = get(['int' => ['num']]);
         // $nums = $nums['num'] ? $nums['num'] : 8;
         // $cityid = $this->head['cityid'];
@@ -615,7 +616,7 @@ class book extends apibase
     }
     public function control_mostlike()
     {
-
+        M('version', 'im')->cheknew($this->head['version']);
         $nums = get(['int' => ['num', 'type' => 1]]);
         $type = $nums['type'];
         $nums = $nums['num'] ? $nums['num'] : 8;
@@ -652,6 +653,7 @@ class book extends apibase
     // 获取热门推荐小说
     public function control_get_new_book()
     {
+        M('version', 'im')->cheknew($this->head['version']);
         $where['status'] = 1;
         $where['groom_type'] = 3;
         $sityid = $this->head['cityid'];
@@ -684,6 +686,7 @@ class book extends apibase
     // 获取幻灯片图片
     public function control_get_banner()
     {
+        M('version', 'im')->cheknew($this->head['version']);
         $where1['status'] = '1';
         // $where1['scan_seat'] = '1';
         // $where = 'goal_type !=3';
@@ -715,6 +718,7 @@ class book extends apibase
     }
     public function control_new()
     {
+        M('version', 'im')->cheknew($this->head['version']);
         $data = get(['string' => ['page']]);
         $where['status'] = 1;
 
@@ -748,6 +752,7 @@ class book extends apibase
     }
     public function control_newbook()
     {
+        M('version', 'im')->cheknew($this->head['version']);
         $data = get(['string' => ['page']]);
         $where['status'] = 1;
         $cityid = $this->head['cityid'];
@@ -767,6 +772,7 @@ class book extends apibase
     }
     public function control_free()
     {
+        M('version', 'im')->cheknew($this->head['version']);
         $data = get(['string' => ['page']]);
         $where['status'] = 1;
         $where['isfree'] = 0;
@@ -787,6 +793,7 @@ class book extends apibase
     }
     public function control_end()
     {
+        M('version', 'im')->cheknew($this->head['version']);
         $data = get(['string' => ['page']]);
         $where['status'] = 1;
         $where['update_status'] = 1;

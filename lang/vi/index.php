@@ -11,4 +11,5 @@ return [
     '本地下载'                               =>         "tải xuống cục bộ",
     '请在浏览器打开'                         =>         "Vui lòng mở trong trình duyệt",
     'APP内打开'                         =>      'Mở trong ứng dụng',
+    '版本太旧了，请更新到最新版本。下载地址'=>'Phiên bản này quá cũ, xin hãy cập nhật đến phiên bản mới nhất.Tải về'
 ];

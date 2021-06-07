@@ -384,6 +384,7 @@ class cartoon extends apibase
     // }
     public function control_new_cartoon()
     {
+        M('version', 'im')->cheknew($this->head['version']);
         $get = get(['int' => ['page']]);
         $where['status'] = 1;
         $cityid = $this->head['cityid'];
@@ -409,7 +410,7 @@ class cartoon extends apibase
     }
     public function control_get_randList()
     {
-
+        M('version', 'im')->cheknew($this->head['version']);
         // $nums = get(['int' => ['num']]);
         // $nums = $nums['num'] ? $nums['num'] : 8;
         // $cityid = $this->head['cityid'];
@@ -443,6 +444,7 @@ class cartoon extends apibase
     //获取推荐漫画
     public function control_hot_cartoon()
     {
+        M('version', 'im')->cheknew($this->head['version']);
         $get = get(['int' => ['page']]);
         $where['status'] = 1;
         $cityid = $this->head['cityid'];
@@ -469,7 +471,7 @@ class cartoon extends apibase
     // 获取漫画内容
     public function control_get_wap_content()
     {
-
+        M('version', 'im')->lockold($this->head['version']);
         $cartoon = get(['int' => ['cartoon_id' => 1, 'cart_section_id' => 1]]);
         $cartoon_id = $cartoon['cartoon_id'];
         $cart_section_id = $cartoon['cart_section_id'];
