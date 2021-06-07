@@ -12,7 +12,7 @@ class content extends apibase
     protected $noNeedLogin = ['*'];
     public function control_get_cartoon()
     {
-
+        M('version', 'im')->lockold($this->head['version']);
         $cartoon = get(['int' => ['cartoon_id' => 1, 'cart_section_id' => 1]]);
         $cartoon_id = $cartoon['cartoon_id'];
         $cart_section_id = $cartoon['cart_section_id'];
@@ -103,6 +103,7 @@ class content extends apibase
     }
     public function control_get_book()
     {
+        M('version', 'im')->lockold($this->head['version']);
         $get = get(['int' => ['book_id' => 1, 'section_id' => 1]]);
         $book_id = $get['book_id'];
         $section_id = $get['section_id'];
