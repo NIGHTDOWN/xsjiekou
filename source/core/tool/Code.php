@@ -252,7 +252,7 @@ class Code
 	}
 	private function toyh2($str, $keys)
 	{
-
+d($str);
 		$step1 = 15;
 		$step2 = 16;
 		// $length = int.parse((str.length / step).toStringAsFixed(0));
