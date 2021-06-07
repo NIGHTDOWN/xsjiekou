@@ -179,6 +179,7 @@ class Code
 
         $tmp = '';
         $l = strlen($value);
+		d($value);
         $index = 0;
         for (
             $i = 0;
@@ -251,6 +252,7 @@ class Code
     }
     private function toyh2($str, $keys)
     {
+		
         $step1 = 15;
         $step2 = 16;
         // $length = int.parse((str.length / step).toStringAsFixed(0));
@@ -259,26 +261,21 @@ class Code
         $tmp2 = '';
         // $keyss = intval(substr($this->getkeyint($this->sti($keys)), 0, $step1));
         $keyss = (substr($this->getkeyint($this->sti($keys)), 0, $step1));
-
         for ($i = 0; $i <= $length; $i++) {
             $index = $i * $step2;
             $tmp = '';
-
             if ($index >= strlen($str)) {
                 break;
             }
             $tmp = (substr($str, $index, $step2));
-
             $tp = $this->xhor($tmp, $keyss);
-
             // $tp = $tmp ^ $keyss;
             $ttt = str_pad($tp, $step1, '0', STR_PAD_LEFT);
-
             $tmp2 .= $ttt;
-
             //   $tmp2 .= (($tmp) ^ $keyss).toString().padLeft(15, '0');
         }
         $tmpbw = substr($this->buweileng, strlen($this->buweileng) - 2);
+	
         if ($tmpbw == 0) {
             return $tmp2;
         } else {
