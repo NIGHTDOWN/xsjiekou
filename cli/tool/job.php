@@ -5,6 +5,7 @@ require_once   dirname(dirname(__FILE__)) . "/clibase.php";
 
 use ng169\Y;
 use ng169\lib\Job;
+use ng169\tool\File;
 
 class phpjob extends Clibase
 {
@@ -103,10 +104,15 @@ class phpjob extends Clibase
         //列出数据库所有任务
         //生成crontab 记录
         $data = T('phptask')->get_all(['flag' => 0]);
-        d($data);
+
+        $string = '';
         foreach ($data as $key => $value) {
             # code...
+            // * * * * * /bin/ls
+            $string .= "* {$value['hour']} * * * php " . $value['execfile'] . "\n";
         }
+        File::writeFile(ROOT.'/task',$string);
+        echo ROOT.'/task';
     }
     // 一些非不要类---------------------------------
     //初始化进程
