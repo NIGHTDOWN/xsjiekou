@@ -579,7 +579,7 @@ class Sphinovel extends Clibase
             $this->setproxy($this->proxystr[0], $this->proxystr[1]);
         }
 
-        $this->setproxy('192.168.0.138', '9999');
+        // $this->setproxy('192.168.0.138', '9999');
 
         // $this->setproxy();
         $this->sign(null, null);
