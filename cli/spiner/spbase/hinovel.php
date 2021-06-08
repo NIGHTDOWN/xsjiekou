@@ -557,7 +557,7 @@ class Sphinovel extends Clibase
     }
     //***********************************工具性************************************** */
     //http请求入口，根据实际情况，把一些固定值写进去
-    public $proxystr = null;
+
     public function apisign($api, $parem)
     {
         // $token = $this->token;
@@ -568,19 +568,11 @@ class Sphinovel extends Clibase
         // ];
         // $parem = array_merge($parem, $p, $this->appneedinfo);
         // $parem["sign"] = $this->sign($api, $parem);
-        if (!$this->proxystr) {
-            $data = T('option')->set_where(['option_name' => 'site_info'])->get_one();
-            $jdata = json_decode($data['option_value'], true);
-            $this->proxystr = explode(' ', $jdata['site_admin_email']);
-        }
 
-        if (sizeof($this->proxystr) == 2) {
 
-            $this->setproxy($this->proxystr[0], $this->proxystr[1]);
-        }
-
-        // $this->setproxy('192.168.0.138', '9999');
-
+      
+        $this->autoproxy();
+          // $this->setproxy('192.168.0.138', '9999');
         // $this->setproxy();
         $this->sign(null, null);
         $this->appneedinfo['userToken'] = $this->token ? $this->token : $this->appneedinfo['osUuid'];

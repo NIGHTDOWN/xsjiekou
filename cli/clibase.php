@@ -508,6 +508,28 @@ class Clibase  extends Cli
         $data = $this->spiner->post($url, ($data));
         return $data;
     }
+    public $proxystr = null;
+    public function autoproxy()
+    {
+        //这里要用缓存
+        $proxystrindex = 'proxystrindex';
+        list($bool, $data) = Y::$cache->get($proxystrindex);
+        if ($bool) {
+            $this->proxystr = $data;
+        } else {
+            if (!$this->proxystr) {
+                $data = T('option')->set_where(['option_name' => 'site_info'])->get_one();
+                $jdata = json_decode($data['option_value'], true);
+                $this->proxystr = explode(' ', $jdata['site_admin_email']);
+                Y::$cache->set($proxystrindex, $this->proxystr, 1800);
+            }
+        }
+        // d($this->proxystr);
+        if (sizeof($this->proxystr) == 2) {
+
+            $this->setproxy($this->proxystr[0], $this->proxystr[1]);
+        }
+    }
     public function get($api, $data)
     {
         $this->init();
