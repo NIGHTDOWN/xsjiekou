@@ -113,6 +113,8 @@ class phpjob extends Clibase
         }
         File::writeFile(ROOT.'/task',$string);
         echo ROOT.'/task';
+        echo "请使用 crtontab -u root 目录下的task文件\n";
+        echo "请使用 crtontab -l 查看定时任务是否生效";
     }
     // 一些非不要类---------------------------------
     //初始化进程
