@@ -109,7 +109,7 @@ class phpjob extends Clibase
         foreach ($data as $key => $value) {
             # code...
             // * * * * * /bin/ls
-            $string .= "* {$value['hour']} * * * php " . $value['execfile'] . "\n";
+            $string .= "0 {$value['hour']} * * * php " . $value['execfile'] . "\n";
         }
         File::writeFile(ROOT.'/task',$string);
         echo ROOT.'/task';
