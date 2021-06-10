@@ -193,13 +193,18 @@ class  File
     public static function readContent($filename)
     {
         $data = null;
-        $filepath = ROOT . $filename;
+        $filepath = $filename;
         if (file_exists($filepath)) {
             if ($fp = @fopen($filepath, 'r')) {
                 $data = @fread($fp, @filesize($filepath));
                 @fclose($fp);
             }
         }
+        return $data;
+    }
+    public static function readHttpContent($filename)
+    {
+        $data=file_get_contents($filename);
         return $data;
     }
 }

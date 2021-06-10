@@ -6,22 +6,16 @@
  */
 
 
-
-
-
 require_once (dirname(__FILE__)) . "/spbase/cart_mtoon.php";
 
-// use \ng169\cli\Clibase;
 
-
-// $ob = new cart_mtoon();
+//越南
+$ob = new cart_mtoon();
 $ob->_booklang = 0;
 
-
-
-
-$ob = new cart_mtoon();
-$ob->_bookdstdesc = '泰国_mtoon';
+$ob->_bookdstdesc = '泰国_mtxt';
 $ob->appneedinfo['_language'] = 'th';
 $ob->initsp();
 $ob->start();
+
+
