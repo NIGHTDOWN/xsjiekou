@@ -416,29 +416,29 @@ class cartoon extends apibase
         // $cityid = $this->head['cityid'];
         // $list = T('cartoon')->set_global_where(['status' => 1, 'lang' => $cityid])->field('cartoon_id,other_name,`desc`,bpic,writer_name,isfree,update_status,2 as type')->set_limit($nums)->order_by('RAND()')->get_all();
 
-        $size = 500;
-        $cityid = $this->head['cityid'];
-        $index = "cartrand_" . $cityid;
-        $cache = Y::$cache->get($index);
-        $lists = [];
-        if ($cache[0]) {
-            $lists = $cache[1];
-        } else {
-            $lists = $cache[1];
-            $liststmp = T('cartoon')->set_global_where(['status' => 1, 'lang' => $cityid])->field('cartoon_id')->set_limit($size)->order_by('section desc')->get_all();
-            $lists = array_column($liststmp, 'cartoon_id');
-        }
+        // $size = 500;
+        // $cityid = $this->head['cityid'];
+        // $index = "cartrand_" . $cityid;
+        // $cache = Y::$cache->get($index);
+        // $lists = [];
+        // if ($cache[0]) {
+        //     $lists = $cache[1];
+        // } else {
+        //     $lists = $cache[1];
+        //     $liststmp = T('cartoon')->set_global_where(['status' => 1, 'lang' => $cityid])->field('cartoon_id')->set_limit($size)->order_by('section desc')->get_all();
+        //     $lists = array_column($liststmp, 'cartoon_id');
+        // }
 
-        $id = array_rand($lists, 8);
-        $ids = [];
-        for ($i = 0; $i < sizeof($id); $i++) {
+        // $id = array_rand($lists, 8);
+        // $ids = [];
+        // for ($i = 0; $i < sizeof($id); $i++) {
 
-            array_push($ids, $lists[$id[$i]]);
-        }
-        $list = T('cartoon')->set_global_where(['status' => 1, 'lang' => $cityid])->field('cartoon_id,bpic_dsl,other_name,`desc`,bpic,writer_name,isfree,update_status,2 as type')
-            ->wherein('cartoon_id', $ids)
-            ->get_all();
-
+        //     array_push($ids, $lists[$id[$i]]);
+        // }
+        // $list = T('cartoon')->set_global_where(['status' => 1, 'lang' => $cityid])->field('cartoon_id,bpic_dsl,other_name,`desc`,bpic,writer_name,isfree,update_status,2 as type')
+        //     ->wherein('cartoon_id', $ids)
+        //     ->get_all();
+        $list=M('bookrandom','im')->getcartoon($this->head['cityid']);
         Out::jout($list);
     }
     //获取推荐漫画
