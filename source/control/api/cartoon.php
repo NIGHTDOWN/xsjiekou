@@ -447,18 +447,13 @@ class cartoon extends apibase
         $where['status'] = 1;
         $cityid = $this->head['cityid'];
         $where['lang'] = $cityid;
-        $index = 'cartget_cartoon1_' . $get['page'] . "_" . $cityid;
+        $index = 'cartget_cartoon4_' . $get['page'] . "_" . $cityid;
         $cache = Y::$cache->get($index);
         if ($cache[0]) {
             $this->returnSuccess($cache[1]);
         } else {
             // recommend_num
-            $data = T('cartoon')
-                ->field('cartoon_id,other_name,bpic,`desc`,bpic_dsl,hits as recommend_num,writer_name,isfree,update_status,2 as type')
-                ->where($where)
-                ->order('section desc,hits desc')
-                ->limit([$get['page'], 5])
-                ->get_all();
+            $data=M('bookrandom','im')->getcartoon($this->head['cityid'],5);
             if (is_array($data) && sizeof($data)) {
                 Y::$cache->set($index, $data, 46000);
             }
