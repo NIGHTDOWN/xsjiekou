@@ -395,12 +395,13 @@ class cartoon extends apibase
             $this->returnSuccess($cache[1]);
         } else {
             // recommend_num
-            $data = T('cartoon')
-                ->field('cartoon_id,other_name,bpic_dsl,bpic,`desc`,hits as recommend_num,writer_name,isfree,update_status,2 as type')
-                ->where($where)
-                ->order('section desc,hits desc')
-                ->limit([$get['page'], 5])
-                ->get_all();
+            // $data = T('cartoon')
+            //     ->field('cartoon_id,other_name,bpic_dsl,bpic,`desc`,hits as recommend_num,writer_name,isfree,update_status,2 as type')
+            //     ->where($where)
+            //     ->order('section desc,hits desc')
+            //     ->limit([$get['page'], 5])
+            //     ->get_all();
+            $data=M('bookrandom','im')->getcartoon($this->head['cityid'],5);
             if (is_array($data) && sizeof($data)) {
                 Y::$cache->set($index, $data, 46000);
             }
