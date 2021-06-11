@@ -194,13 +194,10 @@ class cartoon extends apibase
     {
         // $discusstmp = array_column($discuss, null, 'users_id');
         $userids = array_column($discuss, 'users_id');
-
         if ($userids && sizeof($userids)) {
             $us = T('third_party_user')->field('id,avater')->whereIn('id', $userids)->get_all();
             $ua = array_column($us, 'avater', 'id');
-
             foreach ($discuss as $k => $dis) {
-
                 $discuss[$k]['avater'] = $ua[$dis['users_id']];
             }
         } else {
@@ -389,7 +386,7 @@ class cartoon extends apibase
         $where['status'] = 1;
         $cityid = $this->head['cityid'];
         $where['lang'] = $cityid;
-        $index = 'cartget_cartoon2_:' . $get['page'] . "_" . $cityid;
+        $index = 'cartget_cartoon22_:' . $get['page'] . "_" . $cityid;
         $cache = Y::$cache->get($index);
         if ($cache[0]) {
             $this->returnSuccess($cache[1]);
