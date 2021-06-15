@@ -390,11 +390,7 @@ class mtoon_txt extends Clibase
 
 
         $this->autoproxy();
-<<<<<<< HEAD
         $this->setproxy('127.0.0.1', '8888');
-=======
-        $this->setproxy('192.168.1.20', '9999');
->>>>>>> 25b4c4f8238fedbac5c39370cf3cf9b6e2aa5757
         $p = [
             "_" => time(),
         ];

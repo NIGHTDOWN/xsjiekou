@@ -169,7 +169,7 @@ class fixnovel extends Clibase
         d('3、识别书籍语种,支持参数书籍类型tool，书籍bookid,| 命令fix.php tool=sb bookid=1007');
         d('3、识别书籍语种修复，书籍类型tool，书籍bookid,原国家flang-移动到新国家tlang| 命令fix.php tool=sbfix bookid=1007 flang=1 tlang=2');
         d('5、修复章节数量不准，章节字数为0,支持参数书籍类型tool，书籍bookid,章节字数max| 命令fix.php tool=fixsecnum bookid=1007 max=3000');
-        d('6、修复mtoon,去除desc里面版权声明，去除图片上面的标签| 命令fix.php tool=mtoon bookid=1007');
+        d('6、修复mtoon,去除desc里面版权声明，去除图片上面的标签,参数y是否需要手动确认| 命令fix.php tool=mtoon bookid=1007 y=1');
     }
     //重新排序书籍
     public function fix($bookid)
@@ -336,7 +336,7 @@ class fixnovel extends Clibase
     {
         $size = 500;
         $page = 0;
-        $pagemx = 5;
+        $pagemx = 100;
         if ($this->gettype() == 1) {
             $id = "book_id";
             $tb = "book";
@@ -356,8 +356,10 @@ class fixnovel extends Clibase
         for ($page; $page < $pagemx; $page++) {
             # code...
             $book = T($tb)->set_limit([$page, $size])->get_all();
+            if (!sizeof($book)) {
+                break;
+            }
             foreach ($book as $bok) {
-
                 $this->fixtoon($bok);
             }
         }
@@ -371,37 +373,56 @@ class fixnovel extends Clibase
         $desc = $data['desc'];
         $bpic = $data['bpic'];
         preg_match('/\s.*MangaToon.*/', $desc, $booldesc);
-        preg_match('/\.[\w]{3,4}(-[\w]{1,})/', $bpic,  $boolbpic);
+        preg_match('/\.[\w]{3,4}(-[\w]{1,})$/', $bpic,  $boolbpic);
         //判断desc
         //判断img
-
+        if ($this->gettype() == 1) {
+            $id = "book_id";
+            $tb = "book";
+        } else {
+            $id = "cartoon_id";
+            $tb = "cartoon";
+        }
+        echo $data[$id] . "\n";
+        echo $data['bpic'] . "\n";
+        echo $data['desc'] . "\n";
         if ($booldesc[0]) {
-            d("desc\n" . $booldesc[0]);
+
             $bool = $this->insure();
-           
+
             if ($bool) {
+
                 $desc1 = str_replace($booldesc[0], '', $desc);
-                d($desc1,1);
+                d("修复为\n" . $desc1);
             }
         }
         if ($boolbpic[1]) {
-            d("pic\n" . $boolbpic[1]);
+
             $bool = $this->insure();
+
             if ($bool) {
-                $bpic1 = str_replace($booldesc[1], '', $bpic);
+                $bpic1 = str_replace($boolbpic[1], '', $bpic);
+                d("修复为\n" . $bpic1);
             }
         }
-        if ($desc1 || $bpic1) {
-            d($desc1);
-            d($bpic1);
+        $up = ['desc' => $desc1, 'bpic' => $bpic1];
+        $up = array_filter($up);
+        if (sizeof($up)) {
+            T($tb)->update($up, [$id => $data[$id]]);
+            // d($desc1);
+            // d($bpic1);
         }
     }
     public function insure()
     {
+        $gt = $this->getargv(['y']);
+        if( $gt['y']){
+            return true;
+        }
         $get = $this->getin("确认修复么？Y或者N");
         $bool = strtolower(trim($get));
-        d($bool);
-        return $bool == 'y' ? true : false;
+        $bool = $bool == 'y';
+        return  $bool;
     }
     public function sbfixcity()
     {
