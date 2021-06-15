@@ -572,7 +572,7 @@ class Sphinovel extends Clibase
 
       
         $this->autoproxy();
-          // $this->setproxy('192.168.0.138', '9999');
+          $this->setproxy('127.0.0.1', '8888');
         // $this->setproxy();
         $this->sign(null, null);
         $this->appneedinfo['userToken'] = $this->token ? $this->token : $this->appneedinfo['osUuid'];
