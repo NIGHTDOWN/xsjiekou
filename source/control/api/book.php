@@ -623,7 +623,8 @@ class book extends apibase
         $cityid = $this->head['cityid'];
         if ($type == 1) {
 
-            $list = T('book')->set_global_where(['status' => 1, 'lang' => $cityid])->field('book_id,other_name,`desc`,bpic_dsl,bpic,writer_name,isfree,update_status')->set_limit($nums)->order_by('RAND()')->get_all();
+            // $list = T('book')->set_global_where(['status' => 1, 'lang' => $cityid])->field('book_id,other_name,`desc`,bpic_dsl,bpic,writer_name,isfree,update_status')->set_limit($nums)->order_by('RAND()')->get_all();
+            $list=M('bookrandom','im')->getbook($this->head['cityid'], $nums);
         } else {
             //取漫画
 
@@ -646,7 +647,9 @@ class book extends apibase
             //     $w = 'cartoon_id>=' . $randon;
             // }
 
-            $list = T('cartoon')->set_global_where(['status' => 1, 'lang' => $cityid])->field('cartoon_id as book_id,bpic_dsl,other_name,`desc`,bpic,writer_name,isfree,update_status,2 as type')->set_limit($nums)->order_by('RAND()')->get_all();
+      
+            // $list = T('cartoon')->set_global_where(['status' => 1, 'lang' => $cityid])->field('cartoon_id as book_id,bpic_dsl,other_name,`desc`,bpic,writer_name,isfree,update_status,2 as type')->set_limit($nums)->order_by('RAND()')->get_all();
+            $list=M('bookrandom','im')->getcartoon($this->head['cityid'], $nums);
         }
         Out::jout($list);
     }
@@ -663,9 +666,10 @@ class book extends apibase
             $data = $cache[1];
         } else {
 
-            $data = T('book')->set_field('book_id,other_name,bpic,1 as type,bpic_dsl,writer_name,book_id,hits as recommend_num')->set_where(['status' => 1, 'lang' => 0, 'lang' => $sityid])->limit(80)->order_by('section desc,hits desc')->get_all();
+            // $data = T('book')->set_field('book_id,other_name,bpic,1 as type,bpic_dsl,writer_name,book_id,hits as recommend_num')->set_where(['status' => 1, 'lang' => 0, 'lang' => $sityid])->limit(80)->order_by('section desc,hits desc')->get_all();
             //排名前50的随机
-
+            $nums=50;
+            $data=M('bookrandom','im')->getbook($this->head['cityid'], $nums);
             if (is_array($data) && sizeof($data)) {
                 Y::$cache->set($index, $data, 86400);
             }
@@ -739,6 +743,7 @@ class book extends apibase
             $arr = $list->get_all();
             foreach ($arr as $key => $value) {
                 $arr[$key]['desc'] = str_replace("&quot;", "\"", $value['desc']);
+                $data[$key]['recommend_num']=rand(10000,99999)."";
             }
             if (is_array($arr) && sizeof($arr)) {
                 Y::$cache->set($index, $arr, 86400);
@@ -767,6 +772,7 @@ class book extends apibase
         $arr = $list->get_all();
         foreach ($arr as $key => $value) {
             $arr[$key]['desc'] = str_replace("&quot;", "\"", $value['desc']);
+            $data[$key]['recommend_num']=rand(10000,99999)."";
         }
         $this->returnSuccess($arr);
     }
