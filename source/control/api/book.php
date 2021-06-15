@@ -681,15 +681,15 @@ class book extends apibase
 
 
         }
-        $data2 = array_rand($data, 8);
-        $datatmp = [];
-        foreach ($data2 as $ss) {
-            // $datatmp.push();
+        // $data2 = array_rand($data, 8);
+        // $datatmp = [];
+        // foreach ($data2 as $ss) {
+        //     // $datatmp.push();
 
-            array_push($datatmp, $data[$ss]);
-        }
+        //     array_push($datatmp, $data[$ss]);
+        // }
 
-        $this->returnSuccess($datatmp);
+        $this->returnSuccess($data);
     }
     // 获取幻灯片图片
     public function control_get_banner()
