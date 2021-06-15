@@ -728,7 +728,7 @@ class book extends apibase
 
         $cityid = $this->head['cityid'];
         $where['lang'] = $cityid;
-        $index = 'get_new_' . $data['page'] . '_' . $cityid;
+        $index = 'get_new1_' . $data['page'] . '_' . $cityid;
         $cache = Y::$cache->get($index);
         if ($cache[0]) {
             $this->returnSuccess($cache[1]);
