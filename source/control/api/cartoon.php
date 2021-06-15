@@ -447,7 +447,7 @@ class cartoon extends apibase
         $where['status'] = 1;
         $cityid = $this->head['cityid'];
         $where['lang'] = $cityid;
-        $index = 'cartget_cartoon6_' . $get['page'] . "_" . $cityid;
+        $index = 'cartget_cartoon7_' . $get['page'] . "_" . $cityid;
         $cache = Y::$cache->get($index);
         if ($cache[0]) {
             $this->returnSuccess($cache[1]);
@@ -457,7 +457,7 @@ class cartoon extends apibase
             if (is_array($data) && sizeof($data)) {
                 foreach ($data as $key => $value) {
                     # code...
-                    $data[$key]['recommend_num']=rand(10000,99999);
+                    $data[$key]['recommend_num']=rand(10000,99999)."";
                 }
                 Y::$cache->set($index, $data, 46000);
             }
