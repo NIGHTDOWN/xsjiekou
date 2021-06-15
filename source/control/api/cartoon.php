@@ -457,7 +457,7 @@ class cartoon extends apibase
             if (is_array($data) && sizeof($data)) {
                 foreach ($data as $key => $value) {
                     # code...
-                    $data[$key]['hits']=rand(10000,99999);
+                    $data[$key]['recommend_num']=rand(10000,99999);
                 }
                 Y::$cache->set($index, $data, 46000);
             }
