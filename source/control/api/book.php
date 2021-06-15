@@ -668,7 +668,7 @@ class book extends apibase
 
             // $data = T('book')->set_field('book_id,other_name,bpic,1 as type,bpic_dsl,writer_name,book_id,hits as recommend_num')->set_where(['status' => 1, 'lang' => 0, 'lang' => $sityid])->limit(80)->order_by('section desc,hits desc')->get_all();
             //排名前50的随机
-            $nums=50;
+            $nums=8;
             $data=M('bookrandom','im')->getbook($this->head['cityid'], $nums);
             foreach ($data as $key => $value) {
                 # code...
