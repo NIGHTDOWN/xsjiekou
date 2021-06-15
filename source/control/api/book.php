@@ -660,7 +660,7 @@ class book extends apibase
         $where['status'] = 1;
         $where['groom_type'] = 3;
         $sityid = $this->head['cityid'];
-        $index = 'get_new_booka' . $sityid;
+        $index = 'get_new_book2' . $sityid;
         $cache = Y::$cache->get($index);
         if ($cache[0]) {
             $data = $cache[1];
@@ -670,6 +670,10 @@ class book extends apibase
             //排名前50的随机
             $nums=50;
             $data=M('bookrandom','im')->getbook($this->head['cityid'], $nums);
+            foreach ($data as $key => $value) {
+                # code...
+                $data[$key]['recommend_num']=rand(10000,99999)."";
+            }
             if (is_array($data) && sizeof($data)) {
                 Y::$cache->set($index, $data, 86400);
             }
