@@ -147,6 +147,11 @@ class fixnovel extends Clibase
             $this->autofixsec();
             die();
         }
+        if ($gt['tool'] == 'mtoon') {
+
+            $this->mtoon();
+            die();
+        }
         // $this->setdomain($this->_domian);
         $this->_booktype = $gt['type'];
         $this->_booklang = $gt['lang'];
@@ -164,6 +169,7 @@ class fixnovel extends Clibase
         d('3、识别书籍语种,支持参数书籍类型tool，书籍bookid,| 命令fix.php tool=sb bookid=1007');
         d('3、识别书籍语种修复，书籍类型tool，书籍bookid,原国家flang-移动到新国家tlang| 命令fix.php tool=sbfix bookid=1007 flang=1 tlang=2');
         d('5、修复章节数量不准，章节字数为0,支持参数书籍类型tool，书籍bookid,章节字数max| 命令fix.php tool=fixsecnum bookid=1007 max=3000');
+        d('6、修复mtoon,去除desc里面版权声明，去除图片上面的标签| 命令fix.php tool=mtoon bookid=1007');
     }
     //重新排序书籍
     public function fix($bookid)
@@ -183,7 +189,7 @@ class fixnovel extends Clibase
             // 是
             T($dbsec)->update(['status' => 1], $w);
         }
-        $w['status']=1;
+        $w['status'] = 1;
         $list = T($dbsec)->set_field('section_id,list_order,title')->set_where($w)->order_by('list_order,section_id ASC')->get_all();
         $patterns = "/\d+/"; //第一种
         //$patterns = "/\d/";   //第二种
@@ -318,13 +324,84 @@ class fixnovel extends Clibase
             # code...
             $book = T($tb)->set_limit([$page, $size])->set_where(['is_virtual' => '0'])->get_all();
             foreach ($book as $bok) {
-               
+
                 $this->ckcity($bok);
             }
         }
         //失败的尝试重新查询
         $this->trfail();
         // $this->savesc();
+    }
+    public function mtoon()
+    {
+        $size = 500;
+        $page = 0;
+        $pagemx = 5;
+        if ($this->gettype() == 1) {
+            $id = "book_id";
+            $tb = "book";
+        } else {
+            $id = "cartoon_id";
+            $tb = "cartoon";
+        }
+        // $this->loadsc();
+        $gt = $this->getargv(['bookid']);
+        if (isset($gt['bookid'])) {
+            $book = T($tb)->set_where([$id => $gt['bookid']])->get_one();
+
+            $this->fixtoon($book);
+            die();
+        }
+
+        for ($page; $page < $pagemx; $page++) {
+            # code...
+            $book = T($tb)->set_limit([$page, $size])->get_all();
+            foreach ($book as $bok) {
+
+                $this->fixtoon($bok);
+            }
+        }
+        //失败的尝试重新查询
+        // $this->trfail();
+        // $this->savesc();
+    }
+    public function fixtoon($data)
+    {
+
+        $desc = $data['desc'];
+        $bpic = $data['bpic'];
+        preg_match('/\s.*MangaToon.*/', $desc, $booldesc);
+        preg_match('/\.[\w]{3,4}(-[\w]{1,})/', $bpic,  $boolbpic);
+        //判断desc
+        //判断img
+
+        if ($booldesc[0]) {
+            d("desc\n" . $booldesc[0]);
+            $bool = $this->insure();
+           
+            if ($bool) {
+                $desc1 = str_replace($booldesc[0], '', $desc);
+                d($desc1,1);
+            }
+        }
+        if ($boolbpic[1]) {
+            d("pic\n" . $boolbpic[1]);
+            $bool = $this->insure();
+            if ($bool) {
+                $bpic1 = str_replace($booldesc[1], '', $bpic);
+            }
+        }
+        if ($desc1 || $bpic1) {
+            d($desc1);
+            d($bpic1);
+        }
+    }
+    public function insure()
+    {
+        $get = $this->getin("确认修复么？Y或者N");
+        $bool = strtolower(trim($get));
+        d($bool);
+        return $bool == 'y' ? true : false;
     }
     public function sbfixcity()
     {
@@ -352,7 +429,7 @@ class fixnovel extends Clibase
             # code...
             $book = T($tb)->set_limit([$page, $size])->set_where(['is_virtual' => '2'])->get_all();
             foreach ($book as $bok) {
-           
+
                 $this->fixcity($bok);
             }
         }
@@ -430,7 +507,7 @@ class fixnovel extends Clibase
         $listsf = array_column($secfs, 'list_order');
         $listst = array_column($sects, 'list_order');
 
-       
+
         $listss = array_diff($listsf, $listst);
         if (sizeof($listss) == sizeof($secs)) {
             $sec =  $secs;
@@ -457,7 +534,7 @@ class fixnovel extends Clibase
             //大于1000章的要分段，不然数据库溢出，终端
 
             $secc = array_column($secc, $ssc, $sid);
-          
+
             foreach ($sec as $in) {
                 $id = $in[$sid];
                 unset($in[$sid]);

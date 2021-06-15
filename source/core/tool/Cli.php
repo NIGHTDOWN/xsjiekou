@@ -73,4 +73,11 @@ class Cli extends Y
             return $ret;
         }
     }
+    //cli获取交互输入
+    public function getin($desc)
+    {
+        echo $desc . "：";
+        $data = (fgets(STDIN));
+        return $data;
+    }
 }

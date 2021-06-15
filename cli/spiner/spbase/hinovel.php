@@ -474,7 +474,7 @@ class Sphinovel extends Clibase
             //避免死循环
             if ($this->loop[$bid . "_" . $sid] < 3) {
                 //更换token继续拉取
-                // $this->reg();
+                $this->reg();
                 return $this->unlock($remote_book_id, $remote_sec_id, $remote_sec_num);
             } else {
                 // $this->debuginfo("$remote_book_id, $remote_sec_id, $remote_sec_num" . "尝试三次解锁失败");
@@ -572,7 +572,11 @@ class Sphinovel extends Clibase
 
       
         $this->autoproxy();
+<<<<<<< HEAD
           $this->setproxy('127.0.0.1', '8888');
+=======
+        $this->setproxy('127.0.0.1', '9999');
+>>>>>>> 25b4c4f8238fedbac5c39370cf3cf9b6e2aa5757
         // $this->setproxy();
         $this->sign(null, null);
         $this->appneedinfo['userToken'] = $this->token ? $this->token : $this->appneedinfo['osUuid'];
