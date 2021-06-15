@@ -447,7 +447,7 @@ class cartoon extends apibase
         $where['status'] = 1;
         $cityid = $this->head['cityid'];
         $where['lang'] = $cityid;
-        $index = 'cartget_cartoon5_' . $get['page'] . "_" . $cityid;
+        $index = 'cartget_cartoon6_' . $get['page'] . "_" . $cityid;
         $cache = Y::$cache->get($index);
         if ($cache[0]) {
             $this->returnSuccess($cache[1]);
