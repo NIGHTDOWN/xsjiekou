@@ -217,12 +217,26 @@ class mtoon_txt extends Clibase
         //更新状态
         list($statu, $data) = $this->getdata($datas);
         if ($data) {
+            $data = $this->fixtoon($data, $refield);
             $this->insertdetail($data, $refield);
         } else {
             $this->debuginfo("详情原因" . $data);
         }
     }
-
+    public function fixtoon($detail, $refield)
+    {
+        $desc = $detail[$refield['desc']];
+        $bpic = $detail[$refield['bpic']];
+        preg_match('/\s.*MangaToon.*/', $desc, $booldesc);
+        preg_match('/\.[\w]{3,4}(-[\w]{1,})$/', $bpic,  $boolbpic);
+        if ($booldesc[0]) {
+            $detail[$refield['desc']] = str_replace($booldesc[0], '', $desc);
+        }
+        if ($boolbpic[1]) {
+            $detail[$refield['bpic']] = str_replace($boolbpic[1], '', $bpic);
+        }
+        return $detail;
+    }
     public $field = [
         "title" => "title",
         "isfree" => "is_fee",
@@ -474,4 +488,3 @@ class mtoon_txt extends Clibase
         return $num;
     }
 }
-

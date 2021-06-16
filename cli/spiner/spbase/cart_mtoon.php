@@ -157,14 +157,29 @@ class cart_mtoon extends Clibase
             "fid" => "id",
         ];
         //更新状态
+      
         list($statu, $data) = $this->getdata($datas);
         if ($data) {
+            $data=$this->fixtoon($data, $refield);
             $this->insertdetail($data, $refield);
         } else {
             $this->debuginfo("详情原因" . $data);
         }
     }
-
+    public function fixtoon($detail, $refield)
+    {
+        $desc = $detail[$refield['desc']];
+        $bpic = $detail[$refield['bpic']];
+        preg_match('/\s.*MangaToon.*/', $desc, $booldesc);
+        preg_match('/\.[\w]{3,4}(-[\w]{1,})$/', $bpic,  $boolbpic);
+        if ($booldesc[0]) {
+            $detail[$refield['desc']]= str_replace($booldesc[0], '', $desc);
+        }
+        if ($boolbpic[1]) {
+            $detail[$refield['bpic']] = str_replace($boolbpic[1], '', $bpic);
+        }
+        return $detail;
+    }
     public $field = [
         "title" => "title",
         "isfree" => "is_fee",
@@ -333,8 +348,9 @@ class cart_mtoon extends Clibase
         // $this->setproxy('47.119.145.216', '3389');
         // $this->setproxy('192.168.0.138', '9999');
         $this->autoproxy();
-        $this->setproxy('127.0.0.1', '8888');
-        $p = ["_" => time(),];
+        $p = [
+            "_" => time(),
+        ];
         $parem = array_merge($parem, $p, $this->appneedinfo);
         $parem["sign"] = $this->sign($api, $parem);
         // d($parem);
