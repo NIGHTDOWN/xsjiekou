@@ -118,7 +118,7 @@ class mtoon_txt extends Clibase
     }
     public function start()
     {
-        // d($this->decode('https://cn.f.pic.mangatoon.mobi/9661/44451/u.bin'), 1);
+        
         $cachename = date('Ymdhis') . 'obj';
         $this->thinit();
         $page = 100;
@@ -126,8 +126,6 @@ class mtoon_txt extends Clibase
         $this->logstart(__FILE__);
         $this->thcacheobj($cachename);
         if (!$this->get_th_listcache()) {
-
-
             for ($i; $i <= $page; $i++) {
                 $size = $this->getbooklist($i);
                 if (!$size) {
@@ -404,7 +402,7 @@ class mtoon_txt extends Clibase
 
 
         $this->autoproxy();
-        $this->setproxy('127.0.0.1', '8888');
+        $this->setproxy('127.0.0.1', '9999');
         $p = [
             "_" => time(),
         ];

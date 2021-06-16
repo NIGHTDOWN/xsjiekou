@@ -56,8 +56,16 @@ class Clibase  extends Cli
 
     }
     public $th;
+    public function getbookdetail($id)
+    {
+    }
     public function thinit()
     {
+        $bookids = $this->getargv(['bookid']);
+        if ($bookids['bookid']) {
+            $this->getbookdetail($bookids['bookid']);
+            die();
+        }
         $th = 0;
         $ths = $this->getargv(['t']);
 
@@ -314,7 +322,8 @@ class Clibase  extends Cli
     }
     public function help()
     {
-        d("参数t 多少个子线程，最大不超过20个线程\n如 t=15开15个线程", 1);
+        d("参数bookid 指定要抓的远程书籍id\n参数t 多少个子线程，最大不超过20个线程\n如 t=15开15个线程", 1);
+        
     }
     //获取缺失章节序号
     protected function getlostMemberInArray($array)
