@@ -45,8 +45,10 @@ class mtoon_txt extends Clibase
         '_platform' => 'web',
         '_v' => '2.01.02',
         '_language' => 'th',
-        '_token' => '07ba8764f71e613f54b9f0107fbf579c62',
-        '_udid' => 'd21d0bcb5f8e7698c2da1cd1c57204fe',
+        '_token' => '897aeecc13b29bebec65101f2d7b528a65',
+        '_udid' => 'da616065-0cb3-479f-8a27-fc19385d10d3',
+        /////////////////////////
+       
     ];
     //远程完结状态值
     public $update_status_end_val = 1;
@@ -118,7 +120,7 @@ class mtoon_txt extends Clibase
     }
     public function start()
     {
-        
+
         $cachename = date('Ymdhis') . 'obj';
         $this->thinit();
         $page = 100;
@@ -402,7 +404,7 @@ class mtoon_txt extends Clibase
 
 
         $this->autoproxy();
-        $this->setproxy('127.0.0.1', '9999');
+        $this->setproxy('127.0.0.1', '8888');
         $p = [
             "_" => time(),
         ];

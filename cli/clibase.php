@@ -151,6 +151,7 @@ class Clibase  extends Cli
     //执行上次失败记录重新拉取
     public function do_lastrepet_fail()
     {
+        return false; //这里直接跳过，这里经常导致重复插入对应章节
         d('执行上次失败重试开始');
 
         if ($this->failcatchold) {
@@ -323,7 +324,6 @@ class Clibase  extends Cli
     public function help()
     {
         d("参数bookid 指定要抓的远程书籍id\n参数t 多少个子线程，最大不超过20个线程\n如 t=15开15个线程", 1);
-        
     }
     //获取缺失章节序号
     protected function getlostMemberInArray($array)

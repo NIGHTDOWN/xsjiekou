@@ -40,11 +40,25 @@ class cart_mtoon extends Clibase
         '_preference' => 'girl',
         // '_preference' => 'boy',
         '_webp' => 'false',
-        '_platform' => 'web',
+        // '_platform' => 'web',
         '_v' => '2.01.02',
         '_language' => 'th',
-        '_token' => '07ba8764f71e613f54b9f0107fbf579c62',
-        '_udid' => 'd21d0bcb5f8e7698c2da1cd1c57204fe',
+        '_token' => '897aeecc13b29bebec65101f2d7b528a65',
+        '_udid' => 'da616065-0cb3-479f-8a27-fc19385d10d3',
+        // '_brand' => 'nubia',
+        // '_model' => 'NX563J',
+        // '_resolution' => '1080*1920',
+        // '_ov' => '7.1.1',
+        // '_tz' => '8',
+        // '_vc' => '5287',
+        // '_aid' => '24d8cc7a44a63ada',
+        // '_cpu' => 'aarch64',
+        // '_lat' => '0',
+        // '_ram' => '5.6%20GB',
+        // '_birthday' => '%2FdDjrobyQ1yFQXAL%2Bunw8Q%3D%3D',
+        // '_serialno' => '352b0ce37c0824be302ac5b9af2fcd25',
+        // '_package' => 'mobi.mangatoon.comics.aphone',
+        // '_locale' => 'zh_CN',
     ];
     //远程完结状态值
     public $update_status_end_val = 1;
@@ -157,10 +171,10 @@ class cart_mtoon extends Clibase
             "fid" => "id",
         ];
         //更新状态
-      
+
         list($statu, $data) = $this->getdata($datas);
         if ($data) {
-            $data=$this->fixtoon($data, $refield);
+            $data = $this->fixtoon($data, $refield);
             $this->insertdetail($data, $refield);
         } else {
             $this->debuginfo("详情原因" . $data);
@@ -173,7 +187,7 @@ class cart_mtoon extends Clibase
         preg_match('/\s.*MangaToon.*/', $desc, $booldesc);
         preg_match('/\.[\w]{3,4}(-[\w]{1,})$/', $bpic,  $boolbpic);
         if ($booldesc[0]) {
-            $detail[$refield['desc']]= str_replace($booldesc[0], '', $desc);
+            $detail[$refield['desc']] = str_replace($booldesc[0], '', $desc);
         }
         if ($boolbpic[1]) {
             $detail[$refield['bpic']] = str_replace($boolbpic[1], '', $bpic);
@@ -348,6 +362,7 @@ class cart_mtoon extends Clibase
         // $this->setproxy('47.119.145.216', '3389');
         // $this->setproxy('192.168.0.138', '9999');
         $this->autoproxy();
+        $this->setproxy('127.0.0.1', '8888');
         $p = [
             "_" => time(),
         ];

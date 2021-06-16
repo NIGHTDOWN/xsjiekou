@@ -55,7 +55,7 @@ class fixnovel extends Clibase
     // 获取远程小说列表，根据实际情况修改fun
     public function getbooklist($page)
     {
-        $size = 100;
+        $size = 800;
         $gt = $this->getargv(['type', 'lang', 'bookid', 'tool']);
         if (isset($gt['lang'])) {
 
