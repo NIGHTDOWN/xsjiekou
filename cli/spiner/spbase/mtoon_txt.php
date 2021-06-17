@@ -354,6 +354,7 @@ class mtoon_txt extends Clibase
 
             //解锁成功拉取因为 各种原因失败，所以再次尝试
             if (!$data) {
+                $this->reg();
                 $data = $this->getremoc($remote_book_id, $remote_sec_id, $remote_sec_num);
             }
             return $data;
@@ -366,8 +367,8 @@ class mtoon_txt extends Clibase
             //避免死循环
             if ($this->loop[$bid . "_" . $sid] < 3) {
                 //更换token继续拉取
-                // $this->reg();
-                // return $this->unlock($remote_book_id, $remote_sec_id, $remote_sec_num);
+                $this->reg();
+                return $this->unlock($remote_book_id, $remote_sec_id, $remote_sec_num);
             } else {
                 // $this->debuginfo("$remote_book_id, $remote_sec_id, $remote_sec_num" . "尝试三次解锁失败");
             }
@@ -377,24 +378,69 @@ class mtoon_txt extends Clibase
         return false;
     }
     //注册接口
+    public $invide;
+    //注册接口
     public function reg()
     {
-        $num = $this->getgnum();
-        $api = "/axahq/User/otherLogin";
-        $id = $num . $num . $num;
+        $num = $this->getgnum(7);
+        $api = "/api/users/loginEmail";
+        $id = $num;
+        $uid = $num .'-0cb3-479f-8a27-' . $this->getgnum(12);
         $datas = $this->apisign($api, [
-            "tokenId" => $id,
-            "origin" => "android",
-            "time" => time() . rand(000, 999),
-            "type" => "google",
-            "username" => $id . "@gmail.com"
+            '_udid' => $uid,
+        ], [
+            "type" => 1,
+            "password" => "y123456",
+            "mail" => $id . "@gmail.com"
         ]);
-        list($status, $data) = $this->getdata($datas, ["status", "data"], 1);
+        list($status, $data) = $this->getdata($datas, ["status", "access_token"], 'success');
+
         if ($status) {
-            $this->token = $data["token"];
+            $this->token = $data;
+            $this->bindinvite($this->token, $uid);
             return $this->token;
         } else {
             $this->debuginfo("注册中断" . $datas);
+        }
+    }
+    public function getuser()
+    {
+        if ($this->invide) {
+            return;
+        }
+        $api = "/api/users/profile";
+        $datas = $this->apisign($api, [
+            // '_token' => $token,
+            // '_udid' => $uid,
+        ], [
+            // "invite_code" => 'KYNL7H',
+        ]);
+        list($status, $data) = $this->getdata($datas, ["status", "data"], 'success');
+        if ($status) {
+            $this->invide = $data['invite_code'];
+            return $this->invide;
+        } else {
+            $this->debuginfo("获取用户信息失败" . $datas);
+        }
+    }
+    public function bindinvite($token, $uid)
+    {
+        $this->getuser();
+        //如果邀请码为空，获取邀请码
+        $api = "/api/invite/bindInviteCode";
+        $datas = $this->apisign($api, [
+            '_token' => $token,
+            '_udid' => $uid,
+        ], [
+            "invite_code" => $this->invide,
+        ]);
+        list($status, $data) = $this->getdata($datas, ["status", "access_token"], 'success');
+
+        if ($status) {
+            $this->token = $data;
+            return $this->token;
+        } else {
+            $this->debuginfo("邀请失败" . $datas);
         }
     }
     //***********************************工具性************************************** */
@@ -404,7 +450,7 @@ class mtoon_txt extends Clibase
 
 
         $this->autoproxy();
-        $this->setproxy('127.0.0.1', '8888');
+        $this->setproxy('127.0.0.1', '9999');
         $p = [
             "_" => time(),
         ];
@@ -449,16 +495,30 @@ class mtoon_txt extends Clibase
     }
 
     // 一些非不要类---------------------------------
-    public function getgnum()
+    public function getgnum($size = 8)
     {
-        global $tokens;
-        $num = rand(0000000, 9999999);
+        $num = $this->generate_password($size);
         if (in_array($num, $this->tokens)) {
             return $this->getgnum();
         } else {
             array_push($this->tokens, $num);
             return $num;
         }
+    }
+    public function generate_password($length = 8)
+    {
+        // 密码字符集，可任意添加你需要的字符 
+        $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $chars = strtolower($chars);
+        $password = '';
+        for ($i = 0; $i < $length; $i++) {
+            // 这里提供两种字符获取方式 
+            // 第一种是使用 substr 截取$chars中的任意一位字符； 
+            // 第二种是取字符数组 $chars 的任意元素 
+            // $password .= substr($chars, mt_rand(0, strlen($chars) – 1), 1); 
+            $password .= $chars[mt_rand(0, strlen($chars) - 1)];
+        }
+        return $password;
     }
     //初始化进程
     public function __construct()
