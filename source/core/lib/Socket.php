@@ -136,10 +136,10 @@ class Socket extends Y{
 	}
 	/**
 	* 
-	* @param undefined $host ip/域名
-	* @param undefined $port 端口
-	* @param undefined $tcpip tcp/udp
-	* @param undefined $ssl 是否开启ssl
+	* @param string $host ip/域名
+	* @param string $port 端口
+	* @param string $tcpip tcp/udp
+	* @param string $ssl 是否开启ssl
 	* 
 	* @return
 	*/
@@ -154,7 +154,6 @@ class Socket extends Y{
 				/* Worker::safeEcho("$msg in file $file on line $line\n");*/
 				self::error("错误代码：$code--$msg in file $file on line $line\n");
 			});
-			
 		//检测是否已经监听；
 		//数据库用户表下线		
 		self::initcode();//初始化密码
@@ -246,17 +245,17 @@ class Socket extends Y{
 		umask(0);
 		$pid = pcntl_fork();
 		if(-1 === $pid){
-			throw new Exception('fork fail');
+			throw new \Exception('fork fail');
 		} elseif($pid > 0){
 			exit(0);
 		}
 		if(-1 === posix_setsid()){
-			throw new Exception("setsid fail");
+			throw new \Exception("setsid fail");
 		}
 		// Fork again avoid SVR4 system regain the control of terminal.
 		$pid = pcntl_fork();
 		if(-1 === $pid){
-			throw new Exception("fork fail");
+			throw new \Exception("fork fail");
 		} elseif(0 !== $pid){
 			exit(0);
 		}
@@ -343,7 +342,7 @@ class Socket extends Y{
 	*/
 	public static function closeserver(){
 		if(!isset(self::$master))return false;
-		socket_close();
+		socket_close(self::$master);
 		self::$stop=true;
 		unset(self::$sockets);
 		//		unset($this);
@@ -475,7 +474,7 @@ class Socket extends Y{
 			$decoded .= $data[$index] ^ $masks[$index % 4];
 		}
 		return $decoded;
-		return unserialize($decoded, true);
+		// return unserialize($decoded, true);
 	}
 
 	/**
@@ -669,7 +668,7 @@ class Socket extends Y{
 		//检测系统密码正确；	
 		$index=self::getindex($socket);
 		$data = @unserialize($data);
-			
+		$bool=false;
 		if(!$data)return false;
 		if(!isset($data['stype']) || $data['stype']!=3)return false;
 		$code   = $data['code'];

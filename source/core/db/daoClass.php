@@ -670,7 +670,7 @@ class daoClass
         /*if(self::$loopcache>self::LOOPMAX)return false;*/
         //这里的缓存必须非mysql缓存；否则死循环
         // $cache = new \ng169\cache\File;
-        $cache =Y::$cache;
+        $cache = Y::$cache;
         list($bool, $data) = $cache->get($index);
 
         if (!$bool) {
@@ -888,6 +888,7 @@ class daoClass
      */
     public function d()
     {
+        $Stime = 0;
         if ($this->debug) {
 
             $Stime = microtime(true);
@@ -940,7 +941,7 @@ class daoClass
      */
     public function i($t, $ar, $auto = 1)
     {
-
+        $Stime = 0;
         if ($this->debug) {
 
             $Stime = microtime(true);
@@ -982,7 +983,7 @@ class daoClass
         if (sizeof($ar) == 0) {
             return 0;
         }
-        $Stime='';
+        $Stime = '';
         if ($this->debug) {
 
             $Stime = microtime(true);

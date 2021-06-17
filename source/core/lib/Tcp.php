@@ -82,7 +82,7 @@ class Tcp extends Socket{
 			}
 			else{
 				// 如果可读的是其他已连接socket,则读取其数据,并处理应答逻辑
-				$buffer = stream_socket_recvfrom($socket,  $this->recvlength, 0);
+				$buffer = stream_socket_recvfrom($socket,  Tcp::$recvlength, 0);
 				$bytes=strlen($buffer);
 				
 				/*socket_set_nonblock($bytes);*/
