@@ -109,12 +109,33 @@ class phpjob extends Clibase
         foreach ($data as $key => $value) {
             # code...
             // * * * * * /bin/ls
-            $string .= "0 {$value['hour']} * * * php " . $value['execfile'] . "\n";
+            $string .= "0 {$value['hour']} * * * php " . ROOT . $value['execfile'] . "\n";
+        
         }
-        File::writeFile(ROOT.'/task',$string);
-        echo ROOT.'/task';
+       
+        File::writeFile(ROOT . '/task', $string);
+        echo ROOT . '/task';
         echo "请使用 crtontab -u root 目录下的task文件\n";
         echo "请使用 crtontab -l 查看定时任务是否生效";
+    }
+    public function win()
+    {
+        //列出数据库所有任务
+        //生成crontab 记录
+        $data = T('phptask')->get_all(['flag' => 0]);
+
+        
+        $string = ":start\n";
+        foreach ($data as $key => $value) {
+            # code...
+            // * * * * * /bin/ls
+            $string .= "start php " . ROOT . $value['execfile'] . "\n";
+            $string .= 'choice /t 3600 /d y /n >nul' . "\n";
+        }
+        $string .= "goto start\n";
+        File::writeFile(ROOT . '/task.bat', $string);
+        echo ROOT . '/task.bat';
+        echo "请使用 运行task.bat 目录下的task文件\n";
     }
     // 一些非不要类---------------------------------
     //初始化进程
@@ -122,9 +143,13 @@ class phpjob extends Clibase
     {
 
         parent::__construct(); //初始化帮助信息
-        $gt = $this->getargv(['clear', 'proxy', 'url', 'crontab', 'max']);
+        $gt = $this->getargv(['clear', 'proxy', 'url', 'crontab', 'win', 'max']);
         if ($gt['clear']) {
             $this->clear();
+            die();
+        }
+        if ($gt['win']) {
+            $this->win();
             die();
         }
         if ($gt['crontab']) {
@@ -139,6 +164,7 @@ class phpjob extends Clibase
     {
         d('1、开启定时任务,clear=1,清空缓存');
         d('2、开启系统定时任务,crontab=1，目前只支持每日执行');
+        d('2、生成windou下bat文件,win=1，一键运行所有任务');
     }
     //重新排序书籍
 
