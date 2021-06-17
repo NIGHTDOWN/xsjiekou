@@ -14,6 +14,11 @@ class sockbase extends Clibase
         parent::__construct(); //初始化帮助信息
 
     }
+    //获取用户token,im消息根据这个token加密
+    public static function gettoken($uid)
+    {
+        return 123456;
+    }
     //调试类
     public function start()
     {
