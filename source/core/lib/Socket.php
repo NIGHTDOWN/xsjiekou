@@ -413,7 +413,7 @@ class Socket extends Y
 		$cachetk = Socket::$redis->get(self::REDIS_PRE_U . $uid);
 		if (!$cachetk) {
 
-		
+
 			$usertk = sockbase::gettoken($uid);
 			if ($usertk) {
 				Socket::$redis->set(self::REDIS_PRE_U . $uid, $usertk, 360);
@@ -522,7 +522,7 @@ class Socket extends Y
 		$l    = strlen($msg);
 		for ($i = 0; $i < $l; $i++) {
 			$data .= dechex(ord($msg{
-			$i}));
+				$i}));
 		}
 		$frame[2] = $data;
 
@@ -594,6 +594,7 @@ class Socket extends Y
 			d('tuichu');
 			return false;
 		}
+
 
 		switch ($type) {
 			case 2:
@@ -804,9 +805,11 @@ class Socket extends Y
 		$fun = $recv['fun'];
 		$data = $recv['data'];
 		$bool = self::get_typea_ction_file($type, $action);
+
 		if ($bool) {
 			$classname = "ng169\\sock\\{$type}\\" . $action;
 			$class     = new $classname($sock, $recv);
+
 			//$class->init($sock,$recv);				
 			if (!class_exists($classname)) {
 				self::error($type . '下执行文件类错误');
@@ -816,6 +819,7 @@ class Socket extends Y
 				$class->$fun($data);
 				return true;
 			} elseif (method_exists($class, 'run')) {
+
 				$class->run($data);
 				return true;
 			} else {
