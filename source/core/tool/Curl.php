@@ -49,50 +49,51 @@ class Curl
 		$this->_init();
 		curl_setopt($this->curl, CURLOPT_USERAGENT, $user_agent);
 	}
-	public function get($url)
-	{
-		$this->_init();
-		if (!$url)
-			return false;
-		// YLog::txt('25请求' . $url);
-		$ssl = substr($url, 0, 8) == 'https://' ? true : false;
-		$curl = $this->curl;
-		curl_setopt($curl, CURLOPT_URL, $url);
-		if ($ssl) {
-			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-			curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
-		}
-		if (ini_get('safe_mode') || ini_get('open_basedir')) {
+	// public function get($url)
+	// {
+	// 	$this->_init();
+	// 	if (!$url)
+	// 		return false;
+	// 	// YLog::txt('25请求' . $url);
+	// 	$ssl = substr($url, 0, 8) == 'https://' ? true : false;
+	// 	$curl = $this->curl;
+	// 	curl_setopt($curl, CURLOPT_URL, $url);
+	// 	if ($ssl) {
+	// 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+	// 		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+	// 	}
+	// 	if (ini_get('safe_mode') || ini_get('open_basedir')) {
 
-			$this->curl_redir_exec($curl);
-			curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-			$content = curl_exec($curl);
-		} else {
+	// 		$this->curl_redir_exec($curl);
+	// 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+	// 		$content = curl_exec($curl);
+	// 	} else {
 
-			@curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
-			curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-			$content = curl_exec($curl);
-		}
-		$status = curl_getinfo($curl);
-		curl_close($curl);
-		$this->unset();
-		if (intval($status['http_code']) == 200) {
+	// 		@curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
+	// 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+	// 		$content = curl_exec($curl);
+	// 	}
+	// 	d($curl);
+	// 	$status = curl_getinfo($curl);
+	// 	curl_close($curl);
+	// 	$this->unset();
+	// 	if (intval($status['http_code']) == 200) {
 
-			if (ini_get('safe_mode') || ini_get('open_basedir')) {
+	// 		if (ini_get('safe_mode') || ini_get('open_basedir')) {
 
-				if (strpos($content, 'charset=utf-8')) {
-					$astring = explode('charset=utf-8', $content);
-					$content = trim($astring[1]);
-				}
-				return $content;
-			} else {
-				return $content;
-			}
-		} else {
+	// 			if (strpos($content, 'charset=utf-8')) {
+	// 				$astring = explode('charset=utf-8', $content);
+	// 				$content = trim($astring[1]);
+	// 			}
+	// 			return $content;
+	// 		} else {
+	// 			return $content;
+	// 		}
+	// 	} else {
 
-			return 'fail';
-		}
-	}
+	// 		return 'fail';
+	// 	}
+	// }
 
 	public static function isAjax()
 	{
@@ -110,7 +111,39 @@ class Curl
 		// 	return true;
 		return false;
 	}
-
+	public function get($url)
+	{
+		$this->_init();
+		if (!$url)
+			return false;
+		$ssl = substr($url, 0, 8) == 'https://' ? true : false;
+		$curl = $this->curl;
+		// if (!is_null($proxy))
+		// 	curl_setopt($curl, CURLOPT_PROXY, $proxy);
+		curl_setopt($curl, CURLOPT_URL, $url);
+		if ($ssl) {
+			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+			curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
+		}
+		if ($this->head) {
+			curl_setopt($curl, CURLOPT_HTTPHEADER, $this->head);
+		}
+		curl_setopt($curl, CURLOPT_USERAGENT, 'okhttp/3.6.0');
+		curl_setopt($curl, CURLOPT_HEADER, false);
+		// curl_setopt($curl, CURLOPT_POST, true);
+		// curl_setopt($curl, CURLOPT_POSTFIELDS, ($data));
+		@curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		$content = curl_exec($curl);
+		$status = curl_getinfo($curl);
+		curl_close($curl);
+		$this->unset();
+		if (intval($status['http_code']) == 200) {
+			return $content;
+		} else {
+			return 'fail';
+		}
+	}
 	public function post($url, $data, $proxy = null, $timeout = 15)
 	{
 		/*if($this->curl){
@@ -156,7 +189,7 @@ class Curl
 		// curl_setopt($curl, CURLOPT_ENCODING, 'gzip');
 		$content = curl_exec($curl);
 		$status = curl_getinfo($curl);
-		
+
 		curl_close($curl);
 		$this->unset();
 		if (intval($status['http_code']) == 200) {

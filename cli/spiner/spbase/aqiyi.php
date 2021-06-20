@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 本服务接收两个参数  IP 端口
+ * 爱奇艺漫画
  * 列子 ：php opsock 192.168.1.1 8080
  */
 
@@ -15,18 +15,20 @@ require_once   dirname(dirname(dirname(__FILE__))) . "/clibase.php";
 
 use ng169\Y;
 
-class cart_mtoon extends Clibase
+class aqiyi extends Clibase
 {
     public  $_booktype = 2; //书籍类型
-    public  $_booklang = 0;  //书籍语言
-    public  $_bookdstdesc_int = 1; //书籍来源描述
-    public  $_bookdstdesc = "cart_mtoon"; //书籍来源描述
-    public  $_domian = "https://sg.mangatoon.mobi"; //书籍来源描述
+    public  $_booklang = 5;  //书籍语言
+    public  $_bookdstdesc_int = 10; //书籍来源描述
+    public  $_bookdstdesc = "爱奇艺漫画"; //书籍来源描述
+    public  $_domian = "https://comic.iqiyi.com"; //书籍来源描述
     public  $debug = true;
     public  $wordrate = 3;  //计算字数的时候的倍数比列
     // -------------------app 破解获取的相关信息
     // 签名密钥盐
-    public $code = "66c10a61bd916c23f3b33810d3785d17";
+    public $code = "0n9wdzm8pcyl1obxe0n9qdzm2pcyf1ob";
+    // 0n9wdzm8pcyl1obxe0n9qdzm2pcyf1ob
+    // 0n9wdzm8pcyl1obxe0n9qdzm2pcyf1ob
     // aes iv
     public $aesiv = "";
     // aes密钥
@@ -34,36 +36,16 @@ class cart_mtoon extends Clibase
     //用户token
     public $token = "";
     public $appneedinfo = [
-        'type' => '1', //1是漫画，2是小说
+        'agentVersion' =>    'h5',
+        'qiyiId' =>    '4534e842413f659e8f11554a6d9b47e6',
+        'srcPlatform' =>    '23',
+        'appVer'    => '100.0.0',
 
-        // '_' => time(),
-        '_preference' => 'girl',
-        // '_preference' => 'boy',
-        '_webp' => 'false',
-        // '_platform' => 'web',
-        '_v' => '2.01.02',
-        '_language' => 'th',
-        '_token' => '897aeecc13b29bebec65101f2d7b528a65',
-        '_udid' => 'da616065-0cb3-479f-8a27-fc19385d10d3',
-        // '_brand' => 'nubia',
-        // '_model' => 'NX563J',
-        // '_resolution' => '1080*1920',
-        // '_ov' => '7.1.1',
-        // '_tz' => '8',
-        // '_vc' => '5287',
-        // '_aid' => '24d8cc7a44a63ada',
-        // '_cpu' => 'aarch64',
-        // '_lat' => '0',
-        // '_ram' => '5.6%20GB',
-        // '_birthday' => '%2FdDjrobyQ1yFQXAL%2Bunw8Q%3D%3D',
-        // '_serialno' => '352b0ce37c0824be302ac5b9af2fcd25',
-        // '_package' => 'mobi.mangatoon.comics.aphone',
-        // '_locale' => 'zh_CN',
     ];
     //远程完结状态值
     public $update_status_end_val = 1;
     //免费状态值
-    public $is_un_free_val = true;
+    public $is_un_free_val = 3;
     //一些临时数据，无需变动
     public $upinfo = [];
     public $upcount = 0;
@@ -75,11 +57,11 @@ class cart_mtoon extends Clibase
     public $loop = [];
     public function start()
     {
-       
+
         $cachename = date('Ymdhis') . 'obj';
         $this->thinit();
         $page = 100;
-        $i = 0;
+        $i = 1;
         $this->logstart(__FILE__);
         $this->thcacheobj($cachename);
         if (!$this->get_th_listcache()) {
@@ -104,19 +86,26 @@ class cart_mtoon extends Clibase
     {
 
         $post = [
-            "page" => $page,
-            // "typeAction" =>  $page,
-            // "pagesize" => "200",
-            // "type" => "header",
-            // "token" => $this->token
-        ];
-        $api = "/api/content/list";
-        $datatmp = $this->apisign($api,  $post);
-        // d($datatmp, 1);
 
+            'three_category' =>    '-1',
+            'pageSize' =>   5,
+            'pageNum' =>    $page,
+            // 'if' =>    'comics',
+            // 'type' =>    'list',
+            'mode' =>    '9',
+            // 'serialize_status' =>    '-1',
+            // 'pay_status' =>    '-1',
+            // 'data_type' =>    '21',
+
+            'srcPlatform'    => '23',
+            'appVer' =>    '100.0.0',
+
+        ];
+        $api = "/views/1.0/classify/detail";
+        $datatmp = $this->apisign($api,  $post);
         //返回数据里面数据id字段
         $remote_bookarr_id = "id";
-        list($status, $data) = $this->getdata($datatmp);
+        list($status, $data) = $this->getdata($datatmp, ['code', 'data.comics']);
         if (!$status) {
             $this->debuginfo("列表中断" . $datatmp);
             return false;
@@ -124,6 +113,7 @@ class cart_mtoon extends Clibase
 
         if (is_array($data) && sizeof($data) > 0) {
             d("远程拉取小说数量" . sizeof($data));
+
             foreach ($data  as $book) {
 
                 if ($this->isthread) {
@@ -133,7 +123,9 @@ class cart_mtoon extends Clibase
                     // }
                     $this->thpush($book[$remote_bookarr_id]);
                 } else {
-                    $this->getbookdetail($book[$remote_bookarr_id]);
+
+                    $this->getbookdetail($book);
+                    d(1, 1);
                 }
             }
             return sizeof($data);
@@ -141,8 +133,10 @@ class cart_mtoon extends Clibase
         return 0;
     }
     // 获取远程小说详情，根据实际情况修改fun
-    public function getbookdetail($remotebookid)
+    public function getbookdetail($book)
     {
+        $remote_bookarr_id = "id";
+        $remotebookid = $book[$remote_bookarr_id];
         if (in_array($remotebookid, $this->rmbookid)) {
             //这本书籍已经拉取过了，不要重复拉取
             return false;
@@ -153,29 +147,30 @@ class cart_mtoon extends Clibase
             d('本地完结' . $remotebookid);
             return false;
         }
-        $api = "/api/content/detail";
-        $id = $remotebookid;
-        $datas = $this->apisign($api, [
-            "id" => $id,
-            // "type" => "1",
-            // "token" => $this->token
-        ]);
-
+        // $api = "/api/content/detail";
+        // $id = $remotebookid;
+        // $datas = $this->apisign($api, [
+        //     "id" => $id,
+        //     // "type" => "1",
+        //     // "token" => $this->token
+        // ]);
+        // d($datas, 1);
         //第三方内容中对应与本数据库字段对应
         $refield = [
             "bookname" => "title",
             "desc" => "description",
-            "update_status" => "is_end",
-            "wordnum" => "wordnum",
+            "update_status" => "serialize_status",
+            "wordnum" => "last_chapter_order",
             "section" => "open_episodes_count",
             "bpic" => "image_url",
             "fid" => "id",
         ];
         //更新状态
 
-        list($statu, $data) = $this->getdata($datas);
+        // list($statu, $data) = $this->getdata($datas);
+        $data = $book;
         if ($data) {
-            $data = $this->fixtoon($data, $refield);
+            // $data = $this->fixtoon($data, $refield);
             $this->insertdetail($data, $refield);
         } else {
             $this->debuginfo("详情原因" . $data);
@@ -195,23 +190,34 @@ class cart_mtoon extends Clibase
         }
         return $detail;
     }
+    //免费收费状态在这里
+    //     "episodeAuthStatus":1,"episodeBossStatus":0,
+    // "episodeAuthStatus":3,"episodeBossStatus":2,
+    // "episodeAuthStatus":3,"episodeBossStatus":2,
+
     public $field = [
-        "title" => "title",
-        "isfree" => "is_fee",
-        "secid" => "id",
-        'secnum' => 'secnum'
+        "title" => "episodeTitle",
+        "isfree" => "episodeAuthStatus",
+        "secid" => "episodeId",
+        'secnum' => 'episodePageCount'
     ];
     // 获取远程章节列表，根据实际情况修改fun
     public function getseclist($id, $dbid)
     {
-        $api = "/api/content/episodes";
-        $data = ["id" => $id];
+        $api = "/views/comicCatalog";
+        $data = [
+            'comicId' =>    $id,
+            'episodeId' =>    '0',
+            'episodeIndex' =>    '0',
+            'order' =>    '0',
+            'size' =>    '10000',
+        ];
         //远程与本地字段对应
 
         $datas = $this->apisign($api, $data);
         //更新字数
         //更新状态
-        list($s, $data) = $this->getdata($datas);
+        list($s, $data) = $this->getdata($datas, ['code', 'data.allCatalog.comicEpisodes']);
 
         if ($data) {
             //取得章节列表，对比现有章节数量相同就跳出
@@ -229,6 +235,9 @@ class cart_mtoon extends Clibase
     {
         $bid = $remote_book_id;
         $sid = $remote_sec_num;
+        if ($remote_sec_num == 177) {
+            d(6, 1);
+        }
         //这里是密文拉取
         $data = $this->getremoc($remote_book_id, $remote_sec_id, $remote_sec_num);
         if (!$data) {
@@ -239,10 +248,11 @@ class cart_mtoon extends Clibase
         if ($data) {
             // 参数 rondom+bid+cid+字符串“com.internationalization.novel”   MD516位小写 就是解密key
             $out = [];
-            foreach ($data as $key => $picobj) {
-                $pic = $picobj['url'];
-                $decodepic = str_replace(['encrypted', 'webp'], ['watermark', 'jpg'], $pic);
-                $obj = (object) ['url' =>  $decodepic, "name" =>  $key, "id" => $key];
+            // array_push($out, (object) ['url' =>  $data['episodeCover'], "name" =>  '0', "id" => '0']);
+            foreach ($data['episodePicture'] as $key => $picobj) {
+                $pic = $picobj['imageUrl'];
+                // $decodepic = str_replace(['encrypted', 'webp'], ['watermark', 'jpg'], $pic);
+                $obj = (object) ['url' =>  $pic, "name" =>  $key, "id" => $key];
                 array_push($out, $obj);
             }
 
@@ -258,19 +268,21 @@ class cart_mtoon extends Clibase
     {
 
         $key = rand(000000, 999999);
-        $api = "/api/cartoons/pictures";
+        $api = "/read/1.0/batchRead";
         $bid = $remote_book_id;
         $sid = $remote_sec_id;
         $data = [
             // "token" => $this->token,
-            "id" =>  $sid,
-            // "cartoon_id" => $bid,
-            // "random" => $key
+            "episodeId" =>  $sid,
+            "comicId" =>  $bid,
+            "order" =>  0,
+            "size" =>  0,
+            // comicId=225640070&episodeId=539170170&order=0&size=0
         ];
         $datas = $this->apisign($api, $data);
+        // d($datas, 1);
+        list($s, $data) = $this->getdata($datas, ['code', 'data.episodes.0'], 'A00001');
 
-        list($s, $data) = $this->getdata($datas);
-        // d($data, 1);
         if ($data) {
             return ($data);
             // return ["key" => $key, "data" => $data];
@@ -406,26 +418,41 @@ class cart_mtoon extends Clibase
     //http请求入口，根据实际情况，把一些固定值写进去
     public function apisign($api, $parem, $post = null)
     {
-        // $token = $this->token;
-        // $this->setproxy('47.119.145.216', '3389');
-        // $this->setproxy('192.168.0.138', '9999');
         $this->autoproxy();
         $this->setproxy('127.0.0.1', '8888');
         $p = [
-            "_" => time(),
+            "timeStamp" => time() . rand(100, 999),
         ];
+        // if ($api != '/views/comicCatalog') {
         $parem = array_merge($p, $this->appneedinfo, $parem);
-        $parem["sign"] = $this->sign($api, $parem);
+        // }
+
+
+        $head = [
+            // 'Origin:https://manhua.iqiyi.com',
+            // 'User-Agent: Mozilla/5.0 (Linux; Android 8.0.0; Pixel 2 XL Build/OPD1.170816.004) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.25 Mobile Safari/537.36',
+            // 'DNT: 1',
+            // 'Content-Type: application/json;',
+            // 'Accept: */*',
+            // 'Referer: https://manhua.iqiyi.com/comic/category',
+            // 'Accept-Encoding: gzip, deflate, br',
+            // 'Accept-Language: zh-CN,zh;q=0.9',
+            // 'Connection: keep-alive',
+            'md5:' . $this->sign($api, $parem)
+        ];
+        $this->head($head);
         // d($parem);
         $url = $api . '?';
         foreach ($parem as $key => $value) {
             # code...
             $url .= $key . '=' . $value . "&";
         }
+        $url = substr($url, 0, -1);
+
         if ($post) {
             $data = $this->post($url, $post);
         } else {
-            $data = $this->get($url, []);
+            $data = $this->get($url);
         }
 
         return $data;
@@ -433,7 +460,7 @@ class cart_mtoon extends Clibase
     //签名类返回签名值
     public function sign($api, $data)
     {
-        ksort($data);
+        // ksort($data);
         $signstr = $api;
         foreach ($data as $key => $value) {
             # code...
@@ -441,6 +468,7 @@ class cart_mtoon extends Clibase
         }
         // $signstr =  $signstr . $this->code;
         $signstr = substr($signstr, 0, -1) . $this->code;
+
         $sign = md5($signstr);
         return $sign;
     }
@@ -456,7 +484,7 @@ class cart_mtoon extends Clibase
     }
 
     //接口值判断类，$field[0]判断索引，$field[1]需要返回的摄影,$field[0] ==$value 返回treu
-    public function getdata($data, $field = ["status", "data"], $value = 'success')
+    public function getdata($data, $field = ["code", "data"], $value = 'A00000')
     {
         return  $this->check($data, $field, $value);
     }
@@ -515,3 +543,5 @@ class cart_mtoon extends Clibase
         return $num;
     }
 }
+$s = new aqiyi();
+$s->start();

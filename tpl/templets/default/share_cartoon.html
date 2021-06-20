@@ -19,6 +19,7 @@
     <meta property="og:locale" content="<!--{$locale}-->">
     <meta name="format-detection" content="telephone=no">
     <meta name="format-detection" content="telephone=no">
+    <meta name="referrer" content="never">
     <link rel="stylesheet" href="<!--{$indextpl}-->styles/s1.css">
 
     <script src="<!--{$indextpl}-->/js/jquery.js"></script>
@@ -44,13 +45,13 @@
     <div class="book_desc_hidden" style="display: none;">
     </div>
     <!-- 详情 -->
-       <!--{if $book.bpic_detail}-->
+    <!--{if $book.bpic_detail}-->
     <div class="fiction_detail flexCenter-column ">
-     
+
         <img src="<!--{$book.bpic_detail}-->" class="cursor fiction_detail_cover"
             onerror="this.src='<!--{$indextpl}-->images/replace_2.png'">
     </div>
-     <!--{/if}-->
+    <!--{/if}-->
     <div class="content" style="padding: 0px;">
         <div class="csec">
 
@@ -68,12 +69,18 @@
             <img src="<!--{$indextpl}-->/images/logo.png" alt="logo">
             <div>
                 <p>LookStroy</p>
-                <p><!--{$description}--></p>
+                <p>
+                    <!--{$description}-->
+                </p>
             </div>
         </div>
         <div>
-            <button data-type="share" onclick="showloadbox2();"><!--{$down}--></button>
-            <button data-type="share" onclick="showloadbox4();"><!--{$open}--></button>
+            <button data-type="share" onclick="showloadbox2();">
+                <!--{$down}-->
+            </button>
+            <button data-type="share" onclick="showloadbox4();">
+                <!--{$open}-->
+            </button>
         </div>
     </div>
     <!-- 加载 -->
@@ -83,10 +90,15 @@
         <img src="<!--{$indextpl}-->/images/delete.png" class="maskClose cursor" onclick="close1();">
         <div class="logobox"> <img src="<!--{$indextpl}-->/images/logo.png" alt="" class="logo"></div>
         <p class="text1">LookStroy</p>
-        <p class="text2"><!--{$description}--></p>
-        <div class="box_down" onclick="down2();"><!--{$downplay}--><img
-                src="<!--{$indextpl}-->/images/down.png"></div>
-        <div class="box_down" onclick="down();"><!--{$down}--><img src="<!--{$indextpl}-->/images/down.png"></div>
+        <p class="text2">
+            <!--{$description}-->
+        </p>
+        <div class="box_down" onclick="down2();">
+            <!--{$downplay}--><img src="<!--{$indextpl}-->/images/down.png">
+        </div>
+        <div class="box_down" onclick="down();">
+            <!--{$down}--><img src="<!--{$indextpl}-->/images/down.png">
+        </div>
         <img src="<!--{$indextpl}-->/images/phone.png" alt="" class="banner">
     </div>
     <!-- ___________________________脚本___________________________ -->

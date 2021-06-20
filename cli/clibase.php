@@ -539,7 +539,7 @@ class Clibase  extends Cli
             $this->setproxy($this->proxystr[0], $this->proxystr[1]);
         }
     }
-    public function get($api, $data)
+    public function get($api, $data = null)
     {
         $this->init();
         $url = $this->domian . $api;
@@ -750,6 +750,7 @@ class Clibase  extends Cli
                 // "update_status" => $this->getbookisend($data[$refield["update_status"]], 1), //状态2为完结 ，1为连载
                 "other_name" => $data["other_name"],
             ];
+
             if ($this->in_rmote_db) {
 
                 $dbid = $this->rmsqladd($this->dbbook, $add);
