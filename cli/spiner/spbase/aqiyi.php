@@ -34,13 +34,14 @@ class aqiyi extends Clibase
     // aes密钥
     public $aeskey = "";
     //用户token
-    public $token = "";
+    public $token = "39LWdKy9m2FfgfZlB7m1lFC2EfBXlEnXuIaXWMhm1Vm1f57DLIHzBL61MAm3V4xCgJ5Kk826e";
+    // authCookie: 
     public $appneedinfo = [
         'agentVersion' =>    'h5',
         'qiyiId' =>    '4534e842413f659e8f11554a6d9b47e6',
         'srcPlatform' =>    '23',
         'appVer'    => '100.0.0',
-
+        'userId' => '1840355440027648'
     ];
     //远程完结状态值
     public $update_status_end_val = 1;
@@ -235,7 +236,7 @@ class aqiyi extends Clibase
     {
         $bid = $remote_book_id;
         $sid = $remote_sec_num;
-        if ($remote_sec_num == 177) {
+        if ($remote_sec_num == 200) {
             d(6, 1);
         }
         //这里是密文拉取
@@ -265,6 +266,52 @@ class aqiyi extends Clibase
     // 获取远程章节内容，根据实际情况修改fun
     //获取远程文章内容接口
     public function getremoc($remote_book_id, $remote_sec_id, $remote_sec_num)
+    {
+        // GET https://api-comic.if.iqiyi.com/v1/order/submit?dfp=15c723e853751e4e83a20a5c65f4f4e0dc8f0c601f3d3a78abb94e3ef7b5e8c1af&targetX=app&srcPlatform=35&authCookie=b3NtZr5JeKp3Sf7m1UBT4fxLnm3G2zvrAVg1jcnTqcJAn6WlyfcWKUJq6hCsr87cvu2Fd3&agentVersion=2.0.1&userId=1840355440027648&appChannel=20045006fd6e42f16f37d645c93a62a6&qypid=02023771010000000000&couponType=0&capability=3&comicId=285180070&qiyiId=f71fc82818b895da4e3e39721e6f374c1108&couponCount=0&timeStamp=1624203862083&testMode=0&appVer=2.0.1&field=catalog&agentType=354&channel=20045006fd6e42f16f37d645c93a62a6&orderStrategy=1&episodeId=1502957981740170&apiLevel=25 HTTP/1.1
+        // authCookie: b3NtZr5JeKp3Sf7m1UBT4fxLnm3G2zvrAVg1jcnTqcJAn6WlyfcWKUJq6hCsr87cvu2Fd3
+        // md5: b31fbec3045fafe04bac55892db6fbad
+        // Host: api-comic.if.iqiyi.com
+        // Connection: Keep-Alive
+        // Accept-Encoding: gzip
+        // User-Agent: okhttp/3.12.10.1
+
+
+
+
+
+        $key = rand(000000, 999999);
+        $api = "/v1/order/submit";
+        $bid = $remote_book_id;
+        $sid = $remote_sec_id;
+        $data = [
+            // "token" => $this->token,
+            "episodeId" =>  $sid,
+            "comicId" =>  $bid,
+            "order" =>  0,
+            "size" =>  0,
+            // comicId=225640070&episodeId=539170170&order=0&size=0
+        ];
+        $datas = $this->apisign($api, $data);
+        // d($datas, 1);
+        list($s, $data) = $this->getdata($datas, ['code', 'data.episodes.0'], 'A00001');
+
+        if ($data) {
+            return ($data);
+            // return ["key" => $key, "data" => $data];
+        } else {
+            // d("中断原因" . $datas);
+            // $this->debuginfo("中断原因" . $datas);
+
+            //章节内容拉取次数
+            // if (isset($this->loop[$bid . "_" . $sid])) {
+            //     $this->loop[$bid . "_" . $sid] = $this->loop[$bid . "_" . $sid] + 1;
+            // } else {
+            //     $this->loop[$bid . "_" . $sid] = 1;
+            // }
+        }
+        return false;
+    }
+    public function h5getremoc($remote_book_id, $remote_sec_id, $remote_sec_num)
     {
 
         $key = rand(000000, 999999);
@@ -438,7 +485,8 @@ class aqiyi extends Clibase
             // 'Accept-Encoding: gzip, deflate, br',
             // 'Accept-Language: zh-CN,zh;q=0.9',
             // 'Connection: keep-alive',
-            'md5:' . $this->sign($api, $parem)
+            'md5:' . $this->sign($api, $parem),
+            'authCookie:' . $this->token
         ];
         $this->head($head);
         // d($parem);
@@ -460,14 +508,16 @@ class aqiyi extends Clibase
     //签名类返回签名值
     public function sign($api, $data)
     {
-        // ksort($data);
+        //h5签名规则
+        // /read/1.0/batchReadcomicId=225640070&episodeId=541080170&order=0&size=0&qiyiId=4534e842413f659e8f11554a6d9b47e6&timeStamp=1624202750088&srcPlatform=23&appVer=100.0.0&agentVersion=h5&userId=1840355440027648  token
+        // 39LWdKy9m2FfgfZlB7m1lFC2EfBXlEnXuIaXWMhm1Vm1f57DLIHzBL61MAm3V4xCgJ5Kk826e  code 0n9wdzm8pcyl1obxe0n9qdzm2pcyf1ob  
         $signstr = $api;
         foreach ($data as $key => $value) {
             # code...
             $signstr .= $key . "=" . $value . "&";
         }
         // $signstr =  $signstr . $this->code;
-        $signstr = substr($signstr, 0, -1) . $this->code;
+        $signstr = substr($signstr, 0, -1) . $this->token . $this->code;
 
         $sign = md5($signstr);
         return $sign;
