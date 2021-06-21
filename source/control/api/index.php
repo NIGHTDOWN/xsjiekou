@@ -23,7 +23,8 @@ class index extends apibase
         //获取dsl域名
         // 图床地址
 
-        Out::jout('http://120.79.197.237/image/');
+        // Out::jout('http://120.79.197.237/image/'); //这里是h5服务器得
+        Out::jout('http://47.119.145.216/image/'); //这里是测试服务器
         // Out::jout('https://gitee.com/lookstory/image/raw/master/');
     }
     public function control_sql()
