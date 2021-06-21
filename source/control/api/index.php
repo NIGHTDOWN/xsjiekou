@@ -22,10 +22,12 @@ class index extends apibase
     {
         //获取dsl域名
         // 图床地址
-
+        Out::jout('http://8.212.28.174:8866/static/images/image/');//bytd宝塔上得，这个到2022一月份到期
+        // http://8.212.28.174:8866/static/images/image/index.html //bytd宝塔上得，这个到2022一月份到期
         // Out::jout('http://120.79.197.237/image/'); //这里是h5服务器得
-        Out::jout('http://47.119.145.216/image/'); //这里是测试服务器
-        // Out::jout('https://gitee.com/lookstory/image/raw/master/');
+        // Out::jout('http://47.119.145.216/image/'); //这里是测试服务器
+        // Out::jout('https://gitee.com/lookstory/image/raw/master/'); //这里是gitee上得
+
     }
     public function control_sql()
     {
