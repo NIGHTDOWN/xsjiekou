@@ -11,6 +11,7 @@ use ng169\lib\Udp;
 
 /*use ng169\cache\Rediscache ;*/
 use ng169\lib\SocketCache;
+use ng169\sock\slave;
 use sockbase;
 
 checktop();
@@ -54,7 +55,9 @@ class Socket extends Y
 	public static $sysconn = [];
 	//是否主服务器
 	public static $is_master = false;
-	public static $server = false;
+	public static  $server = NULL;
+	//链接master得套字节
+	public static  $slave = NULL;
 	public static $call = false; //指定操作回调
 	public static $needresolving = true; //需要解析
 	/*protected static function lock()
@@ -151,7 +154,7 @@ class Socket extends Y
 	 * 
 	 * @return
 	 */
-	public static function starts($host, $port, $tcpip = '', $ssl = false)
+	public static function starts($host, $port, $tcpip = '', $ssl = false, $ismaster = false)
 	{
 
 
@@ -188,16 +191,37 @@ class Socket extends Y
 		if ($type == 'tcp') {
 
 			/*self::$master = */
-			$server = new Tcp($host, $port, $ssl);
+			$server = new Tcp($host, $port, $ssl, $ismaster);
 		}
 		if ($type == 'udp') {
-			$server = new Udp($host, $port, $ssl);
+			$server = new Udp($host, $port, $ssl, $ismaster);
 		}
 		//接收数据
 		self::$server = $server;
+		if ($ismaster) {
+			self::master();
+		} else {
+			self::slave();
+		}
 
 		$server->recv();
 		d('正常退出了');
+	}
+	/**
+	 * 
+	 */
+	public static function master()
+	{
+		//要用定时器，在接受消息确认之后发消息给slave，slave收到消息主动链接master。
+		//尝试从连slave
+		//slave失败清空slave 服务器消息，用户
+
+	}
+	public static function slave()
+	{
+		self::$slave = new slave();
+		self::$slave->init();
+		self::$slave->conn_master();
 	}
 	//ssl
 	public static  function  ssl()
@@ -298,27 +322,28 @@ class Socket extends Y
 	 * 
 	 * @return
 	 */
-	public static function adddblog($flag)
+	public static function adddblog($flag, $is_master = false)
 	{
 		$where = ['ip' => self::$ip, 'port' => self::$port];
 		$isin = T('sockserver')->set_where($where)->get_one($where);
-		$is_master = T('sockserver')->set_where($where)->get_one(['flag' => 1, 'ismaster' => 1]);
+		// $is_master = T('sockserver')->set_where($where)->get_one(['flag' => 1, 'ismaster' => 1]);
 		if ($is_master) {
 			self::$is_master = $is_master;
 		}
+
 		if ($isin) {
 			$info = ['starttime' => time(), 'flag' => $flag];
-			if (!$is_master) {
-				$info['ismaster'] = 1;
-			}
+			// if (!$is_master) {
+			// 	$info['ismaster'] = 1;
+			// }
 			T('sockserver')->update($info, $where);
 			return $isin['sid'];
 		} else {
 			if ($is_master) {
-				$info = ['ip' => self::$ip, 'port' => self::$port, 'starttime' => time(), 'flag' => 1, 'conns' => 0, 'ismaster' => 0];
+				$info = ['ip' => self::$ip, 'port' => self::$port, 'starttime' => time(), 'flag' => 1, 'conns' => 0, 'ismaster' => 1];
 				$sipid = T('sockserver')->add($info);
 			} else {
-				$info = ['ip' => self::$ip, 'port' => self::$port, 'starttime' => time(), 'flag' => 1, 'conns' => 0, 'ismaster' => 1];
+				$info = ['ip' => self::$ip, 'port' => self::$port, 'starttime' => time(), 'flag' => 1, 'conns' => 0, 'ismaster' => 0];
 				$sipid = T('sockserver')->add($info);
 				$info['sid'] = $sipid;
 				self::$is_master = $info;
@@ -385,6 +410,7 @@ class Socket extends Y
 	public static function getindex($socket)
 	{
 		$sip = self::$sid;
+
 		if (self::$type == 'udp') {
 			$index = $sip . "SIP" . ($socket);
 		} else {
@@ -492,7 +518,6 @@ class Socket extends Y
 			$decoded .= $data[$index] ^ $masks[$index % 4];
 		}
 		return $decoded;
-		// return unserialize($decoded, true);
 	}
 
 	/**
@@ -567,13 +592,13 @@ class Socket extends Y
 	 */
 	public static function socksend($clientid, $msg)
 	{
-		self::$server->send($clientid, $msg);
+		Socket::$server->send($clientid, $msg);
+		// self::$server->send($clientid, $msg);
 	}
 
 	protected static  function dealMsg($socket, $recv_msg)
 	{
-		/*d($recv_msg);*/
-
+		
 		if (self::$needresolving) {
 			$recv_msg = (json_decode($recv_msg, 1));
 		}
@@ -594,8 +619,6 @@ class Socket extends Y
 			d('tuichu');
 			return false;
 		}
-
-
 		switch ($type) {
 			case 2:
 
@@ -628,7 +651,7 @@ class Socket extends Y
 	public static function unyscode($data)
 	{
 
-		$ysdata = unserialize($data);
+		$ysdata = json_decode($data);
 		return $ysdata;
 	}
 	/**
@@ -649,8 +672,8 @@ class Socket extends Y
 		}
 		$send['stype'] = 3;
 		$send['code'] = $systemcode['password'];
-		$send['data'] = self::yscode(serialize($data));
-		$msg    = serialize($send);
+		$send['data'] = self::yscode(json_encode($data));
+		$msg    = json_encode($send);
 		$client = stream_socket_client("tcp://$ip:$port", $errno, $errmsg, 1);
 		if ($client) {
 			fwrite($client, $msg . "\n");
@@ -664,8 +687,8 @@ class Socket extends Y
 
 		$send['stype'] = 3;
 		$send['code'] = self::$syscode;
-		$send['data'] = self::yscode(serialize($data));
-		$msg    = serialize($send);
+		$send['data'] = self::yscode(json_encode($data));
+		$msg    = json_encode($send);
 		/*$job=Job::getInstance();
 		$job->add('5',function(){
 		d('5秒之后的事情');
@@ -688,6 +711,7 @@ class Socket extends Y
 		}
 		return false;
 	}
+
 	//系统发来信息
 	protected static  function systemdeal($socket, $data)
 	{
@@ -695,13 +719,18 @@ class Socket extends Y
 		//检测发信息的端口是否同一个ip；
 		//检测系统密码正确；	
 		$index = self::getindex($socket);
-		$data = @unserialize($data);
+
+		$data = json_decode($data, 1);
 		$bool = false;
+		
 		if (!$data) return false;
 		if (!isset($data['stype']) || $data['stype'] != 3) return false;
 		$code   = $data['code'];
 		$recv   = self::unyscode($data['data']);
-
+		d($code);
+		d($recv);
+		d($index);
+		d(self::$sockets[$index]);
 		if (self::$sockets[$index]['handshake'] != 2) {
 			$bool   = self::checksystem($code);
 			if ($bool) {
@@ -728,7 +757,7 @@ class Socket extends Y
 				$class     = new $classname($socket, $recv);
 				if (method_exists($class, $fun) &&  $fun != '') {
 
-					//$class->init($socket,$recv);
+					$class->init($socket, $recv);
 
 					$class->$fun($recv);
 					return true;
@@ -810,7 +839,7 @@ class Socket extends Y
 			$classname = "ng169\\sock\\{$type}\\" . $action;
 			$class     = new $classname($sock, $recv);
 
-			//$class->init($sock,$recv);				
+			$class->init($sock, $recv);
 			if (!class_exists($classname)) {
 				self::error($type . '下执行文件类错误');
 				return true;

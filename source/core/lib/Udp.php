@@ -13,7 +13,7 @@ checktop();
 
 class Udp extends Socket{
 	public static $recvlength=4048; //buffer大小4k
-	public function __construct($host,$port,$sslcontent=false){
+	public function __construct($host,$port,$sslcontent=false,$ismaster=false){
 		
 			self::$master=stream_socket_server("udp://{$host}:{$port}", $errno, $errmsg, STREAM_SERVER_BIND);
 		
@@ -22,7 +22,7 @@ class Udp extends Socket{
  
 		} 
 		self::$sockets["-1"] = ['resource' => self::$master];
-		$sid=self::adddblog(S_OPEN);
+		$sid=self::adddblog(S_OPEN,$ismaster);
 		self::$sid=$sid;
 		self::reset_client();
 		self::windowshow("\nServices ID：".self::$sid);
@@ -132,5 +132,3 @@ class Udp extends Socket{
 		if($socket)stream_socket_sendto(self::$master, $msg, 0,$socket);
 	}
 }
-
-?>
