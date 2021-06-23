@@ -35,7 +35,8 @@ class Socket extends Y
 	public static $sockets = [];
 	public static $sks = [];
 	public static $redis = null;
-	public static $master;
+	public static $master; //当前sock
+	public static $masters = []; //master进程里面的slave数据集
 	public static $ip;
 	public static $sid;
 	public static $port;
@@ -326,16 +327,12 @@ class Socket extends Y
 	{
 		$where = ['ip' => self::$ip, 'port' => self::$port];
 		$isin = T('sockserver')->set_where($where)->get_one($where);
-		// $is_master = T('sockserver')->set_where($where)->get_one(['flag' => 1, 'ismaster' => 1]);
 		if ($is_master) {
 			self::$is_master = $is_master;
 		}
 
 		if ($isin) {
 			$info = ['starttime' => time(), 'flag' => $flag];
-			// if (!$is_master) {
-			// 	$info['ismaster'] = 1;
-			// }
 			T('sockserver')->update($info, $where);
 			return $isin['sid'];
 		} else {
@@ -570,7 +567,6 @@ class Socket extends Y
 	protected  static function initcode()
 	{
 		$bool = T('sock_type')->get_one(array('type'    => 3));
-
 		self::$syscode = $bool['password'];
 		$bool = T('sock_type')->get_one(array('type'    => 2));
 		self::$admincode = $bool['password'];
@@ -598,7 +594,7 @@ class Socket extends Y
 
 	protected static  function dealMsg($socket, $recv_msg)
 	{
-		
+
 		if (self::$needresolving) {
 			$recv_msg = (json_decode($recv_msg, 1));
 		}
@@ -650,7 +646,9 @@ class Socket extends Y
 	}
 	public static function unyscode($data)
 	{
-
+		if (is_array($data)) {
+			return $data;
+		}
 		$ysdata = json_decode($data);
 		return $ysdata;
 	}
@@ -719,20 +717,15 @@ class Socket extends Y
 		//检测发信息的端口是否同一个ip；
 		//检测系统密码正确；	
 		$index = self::getindex($socket);
-
 		$data = json_decode($data, 1);
 		$bool = false;
-		
 		if (!$data) return false;
 		if (!isset($data['stype']) || $data['stype'] != 3) return false;
 		$code   = $data['code'];
 		$recv   = self::unyscode($data['data']);
-		d($code);
-		d($recv);
-		d($index);
-		d(self::$sockets[$index]);
 		if (self::$sockets[$index]['handshake'] != 2) {
 			$bool   = self::checksystem($code);
+
 			if ($bool) {
 				self::$sockets[$index]['handshake'] == 2;
 			} else {
@@ -741,23 +734,25 @@ class Socket extends Y
 			}
 		}
 
-		if (!isset($recv['action'])) return false;
-		$action = $recv['action'];
-		$fun = isset($recv['fun']) ? $recv['fun'] : 'run';
+		if (!isset($data['action'])) return false;
+		$action = $data['action'];
+		$fun = isset($data['fun']) ? $data['fun'] : 'run';
 		$type   = 'system';
 
 		if ($bool) {
-			$bool2 = self::get_typea_ction_file($type, $recv['action']);
+			$bool2 = self::get_typea_ction_file($type, $data['action']);
 			if ($bool2) {
 				$classname = "ng169\\sock\\{$type}\\" . $action;
 				if (!class_exists($classname)) {
 					self::error($type . '下执行文件类错误');
 					return true;
 				}
-				$class     = new $classname($socket, $recv);
-				if (method_exists($class, $fun) &&  $fun != '') {
 
-					$class->init($socket, $recv);
+				$class     = new $classname($socket, $recv);
+
+				$class->init($socket, $data);
+
+				if (method_exists($class, $fun) &&  $fun != '') {
 
 					$class->$fun($recv);
 					return true;
