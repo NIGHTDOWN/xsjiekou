@@ -19,7 +19,7 @@ checktop();
 class Tcp extends Socket
 {
 	public static $recvlength = 4048; //buffer大小4k
-	public function __construct($host, $port, $sslcontent,$ismaster=false)
+	public function __construct($host, $port, $sslcontent, $ismaster = false)
 	{
 		if ($sslcontent) {
 
@@ -33,7 +33,7 @@ class Tcp extends Socket
 			self::error("错误代码：$errno--$errmsg \n");
 		}
 		self::$sockets["-1"] = ['resource' => self::$master];
-		$sid = self::adddblog(S_OPEN,$ismaster);
+		$sid = self::adddblog(S_OPEN, $ismaster);
 		self::$sid = $sid;
 		self::reset_client();
 		self::windowshow("\nServices ID：" . self::$sid);
@@ -70,9 +70,11 @@ class Tcp extends Socket
 	}
 	private function selectmodel()
 	{
+
 		$sockets = array_column(self::$sockets, 'resource');
 		stream_set_blocking(self::$master, false);
-		$read_num = stream_select($sockets, $write, $except, NULL);
+		$read = $sockets;
+		$read_num = stream_select($read, $write, $except, NULL);
 		// select作为监视函数,参数分别是(监视可读,可写,异常,超时时间),返回可操作数目,出错时返回false;
 		if (false === $read_num) {
 			self::error([
@@ -82,49 +84,47 @@ class Tcp extends Socket
 			]);
 			return;
 		}
-		foreach ($sockets as $socket) {
+		foreach ($read as $socket) {
+			Socket::listen($socket);
 			// 如果可读的是服务器socket,则处理连接逻辑
-			if ($socket == self::$master) {
-				$client = stream_socket_accept(self::$master, 0, $remote_address);
-				//				socket_set_nonblock($client);
-				// 创建,绑定,监听后accept函数将会接受socket要来的连接,一旦有一个连接成功,将会返回一个新的socket资源用以交互,如果是一个多个连接的队列,只会处理第一个,如果没有连接的话,进程将会被阻塞,直到连接上.如果用set_socket_blocking或socket_set_noblock()设置了阻塞,会返回false;返回资源后,将会持续等待连接。
-				if (false === $client) {
-					self::error([
-						'err_accept',
-						$err_code = socket_last_error(),
-						socket_strerror($err_code)
-					]);
-					continue;
-				} else {
-					self::connect($client);
-					continue;
-				}
-			} else {
-				// 如果可读的是其他已连接socket,则读取其数据,并处理应答逻辑
-				$buffer = stream_socket_recvfrom($socket,  Tcp::$recvlength, 0);
-				$bytes = strlen($buffer);
-
-				/*socket_set_nonblock($bytes);*/
-				//长度限制10000个字符
-				if ($bytes < 9) {
-					$recv_msg = self::disconnect($socket);
-				} else {
-					if (!self::$sockets[self::getindex($socket)]['handshake']) {
-						$bool = self::handShake($socket, $buffer);
-						//这里不成功可能是后台直接推送的信息；要直接执行。
-						if (!$bool) {
-							self::systemdeal($socket, $buffer);
-							break;
-						}
-					} else {
-						$recv_msg = self::parse($buffer);
-
-						if (self::dealMsg($socket, $recv_msg)) {
-							self::conns(true);
-						}
-					}
-				}
-			}
+			// if ($socket == self::$master) {
+			// 	$client = stream_socket_accept(self::$master, 0, $remote_address);
+			// 	// 创建,绑定,监听后accept函数将会接受socket要来的连接,一旦有一个连接成功,将会返回一个新的socket资源用以交互,如果是一个多个连接的队列,只会处理第一个,如果没有连接的话,进程将会被阻塞,直到连接上.如果用set_socket_blocking或socket_set_noblock()设置了阻塞,会返回false;返回资源后,将会持续等待连接。
+			// 	if (false === $client) {
+			// 		self::error([
+			// 			'err_accept',
+			// 			$err_code = socket_last_error(),
+			// 			socket_strerror($err_code)
+			// 		]);
+			// 		continue;
+			// 	} else {
+			// 		self::connect($client);
+			// 		continue;
+			// 	}
+			// }
+			// else {
+			// 	// 如果可读的是其他已连接socket,则读取其数据,并处理应答逻辑
+			// 	$buffer = stream_socket_recvfrom($socket,  Tcp::$recvlength, 0);
+			// 	$bytes = strlen($buffer);
+			// 	/*socket_set_nonblock($bytes);*/
+			// 	//长度限制10000个字符
+			// 	if ($bytes < 9) {
+			// 		$recv_msg = self::disconnect($socket);
+			// 	} else {
+			// 		$hand = self::$sockets[self::getindex($socket)]['handshake'];
+			// 		if ($hand == 0) {
+			// 			self::handShake($socket, $buffer);
+			// 		} elseif ($hand == 2) {
+			// 			d($buffer);
+			// 			self::systemdeal($socket, $buffer);
+			// 		} elseif ($hand == 1) {
+			// 			$recv_msg = self::parse($buffer);
+			// 			if (self::dealMsg($socket, $recv_msg)) {
+			// 				self::conns(true);
+			// 			}
+			// 		}
+			// 	}
+			// }
 		}
 	}
 	private function epollmodel()
@@ -135,7 +135,6 @@ class Tcp extends Socket
 		$epoll = \ng169\lib\Epoll::getInstance();
 		self::$event_base = $epoll;
 		$epoll->add($fd, \ng169\lib\Epoll::READ, function ($fd) {
-
 			$conn = stream_socket_accept($fd);
 			\ng169\lib\Tcp::_epoll_fun($conn);
 		});
@@ -151,7 +150,7 @@ class Tcp extends Socket
 		if (!isset(self::$sockets[$index])) {
 			//看看连接有没有被记录，没记录就建立链接，有记录就处理数
 			self::connect($socket); //创建新连接	
-
+			self::conns(true);
 			self::$event_base->add($socket, \ng169\lib\Epoll::READ, function ($conn) {
 
 				\ng169\lib\Tcp::_epoll_fun_con($conn);
@@ -161,34 +160,31 @@ class Tcp extends Socket
 	public  static function _epoll_fun_con($socket)
 	{
 
+		Socket::listen($socket);
+		// $buffer = '';
+		// $index = self::getindex($socket);
 
-		$buffer = '';
-		$index = self::getindex($socket);
+		// $buffer = stream_socket_recvfrom($socket,  self::$recvlength, 0);
 
+		// $bytes = strlen($buffer);
+		// //		d($buffer);
+		// if ($bytes < 9) {
+		// 	$recv_msg = self::disconnect($socket);
+		// } else {
+		// 	if (self::$sockets[$index]['handshake'] != 1) {
+		// 		$bool = self::handShake($socket, $buffer);
+		// 		//这里不成功可能是后台直接推送的信息；要直接执行。			
+		// 		if (!$bool) {
+		// 			self::systemdeal($socket, $buffer);
+		// 		}
+		// 	} else {
 
-
-
-		$buffer = stream_socket_recvfrom($socket,  self::$recvlength, 0);
-
-		$bytes = strlen($buffer);
-		//		d($buffer);
-		if ($bytes < 9) {
-			$recv_msg = self::disconnect($socket);
-		} else {
-			if (!self::$sockets[$index]['handshake']) {
-				$bool = self::handShake($socket, $buffer);
-				//这里不成功可能是后台直接推送的信息；要直接执行。			
-				if (!$bool) {
-					self::systemdeal($socket, $buffer);
-				}
-			} else {
-
-				$recv_msg = self::parse($buffer);
-				if (self::dealMsg($socket, $recv_msg)) {
-					self::conns(true);
-				}
-			}
-		}
+		// 		$recv_msg = self::parse($buffer);
+		// 		if (self::dealMsg($socket, $recv_msg)) {
+		// 			self::conns(true);
+		// 		}
+		// 	}
+		// }
 		//		self::$event_base->del($socket);
 	}
 	/**
@@ -196,7 +192,7 @@ class Tcp extends Socket
 	 *
 	 * @param $socket
 	 */
-	private static function connect($socket)
+	public static function connect($socket)
 	{
 		//		socket_getpeername($socket, $ip, $port);
 		$data = stream_socket_get_name($socket, true);
@@ -245,7 +241,7 @@ class Tcp extends Socket
 		$upgrade_message .= "Sec-WebSocket-Accept:" . $upgrade_key . "\r\n\r\n";
 		stream_socket_sendto($socket, $upgrade_message, 0);
 		//		T('sock_client')->update(array('handshake'=>1),array('clientid'=>self::getindex($socket)));
-		self::$sockets[self::getindex($socket)]['handshake'] = true;
+		self::$sockets[self::getindex($socket)]['handshake'] = 1;
 		//		socket_getpeername($socket, $ip, $port);
 		return true;
 	}
@@ -257,6 +253,10 @@ class Tcp extends Socket
 	public function send($clientid, $msg)
 	{
 		$socket = self::getsock($clientid);
+		$this->sendsock($socket, $msg);
+	}
+	public function sendsock($socket, $msg)
+	{
 		if (is_string($msg)) {
 			$msg = self::build($msg);
 		} else {

@@ -29,8 +29,8 @@ class sockbase extends Clibase
     public function start()
     {
         $get = $this->getargv(['ip', 'port', 'ismaster', 'type']);
-        $ip = isset($get['ip']) ? $get['ip'] : '';
-        $port = isset($get['port']) ? $get['port'] : '';
+        $ip = isset($get['ip']) ? $get['ip'] : error('ip未确定');
+        $port = isset($get['port']) ? $get['port'] : error('端口未确定');
         $ismaster = isset($get['ismaster']) ? 1 : 0;
         $type = isset($get['type']) ? $get['type'] : 'tcp';
         $ssl = false;

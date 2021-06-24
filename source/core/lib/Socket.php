@@ -61,23 +61,10 @@ class Socket extends Y
 	public static  $slave = NULL;
 	public static $call = false; //指定操作回调
 	public static $needresolving = true; //需要解析
-	/*protected static function lock()
-	{
-	$fd = fopen(static::$_startFile, 'r');
-	if (!$fd || !flock($fd, LOCK_EX)) {
-	static::log("Workerman[".static::$_startFile."] already running");
-	exit;
-	}
-	}
 
-   
-	protected static function unlock()
-	{
-	$fd = fopen(static::$_startFile, 'r');
-	$fd && flock($fd, LOCK_UN);
-	}*/
-	//[uid=>time]
-	/*检测是否已经开启了该端口服务
+
+	/*
+	*检测是否已经开启了该端口服务
 	*/
 	public static function check_sock_open($ip, $port)
 	{
@@ -94,29 +81,7 @@ class Socket extends Y
 
 	protected static function reset_client()
 	{
-		/*    T('sock_client')->update(array('online'=>0,'handshake'=>0),array('online'=>1,'handshake'=>1));*/
 		T('sock_client')->del(['sid' => self::$sid]);
-	}
-	protected static function generate_password($length = 8)
-	{
-		$chars    = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-		$password = '';
-		for ($i = 0; $i < $length; $i++) {
-			$password .= $chars[mt_rand(0, strlen($chars) - 1)];
-		}
-		return $password;
-	}
-	protected static function reset_system_code()
-	{
-		$code = self::generate_password();
-		T('sock_type')->update(array('password' => $code, 'addtime' => time()), array('type' => 3));
-		return true;
-	}
-	protected static function reset_admin_code()
-	{
-		$code = self::generate_password();
-		T('sock_type')->update(array('password' => $code, 'addtime' => time()), array('type' => 2));
-		return true;
 	}
 	/**
 	 * Check sapi.
@@ -160,7 +125,6 @@ class Socket extends Y
 
 
 		//检查系统环境
-
 		self::checkSapiEnv();
 		//设置错误输出
 		set_error_handler(function ($code, $msg, $file, $line) {
@@ -178,7 +142,7 @@ class Socket extends Y
 		self::$ip = $host;
 		self::$port = $port;
 		self::$redis = SocketCache::getCache();
-		//重置系统密码
+
 		$f = preg_match("/(\d{1,3}\.){3}(\d{1,3})/", $host, $m);
 		if ($f) {
 			//这里是ip
@@ -190,21 +154,22 @@ class Socket extends Y
 			$ssl = self::ssl();
 		}
 		if ($type == 'tcp') {
-
-			/*self::$master = */
+			//开启tcp模式
 			$server = new Tcp($host, $port, $ssl, $ismaster);
 		}
 		if ($type == 'udp') {
+			//开启udp模式
 			$server = new Udp($host, $port, $ssl, $ismaster);
 		}
 		//接收数据
 		self::$server = $server;
 		if ($ismaster) {
+			//主master检测slave并且尝试让从服务器让从服务器重新链接主服务器
 			self::master();
 		} else {
+			//主动链接主msater
 			self::slave();
 		}
-
 		$server->recv();
 		d('正常退出了');
 	}
@@ -332,7 +297,7 @@ class Socket extends Y
 		}
 
 		if ($isin) {
-			$info = ['starttime' => time(), 'flag' => $flag];
+			$info = ['starttime' => time(), 'flag' => $flag, 'ismaster' => $is_master ? 1 : 0];
 			T('sockserver')->update($info, $where);
 			return $isin['sid'];
 		} else {
@@ -413,7 +378,6 @@ class Socket extends Y
 		} else {
 			$index = $sip . "SIP" . intval($socket);
 		}
-
 		return $index;
 	}
 	public static function getsock($clientid)
@@ -435,7 +399,6 @@ class Socket extends Y
 	{
 		$cachetk = Socket::$redis->get(self::REDIS_PRE_U . $uid);
 		if (!$cachetk) {
-
 
 			$usertk = sockbase::gettoken($uid);
 			if ($usertk) {
@@ -470,11 +433,6 @@ class Socket extends Y
 	 */
 	public static function disconnect($socket)
 	{
-
-		/*$recv_msg = [
-		'type' => 'logout',
-		'content' => self::$sockets[self::getindex($socket)]['uname'],
-		];*/
 		if (self::$EPOLL) {
 			self::$event_base->del($socket);	//epoll退出
 		}
@@ -589,7 +547,6 @@ class Socket extends Y
 	public static function socksend($clientid, $msg)
 	{
 		Socket::$server->send($clientid, $msg);
-		// self::$server->send($clientid, $msg);
 	}
 
 	protected static  function dealMsg($socket, $recv_msg)
@@ -603,6 +560,7 @@ class Socket extends Y
 			call_user_func(self::$call, $socket, $recv_msg);
 			return 1;
 		}
+
 		$type     = isset($recv_msg['stype']) ? $recv_msg['stype'] : 1;
 		$code     = isset($recv_msg['code']) ? $recv_msg['code'] : '';
 		$recv_msg['fun']     = isset($recv_msg['fun']) ? $recv_msg['fun'] : 'run';
@@ -612,20 +570,18 @@ class Socket extends Y
 		}
 		//无参数退出；		
 		if (!isset($recv_msg['action'])) {
-			d('tuichu');
+			// d('tuichu');
 			return false;
 		}
 		switch ($type) {
 			case 2:
-
-				if (self::checkadmin($recv_msg['code'])) {
-					/*Lang::sockload();*/
+				if (self::checkadmin($code)) {
 					self::sockdoing($socket, 'admin', $recv_msg);
 				}
 			case 3:
 
-				if (self::checksystem($recv_msg['code'])) {
-					/*Lang::sockload();*/
+				if (self::checksystem($code)) {
+
 					self::systemdeal($socket, $recv_msg);
 				}
 				break;
@@ -633,7 +589,6 @@ class Socket extends Y
 				self::sockdoing($socket, 'user', $recv_msg);
 		}
 		return 1;
-		/*  return self::build(serialize($response));*/
 	}
 
 
@@ -714,46 +669,32 @@ class Socket extends Y
 	protected static  function systemdeal($socket, $data)
 	{
 
-		//检测发信息的端口是否同一个ip；
-		//检测系统密码正确；	
 		$index = self::getindex($socket);
-		$data = json_decode($data, 1);
-		$bool = false;
+		// $data = json_decode($data, 1);
+		$bool = true;
 		if (!$data) return false;
 		if (!isset($data['stype']) || $data['stype'] != 3) return false;
-		$code   = $data['code'];
-		$recv   = self::unyscode($data['data']);
-		if (self::$sockets[$index]['handshake'] != 2) {
-			$bool   = self::checksystem($code);
+		// $code   = $data['code'];
 
-			if ($bool) {
-				self::$sockets[$index]['handshake'] == 2;
-			} else {
-				self::disconnect($socket);
-				return false;
-			}
-		}
+		$recv   = self::unyscode($data['data']);
+
+
 
 		if (!isset($data['action'])) return false;
 		$action = $data['action'];
 		$fun = isset($data['fun']) ? $data['fun'] : 'run';
 		$type   = 'system';
-
 		if ($bool) {
-			$bool2 = self::get_typea_ction_file($type, $data['action']);
+			$bool2 = self::get_typea_ction_file($type, $action);
 			if ($bool2) {
 				$classname = "ng169\\sock\\{$type}\\" . $action;
 				if (!class_exists($classname)) {
 					self::error($type . '下执行文件类错误');
 					return true;
 				}
-
 				$class     = new $classname($socket, $recv);
-
 				$class->init($socket, $data);
-
 				if (method_exists($class, $fun) &&  $fun != '') {
-
 					$class->$fun($recv);
 					return true;
 				} elseif (method_exists($class, $fun)) {
@@ -851,6 +792,62 @@ class Socket extends Y
 				return false;
 			}
 			unset($control);
+		}
+	}
+	/**
+	 * 监听已经变化的套子节，回去桃子姐数据
+	 */
+	public static function  listen($socket)
+	{
+
+
+		if ($socket == self::$master) {
+			//是当前接口桃子姐表示接受到链接请求。
+			$client = stream_socket_accept($socket, 0, $remote_address);
+
+			// 创建,绑定,监听后accept函数将会接受socket要来的连接,一旦有一个连接成功,将会返回一个新的socket资源用以交互,如果是一个多个连接的队列,只会处理第一个,如果没有连接的话,进程将会被阻塞,直到连接上.如果用set_socket_blocking或socket_set_noblock()设置了阻塞,会返回false;返回资源后,将会持续等待连接。
+			if (false === $client) {
+				self::error([
+					'err_accept',
+					$err_code = socket_last_error(),
+					socket_strerror($err_code)
+				]);
+			} else {
+				self::$server->connect($client);
+			}
+		} else {
+			// 如果可读的是其他已连接socket,则读取其数据,并处理应答逻辑
+			$buffer = stream_socket_recvfrom($socket,  Tcp::$recvlength, 0);
+			$bytes = strlen($buffer);
+			//长度限制10000个字符
+			if ($bytes < 9) {
+				$recv_msg = self::disconnect($socket);
+			} else {
+				$hand = self::$sockets[self::getindex($socket)]['handshake'];
+
+				if ($hand == 0) {
+					$bool = !self::$server->handShake($socket, $buffer);
+					self::conns(true);
+					//如果当前是master
+					if ($bool && self::$is_master) {
+						// self::systemdeal($socket, $buffer);
+						$data = $buffer;
+					} else {
+						return;
+					}
+				} elseif ($hand == 2) {
+					// d($buffer);
+					// self::systemdeal($socket, $buffer);
+					$data = $buffer;
+				} elseif ($hand == 1) {
+					$data = self::parse($buffer);
+					// if (self::dealMsg($socket, $recv_msg)) {
+					// 	self::conns(true);
+					// }
+				}
+				//统一走这里
+				self::dealMsg($socket, $data);
+			}
 		}
 	}
 }
