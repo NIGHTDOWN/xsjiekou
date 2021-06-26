@@ -186,8 +186,8 @@ class Socket extends Y
 	public static function slave()
 	{
 		self::$slave = new slave();
-		self::$slave->init();
-		self::$slave->conn_master();
+		if (self::$slave->init())
+			self::$slave->conn_master();
 	}
 	//ssl
 	public static  function  ssl()
@@ -433,12 +433,33 @@ class Socket extends Y
 	 */
 	public static function disconnect($socket)
 	{
+
 		if (self::$EPOLL) {
 			self::$event_base->del($socket);	//epoll退出
 		}
-		if (self::$sockets[self::getindex($socket)]['check']) {
-			T('sock_client')->update(array('online'   => 0, 'handshake' => 0), array('clientid' => self::getindex($socket)));
+		$info = self::$sockets[self::getindex($socket)];
+		if ($info['type']) {
+			//这里是服务器端断开
+			if (self::$is_master) {
+				//从服务器断开
+				$sid = $info['uname'];
+				Socket::windowshow('id' . $sid . ';slave服务端断开');
+				unset(Socket::$masters[$sid]);
+			} else {
+				//主服务器断开
+				Socket::windowshow('master服务端断开');
+				self::$slave->disconnect(); //删除主服务器记录
+				unset(self::$slave); //删除主服务器
+			}
+			//断开该server下所有链接
+			T('sock_client')->set_where(['sid' => $sid])->del();
+		} else {
+			//这里是客户端链接断开
+			if (self::$sockets[self::getindex($socket)]['check']) {
+				T('sock_client')->update(array('online'   => 0, 'handshake' => 0), array('clientid' => self::getindex($socket)));
+			}
 		}
+
 		unset(self::$sockets[self::getindex($socket)]);
 		self::conns(false);
 		/*self::broadcast($msg);*/
