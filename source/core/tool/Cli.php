@@ -15,14 +15,11 @@ class Cli extends Y
     {
 
         $help = ($this->getargv(['h', 'help', 'thread']));
-
-        if ($help['help']) {
+        if (isset($help['help'])) {
             $this->help();
             die();
         }
-
-        if ($help['thread']) {
-
+        if (isset($help['thread'])) {
             $this->threadcall();
             die();
         }

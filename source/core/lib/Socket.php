@@ -12,6 +12,7 @@ use ng169\lib\Udp;
 /*use ng169\cache\Rediscache ;*/
 use ng169\lib\SocketCache;
 use ng169\sock\slave;
+use ng169\sock\master;
 use sockbase;
 
 checktop();
@@ -170,6 +171,7 @@ class Socket extends Y
 			//主动链接主msater
 			self::slave();
 		}
+		//time
 		$server->recv();
 		d('正常退出了');
 	}
@@ -181,7 +183,7 @@ class Socket extends Y
 		//要用定时器，在接受消息确认之后发消息给slave，slave收到消息主动链接master。
 		//尝试从连slave
 		//slave失败清空slave 服务器消息，用户
-
+		new master();
 	}
 	public static function slave()
 	{
@@ -297,7 +299,8 @@ class Socket extends Y
 		}
 
 		if ($isin) {
-			$info = ['starttime' => time(), 'flag' => $flag, 'ismaster' => $is_master ? 1 : 0];
+
+			$info = ['starttime' => time(), 'flag' => $flag ? 1 : 0, 'ismaster' => $is_master ? 1 : 0];
 			T('sockserver')->update($info, $where);
 			return $isin['sid'];
 		} else {
@@ -444,6 +447,7 @@ class Socket extends Y
 				//从服务器断开
 				$sid = $info['uname'];
 				Socket::windowshow('id' . $sid . ';slave服务端断开');
+				T('sockserver')->update(['flag' => 0], ['sid' => $sid]);
 				unset(Socket::$masters[$sid]);
 			} else {
 				//主服务器断开
