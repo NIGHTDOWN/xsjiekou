@@ -44,31 +44,21 @@ class checkproxy extends Clibase
     public function proxy()
     {
         $list = [
-
             // '197.248.30.125:80',
-
         ];
         if (!sizeof($list)) {
             $data = T('option')->set_where(['option_name' => 'wait_chek_proxy'])->get_one();
-            // $jdata = json_decode($data['option_value'], true);
-            $list = explode(',', $data['wait_chek_proxy']);
+            $list = explode(',', $data['option_value']);
         }
-
-
         $this->list = $list;
         return $list;
     }
     public function start()
     {
-
         // Y::$cache->set($this->cacheindex, 1111);
-
         $this->logstart(__FILE__);
-
         $list = $this->proxy();
-
         foreach ($list as $v => $b) {
-
             list($ip, $port) = $this->sb($b);
             if ($ip && $port) {
                 $this->do($ip, $port);
@@ -76,14 +66,15 @@ class checkproxy extends Clibase
                 p($b . '识别失败');
             }
         }
-
         // Y::$cache->set($this->cacheindex, json_encode($this->ok));
-
-
         $this->logend(sizeof($this->ok), ['ok' => $this->ok, 'fail' => $this->fail], sizeof($this->list));
         $gt = $this->getargv(['showret', 'proxy', 'url', 'showlast', 'max', 'update']);
         if (isset($gt['update'])) {
-            T('option')->update(['option_value' => implode(',', $this->ok)], ['option_name' => 'ok_proxy']);
+            $in = '';
+            foreach ($this->ok as $v) {
+                $in .=   array_values($v)[0] . ',';
+            }
+            T('option')->update(['option_value' => $in], ['option_name' => 'ok_proxy']);
         }
         p($this->ok);
         p("任务结束");
