@@ -36,6 +36,7 @@ class checkproxy extends Clibase
     public $cacheindex = 'proxy_ok_list';
     //一些临时数据，无需变动
     public $list = [];
+    public $fork = 0;
 
     public $fail = [];
     public $ok = [];
@@ -58,8 +59,11 @@ class checkproxy extends Clibase
         // Y::$cache->set($this->cacheindex, 1111);
         $this->logstart(__FILE__);
         $list = $this->proxy();
-
-        if ($this->checkpcntl()) {
+        $gt = $this->getargv(['fork']);
+        if (isset($gt['fork']) && $gt['fork'] == 1) {
+            $this->fork = 1;
+        }
+        if ($this->checkpcntl() && $this->fork) {
             $args = [];
             foreach ($list as $v) {
                 array_push($args, explode(' ', $v));
@@ -120,8 +124,10 @@ class checkproxy extends Clibase
             array_push($this->ok, [$ttl => "$ip $port"]);
             p("__ $ip:$port __" . "\n" . ' 成功');
         } else {
-            array_push($this->fail, [$ttl => "$ip $port"]);
-            p("__ $ip:$port __" . "\n" . ' 失败');
+            if (!$this->fork) {
+                array_push($this->fail, [$ttl => "$ip $port"]);
+                p("__ $ip:$port __" . "\n" . ' 失败');
+            }
         }
         if ($this->showret) {
             p($data);
@@ -175,6 +181,7 @@ class checkproxy extends Clibase
     public function help()
     {
         p('1、检查代理可用性,参数proxy 指定识别地址，url指定识别，showret是否显示请求返回内容,showlast是否显示上次成功记录；update更新可用代理信息;域名：例子php checkproxy.php proxy=192.168.2.106:8888 url=https://www.baidu.com showret=1');
+        p('参数fork；开启多线程模式，快速显示正常的代理');
     }
     //重新排序书籍
 
