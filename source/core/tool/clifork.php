@@ -30,7 +30,7 @@ class clifork
         declare(ticks=1); //pcntl_signal_dispatch();
         $this->master_pid = posix_getpid(); //主id
         $this->clear(); //清屏
-        $this->command(); //指令
+        // $this->command(); //指令
         $this->installSignal(); //安装信号
         //获取多进程任务
         $task_info = $this->config['task_info'];
@@ -151,7 +151,7 @@ class clifork
                 exit(0);
                 // 未知命令
             default:
-                exit("Usage: php yourfile.php {start|stop|kill}\n");
+                exit("Usage: php 执行的php.php {start|stop|kill}\n");
         }
     }
 
