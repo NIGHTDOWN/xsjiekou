@@ -98,7 +98,7 @@ class checkproxy extends Clibase
     public function apisign($api, $parem)
     {
         $this->head($this->appneedinfo);
-        $data = $this->post($api, $parem, 3);
+        $data = $this->post($api, $parem, 0);
         return $data;
     }
     public function showlast()
