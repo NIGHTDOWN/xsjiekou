@@ -410,7 +410,7 @@ class cart_mtoon extends Clibase
         // $this->setproxy('47.119.145.216', '3389');
         // $this->setproxy('192.168.0.138', '9999');
         $this->autoproxy();
-        $this->setproxy('127.0.0.1', '8888');
+        // $this->setproxy('127.0.0.1', '8888');
         $p = [
             "_" => time(),
         ];
