@@ -36,7 +36,7 @@ class clifork
         $task_info = $this->config['task_info'];
         $this->call = $this->config['call'];
         foreach ($task_info as $info) {
-            d($info,1);
+            d($info, 1);
             $this->forkOneTask($info); //开启子进程
         }
         // 这里结束所有进程
@@ -73,6 +73,7 @@ class clifork
             while (true) {
                 //做你想做的事。。。。。
                 call_user_func_array($this->call, $info);
+                exit();
                 // sleep(2);
                 if (is_array($this->pid_childs_kill) && in_array(posix_getpid(), $this->pid_childs_kill)) {
                     exit();
