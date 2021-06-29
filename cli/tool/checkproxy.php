@@ -65,16 +65,18 @@ class checkproxy extends Clibase
                 array_push($args, explode(' ', $v));
             }
             $this->clifork([$this, 'do'], $args);
-        }
-
-        foreach ($list as $v => $b) {
-            list($ip, $port) = $this->sb($b);
-            if ($ip && $port) {
-                $this->do($ip, $port);
-            } else {
-                p($b . '识别失败');
+        } else {
+            foreach ($list as $v => $b) {
+                list($ip, $port) = $this->sb($b);
+                if ($ip && $port) {
+                    $this->do($ip, $port);
+                } else {
+                    p($b . '识别失败');
+                }
             }
         }
+
+
         // Y::$cache->set($this->cacheindex, json_encode($this->ok));
         $this->logend(sizeof($this->ok), ['ok' => $this->ok, 'fail' => $this->fail], sizeof($this->list));
         $gt = $this->getargv(['showret', 'proxy', 'url', 'showlast', 'max', 'update']);
