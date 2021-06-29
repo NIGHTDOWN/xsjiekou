@@ -508,7 +508,7 @@ class Clibase  extends Cli
         $this->spiner->setproxy($ip, $port);
     }
     // 请求
-    public function post($api, $data)
+    public function post($api, $data, $time = 0)
     {
         $this->init();
 
@@ -517,18 +517,18 @@ class Clibase  extends Cli
             $this->setproxy($this->ip, $this->port);
         }
         $url = $this->domian . $api;
-        $data = $this->spiner->post($url, ($data));
-        
+        $data = $this->spiner->post($url, ($data), $time);
+
         return $data;
     }
-    public function get($api, $data = null)
+    public function get($api, $data = null, $time = 0)
     {
         $this->init();
         if ($this->ip && $this->port) {
             $this->setproxy($this->ip, $this->port);
         }
         $url = $this->domian . $api;
-        $data = $this->spiner->get($url);
+        $data = $this->spiner->get($url, $time);
         return $data;
     }
     public $proxystr = null;
