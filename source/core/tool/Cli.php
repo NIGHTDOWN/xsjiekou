@@ -99,6 +99,7 @@ class Cli extends Y
 
     //当前的子进程数量
     public static $curChildPro = 0;
+    public static $pcntllist = [];
 
     //当子进程退出时，会触发该函数,当前子进程数-1
     public  function  sig_handler($sig)
@@ -121,8 +122,8 @@ class Cli extends Y
     public  function clifork($call, $args)
     {
         pcntl_signal(SIGCHLD, [$this, "sig_handler"]);
-
-        while (sizeof($args)) {
+        cli::$pcntllist = $args;
+        while (sizeof(cli::$pcntllist)) {
             Cli::$curChildPro++;
             $pid = pcntl_fork();
             if ($pid) {
@@ -132,8 +133,8 @@ class Cli extends Y
                 }
             } else {
                 //子进程运行代码
-                array_pop($args);
-                d($args);
+                array_pop(cli::$pcntllist);
+                d(cli::$pcntllist);
                 // $s = rand(2, 6);
                 // sleep($s);
                 // echo "child sleep $s second quit", PHP_EOL;
