@@ -124,10 +124,10 @@ class checkproxy extends Clibase
             array_push($this->ok, [$ttl => "$ip $port"]);
             p("__ $ip:$port __" . "\n" . ' 成功');
         } else {
-            if (!$this->fork) {
-                array_push($this->fail, [$ttl => "$ip $port"]);
+            array_push($this->fail, [$ttl => "$ip $port"]);
+            // if (!$this->fork) {
                 p("__ $ip:$port __" . "\n" . ' 失败');
-            }
+            // }
         }
         if ($this->showret) {
             p($data);

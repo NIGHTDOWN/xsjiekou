@@ -72,7 +72,7 @@ class clifork
             //子进程
             while (true) {
                 //做你想做的事。。。。。
-                p($info);
+               
                 call_user_func_array($this->call, $info);
                 exit();
                
