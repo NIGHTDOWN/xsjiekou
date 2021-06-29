@@ -13,6 +13,7 @@ class clifork
     public $pid_childs = [];
     public $pid_childs_kill = [];
     public $config;
+    public $call;
     public $master_pid;
     public $master_status = 1;
     public $str = '无';
@@ -31,9 +32,9 @@ class clifork
         $this->clear(); //清屏
         $this->command(); //指令
         $this->installSignal(); //安装信号
-
         //获取多进程任务
         $task_info = $this->config['task_info'];
+        $this->call = $this->config['call'];
         foreach ($task_info as $info) {
             $this->forkOneTask($info); //开启子进程
         }
@@ -70,7 +71,8 @@ class clifork
             //子进程
             while (true) {
                 //做你想做的事。。。。。
-                sleep(2);
+                call_user_func_array($this->call, [$info['ip'], $info['port']]);
+                // sleep(2);
                 if (is_array($this->pid_childs_kill) && in_array(posix_getpid(), $this->pid_childs_kill)) {
                     exit();
                 }
@@ -186,7 +188,7 @@ class clifork
         $display_str .= "当前子进程数: <red>" . count($this->pid_childs) . "个，PID:(" . implode(',', $this->pid_childs) . ")</red>" . PHP_EOL;
         $display_str .= "当前主进程PID: <red>" . posix_getpid() . "</red>" . PHP_EOL;
         $display_str .= "通知: <red>" . $this->str . "</red>" . PHP_EOL;
-        $display_str .= "-----------------------<green> By:DuZhenxun </green>--------------------------" . PHP_EOL;
+        $display_str .= "-----------------------<blue> By:Ng </blue>--------------------------" . PHP_EOL;
         $display_str .= "<yellow>Press Ctrl+C to quit.</yellow>" . PHP_EOL;
         $display_str = $this->clearLine($this->replaceStr($display_str)); //替换文字,清屏
         echo $display_str;

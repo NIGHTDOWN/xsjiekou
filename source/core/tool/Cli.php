@@ -113,11 +113,12 @@ class Cli extends Y
     {
 
         $config['task_info'] = [
-            ['task_id' => 'a_1', 'info' => 'abcd'],
-            ['task_id' => 'a_2', 'info' => '222'],
-            ['task_id' => 'a_3', 'info' => '3333'],
-            ['task_id' => 'a_4', 'info' => '3333'],
+            ['ip' => '1.1.1.1', 'port' => 'abcd'],
+            ['ip' => 'a_2', 'port' => '222'],
+            ['ip' => 'a_3', 'port' => '3333'],
+            ['ip' => 'a_4', 'port' => '3333'],
         ];
+        $config['call'] = $call;
         $obj = new clifork($config);
         $obj->run();
     }
