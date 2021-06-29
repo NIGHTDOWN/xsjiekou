@@ -115,7 +115,12 @@ function debugtime()
         $Ttime       = ($float_total / 100000);
     }
     $toms = round($Ttime * 1000, 2);
-    d('请求耗时：<b style="color:red">' . ($toms) . '</b>毫秒   ' . '消息' . $backinfo);
+    if (!is_cli()) {
+        d('请求耗时：<b style="color:red">' . ($toms) . '</b>毫秒   ' . '消息' . $backinfo);
+    } else {
+        p('请求耗时：' . $toms);
+    }
+
     return $toms;
 }
 /**

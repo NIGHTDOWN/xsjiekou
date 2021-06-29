@@ -1,7 +1,6 @@
 <?php
 
 
-
 namespace ng169\tool;
 
 use ng169\Y;

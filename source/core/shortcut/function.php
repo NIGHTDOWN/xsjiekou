@@ -11,6 +11,15 @@ use ng169\lib\Lang;
 function T($name){
 	return Y::table($name);
 }
+
+function p($str)
+{
+    if (is_string($str)) {
+        echo "$str" . "\n";
+    } else {
+        var_dump($str);
+    }
+}
 function card($str){
 	$arr=str_split($str,4);//4的意思就是每4个为一组
 	$str=implode(' ',$arr);
@@ -438,6 +447,3 @@ if (!function_exists('array_column')) {
         return $result;  	
  }
 }
-
-
-?>

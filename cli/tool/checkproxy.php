@@ -44,38 +44,14 @@ class checkproxy extends Clibase
     public function proxy()
     {
         $list = [
-            '202.169.255.4:8181',
-            '202.57.2.19:8080',
-            '179.189.226.186:8080',
-            '46.254.217.54:53281',
-            '182.253.112.194:8080',
-            '103.242.205.90:3128',
-            '78.140.6.68:53281',
-            '185.37.213.76:30695',
-            '181.209.86.212:999',
-            '102.33.21.37:8080',
-            '62.152.36.169:8080',
-            '138.36.149.12:8090',
-            '202.70.84.1:8080',
-            '94.189.133.93:8080',
-            '186.250.56.135:8080',
-            '177.37.175.222:8080',
-            '194.152.235.171:8080',
-            '51.77.123.247:80',
-            '114.6.88.238:60811',
-            '213.14.32.73:9090',
-            '201.65.226.82:3128',
-            '103.136.36.14:8080',
-            '201.168.210.122:3128',
-            '24.172.82.94:53281',
-            '197.248.30.125:80',
+
+            // '197.248.30.125:80',
 
         ];
         if (!sizeof($list)) {
-            $data = T('option')->set_where(['option_name' => 'site_info'])->get_one();
-            $jdata = json_decode($data['option_value'], true);
-
-            $list = explode(',', $jdata['site_analytics']);
+            $data = T('option')->set_where(['option_name' => 'wait_chek_proxy'])->get_one();
+            // $jdata = json_decode($data['option_value'], true);
+            $list = explode(',', $data['wait_chek_proxy']);
         }
 
 
@@ -97,7 +73,7 @@ class checkproxy extends Clibase
             if ($ip && $port) {
                 $this->do($ip, $port);
             } else {
-                d($b . '识别失败');
+                p($b . '识别失败');
             }
         }
 
@@ -105,8 +81,12 @@ class checkproxy extends Clibase
 
 
         $this->logend(sizeof($this->ok), ['ok' => $this->ok, 'fail' => $this->fail], sizeof($this->list));
-        d($this->ok);
-        d("任务结束");
+        $gt = $this->getargv(['showret', 'proxy', 'url', 'showlast', 'max', 'update']);
+        if (isset($gt['update'])) {
+            T('option')->update(['option_value' => implode(',', $this->ok)], ['option_name' => 'ok_proxy']);
+        }
+        p($this->ok);
+        p("任务结束");
     }
     public function apisign($api, $parem)
     {
@@ -118,9 +98,9 @@ class checkproxy extends Clibase
     {
         list($bool, $data) = Y::$cache->get($this->cacheindex);
         if ($bool) {
-            d($data);
+            p($data);
         } else {
-            d('上次无记录或者无可用代理');
+            p('上次无记录或者无可用代理');
         }
     }
     // 获取远程小说列表，根据实际情况修改fun
@@ -136,13 +116,13 @@ class checkproxy extends Clibase
         $ttl = $this->loop . '_' . $ttl;
         if ($data && $data != 'fail') {
             array_push($this->ok, [$ttl => "$ip $port"]);
-            d("__ $ip:$port __" . "\n" . ' 成功');
+            p("__ $ip:$port __" . "\n" . ' 成功');
         } else {
             array_push($this->fail, [$ttl => "$ip $port"]);
-            d("__ $ip:$port __" . "\n" . ' 失败');
+            p("__ $ip:$port __" . "\n" . ' 失败');
         }
         if ($this->showret) {
-            d($data);
+            p($data);
         }
     }
 
@@ -163,7 +143,7 @@ class checkproxy extends Clibase
     {
 
         parent::__construct(); //初始化帮助信息
-        $gt = $this->getargv(['showret', 'proxy', 'url', 'showlast', 'max']);
+        $gt = $this->getargv(['showret', 'proxy', 'url', 'showlast', 'max', 'update']);
         // if (isset($gt['type'])) {
         //     $this->_booktype = $gt['type'];
         // }
@@ -182,7 +162,7 @@ class checkproxy extends Clibase
             if ($ip && $port) {
                 $this->do($ip, $port);
             } else {
-                d($gt['proxy'] . '识别失败');
+                p($gt['proxy'] . '识别失败');
             }
             die();
         }
@@ -192,7 +172,7 @@ class checkproxy extends Clibase
 
     public function help()
     {
-        d('1、检查代理可用性,参数proxy 指定识别地址，url指定识别，showret是否显示请求返回内容,showlast是否显示上次成功记录；域名：例子php checkproxy.php proxy=192.168.2.106:8888 url=https://www.baidu.com showret=1');
+        p('1、检查代理可用性,参数proxy 指定识别地址，url指定识别，showret是否显示请求返回内容,showlast是否显示上次成功记录；update更新可用代理信息;域名：例子php checkproxy.php proxy=192.168.2.106:8888 url=https://www.baidu.com showret=1');
     }
     //重新排序书籍
 
