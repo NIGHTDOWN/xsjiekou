@@ -114,12 +114,15 @@ class Cli extends Y
 
     //配合pcntl_signal使用，简单的说，是为了让系统产生时间云，让信号捕捉函数能够捕捉到信号量
 
-
-    public  function clifork($call)
+    /**
+     * $call回调函数
+     * $args 参数数组，fork，自动从里面取参数，然后调用回调函数
+     */
+    public  function clifork($call, $args)
     {
         pcntl_signal(SIGCHLD, [$this, "sig_handler"]);
-        p('111');
-        while (true) {
+
+        while (sizeof($args)) {
             Cli::$curChildPro++;
             $pid = pcntl_fork();
             if ($pid) {
@@ -129,9 +132,11 @@ class Cli extends Y
                 }
             } else {
                 //子进程运行代码
-                $s = rand(2, 6);
-                sleep($s);
-                echo "child sleep $s second quit", PHP_EOL;
+                array_pop($args);
+                d($args);
+                // $s = rand(2, 6);
+                // sleep($s);
+                // echo "child sleep $s second quit", PHP_EOL;
                 exit;
             }
         }
