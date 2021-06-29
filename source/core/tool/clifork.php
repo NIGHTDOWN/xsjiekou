@@ -39,7 +39,6 @@ class clifork
             $this->forkOneTask($info); //开启子进程
         }
         // 这里结束所有进程
-        return;
         while ($this->master_status) {
             $this->printStr(); //输出信息
             //守护子进程，以下是模拟子进程结束
