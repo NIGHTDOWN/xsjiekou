@@ -518,6 +518,7 @@ class Clibase  extends Cli
         }
         $url = $this->domian . $api;
         $data = $this->spiner->post($url, ($data));
+        
         return $data;
     }
     public function get($api, $data = null)

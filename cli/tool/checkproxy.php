@@ -68,7 +68,7 @@ class checkproxy extends Clibase
             foreach ($list as $v) {
                 array_push($args, explode(' ', $v));
             }
-            
+
             $this->clifork([$this, 'do'], $args);
         } else {
             foreach ($list as $v => $b) {
@@ -122,6 +122,9 @@ class checkproxy extends Clibase
         $ttl = debugtime();
         $ttl = $this->loop . '_' . $ttl;
         if ($data && $data != 'fail') {
+            if ($this->showret) {
+                p($data);
+            }
             array_push($this->ok, [$ttl => "$ip $port"]);
             p("__ $ip:$port __" . "\n" . ' 成功');
         } else {
@@ -129,9 +132,6 @@ class checkproxy extends Clibase
             // if (!$this->fork) {
             p("__ $ip:$port __" . "\n" . ' 失败');
             // }
-        }
-        if ($this->showret) {
-            p($data);
         }
     }
 
