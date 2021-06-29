@@ -79,39 +79,29 @@ class Cli extends Y
         $data = (fgets(STDIN));
         return $data;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public static $maxChildPro = 8;
-
-    //当前的子进程数量
-    public static $curChildPro = 0;
-    public static $pcntllist = [];
-
-    //当子进程退出时，会触发该函数,当前子进程数-1
-    public  function  sig_handler($sig)
+    //清屏
+    public function clear()
     {
-        Cli::$curChildPro;
-        switch ($sig) {
-            case SIGCHLD:
-                echo 'SIGCHLD', PHP_EOL;
-                Cli::$curChildPro--;
-                break;
+        $arr = array(27, 91, 72, 27, 91, 50, 74);
+        foreach ($arr as $a) {
+            echo chr($a);
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     //配合pcntl_signal使用，简单的说，是为了让系统产生时间云，让信号捕捉函数能够捕捉到信号量
 
@@ -121,26 +111,15 @@ class Cli extends Y
      */
     public  function clifork($call, $args)
     {
-        pcntl_signal(SIGCHLD, [$this, "sig_handler"]);
-        cli::$pcntllist = $args;
-        while (sizeof(cli::$pcntllist)) {
-            Cli::$curChildPro++;
-            $pid = pcntl_fork();
-            if ($pid) {
-                //父进程运行代码,达到上限时父进程阻塞等待任一子进程退出后while循环继续
-                if (Cli::$curChildPro >=  Cli::$maxChildPro) {
-                    pcntl_wait($status);
-                }
-            } else {
-                //子进程运行代码
-                array_pop(cli::$pcntllist);
-                d(cli::$pcntllist);
-                // $s = rand(2, 6);
-                // sleep($s);
-                // echo "child sleep $s second quit", PHP_EOL;
-                exit;
-            }
-        }
+
+        $config['task_info'] = [
+            ['task_id' => 'a_1', 'info' => 'abcd'],
+            ['task_id' => 'a_2', 'info' => '222'],
+            ['task_id' => 'a_3', 'info' => '3333'],
+            ['task_id' => 'a_4', 'info' => '3333'],
+        ];
+        $obj = new clifork($config);
+        $obj->run();
     }
     public function checkpcntl()
     {
