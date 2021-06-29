@@ -7,6 +7,9 @@ use ng169\Y;
 
 checktop();
 
+declare(ticks=1);
+//注册子进程退出时调用的函数。SIGCHLD：在一个进程终止或者停止时，将SIGCHLD信号发送给其父进程。
+
 class Cli extends Y
 {
     public
@@ -75,5 +78,71 @@ class Cli extends Y
         echo $desc . "：";
         $data = (fgets(STDIN));
         return $data;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public static $maxChildPro = 8;
+
+    //当前的子进程数量
+    public static $curChildPro = 0;
+
+    //当子进程退出时，会触发该函数,当前子进程数-1
+    public  function  sig_handler($sig)
+    {
+        Cli::$curChildPro;
+        switch ($sig) {
+            case SIGCHLD:
+                echo 'SIGCHLD', PHP_EOL;
+                Cli::$curChildPro--;
+                break;
+        }
+    }
+
+    //配合pcntl_signal使用，简单的说，是为了让系统产生时间云，让信号捕捉函数能够捕捉到信号量
+
+
+    public  function clifork($call)
+    {
+        pcntl_signal(SIGCHLD, [$this, "sig_handler"]);
+        p('111');
+        while (true) {
+            Cli::$curChildPro++;
+            $pid = pcntl_fork();
+            if ($pid) {
+                //父进程运行代码,达到上限时父进程阻塞等待任一子进程退出后while循环继续
+                if (Cli::$curChildPro >=  Cli::$maxChildPro) {
+                    pcntl_wait($status);
+                }
+            } else {
+                //子进程运行代码
+                $s = rand(2, 6);
+                sleep($s);
+                echo "child sleep $s second quit", PHP_EOL;
+                exit;
+            }
+        }
+    }
+    public function checkpcntl()
+    {
+        if (function_exists('pcntl_signal')) {
+            return true;
+        } else {
+            p('pcntl组件不存在');
+            return false;
+        }
     }
 }

@@ -58,6 +58,10 @@ class checkproxy extends Clibase
         // Y::$cache->set($this->cacheindex, 1111);
         $this->logstart(__FILE__);
         $list = $this->proxy();
+        if ($this->checkpcntl()) {
+            $this->clifork(1);
+        }
+
         foreach ($list as $v => $b) {
             list($ip, $port) = $this->sb($b);
             if ($ip && $port) {

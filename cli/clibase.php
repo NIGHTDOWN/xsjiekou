@@ -504,7 +504,7 @@ class Clibase  extends Cli
     //请求走代理
     public function setproxy($ip = '192.168.2.106', $port = '8888')
     {
-        // $this->init();
+        $this->init();
         $this->spiner->setproxy($ip, $port);
     }
     // 请求
