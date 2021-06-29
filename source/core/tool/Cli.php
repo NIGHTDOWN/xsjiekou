@@ -111,13 +111,8 @@ class Cli extends Y
      */
     public  function clifork($call, $args)
     {
-
-        $config['task_info'] = [
-            ['ip' => '1.1.1.1', 'port' => 'abcd'],
-            ['ip' => 'a_2', 'port' => '222'],
-            ['ip' => 'a_3', 'port' => '3333'],
-            ['ip' => 'a_4', 'port' => '3333'],
-        ];
+        d($args, 1);
+        $config['task_info'] = $args;
         $config['call'] = $call;
         $obj = new clifork($config);
         $obj->run();

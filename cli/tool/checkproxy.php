@@ -58,8 +58,13 @@ class checkproxy extends Clibase
         // Y::$cache->set($this->cacheindex, 1111);
         $this->logstart(__FILE__);
         $list = $this->proxy();
-        if ($this->checkpcntl()) {
-            $this->clifork([$this, 'do'], $list);
+
+        if (!$this->checkpcntl()) {
+            $args = [];
+            foreach ($list as $v) {
+                array_push($args, explode(' ', $v));
+            }
+            $this->clifork([$this, 'do'], $args);
         }
 
         foreach ($list as $v => $b) {
