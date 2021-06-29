@@ -72,9 +72,10 @@ class clifork
             //子进程
             while (true) {
                 //做你想做的事。。。。。
+                p($info);
                 call_user_func_array($this->call, $info);
                 exit();
-                // sleep(2);
+               
                 if (is_array($this->pid_childs_kill) && in_array(posix_getpid(), $this->pid_childs_kill)) {
                     exit();
                 }
