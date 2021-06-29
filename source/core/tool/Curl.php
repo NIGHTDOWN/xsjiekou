@@ -175,6 +175,7 @@ class Curl
 			curl_setopt($curl, CURLOPT_HTTPHEADER, $this->head);
 		}
 		if ($timeout) {
+		
 			curl_setopt($curl, CURLOPT_TIMEOUT, $timeout);
 		}
 
