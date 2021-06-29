@@ -111,7 +111,7 @@ class Curl
 		// 	return true;
 		return false;
 	}
-	public function get($url)
+	public function get($url, $timeout = 0)
 	{
 		$this->_init();
 		if (!$url)
@@ -130,6 +130,9 @@ class Curl
 		}
 		curl_setopt($curl, CURLOPT_USERAGENT, 'okhttp/3.6.0');
 		curl_setopt($curl, CURLOPT_HEADER, false);
+		if ($timeout) {
+			curl_setopt($curl, CURLOPT_TIMEOUT, $timeout);
+		}
 		// curl_setopt($curl, CURLOPT_POST, true);
 		// curl_setopt($curl, CURLOPT_POSTFIELDS, ($data));
 		@curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
@@ -144,7 +147,7 @@ class Curl
 			return 'fail';
 		}
 	}
-	public function post($url, $data, $proxy = null, $timeout = 15)
+	public function post($url, $data, $proxy = null, $timeout = 0)
 	{
 		/*if($this->curl){
 			$curl = $this->curl;
@@ -171,6 +174,10 @@ class Curl
 
 			curl_setopt($curl, CURLOPT_HTTPHEADER, $this->head);
 		}
+		if ($timeout) {
+			curl_setopt($curl, CURLOPT_TIMEOUT, $timeout);
+		}
+
 		// User-Agent: okhttp/3.12.0
 		curl_setopt($curl, CURLOPT_USERAGENT, 'okhttp/3.6.0');
 		// curl_setopt($curl, CURLOPT_CON, 'okhttp/3.6.0');
