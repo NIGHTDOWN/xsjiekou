@@ -111,7 +111,7 @@ class Cli extends Y
      */
     public  function clifork($call, $args)
     {
-        d($args, 1);
+
         $config['task_info'] = $args;
         $config['call'] = $call;
         $obj = new clifork($config);

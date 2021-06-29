@@ -59,7 +59,7 @@ class checkproxy extends Clibase
         $this->logstart(__FILE__);
         $list = $this->proxy();
 
-        if (!$this->checkpcntl()) {
+        if ($this->checkpcntl()) {
             $args = [];
             foreach ($list as $v) {
                 array_push($args, explode(' ', $v));
