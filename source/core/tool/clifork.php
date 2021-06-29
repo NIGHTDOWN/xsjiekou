@@ -36,7 +36,7 @@ class clifork
         $task_info = $this->config['task_info'];
         $this->call = $this->config['call'];
         foreach ($task_info as $info) {
-            d($info);
+            d($info,1);
             $this->forkOneTask($info); //开启子进程
         }
         // 这里结束所有进程
