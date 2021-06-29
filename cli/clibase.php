@@ -504,48 +504,82 @@ class Clibase  extends Cli
     //请求走代理
     public function setproxy($ip = '192.168.2.106', $port = '8888')
     {
-        $this->init();
+        // $this->init();
         $this->spiner->setproxy($ip, $port);
     }
     // 请求
     public function post($api, $data)
     {
         $this->init();
+
+        if ($this->ip && $this->port) {
+
+            $this->setproxy($this->ip, $this->port);
+        }
         $url = $this->domian . $api;
-
-
         $data = $this->spiner->post($url, ($data));
         return $data;
     }
+    public function get($api, $data = null)
+    {
+        $this->init();
+        if ($this->ip && $this->port) {
+            $this->setproxy($this->ip, $this->port);
+        }
+        $url = $this->domian . $api;
+        $data = $this->spiner->get($url);
+        return $data;
+    }
     public $proxystr = null;
-    public function autoproxy()
+    public $ip = null;
+    public $port = null;
+    /**
+     * int $type 代理模式1每次使用一个ip代理，2代理ip随机切换
+     */
+    public function autoproxy($type = 1)
     {
         //这里要用缓存
         $proxystrindex = 'proxystrindex';
+        $data = T('option')->set_where(['option_name' => 'open_proxy'])->get_one();
+        if (!$data['option_value']) {
+            p('不使用代理');
+            Y::$cache->set($proxystrindex, null, 0);
+            return;
+        }
         list($bool, $data) = Y::$cache->get($proxystrindex);
         if ($bool) {
             $this->proxystr = $data;
         } else {
             if (!$this->proxystr) {
-                $data = T('option')->set_where(['option_name' => 'site_info'])->get_one();
-                $jdata = json_decode($data['option_value'], true);
-                $this->proxystr = explode(' ', $jdata['site_admin_email']);
+                $data = T('option')->set_where(['option_name' => 'ok_proxy'])->get_one();
+                // $jdata = json_decode($data['option_value'], true);
+                $this->proxystr = explode(',', $data['option_value']);
+                $this->proxystr = array_filter($this->proxystr);
                 Y::$cache->set($proxystrindex, $this->proxystr, 1800);
             }
         }
-        // d($this->proxystr);
-        if (sizeof($this->proxystr) == 2) {
+        if (!sizeof($this->proxystr)) {
+            return false;
+        }
 
-            $this->setproxy($this->proxystr[0], $this->proxystr[1]);
+        if ($type == 1) {
+            if ($this->ip) return;
+            $index = rand(0, sizeof($this->proxystr));
+            $proxy = $this->proxystr[$index];
+            p($proxy);
+            $proxy = explode(' ', $proxy);
+            $this->ip = $proxy[0];
+            $this->port = $proxy[1];
+        }
+        if ($type == 2) {
+            $index = rand(0, sizeof($this->proxystr));
+            $proxy = $this->proxystr[$index];
+            $proxy = explode(' ', $proxy);
+            $this->ip = $proxy[0];
+            $this->port = $proxy[1];
         }
     }
-    public function get($api, $data = null)
-    {
-        $this->init();
-        $url = $this->domian . $api;
-        $data = $this->spiner->get($url);
-        return $data;
-    }
+
     // 返回的数据
     // abstract public function getdata($data);
     public function check($data, $field, $value)
