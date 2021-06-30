@@ -565,7 +565,7 @@ class Clibase  extends Cli
 
         if ($type == 1) {
             if ($this->ip) return;
-            $index = rand(0, sizeof($this->proxystr));
+            $index = rand(0, sizeof($this->proxystr)-1);
             $proxy = $this->proxystr[$index];
             p($proxy);
             $proxy = explode(' ', $proxy);
