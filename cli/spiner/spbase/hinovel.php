@@ -33,24 +33,24 @@ class Sphinovel extends Clibase
     // aes密钥
     public $aeskey = "";
     //用户token
-    public $token = "";
+    public $token = "942xty8z-42xt-2xty-xty8-42xtxty8ty8z";
     //远程完结状态值
     public $update_status_end_val = 1;
     //免费状态值
     public $is_un_free_val = 1;
     public $appneedinfo = [
         'appVersion' => '3.1.7',
-        'phoneType' => 'samsung9+',
+        'phoneType' => 'samsung',
         'utc' => '9',
         'sign' => 'fa877648fc01546bdef768d40a76d11b',
         'userToken' => '',
         'osVersion' => '9',
         'appType' => 'android',
-        'phoneBrand' => 'a1ssxx',
+        'phoneBrand' => 'a02xx',
         'osType' => '1',
-        'osUuid' => '',
+        'osUuid' => '942xty8z-42xt-2xty-xty8-42xtxty8ty8z',
         'lang' => 'th',
-        'phoneOsVersion' => '9',
+        'phoneOsVersion' => '10',
         'timestamp' => '1685541524',
     ];
     public $appneedinfo2 = [
@@ -67,7 +67,7 @@ class Sphinovel extends Clibase
     public $last = 0;
     public $lastbid;
     public $loop = [];
-    public $pid = '';
+    public $pid = 'TH10T40';
     public function start()
     {
         $cachename = date('Ymdhis') . 'obj';
@@ -543,7 +543,7 @@ class Sphinovel extends Clibase
             // "invite_code" => $this->pid,
 
         ]);
-        d($datas);
+        // d($datas);
         // invite_code=THDDLT
         list($status, $data) = $this->getdata($datas);
 
@@ -552,6 +552,7 @@ class Sphinovel extends Clibase
             $this->pid = $data["invite_code"];
             return $this->token;
         } else {
+            $this->appneedinfo['osUuid'] = $this->token;
             $this->debuginfo("注册中断", $datas);
         }
     }
@@ -572,12 +573,15 @@ class Sphinovel extends Clibase
 
 
         $this->autoproxy();
-        // $this->setproxy('127.0.0.1', '9999');
+        // $this->setproxy('127.0.0.1', '8888');
+        $this->ip = '127.0.0.1';
+        $this->post = '8888';
         // $this->setproxy();
         $this->sign(null, null);
         $this->appneedinfo['userToken'] = $this->token ? $this->token : $this->appneedinfo['osUuid'];
+        // $this->appneedinfo['osUuid'] = $this->appneedinfo['userToken'];
         $this->head($this->appneedinfo);
-        
+
         $data = $this->post($api, $parem);
         return $data;
     }
