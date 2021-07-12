@@ -75,7 +75,7 @@ class cart_mtoon extends Clibase
     public $loop = [];
     public function start()
     {
-       
+
         $cachename = date('Ymdhis') . 'obj';
         $this->thinit();
         $page = 100;
@@ -119,7 +119,10 @@ class cart_mtoon extends Clibase
         list($status, $data) = $this->getdata($datatmp);
         if (!$status) {
             $this->debuginfo("列表中断" . $datatmp);
-            return false;
+            //取数据库记录的id，循环拉去
+            $data = T('cartoon')->set_where(["ftype" => $this->bookdstdesc, "lang" => $this->booklang])->set_field('fid')->get_all();
+            // return false;
+            $remote_bookarr_id = "fid";
         }
 
         if (is_array($data) && sizeof($data) > 0) {
@@ -134,6 +137,7 @@ class cart_mtoon extends Clibase
                     $this->thpush($book[$remote_bookarr_id]);
                 } else {
                     $this->getbookdetail($book[$remote_bookarr_id]);
+                   
                 }
             }
             return sizeof($data);
