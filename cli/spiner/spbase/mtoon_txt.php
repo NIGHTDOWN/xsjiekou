@@ -145,7 +145,7 @@ class mtoon_txt extends Clibase
     // 获取远程小说列表，根据实际情况修改fun
     public function getbooklist($page)
     {
-
+        $size = 0;
         $post = [
             "page" => $page,
             // "typeAction" =>  $page,
@@ -166,6 +166,8 @@ class mtoon_txt extends Clibase
             // return false;
             $remote_bookarr_id = "fid";
             // return false;
+        } else {
+            $size = sizeof($data);
         }
 
         if (is_array($data) && sizeof($data) > 0) {
@@ -182,7 +184,7 @@ class mtoon_txt extends Clibase
                     $this->getbookdetail($book[$remote_bookarr_id]);
                 }
             }
-            return sizeof($data);
+            return $size;
         }
         return 0;
     }
