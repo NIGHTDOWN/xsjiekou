@@ -534,6 +534,7 @@ class Clibase  extends Cli
     public $proxystr = null;
     public $ip = null;
     public $port = null;
+    public $proxylist = [];
     /**
      * int $type 代理模式1每次使用一个ip代理，2代理ip随机切换
      */
@@ -542,11 +543,20 @@ class Clibase  extends Cli
         //这里要用缓存
         $proxystrindex = 'proxystrindex';
         $data = T('option')->set_where(['option_name' => 'open_proxy'])->get_one();
-        if (!$data['option_value']) {
+        if (!$data['option_value'] && !G_CLI_DEBUG) {
             p('不使用代理');
             Y::$cache->set($proxystrindex, null, 0);
             return;
         }
+
+        if (G_CLI_DEBUG) {
+            $proxy = explode(':', G_CLI_DEBUG);
+            $this->ip = $proxy[0];
+            $this->port = $proxy[1];
+            p($this->ip . ':' . $this->port);
+            return;
+        }
+        d(2);
         list($bool, $data) = Y::$cache->get($proxystrindex);
         if ($bool) {
             $this->proxystr = $data;
@@ -565,7 +575,7 @@ class Clibase  extends Cli
 
         if ($type == 1) {
             if ($this->ip) return;
-            $index = rand(0, sizeof($this->proxystr)-1);
+            $index = rand(0, sizeof($this->proxystr) - 1);
             $proxy = $this->proxystr[$index];
             p($proxy);
             $proxy = explode(' ', $proxy);

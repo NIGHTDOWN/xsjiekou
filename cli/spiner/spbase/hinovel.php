@@ -70,6 +70,7 @@ class Sphinovel extends Clibase
     public $pid = 'TH10T40';
     public function start()
     {
+        $this->autoproxy();
         $cachename = date('Ymdhis') . 'obj';
         $this->thinit();
         $page = 100;
@@ -572,10 +573,10 @@ class Sphinovel extends Clibase
 
 
 
-        $this->autoproxy();
+        
         // $this->setproxy('127.0.0.1', '8888');
-        $this->ip = '127.0.0.1';
-        $this->post = '8888';
+        // $this->ip = '127.0.0.1';
+        // $this->post = '8888';
         // $this->setproxy();
         $this->sign(null, null);
         $this->appneedinfo['userToken'] = $this->token ? $this->token : $this->appneedinfo['osUuid'];

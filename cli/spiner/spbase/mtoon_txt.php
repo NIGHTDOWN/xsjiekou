@@ -48,7 +48,7 @@ class mtoon_txt extends Clibase
         '_token' => '897aeecc13b29bebec65101f2d7b528a65',
         '_udid' => 'da616065-0cb3-479f-8a27-fc19385d10d3',
         /////////////////////////
-       
+
     ];
     //远程完结状态值
     public $update_status_end_val = 1;
@@ -120,7 +120,7 @@ class mtoon_txt extends Clibase
     }
     public function start()
     {
-
+        $this->autoproxy();
         $cachename = date('Ymdhis') . 'obj';
         $this->thinit();
         $page = 100;
@@ -385,7 +385,7 @@ class mtoon_txt extends Clibase
         $num = $this->getgnum(7);
         $api = "/api/users/loginEmail";
         $id = $num;
-        $uid = $num .'-0cb3-479f-8a27-' . $this->getgnum(12);
+        $uid = $num . '-0cb3-479f-8a27-' . $this->getgnum(12);
         $datas = $this->apisign($api, [
             '_udid' => $uid,
         ], [
@@ -449,7 +449,7 @@ class mtoon_txt extends Clibase
     {
 
 
-        $this->autoproxy();
+
         // $this->setproxy('127.0.0.1', '9999');
         $p = [
             "_" => time(),
