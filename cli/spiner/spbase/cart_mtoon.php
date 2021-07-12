@@ -75,7 +75,7 @@ class cart_mtoon extends Clibase
     public $loop = [];
     public function start()
     {
-
+        $this->autoproxy();
         $cachename = date('Ymdhis') . 'obj';
         $this->thinit();
         $page = 100;
@@ -137,7 +137,6 @@ class cart_mtoon extends Clibase
                     $this->thpush($book[$remote_bookarr_id]);
                 } else {
                     $this->getbookdetail($book[$remote_bookarr_id]);
-                   
                 }
             }
             return sizeof($data);
@@ -413,7 +412,7 @@ class cart_mtoon extends Clibase
         // $token = $this->token;
         // $this->setproxy('47.119.145.216', '3389');
         // $this->setproxy('192.168.0.138', '9999');
-        $this->autoproxy();
+
         // $this->setproxy('127.0.0.1', '8888');
         $p = [
             "_" => time(),

@@ -162,7 +162,7 @@ class mtoon_txt extends Clibase
         list($status, $data) = $this->getdata($datatmp);
         if (!$status) {
             $this->debuginfo("列表中断" . $datatmp);
-            $data = T('cartoon')->set_where(["ftype" => $this->bookdstdesc, "lang" => $this->booklang])->set_field('fid')->get_all();
+            $data = T('book')->set_where(["ftype" => $this->bookdstdesc, "lang" => $this->booklang])->set_field('fid')->get_all();
             // return false;
             $remote_bookarr_id = "fid";
             // return false;
