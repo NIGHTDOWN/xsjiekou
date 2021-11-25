@@ -224,13 +224,46 @@ $(document).ready(function () {
             , a = t.hasClass("asc");
         var t2 = $('#js_chapters')
             , a2 = t2.hasClass("asc");
+        var e = $('#js_chapters');
         // $("#js_chapter_list li").removeClass("hide"),
         a ? t.removeClass("asc").addClass("desc") : t.removeClass("desc").addClass("asc");
-        a2 ? t2.removeClass("asc").addClass("desc") : t2.removeClass("desc").addClass("asc");
-        d(t2);
+        // a2 ? t2.removeClass("asc").addClass("desc") : t2.removeClass("desc").addClass("asc");
+        // e.$chapterList.sort(function (t, e) {
+        //     t = $(t).data("index"),
+        //         e = $(e).data("index");
+        //     return a ? e - t : t - e
+        // }),
+        //     e.$chapterList.detach().appendTo(l("#js_chapters")),
+        //     e.$chapterRank.find(".btn-reverse").toggleClass("btn-reverse-change")
+        // $o = [];
+        // $(e.find("li").toArray().reverse()).each(function (index, item) {
+        //     // var text = $(item).text() + " + " + index;
+        //     // $(item).text(text);
+        //     $o[index]=
+        // });
+        $b = e.find("li").toArray().reverse();
+        e.html(); e.append($b);
+    });
+    $('.more-chapter-btn').on('click', function () {
+        var t = this
+            , e = $(".js_more_chapters")
+            , a = $(".js_up_chapterList")
+            , i = $("#js_chapters")
+            , n = $(".list-tucao-num")
+            , s = $(".js_collect_num").text()
+            , o = $(".tucao span").html();
+        i.toggleClass("expand"),
+            e.hide(),
+            a.show()
 
 
     });
-
-
+    $('.close-content').on('click', function () {
+        e = $(".js_more_chapters")
+            , a = $(".js_up_chapterList"),
+            i = $("#js_chapters"),
+            i.toggleClass("expand"),
+            e.show(),
+            a.hide();
+    });
 });
