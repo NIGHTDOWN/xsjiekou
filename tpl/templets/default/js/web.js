@@ -266,4 +266,10 @@ $(document).ready(function () {
             e.show(),
             a.hide();
     });
+    $('.js_go_back').on('click', function () {
+        history.back();
+    });
+    $('.back').on('click', function () {
+        history.back();
+    });
 });

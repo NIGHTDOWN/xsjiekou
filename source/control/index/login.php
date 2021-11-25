@@ -11,7 +11,7 @@ checktop();
 class login extends indexbase{
 	private $mod = null;
 	public function control_run(){
-		$this->vlog();
+		// $this->vlog();
 		$this->view();
 	}
 	

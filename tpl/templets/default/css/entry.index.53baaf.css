@@ -2635,7 +2635,7 @@
 
 .icon-boy_big,.icon-boy_small,.icon-girl_big,.icon-girl_small {
     display: inline-block;
-    background-image: url(/static/images/sprites/sprite.home.d0cbc@2x.png);
+    background-image: url(../imgs//sprite.home.d0cbc@2x.png);
     background-repeat: no-repeat;
     -moz-background-size: 4.16rem 3.2533333333rem;
     -o-background-size: 4.16rem 3.2533333333rem;
@@ -2668,7 +2668,7 @@
 
 .icon-rank_1,.icon-rank_2,.icon-rank_3,.icon-type_label {
     display: inline-block;
-    background-image: url(/static/images/sprites/sprite.index.d4ea3@2x.png);
+    background-image: url(../imgs//sprite.index.d4ea3@2x.png);
     background-repeat: no-repeat;
     -moz-background-size: 1.8133333333rem 1.4133333333rem;
     -o-background-size: 1.8133333333rem 1.4133333333rem;
@@ -3852,3 +3852,1323 @@ span.js_collect_num {
 .lianzai .chapter-list .expand .comic-chapter-item {
     display: block
 }
+.sort-class-container {
+    background-color: #fff;
+    padding: .2666666667rem;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+.dl-sort-list {
+    font-size: 0
+}
+
+.dl-sort-list-title {
+    font-size: .4266666667rem;
+    font-weight: 400;
+    margin: .1333333333rem 0;
+    color: #000
+}
+
+.dl-sort-list-item {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -moz-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+    -moz-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    -webkit-align-content: stretch;
+    -ms-flex-line-pack: stretch;
+    align-content: stretch;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    overflow: hidden;
+    -webkit-transition: height .3s linear;
+    -o-transition: height .3s linear;
+    -moz-transition: height .3s linear;
+    transition: height .3s linear
+}
+
+.dl-sort-list-item a {
+    display: inline-block;
+    font-size: .32rem;
+    height: .72rem;
+    line-height: .72rem;
+    color: #555
+}
+
+.dl-sort-list-item a.active {
+    color: #fc6976
+}
+
+.dl-sort-list-item span {
+    font-size: .32rem;
+    min-width: .64rem
+}
+
+.hide-list-item {
+    height: 0
+}
+
+.show-list-item {
+    height: .72rem
+}
+
+.sort-order-list-container {
+    padding: 0 .2666666667rem;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    position: relative
+}
+
+.sort-order-list-container .order-list {
+    overflow: hidden;
+    padding: .2666666667rem 0;
+    border-top: 1px solid #ddd
+}
+
+.sort-order-list-container .item {
+    font-size: .32rem;
+    color: #555;
+    float: left;
+    padding: 0 .2rem;
+    border-left: 1px solid #ddd
+}
+
+.sort-order-list-container .item.active {
+    color: #fc6976
+}
+
+.sort-order-list-container .item.first {
+    border: none;
+    padding-left: 0
+}
+
+.sort-order-list-container .sort-show-more {
+    position: absolute;
+    right: .2666666667rem;
+    top: 0;
+    font-size: .32rem;
+    padding-top: .2666666667rem;
+    padding-bottom: .2666666667rem
+}
+
+.sort-order-list-container .sort-show-more i {
+    vertical-align: middle
+}
+
+.icon-rank-comic-1,.icon-rank-comic-2,.icon-rank-comic-3 {
+    display: inline-block;
+    background-image: url(../imgs//sprite.rank.3d5c7@2x.png);
+    background-repeat: no-repeat;
+    -moz-background-size: 2.4533333333rem 2.4533333333rem;
+    -o-background-size: 2.4533333333rem 2.4533333333rem;
+    background-size: 2.4533333333rem 2.4533333333rem
+}
+
+.icon-rank-comic-1 {
+    width: 1.28rem;
+    height: 1.28rem;
+    background-position: 0 0
+}
+
+.icon-rank-comic-2 {
+    background-position: -1.3866666667rem 0
+}
+
+.icon-rank-comic-2,.icon-rank-comic-3 {
+    width: 1.0666666667rem;
+    height: 1.0666666667rem
+}
+
+.icon-rank-comic-3 {
+    background-position: 0 -1.3866666667rem
+}
+
+.rank-container .header-wrap {
+    -webkit-box-shadow: 0 0 .2666666667rem 0 rgba(0,0,0,.2);
+    -moz-box-shadow: 0 0 .2666666667rem 0 rgba(0,0,0,.2);
+    box-shadow: 0 0 .2666666667rem 0 rgba(0,0,0,.2)
+}
+
+.view-port.rank-container {
+    display: block;
+    height: auto
+}
+
+.view-body.rank-center-bg {
+    background-color: #fff;
+    background-image: url(../imgs/bg-comic-list.png);
+    background-repeat: no-repeat;
+    -moz-background-size: 100% auto;
+    -o-background-size: 100% auto;
+    background-size: 100% auto
+}
+
+.sort-show-more {
+    color: #fff;
+    font-size: .32rem;
+    padding-right: .2666666667rem;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+.header-title {
+    font-size: .4266666667rem
+}
+
+.class-list {
+    display: none;
+    position: fixed;
+    top: 1.1733333333rem;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0,0,0,.5);
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    z-index: 100
+}
+
+.rank-option-menu {
+    width: 100%;
+    overflow: hidden;
+    height: 2rem;
+}
+
+.rank-option-menu .menu {
+    padding: 0 .2666666667rem;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -moz-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: baseline;
+    -webkit-align-items: baseline;
+    -moz-box-align: baseline;
+    -ms-flex-align: baseline;
+    align-items: baseline;
+    -webkit-align-content: stretch;
+    -ms-flex-line-pack: stretch;
+    align-content: stretch;
+    width: 100%;
+    height: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+.rank-option-menu .list {
+    height: 100%;
+    line-height: .8rem;
+    position: relative
+}
+
+.rank-option-menu .list.active {
+    font-weight: 500
+}
+
+.rank-option-menu .list.active .menu-link {
+    border-bottom: 1px solid #fff;
+    padding-bottom: .1066666667rem
+}
+
+.rank-option-menu .menu-link {
+    font-size: .3733333333rem;
+    color: #fff;
+    height: .6933333333rem;
+    line-height: .6933333333rem
+}
+
+.scroll-container {
+    width: 100%
+}
+
+.scroll-container .content {
+    position: relative;
+    min-height: 10rem
+}
+
+.rank-contain,.scroll-container .content .noinfo {
+    background-color: #fff
+}
+
+.rank-contain {
+    margin-top: .2133333333rem
+}
+
+.rank-list-header {
+    padding: .24rem .2666666667rem;
+    height: .96rem;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -moz-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-align-content: stretch;
+    -ms-flex-line-pack: stretch;
+    align-content: stretch;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+.rank-list-header .title {
+    font-size: .48rem;
+    color: #333;
+    font-weight: 400
+}
+
+.rank-list-header .title:before {
+    content: "";
+    display: inline-block;
+    height: .4533333333rem;
+    width: .1333333333rem;
+    background-color: #fc6976;
+    -webkit-border-radius: .1333333333rem;
+    -moz-border-radius: .1333333333rem;
+    border-radius: .1333333333rem;
+    vertical-align: middle;
+    margin-right: .2666666667rem
+}
+
+.rank-list-header .more {
+    color: #b6b6b6;
+    font-size: .32rem
+}
+
+.comic-list,.rank-comic-list {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+.comic-list {
+    width: 100%
+}
+
+.comic-list .list {
+    padding: .2933333333rem .2666666667rem;
+    background-color: hsla(0,0%,100%,.95)
+}
+
+.comic-list .list .comic-detail {
+    padding-left: .2133333333rem;
+    overflow: hidden
+}
+
+.comic-list .list .comic-desc-item {
+    margin-bottom: .1333333333rem
+}
+
+.comic-list .list .comic-desc-item .comic-name {
+    margin-bottom: 0;
+    max-width: 60%
+}
+
+.comic-list .list .comic-desc-item .comic-name a {
+    display: block
+}
+
+.comic-list .list .comic-desc-item .statistics {
+    max-width: 35%;
+    text-align: right
+}
+
+.comic-list .list .comic-type-item .comic-author {
+    float: left;
+    text-align: left;
+    max-width: 50%
+}
+
+.comic-list .list .comic-type-item .sort-list {
+    max-width: 50%;
+    float: right;
+    font-size: 0
+}
+
+.comic-list .list .comic-type-item .comic-author,.comic-list .list .comic-type-item .sort-list {
+    white-space: nowrap;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow: hidden
+}
+
+.comic-list .list .comic-type-item a {
+    display: inline-block;
+    margin-left: .0666666667rem;
+    font-size: .2666666667rem;
+    color: #999
+}
+
+.comic-list .statistics {
+    float: right
+}
+
+.comic-list .order {
+    float: left;
+    height: .8rem;
+    width: .8rem;
+    text-align: center;
+    line-height: .8rem;
+    color: #ddd;
+    font-size: .5333333333rem
+}
+
+.comic-list .comic-author,.comic-list .statistics {
+    font-size: .2666666667rem;
+    color: #999
+}
+
+.comic-name {
+    font-weight: 400;
+    margin-bottom: .1333333333rem
+}
+
+.comic-name a {
+    display: block;
+    font-size: .3733333333rem;
+    color: #333
+}
+
+.comic-author,.comic-name a {
+    white-space: nowrap;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow: hidden
+}
+
+.comic-rank-top {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -moz-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-align-content: stretch;
+    -ms-flex-line-pack: stretch;
+    align-content: stretch;
+    padding: .6933333333rem .88rem 1.68rem;
+    position: relative
+}
+
+.comic-rank-top .comic-detail {
+    text-align: center
+}
+
+.comic-rank-top .suspend {
+    position: absolute;
+    right: 0;
+    left: 0;
+    margin: auto;
+    text-align: center
+}
+
+.comic-rank-top .suspend span {
+    display: inline-block;
+    font-size: .2666666667rem
+}
+
+.comic-rank-top .suspend i {
+    margin: 0 .0533333333rem
+}
+
+.comic-rank-top .suspend i,.comic-rank-top .suspend span {
+    font-size: .32rem
+}
+
+.comic-rank-top .suspend .rank-num {
+    height: .3466666667rem;
+    line-height: .3733333333rem;
+    width: .3466666667rem;
+    -webkit-border-radius: .24rem;
+    -moz-border-radius: .24rem;
+    border-radius: .24rem;
+    text-align: center;
+    color: #fc6976;
+    background-color: #fff;
+    margin: 0 .1066666667rem
+}
+
+.comic-rank-top .comic-item {
+    -webkit-box-ordinal-group: 2;
+    -webkit-order: 1;
+    -moz-box-ordinal-group: 2;
+    -ms-flex-order: 1;
+    order: 1
+}
+
+.comic-rank-top .comic-item.top-1 {
+    width: 29.1262135922%
+}
+
+.comic-rank-top .comic-item.top-1 .suspend {
+    top: -.6933333333rem
+}
+
+.comic-rank-top .comic-item.top-1 .comic-cover {
+    border-width: 3px
+}
+
+.comic-rank-top .comic-item.top-2,.comic-rank-top .comic-item.top-3 {
+    width: 21.2389380531%
+}
+
+.comic-rank-top .comic-item.top-2 .suspend,.comic-rank-top .comic-item.top-3 .suspend {
+    top: -.64rem
+}
+
+.comic-rank-top .comic-item.top-2 {
+    -webkit-box-ordinal-group: 1;
+    -webkit-order: 0;
+    -moz-box-ordinal-group: 1;
+    -ms-flex-order: 0;
+    order: 0
+}
+
+.comic-rank-top .comic-item.top-1 .comic-name a,.comic-rank-top .comic-item.top-2 .comic-name a,.comic-rank-top .comic-item.top-3 .comic-name a {
+    color: #fff
+}
+
+.comic-rank-top .comic-images {
+    width: 100%
+}
+
+.comic-rank-top .comic-cover-link {
+    display: block;
+    position: relative;
+    width: 100%;
+    padding-bottom: 133.3333333333%;
+    margin-bottom: .2133333333rem
+}
+
+.comic-rank-top .comic-cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    border: 2.5px solid #fff;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+.rank-comic-bg {
+    height: 1.28rem;
+    width: 100%;
+    background-image: url(../imgs/rank-arc-bg.png);
+    background-repeat: no-repeat;
+    -moz-background-size: 100% auto;
+    -o-background-size: 100% auto;
+    background-size: 100% auto
+}
+.login {
+    padding: .5333333333rem;
+    min-height: 100%;
+    -webkit-border-radius: .16rem;
+    -moz-border-radius: .16rem;
+    border-radius: .16rem;
+    background: #fff;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+.login>.bd {
+    font-size: .96rem;
+    color: #fc6976;
+    background-color: #fff
+}
+
+.login .form-item-line {
+    position: relative;
+    height: 1.28rem;
+    padding-left: .96rem;
+    border-bottom: 1px solid #f5f5f5
+}
+
+.login .label {
+    width: 100%
+}
+
+.login .form-item_label {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: .96rem;
+    line-height: 1.28rem;
+    font-size: .64rem;
+    text-align: center;
+    cursor: pointer
+}
+
+.login .verify-send {
+    padding-right: 4.5866666667rem
+}
+
+.login .verify-input {
+    padding-right: 2.56rem
+}
+
+.login .form-item_input {
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
+    height: 100%;
+    line-height: .4rem;
+    font-size: .32rem;
+    color: #333;
+    border: 0
+}
+
+.login .form-item_input:focus {
+    border: 0;
+    outline: none
+}
+
+.login .image-code {
+    vertical-align: top;
+    cursor: pointer
+}
+
+.login .user-operate {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    height: .64rem;
+    line-height: .64rem;
+    margin-top: -.32rem
+}
+
+.login .user-operate label {
+    font-size: .4266666667rem
+}
+
+.login .btn-outline {
+    vertical-align: top;
+    height: .5866666667rem;
+    line-height: .5866666667rem;
+    font-size: .32rem;
+    color: #fc6976;
+    border: 1px solid #fc6976
+}
+
+.login>.ft {
+    margin-top: .8533333333rem
+}
+
+.login .third-login {
+    margin: .6666666667rem 0;
+    font-size: 0
+}
+
+.login .third-login>.item {
+    display: inline-block;
+    vertical-align: middle;
+    width: 1.2266666667rem;
+    height: 1.2266666667rem;
+    line-height: 1.2266666667rem;
+    margin: 0 .48rem;
+    text-align: center;
+    color: #fc6976;
+    border: 1px solid #fc6976;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    cursor: pointer
+}
+
+.login .third-login [class*=ift-] {
+    font-size: .64rem
+}
+
+.avatar-box {
+    text-align: center
+}
+
+.avatar-box .avatar {
+    width: 2.4266666667rem;
+    height: 2.4266666667rem;
+    margin: .5066666667rem 0
+}
+
+.layui-m-layermain .layui-m-layersection .layui-m-layer-login {
+    width: 7.2rem;
+    background-color: #fff;
+    -webkit-border-radius: .2133333333rem;
+    -moz-border-radius: .2133333333rem;
+    border-radius: .2133333333rem
+}
+
+.layui-m-layermain .sms-code-container {
+    padding: .8rem .5333333333rem 0;
+    font-size: .3733333333rem;
+    line-height: normal;
+    position: relative
+}
+
+.layui-m-layermain .sms-code-container .code-text {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: space-around;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-align-content: stretch;
+    -ms-flex-line-pack: stretch;
+    align-content: stretch
+}
+
+.layui-m-layermain .sms-code-container .sms-msg {
+    width: 3.7333333333rem
+}
+
+.layui-m-layermain .sms-code-container .sms-text {
+    width: 2.08rem;
+    height: 1.2rem;
+    line-height: 1.2rem;
+    text-align: center;
+    font-size: .64rem;
+    color: #c80000;
+    background: -webkit-gradient(linear,left top,left bottom,color-stop(6%,#ff8174),color-stop(77%,#ffce70));
+    background: -webkit-linear-gradient(top,#ff8174 6%,#ffce70 77%);
+    background: -moz-linear-gradient(top,#ff8174 6%,#ffce70 77%);
+    background: -o-linear-gradient(top,#ff8174 6%,#ffce70 77%);
+    background: linear-gradient(-180deg,#ff8174 6%,#ffce70 77%);
+    border: 1px solid #e5e5e5;
+    -webkit-border-radius: .0533333333rem;
+    -moz-border-radius: .0533333333rem;
+    border-radius: .0533333333rem
+}
+
+.layui-m-layermain .sms-code-container .code-text {
+    margin-bottom: .4266666667rem
+}
+
+.layui-m-layermain .sms-code-container .code-img-wap {
+    width: 6.1333333333rem;
+    height: 2.6666666667rem;
+    margin-bottom: .4266666667rem;
+    position: relative;
+    overflow: hidden;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 1px
+}
+
+.layui-m-layermain .sms-code-container .code-img-wap img {
+    width: 100%;
+    -webkit-border-radius: .0533333333rem;
+    -moz-border-radius: .0533333333rem;
+    border-radius: .0533333333rem;
+    border: 1px solid #e5e5e5;
+    max-height: 100%
+}
+
+.layui-m-layermain .sms-code-container .code-img-wap .refresh {
+    display: block;
+    height: 1.0666666667rem;
+    width: 1.0666666667rem;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,.5) url(/static/images/login/refresh.png) no-repeat 50%;
+    -moz-background-size: .5333333333rem .5333333333rem;
+    -o-background-size: .5333333333rem .5333333333rem;
+    background-size: .5333333333rem .5333333333rem;
+    -webkit-border-top-left-radius: .1066666667rem;
+    -moz-border-radius-topleft: .1066666667rem;
+    border-top-left-radius: .1066666667rem
+}
+
+.layui-m-layermain .sms-code-container .code-img-wap .points-item {
+    display: block;
+    position: absolute;
+    height: .3733333333rem;
+    line-height: .3733333333rem;
+    font-size: .2666666667rem;
+    text-align: center;
+    width: .3733333333rem;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    background: #83da35;
+    color: #fff
+}
+
+.layui-m-layermain .sms-code-container .layui-header-img {
+    width: 3.8133333333rem;
+    height: 1.9466666667rem;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    -webkit-transform: translate(-50%,-92%);
+    -moz-transform: translate(-50%,-92%);
+    -ms-transform: translate(-50%,-92%);
+    -o-transform: translate(-50%,-92%);
+    transform: translate(-50%,-92%)
+}
+
+.layui-m-layermain .sms-code-container .layui-header-img img {
+    width: 100%;
+    height: 100%
+}
+
+.layui-m-layermain .layui-m-layerbtn {
+    height: 1.2rem;
+    line-height: 1.2rem;
+    background-color: #fff;
+    -webkit-border-bottom-left-radius: .2133333333rem;
+    -moz-border-radius-bottomleft: .2133333333rem;
+    border-bottom-left-radius: .2133333333rem;
+    -webkit-border-bottom-right-radius: .2133333333rem;
+    -moz-border-radius-bottomright: .2133333333rem;
+    border-bottom-right-radius: .2133333333rem
+}
+
+.layui-m-layermain .layui-m-layerbtn span,.layui-m-layermain .layui-m-layerbtn span[yes] {
+    color: #555;
+    font-size: .3733333333rem
+}
+.icon-user-blueticket,.icon-user-booklist,.icon-user-bookrack,.icon-user-bookstar,.icon-user-coins,.icon-user-collect,.icon-user-contact,.icon-user-crystal,.icon-user-diamond,.icon-user-doubleheart,.icon-user-exit,.icon-user-feedback,.icon-user-gift,.icon-user-good,.icon-user-heartlove,.icon-user-login,.icon-user-orangeticket,.icon-user-peoplelove,.icon-user-prize,.icon-user-recommend,.icon-user-share,.icon-user-shopping,.icon-user-sign,.icon-user-ticket,.icon-user-windmill {
+    display: inline-block;
+    background-image: url(../imgs//sprite.user.4a48e@2x.png);
+    background-repeat: no-repeat;
+    -moz-background-size: 4.2133333333rem 3.52rem;
+    -o-background-size: 4.2133333333rem 3.52rem;
+    background-size: 4.2133333333rem 3.52rem
+}
+
+.icon-user-blueticket {
+    width: .48rem;
+    height: .48rem;
+    background-position: -2.9866666667rem -2.24rem
+}
+
+.icon-user-booklist {
+    width: .64rem;
+    height: .64rem;
+    background-position: 0 -2.1333333333rem
+}
+
+.icon-user-bookrack {
+    width: .64rem;
+    height: .64rem;
+    background-position: -.7466666667rem -2.1333333333rem
+}
+
+.icon-user-bookstar {
+    width: .64rem;
+    height: .64rem;
+    background-position: -1.4933333333rem -2.1333333333rem
+}
+
+.icon-user-coins {
+    width: .7466666667rem;
+    height: .7466666667rem;
+    background-position: -1.28rem 0
+}
+
+.icon-user-collect {
+    width: .48rem;
+    height: .48rem;
+    background-position: -2.9866666667rem -2.88rem
+}
+
+.icon-user-contact {
+    width: .64rem;
+    height: .64rem;
+    background-position: -2.24rem -2.1333333333rem
+}
+
+.icon-user-crystal {
+    background-position: 0 -1.28rem
+}
+
+.icon-user-crystal,.icon-user-diamond {
+    width: .7466666667rem;
+    height: .7466666667rem
+}
+
+.icon-user-diamond {
+    background-position: -.8533333333rem -1.28rem
+}
+
+.icon-user-doubleheart {
+    width: .48rem;
+    height: .48rem;
+    background-position: -3.7333333333rem 0
+}
+
+.icon-user-exit {
+    width: .64rem;
+    height: .64rem;
+    background-position: -2.9866666667rem 0
+}
+
+.icon-user-feedback {
+    width: .64rem;
+    height: .64rem;
+    background-position: -2.9866666667rem -.7466666667rem
+}
+
+.icon-user-gift {
+    width: .48rem;
+    height: .48rem;
+    background-position: -3.7333333333rem -.5866666667rem
+}
+
+.icon-user-good {
+    width: .48rem;
+    height: .48rem;
+    background-position: -3.7333333333rem -1.1733333333rem
+}
+
+.icon-user-heartlove {
+    width: .64rem;
+    height: .64rem;
+    background-position: -2.9866666667rem -1.4933333333rem
+}
+
+.icon-user-login {
+    width: .64rem;
+    height: .64rem;
+    background-position: 0 -2.88rem
+}
+
+.icon-user-orangeticket {
+    width: .48rem;
+    height: .48rem;
+    background-position: -3.7333333333rem -1.76rem
+}
+
+.icon-user-peoplelove {
+    width: .64rem;
+    height: .64rem;
+    background-position: -.7466666667rem -2.88rem
+}
+
+.icon-user-prize {
+    width: .48rem;
+    height: .48rem;
+    background-position: -3.7333333333rem -2.3466666667rem
+}
+
+.icon-user-recommend {
+    width: .7466666667rem;
+    height: .7466666667rem;
+    background-position: -2.1333333333rem 0
+}
+
+.icon-user-share {
+    width: .48rem;
+    height: .48rem;
+    background-position: -3.7333333333rem -2.9333333333rem
+}
+
+.icon-user-shopping {
+    width: .64rem;
+    height: .64rem;
+    background-position: -1.4933333333rem -2.88rem
+}
+
+.icon-user-sign {
+    width: 1.1733333333rem;
+    height: 1.1733333333rem;
+    background-position: 0 0
+}
+
+.icon-user-ticket {
+    width: .7466666667rem;
+    height: .7466666667rem;
+    background-position: -2.1333333333rem -.8533333333rem
+}
+
+.icon-user-windmill {
+    width: .64rem;
+    height: .64rem;
+    background-position: -2.24rem -2.88rem
+}
+
+body {
+    cursor: pointer;
+    background: #f5f5f5
+}
+
+body,html {
+    height: 100%;
+    width: 100%
+}
+
+.mine-wrap {
+    top: 0;
+    overflow: hidden
+}
+
+.footer,.mine-wrap {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%
+}
+
+.mine-hat {
+    position: relative;
+    z-index: 1;
+    height: 2.88rem;
+    background: url(../imgs/bg_kanmanhua.png) repeat-x;
+    -moz-background-size: auto 100%;
+    -o-background-size: auto 100%;
+    background-size: auto 100%;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none
+}
+
+.mine-hat .sign-entry {
+    position: absolute;
+    z-index: 2;
+    top: .2666666667rem;
+    right: .2666666667rem
+}
+
+.mine-main {
+    position: relative;
+    z-index: 2;
+    margin-bottom: .2666666667rem;
+    background-color: #fff;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none
+}
+
+.mine-main .my-face {
+    position: absolute;
+    z-index: 3;
+    left: 50%;
+    top: -1.1733333333rem;
+    padding: .16rem;
+    margin-left: -1.1733333333rem;
+    background-color: #fff
+}
+
+.mine-main .my-face,.mine-main .my-face .circle {
+    height: 2.0266666667rem;
+    width: 2.0266666667rem;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%
+}
+
+.mine-main .my-face .circle {
+    overflow: hidden
+}
+
+.mine-main .my-face .circle .face {
+    display: block;
+    height: 2.0266666667rem;
+    width: 2.0266666667rem
+}
+
+.mine-main .my-face .sex {
+    position: absolute;
+    right: 0;
+    bottom: .2133333333rem;
+    height: .48rem;
+    width: .48rem;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    overflow: hidden;
+    text-align: center;
+    font-size: .3733333333rem;
+    line-height: .4rem;
+    background-color: #fff
+}
+
+.mine-main .my-face .sex i.sex-blue {
+    color: #009eec
+}
+
+.mine-main .my-face .sex i.sex-primary {
+    color: #fc6976
+}
+
+.mine-main .my-friend {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    height: .8rem;
+    margin-bottom: .3733333333rem;
+    color: #666
+}
+
+.mine-main .my-friend .split {
+    display: block;
+    width: 2.3466666667rem
+}
+
+.mine-main .my-friend .friend {
+    display: block;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -moz-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    height: .8rem;
+    font-size: .32rem;
+    text-align: center;
+    line-height: .8rem
+}
+
+.mine-main .my-info {
+    padding: .2666666667rem 0;
+    text-align: center
+}
+
+.mine-main .my-info .title {
+    height: .64rem;
+    margin: 0;
+    font-size: .4266666667rem;
+    line-height: .64rem;
+    white-space: nowrap
+}
+
+.mine-main .my-info .title .name {
+    font-weight: 500
+}
+
+.mine-main .my-info .title .name-user {
+    color: #fc6976
+}
+
+.mine-main .my-info .title .name-visitor {
+    color: #444
+}
+
+.mine-main .my-info .title .tag {
+    display: inline-block;
+    height: .48rem;
+    padding: 0 .1333333333rem;
+    -webkit-border-radius: .1066666667rem;
+    -moz-border-radius: .1066666667rem;
+    border-radius: .1066666667rem;
+    font-size: .2666666667rem;
+    line-height: .48rem;
+    font-weight: 500;
+    text-align: center;
+    vertical-align: .0266666667rem;
+    font-family: Tahoma,arial,SimSun,sans-serif;
+    color: #fff;
+    background-color: #ff7647
+}
+
+.mine-main .my-info .desc,.mine-main .my-info .uid {
+    height: .48rem;
+    margin: 0;
+    font-size: .32rem;
+    line-height: .48rem;
+    font-weight: 300;
+    white-space: nowrap;
+    color: #b6b6b6
+}
+
+.mine-main .my-property {
+    height: 1.4933333333rem;
+    padding: 0 .2666666667rem
+}
+
+.mine-main .my-property,.mine-main .my-property .block {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex
+}
+
+.mine-main .my-property .block {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -moz-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -moz-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    height: 1.0666666667rem;
+    padding: .2133333333rem .1333333333rem;
+    overflow: hidden;
+    color: #444;
+    background-color: #fff;
+    -webkit-transition: background-color .1s ease-out;
+    -o-transition: background-color .1s ease-out;
+    -moz-transition: background-color .1s ease-out;
+    transition: background-color .1s ease-out
+}
+
+.mine-main .my-property .block:active {
+    background-color: #f2f2f2
+}
+
+.mine-main .my-property .block .mark {
+    margin-right: .08rem
+}
+
+.mine-main .my-property .block .text {
+    display: block;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -moz-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    height: 1.0666666667rem;
+    font-size: .32rem;
+    line-height: 1.0666666667rem;
+    white-space: nowrap;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow: hidden
+}
+
+.mine-func {
+    padding-bottom: 1.7066666667rem;
+    display: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none
+}
+
+.mine-func .link-row {
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -moz-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    height: .9333333333rem;
+    padding: .1733333333rem 1.0666666667rem .1733333333rem .2666666667rem;
+    border-bottom: 1px solid #f5f5f5;
+    background-color: #fff;
+    -webkit-transition: background-color .1s ease-out;
+    -o-transition: background-color .1s ease-out;
+    -moz-transition: background-color .1s ease-out;
+    transition: background-color .1s ease-out;
+    text-decoration: none;
+    color: #333
+}
+
+.mine-func .link-row:active {
+    background-color: #f5f5f5
+}
+
+.mine-func .link-row .arrow {
+    position: absolute;
+    right: .2666666667rem;
+    top: .1733333333rem;
+    display: block;
+    height: .9333333333rem;
+    width: .8rem;
+    font-size: .3733333333rem;
+    line-height: .9333333333rem;
+    text-align: right;
+    color: #ddd
+}
+
+.mine-func .link-row .mark {
+    margin-right: .16rem
+}
+
+.mine-func .link-row .text {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -moz-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    height: .9333333333rem;
+    font-size: .4rem
+}
+
+.mine-func .link-row .hint,.mine-func .link-row .text {
+    display: block;
+    line-height: .9333333333rem;
+    white-space: nowrap;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow: hidden
+}
+
+.mine-func .link-row .hint {
+    height: .9333333333rem;
+    height: 2rem;
+    font-size: .2933333333rem;
+    text-align: right;
+    color: #ddd
+}
+

@@ -1,9 +1,12 @@
 <footer class="view-footer">
     <div class="footer-nav">
         <ul class="nav-list">
-            <li class="item"><a href="/news/zixun/" title="发现">
-                    <figure class="figure"><i class="icon-manhuaquan"></i>
-                        <figcaption class="text">发现</figcaption>
+            <li class="item <!--{if $c=='category'}-->active<!--{/if}-->"><a href="<!--{url mod='category'}-->"
+                    title="<!--{__ 分类}-->">
+                    <figure class="figure"><i class="icon-manhuaquan<!--{if $c=='category'}-->_choice<!--{/if}-->"></i>
+                        <figcaption class="text">
+                            <!--{__ 分类}-->
+                        </figcaption>
                     </figure>
                 </a></li>
             <!-- <li class="item"><a href="/gengxin/" title="更新">
@@ -11,19 +14,28 @@
                         <figcaption class="text">更新</figcaption>
                     </figure>
                 </a></li> -->
-            <li class="item home active"><a href="/" title="首页" rel="nofollow">
+            <li class="item home <!--{if $c=='index'}-->active<!--{/if}-->"><a href="/" title="<!--{__ 首页}-->"
+                    rel="nofollow">
                     <figure class="figure"><i class="icon-tuijian_ball"></i>
-                        <figcaption class="text">首页</figcaption>
+                        <figcaption class="text">
+                            <!--{__ 首页}-->
+                        </figcaption>
                     </figure>
                 </a></li>
-            <li class="item"><a href="/uc/bookrack.html" acgn-auth="login" title="书架" rel="nofollow">
-                    <figure class="figure"><i class="icon-shujia"></i>
-                        <figcaption class="text">书架</figcaption>
+            <li class="item <!--{if $c=='rack'}-->active<!--{/if}-->"><a href="<!--{url mod='rack'}-->"
+                    acgn-auth="login" title="<!--{__ 书架}-->" rel="nofollow">
+                    <figure class="figure"><i class="icon-shujia<!--{if $c=='rack'}-->_choice<!--{/if}-->"></i>
+                        <figcaption class="text">
+                            <!--{__ 书架}-->
+                        </figcaption>
                     </figure>
                 </a></li>
-            <li class="item"><a href="/uc/" title="我的" rel="nofollow">
-                    <figure class="figure"><i class="icon-myself"></i>
-                        <figcaption class="text">我的</figcaption>
+            <li class="item <!--{if $c=='me'}-->active<!--{/if}-->"><a href="<!--{url mod='me'}-->"
+                    title="<!--{__ 我的}-->" rel="nofollow">
+                    <figure class="figure"><i class="icon-myself<!--{if $c=='me'}-->_choice<!--{/if}-->"></i>
+                        <figcaption class="text">
+                            <!--{__ 我的}-->
+                        </figcaption>
                     </figure>
                 </a></li>
         </ul>
