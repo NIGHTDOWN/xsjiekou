@@ -5,7 +5,7 @@ namespace ng169\lib;
 use ng169\Y;
 
 checktop();
-class Option extends Y
+class Option 
 {
 
   private static $config = [];
@@ -18,7 +18,7 @@ class Option extends Y
   public static function get($optionname = '')
   {
     if (!$optionname) {
-      return $config;
+      return '';
     }
     $options = explode('.',$optionname);
     $conf    = self::$config;
@@ -70,6 +70,7 @@ class Option extends Y
 
       }
     }
+    // d(self::$config);
     //加载站点设置
     /* self::loadcache();*/
   }

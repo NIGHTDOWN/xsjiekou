@@ -1,384 +1,502 @@
-<!DOCTYPE html>
-<html>
+<html style="font-size: 41.1px;">
 
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Language" content="zh-CN">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <title>
+        <!--{__ LoveNovel}-->
+    </title>
+    <meta name="keywords" content="<!--{__ 多语言免费、流行、浪漫、小说,漫画阅读器.}-->">
+    <meta name="description" itemprop="description"
+        content="<!--{__ LoveNovel一直坚持提供小说漫画免费阅读。看小说、看漫画，为阅读而生，就上LoveNovel}-->">
+
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="canonical" href="http://www.love-novel.com/">
+    <meta name="applicable-device" content="mobile">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta name="browsermode" content="application">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#999">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="full-screen" content="yes">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="360-fullscreen" content="true">
+    <meta name="browsermode" content="application">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="x5-pagetype" content="webapp">
+
+    <script src="<!--{$indextpl}-->js/jquery.min.js"></script>
+    <script src="<!--{$indextpl}-->js/swiper.min.js"></script>
+
+    <script src="<!--{$static}-->js/night_Trad.v1.0.js"></script>
+    <script src="<!--{$indextpl}-->js/web.js"></script>
+    <script>
+        function isMobileHanddle() { var e = navigator.userAgent; return (screen.width / screen.height < 1 || /AppleWebKit.*Mobile/i.test(e) || /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(e)) && !/ipad/gi.test(e) } var host = location.host; isMobileHanddle() || "m" !== host.substr(0, host.indexOf(".")) || (location.href = location.href.replace("//m.", "//www.")), top.location != location && (top.location = location.href), function (i, e) { function t() { var e = o.getBoundingClientRect().width; 540 < e / s && (e = 540 * s); var t = e / 10; o.style.fontSize = t + "px", m.rem = i.rem = t } var a, n = i.document, o = n.documentElement, r = n.querySelector('meta[name="viewport"]'), l = n.querySelector('meta[name="flexible"]'), s = 0, d = 0, m = e.flexible || (e.flexible = {}); if (r) { console.warn("将根据已有的meta标签来设置缩放比例"); var c = r.getAttribute("content").match(/initial\-scale=([\d\.]+)/); c && (d = parseFloat(c[1]), s = parseInt(1 / d)) } else if (l) { var p = l.getAttribute("content"); if (p) { var u = p.match(/initial\-dpr=([\d\.]+)/), f = p.match(/maximum\-dpr=([\d\.]+)/); u && (s = parseFloat(u[1]), d = parseFloat((1 / s).toFixed(2))), f && (s = parseFloat(f[1]), d = parseFloat((1 / s).toFixed(2))) } } if (!s && !d) { var h = (i.navigator.appVersion.match(/android/gi), i.navigator.appVersion.match(/iphone/gi)), v = i.devicePixelRatio; d = 1 / (s = h ? 3 <= v && (!s || 3 <= s) ? 3 : 2 <= v && (!s || 2 <= s) ? 2 : 1 : 1) } if (o.setAttribute("data-dpr", s), !r) if ((r = n.createElement("meta")).setAttribute("name", "viewport"), r.setAttribute("content", "initial-scale=" + d + ", maximum-scale=" + d + ", minimum-scale=" + d + ", user-scalable=no"), o.firstElementChild) o.firstElementChild.appendChild(r); else { var b = n.createElement("div"); b.appendChild(r), n.write(b.innerHTML) } i.addEventListener("resize", function () { clearTimeout(a), a = setTimeout(t, 300) }, !1), i.addEventListener("pageshow", function (e) { e.persisted && (clearTimeout(a), a = setTimeout(t, 300)) }, !1), "complete" === n.readyState ? n.body.style.fontSize = 12 * s + "px" : n.addEventListener("DOMContentLoaded", function () { n.body.style.fontSize = 12 * s + "px" }, !1), t(), m.dpr = i.dpr = s, m.refreshRem = t, m.rem2px = function (e) { var t = parseFloat(e) * this.rem; return "string" == typeof e && e.match(/rem$/) && (t += "px"), t }, m.px2rem = function (e) { var t = parseFloat(e) / this.rem; return "string" == typeof e && e.match(/px$/) && (t += "rem"), t } }(window, window.lib || (window.lib = {})), window.shareConf = null</script>
+    <link href="<!--{$indextpl}-->css/vendor.38cae4.css" rel="stylesheet">
+    <link href="<!--{$indextpl}-->css/entry.index.53baaf.css" rel="stylesheet">
+    <link href="<!--{$indextpl}-->css/swiper.min.css" rel="stylesheet">
+</head>
+
+<body style="font-size: 12px;">
+
+    <section class="view-port">
+        <div class="btn-search" style="margin-top: 48px;">
+            <i class="ift-search"></i>
+        </div>
+        <article class="view-body" id="js_body">
+            <section class="book-main" id="js_main_box" data-pagesize="14">
+                <div class="book-content" id="js_content">
+                    <div data-tpl="74" data-type="6" class="mult dow tpl-74">
+                        <div class="mult-body">
+                            <div
+                                class="mult-warp diw swiper-container swiper-container-horizontal swiper-container-initialized swiper-container-android">
+                                <div class="swiper-wrapper" style="width: 100%;">
+                                    <div class="swiper-slide"><img class="lazy-image"
+                                            src="http://cms.samanlehua.com/cms/chendan/ed04d250-3d10-11ec-9aa2-c999b1672f22.jpeg"
+                                            alt="逆天剑神,逆天剑神漫画">
+                                    </div>
+                                    <div class="swiper-slide"><img class="lazy-image"
+                                            src="http://cms.samanlehua.com/cms/chendan/ed04d250-3d10-11ec-9aa2-c999b1672f22.jpeg"
+                                            alt="逆天剑神,逆天剑神漫画">
+                                    </div>
+                                </div>
+                                <div class="cat-ear"></div>
+                                <!-- 如果需要分页器 -->
+                                <div class="swiper-pagination"></div>
 
 
+                            </div>
+                        </div>
+                    </div>
+                    <div data-tpl="50" class="mult bow tpl-temp tpl-50">
+                        <div class="mult-body">
+                            <ul class="mult-warp biw">
+
+                                <li class="card r1c3"><a href="<!--{url mod='top'}-->" title="<!--{__ 排行}-->">
+                                        <div class="inner-bpd no-pad-top">
+                                            <div class="card-graph r16x16"><img class="lazy-image" alt="<!--{__ 排行}-->"
+                                                    src="<!--{$indextpl}-->imgs/25933.webp"
+                                                    style="background: url('<!--{$indextpl}-->imgs/25933.webp') center center / cover no-repeat; opacity: 1;">
+                                            </div>
+                                        </div>
+                                        <div class="title-tc title-fsz28">
+                                            <!--{__ 排行}-->
+                                        </div>
+                                    </a></li>
+                                <li class="card r1c3"><a href="<!--{url mod='categroy'}-->" title="<!--{__ 分类}-->">
+                                        <div class="inner-bpd no-pad-top">
+                                            <div class="card-graph r16x16"><img class="lazy-image" alt="<!--{__ 分类}-->"
+                                                    src="<!--{$indextpl}-->imgs/25935.webp"
+                                                    style="background: url(&quot;<!--{$indextpl}-->imgs/25935.webp&quot;) center center / cover no-repeat; opacity: 1;">
+                                            </div>
+                                        </div>
+                                        <div class="title-tc title-fsz28">
+                                            <!--{__ 分类}-->
+                                        </div>
+                                    </a></li>
+                                <li class="card r1c3"><a href="<!--{url mod='down' action='page'}-->"
+                                        title="<!--{__ 下载app}-->">
+                                        <div class="inner-bpd no-pad-top">
+                                            <div class="card-graph r16x16"><img class="lazy-image"
+                                                    alt="<!--{__ 下载app}-->" src="<!--{$indextpl}-->imgs/25937.webp"
+                                                    style="background: url(&quot;<!--{$indextpl}-->imgs/25937.webp&quot;) center center / cover no-repeat; opacity: 1;">
+                                            </div>
+                                        </div>
+                                        <div class="title-tc title-fsz28">
+                                            <!--{__ 下载app}-->
+                                        </div>
+                                    </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div data-tpl="25" class="mult sow">
+                        <div class="mult-head">
+                            <h2 class="left mult-caption"><span class="mult-title">
+                                    <!--{__ 最近更新·小说}-->
+                                </span></h2>
+                            <div class="mult-style-func">
+                                <div class="mult-change" key="495356" horizonratio="3:4"><i class="icon-change"></i>
+                                </div><a class="mult-more" href="<!--{url mod=" book" action=' new' }-->'"
+                                    title="
+                                    <!--{__ 最近更新·小说}-->">
+                                    <!--{__ 更多}-->
+                                </a>
+                            </div>
+                        </div>
+                        <div class="mult-body">
+                            <ul class="mult-warp siw">
+
+                                <!--{foreach $newbook as $volist}-->
+                                <li class="card r1c3"><a
+                                        href='<!--{url mod="book" args="bookid:{$volist.book_id},title:{$volist.other_name}" }-->'
+                                        title="<!--{$volist.other_name}-->">
+                                        <div class="card-graph r3x4"><img class="lazy-image"
+                                                src="<!--{$indextpl}-->imgs/space.gif" alt="<!--{$volist.other_name}-->"
+                                                style="background: url('<!--{$volist.bpic}-->') center center / cover no-repeat; opacity: 1;">
+                                        </div>
+                                        <div class="card-title">
+                                            <!--{$volist.other_name}-->
+                                        </div>
+                                        <div class="card-text">
+                                            <!--{$volist.desc}-->
+                                        </div>
+                                    </a></li>
+                                <!--{/foreach}-->
+                            </ul>
+                        </div>
+                    </div>
+                    <div data-tpl="2" class="tpl-2 mult sow">
+                        <div class="mult-head">
+                            <h2 class="left mult-caption"><span class="mult-title">
+                                    <!--{__ 最近更新·漫画}-->
+                                </span></h2>
+                            <div class="mult-style-func">
+                                <div class="mult-change" horizonratio="3:4"><i class="icon-change"></i>
+                                </div><a class="mult-more" href='<!--{url mod="catoon" action=' new'}-->'
+                                    title="
+                                    <!--{__ 最近更新·漫画}-->">
+                                    <!--{__ 更多}-->
+                                </a>
+                            </div>
+                        </div>
+                        <div class="mult-body">
+                            <ul class="mult-warp siw">
+                                <!--{foreach $newcartoon as $volist}-->
+                                <li class="card r1c3"><a
+                                        href='<!--{url mod="catoon" args="bookid:{$volist.book_id},title:{$volist.other_name}" }-->'
+                                        title="<!--{$volist.other_name}-->">
+                                        <div class="card-graph r3x4"><img class="lazy-image"
+                                                src="<!--{$indextpl}-->imgs/space.gif" alt="<!--{$volist.desc}-->"
+                                                style="background: url('<!--{$volist.bpic}-->') center center / cover no-repeat; opacity: 1;">
+                                            <div class="abs-bottom">
+                                                <div class="card-title">
+                                                    <!--{$volist.other_name}-->
+                                                </div>
+                                                <ul class="tags-list">
+                                                    <li class="item">热血</li>
+                                                    <li class="item">穿越</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="card-text"><i class="lbl-bar ift-fire"></i>
+                                            <!--{$volist.hits*1000}-->
+                                            <!--{__ 万}-->
+                                        </div>
+                                    </a></li>
+                                <!--{/foreach}-->
+                            </ul>
+                        </div>
+                    </div>
+                    <div data-tpl="25" class="mult sow">
+                        <div class="mult-head">
+                            <h2 class="left mult-caption"><span class="mult-title">
+                                    <!--{__ 人气爆款·小说}-->
+                                </span></h2>
+                            <div class="mult-style-func">
+                                <div class="mult-change" key="495356" horizonratio="3:4"><i class="icon-change"></i>
+                                </div><a class="mult-more" href="<!--{url mod=" book" action=' hot' }-->'"
+                                    title="
+                                    <!--{__ 人气爆款·小说}-->">
+                                    <!--{__ 更多}-->
+                                </a>
+                            </div>
+                        </div>
+                        <div class="mult-body">
+                            <ul class="mult-warp siw">
+
+                                <!--{foreach $hotbook as $volist}-->
+                                <li class="card r1c3"><a
+                                        href='<!--{url mod="book" args="bookid:{$volist.book_id},title:{$volist.other_name}" }-->'
+                                        title="<!--{$volist.other_name}-->">
+                                        <div class="card-graph r3x4"><img class="lazy-image"
+                                                src="<!--{$indextpl}-->imgs/space.gif" alt="<!--{$volist.other_name}-->"
+                                                style="background: url('<!--{$volist.bpic}-->') center center / cover no-repeat; opacity: 1;">
+                                        </div>
+                                        <div class="card-title">
+                                            <!--{$volist.other_name}-->
+                                        </div>
+                                        <div class="card-text">
+                                            <!--{$volist.desc}-->
+                                        </div>
+                                    </a></li>
+                                <!--{/foreach}-->
+                            </ul>
+                        </div>
+                    </div>
+                    <div data-tpl="2" class="tpl-2 mult sow">
+                        <div class="mult-head">
+                            <h2 class="left mult-caption"><span class="mult-title">
+                                    <!--{__ 人气爆款·漫画}-->
+                                </span></h2>
+                            <div class="mult-style-func">
+                                <div class="mult-change" horizonratio="3:4"><i class="icon-change"></i>
+                                </div><a class="mult-more" href='<!--{url mod="catoon" action=' hot'}-->'
+                                    title="
+                                    <!--{__ 人气爆款·漫画}-->">
+                                    <!--{__ 更多}-->
+                                </a>
+                            </div>
+                        </div>
+                        <div class="mult-body">
+                            <ul class="mult-warp siw">
+                                <!--{foreach $hotcartoon as $volist}-->
+                                <li class="card r1c3"><a
+                                        href='<!--{url mod="catoon" args="bookid:{$volist.book_id},title:{$volist.other_name}" }-->'
+                                        title="<!--{$volist.other_name}-->">
+                                        <div class="card-graph r3x4"><img class="lazy-image"
+                                                src="<!--{$indextpl}-->imgs/space.gif" alt="<!--{$volist.desc}-->"
+                                                style="background: url('<!--{$volist.bpic}-->') center center / cover no-repeat; opacity: 1;">
+                                            <div class="abs-bottom">
+                                                <div class="card-title">
+                                                    <!--{$volist.other_name}-->
+                                                </div>
+                                                <ul class="tags-list">
+                                                    <li class="item">热血</li>
+                                                    <li class="item">穿越</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="card-text"><i class="lbl-bar ift-fire"></i>
+                                            <!--{$volist.hits*1000}-->
+                                            <!--{__ 万}-->
+                                        </div>
+                                    </a></li>
+                                <!--{/foreach}-->
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div data-tpl="62" class="mult sow tpl-temp tpl-62">
+                        <div class="mult-head">
+                            <h2 class="left mult-caption"><span class="mult-title">
+                                    <!--{__ 完结小说，一看到底}-->
+                                </span></h2>
+                            <div class="mult-style-func">
+                                <div class="mult-change" key="495400" horizonratio="3:4"><i class="icon-change"></i>
+                                </div><a class="mult-more" href="<!--{url mod=" catoon" action=' end' }-->" title="
+                                    <!--{__ 完结小说，一看到底}-->">
+                                    <!--{__ 更多}-->
+                                </a>
+                            </div>
+                        </div>
+                        <div class="mult-body">
+                            <ul class="mult-warp siw">
+                                <!--{foreach $endbook as $volist}-->
+                                <!--{if $volist.big}-->
+                                <li class="card r1c69 "><a
+                                        href='<!--{url mod="book" args="bookid:{$volist.book_id},title:{$volist.other_name}" }-->'
+                                        title="<!--{$volist.other_name}-->">
+                                        <div class="card-graph r16x9"><img class="lazy-image"
+                                                src="<!--{$indextpl}-->imgs/space.gif" alt="<!--{$volist.other_name}-->"
+                                                style="background: url(&quot;<!--{if $volist.share_banner}--><!--{$volist.share_banner}--><!--{else}--><!--{$volist.bpic}--><!--{/if}-->&quot;) center center / cover no-repeat; opacity: 1;">
+                                        </div>
+                                        <div class="card-title">
+                                            <!--{$volist.other_name}-->
+                                        </div>
+                                    </a></li>
+                                <!--{else}-->
+                                <li class="card r1c31"><a
+                                        href='<!--{url mod="book" args="bookid:{$volist.book_id},title:{$volist.other_name}" }-->'
+                                        title="<!--{$volist.other_name}-->">
+                                        <div class="card-graph r3x4"><img class="lazy-image"
+                                                src="<!--{$indextpl}-->imgs/space.gif" alt="<!--{$volist.other_name}-->"
+                                                style="background: url(&quot;<!--{$volist.bpic}-->&quot;) center center / cover no-repeat; opacity: 1;">
+                                        </div>
+                                        <div class="card-title">
+                                            <!--{$volist.other_name}-->
+                                        </div>
+                                    </a></li>
+                                <!--{/if}-->
+
+                                <!--{/foreach}-->
 
 
-    <meta data-n-head="true" name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
-    <title>LookStory -novels,comic</title>
-    <meta property="og:title" content="LookStory -novels,comic">
-    <meta property="og:image" content="http://api.lookstory.xyz/<!--{$indextpl}-->/imgs/logo.png">
-    <meta property="og:site_name" content="LookStory -novels,comic">
-    <meta property="og:url" content="http://lookstory.xyz">
-    <!-- TODO: 标题 -->
-    <meta property="og:title" content="LookStory">
-    <!-- TODO: 描述 -->
-    <meta property="og:description" content="Support multilingual reading of popular romantic novels, free online.">
-    <!-- TODO: 分享时显示的图片, 具体要求 ➡ https://developers.facebook.com/docs/sharing/best-practices#images -->
+                            </ul>
+                        </div>
+                    </div>
+                    <div data-tpl="62" class="mult sow tpl-temp tpl-62">
+                        <div class="mult-head">
+                            <h2 class="left mult-caption"><span class="mult-title">
+                                    <!--{__ 完结漫画，一看到底}-->
+                                </span></h2>
+                            <div class="mult-style-func">
+                                <div class="mult-change" key="495400" horizonratio="3:4"><i class="icon-change"></i>
+                                </div><a class="mult-more" href="<!--{url mod=" catoon" action=' end' }-->" title="
+                                    <!--{__ 完结漫画，一看到底}-->">
+                                    <!--{__ 更多}-->
+                                </a>
+                            </div>
+                        </div>
+                        <div class="mult-body">
+                            <ul class="mult-warp siw">
+                                <!--{foreach $endcartoon as $volist}-->
+                                <!--{if $volist.big}-->
+                                <li class="card r1c69 "><a
+                                        href='<!--{url mod="catoon" args="bookid:{$volist.book_id},title:{$volist.other_name}" }-->'
+                                        title="<!--{$volist.other_name}-->">
+                                        <div class="card-graph r16x9"><img class="lazy-image"
+                                                src="<!--{$indextpl}-->imgs/space.gif" alt="<!--{$volist.other_name}-->"
+                                                style="background: url(&quot;<!--{if $volist.share_banner}--><!--{$volist.share_banner}--><!--{else}--><!--{$volist.bpic}--><!--{/if}-->&quot;) center center / cover no-repeat; opacity: 1;">
+                                        </div>
+                                        <div class="card-title">
+                                            <!--{$volist.other_name}-->
+                                        </div>
+                                    </a></li>
+                                <!--{else}-->
+                                <li class="card r1c31"><a
+                                        href='<!--{url mod="catoon" args="bookid:{$volist.book_id},title:{$volist.other_name}" }-->'
+                                        title="<!--{$volist.other_name}-->">
+                                        <div class="card-graph r3x4"><img class="lazy-image"
+                                                src="<!--{$indextpl}-->imgs/space.gif" alt="<!--{$volist.other_name}-->"
+                                                style="background: url(&quot;<!--{$volist.bpic}-->&quot;) center center / cover no-repeat; opacity: 1;">
+                                        </div>
+                                        <div class="card-title">
+                                            <!--{$volist.other_name}-->
+                                        </div>
+                                    </a></li>
+                                <!--{/if}-->
 
-    <meta property="fb:app_id" content="2090299167929890">
-    <meta property="og:type" content="website">
-
-    <meta property="og:locale" content="vi_VN">
-    <meta name="format-detection" content="telephone=no">
-
-    <meta name="viewport"
-        content="shrink-to-fit=no, viewport-fit=cover, width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                                <!--{/foreach}-->
 
 
-    <meta name="Description" content="Support multilingual reading of popular romantic novels, free online." />
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="guide-hd-banner">
+                        <div class="guide-close" onclick="closebar()"></div>
+                        <img src="<!--{$indextpl}-->imgs/logo.png" alt="logo" class="guide-logo">
+                        <h2 class="guide-title">
+                            <!--{__ 下载APP}-->
+                        </h2>
+                        <p class="guide-desc">
+                            <!--{__ 享免费阅读}-->
+                        </p>
+                        <div class="guide-btn" onclick="_openAppUrl(readlink)">
+                            <!--{__ 立即打开}-->
+                        </div>
+                    </div>
+                </div>
+                <div class="loading js_loading_box">
+                    <div class="js_loading"><i class="load-pic"></i></div>
+                    <p class="nomore js_nomore">
+                        <!--{__ 主人没有更多了呢}-->
+                    </p>
+                </div>
+            </section>
+        </article>
+        <!--{include file={$indextpl}"/index_foot.html"}-->
+    </section>
 
-    <link rel="stylesheet" href="<!--{$indextpl}-->/css/fullpage.min.css" />
-    <link rel="stylesheet" href="<!--{$indextpl}-->/css/iconfont.css" />
-    <link rel="stylesheet" href="<!--{$indextpl}-->/css/mobile.css" />
-    <link rel="stylesheet" href="<!--{$indextpl}-->/css/doc.css" />
-    <link rel="stylesheet" href="<!--{$indextpl}-->/css/reset.css" />
     <style>
-        body {
-            background-color: #262941;
+        .guide-hd-banner {
+            box-sizing: border-box;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            height: 48px;
+            width: 100%;
+            padding: 6px 84px 10px 72px;
+            background-color: rgba(0, 0, 0, .8);
+            transition: top .2s ease-out;
+            -webkit-transition: top .2s ease-out;
+        }
 
-            margin: 0 auto !important;
+        .guide-hd-banner .guide-close {
+            position: absolute;
+            left: 4px;
+            top: 50%;
+            display: block;
+            height: 24px;
+            width: 24px;
+            margin-top: -12px;
+            background: url('<!--{$indextpl}-->images/close.png') no-repeat center;
+            background-size: 8px 8px;
+        }
 
+        .guide-hd-banner .guide-logo {
+            position: absolute;
+            left: 32px;
+            top: 8px;
+            display: block;
+            height: 32px;
+            width: 32px;
+            border-radius: 4px;
+        }
+
+        .guide-hd-banner .guide-title {
+            height: 18px;
+            font-size: 12px;
+            line-height: 18px;
+            font-weight: normal;
+            color: white;
+            word-break: break-all;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        .guide-hd-banner .guide-desc {
+            height: 16px;
+            font-size: 10px;
+            line-height: 16px;
+            color: white;
+            word-break: break-all;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        .guide-hd-banner .guide-btn {
+            position: absolute;
+            right: 12px;
+            top: 12px;
+            display: block;
+            height: 25px;
+            width: 64px;
+            border-radius: 4px;
+            font-size: 12px;
+            line-height: 25px;
+            text-align: center;
+            color: white;
+            background-color: #FC6976;
         }
     </style>
 
+    <script>
+        //初始化banner高度，宽高比。0.73
+        $(function () {
+            $('.tpl-74').height($(window).width() * 0.73);
+        });
+        var mySwiper = new Swiper('.swiper-container', {
+            // direction: 'h', // 垂直切换选项
+            loop: true, // 循环模式选项
+            autoplay: true,
+            // 如果需要分页器
+            pagination: {
+                el: '.swiper-pagination',
+            },
 
+            // 如果需要前进后退按钮
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
 
-
-</head>
-
-<body>
-    <div class="m_main yg_main" id='yg_main'>
-        <div class="mobile" id="first_div">
-            <div class="fixed-bg"></div>
-            <div class="fixed-header">
-                <div class="left">
-                    <img class="logo" src="<!--{$indextpl}-->/imgs/logo.png">
-                    <div>
-                        <h1 class="title">LookStory</h1>
-                        <div class="slogn">An easy-to-use novel and comic reader</div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="fixed-footer">
-                <div class="tips">
-
-                </div>
-                <div class="download-box yg_main">
-
-                    <div class="download-btn" id="downloadBtn-iosSign">
-                        <a class="copy" href="javascript:void(0)" onclick="return handleDownload(0)">
-                            <i class="iconfont icon-google"></i>
-                            <span>Download from Market</span>
-                        </a>
-                    </div>
-                    <div class="download-btn" id="downloadBtn-android">
-                        <a class="copy" href="javascript:void(0)" onclick="return handleDownload(1)">
-                            <i class="iconfont icon-android"></i>
-                            <span>Download from Server</span>
-                        </a>
-                    </div>
-                </div>
-                <a class="android-doc-btn" href="###" style="margin-top: 15px">【If Android users cannot install after
-                    downloading, please follow the following steps】</a>
-
-            </div>
-            <div id="fullpage" class="page">
-                <div class="section section1">
-                    <div class="subject"><img src=" <!--{$indextpl}-->imgs/section-1-subject.png">
-                    </div>
-                    <div class="main">
-                        <div class="center">
-                            <img class="phone" src=" <!--{$indextpl}-->imgs/1.png">
-                            <img src=" <!--{$indextpl}-->imgs/decoration-1.png" class="decoration decoration-1">
-                            <img src=" <!--{$indextpl}-->imgs/decoration-2.png" class="decoration decoration-2">
-                            <img src=" <!--{$indextpl}-->imgs/decoration-3.png" class="decoration decoration-3">
-                            <img src=" <!--{$indextpl}-->imgs/decoration-4.png" class="decoration decoration-4">
-                            <img src=" <!--{$indextpl}-->imgs/decoration-5.png" class="decoration decoration-5">
-                            <img src=" <!--{$indextpl}-->imgs/decoration-6.png" class="decoration decoration-6">
-                        </div>
-                    </div>
-                </div>
-                <div class="section section2">
-                    <div class="subject"><img src=" <!--{$indextpl}-->imgs/section-2-subject.png">
-                    </div>
-                    <div class="main">
-                        <div class="center">
-                            <img class="phone" src=" <!--{$indextpl}-->imgs/2.png">
-                            <img src=" <!--{$indextpl}-->imgs/decoration-1.png" class="decoration decoration-1">
-                            <img src=" <!--{$indextpl}-->imgs/decoration-2.png" class="decoration decoration-4">
-                            <img src=" <!--{$indextpl}-->imgs/decoration-4.png" class="decoration decoration-2">
-                            <img src=" <!--{$indextpl}-->imgs/decoration-3.png" class="decoration decoration-3">
-                            <img src=" <!--{$indextpl}-->imgs/decoration-5.png" class="decoration decoration-5">
-                            <img src=" <!--{$indextpl}-->imgs/decoration-7.png" class="decoration decoration-6">
-                        </div>
-                    </div>
-                </div>
-                <div class="section section3">
-                    <div class="subject"><img src="  <!--{$indextpl}-->imgs/section-3-subject.png">
-                    </div>
-                    <div class="main">
-                        <div class="center">
-                            <img class="phone" src=" <!--{$indextpl}-->imgs/3.png">
-                            <img src=" <!--{$indextpl}-->imgs/decoration-1.png" class="decoration decoration-1">
-                            <img src=" <!--{$indextpl}-->imgs/decoration-2.png" class="decoration decoration-2">
-                            <img src=" <!--{$indextpl}-->imgs/decoration-3.png" class="decoration decoration-3">
-
-                            <img src=" <!--{$indextpl}-->imgs/decoration-5.png" class="decoration decoration-5">
-                            <img src=" <!--{$indextpl}-->imgs/decoration-6.png" class="decoration decoration-6">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="section section2">
-                    <div class="subject"><img src=" <!--{$indextpl}-->imgs/section-4-subject.png">
-                    </div>
-                    <div class="main">
-                        <div class="center">
-                            <img class="phone" src=" <!--{$indextpl}-->imgs/4.png">
-                            <img src=" <!--{$indextpl}-->imgs/decoration-1.png" class="decoration decoration-1">
-                            <img src=" <!--{$indextpl}-->imgs/decoration-2.png" class="decoration decoration-2">
-                            <img src=" <!--{$indextpl}-->imgs/decoration-3.png" class="decoration decoration-3">
-
-                            <img src=" <!--{$indextpl}-->imgs/decoration-5.png" class="decoration decoration-5">
-                            <img src=" <!--{$indextpl}-->imgs/decoration-7.png" class="decoration decoration-6">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="fade-bg" id="fade-bg"></div>
-        <div class="doc" id="page-doc">
-            <img src=" <!--{$indextpl}-->imgs/close.png" class="fix-close" onclick="pageDocHide()">
-            <!--header -->
-            <div class="header-wrap">
-                <div class="header-inner">
-                    <div class="doc-title"><img src=" <!--{$indextpl}-->imgs/title.png">
-                    </div>
-                </div>
-            </div>
-            <div class="main-content" id="main-content">
-                <div id="doc-android">
-                    <div class="question"><img src=" <!--{$indextpl}-->imgs/qAndroid.png">
-                    </div>
-                    <div class="doc-steps">
-                        <div class="step-text">
-                            Open the settings page, find [Security and Privacy] under the [General] column, find [Allow
-                            installation of apps from unknown sources], please tick </div>
-                        <div class="step-img">
-                            <img src=" <!--{$indextpl}-->imgs/doc-android-1.jpg">
-                        </div>
-                    </div>
-                </div>
-                <div id="doc-ios">
-                    <div class="question"><img src=" <!--{$indextpl}-->imgs/qIos.png">
-                    </div>
-                    <div class="tip">
-                        <img class="icon" src=" <!--{$indextpl}-->imgs/warning.png">
-                        Wait for the application installation to complete the following steps
-                    </div>
-                    <div class="doc-steps">
-                        <div class="step-text">
-                            <img class="icon" src=" <!--{$indextpl}-->imgs/no1.png">
-                            Click the [Settings] icon on the phone desktop
-
-                        </div>
-                        <div class="step-img">
-                            <img src=" <!--{$indextpl}-->imgs/doc-ios-1.jpg">
-                        </div>
-                        <div class="step-text">
-                            <img class="icon" src=" <!--{$indextpl}-->imgs/no2.png">
-                            Click [General] option in General
-                        </div>
-                        <div class="step-img">
-                            <img src=" <!--{$indextpl}-->imgs/doc-ios-2.jpg">
-                        </div>
-                        <div class="step-text">
-                            <img class="icon" src=" <!--{$indextpl}-->imgs/no3.png">
-                            Click [Device Management]</div>
-                        <div class="step-img">
-                            <img src=" <!--{$indextpl}-->imgs/doc-ios-3.jpg">
-                        </div>
-                        <div class="step-text">
-                            <img class="icon" src=" <!--{$indextpl}-->imgs/no4.png">
-                            Select trust </div>
-                        <div class="step-img">
-                            <img src=" <!--{$indextpl}-->imgs/doc-ios-4.jpg">
-                        </div>
-                        <div class="step-text">
-                            <img class="icon" src=" <!--{$indextpl}-->imgs/no5.png">
-                            Choose trust</div>
-                        <div class="step-img">
-                            <img src=" <!--{$indextpl}-->imgs/doc-ios-5.jpg">
-                        </div>
-                        <div class="step-text">
-                            <img class="icon" src=" <!--{$indextpl}-->imgs/no6.png">
-                            Click the trust button </div>
-                        <div class="step-img">
-                            <img src=" <!--{$indextpl}-->imgs/doc-ios-6.jpg">
-                        </div>
-                        <div class="step-text">
-                            <img class="icon" src=" <!--{$indextpl}-->imgs/no7.png">
-                            After the trust is successful, return to the desktop and enter the application
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-
-    <div class="desktop" id="pc_main">
-        <div class="fixed-bg"></div>
-        <div class="fixed-main">
-            <div class="layout-right">
-                <div class="flex">
-                    <div class="app-info">
-                        <div class="brand flex-center">
-                            <img class="logo" src="<!--{$indextpl}-->/imgs/logo.png">
-                            <div>
-                                <div class="app-name">LookStory</div>
-                                <div class="app-slogn">An easy-to-use novel and comic reader</div>
-                            </div>
-                        </div>
-                        <div class="subject">
-                            <img src=" <!--{$indextpl}-->imgs/section-1-subject.png">
-                            <img src=" <!--{$indextpl}-->imgs/section-2-subject.png">
-                            <img src=" <!--{$indextpl}-->imgs/section-3-subject.png">
-                            <img src=" <!--{$indextpl}-->imgs/section-4-subject.png">
-                        </div>
-                    </div>
-                    <div class="qrcode-warp">
-                        <div class="qrcode" id="qrcode1"><img class="qrcode-logo"
-                                src="<!--{$indextpl}-->/imgs/logo.png" /></div>
-                        <span>Please scan the code to download</span>
-                    </div>
-                </div>
-                <div class="download-box">
-                    <div class="download-btn" onclick="return handleDownload(0)"><i class="iconfont icon-google"></i>
-                        Download from Market </div>
-                    <div class="download-btn" onclick="return handleDownload(1)"><i class="iconfont icon-android"></i>
-                        Download from Server </div>
-                </div>
-            </div>
-        </div>
-        <div id="fullpage" class="page fullpage-wrapper">
-            <div class="section section1 fp-section active fp-table fp-completely" data-fp-styles="null">
-                <div class="fp-tableCell">
-                    <div class="layout">
-                        <div class="layout-left">
-                            <div class="app">
-
-                                <img src=" <!--{$indextpl}-->imgs/1.png" class="main-img">
-                                <img src=" <!--{$indextpl}-->imgs/decoration-1.png" class="decoration decoration-1">
-                                <img src=" <!--{$indextpl}-->imgs/decoration-2.png" class="decoration decoration-2">
-                                <img src=" <!--{$indextpl}-->imgs/decoration-3.png" class="decoration decoration-3">
-                                <img src=" <!--{$indextpl}-->imgs/decoration-4.png" class="decoration decoration-4">
-                                <img src=" <!--{$indextpl}-->imgs/decoration-5.png" class="decoration decoration-5">
-                                <img src=" <!--{$indextpl}-->imgs/decoration-6.png" class="decoration decoration-6">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="section section2 fp-section fp-table" data-fp-styles="null">
-                <div class="fp-tableCell">
-                    <div class="layout">
-                        <div class="layout-left">
-                            <div class="app">
-                                <img src=" <!--{$indextpl}-->imgs/2.png" class="main-img">
-                                <img src=" <!--{$indextpl}-->imgs/decoration-7.png" class="decoration decoration-1">
-                                <img src=" <!--{$indextpl}-->imgs/decoration-1.png" class="decoration decoration-2">
-                                <img src=" <!--{$indextpl}-->imgs/decoration-3.png" class="decoration decoration-3">
-                                <img src=" <!--{$indextpl}-->imgs/decoration-2.png" class="decoration decoration-4">
-                                <img src=" <!--{$indextpl}-->imgs/decoration-4.png" class="decoration decoration-5">
-                                <img src=" <!--{$indextpl}-->imgs/decoration-5.png" class="decoration decoration-6">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="section section3 fp-section fp-table" data-fp-styles="null">
-                <div class="fp-tableCell">
-                    <div class="layout">
-                        <div class="layout-left">
-                            <div class="app">
-                                <img src=" <!--{$indextpl}-->imgs/3.png" class="main-img">
-                                <img src=" <!--{$indextpl}-->imgs/decoration-1.png" class="decoration decoration-1">
-                                <img src=" <!--{$indextpl}-->imgs/decoration-2.png" class="decoration decoration-2">
-                                <img src=" <!--{$indextpl}-->imgs/decoration-3.png" class="decoration decoration-3">
-                                <img src=" <!--{$indextpl}-->imgs/decoration-4.png" class="decoration decoration-4">
-                                <img src=" <!--{$indextpl}-->imgs/decoration-5.png" class="decoration decoration-5">
-                                <img src=" <!--{$indextpl}-->imgs/decoration-8.png" class="decoration decoration-6">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="section section2 fp-section fp-table" data-fp-styles="null">
-                <div class="fp-tableCell">
-                    <div class="layout">
-                        <div class="layout-left">
-                            <div class="app">
-                                <img src=" <!--{$indextpl}-->imgs/4.png" class="main-img">
-                                <img src=" <!--{$indextpl}-->imgs/decoration-1.png" class="decoration decoration-1">
-                                <img src=" <!--{$indextpl}-->imgs/decoration-2.png" class="decoration decoration-2">
-                                <img src=" <!--{$indextpl}-->imgs/decoration-3.png" class="decoration decoration-3">
-                                <img src=" <!--{$indextpl}-->imgs/decoration-4.png" class="decoration decoration-4">
-                                <img src=" <!--{$indextpl}-->imgs/decoration-5.png" class="decoration decoration-5">
-
-                                <img src=" <!--{$indextpl}-->imgs/decoration-6.png" class="decoration decoration-6">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-
-
-
+            // 如果需要滚动条
+            // scrollbar: {
+            //     el: '.swiper-scrollbar',
+            // },
+        });        
+    </script>
 </body>
-<script src="<!--{$staticjs}-->/jquery.min.js"></script>
-<script src="<!--{$staticjs}-->/night_Trad.v1.0.js"></script>
-<script src="<!--{$indextpl}-->/js/fullpage.min.js"></script>
-
-
-
-
-<script src="<!--{$indextpl}-->/js/qrcode.min.js"></script>
-<script src="<!--{$indextpl}-->/js/phone_4.js"></script>
-
-
-<script type="text/javascript">
-    // $(function () {
-
-    //     // .delay(speed,queueName)
-    //     $v = $('.icon-android:visible').delay(500).width();
-
-    //     $('.icon-google').width($v);
-    //     $('.icon-google').height($v);
-
-    // });
-
-    function handleDownload($type) {
-        if ($type == 0) {
-            $url = "https://play.google.com/store/apps/details?id=com.ng.story";
-            _go_url_new($url);
-        } else {
-            $url = "<!--{$apk_url}-->"; _go_url($url);
-        }
-    }
-</script>
 
 </html>

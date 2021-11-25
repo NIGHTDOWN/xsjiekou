@@ -27,12 +27,18 @@ class down extends indexbase
             'downplay' =>    __('下载'),
             'down' =>        __('本地下载'),
             'alert' =>        __('请在浏览器打开'),
-  
+
 
         ];
         $apk = T('version_upgrade')->set_field('apk_url')->order_by(['s' => 'down', 'f' => 'id'])->set_where(['type' => 2])->get_one();
         $ret = array_merge($users_id, $apk, $info, ['url' => geturl($users_id, null, 'down'),]);
         $this->view(null, $ret);
+    }
+    public function control_page()
+    {
+        $apk = T('version_upgrade')->set_field('apk_url')->order_by(['s' => 'down', 'f' => 'id'])->set_where(['type' => 2])->get_one();
+
+        $this->view('index_down', $apk);
     }
     public function control_downiphone()
     {

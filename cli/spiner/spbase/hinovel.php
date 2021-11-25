@@ -28,6 +28,8 @@ class Sphinovel extends Clibase
     // -------------------app 破解获取的相关信息
     // 签名密钥盐
     public $code = "7d83d58f98cf9059b8468270f639d1c7";
+    // public $code = "d8b6fc28563c90e72287e78f05d387be";
+  
     // aes iv
     public $aesiv = "";
     // aes密钥
@@ -40,6 +42,9 @@ class Sphinovel extends Clibase
     public $is_un_free_val = 1;
     public $appneedinfo = [
         'appVersion' => '3.1.7',
+        // 'appVersion' => '3.4.4',
+        'appname' => 'hinovel',
+        'os' => 'android',
         'phoneType' => 'samsung',
         'utc' => '9',
         'sign' => 'fa877648fc01546bdef768d40a76d11b',
@@ -70,6 +75,7 @@ class Sphinovel extends Clibase
     public $pid = 'TH10T40';
     public function start()
     {
+     
         $this->autoproxy();
         $cachename = date('Ymdhis') . 'obj';
         $this->thinit();
@@ -590,6 +596,7 @@ class Sphinovel extends Clibase
     public function sign($api, $data)
     {
         $secret = $this->code;
+       
         $this->appneedinfo['timestamp'] = time();
         //获取所有请求的参数
         $AllPar['timestamp'] = $this->appneedinfo['timestamp'];

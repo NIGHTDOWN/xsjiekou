@@ -1,0 +1,551 @@
+<html style="font-size: 41.1px;">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Language" content="zh-CN">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <title>
+        <!--{__ LoveNovel}-->
+    </title>
+    <meta name="keywords" content="<!--{__ 多语言免费、流行、浪漫、小说,漫画阅读器.}-->">
+    <meta name="description" itemprop="description"
+        content="<!--{__ LoveNovel一直坚持提供小说漫画免费阅读。看小说、看漫画，为阅读而生，就上LoveNovel}-->">
+
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="canonical" href="http://www.love-novel.com/">
+    <meta name="applicable-device" content="mobile">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta name="browsermode" content="application">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#999">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="full-screen" content="yes">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="360-fullscreen" content="true">
+    <meta name="browsermode" content="application">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="x5-pagetype" content="webapp">
+
+    <script src="<!--{$indextpl}-->js/jquery.min.js"></script>
+    <script src="<!--{$indextpl}-->js/swiper.min.js"></script>
+    <script src="<!--{$static}-->js/night_Trad.v1.0.js"></script>
+    <script src="<!--{$indextpl}-->js/web.js"></script>
+    <script>
+        function isMobileHanddle() { var e = navigator.userAgent; return (screen.width / screen.height < 1 || /AppleWebKit.*Mobile/i.test(e) || /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(e)) && !/ipad/gi.test(e) } var host = location.host; isMobileHanddle() || "m" !== host.substr(0, host.indexOf(".")) || (location.href = location.href.replace("//m.", "//www.")), top.location != location && (top.location = location.href), function (i, e) { function t() { var e = o.getBoundingClientRect().width; 540 < e / s && (e = 540 * s); var t = e / 10; o.style.fontSize = t + "px", m.rem = i.rem = t } var a, n = i.document, o = n.documentElement, r = n.querySelector('meta[name="viewport"]'), l = n.querySelector('meta[name="flexible"]'), s = 0, d = 0, m = e.flexible || (e.flexible = {}); if (r) { console.warn("将根据已有的meta标签来设置缩放比例"); var c = r.getAttribute("content").match(/initial\-scale=([\d\.]+)/); c && (d = parseFloat(c[1]), s = parseInt(1 / d)) } else if (l) { var p = l.getAttribute("content"); if (p) { var u = p.match(/initial\-dpr=([\d\.]+)/), f = p.match(/maximum\-dpr=([\d\.]+)/); u && (s = parseFloat(u[1]), d = parseFloat((1 / s).toFixed(2))), f && (s = parseFloat(f[1]), d = parseFloat((1 / s).toFixed(2))) } } if (!s && !d) { var h = (i.navigator.appVersion.match(/android/gi), i.navigator.appVersion.match(/iphone/gi)), v = i.devicePixelRatio; d = 1 / (s = h ? 3 <= v && (!s || 3 <= s) ? 3 : 2 <= v && (!s || 2 <= s) ? 2 : 1 : 1) } if (o.setAttribute("data-dpr", s), !r) if ((r = n.createElement("meta")).setAttribute("name", "viewport"), r.setAttribute("content", "initial-scale=" + d + ", maximum-scale=" + d + ", minimum-scale=" + d + ", user-scalable=no"), o.firstElementChild) o.firstElementChild.appendChild(r); else { var b = n.createElement("div"); b.appendChild(r), n.write(b.innerHTML) } i.addEventListener("resize", function () { clearTimeout(a), a = setTimeout(t, 300) }, !1), i.addEventListener("pageshow", function (e) { e.persisted && (clearTimeout(a), a = setTimeout(t, 300)) }, !1), "complete" === n.readyState ? n.body.style.fontSize = 12 * s + "px" : n.addEventListener("DOMContentLoaded", function () { n.body.style.fontSize = 12 * s + "px" }, !1), t(), m.dpr = i.dpr = s, m.refreshRem = t, m.rem2px = function (e) { var t = parseFloat(e) * this.rem; return "string" == typeof e && e.match(/rem$/) && (t += "px"), t }, m.px2rem = function (e) { var t = parseFloat(e) / this.rem; return "string" == typeof e && e.match(/px$/) && (t += "rem"), t } }(window, window.lib || (window.lib = {})), window.shareConf = null</script>
+    <link href="<!--{$indextpl}-->css/vendor.38cae4.css" rel="stylesheet">
+    <link href="<!--{$indextpl}-->css/entry.index.53baaf.css" rel="stylesheet">
+    <link href="<!--{$indextpl}-->css/swiper.min.css" rel="stylesheet">
+</head>
+
+<body style="font-size: 12px;">
+
+    <section class="view-port" style="background-color: rgb(255, 255, 255); ">
+        <header class="view-header comic-detail-header">
+            <div id="js_top_nav" class="header-wrap header-wrap-normal" style="background: rgb(136, 102, 221); "><i
+                    id="js_change_bg" class="change-bg "></i>
+                <div class="header-left"><span class="header-icon js_go_back"><i class="ift-back white"></i> </span><a
+                        class="header-icon" href="/" title="<!--{__ 首页}-->"><i class="ift-home white"></i></a></div>
+                <div class="header-center top-title js_top_title" style="visibility: visible;">
+                    <h1 id="js_comic-title" class="header-title" data-id="107751" data-newid="xiuluojianzun"
+                        title="<!--{$data.other_name}-->">
+                        <!--{$data.other_name}-->
+                    </h1>
+
+                </div>
+                <div class="header-right">
+                    <div class="header-icon js_share"><i class="ift-share white"></i></div>
+                </div>
+
+            </div>
+
+        </header>
+        <article class="view-body detail-body aaalecj6y" id="js_comic_main" style="background:#fff">
+            <div id="detail" class="comic-header js_comic_header" data-comicid="107751"
+                style="background-image:url('<!--{$data.bpic}-->')">
+                <div class="comic-info">
+                    <div class="book-name">
+                        <h1 class="name" data-allprice="8361" title="<!--{$data.other_name}-->">
+                            <!--{$data.other_name}--><span class="author">
+                                <!--{$data.author}-->
+                            </span>
+                        </h1>
+                        <div class="comic-info-detail">
+                            <ul class="stars">
+                                <li class="item fullStar"></li>
+                                <li class="item fullStar"></li>
+                                <li class="item fullStar"></li>
+                                <li class="item fullStar"></li>
+                                <li class="item halfStar3"></li>
+                                <li class="item raft">4.6</li>
+                            </ul>
+                            <ul class="types">
+                                <li class="liting">人气</li>
+                                <li class="count">28.1亿人</li>
+                                <li><a class="type" href="/sort/xuanhuan.html" target="_blank" title="玄幻漫画">玄幻</a></li>
+                                <li><a class="type" href="/sort/xiuzhen.html" target="_blank" title="修真漫画">修真</a></li>
+                                <li><a class="type" href="/sort/rexue.html" target="_blank" title="热血漫画">热血</a></li>
+                                <li><a class="type" href="/sort/shenmo.html" target="_blank" title="神魔漫画">神魔</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="book-cover comic-item">
+                        <div class="thumbnail"><img src="../imgs/space.gif" alt="<!--{$data.other_name}-->"
+                                style="background: url(&quot;<!--{$data.bpic}-->&quot;) center center / cover no-repeat; opacity: 1;">
+                            <span class="origin">自制</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <section class="comic-intro">
+                <div class="radius-box">
+                    <div class="radius"></div>
+                </div>
+                <div class="btn-menu">
+                    <div id="collection" class="collectfather btn-menu-item button">
+
+                        <span>
+                            <!--{__ 收藏}-->
+                        </span> <span class="js_collect_num">
+                            <!--{$data.collect}-->
+                        </span>
+                        <!--{__ 万}-->
+                    </div>
+                    <div class="startReadfather btn-menu-item button">
+                        <!--{__ 开始阅读}-->
+                    </div>
+                    <div class="tucaofather js_tucao btn-menu-item button">
+                        <span>
+                            <!--{__ 点评}-->
+                        </span> <span class="js_collect_num">
+                            <!--{$data.replynum}-->
+                        </span>
+                    </div>
+                </div>
+                <div class="intro-text">
+                    <p id="js_desc_content" class="js_over_text_spread intro-text-wrapper">
+                        &nbsp;&nbsp;
+                        <!--{$data.desc}-->
+                    </p><i id="js_toggle_desc" class="ift-right js_overText"></i>
+                </div>
+            </section>
+
+            <section id="catalog" class="card-box lianzai">
+                <div class="card-box-head dow comic-chapter">
+                    <div class="left">
+                        <h3 class="title">
+                            <!--{if $data.update_status==1}-->
+                            <!--{__ 完结}-->
+                            <!--{else}-->
+                            <!--{__ 连载}-->
+                            <!--{/if}-->
+                        </h3>
+                        <div id="js_chapter-reverse" class="switch asc">
+                            <i class="chapter-rank desc" id="js_chapter_rank"></i>
+                            <span class="update_time">
+                                <!--{$data.new_section_time|date_format:"%Y-%m-%d"}-->
+                            </span> <span class="last-chapter">
+                                <!--{$data.new_section_title}-->
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="chapter-list" id="js_chapter_list">
+                    <ul id="js_chapters" class="asc">
+                        <!--{foreach $seclist as $sec}-->
+                        <li class="comic-chapter-item" data-index="<!--{$sec.list_order}-->"
+                            data-chapterid="<!--{$sec.section_id}-->"><a class="comic-chapter-link"
+                                href="/xiuluojianzun/di261hua-1635488330005.html" title="<!--{$sec.title}-->">
+                                <!--{$sec.title}-->
+                                <!--{if $sec.isfree}-->
+                                <i class="ift-lock js_lock"></i>
+                                <!--{/if}-->
+                            </a></li>
+                        <!--{/foreach}-->
+                        <li class="comic-chapter-item" data-index="264" data-chapterid="1797222"><a
+                                class="comic-chapter-link" href="/xiuluojianzun/di262hua-1636011690.html"
+                                title="第262话 越狱一个给你看看">第262话 越狱一个给你看看 <i class="ift-lock js_lock"></i></a></li>
+                        <li class="comic-chapter-item" data-index="265" data-chapterid="1797579"><a
+                                class="comic-chapter-link" href="/xiuluojianzun/di263hua-1636531050.html"
+                                title="第263话 预言之子">第263话 预言之子 <i class="ift-lock js_lock"></i></a></li>
+                        <li class="comic-chapter-item" data-index="266" data-chapterid="1797715"><a
+                                class="comic-chapter-link" href="/xiuluojianzun/di264hua-1636687470.html"
+                                title="第264话 现出原形">第264话 现出原形 <i class="ift-lock js_lock"></i></a></li>
+                    </ul>
+                    <div class="more-chapter more-chapter-wrapper js_chapter_btn"><span
+                            class="js_more_chapters more-chapter-btn">上神，这里还有<i
+                                class="ift-down arrow-direction"></i></span></div>
+                </div>
+            </section>
+            <div id="detail_ad_2"></div>
+            <script>window._ACGN_P && window._ACGN_P.p_17 && _ACGN_P.p_17("detail_ad_2")</script>
+            <script type="text/javascript" src="https://abc.kfyg.xyz/S00038.js"></script>
+            <script type="text/javascript"
+                src="https://abc.zdfjas.top/api/advTactics/getOne?basicInformation=1:5:21&amp;domainName=m.taomanhua.com&amp;advSizeId=3&amp;advSlotId=38&amp;userEnvironmentPdo=4:28:4&amp;userEnvironmentSvb=22:1:5&amp;userKey=99484dc1:800fa688-2254-49eb-aec2-cb986f291561&amp;group=&amp;includeGroup="></script>
+            <div class="comic-box recommend-box" id="recommend">
+                <div class="bd">
+                    <div data-tpl="2" class="tpl-2 mult sow">
+                        <div class="mult-head">
+                            <h2 class="left mult-caption"><span class="mult-title">相关推荐</span></h2>
+                            <div class="mult-style-func">
+                                <div class="mult-change" key="66246" horizonratio="3:4"><i class="icon-change"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mult-body">
+                            <ul class="mult-warp siw">
+                                <li class="card r1c3"><a href="/dabaozhutian/" title="打爆诸天漫画">
+                                        <div class="card-graph r3x4"><img class="lazy-image"
+                                                src="/static/images/comm/space.gif" alt="打爆诸天,打爆诸天漫画"
+                                                style="background: url(&quot;//image.yqmh.com/mh/108709.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
+                                            <div class="abs-bottom">
+                                                <div class="card-title">打爆诸天</div>
+                                                <ul class="tags-list">
+                                                    <li class="item">热血</li>
+                                                    <li class="item">玄幻</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="card-text"><i class="lbl-bar ift-fire"></i> 216万</div>
+                                    </a></li>
+                                <li class="card r1c3"><a href="/woyoubuhuiyineng/" title="我又不会异能漫画">
+                                        <div class="card-graph r3x4"><img class="lazy-image"
+                                                src="/static/images/comm/space.gif" alt="我又不会异能,我又不会异能漫画"
+                                                style="background: url(&quot;//image.yqmh.com/mh/108439.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
+                                            <div class="abs-bottom">
+                                                <div class="card-title">我又不会异能</div>
+                                                <ul class="tags-list">
+                                                    <li class="item">热血</li>
+                                                    <li class="item">后宫</li>
+                                                    <li class="item">都市</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="card-text"><i class="lbl-bar ift-fire"></i> 2827万</div>
+                                    </a></li>
+                                <li class="card r1c3"><a href="/tudidushinumotou/" title="徒弟都是女魔头漫画">
+                                        <div class="card-graph r3x4"><img class="lazy-image"
+                                                src="/static/images/comm/space.gif" alt="徒弟都是女魔头,徒弟都是女魔头漫画"
+                                                style="background: url(&quot;//image.yqmh.com/mh/108607.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
+                                            <div class="abs-bottom">
+                                                <div class="card-title">徒弟都是女魔头</div>
+                                                <ul class="tags-list">
+                                                    <li class="item">热血</li>
+                                                    <li class="item">后宫</li>
+                                                    <li class="item">玄幻</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="card-text"><i class="lbl-bar ift-fire"></i> 4.7亿</div>
+                                    </a></li>
+                                <li class="card r1c3"><a href="/zhegexiushilaiziweilai/" title="这个修士来自未来漫画">
+                                        <div class="card-graph r3x4"><img class="lazy-image"
+                                                src="/static/images/comm/space.gif" alt="这个修士来自未来,这个修士来自未来漫画"
+                                                style="background: url(&quot;//image.yqmh.com/mh/108141.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
+                                            <div class="abs-bottom">
+                                                <div class="card-title">这个修士来自未来</div>
+                                                <ul class="tags-list">
+                                                    <li class="item">热血</li>
+                                                    <li class="item">玄幻</li>
+                                                    <li class="item">穿越</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="card-text"><i class="lbl-bar ift-fire"></i> 4.6亿</div>
+                                    </a></li>
+                                <li class="card r1c3"><a href="/kaijusongmeiwoyoubaiwanyouxiniang/"
+                                        title="开局送妹：我有百万游戏娘漫画">
+                                        <div class="card-graph r3x4"><img class="lazy-image"
+                                                src="/static/images/comm/space.gif" alt="开局送妹：我有百万游戏娘,开局送妹：我有百万游戏娘漫画"
+                                                style="background: url(&quot;//image.yqmh.com/mh/108699.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
+                                            <div class="abs-bottom">
+                                                <div class="card-title">开局送妹：我有百万游戏娘</div>
+                                                <ul class="tags-list">
+                                                    <li class="item">热血</li>
+                                                    <li class="item">搞笑</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="card-text"><i class="lbl-bar ift-fire"></i> 3344万</div>
+                                    </a></li>
+                                <li class="card r1c3"><a href="/diyizhuixu/" title="第一赘婿漫画">
+                                        <div class="card-graph r3x4"><img class="lazy-image"
+                                                src="/static/images/comm/space.gif" alt="第一赘婿,第一赘婿漫画"
+                                                style="background: url(&quot;//image.yqmh.com/mh/108398.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
+                                            <div class="abs-bottom">
+                                                <div class="card-title">第一赘婿</div>
+                                                <ul class="tags-list">
+                                                    <li class="item">热血</li>
+                                                    <li class="item">都市</li>
+                                                    <li class="item">玄幻</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="card-text"><i class="lbl-bar ift-fire"></i> 12.0亿</div>
+                                    </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div data-tpl="2" class="tpl-2 mult sow">
+                        <div class="mult-head">
+                            <h2 class="left mult-caption"><span class="mult-title">猜你喜欢</span></h2>
+                            <div class="mult-style-func">
+                                <div class="mult-change" key="66247" horizonratio="3:4"><i class="icon-change"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mult-body">
+                            <ul class="mult-warp siw">
+                                <li class="card r1c3"><a href="/fengqicanglan/" title="风起苍岚漫画">
+                                        <div class="card-graph r3x4"><img class="lazy-image"
+                                                src="/static/images/comm/space.gif" alt="风起苍岚,风起苍岚漫画"
+                                                style="background: url(&quot;//image.yqmh.com/mh/9680.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
+                                            <div class="abs-bottom">
+                                                <div class="card-title">风起苍岚</div>
+                                                <ul class="tags-list">
+                                                    <li class="item">古风</li>
+                                                    <li class="item">穿越</li>
+                                                    <li class="item">修真</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="card-text"><i class="lbl-bar ift-fire"></i> 418亿</div>
+                                    </a></li>
+                                <li class="card r1c3"><a href="/kczphnpzjzn/" title="快穿之炮灰女配自救指南漫画">
+                                        <div class="card-graph r3x4"><img class="lazy-image"
+                                                src="/static/images/comm/space.gif" alt="快穿之炮灰女配自救指南,快穿之炮灰女配自救指南漫画"
+                                                style="background: url(&quot;//image.yqmh.com/mh/107502.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
+                                            <div class="abs-bottom">
+                                                <div class="card-title">快穿之炮灰女配自救指南</div>
+                                                <ul class="tags-list">
+                                                    <li class="item">搞笑</li>
+                                                    <li class="item">恋爱</li>
+                                                    <li class="item">古风</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="card-text"><i class="lbl-bar ift-fire"></i> 11.7亿</div>
+                                    </a></li>
+                                <li class="card r1c3"><a href="/buyaodaraowofeisheng/" title="不要打扰我飞升漫画">
+                                        <div class="card-graph r3x4"><img class="lazy-image"
+                                                src="/static/images/comm/space.gif" alt="不要打扰我飞升,不要打扰我飞升漫画"
+                                                style="background: url(&quot;//image.yqmh.com/mh/106661.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
+                                            <div class="abs-bottom">
+                                                <div class="card-title">不要打扰我飞升</div>
+                                                <ul class="tags-list">
+                                                    <li class="item">恋爱</li>
+                                                    <li class="item">都市</li>
+                                                    <li class="item">修真</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="card-text"><i class="lbl-bar ift-fire"></i> 12.6亿</div>
+                                    </a></li>
+                                <li class="card r1c3"><a href="/zhanding/" title="战鼎漫画">
+                                        <div class="card-graph r3x4"><img class="lazy-image"
+                                                src="/static/images/comm/space.gif" alt="战鼎,战鼎漫画"
+                                                style="background: url(&quot;//image.yqmh.com/mh/107204.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
+                                            <div class="abs-bottom">
+                                                <div class="card-title">战鼎</div>
+                                                <ul class="tags-list">
+                                                    <li class="item">热血</li>
+                                                    <li class="item">玄幻</li>
+                                                    <li class="item">修真</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="card-text"><i class="lbl-bar ift-fire"></i> 37.8亿</div>
+                                    </a></li>
+                                <li class="card r1c3"><a href="/wbtdxwl/" title="我把天道修歪了漫画">
+                                        <div class="card-graph r3x4"><img class="lazy-image"
+                                                src="/static/images/comm/space.gif" alt="我把天道修歪了,我把天道修歪了漫画"
+                                                style="background: url(&quot;//image.yqmh.com/mh/106843.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
+                                            <div class="abs-bottom">
+                                                <div class="card-title">我把天道修歪了</div>
+                                                <ul class="tags-list">
+                                                    <li class="item">恋爱</li>
+                                                    <li class="item">武侠</li>
+                                                    <li class="item">修真</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="card-text"><i class="lbl-bar ift-fire"></i> 17.1亿</div>
+                                    </a></li>
+                                <li class="card r1c3"><a href="/woshiyuhuangdadi/" title="我是玉皇大帝漫画">
+                                        <div class="card-graph r3x4"><img class="lazy-image"
+                                                src="/static/images/comm/space.gif" alt="我是玉皇大帝,我是玉皇大帝漫画"
+                                                style="background: url(&quot;//image.yqmh.com/mh/107470.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
+                                            <div class="abs-bottom">
+                                                <div class="card-title">我是玉皇大帝</div>
+                                                <ul class="tags-list">
+                                                    <li class="item">神魔</li>
+                                                    <li class="item">后宫</li>
+                                                    <li class="item">修真</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="card-text"><i class="lbl-bar ift-fire"></i> 16.2亿</div>
+                                    </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="up-chapter-list js_up_chapterList">
+                <div class="list-content">
+                    <div class="comic-collect" id="js_btn_collect"><span class="list-collect-num">129万</span> <span
+                            class="js_colloect_logo js_collect collect-info-logo collect-logo"></span></div>
+                    <div class="close-list">
+                        <div class="close-content"><span>上神，这里折叠</span><span class="ift-top"></span></div>
+                    </div>
+                    <div class="tucao-page"><span id="js_tocao-logo" class="tocao-logo"></span><span
+                            class="list-tucao-num">32689</span></div>
+                </div>
+            </div>
+            <div class="comic-box comment-box">
+                <div class="hd">
+                    <h2 class="plate-title">留言</h2>
+                </div>
+                <div class="bd" id="COMMENT" data-ssid="107751" data-title="修罗剑尊 修罗剑尊漫画 修罗剑尊漫画全集 神漫画"
+                    data-background="#FFF">
+                    <div class="comment">
+                        <div class="comment-hd" style="border: none;">
+
+                            <span class="comment-number"><strong id="js_comment_number">0</strong>条评论</span>
+                        </div>
+                        <div class="comment-bd">
+                            <div class="comment-textarea-box">
+                                <div class="comment-textarea-box-bd">
+                                    <textarea class="comment-textarea" maxlength="500"
+                                        placeholder="有事没事说两句..."></textarea>
+                                    <span class="comment-input-num">0/500</span>
+                                </div>
+                                <div class="comment-textarea-box-ft">
+                                    <button class="comment-submit js_submit_comment" data-uid="" data-id=""
+                                        type="button">吐槽一下</button>
+                                </div>
+                            </div>
+                            <div class="comment-noinfo" id="js_comment_noinfo" style="display: block;">
+                                <p>评论正在审核中~</p>
+                            </div>
+                            <div class="comment-more-box" id="js_comment_more_box" style="display: none;"><span
+                                    id="js_comment_more" class="comment-more">查看更多</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </article>
+    </section>
+
+    <style>
+        .guide-hd-banner {
+            box-sizing: border-box;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            height: 48px;
+            width: 100%;
+            padding: 6px 84px 10px 72px;
+            background-color: rgba(0, 0, 0, .8);
+            transition: top .2s ease-out;
+            -webkit-transition: top .2s ease-out;
+        }
+
+        .guide-hd-banner .guide-close {
+            position: absolute;
+            left: 4px;
+            top: 50%;
+            display: block;
+            height: 24px;
+            width: 24px;
+            margin-top: -12px;
+            background: url('<!--{$indextpl}-->images/close.png') no-repeat center;
+            background-size: 8px 8px;
+        }
+
+        .guide-hd-banner .guide-logo {
+            position: absolute;
+            left: 32px;
+            top: 8px;
+            display: block;
+            height: 32px;
+            width: 32px;
+            border-radius: 4px;
+        }
+
+        .guide-hd-banner .guide-title {
+            height: 18px;
+            font-size: 12px;
+            line-height: 18px;
+            font-weight: normal;
+            color: white;
+            word-break: break-all;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        .guide-hd-banner .guide-desc {
+            height: 16px;
+            font-size: 10px;
+            line-height: 16px;
+            color: white;
+            word-break: break-all;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        .guide-hd-banner .guide-btn {
+            position: absolute;
+            right: 12px;
+            top: 12px;
+            display: block;
+            height: 25px;
+            width: 64px;
+            border-radius: 4px;
+            font-size: 12px;
+            line-height: 25px;
+            text-align: center;
+            color: white;
+            background-color: #FC6976;
+        }
+    </style>
+
+    <script>
+        //初始化banner高度，宽高比。0.73
+        $(function () {
+            $('.tpl-74').height($(window).width() * 0.73);
+        });
+        var mySwiper = new Swiper('.swiper-container', {
+            // direction: 'h', // 垂直切换选项
+            loop: true, // 循环模式选项
+            autoplay: true,
+            // 如果需要分页器
+            pagination: {
+                el: '.swiper-pagination',
+            },
+
+            // 如果需要前进后退按钮
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+
+            // 如果需要滚动条
+            // scrollbar: {
+            //     el: '.swiper-scrollbar',
+            // },
+        })        
+    </script>
+</body>
+
+</html>

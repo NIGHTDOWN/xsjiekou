@@ -589,6 +589,11 @@ class Template_Lite_Compiler extends Template_Lite{
 			isset($_args['var']) ? null : $_args['var'] = 'null';
 			return '<?php $this->config_load(' . $_args['file'] . ', ' . $_args['section'] . ', ' . $_args['var'] . '); ?>';
 			break;
+			case '__':
+				// $_args = $this->_parse_arguments($arguments);
+				
+				return \__($arguments);
+				break;
 			default:
 			$_result = "";
 				
@@ -1125,5 +1130,3 @@ class Template_Lite_Compiler extends Template_Lite{
 		}
 	}
 }
-
-?>

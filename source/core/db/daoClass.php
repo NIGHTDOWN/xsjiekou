@@ -726,7 +726,14 @@ class daoClass
                 case 'up':
                     $bword = 'ASC';
                     break;
+                case 'u':
+                    $bword = 'ASC';
+                    break;
+
                 case 'down':
+                    $bword = 'DESC';
+                    break;
+                case 'd':
                     $bword = 'DESC';
                     break;
                 default:

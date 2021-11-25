@@ -25,6 +25,8 @@ class indexbase extends general
 	public $metawrap = null;
 	public $uid = null;
 	public $cpfile = null;
+	public $lang = null;
+	public $langid = null;
 	public static $city = null;
 	protected $noNeedLogin = ['*']; //默认全部无须登入
 	private $byword = array(
@@ -103,12 +105,49 @@ class indexbase extends general
 	{
 		$lang = get(['string' => ['lang']]);
 		if (!$lang['lang']) {
-			$lang['lang'] = 'th';
+			$head = $this->header();
+			$lang = $head['accept-language'];
 		}
-		$lang = strtolower($lang['lang']);
 
 		$lang = substr($lang, 0, 2);
+		$this->lang = $lang;
+		$in = T('city')->get_one(['cityname' => $lang]);
+		if ($in) {
+			$this->langid = $in['cityid'];
+		}
 		Lang::init($lang);
+	}
+	public function header($name = '', $default = null)
+	{
+		if (empty($this->header)) {
+			$header = [];
+			if (function_exists('apache_request_headers') && $result = apache_request_headers()) {
+				$header = $result;
+			} else {
+				$server = $this->server ?: $_SERVER;
+				foreach ($server as $key => $val) {
+					if (0 === strpos($key, 'HTTP_')) {
+						$key = str_replace('_', '-', strtolower(substr($key, 5)));
+						$header[$key] = $val;
+					}
+				}
+				if (isset($server['CONTENT_TYPE'])) {
+					$header['content-type'] = $server['CONTENT_TYPE'];
+				}
+				if (isset($server['CONTENT_LENGTH'])) {
+					$header['content-length'] = $server['CONTENT_LENGTH'];
+				}
+			}
+			$this->header = array_change_key_case($header);
+		}
+		if (is_array($name)) {
+			return $this->header = array_merge($this->header, $name);
+		}
+		if ('' === $name) {
+			return $this->header;
+		}
+		$name = str_replace('_', '-', strtolower($name));
+		return isset($this->header[$name]) ? $this->header[$name] : $default;
 	}
 	public
 	function filtertool($table)

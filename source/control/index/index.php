@@ -16,17 +16,33 @@ class index extends indexbase
 
     protected $noNeedLogin = ['*'];
 
-    public function control_down()
-    {
-        $url = get(['string' => ['link']]);
-        $this->view('download', $url);
-    }
+
     public function control_run()
     {
-        //    d(222,22);
-        $apk = T('version_upgrade')->set_field('apk_url')->order_by(['s' => 'down', 'f' => 'id'])->set_where(['type' => 2])->get_one();
+        $endpoint = [[1, 4], [2, 3]];
+        $newbook = M('index', 'im')->booknew(1, $this->langid, 6);
+        $newcartoon = M('index', 'im')->booknew(2, $this->langid, 6);
+        $endbook = M('index', 'im')->end(1, $this->langid, 4);
+        $endcartoon = M('index', 'im')->end(2, $this->langid, 4);
+        $hotbook = M('index', 'im')->hot(1, $this->langid, 6);
+        $hotcartoon = M('index', 'im')->hot(2, $this->langid, 6);
+        foreach ($endbook as $k => $v) {
+            if (in_array($k + 1, $endpoint[0])) {
+                $endbook[$k]['big'] = 1;
+            } else {
+                $endbook[$k]['big'] = 0;
+            }
+        }
+        foreach ($endcartoon as $k => $v) {
 
-        $this->view(null, $apk);
+            if (in_array($k + 1, $endpoint[1])) {
+                $endcartoon[$k]['big'] = 1;
+            } else {
+                $endcartoon[$k]['big'] = 0;
+            }
+        }
+
+        $this->view(null, ['newbook' => $newbook, 'newcartoon' => $newcartoon, 'endbook' => $endbook, 'endcartoon' => $endcartoon, 'hotbook' => $hotbook, 'hotcartoon' => $hotcartoon]);
     }
     public function control_red()
     {
@@ -41,6 +57,6 @@ class index extends indexbase
 
         // d(md5($string));
         // d(2222);
-       
+
     }
 }

@@ -712,6 +712,7 @@ class Clibase  extends Cli
     //插入或者更新书详情
     public function insertdetail($remotedata, $refield)
     {
+        $thisbook = [];
         $data = $remotedata;
         $id = $remotedata[$refield["fid"]];
         $data["other_name"] = $this->xhth($data[$refield["bookname"]]);
@@ -808,8 +809,24 @@ class Clibase  extends Cli
         }
         $this->lastbid = $dbid;
         $this->last = 0;
+        $thisbook['bookid'] = $dbid;
+        $thisbook['upnum'] = 0;
+        $thisbook['type'] = $this->booktype;
+        $thisbook['lang'] = $this->booklang;
+
         //更新章节，并且获取更新的章节数量
+        //更新数量，远程数量，实际更新数量
         list($upmu, $zjnum, $innum) = $this->getseclist($id, $dbid);
+        if ($upmu) {
+            $thisbook['upnum'] = $innum;
+            $thisbook['needupnum'] = $upmu;
+            $thisbook['day'] = date('Ymd');
+            $thisbook['uptime'] = time();
+            T('book_up_log')->add($thisbook);
+
+            //清空缓存
+            //添加更新记录表
+        }
         if ($upmu || $dbbook['update_status'] != 1) {
             //更新章节更新时间
             //更新章节数量
