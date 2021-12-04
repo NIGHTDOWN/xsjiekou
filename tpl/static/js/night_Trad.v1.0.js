@@ -2990,6 +2990,7 @@ $(document).on('keyup', 'input', function () {
 	}
 
 });
+
 $(document).on('keydown', 'input', function (event) {
 
 	if (event.keyCode == 13 && intag($(this), 'enter')) {

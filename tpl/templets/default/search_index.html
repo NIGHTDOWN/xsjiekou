@@ -55,8 +55,8 @@
                 </div>
                 <div class="header-center header-pull-right">
                     <div class="search-container">
-                        <input class="search-area" maxlength="40" type="text" value=""
-                            placeholder="<!--{__ 搜索小说名或者漫画名}-->">
+                        <input class="search-area " id='enter' oninput="if(value.length>40)value=value.slice(0,40)"
+                            type="text" value="" placeholder="<!--{__ 搜索小说名或者漫画名}-->">
                         <span class="search-btn js_searchBtn">
                             <i class="ift-search"></i>
                         </span>
@@ -133,8 +133,12 @@
                     <div class="hisSrch" style="display: none;">
 
                         <div class="hisSrch-hd">
-                            <span>搜索历史</span>
-                            <span class="historyClear">清空</span>
+                            <span>
+                                <!--{__ 搜索历史}-->
+                            </span>
+                            <span class="historyClear">
+                                <!--{__ 清空}-->
+                            </span>
                         </div>
                         <ul class="hisSrch-list">
 
@@ -147,11 +151,11 @@
                                     <i class="ift-time"></i>
                                 </div>
                                 <div class="history-wap">
-                                    <a href="/sort/all.html?cache=false&amp;search_key=aa" title="搜索">
+                                    <a href="/sort/all.html?cache=false&amp;search_key=aa" title="<!--{__ 清空}-->">
                                         <div class="history-text"></div>
                                     </a>
                                 </div>
-                                <div class="historyDel item-middle" data-searched="aa">
+                                <div class="historyDel item-middle" data-searched="aa" onclick="seardel($(this))">
                                     <i class="ift-close"></i>
                                 </div>
                             </div>
@@ -163,86 +167,13 @@
     </section>
 
 
-    <style>
-        .guide-hd-banner {
-            box-sizing: border-box;
-            position: fixed;
-            z-index: 9999;
-            left: 0;
-            top: 0;
-            height: 48px;
-            width: 100%;
-            padding: 6px 84px 10px 72px;
-            background-color: rgba(0, 0, 0, .8);
-            transition: top .2s ease-out;
-            -webkit-transition: top .2s ease-out;
-        }
 
-        .guide-hd-banner .guide-close {
-            position: absolute;
-            left: 4px;
-            top: 50%;
-            display: block;
-            height: 24px;
-            width: 24px;
-            margin-top: -12px;
-            background: url('<!--{$indextpl}-->images/close.png') no-repeat center;
-            background-size: 8px 8px;
-        }
-
-        .guide-hd-banner .guide-logo {
-            position: absolute;
-            left: 32px;
-            top: 8px;
-            display: block;
-            height: 32px;
-            width: 32px;
-            border-radius: 4px;
-        }
-
-        .guide-hd-banner .guide-title {
-            height: 18px;
-            font-size: 12px;
-            line-height: 18px;
-            font-weight: normal;
-            color: white;
-            word-break: break-all;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
-        }
-
-        .guide-hd-banner .guide-desc {
-            height: 16px;
-            font-size: 10px;
-            line-height: 16px;
-            color: white;
-            word-break: break-all;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
-        }
-
-        .guide-hd-banner .guide-btn {
-            position: absolute;
-            right: 12px;
-            top: 12px;
-            display: block;
-            height: 25px;
-            width: 64px;
-            border-radius: 4px;
-            font-size: 12px;
-            line-height: 25px;
-            text-align: center;
-            color: white;
-            background-color: #FC6976;
-        }
-    </style>
 
     <script>
         //初始化banner高度，宽高比。0.73
         var searchindex = 'searchhis';
         var searchdata;
+        var searurl = '<!--{url mod="search"}-->?word=';
         Array.prototype.aremove = function (val) {
             var index = this.indexOf(val);
             if (index > -1) {
@@ -251,11 +182,12 @@
         };
         $(function () {
             searchdata = getCookie(searchindex);
+
             try {
-                $str = decodeURIComponent(searchdata);
+                $str = unescape(searchdata);
                 searchdata = jta($str);
             } catch (error) {
-
+                d(error);
                 searchdata = [];
             }
 
@@ -281,16 +213,11 @@
 
                 }
                 loadhis(searchdata);
-                //
+                _go_url(searurl + $txt);
             });
             $('.historyDel').on('click', function () {
-
-                $txt = $(this).attr('data-searched');
-                $ob = $(this).parentsUntil('li');
-                $ob.parent().remove();
-                searchdata.aremove($txt);
-                setCookie(searchindex, searchdata);
-                save(searchdata);
+                d('del');
+                seardel($(this));
                 // loadhis(searchdata);
             });
             $('.historyClear').on('click', function () {
@@ -301,11 +228,29 @@
                 loadhis(searchdata);
             });
             $('.history-text').on('click', function () { });
+            $('#enter').on('keydown', function (event) {
+                if (event.keyCode == 13) {
+                    $('.js_searchBtn').click();
+                }
 
+            });
         });
         function save(val) {
+            // val = encodeURIComponent(val);
+
             $in = atj(val);
+
+            // $in.replace(/%/g, '%25');
+
             setCookie(searchindex, $in);
+        }
+        function seardel($obj) {
+            $txt = $obj.attr('data-searched');
+            $ob = $obj.parentsUntil('li');
+            $ob.parent().remove();
+            searchdata.aremove($txt);
+            setCookie(searchindex, searchdata);
+            save(searchdata);
         }
         function loadhis(his) {
             $obj = $('.tmpSrch').children('li');
@@ -328,7 +273,8 @@
                     $obj3 = $obj.clone();
                     $obj3.find('.history-text').text(v);
                     $obj3.find('.historyDel').attr('data-searched', v);
-                    $obj3.find('.history-text').find('a').attr('title', v);
+                    $obj3.find('a').attr('title', v);
+                    $obj3.find('a').attr('href', searurl + v);
                     $obj2.prepend($obj3);
                 });
             }
