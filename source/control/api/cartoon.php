@@ -386,19 +386,19 @@ class cartoon extends apibase
         $where['status'] = 1;
         $cityid = $this->head['cityid'];
         $where['lang'] = $cityid;
-        $index = 'cartget_cartoon22_:' . $get['page'] . "_" . $cityid;
+        $index = 'cartget_cartoon_page_:' . $get['page'] . "_" . $cityid;
         $cache = Y::$cache->get($index);
         if ($cache[0]) {
             $this->returnSuccess($cache[1]);
         } else {
             // recommend_num
-            // $data = T('cartoon')
-            //     ->field('cartoon_id,other_name,bpic_dsl,bpic,`desc`,hits as recommend_num,writer_name,isfree,update_status,2 as type')
-            //     ->where($where)
-            //     ->order('section desc,hits desc')
-            //     ->limit([$get['page'], 5])
-            //     ->get_all();
-            $data=M('bookrandom','im')->getcartoon($this->head['cityid'],5);
+            $data = T('cartoon')
+                ->field('cartoon_id,other_name,bpic_dsl,bpic,`desc`,hits as recommend_num,writer_name,isfree,update_status,2 as type')
+                ->where($where)
+                ->order('section desc,hits desc')
+                ->limit([$get['page'], 10])
+                ->get_all();
+            // $data=M('bookrandom','im')->getcartoon($this->head['cityid'],5);
             if (is_array($data) && sizeof($data)) {
                 Y::$cache->set($index, $data, 46000);
             }
@@ -436,7 +436,7 @@ class cartoon extends apibase
         // $list = T('cartoon')->set_global_where(['status' => 1, 'lang' => $cityid])->field('cartoon_id,bpic_dsl,other_name,`desc`,bpic,writer_name,isfree,update_status,2 as type')
         //     ->wherein('cartoon_id', $ids)
         //     ->get_all();
-        $list=M('bookrandom','im')->getcartoon($this->head['cityid']);
+        $list = M('bookrandom', 'im')->getcartoon($this->head['cityid']);
         Out::jout($list);
     }
     //获取推荐漫画
@@ -453,11 +453,11 @@ class cartoon extends apibase
             $this->returnSuccess($cache[1]);
         } else {
             // recommend_num
-            $data=M('bookrandom','im')->getcartoon($this->head['cityid'],5);
+            $data = M('bookrandom', 'im')->getcartoon($this->head['cityid'], 5);
             if (is_array($data) && sizeof($data)) {
                 foreach ($data as $key => $value) {
                     # code...
-                    $data[$key]['recommend_num']=rand(10000,99999)."";
+                    $data[$key]['recommend_num'] = rand(10000, 99999) . "";
                 }
                 Y::$cache->set($index, $data, 46000);
             }

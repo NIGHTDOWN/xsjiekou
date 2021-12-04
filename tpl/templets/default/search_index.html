@@ -47,153 +47,121 @@
 <body style="font-size: 12px;">
     <section class="view-port slide-wrap" id="js_searchCenter" style="display: flex;">
         <header class="view-header">
-          <div class="header-wrap">
-            <div class="header-left search-header-left">
-              <span class="header-icon js_searchBack back">
-                <i class="ift-back"></i>
-              </span>
+            <div class="header-wrap">
+                <div class="header-left search-header-left">
+                    <span class="header-icon js_searchBack back">
+                        <i class="ift-back"></i>
+                    </span>
+                </div>
+                <div class="header-center header-pull-right">
+                    <div class="search-container">
+                        <input class="search-area" maxlength="40" type="text" value=""
+                            placeholder="<!--{__ 搜索小说名或者漫画名}-->">
+                        <span class="search-btn js_searchBtn">
+                            <i class="ift-search"></i>
+                        </span>
+                    </div>
+                </div>
             </div>
-            <div class="header-center header-pull-right">
-              <div class="search-container">
-                <input class="search-area" maxlength="40" type="text" value="" placeholder="搜索漫画名或者作者">
-                <span class="search-btn js_searchBtn">
-                  <i class="ift-search"></i>
-                </span>
-              </div>
-            </div>
-          </div>
-          </header>
-          <div class="wapper">
-              <article class="view-body search-wapper" id="js_searchWapper">
-                  <div class="content bs-content" style="padding-right: 0px; padding-bottom: 1px;">
-                      <div class="hot-search" id="js_hotSearch"><div class="hot-hd">热门搜索</div>
-              <ul class="hot-tags">
-              
-                  
-                      
-                      <li class="tag" data-id="108680" style="background: #ffefff; color: #ff84fc;">
-                          吾乃苍天
-                      </li>
-                  
-                      
-                      <li class="tag" data-id="107419" style="background: #eafcfd; color: #25d7e4;">
-                          毒医嫡女
-                      </li>
-                  
-                      
-                      <li class="tag" data-id="107682" style="background: #effae4; color: #7ed321;">
-                          仙武帝尊
-                      </li>
-                  
-                      
-                      <li class="tag" data-id="107883" style="background: #ebf7ff; color: #3bafff;">
-                          契约冷妻不好惹
-                      </li>
-                  
-                      
-                      <li class="tag" data-id="108294" style="background: #fff4f3; color: #fa7669;">
-                          镇国主宰
-                      </li>
-                  
-                      
-                      <li class="tag" data-id="17745" style="background: #effae4; color: #7ed321;">
-                          凤逆天下
-                      </li>
-                  
-                      
-                      <li class="tag" data-id="107804" style="background: #effae4; color: #7ed321;">
-                          神级渔夫
-                      </li>
-                  
-                      
-                      <li class="tag" data-id="106397" style="background: #fff4f3; color: #fa7669;">
-                          因爱宠你
-                      </li>
-                  
-                      
-                      <li class="tag" data-id="108362" style="background: #effae4; color: #7ed321;">
-                          仙帝入侵
-                      </li>
-                  
-                      
-                      <li class="tag" data-id="8842" style="background: #eafcfd; color: #25d7e4;">
-                          寻找前世之旅
-                      </li>
-                  
-                      
-                      <li class="tag" data-id="108505" style="background: #effae4; color: #7ed321;">
-                          必胜至尊
-                      </li>
-                  
-              
-          </ul></div>
-                      <div class="hisSrch">
-              
-                  <div class="hisSrch-hd">
-                      <span>搜索历史</span>
-                      <span class="historyClear">清空</span>
-                  </div>
-                  <ul class="hisSrch-list">
-                      
-                      
-                      <li class="hisSrch-item">
-                          <div class="item-box">
-                              <div class="item-left item-middle">
-                                  <i class="ift-time"></i>
-                              </div>
-                              <div class="history-wap">
-                                  <a href="/sort/all.html?cache=false&amp;search_key=神" title="搜索神">
-                                      <div class="history-text">神</div>
-                                  </a>
-                              </div>
-                              <div class="historyDel item-middle" data-searched="神">
-                                  <i class="ift-close"></i>
-                              </div>
-                          </div></li>
-                      
-                  
-                      
-                      <li class="hisSrch-item">
-                          <div class="item-box">
-                              <div class="item-left item-middle">
-                                  <i class="ift-time"></i>
-                              </div>
-                              <div class="history-wap">
-                                  <a href="/sort/all.html?cache=false&amp;search_key=s" title="搜索s">
-                                      <div class="history-text">s</div>
-                                  </a>
-                              </div>
-                              <div class="historyDel item-middle" data-searched="s">
-                                  <i class="ift-close"></i>
-                              </div>
-                          </div></li>
-                      
-                  
-                      
-                      <li class="hisSrch-item">
-                          <div class="item-box">
-                              <div class="item-left item-middle">
-                                  <i class="ift-time"></i>
-                              </div>
-                              <div class="history-wap">
-                                  <a href="/sort/all.html?cache=false&amp;search_key=aa" title="搜索aa">
-                                      <div class="history-text">aa</div>
-                                  </a>
-                              </div>
-                              <div class="historyDel item-middle" data-searched="aa">
-                                  <i class="ift-close"></i>
-                              </div>
-                          </div></li>
-                      
-                  
-              </ul>
-              </div>
-                      <div class="tmpSrch"></div>
-                  </div>
-              </article>
-          </div>
-      </section>
-    
+        </header>
+        <div class="wapper">
+            <article class="view-body search-wapper" id="js_searchWapper">
+                <div class="content bs-content" style="padding-right: 0px; padding-bottom: 1px;">
+                    <div class="hot-search" id="js_hotSearch">
+                        <div class="hot-hd">热门搜索</div>
+                        <ul class="hot-tags">
+
+
+
+                            <li class="tag" data-id="108680" style="background: #ffefff; color: #ff84fc;">
+                                吾乃苍天
+                            </li>
+
+
+                            <li class="tag" data-id="107419" style="background: #eafcfd; color: #25d7e4;">
+                                毒医嫡女
+                            </li>
+
+
+                            <li class="tag" data-id="107682" style="background: #effae4; color: #7ed321;">
+                                仙武帝尊
+                            </li>
+
+
+                            <li class="tag" data-id="107883" style="background: #ebf7ff; color: #3bafff;">
+                                契约冷妻不好惹
+                            </li>
+
+
+                            <li class="tag" data-id="108294" style="background: #fff4f3; color: #fa7669;">
+                                镇国主宰
+                            </li>
+
+
+                            <li class="tag" data-id="17745" style="background: #effae4; color: #7ed321;">
+                                凤逆天下
+                            </li>
+
+
+                            <li class="tag" data-id="107804" style="background: #effae4; color: #7ed321;">
+                                神级渔夫
+                            </li>
+
+
+                            <li class="tag" data-id="106397" style="background: #fff4f3; color: #fa7669;">
+                                因爱宠你
+                            </li>
+
+
+                            <li class="tag" data-id="108362" style="background: #effae4; color: #7ed321;">
+                                仙帝入侵
+                            </li>
+
+
+                            <li class="tag" data-id="8842" style="background: #eafcfd; color: #25d7e4;">
+                                寻找前世之旅
+                            </li>
+
+
+                            <li class="tag" data-id="108505" style="background: #effae4; color: #7ed321;">
+                                必胜至尊
+                            </li>
+
+
+                        </ul>
+                    </div>
+                    <div class="hisSrch" style="display: none;">
+
+                        <div class="hisSrch-hd">
+                            <span>搜索历史</span>
+                            <span class="historyClear">清空</span>
+                        </div>
+                        <ul class="hisSrch-list">
+
+                        </ul>
+                    </div>
+                    <div class="tmpSrch">
+                        <li class="hisSrch-item">
+                            <div class="item-box">
+                                <div class="item-left item-middle">
+                                    <i class="ift-time"></i>
+                                </div>
+                                <div class="history-wap">
+                                    <a href="/sort/all.html?cache=false&amp;search_key=aa" title="搜索">
+                                        <div class="history-text"></div>
+                                    </a>
+                                </div>
+                                <div class="historyDel item-middle" data-searched="aa">
+                                    <i class="ift-close"></i>
+                                </div>
+                            </div>
+                        </li>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
 
     <style>
         .guide-hd-banner {
@@ -273,29 +241,99 @@
 
     <script>
         //初始化banner高度，宽高比。0.73
+        var searchindex = 'searchhis';
+        var searchdata;
+        Array.prototype.aremove = function (val) {
+            var index = this.indexOf(val);
+            if (index > -1) {
+                this.splice(index, 1);
+            }
+        };
         $(function () {
-            $('.tpl-74').height($(window).width() * 0.73);
+            searchdata = getCookie(searchindex);
+            try {
+                $str = decodeURIComponent(searchdata);
+                searchdata = jta($str);
+            } catch (error) {
+
+                searchdata = [];
+            }
+
+            if (!searchdata) {
+                searchdata = [];
+            } else {
+                //加载历史搜索
+
+                loadhis(searchdata);
+            }
+            $('.js_searchBtn').on('click', function () {
+
+                $txt = $('.search-area').val();
+                if (!$txt) {
+                    showd('<!--{__ 请输入查找内容}-->');
+                    return false;
+                }
+
+                if (searchdata.indexOf($txt) < 0) {
+
+                    searchdata.push($txt);
+                    save(searchdata);
+
+                }
+                loadhis(searchdata);
+                //
+            });
+            $('.historyDel').on('click', function () {
+
+                $txt = $(this).attr('data-searched');
+                $ob = $(this).parentsUntil('li');
+                $ob.parent().remove();
+                searchdata.aremove($txt);
+                setCookie(searchindex, searchdata);
+                save(searchdata);
+                // loadhis(searchdata);
+            });
+            $('.historyClear').on('click', function () {
+
+                delCookie(searchindex);
+                searchdata = [];
+
+                loadhis(searchdata);
+            });
+            $('.history-text').on('click', function () { });
+
         });
-        var mySwiper = new Swiper('.swiper-container', {
-            // direction: 'h', // 垂直切换选项
-            loop: true, // 循环模式选项
-            autoplay: true,
-            // 如果需要分页器
-            pagination: {
-                el: '.swiper-pagination',
-            },
+        function save(val) {
+            $in = atj(val);
+            setCookie(searchindex, $in);
+        }
+        function loadhis(his) {
+            $obj = $('.tmpSrch').children('li');
+            $obj2 = $('.hisSrch-list');
+            $obj2.children().remove();
+            if (!his) {
 
-            // 如果需要前进后退按钮
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
+                $('.hisSrch').hide();
+                return false;
+            } else {
 
-            // 如果需要滚动条
-            // scrollbar: {
-            //     el: '.swiper-scrollbar',
-            // },
-        })        
+                if (his.length <= 0) {
+
+                    $('.hisSrch').hide();
+                    return false;
+                }
+                $('.hisSrch').show();
+
+                $.each(his, function (i, v) {
+                    $obj3 = $obj.clone();
+                    $obj3.find('.history-text').text(v);
+                    $obj3.find('.historyDel').attr('data-searched', v);
+                    $obj3.find('.history-text').find('a').attr('title', v);
+                    $obj2.prepend($obj3);
+                });
+            }
+
+        }
     </script>
 </body>
 
