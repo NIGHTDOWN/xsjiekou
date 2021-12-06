@@ -8,10 +8,10 @@ checktop();
 //统计埋点
 class index extends Y
 {
-    public function booknew($type, $lang, $num)
+    public function booknew($type, $lang, $num, $page = 0)
     {
         //取最新的几本小说
-        $up = T('book_up_log')->set_field('bookid')->set_where(['type' => $type, 'lang' => $lang])->set_limit($num)->order_by(['f' => 'uptime', 's' => 'down'])->group_by('bookid')->get_all();
+        $up = T('book_up_log')->set_field('bookid')->set_where(['type' => $type, 'lang' => $lang])->set_limit([$page, $num])->order_by(['f' => 'uptime', 's' => 'down'])->group_by('bookid')->get_all();
         $bookids = array_column($up, 'bookid');
         if (!sizeof($bookids)) {
             return [];

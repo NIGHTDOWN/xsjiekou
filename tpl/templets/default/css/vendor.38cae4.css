@@ -3416,7 +3416,7 @@ output {
     margin: 0 .2666666667rem .2666666667rem 0;
     line-height: .7066666667rem;
     font-size: .32rem;
-    color: #fff;
+    /* color: #fff; */
     -webkit-border-radius: .6666666667rem;
     -moz-border-radius: .6666666667rem;
     border-radius: .6666666667rem;

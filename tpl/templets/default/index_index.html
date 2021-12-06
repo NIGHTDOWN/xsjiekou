@@ -49,7 +49,7 @@
 
     <section class="view-port">
         <div class="btn-search" style="margin-top: 48px;">
-            <i class="ift-search" onclick="_go_url('<!--{url  mod='search'}-->')"></i>
+            <i class="ift-search" onclick="_go_url('<!--{url  mod=search}-->')"></i>
         </div>
         <article class="view-body" id="js_body">
             <section class="book-main" id="js_main_box" data-pagesize="14">
@@ -124,7 +124,7 @@
                                 </span></h2>
                             <div class="mult-style-func">
                                 <div class="mult-change" key="495356" horizonratio="3:4"><i class="icon-change"></i>
-                                </div><a class="mult-more" href="<!--{url mod=" book" action=' new' }-->'"
+                                </div><a class="mult-more" href="<!--{url mod=" book" action=' new' }-->"
                                     title="
                                     <!--{__ 最近更新·小说}-->">
                                     <!--{__ 更多}-->
@@ -160,7 +160,7 @@
                                 </span></h2>
                             <div class="mult-style-func">
                                 <div class="mult-change" horizonratio="3:4"><i class="icon-change"></i>
-                                </div><a class="mult-more" href='<!--{url mod="catoon" action=' new'}-->'
+                                </div><a class="mult-more" href='<!--{url mod="cartoon" action=' new'}-->'
                                     title="
                                     <!--{__ 最近更新·漫画}-->">
                                     <!--{__ 更多}-->
@@ -171,7 +171,7 @@
                             <ul class="mult-warp siw">
                                 <!--{foreach $newcartoon as $volist}-->
                                 <li class="card r1c3"><a
-                                        href='<!--{url mod="catoon" args="bookid:{$volist.book_id},title:{$volist.other_name}" }-->'
+                                        href='<!--{url mod="cartoon" args="bookid:{$volist.book_id},title:{$volist.other_name}" }-->'
                                         title="<!--{$volist.other_name}-->">
                                         <div class="card-graph r3x4"><img class="lazy-image"
                                                 src="<!--{$indextpl}-->imgs/space.gif" alt="<!--{$volist.desc}-->"
@@ -202,7 +202,7 @@
                                 </span></h2>
                             <div class="mult-style-func">
                                 <div class="mult-change" key="495356" horizonratio="3:4"><i class="icon-change"></i>
-                                </div><a class="mult-more" href="<!--{url mod=" book" action=' hot' }-->'"
+                                </div><a class="mult-more" href="<!--{url mod=" book" action="hot" }-->"
                                     title="
                                     <!--{__ 人气爆款·小说}-->">
                                     <!--{__ 更多}-->
@@ -238,7 +238,7 @@
                                 </span></h2>
                             <div class="mult-style-func">
                                 <div class="mult-change" horizonratio="3:4"><i class="icon-change"></i>
-                                </div><a class="mult-more" href='<!--{url mod="catoon" action=' hot'}-->'
+                                </div><a class="mult-more" href='<!--{url mod="cartoon" action="hot"}-->'
                                     title="
                                     <!--{__ 人气爆款·漫画}-->">
                                     <!--{__ 更多}-->
@@ -249,7 +249,7 @@
                             <ul class="mult-warp siw">
                                 <!--{foreach $hotcartoon as $volist}-->
                                 <li class="card r1c3"><a
-                                        href='<!--{url mod="catoon" args="bookid:{$volist.book_id},title:{$volist.other_name}" }-->'
+                                        href='<!--{url mod="cartoon" args="bookid:{$volist.book_id},title:{$volist.other_name}" }-->'
                                         title="<!--{$volist.other_name}-->">
                                         <div class="card-graph r3x4"><img class="lazy-image"
                                                 src="<!--{$indextpl}-->imgs/space.gif" alt="<!--{$volist.desc}-->"
@@ -281,7 +281,7 @@
                                 </span></h2>
                             <div class="mult-style-func">
                                 <div class="mult-change" key="495400" horizonratio="3:4"><i class="icon-change"></i>
-                                </div><a class="mult-more" href="<!--{url mod=" catoon" action=' end' }-->" title="
+                                </div><a class="mult-more" href="<!--{url mod=" cartoon" action=' end' }-->" title="
                                     <!--{__ 完结小说，一看到底}-->">
                                     <!--{__ 更多}-->
                                 </a>
@@ -329,7 +329,7 @@
                                 </span></h2>
                             <div class="mult-style-func">
                                 <div class="mult-change" key="495400" horizonratio="3:4"><i class="icon-change"></i>
-                                </div><a class="mult-more" href="<!--{url mod=" catoon" action=' end' }-->" title="
+                                </div><a class="mult-more" href="<!--{url mod=" cartoon" action=' end' }-->" title="
                                     <!--{__ 完结漫画，一看到底}-->">
                                     <!--{__ 更多}-->
                                 </a>
@@ -340,7 +340,7 @@
                                 <!--{foreach $endcartoon as $volist}-->
                                 <!--{if $volist.big}-->
                                 <li class="card r1c69 "><a
-                                        href='<!--{url mod="catoon" args="bookid:{$volist.book_id},title:{$volist.other_name}" }-->'
+                                        href='<!--{url mod="cartoon" args="bookid:{$volist.book_id},title:{$volist.other_name}" }-->'
                                         title="<!--{$volist.other_name}-->">
                                         <div class="card-graph r16x9"><img class="lazy-image"
                                                 src="<!--{$indextpl}-->imgs/space.gif" alt="<!--{$volist.other_name}-->"
@@ -352,7 +352,7 @@
                                     </a></li>
                                 <!--{else}-->
                                 <li class="card r1c31"><a
-                                        href='<!--{url mod="catoon" args="bookid:{$volist.book_id},title:{$volist.other_name}" }-->'
+                                        href='<!--{url mod="cartoon" args="bookid:{$volist.book_id},title:{$volist.other_name}" }-->'
                                         title="<!--{$volist.other_name}-->">
                                         <div class="card-graph r3x4"><img class="lazy-image"
                                                 src="<!--{$indextpl}-->imgs/space.gif" alt="<!--{$volist.other_name}-->"

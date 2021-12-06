@@ -1,0 +1,515 @@
+<html style="font-size: 41.1px;">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Language" content="zh-CN">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <title>
+        <!--{__ LoveNovel}-->
+    </title>
+    <meta name="keywords" content="<!--{__ 多语言免费、流行、浪漫、小说,漫画阅读器.}-->">
+    <meta name="description" itemprop="description"
+        content="<!--{__ LoveNovel一直坚持提供小说漫画免费阅读。看小说、看漫画，为阅读而生，就上LoveNovel}-->">
+
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="canonical" href="http://www.love-novel.com/">
+    <meta name="applicable-device" content="mobile">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta name="browsermode" content="application">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#999">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="full-screen" content="yes">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="360-fullscreen" content="true">
+    <meta name="browsermode" content="application">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="x5-pagetype" content="webapp">
+
+    <script src="<!--{$indextpl}-->js/jquery.min.js"></script>
+    <script src="<!--{$indextpl}-->js/swiper.min.js"></script>
+    <script src="<!--{$static}-->js/night_Trad.v1.0.js"></script>
+    <script src="<!--{$indextpl}-->js/web.js"></script>
+    <script>
+        function isMobileHanddle() { var e = navigator.userAgent; return (screen.width / screen.height < 1 || /AppleWebKit.*Mobile/i.test(e) || /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(e)) && !/ipad/gi.test(e) } var host = location.host; isMobileHanddle() || "m" !== host.substr(0, host.indexOf(".")) || (location.href = location.href.replace("//m.", "//www.")), top.location != location && (top.location = location.href), function (i, e) { function t() { var e = o.getBoundingClientRect().width; 540 < e / s && (e = 540 * s); var t = e / 10; o.style.fontSize = t + "px", m.rem = i.rem = t } var a, n = i.document, o = n.documentElement, r = n.querySelector('meta[name="viewport"]'), l = n.querySelector('meta[name="flexible"]'), s = 0, d = 0, m = e.flexible || (e.flexible = {}); if (r) { console.warn("将根据已有的meta标签来设置缩放比例"); var c = r.getAttribute("content").match(/initial\-scale=([\d\.]+)/); c && (d = parseFloat(c[1]), s = parseInt(1 / d)) } else if (l) { var p = l.getAttribute("content"); if (p) { var u = p.match(/initial\-dpr=([\d\.]+)/), f = p.match(/maximum\-dpr=([\d\.]+)/); u && (s = parseFloat(u[1]), d = parseFloat((1 / s).toFixed(2))), f && (s = parseFloat(f[1]), d = parseFloat((1 / s).toFixed(2))) } } if (!s && !d) { var h = (i.navigator.appVersion.match(/android/gi), i.navigator.appVersion.match(/iphone/gi)), v = i.devicePixelRatio; d = 1 / (s = h ? 3 <= v && (!s || 3 <= s) ? 3 : 2 <= v && (!s || 2 <= s) ? 2 : 1 : 1) } if (o.setAttribute("data-dpr", s), !r) if ((r = n.createElement("meta")).setAttribute("name", "viewport"), r.setAttribute("content", "initial-scale=" + d + ", maximum-scale=" + d + ", minimum-scale=" + d + ", user-scalable=no"), o.firstElementChild) o.firstElementChild.appendChild(r); else { var b = n.createElement("div"); b.appendChild(r), n.write(b.innerHTML) } i.addEventListener("resize", function () { clearTimeout(a), a = setTimeout(t, 300) }, !1), i.addEventListener("pageshow", function (e) { e.persisted && (clearTimeout(a), a = setTimeout(t, 300)) }, !1), "complete" === n.readyState ? n.body.style.fontSize = 12 * s + "px" : n.addEventListener("DOMContentLoaded", function () { n.body.style.fontSize = 12 * s + "px" }, !1), t(), m.dpr = i.dpr = s, m.refreshRem = t, m.rem2px = function (e) { var t = parseFloat(e) * this.rem; return "string" == typeof e && e.match(/rem$/) && (t += "px"), t }, m.px2rem = function (e) { var t = parseFloat(e) / this.rem; return "string" == typeof e && e.match(/px$/) && (t += "rem"), t } }(window, window.lib || (window.lib = {})), window.shareConf = null</script>
+    <link href="<!--{$indextpl}-->css/vendor.38cae4.css" rel="stylesheet">
+    <link href="<!--{$indextpl}-->css/entry.index.53baaf.css" rel="stylesheet">
+    <link href="<!--{$indextpl}-->css/swiper.min.css" rel="stylesheet">
+</head>
+
+<body style="font-size: 12px;">
+    <section class="view-port slide-wrap" id="js_searchCenter" style="display: flex;">
+        <header class="view-header">
+            <div class="header-wrap">
+                <div class="header-left search-header-left">
+                    <span class="header-icon js_searchBack back">
+                        <i class="ift-back"></i>
+                    </span>
+                </div>
+                <div class="header-center top-title js_top_title">
+                    <h1 class="header-title" style="display: block;">
+                        <!--{__ 近期更新}-->
+                    </h1>
+                </div>
+                <div class="header-right" style="width: auto;">
+                    <span class="header-icon js_share"><i class="ift-share" style="color: #fff;"></i></span>
+                </div>
+            </div>
+        </header>
+
+
+        <ul class="list-box">
+            <!--{foreach $data as $list}-->
+            <li class="list-box__item">
+                <a class="list-box__item-wrap" href='<!--{if $list.type==1}-->
+                    <!--{url mod="book" args="bookid:{$list.book_id},title:{$list.other_name}"}-->
+                    <!--{else}--> <!--{url mod="cartoon" args="bookid:{$list.book_id},title:{$list.other_name}"}-->
+                    <!--{/if}-->' title="<!--{$list.other_name}-->">
+                    <div class="list-box__item-left"><img src="<!--{$indextpl}-->imgs/space.gif"
+                            alt=" <!--{$list.other_name}-->" class="list-box__item-cover"
+                            style="background: url(' <!--{$list.bpic}-->') center center / cover no-repeat; opacity: 1;">
+                    </div>
+                    <div class="list-box__item-center">
+                        <p class="list-box__item-title">
+                            <!--{$list.other_name}-->
+                        </p>
+                        <p class="list-box__item-desc">
+                            <!--{$list.desc}-->
+                        </p>
+                        <div class="list-box__item-hot"><span class="fire ift-fire"></span><span>1.8亿</span></div>
+                        <div class="list-box__item-tag"><span class="list-box__item-tag-item">穿越</span> <span
+                                class="list-box__item-tag-item">恋爱</span> <span
+                                class="list-box__item-tag-item">古风</span></div>
+                    </div>
+                    <div class="list-box__item-right">
+                        <div class="list-box__item-collection"><span class="ift-add"></span><span
+                                data-comic="{&quot;id&quot;:15772572,&quot;comic_name&quot;:&quot;你一笑就甜倒我八颗牙&quot;,&quot;product_id&quot;:1,&quot;comic_feature&quot;:&quot;百年一遇流星雨带来的沙雕甜宠蜜恋&quot;,&quot;load_type&quot;:1,&quot;img_url&quot;:&quot;&quot;,&quot;nofollow&quot;:0,&quot;sort_num&quot;:232,&quot;url&quot;:&quot;&quot;,&quot;comic_id&quot;:108693,&quot;page_id&quot;:497525,&quot;isdisable&quot;:0,&quot;comic_type&quot;:[&quot;穿越&quot;,&quot;恋爱&quot;,&quot;古风&quot;],&quot;cartoon_name&quot;:&quot;你一笑就甜倒我八颗牙&quot;,&quot;new_cartoon_id&quot;:&quot;di29hua-1638258870&quot;,&quot;new_cartoon_name&quot;:&quot;第29话 好羞耻&quot;,&quot;author_name&quot;:&quot;飒飒动漫&quot;,&quot;total_view_num&quot;:&quot;176272025&quot;,&quot;comic_newid&quot;:&quot;niyixiaojiutiandaowobakeya&quot;,&quot;latest_cartoon_topic_id&quot;:&quot;1799054&quot;,&quot;cartoon_desc&quot;:&quot;【独家/每周二、六更新】一场百年一遇的阿尔法流星雨，乔绾和好友唐苏双双穿越。一个初来乍到就惹上暴躁的黑帮太子爷李修阳，欢喜冤家爆笑你追我赶。一个莫名其妙拿上王妃剧本，被腹黑王爷白慕之的甜蜜攻势炮轰，逐渐沦陷时，才惊觉蜜里的砒霜。&quot;,&quot;cartoon_topic_name&quot;:&quot;第29话 好羞耻&quot;,&quot;chapter_feature&quot;:&quot;&quot;,&quot;font_color&quot;:&quot;ffffff&quot;,&quot;font_size&quot;:36,&quot;border_color&quot;:&quot;342065&quot;,&quot;border_size&quot;:6,&quot;feature_position&quot;:0,&quot;chapter_image_addr&quot;:&quot;/mh/108693_2_1.jpg&quot;,&quot;cartoon_status&quot;:1,&quot;update_time&quot;:&quot;2021-12-04T00:00:35.000Z&quot;}"
+                                class="btn-sub subscribe">收藏</span></div>
+                    </div>
+                </a>
+            </li>
+            <!--{/foreach}-->
+
+            <div class="bottom_">
+                <div class="flexCenter-ai-center">
+
+                    <div class="loadimg">
+                        <img src="<!--{$indextpl}-->imgs/loading-2.gif">
+                        <!--{__ 加载中}-->...
+                    </div>
+                    <div class="loadend">
+
+                        <!--{__ 没有了}-->
+                    </div>
+                </div>
+
+            </div>
+        </ul>
+        <div class="bookboxtmp">
+            <li class="list-box__item">
+                <a class="list-box__item-wrap" href='<!--{if $list.type==1}-->
+                    <!--{url mod="book" args="bookid:{$list.book_id},title:{$list.other_name}"}-->
+                    <!--{else}--> <!--{url mod="cartoon" args="bookid:{$list.book_id},title:{$list.other_name}"}-->
+                    <!--{/if}-->' title="<!--{$list.other_name}-->">
+                    <div class="list-box__item-left"><img src="<!--{$indextpl}-->imgs/space.gif"
+                            alt=" <!--{$list.other_name}-->" class="list-box__item-cover"
+                            style="background: url(' <!--{$list.bpic}-->') center center / cover no-repeat; opacity: 1;">
+                    </div>
+                    <div class="list-box__item-center">
+                        <p class="list-box__item-title">
+                            <!--{$list.other_name}-->
+                        </p>
+                        <p class="list-box__item-desc">
+                            <!--{$list.desc}-->
+                        </p>
+                        <div class="list-box__item-hot"><span class="fire ift-fire"></span><span>1.8亿</span></div>
+                        <div class="list-box__item-tag"><span class="list-box__item-tag-item">穿越</span> <span
+                                class="list-box__item-tag-item">恋爱</span> <span
+                                class="list-box__item-tag-item">古风</span></div>
+                    </div>
+                    <div class="list-box__item-right">
+                        <div class="list-box__item-collection"><span class="ift-add"></span><span
+                                data-comic="{&quot;id&quot;:15772572,&quot;comic_name&quot;:&quot;你一笑就甜倒我八颗牙&quot;,&quot;product_id&quot;:1,&quot;comic_feature&quot;:&quot;百年一遇流星雨带来的沙雕甜宠蜜恋&quot;,&quot;load_type&quot;:1,&quot;img_url&quot;:&quot;&quot;,&quot;nofollow&quot;:0,&quot;sort_num&quot;:232,&quot;url&quot;:&quot;&quot;,&quot;comic_id&quot;:108693,&quot;page_id&quot;:497525,&quot;isdisable&quot;:0,&quot;comic_type&quot;:[&quot;穿越&quot;,&quot;恋爱&quot;,&quot;古风&quot;],&quot;cartoon_name&quot;:&quot;你一笑就甜倒我八颗牙&quot;,&quot;new_cartoon_id&quot;:&quot;di29hua-1638258870&quot;,&quot;new_cartoon_name&quot;:&quot;第29话 好羞耻&quot;,&quot;author_name&quot;:&quot;飒飒动漫&quot;,&quot;total_view_num&quot;:&quot;176272025&quot;,&quot;comic_newid&quot;:&quot;niyixiaojiutiandaowobakeya&quot;,&quot;latest_cartoon_topic_id&quot;:&quot;1799054&quot;,&quot;cartoon_desc&quot;:&quot;【独家/每周二、六更新】一场百年一遇的阿尔法流星雨，乔绾和好友唐苏双双穿越。一个初来乍到就惹上暴躁的黑帮太子爷李修阳，欢喜冤家爆笑你追我赶。一个莫名其妙拿上王妃剧本，被腹黑王爷白慕之的甜蜜攻势炮轰，逐渐沦陷时，才惊觉蜜里的砒霜。&quot;,&quot;cartoon_topic_name&quot;:&quot;第29话 好羞耻&quot;,&quot;chapter_feature&quot;:&quot;&quot;,&quot;font_color&quot;:&quot;ffffff&quot;,&quot;font_size&quot;:36,&quot;border_color&quot;:&quot;342065&quot;,&quot;border_size&quot;:6,&quot;feature_position&quot;:0,&quot;chapter_image_addr&quot;:&quot;/mh/108693_2_1.jpg&quot;,&quot;cartoon_status&quot;:1,&quot;update_time&quot;:&quot;2021-12-04T00:00:35.000Z&quot;}"
+                                class="btn-sub subscribe">收藏</span></div>
+                    </div>
+                </a>
+            </li>
+        </div>
+    </section>
+
+    <style>
+        .loadimg {
+            display: none;
+        }
+
+        .header-wrap {
+            -webkit-box-shadow: 0 0 0.2666666667rem 0 rgba(0, 0, 0, .2);
+            -moz-box-shadow: 0 0 .2666666667rem 0 rgba(0, 0, 0, .2);
+            box-shadow: 0 0 0.2666666667rem 0 rgba(0, 0, 0, .2);
+            background-color: #fff;
+            /* -webkit-transition: all .4s; */
+            -o-transition: all .4s;
+            -moz-transition: all .4s;
+            transition: all .4s;
+        }
+
+        .loadend {
+            display: none;
+        }
+
+        .bookboxtmp {
+            display: none;
+        }
+
+        .flexCenter-ai-center {
+            display: flex;
+            align-content: center;
+            width: 100%;
+            align-items: center;
+            justify-items: center;
+            justify-content: center;
+        }
+
+        .flexCenter-ai-center img {
+            width: 20%;
+        }
+
+        .list-box {
+            position: relative;
+            width: 100%;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            padding: 0 .4266666667rem;
+            display: block;
+            overflow: scroll;
+        }
+
+        .list-box .list-box__item {
+            height: 2.9866666667rem;
+            margin-top: .64rem;
+            position: relative
+        }
+
+        .list-box .list-box__item:last-child {
+            margin-bottom: .64rem
+        }
+
+        .list-box .list-box__item-wrap {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: flex
+        }
+
+        .list-box .list-box__item-cover {
+            -webkit-border-radius: .1066666667rem;
+            -moz-border-radius: .1066666667rem;
+            border-radius: .1066666667rem;
+            width: 2.24rem;
+            height: 2.9866666667rem
+        }
+
+        .list-box .list-box__item-left {
+            margin-right: .32rem
+        }
+
+        .list-box .list-box__item-center {
+            width: 4.8rem;
+            margin-right: .32rem
+        }
+
+        .list-box .list-box__item-right {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            -webkit-transform: translateY(-50%);
+            -moz-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            -o-transform: translateY(-50%);
+            transform: translateY(-50%)
+        }
+
+        .list-box .list-box__item-title {
+            font-size: .4533333333rem;
+            margin-top: .16rem;
+            color: #333
+        }
+
+        .list-box .list-box__item-desc,
+        .list-box .list-box__item-title {
+            white-space: nowrap;
+            -o-text-overflow: ellipsis;
+            text-overflow: ellipsis;
+            overflow: hidden
+        }
+
+        .list-box .list-box__item-desc {
+            margin-top: .1066666667rem;
+            font-size: .32rem;
+            line-height: .4rem;
+            color: #b6b6b6;
+            height: 1.0933333333rem
+        }
+
+        .list-box .list-box__item-hot {
+            margin-top: .1066666667rem;
+            color: #b6b6b6;
+            font-size: .2666666667rem
+        }
+
+        .list-box .list-box__item-hot .ift-fire {
+            font-size: .2933333333rem;
+            margin-right: .0533333333rem
+        }
+
+        .list-box .list-box__item-hot span {
+            vertical-align: bottom
+        }
+
+        .list-box .list-box__item-tag {
+            margin-top: .24rem;
+            font-size: .2666666667rem;
+            color: #b6b6b6
+        }
+
+        .list-box .list-box__item-tag-item {
+            border: .0133333333rem solid #b6b6b6;
+            -webkit-border-radius: .1866666667rem;
+            -moz-border-radius: .1866666667rem;
+            border-radius: .1866666667rem;
+            font-size: .2666666667rem;
+            padding: .0266666667rem .08rem;
+            margin: .0266666667rem
+        }
+
+        .list-box .list-box__item-collection {
+            width: 1.4933333333rem;
+            height: .64rem;
+            line-height: .64rem;
+            -webkit-border-radius: .32rem;
+            -moz-border-radius: .32rem;
+            border-radius: .32rem;
+            background: #fc6976;
+            color: #fff;
+            text-align: center
+        }
+
+        .list-box .list-box__item-collection.done {
+            background: #f5f5f5;
+            color: #999
+        }
+
+        .list-box .list-box__item-collection.done .ift-add {
+            display: none
+        }
+    </style>
+
+    <script>
+        //初始化banner高度，宽高比。0.73
+        var searchindex = 'searchhis';
+        var searchdata, page = 1, have = 1, loadings = 0;
+        var searurl = '<!--{url mod="search"}-->?word=';
+        Array.prototype.aremove = function (val) {
+            var index = this.indexOf(val);
+            if (index > -1) {
+                this.splice(index, 1);
+            }
+        };
+        function pgscroll() {
+
+
+            $('.list-box').scroll(function () {
+                var scrollTop = $(this).scrollTop();
+
+                var ks_area = $(this).innerHeight();
+
+                //滚动距离总长(注意不是滚动条的长度)  
+                nScrollHight = $('body')[0].scrollHeight;
+                if (scrollTop + ks_area >= (nScrollHight - 1 * $(window).height())) {
+                    loading();
+                }
+                if (scrollTop + ks_area >= nScrollHight) {
+                    loading();
+                    showloadbox();
+                }
+                if ($(this).scrollTop() == 0) {
+                }
+            });
+        }
+        function loading() {
+
+            if (!have) return false;
+            if (loadings) return false;
+
+            // $word = $('.search-area').val();
+            // if (!$word) return false;
+            loadings = 1;
+
+            $url = '<!--{url action="new"}-->';
+            $data = {
+                'page': page++,
+                'ajax': 1
+                // 'keyword': $word
+            };
+            yAjax($url, $data, function ($ret) {
+                loadings = 0;
+                if ($ret['code'] == 1) {
+                    $books = $ret['result'];
+                    if ($books.length <= 0) {
+                        have = 0;
+                        //变更加载状态
+                        showloadbox();
+                    } else {
+                        //加载
+                        $d = $('.bottom_');
+                        $urlbook = "<!--{url mod='book'}-->?bookid=";
+                        $urlcartoon = "<!--{url mod='cartoon'}-->?bookid=";
+                        $.each($books, function (i, book) {
+                            $obj = $('.bookboxtmp').find('.list-box__item').clone();
+                            $obj.find('.bookimg>img').attr('src', book.bpic);
+                            $obj.find('.desc1').text(book.desc);
+                            $obj.find('.bookname>div').text(book.other_name);
+                            if (book.type == 1) {
+                                $obj.find('.type1').text('<!--{__ 小说}-->');
+                                $url = $urlbook + book.book_id;
+                            } else {
+                                $obj.find('.type1').text('<!--{__ 漫画}-->');
+                                $url = $urlcartoon + book.book_id;
+                            }
+                            if (book.update_status == 1) {
+                                $obj.find('.update1').text('<!--{__ 完结}-->');
+                            } else {
+                                $obj.find('.update1').text('<!--{__ 连载}-->');
+                            }
+                            $obj.find('a').attr('href', $url);
+                            $d.before($obj);
+                        });
+                    }
+                } else {
+                    showd('error' + $ret['code']);
+                }
+            });
+        }
+        function showloadbox() {
+            if (have) {
+                $('.loadimg').show();
+                $('.loadend').hide();
+            } else {
+                $('.loadimg').hide();
+                $('.loadend').show();
+            }
+        }
+        $(function () {
+            searchdata = getCookie(searchindex);
+            try {
+                $str = unescape(searchdata);
+                searchdata = jta($str);
+            } catch (error) {
+                d(error);
+                searchdata = [];
+            }
+
+            if (!searchdata) {
+                searchdata = [];
+            } else {
+                //加载历史搜索
+
+                // loadhis(searchdata);
+            }
+            pgscroll();
+            $('.js_searchBtn').on('click', function () {
+
+                $txt = $('.search-area').val();
+                if (!$txt) {
+                    _go_url(searurl);
+                    // showd('<!--{__ 请输入查找内容}-->');
+                    return false;
+                }
+
+                if (searchdata.indexOf($txt) < 0) {
+
+                    searchdata.push($txt);
+                    save(searchdata);
+
+                }
+                loadhis(searchdata);
+                _go_url(searurl + $txt);
+            });
+            $('.historyDel').on('click', function () {
+                d('del');
+                seardel($(this));
+                // loadhis(searchdata);
+            });
+            $('.historyClear').on('click', function () {
+
+                delCookie(searchindex);
+                searchdata = [];
+
+                loadhis(searchdata);
+            });
+            $('.history-text').on('click', function () { });
+            $('#enter').on('keydown', function (event) {
+                if (event.keyCode == 13) {
+                    $('.js_searchBtn').click();
+                }
+
+            });
+        });
+        function save(val) {
+            // val = encodeURIComponent(val);
+
+            $in = atj(val);
+
+            // $in.replace(/%/g, '%25');
+
+            setCookie(searchindex, $in);
+        }
+        function seardel($obj) {
+            $txt = $obj.attr('data-searched');
+            $ob = $obj.parentsUntil('li');
+            $ob.parent().remove();
+            searchdata.aremove($txt);
+            setCookie(searchindex, searchdata);
+            save(searchdata);
+        }
+        function loadhis(his) {
+            $obj = $('.tmpSrch').children('li');
+            $obj2 = $('.hisSrch-list');
+            $obj2.children().remove();
+            if (!his) {
+
+                $('.hisSrch').hide();
+                return false;
+            } else {
+
+                if (his.length <= 0) {
+
+                    $('.hisSrch').hide();
+                    return false;
+                }
+                $('.hisSrch').show();
+
+                $.each(his, function (i, v) {
+                    $obj3 = $obj.clone();
+                    $obj3.find('.history-text').text(v);
+                    $obj3.find('.historyDel').attr('data-searched', v);
+                    $obj3.find('a').attr('title', v);
+                    $obj3.find('a').attr('href', searurl + v);
+                    $obj2.prepend($obj3);
+                });
+            }
+
+        }
+    </script>
+</body>
+
+</html>

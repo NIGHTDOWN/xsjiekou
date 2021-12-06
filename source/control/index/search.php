@@ -20,8 +20,13 @@ class search extends indexbase
 
     public function control_run()
     {
-
-
-        $this->view();
+        $get = get(['string' => ['word', 'page']]);
+        if ($get['word']) {
+            $data = M('search', 'im')->search($this->langid, $get['word'], $get['page']);
+            $this->view('search_list', ['word' => $get['word'], 'data' => $data]);
+        } else {
+            $list = T('hot_search')->set_where(['lang' => $this->langid])->order_by(['s' => 'down', 'f' => 'sernum'])->set_limit(15)->get_all();
+            $this->view(null, ['data' => $list]);
+        }
     }
 }

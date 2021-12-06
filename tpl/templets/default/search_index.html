@@ -68,64 +68,26 @@
             <article class="view-body search-wapper" id="js_searchWapper">
                 <div class="content bs-content" style="padding-right: 0px; padding-bottom: 1px;">
                     <div class="hot-search" id="js_hotSearch">
-                        <div class="hot-hd">热门搜索</div>
+                        <div class="hot-hd">
+                            <!--{__ 热门搜索}-->
+                        </div>
                         <ul class="hot-tags">
 
 
-
-                            <li class="tag" data-id="108680" style="background: #ffefff; color: #ff84fc;">
-                                吾乃苍天
-                            </li>
-
-
-                            <li class="tag" data-id="107419" style="background: #eafcfd; color: #25d7e4;">
-                                毒医嫡女
-                            </li>
-
-
-                            <li class="tag" data-id="107682" style="background: #effae4; color: #7ed321;">
-                                仙武帝尊
-                            </li>
+                            <!--{foreach $data as $k=>$list}-->
+                            <a href=' <!--{if $list.type==1}-->
+                                <!--{url mod="book" args="bookid:{$list.bookid},title:{$list.title}"}-->
+                                <!--{else}-->
+                              <!--{url mod="cartoon" args="bookid:{$list.bookid},title:{$list.title}"}-->
+                                <!--{/if}-->'>
+                                <li class="tag c<!--{$k+1}-->" data-id="<!--{$list.bookid}-->"
+                                    data-type="<!--{$list.type}-->">
+                                    <!--{$list.title}-->
+                                </li>
+                            </a>
+                            <!--{/foreach}-->
 
 
-                            <li class="tag" data-id="107883" style="background: #ebf7ff; color: #3bafff;">
-                                契约冷妻不好惹
-                            </li>
-
-
-                            <li class="tag" data-id="108294" style="background: #fff4f3; color: #fa7669;">
-                                镇国主宰
-                            </li>
-
-
-                            <li class="tag" data-id="17745" style="background: #effae4; color: #7ed321;">
-                                凤逆天下
-                            </li>
-
-
-                            <li class="tag" data-id="107804" style="background: #effae4; color: #7ed321;">
-                                神级渔夫
-                            </li>
-
-
-                            <li class="tag" data-id="106397" style="background: #fff4f3; color: #fa7669;">
-                                因爱宠你
-                            </li>
-
-
-                            <li class="tag" data-id="108362" style="background: #effae4; color: #7ed321;">
-                                仙帝入侵
-                            </li>
-
-
-                            <li class="tag" data-id="8842" style="background: #eafcfd; color: #25d7e4;">
-                                寻找前世之旅
-                            </li>
-
-
-                            <li class="tag" data-id="108505" style="background: #effae4; color: #7ed321;">
-                                必胜至尊
-                            </li>
 
 
                         </ul>
@@ -168,7 +130,82 @@
 
 
 
+    <style>
+        .c1 {
+            background: #ffefff;
+            color: #ff84fc;
+        }
 
+        .c2 {
+            background: #eafcfd;
+            color: #25d7e4;
+        }
+
+        .c3 {
+            background: #effae4;
+            color: #7ed321;
+        }
+
+        .c4 {
+            background: #ebf7ff;
+            color: #3bafff;
+        }
+
+        .c5 {
+            background: #fff4f3;
+            color: #fa7669;
+        }
+
+        .c6 {
+            background: #ffefff;
+            color: #ff84fc;
+        }
+
+        .c7 {
+            background: #eafcfd;
+            color: #25d7e4;
+        }
+
+        .c8 {
+            background: #effae4;
+            color: #7ed321;
+        }
+
+        .c9 {
+            background: #ebf7ff;
+            color: #3bafff;
+        }
+
+        .c10 {
+            background: #fff4f3;
+            color: #fa7669;
+        }
+
+        .c11 {
+            background: #ffefff;
+            color: #ff84fc;
+        }
+
+        .c12 {
+            background: #eafcfd;
+            color: #25d7e4;
+        }
+
+        .c13 {
+            background: #effae4;
+            color: #7ed321;
+        }
+
+        .c14 {
+            background: #ebf7ff;
+            color: #3bafff;
+        }
+
+        .c15 {
+            background: #fff4f3;
+            color: #fa7669;
+        }
+    </style>
     <script>
         //初始化banner高度，宽高比。0.73
         var searchindex = 'searchhis';

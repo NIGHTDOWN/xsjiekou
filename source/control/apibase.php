@@ -122,18 +122,18 @@ class apibase extends general
     }
     private function init_country()
     {
-        if (parent::$wrap_user && parent::$wrap_user['locklang'] != -1 && strlen($this->head['lang']) != 2) {
-            $this->head['cityid'] = parent::$wrap_user['locklang'];
-            $this->head['rate'] = 1;
-            return false;
-        }
+
+
         $lang = strtolower(@$this->head['lang']);
         if (!$lang) {
-            $this->head['cityid'] = 0;
+            $lang = $this->head['accept-language'];
+
             $this->head['rate'] = 1;
-            return false;
+            // return false;
         }
+
         $lang = substr($lang, 0, 2);
+
         $in = T('city')->get_one(['cityname' => $lang]);
         if (!$in) {
             $this->head['cityid'] = 0;

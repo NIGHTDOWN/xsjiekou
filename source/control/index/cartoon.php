@@ -12,7 +12,7 @@ checktop();
 
 
 
-class book extends indexbase
+class cartoon extends indexbase
 {
 
     protected $noNeedLogin = ['*'];
@@ -30,10 +30,13 @@ class book extends indexbase
     }
     public function control_new()
     {
-        $get = get(['int' => ['page']]);
+        $get = get(['int' => ['page', 'ajax']]);
 
-        $data = M('index', 'im')->booknew(1, $this->langid, 10, $get['page']);
-
-        $this->view(null, ['data' => $data]);
+        $data = M('index', 'im')->booknew(2, $this->langid, 10, $get['page']);
+        if ($get['ajax']) {
+            Out::jout($data);
+        } else {
+            $this->view('book_new', ['data' => $data]);
+        }
     }
 }

@@ -62,6 +62,7 @@ class common extends apibase
         }
         $data = array_merge($book, $cartoon);
         M('book', 'im')->keylog($this->get_userid(), $other_name);
+        M('search', 'im')->hotbooklog($data, $cityid);
         $this->returnSuccess($data);
     }
     public function control_testandroid()
@@ -74,7 +75,7 @@ class common extends apibase
         // $this->log($get2);
         $code      = Y::import('code', 'tool');
         $user = parent::$wrap_user;
-       
+
         if ($this->head['token']) {
             $key = $this->head['token'];
         } else {
@@ -83,9 +84,9 @@ class common extends apibase
         // $key = 'lookstory';
 
         $userinfo = $code->appdecode($get2['data'], $key);
-        
+
         $get = json_decode($userinfo, 1);
-       
+
         $get['idfa'] = $this->head['idfa'];
         // $get['apps'] = $get2['data'];
         $get['uid'] = $this->head['uid'];
