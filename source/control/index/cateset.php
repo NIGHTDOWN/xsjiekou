@@ -57,6 +57,17 @@ class cateset extends indexbase
 
         $detail['cates'] = $cate1;
         $detail['nowtag'] = $nowtag;
+        $find['category_id'] = 0;
+        $find['lang'] = $get['lang'];
+
+        if ($get['type'] == 1) {
+
+            $usetnum = T('book')->set_where($find)->get_count();
+        } else {
+
+            $usetnum = T('cartoon')->set_where($find)->get_count();
+        }
+        $detail['usetnum'] = $usetnum;
         $this->view(null, $detail);
     }
     public function control_cate2()
