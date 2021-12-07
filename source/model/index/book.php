@@ -387,108 +387,215 @@ LnUG4Z69pKZHtL6ljwIDAQAB
             return false;
         }
     }
-    public function detail($bookid, $uid = 0)
+    public function detail($bookid,  $uid = 0, $type = 1)
     {
-        $index = 'webbid:' . $bookid;
-        $w = ['book_id' => $bookid, 'status' => 1];        //取书籍
-        //取最新章节
-        //取评论
-        //判断是否登入
-        //登入 修复书籍书架状态
-        //修复未审核的评论
-        $cache = Y::$cache->get($index);
-        if ($cache[0]) {
-            $arr = $cache[1];
+        $index = 'webbid:' . $bookid . '_' . $type;
+        if ($type == 1) {
+            $w = ['book_id' => $bookid, 'status' => 1];        //取书籍
+            //取最新章节
+            //取评论
+            //判断是否登入
+            //登入 修复书籍书架状态
+            //修复未审核的评论
+            $cache = Y::$cache->get($index);
+            if ($cache[0]) {
+                $arr = $cache[1];
+            } else {
+                $data = T('book')
+                    ->field('other_name,book_id,bpic,bpic_dsl,writer_name,`desc`,section,update_status,isfree,wordnum,end_share,share_banner,lang,cate_id,lable,category_id,collect')
+                    ->where($w)
+                    ->find();
+                if (!$data) {
+                    return false;
+                    // Out::jerror('书籍不存在', null, '100143');
+                }
+                $data['isgroom'] = 0;
+                $w['status'] = 1;
+                // $star = T('discuss')->where($w)->get_count();
+                $w['isdelete'] = 0;
+                if ($data['lang'] == 0) {
+                    $tpsec = 'section';
+                } else {
+                    $tpsec = 'section_' . $data['lang'];
+                }
+                $new_section = T($tpsec)->where($w)->set_field('title,section_id,list_order,update_time')->order_by(['s' => 'down', 'f' => 'list_order'])->get_one();
+                $seclist = T($tpsec)->where($w)->set_field('title,section_id,list_order,isfree')->order_by(['s' => 'up', 'f' => 'list_order'])->get_all();
+                $update_section = $new_section['list_order'];
+                unset($w['isdelete']);
+                $sumss = T('discuss')->set_field('sum(star) as sums,count(1) as counts')->where($w)->get_one();
+                $sums = $sumss['sums'];
+                $star = $sumss['counts'];
+                $replynum = "";
+                if ($star == 0 && $sums == 0) {
+                    $replynum = 5;
+                } else {
+                    $replynum = $sums / $star;
+                    $replynum = round($replynum, 1);
+                }
+                $discuss = T('discuss')
+                    ->field('discuss_id,star,nick_name,discuss_time,content,users_id')
+                    ->where($w)
+                    ->order('discuss_time desc')
+                    ->limit(5)
+                    ->get_all();
+
+                $discuss = $this->getdiscussavater($discuss);
+
+                $count = $star;
+                $data['desc'] = str_replace("&quot;", "\"", $data['desc']);
+                $data['section_count'] = $data['section'];
+                $data['replynum'] = $replynum;
+                $data['update_section'] = $update_section;
+                $data['new_section_title'] = $new_section['title'];
+                $data['new_section_id'] = $new_section['section_id'];
+                $data['new_section_time'] = strtotime($new_section['update_time']);
+                $data['type'] = $type;
+                unset($data['section']);
+                $arr = [
+                    'data' => $data,
+                    'seclist' => $seclist,
+                    'discussd' => [
+                        'discuss' => $discuss,
+                        'count' => $count,
+                    ],
+                ];
+                if (!$arr['data']['wordnum']) {
+                    // 修复字数
+                    M('book', 'im')->fixbooknum($bookid);
+                }
+                Y::$cache->set($index, $arr, 43200);
+            }
+
+            if ($uid) {
+                if (T('user_groom')->set_field('isgroom')->get_one(['status' => 1, 'book_id' => $bookid, 'users_id' => $uid, 'type' => 1])) {
+                    $arr['data']['isgroom'] = 1;
+                }
+                $owenDiscuss = T('discuss')
+                    ->field('discuss_id,star,nick_name,discuss_time,content,users_id')
+                    ->where($w)
+                    ->where(['users_id' => $this->uid])
+                    ->order('discuss_time desc')
+                    // ->limit(1)
+                    ->get_one();
+                if ($owenDiscuss) {
+                    // foreach ($owenDiscuss as  $key => $value) {
+                    # code...
+                    $owenDiscuss['avater'] = parent::$wrap_user['avater'];
+                    // }
+
+                    $arr['discussd']['discuss'] = array_merge([$owenDiscuss], $arr['discussd']['discuss']);
+                }
+            }
+            // 点击统计
+            M('census', 'im')->hitcounts($bookid);
+            M('bookcensus', 'im')->readnum($uid, 1, $bookid);
         } else {
-            $data = T('book')
-                ->field('other_name,book_id,bpic,bpic_dsl,writer_name,`desc`,section,update_status,isfree,wordnum,end_share,share_banner,lang,cate_id,lable,collect')
-                ->where($w)
-                ->find();
-            if (!$data) {
-                return false;
-                // Out::jerror('书籍不存在', null, '100143');
-            }
-            $data['isgroom'] = 0;
-            $w['status'] = 1;
-            // $star = T('discuss')->where($w)->get_count();
-            $w['isdelete'] = 0;
-            if ($data['lang'] == 0) {
-                $tpsec = 'section';
+            $cartoon_id = $bookid;
+            $cache = Y::$cache->get($index);
+            if ($cache[0]) {
+                $arr = $cache[1];
             } else {
-                $tpsec = 'section_' . $data['lang'];
-            }
-            $new_section = T($tpsec)->where($w)->set_field('title,section_id,list_order,update_time')->order_by(['s' => 'down', 'f' => 'list_order'])->get_one();
-            $seclist = T($tpsec)->where($w)->set_field('title,section_id,list_order,isfree')->order_by(['s' => 'up', 'f' => 'list_order'])->get_all();
-            $update_section = $new_section['list_order'];
-            unset($w['isdelete']);
-            $sumss = T('discuss')->set_field('sum(star) as sums,count(1) as counts')->where($w)->get_one();
-            $sums = $sumss['sums'];
-            $star = $sumss['counts'];
-            $replynum = "";
-            if ($star == 0 && $sums == 0) {
-                $replynum = 5;
-            } else {
-                $replynum = $sums / $star;
-                $replynum = round($replynum, 1);
-            }
-            $discuss = T('discuss')
-                ->field('discuss_id,star,nick_name,discuss_time,content,users_id')
-                ->where($w)
-                ->order('discuss_time desc')
-                ->limit(5)
-                ->get_all();
+                $w = ['cartoon_id' => $cartoon_id];
+                $data = T('cartoon')
+                    ->field('other_name,cartoon_id as book_id,cartoon_id,bpic,bpic_dsl,writer_name,`desc`,cate_id,lable,category_id,likes,update_time,hits,collect,bpic_detail,update_status,isfree,`read`,end_share,share_banner,0 as isgroom,lang')
+                    ->where($w)
+                    ->get_one();
 
-            $discuss = $this->getdiscussavater($discuss);
+                $data['like'] = $data['likes'];
+                $data['share_banner'] = $data['bpic_detail'];
 
-            $count = $star;
-            $data['desc'] = str_replace("&quot;", "\"", $data['desc']);
-            $data['section_count'] = $data['section'];
-            $data['replynum'] = $replynum;
-            $data['update_section'] = $update_section;
-            $data['new_section_title'] = $new_section['title'];
-            $data['new_section_id'] = $new_section['section_id'];
-            $data['new_section_time'] = strtotime($new_section['update_time']);
+                unset($data['likes']);
+                $update_time = strtotime($data['update_time']);
+                $time = time() - $update_time;
+                if ($time < 86400) {
+                    $data['update_time'] = date("H:i:s", $update_time);
+                } else {
+                    $data['update_time'] = date("d-m-Y", $update_time);
+                }
+                $w['status'] = 1;
+                // $star = T('discuss')->where($w)->get_count();
+                $sumss = T('discuss')->set_field('sum(star) as sums,count(1) as counts')->where($w)->get_one();
+                $sums = $sumss['sums'];
+                $star = $sumss['counts'];
+                $replynum = "";
+                if ($star == 0 && $sums == 0) {
+                    $replynum = 5;
+                } else {
+                    $replynum = $sums / $star;
+                    $replynum = round($replynum, 1);
+                }
 
-            unset($data['section']);
-            $arr = [
-                'data' => $data,
-                'seclist' => $seclist,
-                'discussd' => [
-                    'discuss' => $discuss,
-                    'count' => $count,
-                ],
-            ];
-            if (!$arr['data']['wordnum']) {
-                // 修复字数
-                M('book', 'im')->fixbooknum($bookid);
+
+                // 获取本漫画的评论信息
+
+                $discuss = T('discuss')
+                    ->field('discuss_id,star,nick_name,discuss_time,content,users_id')
+                    ->where($w)
+                    ->order('discuss_time desc')
+                    ->limit(5)
+                    ->get_all();
+
+                $discuss = $this->getdiscussavater($discuss);
+                $count = $star;
+
+                $data['desc'] = str_replace("&quot;", "\"", $data['desc']);
+                $data['replynum'] = $replynum;
+                $w = [];
+                $w['isdelete'] = 0;
+                $w['cartoon_id'] = $cartoon_id;
+                $w['status'] = 1;
+                if ($data['lang'] == 0) {
+                    $tpsec = 'cartoon_section';
+                } else {
+                    $tpsec = 'cartoon_section_' . $data['lang'];
+                }
+                $new_section = T($tpsec)->where($w)->set_field('title,cart_section_id as section_id,list_order')->order_by(['s' => 'down', 'f' => 'cart_section_id'])->get_one();
+                $seclist = T($tpsec)->where($w)->set_field('title,cart_section_id as section_id,list_order')->order_by(['s' => 'up', 'f' => 'cart_section_id'])->get_all();
+
+                $update_section = $new_section['list_order'];
+                $data['update_section'] = $update_section;
+                $data['new_section_title'] = $new_section['title'];
+                $data['new_section_id'] = $new_section['section_id'];
+                $data['type'] = $type;
+                $arr = [
+                    'data' => $data,
+                    'seclist' => $seclist,
+                    'discussd' => [
+                        'discuss' => $discuss,
+                        'count' => $count,
+                    ]
+                ];
+                Y::$cache->set($index, $arr, 43200);
             }
-            Y::$cache->set($index, $arr, 43200);
+
+
+            if ($uid) {
+
+                if (T('user_groom')->set_field('isgroom')->get_one(['status' => 1, 'book_id' => $cartoon_id, 'users_id' => $uid, 'type' => 1])) {
+                    $arr['data']['isgroom'] = 1;
+                }
+                unset($w['isdelete']);
+
+                $w = ['cartoon_id' => $cartoon_id];
+                $owenDiscuss = T('discuss')
+                    ->field('discuss_id,star,nick_name,discuss_time,content,users_id')
+                    ->where($w)
+                    ->where(['users_id' => $this->uid])
+                    ->order('discuss_time desc')
+                    // ->limit(1)
+                    ->get_one();
+
+                if ($owenDiscuss) {
+
+                    $owenDiscuss['avater'] = parent::$wrap_user['avater'];
+                    $arr['discussd']['discuss'] = array_merge([$owenDiscuss], $arr['discussd']['discuss']);
+                }
+            }
+
+            M('bookcensus', 'im')->readnum($uid, 2, $cartoon_id);
+            M('census', 'im')->cartoonhitcounts($cartoon_id);
         }
 
-        if ($uid) {
-            if (T('user_groom')->set_field('isgroom')->get_one(['status' => 1, 'book_id' => $bookid, 'users_id' => $uid, 'type' => 1])) {
-                $arr['data']['isgroom'] = 1;
-            }
-            $owenDiscuss = T('discuss')
-                ->field('discuss_id,star,nick_name,discuss_time,content,users_id')
-                ->where($w)
-                ->where(['users_id' => $this->uid])
-                ->order('discuss_time desc')
-                // ->limit(1)
-                ->get_one();
-            if ($owenDiscuss) {
-                // foreach ($owenDiscuss as  $key => $value) {
-                # code...
-                $owenDiscuss['avater'] = parent::$wrap_user['avater'];
-                // }
-
-                $arr['discussd']['discuss'] = array_merge([$owenDiscuss], $arr['discussd']['discuss']);
-            }
-        }
-
-        // 点击统计
-        M('census', 'im')->hitcounts($bookid);
-        M('bookcensus', 'im')->readnum($uid, 1, $bookid);
         return $arr;
     }
     private function getdiscussavater($discuss)

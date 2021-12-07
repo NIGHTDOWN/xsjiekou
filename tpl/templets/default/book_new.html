@@ -83,15 +83,28 @@
                         <p class="list-box__item-desc">
                             <!--{$list.desc}-->
                         </p>
-                        <div class="list-box__item-hot"><span class="fire ift-fire"></span><span>1.8亿</span></div>
-                        <div class="list-box__item-tag"><span class="list-box__item-tag-item">穿越</span> <span
-                                class="list-box__item-tag-item">恋爱</span> <span
-                                class="list-box__item-tag-item">古风</span></div>
+                        <div class="list-box__item-hot"><span class="fire ift-fire"></span><span class="yi">
+                                <!--{$list.read}-->
+                            </span>
+                            <span>
+                                <!--{__ 万}-->
+                            </span>
+                        </div>
+                        <div class="list-box__item-tag">
+                            <!--{foreach $list.tags as $tag}-->
+                            <!--{if $tag}-->
+                            <span class="list-box__item-tag-item" tagid='<!--{$tag.id}-->'>
+                                <!--{$tag.tag}-->
+                            </span>
+                            <!--{/if}-->
+                            <!--{/foreach}-->
+                        </div>
                     </div>
                     <div class="list-box__item-right">
                         <div class="list-box__item-collection"><span class="ift-add"></span><span
-                                data-comic="{&quot;id&quot;:15772572,&quot;comic_name&quot;:&quot;你一笑就甜倒我八颗牙&quot;,&quot;product_id&quot;:1,&quot;comic_feature&quot;:&quot;百年一遇流星雨带来的沙雕甜宠蜜恋&quot;,&quot;load_type&quot;:1,&quot;img_url&quot;:&quot;&quot;,&quot;nofollow&quot;:0,&quot;sort_num&quot;:232,&quot;url&quot;:&quot;&quot;,&quot;comic_id&quot;:108693,&quot;page_id&quot;:497525,&quot;isdisable&quot;:0,&quot;comic_type&quot;:[&quot;穿越&quot;,&quot;恋爱&quot;,&quot;古风&quot;],&quot;cartoon_name&quot;:&quot;你一笑就甜倒我八颗牙&quot;,&quot;new_cartoon_id&quot;:&quot;di29hua-1638258870&quot;,&quot;new_cartoon_name&quot;:&quot;第29话 好羞耻&quot;,&quot;author_name&quot;:&quot;飒飒动漫&quot;,&quot;total_view_num&quot;:&quot;176272025&quot;,&quot;comic_newid&quot;:&quot;niyixiaojiutiandaowobakeya&quot;,&quot;latest_cartoon_topic_id&quot;:&quot;1799054&quot;,&quot;cartoon_desc&quot;:&quot;【独家/每周二、六更新】一场百年一遇的阿尔法流星雨，乔绾和好友唐苏双双穿越。一个初来乍到就惹上暴躁的黑帮太子爷李修阳，欢喜冤家爆笑你追我赶。一个莫名其妙拿上王妃剧本，被腹黑王爷白慕之的甜蜜攻势炮轰，逐渐沦陷时，才惊觉蜜里的砒霜。&quot;,&quot;cartoon_topic_name&quot;:&quot;第29话 好羞耻&quot;,&quot;chapter_feature&quot;:&quot;&quot;,&quot;font_color&quot;:&quot;ffffff&quot;,&quot;font_size&quot;:36,&quot;border_color&quot;:&quot;342065&quot;,&quot;border_size&quot;:6,&quot;feature_position&quot;:0,&quot;chapter_image_addr&quot;:&quot;/mh/108693_2_1.jpg&quot;,&quot;cartoon_status&quot;:1,&quot;update_time&quot;:&quot;2021-12-04T00:00:35.000Z&quot;}"
-                                class="btn-sub subscribe">收藏</span></div>
+                                class="btn-sub subscribe">
+                                <!--{__ 收藏}-->
+                            </span></div>
                     </div>
                 </a>
             </li>
@@ -129,15 +142,24 @@
                         <p class="list-box__item-desc">
                             <!--{$list.desc}-->
                         </p>
-                        <div class="list-box__item-hot"><span class="fire ift-fire"></span><span>1.8亿</span></div>
-                        <div class="list-box__item-tag"><span class="list-box__item-tag-item">穿越</span> <span
-                                class="list-box__item-tag-item">恋爱</span> <span
-                                class="list-box__item-tag-item">古风</span></div>
+                        <div class="list-box__item-hot"><span class="fire ift-fire"></span><span class="yi">1.8</span>
+                            <span>
+                                <!--{__ 万}-->
+                            </span>
+                        </div>
+                        <div class="list-box__item-tag">
+                            <!--{foreach $data.tags as $tag}-->
+                            <span class="list-box__item-tag-item" tagid='<!--{$tag.id}-->'>
+                                <!--{$tag.tag}-->
+                            </span>
+                            <!--{/foreach}-->
+                        </div>
                     </div>
                     <div class="list-box__item-right">
                         <div class="list-box__item-collection"><span class="ift-add"></span><span
-                                data-comic="{&quot;id&quot;:15772572,&quot;comic_name&quot;:&quot;你一笑就甜倒我八颗牙&quot;,&quot;product_id&quot;:1,&quot;comic_feature&quot;:&quot;百年一遇流星雨带来的沙雕甜宠蜜恋&quot;,&quot;load_type&quot;:1,&quot;img_url&quot;:&quot;&quot;,&quot;nofollow&quot;:0,&quot;sort_num&quot;:232,&quot;url&quot;:&quot;&quot;,&quot;comic_id&quot;:108693,&quot;page_id&quot;:497525,&quot;isdisable&quot;:0,&quot;comic_type&quot;:[&quot;穿越&quot;,&quot;恋爱&quot;,&quot;古风&quot;],&quot;cartoon_name&quot;:&quot;你一笑就甜倒我八颗牙&quot;,&quot;new_cartoon_id&quot;:&quot;di29hua-1638258870&quot;,&quot;new_cartoon_name&quot;:&quot;第29话 好羞耻&quot;,&quot;author_name&quot;:&quot;飒飒动漫&quot;,&quot;total_view_num&quot;:&quot;176272025&quot;,&quot;comic_newid&quot;:&quot;niyixiaojiutiandaowobakeya&quot;,&quot;latest_cartoon_topic_id&quot;:&quot;1799054&quot;,&quot;cartoon_desc&quot;:&quot;【独家/每周二、六更新】一场百年一遇的阿尔法流星雨，乔绾和好友唐苏双双穿越。一个初来乍到就惹上暴躁的黑帮太子爷李修阳，欢喜冤家爆笑你追我赶。一个莫名其妙拿上王妃剧本，被腹黑王爷白慕之的甜蜜攻势炮轰，逐渐沦陷时，才惊觉蜜里的砒霜。&quot;,&quot;cartoon_topic_name&quot;:&quot;第29话 好羞耻&quot;,&quot;chapter_feature&quot;:&quot;&quot;,&quot;font_color&quot;:&quot;ffffff&quot;,&quot;font_size&quot;:36,&quot;border_color&quot;:&quot;342065&quot;,&quot;border_size&quot;:6,&quot;feature_position&quot;:0,&quot;chapter_image_addr&quot;:&quot;/mh/108693_2_1.jpg&quot;,&quot;cartoon_status&quot;:1,&quot;update_time&quot;:&quot;2021-12-04T00:00:35.000Z&quot;}"
-                                class="btn-sub subscribe">收藏</span></div>
+                                class="btn-sub subscribe">
+                                <!--{__ 收藏}-->
+                            </span></div>
                     </div>
                 </a>
             </li>
@@ -175,6 +197,7 @@
             align-items: center;
             justify-items: center;
             justify-content: center;
+            margin: 0.3rem 0;
         }
 
         .flexCenter-ai-center img {
@@ -246,18 +269,18 @@
 
         .list-box .list-box__item-desc,
         .list-box .list-box__item-title {
-            white-space: nowrap;
-            -o-text-overflow: ellipsis;
-            text-overflow: ellipsis;
-            overflow: hidden
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
         }
 
         .list-box .list-box__item-desc {
             margin-top: .1066666667rem;
-            font-size: .32rem;
-            line-height: .4rem;
+            font-size: .33rem;
+            line-height: .52rem;
             color: #b6b6b6;
-            height: 1.0933333333rem
+            height: 1.0933333333rem;
         }
 
         .list-box .list-box__item-hot {
@@ -375,9 +398,10 @@
                         $urlcartoon = "<!--{url mod='cartoon'}-->?bookid=";
                         $.each($books, function (i, book) {
                             $obj = $('.bookboxtmp').find('.list-box__item').clone();
-                            $obj.find('.bookimg>img').attr('src', book.bpic);
-                            $obj.find('.desc1').text(book.desc);
-                            $obj.find('.bookname>div').text(book.other_name);
+                            $obj.find('.list-box__item-left>img').attr('src', book.bpic);
+                            $obj.find('.list-box__item-desc').text(book.desc);
+                            $obj.find('.list-box__item-title').text(book.other_name);
+                            $obj.find('.yi').text(book.read);
                             if (book.type == 1) {
                                 $obj.find('.type1').text('<!--{__ 小说}-->');
                                 $url = $urlbook + book.book_id;

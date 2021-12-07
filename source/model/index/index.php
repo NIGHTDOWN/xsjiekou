@@ -18,9 +18,9 @@ class index extends Y
         }
         if ($type == 2) {
             //漫画
-            $list = T('cartoon')->set_field('cartoon_id as book_id,other_name,hits,`desc`,lable,bpic,share_banner')->set_where(['lang' => $lang])->wherein('cartoon_id', $bookids)->get_all();
+            $list = T('cartoon')->set_field('cartoon_id as book_id,other_name,hits,`desc`,lable,bpic,share_banner,`read`')->set_where(['lang' => $lang])->wherein('cartoon_id', $bookids)->get_all();
         } else {
-            $list = T('book')->set_field('book_id,other_name,hits,`desc`,lable,bpic,share_banner')->set_where(['lang' => $lang])->wherein('book_id', $bookids)->get_all();
+            $list = T('book')->set_field('book_id,other_name,hits,`desc`,lable,bpic,share_banner,`read`')->set_where(['lang' => $lang])->wherein('book_id', $bookids)->get_all();
         }
         return $list;
     }
