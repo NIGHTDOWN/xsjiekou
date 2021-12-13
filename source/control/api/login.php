@@ -75,8 +75,8 @@ class login extends apibase
     {
         $get = get(['string' => ['username' => 1]]);
         $get2 = get(['string' => ['password' => 'md5']]);
-        d($this->head);
-        $user = M('user', 'im')->login($get['username'], $get2['password'], $this->head['devicetype']);
+        $devicetype=$this->head['devicetype']?$this->head['devicetype']:'android';
+        $user = M('user', 'im')->login($get['username'], $get2['password'], $devicetype);
         if ($user) {
             // $this->savecookie($user);
             // Out::redirect(geturl(null, null, 'me'));
@@ -138,8 +138,8 @@ class login extends apibase
             } else {
                 $pid = $get['channel_id'];
             }
-
-            $ret = M('user', 'im')->createuser($get['username'], $get['nickname'], $get['password']);
+            $devicetype=$this->head['devicetype']?$this->head['devicetype']:'android';
+            $ret = M('user', 'im')->createuser($get['username'], $get['nickname'], $get['password'],$devicetype);
 
             if ($ret && is_array($ret)) {
                 $this->uid = $ret[0];
