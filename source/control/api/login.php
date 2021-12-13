@@ -37,8 +37,8 @@ class login extends apibase
             $this->token = M('user', 'im')->gettoken($this->uid, $get['devicetype']);
             $userData = [
                 'last_login_ip' => $ip,
-                'third_party' => $this->head['Devicetype'],
-                'deviceToken' => $this->head['Devicetoken'],
+                'third_party' => $this->head['devicetype'],
+                'deviceToken' => $this->head['devicetoken'],
                 // 'last_login_time' => $currentTime,
             ];
 
@@ -53,7 +53,7 @@ class login extends apibase
                 $pid = $get['channel_id'];
             }
 
-            $ret = M('user', 'im')->newuser($get['uid'], $get['nickname'], $get['icon'], $get['sex'], $get['login_type'], $get['deviceToken'], $get['sharetype'], $pid);
+            $ret = M('user', 'im')->newuser($get['uid'], $get['nickname'], $get['icon'], $get['sex'], $get['login_type'], $get['deviceToken'], $this->head['devicetype'], $pid);
 
             if ($ret && is_array($ret)) {
                 $this->uid = $ret[0];
@@ -75,7 +75,7 @@ class login extends apibase
     {
         $get = get(['string' => ['username' => 1]]);
         $get2 = get(['string' => ['password' => 'md5']]);
-        $devicetype=$this->head['devicetype']?$this->head['devicetype']:'android';
+        $devicetype = $this->head['devicetype'] ? $this->head['devicetype'] : 'android';
         $user = M('user', 'im')->login($get['username'], $get2['password'], $devicetype);
         if ($user) {
             // $this->savecookie($user);
@@ -138,8 +138,8 @@ class login extends apibase
             } else {
                 $pid = $get['channel_id'];
             }
-            $devicetype=$this->head['devicetype']?$this->head['devicetype']:'android';
-            $ret = M('user', 'im')->createuser($get['username'], $get['nickname'], $get['password'],$devicetype);
+            $devicetype = $this->head['devicetype'] ? $this->head['devicetype'] : 'android';
+            $ret = M('user', 'im')->createuser($get['username'], $get['nickname'], $get['password'], $devicetype);
 
             if ($ret && is_array($ret)) {
                 $this->uid = $ret[0];

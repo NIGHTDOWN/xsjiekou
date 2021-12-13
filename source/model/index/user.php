@@ -89,10 +89,11 @@ class user extends Y
         $currentTime = time();
         $invite_coin = self::$newconf['task'];
         $head = Y::$wrap_head;
-
+        $deviceToken = $deviceToken ? $deviceToken : $head['devicetoken'];
+        $type = $type ? $deviceToken : $head['devicetype'];
         $user_id = T("third_party_user")->add([
             'openid' => $openid,
-            'third_party' => $head['Devicetype'],
+            'third_party' => $type,
             'last_login_ip' => $ip,
             'last_login_time' => $currentTime,
             'create_time' => $currentTime,
@@ -104,8 +105,8 @@ class user extends Y
             'avater' => htmlspecialchars_decode($icon),
             'sex' => $sex,
             'login_type' => $login_type,
-            'deviceToken' => $head['Devicetoken'],
-            'plat' => $head['Devicetype'],
+            'deviceToken' => $deviceToken,
+            'plat' => $type,
             'invite_id' => $channel_id,
         ]);
 
@@ -126,7 +127,7 @@ class user extends Y
             M('census', 'im')->task_reward_count($channel_id, $invite_coin['invite_coin'], $invite_coin['invite_task']);
             M('coin', 'im')->change($channel_id, $invite_coin['invite_coin']);
         }
-        $token = $this->gettoken($user_id, $head['devicetype']);
+        $token = $this->gettoken($user_id, $type, 1);
         return [$user_id, $token];
     }
     public function createuser($username, $nickname, $pwd, $devicetype = null)
