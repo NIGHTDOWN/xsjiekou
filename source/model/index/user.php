@@ -23,7 +23,9 @@ class user extends Y
         $currentTime = time();
         $expireTime = $currentTime + 24 * 3600 * 180;
         $token = md5(uniqid()) . md5(uniqid());
-        if (empty($findUserToken) && $reflase) {
+
+        if (!($findUserToken)) {
+
             T("user_token")->add([
                 'token' => $token,
                 'user_id' => $uid,
@@ -32,19 +34,29 @@ class user extends Y
                 'device_type' => $deviceType,
             ]);
         } else {
-            if ($findUserToken['expire_time'] > time() && !empty($findUserToken['token'])) {
-                $token = $findUserToken['token'];
-            } else {
-                // T("user_token")->update([
-                //     'token' => $token,
-                //     'expire_time' => $expireTime,
-                //     'create_time' => $currentTime,
-                // ], ['user_id' => $userId, 'device_type' => $deviceType]);
+            if ($reflase) {
                 T("user_token")->update([
                     'token' => $token,
                     'expire_time' => $expireTime,
                     'create_time' => $currentTime,
-                ], ['user_id' => $uid]);
+                ], [
+                    'user_id' => $uid,
+                    'device_type' => $deviceType,
+                ]);
+            } else {
+                if ($findUserToken['expire_time'] > time() && !empty($findUserToken['token'])) {
+                    $token = $findUserToken['token'];
+                } else {
+
+                    T("user_token")->update([
+                        'token' => $token,
+                        'expire_time' => $expireTime,
+                        'create_time' => $currentTime,
+                    ], [
+                        'user_id' => $uid,
+                        'device_type' => $deviceType,
+                    ]);
+                }
             }
         }
 
@@ -90,7 +102,7 @@ class user extends Y
         $invite_coin = self::$newconf['task'];
         $head = Y::$wrap_head;
         $deviceToken = $deviceToken ? $deviceToken : $head['devicetoken'];
-        $type = $type ? $deviceToken : $head['devicetype'];
+        $type = $type ? $type : $head['devicetype'];
         $user_id = T("third_party_user")->add([
             'openid' => $openid,
             'third_party' => $type,
@@ -127,6 +139,8 @@ class user extends Y
             M('census', 'im')->task_reward_count($channel_id, $invite_coin['invite_coin'], $invite_coin['invite_task']);
             M('coin', 'im')->change($channel_id, $invite_coin['invite_coin']);
         }
+    
+      
         $token = $this->gettoken($user_id, $type, 1);
         return [$user_id, $token];
     }
