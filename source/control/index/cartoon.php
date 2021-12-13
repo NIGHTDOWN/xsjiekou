@@ -35,14 +35,39 @@ class cartoon extends indexbase
         $data = M('index', 'im')->booknew(2, $this->langid, 10, $get['page']);
         foreach ($data as $k => $book) {
             $data[$k]['tags'] =  M('cate', 'im')->getlable($book['lable'], $this->langid);
-            // if ($data[$k]['tags']) {
-            //     d($data[$k]);
-            // }
         }
         if ($get['ajax']) {
             Out::jout($data);
         } else {
             $this->view('book_new', ['data' => $data]);
+        }
+    }
+    public function control_hot()
+    {
+        $get = get(['int' => ['page', 'ajax']]);
+
+        $data = M('index', 'im')->hot(2, $this->langid, 10, $get['page']);
+        foreach ($data as $k => $book) {
+            $data[$k]['tags'] =  M('cate', 'im')->getlable($book['lable'], $this->langid);
+        }
+        if ($get['ajax']) {
+            Out::jout($data);
+        } else {
+            $this->view('book_hot', ['data' => $data]);
+        }
+    }
+    public function control_end()
+    {
+        $get = get(['int' => ['page', 'ajax']]);
+
+        $data = M('index', 'im')->end(2, $this->langid, 10, $get['page']);
+        foreach ($data as $k => $book) {
+            $data[$k]['tags'] =  M('cate', 'im')->getlable($book['lable'], $this->langid);
+        }
+        if ($get['ajax']) {
+            Out::jout($data);
+        } else {
+            $this->view('book_end', ['data' => $data]);
         }
     }
 }

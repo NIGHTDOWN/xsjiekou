@@ -181,8 +181,11 @@
                                                     <!--{$volist.other_name}-->
                                                 </div>
                                                 <ul class="tags-list">
-                                                    <li class="item">热血</li>
-                                                    <li class="item">穿越</li>
+                                                    <!--{foreach $volist.tags as $tag}-->
+                                                    <li class="item" tag-id='<!--{$tag.id}-->'>
+                                                        <!--{$tag.tag}-->
+                                                    </li>
+                                                    <!--{ /foreach}-->
                                                 </ul>
                                             </div>
                                         </div>
@@ -238,8 +241,7 @@
                                 </span></h2>
                             <div class="mult-style-func">
                                 <div class="mult-change" horizonratio="3:4"><i class="icon-change"></i>
-                                </div><a class="mult-more" href='<!--{url mod="cartoon" action="hot"}-->'
-                                    title="
+                                </div><a class="mult-more" href='<!--{url mod="cartoon" action="hot"}-->' title="
                                     <!--{__ 人气爆款·漫画}-->">
                                     <!--{__ 更多}-->
                                 </a>
@@ -259,8 +261,12 @@
                                                     <!--{$volist.other_name}-->
                                                 </div>
                                                 <ul class="tags-list">
-                                                    <li class="item">热血</li>
-                                                    <li class="item">穿越</li>
+
+                                                    <!--{foreach $volist.tags as $tag}-->
+                                                    <li class="item" tag-id='<!--{$tag.id}-->'>
+                                                        <!--{$tag.tag}-->
+                                                    </li>
+                                                    <!--{ /foreach}-->
                                                 </ul>
                                             </div>
                                         </div>
@@ -281,7 +287,7 @@
                                 </span></h2>
                             <div class="mult-style-func">
                                 <div class="mult-change" key="495400" horizonratio="3:4"><i class="icon-change"></i>
-                                </div><a class="mult-more" href="<!--{url mod=" cartoon" action=' end' }-->" title="
+                                </div><a class="mult-more" href="<!--{url mod=" book" action=' end' }-->" title="
                                     <!--{__ 完结小说，一看到底}-->">
                                     <!--{__ 更多}-->
                                 </a>

@@ -6,11 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="renderer" content="webkit">
     <title>
+        <!--{__ 登入}-->
         <!--{__ LoveNovel}-->
     </title>
-    <meta name="keywords" content="<!--{__ 多语言免费、流行、浪漫、小说,漫画阅读器.}-->">
+    <meta name="keywords" content="<!--{__ 登入}--> <!--{__ 多语言免费、流行、浪漫、小说,漫画阅读器.}-->">
     <meta name="description" itemprop="description"
-        content="<!--{__ LoveNovel一直坚持提供小说漫画免费阅读。看小说、看漫画，为阅读而生，就上LoveNovel}-->">
+        content="<!--{__ 登入}--> <!--{__ LoveNovel一直坚持提供小说漫画免费阅读。看小说、看漫画，为阅读而生，就上LoveNovel}-->">
 
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <meta http-equiv="Cache-Control" content="no-transform">
@@ -53,62 +54,65 @@
                     <div class="header-icon js_go_back"><i class="ift-back"></i></div>
                 </div>
                 <div class="header-center">
-                    <h1 class="header-title">登录</h1>
+                    <h1 class="header-title">
+                        <!--{__ 登录}-->
+                    </h1>
                 </div>
                 <div class="header-right"></div>
             </div>
         </header>
         <div class="view-body">
-            <div class="crumb hide"><em>当前位置</em> : <a href="/" title="看漫画">看漫画 </a>&gt; <strong>登录</strong></div>
+
             <div class="login" id="J_loginBox">
-                <div class="avatar-box"><img class="avatar" src="/static/images/comm/space.gif"
-                        style="background: url(&quot;/static/images/login/logo.png&quot;) center center / cover no-repeat; opacity: 1;">
+                <div class="avatar-box"><img class="avatar" src="<!--{$indextpl}-->imgs/space.gif"
+                        style="background: url('<!--{$indextpl}-->images/yyq_morentu@2x (3).png') center center / cover no-repeat; opacity: 1;">
                 </div>
                 <div class="bd form">
-                    <div class="hide" id="J_mobile">
-                        <div class="form-item-line"><label class="label" for="mobile"><i
-                                    class="form-item_label ift-user"></i> <input class="form-item_input" id="mobile"
-                                    type="tel" placeholder="请输入新的手机号码"></label></div>
-                        <div class="form-item-line">
-                            <div class="verify-input" id="J_verifyInput"><label class="label" for="SMS"><i
-                                        class="form-item_label ift-lock"></i> <input id="SMS" class="form-item_input"
-                                        type="text" maxlength="6" placeholder="请输入短信验证码"></label>
-                                <div class="user-operate">
-                                    <div class="btn btn-primary btn-sm is-line code-tips hide" id="J_sendCodeTips">
-                                    </div>
-                                    <div class="btn btn-primary btn-sm is-line" id="J_sendCode">发送验证码</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                     <div id="J_account">
                         <div class="form-item-line"><label class="label" for="account"><i
                                     class="form-item_label ift-user"></i> <input class="form-item_input" id="account"
-                                    type="text" placeholder="请输入星球账号、手机号码、邮箱"></label></div>
+                                    type="text" placeholder="<!--{__ 请输入账户}-->"></label></div>
                         <div class="form-item-line"><label class="label" for="password"><i
                                     class="form-item_label ift-lock"></i> <input class="form-item_input" id="password"
-                                    type="password" placeholder="请输入密码"></label>
+                                    type="password" placeholder="<!--{__ 请输入密码}-->"></label>
                             <div class="user-operate"><label for="password" id="J_lookpassword"
                                     class="ift-eye-close"></label></div>
                         </div>
+                        <div class="form-item-line"><label class="label" for="password"><i
+                                    class="form-item_label ift-lock"></i> <input class="form-item_input" id="code"
+                                    type="text" placeholder="<!--{__ 请输入验证码}-->"></label>
+                            <div class="user-operate"><img src="<!--{url action='verify'}-->"
+                                    onclick="this.src=this.src" style='cursor: pointer;'></div>
+                        </div>
                     </div>
                     <div class="form-item tar mt8 mb16"><a href="/uc/pwd_forgot.html" class="primary f14"
-                            id="J_forgetPassword">忘记密码?</a></div>
+                            id="J_forgetPassword">
+                            <!--{__ 忘记密码}-->?
+                        </a></div>
                     <div class="form-item mb16">
-                        <div class="btn btn-primary btn-xl btn-block" id="J_login">登录</div>
+                        <div class="btn btn-primary btn-xl btn-block" id="J_login">
+                            <!--{__ 登录}-->
+                        </div>
                     </div>
                     <div class="form-item tac f14">
-                        <div class="btn is-txt" id="J_login_type"><span id="J_login_type_1"
-                                class="hide">使用密码登录（漫客星球用户）</span> <span id="J_login_type_2">手机验证码登录</span></div>
+                        <div class="btn is-txt" id="J_login_type"><span id="J_login_type_1" class="hide">使用密码登录</span>
+                            <span id="J_login_type_2">
+                                <!--{__ 注册账户}-->
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div class="ft tac" id="J_thirdLogin">
-                    <p class="gray">使用第三方账号登录</p>
+                    <!-- <p class="gray">使用第三方账号登录</p>
                     <ul class="third-login">
                         <li class="item sina" data-type="sina"><i class="ift-sina"></i></li>
                         <li class="item qq" data-type="qq"><i class="ift-qq"></i></li>
-                    </ul>
-                    <p class="f12">登录代表你已阅读并同意 <a class="blue" title="看漫画用户协议" href="/about/409276.html">《看漫画用户协议》</a>
+                    </ul> -->
+                    <p class="f12">
+                        <!--{__ 登录代表你已阅读并同意}--> <a class="blue" title="<!--{__ 隐私策略}-->" href="/about/409276.html">《
+                            <!--{__ 隐私策略}-->》
+                        </a>
                     </p>
                 </div>
             </div>
@@ -118,28 +122,14 @@
     <script>
         //初始化banner高度，宽高比。0.73
         $(function () {
-            $('.tpl-74').height($(window).width() * 0.73);
+            $('#J_lookpassword').click(function () {
+                var e = $(this);
+                var f = $('#password');
+                e.hasClass("ift-eye-close") ? (f.attr("type", "text"),
+                    e.attr("class", "ift-eye-open")) : (f.attr("type", "password"),
+                        e.attr("class", "ift-eye-close"));
+            });
         });
-        var mySwiper = new Swiper('.swiper-container', {
-            // direction: 'h', // 垂直切换选项
-            loop: true, // 循环模式选项
-            autoplay: true,
-            // 如果需要分页器
-            pagination: {
-                el: '.swiper-pagination',
-            },
-
-            // 如果需要前进后退按钮
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-
-            // 如果需要滚动条
-            // scrollbar: {
-            //     el: '.swiper-scrollbar',
-            // },
-        })        
     </script>
 </body>
 

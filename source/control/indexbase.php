@@ -381,7 +381,6 @@ class indexbase extends general
 				'username' => $userinfo['username'],
 				'password' => $userinfo['password']
 			));
-
 			$userdbinfo = $user->join_table(array('t' => 'merchant', 'uid', 'uid'))->set_where($w, '=')->get_one();
 
 
@@ -394,6 +393,8 @@ class indexbase extends general
 			}
 
 			return 0;
+		} else {
+			Out::redirect(geturl(null, null, 'login', 'index'), 0);
 		}
 	}
 

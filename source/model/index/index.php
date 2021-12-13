@@ -18,33 +18,29 @@ class index extends Y
         }
         if ($type == 2) {
             //漫画
-            $list = T('cartoon')->set_field('cartoon_id as book_id,other_name,hits,`desc`,lable,bpic,share_banner,`read`')->set_where(['lang' => $lang])->wherein('cartoon_id', $bookids)->get_all();
+            $list = T('cartoon')->set_field('cartoon_id as book_id,other_name,hits,`desc`,lable,bpic,share_banner,`read`,2 as type,lang')->set_where(['lang' => $lang])->wherein('cartoon_id', $bookids)->get_all();
         } else {
-            $list = T('book')->set_field('book_id,other_name,hits,`desc`,lable,bpic,share_banner,`read`')->set_where(['lang' => $lang])->wherein('book_id', $bookids)->get_all();
+            $list = T('book')->set_field('book_id,other_name,hits,`desc`,lable,bpic,share_banner,`read`,1 as type,lang')->set_where(['lang' => $lang])->wherein('book_id', $bookids)->get_all();
         }
         return $list;
     }
-    public function hot($type, $lang, $num)
+    public function hot($type, $lang, $num, $page = 0)
     {
-
-
         if ($type == 2) {
             //漫画
-            $list = T('cartoon')->set_field('cartoon_id as book_id,other_name,hits,`desc`,lable,bpic,share_banner')->set_where(['lang' => $lang, 'update_status' => 1])->set_limit($num)->order_by(['f' => 'hits', 's' => 'down'])->get_all();
+            $list = T('cartoon')->set_field('cartoon_id as book_id,other_name,hits,`desc`,lable,bpic,share_banner,2 as type,lang')->set_where(['lang' => $lang, 'update_status' => 1])->set_limit([$page, $num])->order_by(['f' => 'hits', 's' => 'down'])->get_all();
         } else {
-            $list = T('book')->order_by(['f' => 'hits', 's' => 'down'])->set_field('book_id,other_name,hits,`desc`,lable,bpic,share_banner')->set_where(['lang' => $lang, 'update_status' => 1])->set_limit($num)->get_all();
+            $list = T('book')->order_by(['f' => 'hits', 's' => 'down'])->set_field('book_id,other_name,hits,`desc`,lable,bpic,share_banner,1 as type,lang')->set_where(['lang' => $lang, 'update_status' => 1])->set_limit([$page, $num])->get_all();
         }
         return $list;
     }
-    public function end($type, $lang, $num)
+    public function end($type, $lang, $num, $page = 0)
     {
-
-
         if ($type == 2) {
             //漫画
-            $list = T('cartoon')->set_field('cartoon_id as book_id,other_name,hits,`desc`,lable,bpic,share_banner')->set_where(['lang' => $lang, 'update_status' => 1])->set_limit($num)->get_all();
+            $list = T('cartoon')->set_field('cartoon_id as book_id,other_name,hits,`desc`,lable,bpic,share_banner')->set_where(['lang' => $lang, 'update_status' => 1])->set_limit([$page, $num])->get_all();
         } else {
-            $list = T('book')->set_field('book_id,other_name,hits,`desc`,lable,bpic,share_banner')->set_where(['lang' => $lang, 'update_status' => 1])->set_limit($num)->get_all();
+            $list = T('book')->set_field('book_id,other_name,hits,`desc`,lable,bpic,share_banner')->set_where(['lang' => $lang, 'update_status' => 1])->set_limit([$page, $num])->get_all();
         }
         return $list;
     }

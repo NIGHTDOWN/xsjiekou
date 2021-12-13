@@ -12,10 +12,10 @@ checktop();
 
 
 
-class me extends indexbase
+class rack extends indexbase
 {
 
-    protected $noNeedLogin = ['run'];
+    protected $noNeedLogin = [''];
 
 
     public function control_run()

@@ -21,11 +21,22 @@ class index extends indexbase
     {
         $endpoint = [[1, 4], [2, 3]];
         $newbook = M('index', 'im')->booknew(1, $this->langid, 6);
-        $newcartoon = M('index', 'im')->booknew(2, $this->langid, 6);
+
         $endbook = M('index', 'im')->end(1, $this->langid, 4);
+        $newcartoon = M('index', 'im')->booknew(2, $this->langid, 6);
         $endcartoon = M('index', 'im')->end(2, $this->langid, 4);
-        $hotbook = M('index', 'im')->hot(1, $this->langid, 6);
         $hotcartoon = M('index', 'im')->hot(2, $this->langid, 6);
+        foreach ($newcartoon as $key => $value) {
+            # code...
+            $newcartoon[$key]['tags'] =  M('cate', 'im')->getlable($value['lable'], $value['lang']);
+        }
+
+        foreach ($hotcartoon as $key => $value) {
+            # code...
+            $hotcartoon[$key]['tags'] =  M('cate', 'im')->getlable($value['lable'], $value['lang']);
+        }
+        $hotbook = M('index', 'im')->hot(1, $this->langid, 6);
+
         foreach ($endbook as $k => $v) {
             if (in_array($k + 1, $endpoint[0])) {
                 $endbook[$k]['big'] = 1;
