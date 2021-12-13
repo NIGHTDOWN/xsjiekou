@@ -1,0 +1,638 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Language" content="zh-CN">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <title>
+        <!--{__ 我的书架}-->
+        <!--{__ LoveNovel}-->
+    </title>
+    <meta name="keywords" content="<!--{__ 多语言免费、流行、浪漫、小说,漫画阅读器.}-->">
+    <meta name="description" itemprop="description"
+        content="<!--{__ LoveNovel一直坚持提供小说漫画免费阅读。看小说、看漫画，为阅读而生，就上LoveNovel}-->">
+
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="canonical" href="http://www.love-novel.com/">
+    <meta name="applicable-device" content="mobile">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta name="browsermode" content="application">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#999">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="full-screen" content="yes">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="360-fullscreen" content="true">
+    <meta name="browsermode" content="application">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="x5-pagetype" content="webapp">
+    <link href="<!--{$indextpl}-->css/vendor.38cae4.css" rel="stylesheet">
+    <script src="<!--{$indextpl}-->js/jquery.min.js"></script>
+    <script src="<!--{$static}-->js/night_Trad.v1.0.js"></script>
+    <script>
+        function isMobileHanddle() { var e = navigator.userAgent; return (screen.width / screen.height < 1 || /AppleWebKit.*Mobile/i.test(e) || /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(e)) && !/ipad/gi.test(e) } var host = location.host; isMobileHanddle() || "m" !== host.substr(0, host.indexOf(".")) || (location.href = location.href.replace("//m.", "//www.")), top.location != location && (top.location = location.href), function (i, e) { function t() { var e = o.getBoundingClientRect().width; 540 < e / s && (e = 540 * s); var t = e / 10; o.style.fontSize = t + "px", m.rem = i.rem = t } var a, n = i.document, o = n.documentElement, r = n.querySelector('meta[name="viewport"]'), l = n.querySelector('meta[name="flexible"]'), s = 0, d = 0, m = e.flexible || (e.flexible = {}); if (r) { console.warn("将根据已有的meta标签来设置缩放比例"); var c = r.getAttribute("content").match(/initial\-scale=([\d\.]+)/); c && (d = parseFloat(c[1]), s = parseInt(1 / d)) } else if (l) { var p = l.getAttribute("content"); if (p) { var u = p.match(/initial\-dpr=([\d\.]+)/), f = p.match(/maximum\-dpr=([\d\.]+)/); u && (s = parseFloat(u[1]), d = parseFloat((1 / s).toFixed(2))), f && (s = parseFloat(f[1]), d = parseFloat((1 / s).toFixed(2))) } } if (!s && !d) { var h = (i.navigator.appVersion.match(/android/gi), i.navigator.appVersion.match(/iphone/gi)), v = i.devicePixelRatio; d = 1 / (s = h ? 3 <= v && (!s || 3 <= s) ? 3 : 2 <= v && (!s || 2 <= s) ? 2 : 1 : 1) } if (o.setAttribute("data-dpr", s), !r) if ((r = n.createElement("meta")).setAttribute("name", "viewport"), r.setAttribute("content", "initial-scale=" + d + ", maximum-scale=" + d + ", minimum-scale=" + d + ", user-scalable=no"), o.firstElementChild) o.firstElementChild.appendChild(r); else { var b = n.createElement("div"); b.appendChild(r), n.write(b.innerHTML) } i.addEventListener("resize", function () { clearTimeout(a), a = setTimeout(t, 300) }, !1), i.addEventListener("pageshow", function (e) { e.persisted && (clearTimeout(a), a = setTimeout(t, 300)) }, !1), "complete" === n.readyState ? n.body.style.fontSize = 12 * s + "px" : n.addEventListener("DOMContentLoaded", function () { n.body.style.fontSize = 12 * s + "px" }, !1), t(), m.dpr = i.dpr = s, m.refreshRem = t, m.rem2px = function (e) { var t = parseFloat(e) * this.rem; return "string" == typeof e && e.match(/rem$/) && (t += "px"), t }, m.px2rem = function (e) { var t = parseFloat(e) / this.rem; return "string" == typeof e && e.match(/px$/) && (t += "rem"), t } }(window, window.lib || (window.lib = {})), window.shareConf = null</script>
+
+
+</head>
+
+<body>
+    <section class="view-port">
+        <header class="view-header">
+            <div class="bookrack-header">
+                <ul class="bookrack-menu">
+                    <li class="bookrack-tab js_collect_tab js_tab active" data-action="collect">
+                        <!--{__ 我的书架}-->
+                    </li>
+                    <!-- <li class="bookrack-tab js_record_tab js_tab" data-action="record">历史</li> -->
+                </ul>
+                <div class="bookrack-icons">
+                    <div class="js_collect_icon bookrack-icon js_icon" data-func="view" data-status="0"
+                        style="display: block;"><i class="ift-menu"></i></div>
+                    <div class="js_collect_icon bookrack-icon js_icon" data-func="manage" style="display: block;"><i
+                            class="ift-edit"></i></div>
+                    <div class="js_record_icon bookrack-icon js_icon" data-func="clean" style="display: none;"><i
+                            class="ift-del"></i></div>
+                </div>
+            </div>
+        </header>
+        <article class="view-body">
+            <div id="js_main" class="bookrack-main bookrack-main-0">
+                <div class="bookrack-content">
+                    <div id="js_collect_main" class="bookrack-items items-block" style="display: block;">
+                        <div class="bookrack-item js_item" data-id="108700">
+                            <div class="bookrack-inner">
+                                <img src="/static/images/comm/space.gif" alt="" class="cover"
+                                    style="background: url(&quot;//image.yqmh.com/mh/108700.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
+                                <h3 class="title">虐渣的一百种方式</h3>
+                                <p class="subtitle"></p>
+                                <p class="desc">前天 更新至 第22话 仙灵VS母猪VS米修？！</p>
+                                <div class="btns">
+                                    <div class="btn btn-primary is-radius js_collect_cancel">取消收藏</div>
+                                </div>
+                                <div class="cloth"></div>
+                                <span class="mark js_mark"><i class="ift-check"></i></span>
+                            </div>
+                        </div>
+                        <div class="bookrack-item js_item" data-id="108698">
+                            <div class="bookrack-inner">
+                                <img src="/static/images/comm/space.gif" alt="" class="cover"
+                                    style="background: url(&quot;//image.yqmh.com/mh/108698.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
+                                <h3 class="title">萌宝医仙三岁半</h3>
+                                <p class="subtitle"></p>
+                                <p class="desc">昨天 更新至 第46话 玄极宫来人了...</p>
+                                <div class="btns">
+                                    <div class="btn btn-primary is-radius js_collect_cancel">取消收藏</div>
+                                </div>
+                                <div class="cloth"></div>
+                                <span class="mark js_mark"><i class="ift-check"></i></span>
+                            </div>
+                        </div>
+                        <div class="bookrack-item js_item" data-id="108696">
+                            <div class="bookrack-inner">
+                                <img src="/static/images/comm/space.gif" alt="" class="cover"
+                                    style="background: url(&quot;//image.yqmh.com/mh/108696.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
+                                <h3 class="title">最强主宰</h3>
+                                <p class="subtitle"></p>
+                                <p class="desc">昨天 更新至 第13话 战斗中不要三心二意！</p>
+                                <div class="btns">
+                                    <div class="btn btn-primary is-radius js_collect_cancel">取消收藏</div>
+                                </div>
+                                <div class="cloth"></div>
+                                <span class="mark js_mark"><i class="ift-check"></i></span>
+                            </div>
+                        </div>
+                        <div class="bookrack-item js_item" data-id="108699">
+                            <div class="bookrack-inner">
+                                <img src="/static/images/comm/space.gif" alt="" class="cover"
+                                    style="background: url(&quot;//image.yqmh.com/mh/108699.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
+                                <h3 class="title">开局送妹：我有百万游戏娘</h3>
+                                <p class="subtitle"></p>
+                                <p class="desc">昨天 更新至 第57话 钓鱼对决</p>
+                                <div class="btns">
+                                    <div class="btn btn-primary is-radius js_collect_cancel">取消收藏</div>
+                                </div>
+                                <div class="cloth"></div>
+                                <span class="mark js_mark"><i class="ift-check"></i></span>
+                            </div>
+                        </div>
+                        <div class="bookrack-item js_item" data-id="108519">
+                            <div class="bookrack-inner">
+                                <img src="/static/images/comm/space.gif" alt="" class="cover"
+                                    style="background: url(&quot;//image.yqmh.com/mh/108519.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
+                                <h3 class="title">我被困在同一天十万年</h3>
+                                <p class="subtitle"></p>
+                                <p class="desc">前天 更新至 第89话 我只以剑道应战~</p>
+                                <div class="btns">
+                                    <div class="btn btn-primary is-radius js_collect_cancel">取消收藏</div>
+                                </div>
+                                <div class="cloth"></div>
+                                <span class="mark js_mark"><i class="ift-check"></i></span>
+                            </div>
+                        </div>
+                        <div class="bookrack-item js_item" data-id="108517">
+                            <div class="bookrack-inner">
+                                <img src="/static/images/comm/space.gif" alt="" class="cover"
+                                    style="background: url(&quot;//image.yqmh.com/mh/108517.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
+                                <h3 class="title">极品狂婿</h3>
+                                <p class="subtitle"></p>
+                                <p class="desc">昨天 更新至 第114话 剧院上新戏，皇上也沉迷</p>
+                                <div class="btns">
+                                    <div class="btn btn-primary is-radius js_collect_cancel">取消收藏</div>
+                                </div>
+                                <div class="cloth"></div>
+                                <span class="mark js_mark"><i class="ift-check"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                   
+
+                    <div class="status-wrapper js_status_error">
+                        <div class="status-block">
+                            <div class="icon icon-cry"></div>
+                            <div class="msg">
+                                <!--{__ 主人, 暂时没有书籍哦～}--><br>
+                            </div>
+                            <div class="btn js_status_again" style="cursor: pointer;"
+                                onclick="_go_url('<!--{url mod=index }-->')">
+                                <!--{__ 去书城}-->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div id="js_collect_handle" class="bookrack-handle hide">
+                <div id="js_collect_select" class="bookrack-btn">全选</div>
+                <div id="js_collect_delete" class="bookrack-btn">删除</div>
+            </div>
+        </article>
+
+        <div class="layerui-collectConfirm" style="display:none">
+            <div class="box-img"><img src="/static/images/status/mascot-fish.png" alt="确认操作"></div>
+            <div class="msg ft28">确定要取消收藏吗?</div>
+        </div>
+        <div class="layerui-recordConfirm" style="display:none">
+            <div class="box-img"><img src="/static/images/status/mascot-fish.png" alt="确认操作"></div>
+            <div class="msg ft28">确定要删除记录吗?</div>
+        </div>
+    </section>
+
+    <!--{include file={$indextpl}"/index_foot.html"}-->
+    <style>
+        .bookrack-items {
+            zoom: 1
+        }
+
+        .bookrack-items:after {
+            content: "";
+            display: table;
+            clear: both
+        }
+
+        .view-body {
+            background-color: #fff
+        }
+
+        .bookrack-header {
+            position: relative;
+            height: 1.1733333333rem
+        }
+
+        .bookrack-header .bookrack-menu {
+            height: 1.1733333333rem;
+            padding: 0 1.44rem 0 .48rem;
+            font-size: 0;
+            line-height: 1.1733333333rem;
+            text-align: left
+        }
+
+        .bookrack-header .bookrack-menu .bookrack-tab {
+            position: relative;
+            display: inline-block;
+            height: 1.0666666667rem;
+            width: auto;
+            padding: 0 .48rem;
+            font-size: .4266666667rem;
+            line-height: 1.0666666667rem;
+            text-align: center;
+            color: #333;
+            vertical-align: middle
+        }
+
+        .bookrack-header .bookrack-menu .bookrack-tab:after {
+            content: "";
+            position: absolute;
+            left: .48rem;
+            right: .48rem;
+            bottom: 0;
+            display: block;
+            height: 0;
+            border-bottom: .0533333333rem solid rgba(0, 0, 0, 0)
+        }
+
+        .bookrack-header .bookrack-menu .bookrack-tab.active {
+            color: #fc6976
+        }
+
+        .bookrack-header .bookrack-menu .bookrack-tab.active:after {
+            border-color: #fc6976
+        }
+
+        .bookrack-header .bookrack-icons {
+            position: absolute;
+            right: 0;
+            top: 0;
+            display: block;
+            height: 1.1733333333rem;
+            width: 2.3466666667rem
+        }
+
+        .bookrack-header .bookrack-icons .bookrack-icon {
+            float: right;
+            display: none;
+            height: 1.1733333333rem;
+            width: 1.1733333333rem;
+            font-size: .32rem;
+            line-height: 1.1733333333rem;
+            text-align: center;
+            color: #fc6976
+        }
+
+        .bookrack-header .bookrack-icons .bookrack-icon:active {
+            background-color: #f5f5f5
+        }
+
+        .bookrack-header .bookrack-icons .bookrack-icon i {
+            font-size: .5333333333rem
+        }
+
+        .bookrack-main {
+            position: relative;
+            height: 100%;
+            width: 200%;
+            overflow: hidden;
+            -webkit-transition: -webkit-transform .2s ease-out;
+            transition: -webkit-transform .2s ease-out;
+            -o-transition: -o-transform .2s ease-out;
+            -moz-transition: transform .2s ease-out, -moz-transform .2s ease-out;
+            transition: transform .2s ease-out;
+            transition: transform .2s ease-out, -webkit-transform .2s ease-out, -moz-transform .2s ease-out, -o-transform .2s ease-out
+        }
+
+        .bookrack-main,
+        .bookrack-main.bookrack-main-0 {
+            -webkit-transform: translateZ(0);
+            -moz-transform: translateZ(0);
+            transform: translateZ(0)
+        }
+
+        .bookrack-main.bookrack-main-1 {
+            -webkit-transform: translate3d(-50%, 0, 0);
+            -moz-transform: translate3d(-50%, 0, 0);
+            transform: translate3d(-50%, 0, 0)
+        }
+
+        .bookrack-main .bookrack-content {
+            position: relative;
+            float: left;
+            height: 100%;
+            width: 50%;
+            overflow-x: hidden;
+            overflow-y: scroll
+        }
+
+        .bookrack-items {
+            padding: .32rem 0 2.1333333333rem;
+            margin-left: .32rem
+        }
+
+        .bookrack-items .bookrack-item {
+            display: block;
+            float: left
+        }
+
+        .bookrack-items.items-block .bookrack-item {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            width: 33.3333%;
+            padding-right: .32rem;
+            padding-bottom: .1066666667rem
+        }
+
+        .bookrack-items.items-block .bookrack-item .bookrack-inner {
+            position: relative;
+            z-index: 10;
+            display: block
+        }
+
+        .bookrack-items.items-block .bookrack-item .cover {
+            display: block;
+            height: 0;
+            width: 100%;
+            padding-bottom: 133.33333333%
+        }
+
+        .bookrack-items.items-block .bookrack-item .title {
+            height: .7466666667rem;
+            width: 100%;
+            font-size: .3733333333rem;
+            line-height: .7466666667rem;
+            text-align: center;
+            font-weight: 400;
+            color: #333;
+            white-space: nowrap;
+            -o-text-overflow: ellipsis;
+            text-overflow: ellipsis;
+            overflow: hidden
+        }
+
+        .bookrack-items.items-block .bookrack-item .btns,
+        .bookrack-items.items-block .bookrack-item .desc,
+        .bookrack-items.items-block .bookrack-item .subtitle {
+            display: none
+        }
+
+        .bookrack-items.items-block .bookrack-item .cloth {
+            position: absolute;
+            z-index: 12;
+            left: 0;
+            top: 0;
+            display: none;
+            height: 0;
+            width: 100%;
+            padding-bottom: 133.33333333%;
+            background-color: rgba(0, 0, 0, .3)
+        }
+
+        .bookrack-items.items-block .bookrack-item .mark {
+            position: absolute;
+            z-index: 13;
+            right: .1066666667rem;
+            bottom: .8533333333rem;
+            display: none;
+            height: .4266666667rem;
+            width: .4266666667rem;
+            border: .0266666667rem solid #fff;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+            font-size: .32rem;
+            text-align: center;
+            line-height: .4266666667rem;
+            color: rgba(0, 0, 0, 0)
+        }
+
+        .bookrack-items.items-block .bookrack-item .mark.checked {
+            color: #fff;
+            background-color: #fc6976
+        }
+
+        .bookrack-items.items-list .bookrack-item {
+            float: none;
+            height: 2.6666666667rem;
+            margin: 0 .32rem .32rem 0
+        }
+
+        .bookrack-items.items-list .bookrack-item .bookrack-inner {
+            position: relative;
+            display: block;
+            height: 2.6666666667rem;
+            padding-left: 2.32rem
+        }
+
+        .bookrack-items.items-list .bookrack-item .cover {
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: block;
+            height: 2.6666666667rem;
+            width: 2rem
+        }
+
+        .bookrack-items.items-list .bookrack-item .title {
+            height: .7466666667rem;
+            font-size: .3733333333rem;
+            line-height: .7466666667rem;
+            font-weight: 400;
+            color: #333;
+            white-space: nowrap;
+            -o-text-overflow: ellipsis;
+            text-overflow: ellipsis;
+            overflow: hidden
+        }
+
+        .bookrack-items.items-list .bookrack-item .subtitle {
+            height: .5333333333rem;
+            width: 2.8rem;
+            line-height: .5333333333rem;
+            color: #999
+        }
+
+        .bookrack-items.items-list .bookrack-item .desc,
+        .bookrack-items.items-list .bookrack-item .subtitle {
+            font-size: .32rem;
+            white-space: nowrap;
+            -o-text-overflow: ellipsis;
+            text-overflow: ellipsis;
+            overflow: hidden
+        }
+
+        .bookrack-items.items-list .bookrack-item .desc {
+            height: .64rem;
+            padding-top: .7466666667rem;
+            color: #ddd;
+            line-height: .64rem
+        }
+
+        .bookrack-items.items-list .bookrack-item .btns {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            width: 4rem;
+            margin-top: -.24rem;
+            line-height: .5866666667rem;
+            text-align: right
+        }
+
+        .bookrack-items.items-list .bookrack-item .cloth {
+            position: absolute;
+            z-index: 12;
+            left: 0;
+            top: 0;
+            display: none;
+            height: 2.6666666667rem;
+            width: 2rem;
+            background-color: rgba(0, 0, 0, .3)
+        }
+
+        .bookrack-items.items-list .bookrack-item .mark {
+            position: absolute;
+            z-index: 13;
+            left: 1.4666666667rem;
+            bottom: .1066666667rem;
+            display: none;
+            height: .3733333333rem;
+            width: .3733333333rem;
+            border: .0266666667rem solid #fff;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+            color: rgba(0, 0, 0, 0)
+        }
+
+        .bookrack-items.items-list .bookrack-item .mark.checked {
+            color: #fff;
+            background-color: #fc6976
+        }
+
+        .bookrack-items.items-manage .bookrack-item .cloth,
+        .bookrack-items.items-manage .bookrack-item .mark {
+            display: block
+        }
+
+        .bookrack-items.items-manage .bookrack-item .btns {
+            display: none
+        }
+
+        .bookrack-handle {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-justify-content: space-around;
+            -ms-flex-pack: distribute;
+            justify-content: space-around;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            -moz-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-align-content: stretch;
+            -ms-flex-line-pack: stretch;
+            align-content: stretch;
+            position: fixed;
+            z-index: 15;
+            left: 0;
+            bottom: 0;
+            height: .8533333333rem;
+            width: 100%;
+            padding: .16rem 0 1.6rem;
+            background-color: #fff
+        }
+
+        .bookrack-handle .bookrack-btn {
+            display: block;
+            height: .7466666667rem;
+            width: 3.2rem;
+            border: .0266666667rem solid #fc6976;
+            -webkit-border-radius: .3733333333rem;
+            -moz-border-radius: .3733333333rem;
+            border-radius: .3733333333rem;
+            font-size: .3733333333rem;
+            line-height: .7466666667rem;
+            text-align: center;
+            color: #fc6976;
+            background-color: #fff;
+            -webkit-transition: background-color .15s ease-out;
+            -o-transition: background-color .15s ease-out;
+            -moz-transition: background-color .15s ease-out;
+            transition: background-color .15s ease-out
+        }
+
+        .bookrack-handle .bookrack-btn:active {
+            color: #fff;
+            background-color: #fd5158
+        }
+
+        .bookrack-handle.hide {
+            display: none
+        }
+
+        .layui-m-layermain .layui-m-layer-confirm {
+            -webkit-border-radius: .08rem;
+            -moz-border-radius: .08rem;
+            border-radius: .08rem
+        }
+
+        .layui-m-layermain .layui-m-layer-confirm .layui-m-layercont {
+            position: relative;
+            line-height: 1;
+            width: 6.84rem;
+            padding: .7466666667rem .7466666667rem 0;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            text-align: center
+        }
+
+        .layui-m-layermain .layui-m-layer-confirm .layui-m-layercont .box-img {
+            position: absolute;
+            left: 50%;
+            top: -3.04rem;
+            height: 3.2rem;
+            width: 3.2rem;
+            margin-left: -1.6rem
+        }
+
+        .layui-m-layermain .layui-m-layer-confirm .layui-m-layercont .box-img img {
+            width: 100%
+        }
+
+        .layui-m-layermain .layui-m-layer-confirm .layui-m-layercont .msg {
+            margin-bottom: .5333333333rem;
+            color: #333
+        }
+
+        .layui-m-layermain .layui-m-layer-confirm .layui-m-layerbtn {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+            -moz-box-pack: justify;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            -moz-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-align-content: stretch;
+            -ms-flex-line-pack: stretch;
+            align-content: stretch;
+            padding: 0 .7466666667rem .7466666667rem;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            background: #fff;
+            height: auto;
+            border: none
+        }
+
+        .layui-m-layermain .layui-m-layer-confirm .layui-m-layerbtn span {
+            display: block;
+            font-size: .32rem;
+            height: .8rem;
+            line-height: .8rem;
+            width: 2.1333333333rem;
+            -webkit-border-radius: 1.0666666667rem;
+            -moz-border-radius: 1.0666666667rem;
+            border-radius: 1.0666666667rem;
+            border: 1px solid #ddd;
+            color: #333
+        }
+    </style>
+
+</html>

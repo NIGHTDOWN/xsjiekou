@@ -3026,22 +3026,22 @@ output {
 
 .status-wrapper .status-block .icon {
     display: block;
-    height: 3.2rem;
+    height: 3.5rem;
     width: 100%
 }
 
 .status-wrapper .status-block .icon.icon-fish {
-    background: url(/static/images/status/mascot-fish.png) no-repeat 50%;
-    -moz-background-size: 3.2rem auto;
-    -o-background-size: 3.2rem auto;
-    background-size: 3.2rem auto
+    background: url(../imgs/nobook.png) no-repeat 50%;
+    -moz-background-size: 4rem auto;
+    -o-background-size: 4rem auto;
+    background-size: 4rem auto
 }
 
 .status-wrapper .status-block .icon.icon-cry {
-    background: url(/static/images/status/mascot-cry.png) no-repeat 50%;
-    -moz-background-size: 3.2rem auto;
-    -o-background-size: 3.2rem auto;
-    background-size: 3.2rem auto
+    background: url(../imgs/nobook.png) no-repeat 50%;
+    -moz-background-size: 4rem auto;
+    -o-background-size: 4rem auto;
+    background-size: 4rem auto
 }
 
 .status-wrapper .status-block .icon.icon-dance {
