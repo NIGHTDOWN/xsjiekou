@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="renderer" content="webkit">
     <title>
-        <!--{__ 登录}-->
+        <!--{__ 注册}-->
         <!--{__ LoveNovel}-->
     </title>
-    <meta name="keywords" content="<!--{__ 登录}--> <!--{__ 多语言免费、流行、浪漫、小说,漫画阅读器.}-->">
+    <meta name="keywords" content="<!--{__ 注册}--> <!--{__ 多语言免费、流行、浪漫、小说,漫画阅读器.}-->">
     <meta name="description" itemprop="description"
-        content="<!--{__ 登录}--> <!--{__ LoveNovel一直坚持提供小说漫画免费阅读。看小说、看漫画，为阅读而生，就上LoveNovel}-->">
+        content="<!--{__ 注册}--> <!--{__ LoveNovel一直坚持提供小说漫画免费阅读。看小说、看漫画，为阅读而生，就上LoveNovel}-->">
 
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <meta http-equiv="Cache-Control" content="no-transform">
@@ -55,7 +55,7 @@
                 </div>
                 <div class="header-center">
                     <h1 class="header-title">
-                        <!--{__ 登录}-->
+                        <!--{__ 注册}-->
                     </h1>
                 </div>
                 <div class="header-right"></div>
@@ -74,11 +74,18 @@
                                         name="username" id="account" type="text"
                                         placeholder="<!--{__ 请输入账户}-->"></label></div>
                             <div class="form-item-line"><label class="label" for="password"><i
-                                        class="form-item_label ift-lock"></i> <input class="form-item_input"
+                                        class="form-item_label ift-lock"></i> <input class="password form-item_input"
                                         name="password" id="password" type="password"
                                         placeholder="<!--{__ 请输入密码}-->"></label>
                                 <div class="user-operate"><label for="password" id="J_lookpassword"
-                                        class="ift-eye-close"></label></div>
+                                        class="J_lookpassword ift-eye-close"></label></div>
+                            </div>
+                            <div class="form-item-line"><label class="label" for="password"><i
+                                        class="form-item_label ift-lock"></i> <input class="password form-item_input"
+                                        name="cpassword" id="cpassword" type="password"
+                                        placeholder="<!--{__ 再次输入密码}-->"></label>
+                                <div class="user-operate"><label for="password" id="J_lookpassword"
+                                        class="J_lookpassword ift-eye-close"></label></div>
                             </div>
                             <div class="form-item-line"><label class="label" for="password"><i
                                         class="form-item_label ift-code"></i> <input class="form-item_input" id="code"
@@ -87,31 +94,31 @@
                                         onclick="this.src=this.src" style='cursor: pointer;'></div>
                             </div>
                         </div>
-                        <!-- <div class="form-item tar mt8 mb16"><a href="/uc/pwd_forgot.html" class="primary f14"
+                        <div class="form-item tar mt8 mb16"><a href="<!--{url action='run' }-->" class="primary f14"
                                 id="J_forgetPassword">
-                                <!--{__ 忘记密码}-->?
-                            </a></div> -->
+                                <!--{__ 已注册，去登录}-->
+                            </a></div>
                         <div class="form-item mb16">
                             <div class="btn btn-primary btn-xl btn-block" id="J_login">
-                                <!--{__ 登录}-->
+                                <!--{__ 注册}-->
                             </div>
                         </div>
                         <div class="form-item tac f14">
                             <div class="btn is-txt" id="J_login_type">
-                                <span id="J_login_type_2" onclick="_go_url('<!--{url action='reg' }-->')">
-                                    <!--{__ 注册账户}-->
+                                <span id="J_login_type_2" onclick="_go_url('<!--{url action='run' }-->')">
+                                    <!--{__ 使用密码登录}-->
                                 </span>
                             </div>
                         </div>
                     </div>
                     <div class="ft tac" id="J_thirdLogin">
-                        <!-- <p class="gray">使用第三方账号登录</p>
+                        <!-- <p class="gray">使用第三方账号注册</p>
                     <ul class="third-login">
                         <li class="item sina" data-type="sina"><i class="ift-sina"></i></li>
                         <li class="item qq" data-type="qq"><i class="ift-qq"></i></li>
                     </ul> -->
                         <p class="f12">
-                            <!--{__ 登录代表你已阅读并同意}--> <a class="blue" title="<!--{__ 隐私策略}-->"
+                            <!--{__ 注册代表你已阅读并同意}--> <a class="blue" title="<!--{__ 隐私策略}-->"
                                 href="<!--{url action='index' mod='privacy' args=''}-->">《
                                 <!--{__ 隐私策略}-->》
                             </a>
@@ -125,9 +132,11 @@
     <script>
         //初始化banner高度，宽高比。0.73
         $(function () {
-            $('#J_lookpassword').click(function () {
+            $('.J_lookpassword').click(function () {
                 var e = $(this);
-                var f = $('#password');
+
+                var f = e.parents('.form-item-line').find('.password');
+
                 e.hasClass("ift-eye-close") ? (f.attr("type", "text"),
                     e.attr("class", "ift-eye-open")) : (f.attr("type", "password"),
                         e.attr("class", "ift-eye-close"));
@@ -135,11 +144,18 @@
             $('#J_login').click(function () {
                 $account = $('#account').val();
                 $pwd = $('#password').val();
+                $cpwd = $('#cpassword').val();
                 $code = $('#code').val();
-                if ($account && $pwd && $code) {
+
+                if ($account && $pwd && $code && $cpwd) {
+                    if ($cpwd != $pwd) {
+                        showd('<!--{__ 两次密码不一致}-->'); return 0;
+
+                    }
                     $('#f1').submit();
                 } else {
                     showd(' <!--{__ 请填写完整}-->');
+                    return 0;
                 }
             });
         });

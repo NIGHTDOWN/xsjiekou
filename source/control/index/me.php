@@ -20,8 +20,7 @@ class me extends indexbase
 
     public function control_run()
     {
-
-
+        // $uid = $this->get_userid();
         $this->view();
     }
 }

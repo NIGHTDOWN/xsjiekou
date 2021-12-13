@@ -73,6 +73,8 @@ class indexbase extends general
 		if ($this->needlogin()) {
 
 			$login = $this->checkLogin();
+		} else {
+			parent::$wrap_user = $this->getcookie();
 		}
 
 		unset($login['password']);
@@ -372,30 +374,25 @@ class indexbase extends general
 	public
 	function checkLogin()
 	{
-
 		$userinfo = $this->getcookie();
-
 		if (!empty($userinfo)) {
-			$user = T('user');
+
+			$user = T('user_token');
 			$w    = array_filter(array(
-				'username' => $userinfo['username'],
-				'password' => $userinfo['password']
+				'device_type' => $userinfo['devicetype'],
+				'user_id' => $userinfo['uid'],
+				'token' => $userinfo['token']
 			));
-			$userdbinfo = $user->join_table(array('t' => 'merchant', 'uid', 'uid'))->set_where($w, '=')->get_one();
-
-
-			if ($userdbinfo == null) {
-				Out::redirect(geturl(null, null, 'login', 'index'), 0);
-			} else {
-				parent::$wrap_user = $userdbinfo;
-
-				return 1;
+			$usertoken = $user->set_where($w)->get_one();
+			if ($usertoken) {
+				$user = T('third_party_user')->set_where(['id' => $userinfo['uid']])->get_one();
+				if ($user) {
+					parent::$wrap_user = $user;
+					return 1;
+				}
 			}
-
-			return 0;
-		} else {
-			Out::redirect(geturl(null, null, 'login', 'index'), 0);
 		}
+		Out::redirect(geturl(null, null, 'login', 'index'), 0);
 	}
 
 	public

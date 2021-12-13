@@ -9,25 +9,27 @@ checktop();
 
 class user extends Y
 {
-    public function gettoken($uid, $deviceType = null)
+    /**获取用户token */
+    public function gettoken($uid, $deviceType = null, $reflase = 0)
     {
+
         if (!$uid) {
             return false;
         }
 
         $userTokenQuery = T("user_token")
-            ->where(['user_id' => $uid]);
+            ->where(['user_id' => $uid, 'device_type' => $deviceType]);
         $findUserToken = $userTokenQuery->get_one();
         $currentTime = time();
         $expireTime = $currentTime + 24 * 3600 * 180;
         $token = md5(uniqid()) . md5(uniqid());
-        if (empty($findUserToken)) {
+        if (empty($findUserToken) && $reflase) {
             T("user_token")->add([
                 'token' => $token,
                 'user_id' => $uid,
                 'expire_time' => $expireTime,
                 'create_time' => $currentTime,
-                // 'device_type' => $deviceType,
+                'device_type' => $deviceType,
             ]);
         } else {
             if ($findUserToken['expire_time'] > time() && !empty($findUserToken['token'])) {
@@ -127,17 +129,20 @@ class user extends Y
         $token = $this->gettoken($user_id, $head['devicetype']);
         return [$user_id, $token];
     }
-    public function createuser($username, $nickname, $pwd)
+    public function createuser($username, $nickname, $pwd, $devicetype = null)
     {
 
         $ip = Request::getip();
         $currentTime = time();
         $invite_coin = self::$newconf['task'];
         $head = Y::$wrap_head;
+        if (!$devicetype) {
 
+            $devicetype = $head['Devicetype'];
+        }
         $user_id = T("third_party_user")->addid([
             'username' => $username,
-            'third_party' => $head['Devicetype'],
+            'third_party' =>  $devicetype,
             'last_login_ip' => $ip,
             'last_login_time' => $currentTime,
             'create_time' => $currentTime,
@@ -148,7 +153,7 @@ class user extends Y
             // 'sex' => $sex,
             'login_type' => 0,
             'deviceToken' => $head['Devicetoken'],
-            'plat' => $head['Devicetype'],
+            'plat' =>  $devicetype,
             'invite_id' => 0,
         ]);
 
@@ -168,7 +173,7 @@ class user extends Y
             M('census', 'im')->task_reward_count($channel_id, $invite_coin['invite_coin'], $invite_coin['invite_task']);
             M('coin', 'im')->change($channel_id, $invite_coin['invite_coin']);
         }
-        $token = $this->gettoken($user_id, $head['devicetype']);
+        $token = $this->gettoken($user_id, $devicetype, 1);
         return [$user_id, $token];
     }
     public function ulog($u_id = '', $price = '', $trade_num = '', $order_num = '', $pay_time = '', $pay_type = '', $create_syntony = '', $pay_syntony = '')
@@ -319,5 +324,44 @@ class user extends Y
             return false;
         }
         return true;
+    }
+    /**
+     * 登入
+     * 返回user
+     */
+    public function login($username, $pwd_md5, $devicetype)
+    {
+        if (!$username) return false;
+        if (!$pwd_md5) return false;
+        $w['username'] = $username;
+        // $w['password'] = $pwd;
+        $user  = T("third_party_user")
+            ->where($w)
+            ->get_one();
+        if ($user['password'] != $pwd_md5) {
+            // $user = false;
+            return false;
+        }
+        $ip = Request::getip();
+        if ($user) {
+            //获取最新token
+            $token = M('user', 'im')->gettoken($user['id'], $devicetype, 1);
+            $userData = [
+                'last_login_ip' => $ip,
+                // 'third_party' => $this->head['Devicetype'],
+                // 'deviceToken' => $this->head['Devicetoken'],
+                // 'last_login_time' => $currentTime,
+            ];
+
+            T('third_party_user')->update($userData, ['id' => $user['id']]);
+            // M('census', 'im')->dayregcount();//每日注册量统计
+        } else {
+            return false;
+        }
+        $user['uid'] = $user['id'];
+        $user['remainder'] = round($user['remainder'], 2);
+        $user['token'] = $token;
+        $user['devicetype'] = $devicetype;
+        return $user;
     }
 }

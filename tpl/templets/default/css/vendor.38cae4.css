@@ -1234,7 +1234,7 @@ button.swiper-pagination-bullet {
     height: 0.5rem;
     display: block;
     
-    margin: 0.2rem auto;
+    margin: 0.17rem auto;
     background: url('../images/img/bookrack/search32гк32@2x.png');
     background-size: cover;
 }
@@ -1242,7 +1242,9 @@ button.swiper-pagination-bullet {
 .ift-setting-list:before {
     content: ""
 }
-
+.ift-code:before {
+    content: "\ea12"
+}
 .ift-setting-s:before {
     content: ""
 }

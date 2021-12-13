@@ -46,13 +46,32 @@
     <article class="main under-top-bar">
         <section class="mod-user-info">
             <div class="user-info">
-                <div class="user-head"><img
-                        src="https://thirdqq.qlogo.cn/g?b=oidb&amp;k=DFiaeY0Uib8PHWXKJQqV4kCQ&amp;s=100&amp;t=1559925414"
-                        alt=""></div>
+                <div class="user-head">
+                    <!--{if $user.avater}-->
+                    <img src="<!--{$user.avater}-->" alt="">
+                    <!--{else}-->
+                    <img src="<!--{$indextpl}-->images/yyq_morentu@2x (3).png" alt="">
+                    <!--{/if}-->
+
+
+                </div>
                 <div class="user-detail">
-                    <p class="user-name">ぇ曉夜ส็็็็็็็็</p>
+                    <p class="user-name">
+
+                        <!--{if $user}-->
+                        <!--{$user.nickname}-->
+                        <!--{else}-->
+                        <!--{__ 游客}-->
+                        <!--{/if}-->
+                    </p>
                     <p class="user-balance">
-                        <!--{__ 剩余金豆}-->：<span id="text_balance_count">0</span><span>
+                        <!--{__ 剩余金豆}-->：<span id="text_balance_count">
+                            <!--{if $user}-->
+                            <!--{$user.remainder}-->
+                            <!--{else}-->
+                            0
+                            <!--{/if}-->
+                        </span><span>
                             <!--{__ 金豆}-->
                         </span>
                     </p>
@@ -96,16 +115,16 @@
             </a>
         </section>
 
+        <!-- <section class="mod-item mod-feedback">
+            <a id="btn_support" href='<!--{url action="help" mod="privacy"}-->'>
+        <div class="mod-title">
+            <!--{__ 意见反馈}-->
+        </div>
+        <div class="sub-info"><i class="icon-arrow-right"></i></div>
+        </a>
+        </section> -->
         <section class="mod-item mod-feedback">
-            <a id="btn_support">
-                <div class="mod-title">
-                    <!--{__ 意见反馈}-->
-                </div>
-                <div class="sub-info"><i class="icon-arrow-right"></i></div>
-            </a>
-        </section>
-        <section class="mod-item mod-feedback">
-            <a id="btn_support">
+            <a id="btn_support" href='<!--{url action="index" mod="privacy"}-->'>
                 <div class="mod-title">
                     <!--{__ 隐私策略}-->
                 </div>
@@ -113,20 +132,21 @@
             </a>
         </section>
         <section class="mod-item mod-feedback">
-            <a id="btn_support">
+            <a id="btn_support" href='<!--{url action="announcement" mod="privacy"}-->'>
                 <div class="mod-title">
                     <!--{__ 关于我们}-->
                 </div>
                 <div class="sub-info"><i class="icon-arrow-right"></i></div>
             </a>
         </section>
-        <section class="mod-item mod-logout">
-            <a id="btn_login_out">
-                <!--{__ 退出登录}-->
+        <!--{if $user}-->
 
+        <section class="mod-item mod-logout">
+            <a id="btn_login_out" href='<!--{url action="logout" mod="login"}-->'>
+                <!--{__ 退出登录}-->
             </a>
         </section>
-
+        <!--{/if}-->
 
     </article>
 </body>
