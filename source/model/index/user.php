@@ -62,9 +62,9 @@ class user extends Y
         // if (empty($this->_token)) {
         //     return;
         // }
-
+        $head = parent::$wrap_head;
         $tokens = T('user_token')->set_field('id')
-            ->where(['token' => $token, 'user_id' => $uid])
+            ->where(['token' => $token, 'user_id' => $uid, 'device_type' => $head['devicetype']])
             ->get_one();
         // d($token);
         if ($tokens) {

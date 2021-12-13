@@ -78,17 +78,17 @@ class login extends apibase
         $user  = T("third_party_user")
             ->where($get)
             ->get_one();
-        if ($user['password'] != $get2['password'] ) {
+        if ($user['password'] != $get2['password']) {
             $user = false;
         }
         $ip = Request::getip();
         if ($user) {
             //老用户
             if ($user['deviceToken'] != $get['deviceToken']) {
-                T('user_token')->update(['token' => ''], ['user_id' => $user['id']]);
+                T('user_token')->update(['token' => ''], ['user_id' => $user['id'], 'device_type' => $get['devicetype']]);
             }
             $this->uid = $user['id'];
-            $this->token = M('user', 'im')->gettoken($this->uid, $get['devicetype']);
+            $this->token = M('user', 'im')->gettoken($this->uid, $get['devicetype'], 1);
             $userData = [
                 'last_login_ip' => $ip,
                 'third_party' => $this->head['Devicetype'],
