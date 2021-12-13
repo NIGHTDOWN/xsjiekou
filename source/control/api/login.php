@@ -75,6 +75,7 @@ class login extends apibase
     {
         $get = get(['string' => ['username' => 1]]);
         $get2 = get(['string' => ['password' => 'md5']]);
+        d($this->head);
         $user = M('user', 'im')->login($get['username'], $get2['password'], $this->head['devicetype']);
         if ($user) {
             // $this->savecookie($user);
