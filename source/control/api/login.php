@@ -75,39 +75,47 @@ class login extends apibase
     {
         $get = get(['string' => ['username' => 1]]);
         $get2 = get(['string' => ['password' => 'md5']]);
-        $user  = T("third_party_user")
-            ->where($get)
-            ->get_one();
-        if ($user['password'] != $get2['password']) {
-            $user = false;
-        }
-        $ip = Request::getip();
+        $user = M('user', 'im')->login($get['username'], $get2['password'], $this->head['devicetype']);
         if ($user) {
-            //老用户
-            if ($user['deviceToken'] != $get['deviceToken']) {
-                T('user_token')->update(['token' => ''], ['user_id' => $user['id'], 'device_type' => $get['devicetype']]);
-            }
-            $this->uid = $user['id'];
-            $this->token = M('user', 'im')->gettoken($this->uid, $get['devicetype'], 1);
-            $userData = [
-                'last_login_ip' => $ip,
-                'third_party' => $this->head['Devicetype'],
-                'deviceToken' => $this->head['Devicetoken'],
-                // 'last_login_time' => $currentTime,
-            ];
-
-            T('third_party_user')->update($userData, ['id' => $user['id']]);
-            // M('census', 'im')->dayregcount();//每日注册量统计
+            // $this->savecookie($user);
+            // Out::redirect(geturl(null, null, 'me'));
         } else {
-            Out::jerror('账号不存在', null, '110152');
+            // Out::out(__('登入失败'), null, 0);
+            Out::jerror('登入失败', null, '110152');
         }
-        $user = T('third_party_user')
+        // $user  = T("third_party_user")
+        //     ->where($get)
+        //     ->get_one();
+        // if ($user['password'] != $get2['password']) {
+        //     $user = false;
+        // }
+        // $ip = Request::getip();
+        // if ($user) {
+        //     //老用户
+        //     if ($user['deviceToken'] != $get['deviceToken']) {
+        //         T('user_token')->update(['token' => ''], ['user_id' => $user['id'], 'device_type' => $get['devicetype']]);
+        //     }
+        //     $this->uid = $user['id'];
+        //     $this->token = M('user', 'im')->gettoken($this->uid, $get['devicetype'], 1);
+        //     $userData = [
+        //         'last_login_ip' => $ip,
+        //         'third_party' => $this->head['Devicetype'],
+        //         'deviceToken' => $this->head['Devicetoken'],
+        //         // 'last_login_time' => $currentTime,
+        //     ];
 
-            ->where(['id' => $this->uid])->get_one();
-        $user['remainder'] = round($user['remainder'], 2);
-        $user['token'] = $this->token;
-        $user['uid'] = $user['id'];
-        $user['vip_end_time'] = date('d/m/Y H:i:s', strtotime($user['vip_end_time']));
+        //     T('third_party_user')->update($userData, ['id' => $user['id']]);
+        //     // M('census', 'im')->dayregcount();//每日注册量统计
+        // } else {
+        //     Out::jerror('账号不存在', null, '110152');
+        // }
+        // $user = T('third_party_user')
+
+        //     ->where(['id' => $this->uid])->get_one();
+        // $user['remainder'] = round($user['remainder'], 2);
+        // $user['token'] = $this->token;
+        // $user['uid'] = $user['id'];
+        // $user['vip_end_time'] = date('d/m/Y H:i:s', strtotime($user['vip_end_time']));
         Out::jout($user);
     }
     public function control_reg()
