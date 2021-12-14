@@ -20,8 +20,8 @@ class rack extends indexbase
 
     public function control_run()
     {
-
-
-        $this->view();
+        $data = M('rack', 'im')->list($this->get_userid());
+        // d($data[0]);
+        $this->view(null, ['data' => $data]);
     }
 }

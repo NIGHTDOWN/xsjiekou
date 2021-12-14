@@ -136,8 +136,9 @@ class Url
 		if ($ip) {
 			self::$ip = $ip;
 		} else {
-			self::$ip = $_SERVER["SERVER_NAME"];
+			self::$ip = $_SERVER["HTTP_HOST"];
 		}
+		// d($_SERVER);
 		if (isset($args['alias']) && isset($args['catid'])) {
 			unset($args['catid']);
 		}
@@ -189,7 +190,7 @@ class Url
 		$mod    = $mod ? $mod : $c;
 		$action = $action ? $action : 'run';
 		if ($ip == '/' || $ip == null) {
-			$ip = $_SERVER["SERVER_NAME"];
+			$ip = $_SERVER["HTTP_HOST"];
 		}
 		$url = self::gethttp() . $ip . '/' . $file . $m . 'c=' . $mod . $fh . 'a=' . $action . $param;
 		return $url;
@@ -224,8 +225,8 @@ class Url
 		$param = '';
 		if ($group == 'index') {
 			$group = '';
-		}else{
-			$group.='/';
+		} else {
+			$group .= '/';
 		}
 		if (!$group) {
 			//如果是index模块，action可以控
@@ -234,7 +235,7 @@ class Url
 			}
 		}
 		// $alias  = null;
-	
+
 		// $city = null;
 		// if ($mod == 'index') {
 		// 	$mod = '';
@@ -252,7 +253,7 @@ class Url
 		// 		$group = '';
 		// 	}
 		// }
-		$url = self::gethttp() . $_SERVER["SERVER_NAME"] . '/';
+		$url = self::gethttp() . $_SERVER["HTTP_HOST"] . '/';
 
 		if (is_array($args)) {
 			foreach ($args as $name => $vaal) {
@@ -270,10 +271,10 @@ class Url
 		} else {
 			$pre = G_URLPRE;
 		}
-		
-		
-		$url = trim(self::gethttp() . $_SERVER["SERVER_NAME"] . '/' . $group . $mod . $action . $param, '/') . $pre;
-		
+
+
+		$url = trim(self::gethttp() . $_SERVER["HTTP_HOST"] . '/' . $group . $mod . $action . $param, '/') . $pre;
+
 		return $url;
 	}
 

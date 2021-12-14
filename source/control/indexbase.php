@@ -2,6 +2,7 @@
 
 namespace ng169\control;
 
+use FacebookAds\Http\Request;
 use ng169\control\general;
 use ng169\tool\Cookie as YCookie;
 use ng169\tool\Request as YRequest;
@@ -28,6 +29,7 @@ class indexbase extends general
 	public $lang = null;
 	public $langid = null;
 	public static $city = null;
+	public $head;
 	protected $noNeedLogin = ['*']; //默认全部无须登入
 	private $byword = array(
 		'hits',
@@ -70,6 +72,8 @@ class indexbase extends general
 		$c = D_MEDTHOD;
 		$a = D_FUNC;
 		$login = 0;
+		$this->head = YRequest::get_head();
+		parent::$wrap_head = $this->head;
 		if ($this->needlogin()) {
 
 			$login = $this->checkLogin();

@@ -153,6 +153,59 @@ function getmodname($mod, $mod_dir)
 		return $mod;
 	}
 }
+/**获取设备类型
+ * @$head 头参数
+ * return 设备类型
+ */
+function getdevicetype($head)
+{
+	if (isset($head['devicetype'])) {
+		return $head['devicetype'];
+	}
+
+	if (isset($head['user-agent'])) {
+		preg_match('/\(.*?\)/', $head['user-agent'], $m);
+		if ($m[0]) {
+			preg_match('/window/Ui', $m[0], $m2);
+			if ($m2) {
+				return 'win-web';
+			}
+			preg_match('/iphone/Ui', $m[0], $m2);
+			if ($m2) {
+				return 'iphone-wap';
+			}
+			preg_match('/ipad/Ui', $m[0], $m2);
+			if ($m2) {
+				return 'ipad-wap';
+			}
+			preg_match('/android/Ui', $m[0], $m2);
+			if ($m2) {
+				return 'android-wap';
+			}
+			preg_match("/linux/Ui", $m[0], $m2);
+
+
+			if ($m2) {
+				return 'linux-web';
+			}
+			preg_match('/mac/Ui', $m[0], $m2);
+
+			if ($m2) {
+				return 'macos-web';
+			}
+			preg_match('/\(([^\;]{1,})\;/Ui', $m[0], $m1);
+			if ($m1[1]) {
+				return $m1[1] . '-web';
+			}
+			//匹配window 返回web
+			//匹配ipad返回wap-ipad
+			//匹配安卓返回wap-android
+			//匹配liunx返回liunx
+		}
+	}
+	//获取失败
+	return false;
+}
 function getactionname($action, $mod, $mod_dir)
 {
 	$m = get_mod($mod_dir);

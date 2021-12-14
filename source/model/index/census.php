@@ -991,19 +991,23 @@ class census extends Y
         // d($head);
         $insert['uid'] = $uid;
         $insert['idfa'] = $head['idfa'];
-        if (!$uid && !$head['idfa']) {
+        $devices = getdevicetype($head);
+
+        if (!$uid && !$devices) {
             //如果用户id 跟 idfa都是空；说明是模拟 提交，也可能是恶意提交
             //不计入统计数据
             $this->_errorlog();
             return false;
         }
-        //$this->_errorlog();
 
+        //$this->_errorlog();
+        $insert['devicetype'] = $devices;
         $insert['d'] = date('Ymd');
         if (!$insert['idfa']) {
             unset($insert['idfa']);
             $insert['ip'] = Request::getip();
         }
+      
         //天
         if (!T('count_log')->set_filed('id')->get_one($insert)) {
 

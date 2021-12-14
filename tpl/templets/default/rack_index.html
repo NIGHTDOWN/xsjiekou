@@ -53,7 +53,7 @@
                     <!-- <li class="bookrack-tab js_record_tab js_tab" data-action="record">历史</li> -->
                 </ul>
                 <div class="bookrack-icons">
-                    <div class="js_collect_icon bookrack-icon js_icon" data-func="view" data-status="0"
+                    <div class="js_collect_icon bookrack-icon js_icon jsview" data-func="view" data-status="0"
                         style="display: block;"><i class="ift-menu"></i></div>
                     <div class="js_collect_icon bookrack-icon js_icon" data-func="manage" style="display: block;"><i
                             class="ift-edit"></i></div>
@@ -65,94 +65,42 @@
         <article class="view-body">
             <div id="js_main" class="bookrack-main bookrack-main-0">
                 <div class="bookrack-content">
-                    <div id="js_collect_main" class="bookrack-items items-block" style="display: block;">
-                        <div class="bookrack-item js_item" data-id="108700">
-                            <div class="bookrack-inner">
-                                <img src="/static/images/comm/space.gif" alt="" class="cover"
-                                    style="background: url(&quot;//image.yqmh.com/mh/108700.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
-                                <h3 class="title">虐渣的一百种方式</h3>
-                                <p class="subtitle"></p>
-                                <p class="desc">前天 更新至 第22话 仙灵VS母猪VS米修？！</p>
-                                <div class="btns">
-                                    <div class="btn btn-primary is-radius js_collect_cancel">取消收藏</div>
-                                </div>
-                                <div class="cloth"></div>
-                                <span class="mark js_mark"><i class="ift-check"></i></span>
-                            </div>
-                        </div>
-                        <div class="bookrack-item js_item" data-id="108698">
-                            <div class="bookrack-inner">
-                                <img src="/static/images/comm/space.gif" alt="" class="cover"
-                                    style="background: url(&quot;//image.yqmh.com/mh/108698.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
-                                <h3 class="title">萌宝医仙三岁半</h3>
-                                <p class="subtitle"></p>
-                                <p class="desc">昨天 更新至 第46话 玄极宫来人了...</p>
-                                <div class="btns">
-                                    <div class="btn btn-primary is-radius js_collect_cancel">取消收藏</div>
-                                </div>
-                                <div class="cloth"></div>
-                                <span class="mark js_mark"><i class="ift-check"></i></span>
-                            </div>
-                        </div>
-                        <div class="bookrack-item js_item" data-id="108696">
-                            <div class="bookrack-inner">
-                                <img src="/static/images/comm/space.gif" alt="" class="cover"
-                                    style="background: url(&quot;//image.yqmh.com/mh/108696.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
-                                <h3 class="title">最强主宰</h3>
-                                <p class="subtitle"></p>
-                                <p class="desc">昨天 更新至 第13话 战斗中不要三心二意！</p>
-                                <div class="btns">
-                                    <div class="btn btn-primary is-radius js_collect_cancel">取消收藏</div>
-                                </div>
-                                <div class="cloth"></div>
-                                <span class="mark js_mark"><i class="ift-check"></i></span>
-                            </div>
-                        </div>
-                        <div class="bookrack-item js_item" data-id="108699">
-                            <div class="bookrack-inner">
-                                <img src="/static/images/comm/space.gif" alt="" class="cover"
-                                    style="background: url(&quot;//image.yqmh.com/mh/108699.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
-                                <h3 class="title">开局送妹：我有百万游戏娘</h3>
-                                <p class="subtitle"></p>
-                                <p class="desc">昨天 更新至 第57话 钓鱼对决</p>
-                                <div class="btns">
-                                    <div class="btn btn-primary is-radius js_collect_cancel">取消收藏</div>
-                                </div>
-                                <div class="cloth"></div>
-                                <span class="mark js_mark"><i class="ift-check"></i></span>
-                            </div>
-                        </div>
-                        <div class="bookrack-item js_item" data-id="108519">
-                            <div class="bookrack-inner">
-                                <img src="/static/images/comm/space.gif" alt="" class="cover"
-                                    style="background: url(&quot;//image.yqmh.com/mh/108519.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
-                                <h3 class="title">我被困在同一天十万年</h3>
-                                <p class="subtitle"></p>
-                                <p class="desc">前天 更新至 第89话 我只以剑道应战~</p>
-                                <div class="btns">
-                                    <div class="btn btn-primary is-radius js_collect_cancel">取消收藏</div>
-                                </div>
-                                <div class="cloth"></div>
-                                <span class="mark js_mark"><i class="ift-check"></i></span>
-                            </div>
-                        </div>
-                        <div class="bookrack-item js_item" data-id="108517">
-                            <div class="bookrack-inner">
-                                <img src="/static/images/comm/space.gif" alt="" class="cover"
-                                    style="background: url(&quot;//image.yqmh.com/mh/108517.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
-                                <h3 class="title">极品狂婿</h3>
-                                <p class="subtitle"></p>
-                                <p class="desc">昨天 更新至 第114话 剧院上新戏，皇上也沉迷</p>
-                                <div class="btns">
-                                    <div class="btn btn-primary is-radius js_collect_cancel">取消收藏</div>
-                                </div>
-                                <div class="cloth"></div>
-                                <span class="mark js_mark"><i class="ift-check"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                   
+                    <!--{if $data}-->
 
+
+                    <div id="js_collect_main" class="bookrack-items items-block" style="display: block;">
+                        <!--{foreach $data as $k=>$v}-->
+
+                        <div class="bookrack-item js_item" data-id="<!--{$v.book_id}-->">
+                            <div class="bookrack-inner">
+                                <img src="<!--{$indextpl}-->imgs/space.gif" alt="" class="cover"
+                                    style="background: url(&quot;<!--{$v.bpic}-->&quot;) center center / cover no-repeat; opacity: 1;">
+                                <!--{if ($v.newnum-$v.readlast)>0}-->
+                                <div class="bookup">up</div>
+                                <!--{else}-->
+                                <div class="bookup">up</div>
+                                <!--{/if}-->
+                                <h3 class="title">
+                                    <!--{$v.other_name}-->
+                                </h3>
+                                <p class="subtitle">
+                                    <!--{$v.desc}-->
+                                </p>
+                                <!-- <p class="desc">
+                                    
+                                </p> -->
+                                <div class="btns">
+                                    <div class="btn btn-primary is-radius js_collect_cancel">
+                                        <!--{__ 移出}-->
+                                    </div>
+                                </div>
+                                <div class="cloth"></div>
+                                <span class="mark js_mark"><i class="ift-check"></i></span>
+                            </div>
+                        </div>
+                        <!--{/foreach}-->
+                    </div>
+                    <!--{else}-->
                     <div class="status-wrapper js_status_error">
                         <div class="status-block">
                             <div class="icon icon-cry"></div>
@@ -165,7 +113,7 @@
                             </div>
                         </div>
                     </div>
-
+                    <!--{/if}-->
                 </div>
 
             </div>
@@ -186,9 +134,41 @@
     </section>
 
     <!--{include file={$indextpl}"/index_foot.html"}-->
+    <script>
+        $(function () {
+
+            $('.jsview').on('click', function () {
+                var t = $(this), g = $('#js_collect_main')
+                    // , e = t.data("func")
+                    , c = t.children('i');
+                // "manage" === e && (!c.length || g.collect.main.hasClass("items-manage") ? d(!1) : d(!0)),
+                //     "view" === e && (e = 1 === parseInt(t.data("status")) ? 0 : 1,
+                //         t.html(p.collect.iconView[e]).data("status", e),
+                var e = c.hasClass('ift-menu');
+                e ? g.addClass("items-list").removeClass("items-block") : g.addClass("items-block").removeClass("items-list");
+                !e ? c.addClass("ift-menu").removeClass("ift-list") : c.addClass("ift-list").removeClass("ift-menu");
+            });
+
+
+        });
+    </script>
     <style>
         .bookrack-items {
             zoom: 1
+        }
+
+        .bookup {
+            display: block;
+            position: absolute;
+            background: #fa716d;
+            width: 0.8rem;
+            height: 0.5rem;
+            left: 0px;
+            top: 0px;
+            border-radius: 0 0 0.2rem 0;
+            color: #fff;
+            text-align: center;
+            font-size: 0.3rem;
         }
 
         .bookrack-items:after {
@@ -440,10 +420,16 @@
         .bookrack-items.items-list .bookrack-item .desc,
         .bookrack-items.items-list .bookrack-item .subtitle {
             font-size: .32rem;
-            white-space: nowrap;
+            /* white-space: nowrap; */
             -o-text-overflow: ellipsis;
-            text-overflow: ellipsis;
-            overflow: hidden
+            /* text-overflow: ellipsis; */
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+            height: 1.5rem;
+            width: 80%;
         }
 
         .bookrack-items.items-list .bookrack-item .desc {

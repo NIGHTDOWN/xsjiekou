@@ -158,6 +158,7 @@ function d($name = null, $interrupt = false, $format = true, $debugindex = 0)
         die();
     }
 }
+
 //加载环境常量
 function is_cli()
 {

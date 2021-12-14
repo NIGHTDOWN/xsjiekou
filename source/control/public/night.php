@@ -1,4 +1,5 @@
 <?php
+
 namespace ng169\control;
 
 use ng169\tool\Cookie as YCookie;
@@ -115,7 +116,6 @@ class general extends Y
 
             YAsyn::start($url, null);
         }
-
     }
     public function getcache($tplfile = null, $id = 1)
     {
@@ -170,7 +170,7 @@ class general extends Y
         if ($var_array) {
             TPL::assign($var_array);
         }
-       
+
         if ($after_call == null) {
 
             $group = YRequest::getGpc('m') ? YRequest::getGpc('m') : 'index';
@@ -183,7 +183,7 @@ class general extends Y
             call_user_func(array($this, $this->callback));
         } else {
         }
-       
+
         $html = TPL::display($this->_tplfile, $cache);
 
         return;
@@ -191,7 +191,8 @@ class general extends Y
 
     public function get_userid($type = 0)
     {
-        $userid = @parent::$wrap_user['uid'];
+
+        $userid = @parent::$wrap_user['id'];
 
         if ($userid == null && $type) {
             error('请登入在操作', geturl(null, null, 'login', 'index'), 1);
@@ -223,9 +224,7 @@ class general extends Y
                 $msg = T('member')->set_field(array($k))->get_one($id);
                 return $msg[$k];
                 break;
-
         }
-
     }
 
     public function get_adminid()
@@ -234,10 +233,8 @@ class general extends Y
         if ($adminid == null) {
 
             out('登入超时，请重新登入', geturl(null, 'login', 'login', 'admin'), 0, 1);
-
         }
         return $adminid;
-
     }
 
     public function get_area()
@@ -391,7 +388,6 @@ class general extends Y
 
                         $table = $table->order_by($word);
                         break;
-
                 }
             }
 
@@ -401,7 +397,6 @@ class general extends Y
                 $var_array = array('orderby' => $word);
                 TPL::assign($var_array);
             }
-
         }
 
         return $table;
@@ -422,7 +417,7 @@ class general extends Y
         if (isset($this->pagearray[$index])) {
 
             $start = $this->pagearray[$index][$this->pagekey];
-/*
+            /*
 if (isset($this->pagearray[$index2])) {
 
 $array = array_column($this->pagearray,$this->pagekey);
@@ -431,13 +426,11 @@ $start2= array_slice($array,$index,$this->page_size);
 
 }
  */
-
         } else {
             if ($this->fh != '>') {
 
                 $start = $this->pagestartid - ($thispage - 1) * $this->page_size;
             }
-
         }
 
         $end = $thispage * $this->page_size;
@@ -478,7 +471,6 @@ $start2= array_slice($array,$index,$this->page_size);
         $page = YPage::getobj()->init($num, $pagearray['szie'], $pagearray['pagenum'], $url, $maxpage);
 
         return $page;
-
     }
 
     public function make_category($table, $link_db_arr)
@@ -496,7 +488,6 @@ $start2= array_slice($array,$index,$this->page_size);
                         $f = $field_dbobj->get_field();
                         $f = array_merge($f, array($val['as'] => $f = $field_dbobj->get_primarykey()));
                         $f_get = $field_dbobj->set_field($f)->get_all();
-
                     } else {
 
                         if ($child) {
@@ -504,7 +495,6 @@ $start2= array_slice($array,$index,$this->page_size);
                             $f = array_merge($f, array($val['as'] => $f = $field_dbobj->get_primarykey()));
                             $f_get = $field_dbobj->set_field($f)->set_where(array('parentid' => $id))->get_all();
                         }
-
                     }
                 } else {
 
@@ -512,17 +502,14 @@ $start2= array_slice($array,$index,$this->page_size);
                     if ($id != null && $id != '' && $showchoose) {
 
                         $f_get = $field_dbobj->get_all();
-
                     } else {
 
                         if ($child) {
 
                             $f_get = $field_dbobj->set_where(array('parentid' => $id))->get_all();
                         }
-
                     }
                 }
-
             }
 
             $out = array('$field' => array('alais' => $alais, 'data' => $f_get));
@@ -540,7 +527,7 @@ $start2= array_slice($array,$index,$this->page_size);
             out('模板文件[' . $tplname . ']不存在，请检查！', '', 0, 0);
         } else {
             $tplfile = file_exists(ROOT . './' . $tplfile . '.tpl') ? $tplfile . '.tpl' :
-            $tplfile . '.html';
+                $tplfile . '.html';
             return $tplfile;
         }
     }
