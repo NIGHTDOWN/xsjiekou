@@ -107,63 +107,62 @@ class groom extends apibase
     public function control_delrack()
     {
         $data = get(['string' => ['book_id', 'cartoon_id']]);
+        $data = M('rack', 'im')->del($this->get_userid(), $data['book_id'], $data['cartoon_id']);
 
-        if ($data['book_id']) {
-            T('user_groom')->where(['type' => 1,  'users_id' => $this->get_userid()])->whereIn('book_id', $data['book_id'])->del();
-        }
+        // if ($data['book_id']) {
+        //     T('user_groom')->where(['type' => 1,  'users_id' => $this->get_userid()])->whereIn('book_id', $data['book_id'])->del();
+        // }
 
-        if ($data['cartoon_id']) {
-            T('user_groom')->where(['type' => 2,  'users_id' => $this->get_userid()])->whereIn('book_id', $data['cartoon_id'])->del();
-        }
-        Out::jout('刪除成功');
+        // if ($data['cartoon_id']) {
+        //     T('user_groom')->where(['type' => 2,  'users_id' => $this->get_userid()])->whereIn('book_id', $data['cartoon_id'])->del();
+        // }
+        Out::jout($data);
     }
     // 获取书架信息
     public function control_get_rack()
     {
-        M('census', 'im')->logcount($this->get_userid()); //安装统计
-        //更新用户登入时间，版本号
-        T('third_party_user')->update(['last_login_time' => time(),], ['id' => $this->get_userid()]);
-        $buw = ['users_id' => $this->uid];
-        $book_ids = [];
-        $cartoon_ids = [];
-        $datas = T('user_groom')
-            ->field('other_name,bpic,book_id,type,isgroom')
-            ->where('status=1')
-            ->order_by('grooms_id desc')
-            ->where($buw)
-            ->limit(100)
-            ->get_all();
-        foreach ($datas as $k => $book) {
-            if ($book['type'] == 1) {
-                array_push($book_ids, $book['book_id']);
-            } else {
-                array_push($cartoon_ids, $book['cartoon_id']);
-            }
-        }
-        $data = array_column($datas, null, 'book_id');
+        // M('census', 'im')->logcount($this->get_userid()); //安装统计
+        // //更新用户登入时间，版本号
+        // T('third_party_user')->update(['last_login_time' => time(),], ['id' => $this->get_userid()]);
+        // $buw = ['users_id' => $this->uid];
+        // $book_ids = [];
+        // $cartoon_ids = [];
+        // $datas = T('user_groom')
+        //     ->field('other_name,bpic,book_id,type,isgroom')
+        //     ->where('status=1')
+        //     ->order_by('grooms_id desc')
+        //     ->where($buw)
+        //     ->limit(100)
+        //     ->get_all();
+        // foreach ($datas as $k => $book) {
+        //     if ($book['type'] == 1) {
+        //         array_push($book_ids, $book['book_id']);
+        //     } else {
+        //         array_push($cartoon_ids, $book['cartoon_id']);
+        //     }
+        // }
+        // $data = array_column($datas, null, 'book_id');
 
-        if (sizeof($book_ids)) {
-            $tmp = T('book')->set_field('book_id,section,update_status')->whereIn('book_id', $book_ids)->get_all();
+        // if (sizeof($book_ids)) {
+        //     $tmp = T('book')->set_field('book_id,section,update_status')->whereIn('book_id', $book_ids)->get_all();
 
-            foreach ($tmp as $key => $value) {
-                if ($data[$value['book_id']]) {
-                    $data[$value['book_id']]['newnum'] = $value['section'];
-                }
-            }
-        }
-        if (sizeof($cartoon_ids)) {
-            $tmp = T('cartoon')->set_field('cartoon_id,section,update_status')->whereIn('cartoon_id', $cartoon_ids)->get_all();
-            foreach ($tmp as $key => $value) {
-                if ($data[$value['cartoon_id']]) {
-                    $data[$value['cartoon_id']]['newnum'] = $value['section'];
-                }
-            }
-        }
-        $datas = array_values($data);
-
+        //     foreach ($tmp as $key => $value) {
+        //         if ($data[$value['book_id']]) {
+        //             $data[$value['book_id']]['newnum'] = $value['section'];
+        //         }
+        //     }
+        // }
+        // if (sizeof($cartoon_ids)) {
+        //     $tmp = T('cartoon')->set_field('cartoon_id,section,update_status')->whereIn('cartoon_id', $cartoon_ids)->get_all();
+        //     foreach ($tmp as $key => $value) {
+        //         if ($data[$value['cartoon_id']]) {
+        //             $data[$value['cartoon_id']]['newnum'] = $value['section'];
+        //         }
+        //     }
+        // }
+        // $datas = array_values($data);
         // 合并用户自主添加书架和系统分配书籍
-
-
+        $datas = M('rack', 'im')->list($this->get_userid());
         $this->returnSuccess($datas);
     }
 }

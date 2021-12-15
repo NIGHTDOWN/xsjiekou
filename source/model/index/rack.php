@@ -58,4 +58,51 @@ class rack extends Y
         $datas = array_values($data);
         return $datas;
     }
+    /**删除对应书架书籍
+     * uid 用户id
+     *@string  book_ids 小说id,多个逗号分割
+     *@string  cartoon_ids 漫画id ,多个逗号分割
+     *  */
+    public function del($uid, $book_ids, $cartoon_ids)
+    {
+        if (!$uid) return false;
+        $a1 = false;
+        $a2 = false;
+        if ($book_ids) {
+            $a1 = T('user_groom')->where(['type' => 1,  'users_id' => $uid])->whereIn('book_id', $book_ids)->del();
+        }
+
+        if ($cartoon_ids) {
+            $a2 =  T('user_groom')->where(['type' => 2,  'users_id' => $uid])->whereIn('book_id', $cartoon_ids)->del();
+        }
+        return $a1 || $a2;
+    }
+    public function readhis($uid, $page, $num = 10)
+    {
+        if (!$uid) return false;
+        $list = T('user_history')
+            ->set_where(['users_id' => $uid])
+            ->order_by(['f' => 'watch_time', 's' => 'down'])
+            ->set_limit([$page, $num])->get_all();
+        return $list;
+    }
+    /**清空阅读记录 */
+    public function clearhis($uid)
+    {
+        if (!$uid) return false;
+        $a1 = false;
+        $a1 = T('user_history')->where(['users_id' => $uid])->del();
+        return $a1;
+    }
+    /**删除阅读记录 */
+    public function delhis($uid, $ids)
+    {
+        if (!$uid) return false;
+        $a1 = false;
+
+        if ($ids) {
+            $a1 = T('user_history')->where(['users_id' => $uid])->whereIn('his_id', $ids)->del();
+        }
+        return $a1;
+    }
 }

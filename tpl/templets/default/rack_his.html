@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="renderer" content="webkit">
     <title>
-        <!--{__ 我的书架}-->
+        <!--{__ 阅读历史}-->
         <!--{__ LoveNovel}-->
     </title>
     <meta name="keywords" content="<!--{__ 多语言免费、流行、浪漫、小说,漫画阅读器.}-->">
@@ -34,7 +34,7 @@
     <meta name="x5-orientation" content="portrait">
     <meta name="x5-pagetype" content="webapp">
     <link href="<!--{$indextpl}-->css/vendor.38cae4.css" rel="stylesheet">
-    <script src="<!--{$indextpl}-->js/jquery.min.js"></script>
+    <script src="<!--{$staticjs}-->jquery.min.js"></script>
     <script src="<!--{$static}-->js/night_Trad.v1.0.js"></script>
     <script>
         function isMobileHanddle() { var e = navigator.userAgent; return (screen.width / screen.height < 1 || /AppleWebKit.*Mobile/i.test(e) || /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(e)) && !/ipad/gi.test(e) } var host = location.host; isMobileHanddle() || "m" !== host.substr(0, host.indexOf(".")) || (location.href = location.href.replace("//m.", "//www.")), top.location != location && (top.location = location.href), function (i, e) { function t() { var e = o.getBoundingClientRect().width; 540 < e / s && (e = 540 * s); var t = e / 10; o.style.fontSize = t + "px", m.rem = i.rem = t } var a, n = i.document, o = n.documentElement, r = n.querySelector('meta[name="viewport"]'), l = n.querySelector('meta[name="flexible"]'), s = 0, d = 0, m = e.flexible || (e.flexible = {}); if (r) { console.warn("将根据已有的meta标签来设置缩放比例"); var c = r.getAttribute("content").match(/initial\-scale=([\d\.]+)/); c && (d = parseFloat(c[1]), s = parseInt(1 / d)) } else if (l) { var p = l.getAttribute("content"); if (p) { var u = p.match(/initial\-dpr=([\d\.]+)/), f = p.match(/maximum\-dpr=([\d\.]+)/); u && (s = parseFloat(u[1]), d = parseFloat((1 / s).toFixed(2))), f && (s = parseFloat(f[1]), d = parseFloat((1 / s).toFixed(2))) } } if (!s && !d) { var h = (i.navigator.appVersion.match(/android/gi), i.navigator.appVersion.match(/iphone/gi)), v = i.devicePixelRatio; d = 1 / (s = h ? 3 <= v && (!s || 3 <= s) ? 3 : 2 <= v && (!s || 2 <= s) ? 2 : 1 : 1) } if (o.setAttribute("data-dpr", s), !r) if ((r = n.createElement("meta")).setAttribute("name", "viewport"), r.setAttribute("content", "initial-scale=" + d + ", maximum-scale=" + d + ", minimum-scale=" + d + ", user-scalable=no"), o.firstElementChild) o.firstElementChild.appendChild(r); else { var b = n.createElement("div"); b.appendChild(r), n.write(b.innerHTML) } i.addEventListener("resize", function () { clearTimeout(a), a = setTimeout(t, 300) }, !1), i.addEventListener("pageshow", function (e) { e.persisted && (clearTimeout(a), a = setTimeout(t, 300)) }, !1), "complete" === n.readyState ? n.body.style.fontSize = 12 * s + "px" : n.addEventListener("DOMContentLoaded", function () { n.body.style.fontSize = 12 * s + "px" }, !1), t(), m.dpr = i.dpr = s, m.refreshRem = t, m.rem2px = function (e) { var t = parseFloat(e) * this.rem; return "string" == typeof e && e.match(/rem$/) && (t += "px"), t }, m.px2rem = function (e) { var t = parseFloat(e) / this.rem; return "string" == typeof e && e.match(/px$/) && (t += "rem"), t } }(window, window.lib || (window.lib = {})), window.shareConf = null</script>
@@ -46,22 +46,19 @@
             <div class="bookrack-header">
                 <ul class="bookrack-menu">
                     <a href="<!--{url action='run' mod='rack' args=''}-->">
-                        <li class="bookrack-tab js_collect_tab js_tab active" data-action="collect">
+                        <li class="bookrack-tab js_collect_tab js_tab " data-action="collect">
                             <!--{__ 阅读历史}-->
                         </li>
                     </a> <a href="<!--{url action='his' mod='rack' args=''}-->">
-                        <li class="bookrack-tab js_record_tab js_tab " data-action="record">
+                        <li class="bookrack-tab js_record_tab js_tab active" data-action="record">
                             <!--{__ 阅读历史}-->
                         </li>
                     </a>
                 </ul>
                 <div class="bookrack-icons">
-                    <div class="js_collect_icon bookrack-icon js_icon jsview" data-func="view" data-status="0"
-                        style="display: block;"><i class="ift-menu"></i></div>
-                    <div class="js_collect_icon bookrack-icon js_icon" data-func="manage" id='jsedit'
-                        style="display: block;"><i class="ift-edit"></i></div>
-                    <div class="js_record_icon bookrack-icon js_icon" data-func="clean" style="display: none;"><i
-                            class="ift-del"></i></div>
+                    <div class="js_record_icon bookrack-icon js_icon jsclean" data-func="clean" style="display: block;">
+                        <i class="ift-del"></i>
+                    </div>
                 </div>
             </div>
         </header>
@@ -71,39 +68,7 @@
                     <!--{if $data}-->
 
 
-                    <div id="js_collect_main" class="bookrack-items items-block" style="display: block;">
-                        <!--{foreach $data as $k=>$v}-->
-
-                        <div class="bookrack-item js_item" data-id="<!--{$v.book_id}-->" data-type="<!--{$v.type}-->"
-                            url='这里是阅读页面url'>
-                            <div class="bookrack-inner">
-                                <img src="<!--{$indextpl}-->imgs/space.gif" alt="" class="cover"
-                                    style="background: url(&quot;<!--{$v.bpic}-->&quot;) center center / cover no-repeat; opacity: 1;">
-                                <!--{if ($v.newnum-$v.readlast)>0}-->
-                                <div class="bookup">up</div>
-                                <!--{else}-->
-
-                                <!--{/if}-->
-                                <h3 class="title">
-                                    <!--{$v.other_name}-->
-                                </h3>
-                                <p class="subtitle">
-                                    <!--{$v.desc}-->
-                                </p>
-                                <!-- <p class="desc">
-                                    
-                                </p> -->
-                                <div class="btns">
-                                    <div class="btn btn-primary is-radius js_collect_cancel">
-                                        <!--{__ 删除}-->
-                                    </div>
-                                </div>
-                                <div class="cloth"></div>
-                                <span class="mark js_mark"><i class="ift-check"></i></span>
-                            </div>
-                        </div>
-                        <!--{/foreach}-->
-                    </div>
+                    <!--{include file={$indextpl}"/hislist.html"}-->
                     <!--{else}-->
                     <div class="status-wrapper js_status_error">
                         <div class="status-block">
@@ -121,14 +86,7 @@
                 </div>
 
             </div>
-            <div id="js_collect_handle" class="bookrack-handle hide">
-                <div id="js_collect_select" class="bookrack-btn">
-                    <!--{__ 全选}-->
-                </div>
-                <div id="js_collect_delete" class="bookrack-btn">
-                    <!--{__ 删除}-->
-                </div>
-            </div>
+
         </article>
 
 
@@ -141,12 +99,12 @@
                         <div class="layui-m-layercont">
 
                             <div class="msg ft28">
-                                <!--{__ 确定要删除勾选书籍么}-->?
+                                <!--{__ 确定要删除该书籍吗}-->?
                             </div>
                         </div>
                         <div class="layui-m-layerbtn"><span no="" type="0" onclick="closebox()">
                                 <!--{__ 取消}-->
-                            </span><span yes="" type="1" onclick="delse()">
+                            </span><span yes="" type="1" onclick="delone()">
                                 <!--{__ 确认}-->
                             </span>
                         </div>
@@ -162,12 +120,12 @@
                         <div class="layui-m-layercont">
 
                             <div class="msg ft28">
-                                <!--{__ 确定要删除该书籍吗}-->?
+                                <!--{__ 确定清空阅读记录么}-->?
                             </div>
                         </div>
                         <div class="layui-m-layerbtn"><span no="" type="0" onclick="closebox()">
                                 <!--{__ 取消}-->
-                            </span><span yes="" type="1" onclick="delone()">
+                            </span><span yes="" type="1" onclick="delall()">
                                 <!--{__ 确认}-->
                             </span>
                         </div>
@@ -189,126 +147,39 @@
         var delob;
         _ajax_asyn = false;
         $(function () {
-            $('.jsview').on('click', function () {
-                var t = $(this), g = $('#js_collect_main')
-                    , c = t.children('i');
-                var e = c.hasClass('ift-menu');
-                e ? g.addClass("items-list").removeClass("items-block") : g.addClass("items-block").removeClass("items-list");
-                !e ? c.addClass("ift-menu").removeClass("ift-list") : c.addClass("ift-list").removeClass("ift-menu");
-            });
-            $('#jsedit').click(function () {
-                var t = $(this), g = $('#js_collect_main'), a = $('#js_collect_handle');
-                c = t.children('i');
-                e = c.hasClass('ift-edit');
-                !e ? unall() : [];
-                e ? g.addClass('items-manage') : g.removeClass('items-manage');
-                !e ? a.addClass('hide') : a.removeClass('hide');
-                !e ? c.addClass("ift-edit").removeClass("ift-multopt") : c.addClass("ift-multopt").removeClass("ift-edit");
-            });
-            $('.js_item').on('click', function () {
-                var t = $(this), g = $('#js_collect_main')
-                    , e = t.find(".js_mark")
-                    , t2 = t.data("id");
-                g.hasClass("items-manage") ? (e.hasClass("checked") ? e.removeClass("checked") : e.addClass("checked")
-                    , selectbook(t, e.hasClass("checked"))
-                ) : location.href = t.attr('url');
-            });
-            $('#js_collect_select').on('click', function () {
-                $t = $(this);
-                if (!$t.hasClass('all')) {
-                    inall();
-                } else {
-                    unall();
-                }
-            });
-            $('#js_collect_delete').click(function () {
 
-
-                $slen = sebook.length + secartoon.length;
-                if ($slen == 0) {
-                    showd('<!--{__ 请选择要删除的书籍}-->');
-                    return false;
-                }
-                msgbox('', $('.layui-m-layer1'));
-            });
-            $('.js_collect_cancel').on('click', function (event) {
-                event.stopPropagation();
-                var t = $(this);
-                delob = t.parentsUntil('.js_item').parent();
+            $('.jsclean').click(function () {
                 msgbox('', $('#layui-m-layer2'));
             });
+            $('.btn-sub').live('click', function (event) {
+                event.stopPropagation();
+                var t = $(this);
+                delob = t.parentsUntil('a').parent();
+                msgbox('', $('#layui-m-layer1'));
+            });
+            $('.list-box__item-wrap').live('click', function () {
+                // d($(this));
+                _go_url($(this).attr('href1'));
+            });
         });
-        $delurl = " <!--{url action='del' mod='' args=''}-->";
-        function delse() {
-            $rm = $('.checked').parentsUntil('.js_item').parent();
-            $rm.remove();
+        $delurl = " <!--{url action='clearhis' mod='rack' args=''}-->";
+        $deloneurl = " <!--{url action='delhis' mod='rack' args=''}-->";
+        function delall() {
             closebox();
-            // d('这里删除');
             yAjax($delurl, {
-                'book_id': sebook,
-                'cartoon_id': secartoon
-            }, () => { });
+            }, () => {
+                _go_url(location.href);
+            });
         }
         function delone() {
             closebox();
-            $id = delob.attr('data-id');
-            $type = delob.attr('data-type');
-            delob.remove();
-            if ($type == 1) {
-                yAjax($delurl, {
-                    'book_id': $id,
-                }, () => { });
-            } else {
-                yAjax($delurl, {
-                    'cartoon_id': $id,
-                }, () => { });
-            }
-
-            // d('这里删除');
-        }
-        //选择书籍
-        function selectbook(obj, $boolin) {
-            $booktype = obj.attr('data-type');
-            $bookid = obj.attr('data-id');
-
-            if ($booktype == 1) {
-                $boolin ? sebook.push($bookid) : sebook.aremove($bookid);
-            } else {
-                $boolin ? secartoon.push($bookid) : secartoon.aremove($bookid);
-            }
-            qxstatus();
-        }
-        function inall() {
-            $list = $('.js_mark');
-            $list.each(function (i, v) {
-                $if = $(v).hasClass('checked');
-                if (!$if) {
-                    $(v).addClass('checked');
-                    $p = $(v).parentsUntil('.js_item').parent();
-                    selectbook($p, true);
-                }
+            yAjax($deloneurl, {
+                'his_id': delob.attr('data-id'),
+            }, () => {
+                delob.parent().remove();
             });
         }
-        function unall() {
-            $list = $('.js_mark');
-            $list.removeClass('checked');
-            sebook = [];
-            secartoon = [];
-            qxstatus();
-        }
-        function qxstatus() {
-            $list = $('.js_item');
-            $btn = $('#js_collect_select');
-            $slen = sebook.length + secartoon.length;
-            $inlen = $list.length;
-            if ($slen < $inlen) {
-                $btn.removeClass('all');
-                $btn.text('<!--{__ 全选}-->');
-            } else {
-                $btn.addClass('all');
-                $btn.text('<!--{__ 取消全选}-->');
-            }
-        }
+
     </script>
     <style>
         .msgtitle {

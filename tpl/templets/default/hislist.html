@@ -1,10 +1,10 @@
 <ul class="list-box">
     <!--{foreach $data as $list}-->
     <li class="list-box__item">
-        <a class="list-box__item-wrap" href='<!--{if $list.type==1}-->
-                    <!--{url mod="book" args="bookid:{$list.book_id},title:{$list.other_name}"}-->
-                    <!--{else}--> <!--{url mod="cartoon" args="bookid:{$list.book_id},title:{$list.other_name}"}-->
-                    <!--{/if}-->' title="<!--{$list.other_name}-->">
+        <a class="list-box__item-wrap" href1='<!--{if $list.type==1}-->
+                    <!--{url mod="book" args="bookid:{$list.book_id},title:{$list.other_name},on:{$list.watch_sec}"}-->
+                    <!--{else}--> <!--{url mod="cartoon" args="bookid:{$list.book_id},title:{$list.other_name},on:{$list.watch_sec}"}-->
+                    <!--{/if}-->' title="<!--{$list.other_name}-->" data-id='<!--{$list.his_id}-->'>
             <div class="list-box__item-left"><img src="<!--{$indextpl}-->imgs/space.gif"
                     alt=" <!--{$list.other_name}-->" class="list-box__item-cover"
                     style="background: url(' <!--{$list.bpic}-->') center center / cover no-repeat; opacity: 1;">
@@ -16,26 +16,18 @@
                 <p class="list-box__item-desc">
                     <!--{$list.desc}-->
                 </p>
-                <div class="list-box__item-hot"><span class="fire ift-fire"></span><span class="yi">
-                        <!--{$list.read}-->
+                <div class="list-box__item-hot"><span class="yi">
+                        <!--{$list.watch_time|date_format:"%m/%d"}-->
                     </span>
                     <span>
-                        <!--{__ 万}-->
+
                     </span>
                 </div>
-                <div class="list-box__item-tag">
-                    <!--{foreach $list.tags as $tag}-->
-                    <!--{if $tag}-->
-                    <span class="list-box__item-tag-item" tagid='<!--{$tag.id}-->'>
-                        <!--{$tag.tag}-->
-                    </span>
-                    <!--{/if}-->
-                    <!--{/foreach}-->
-                </div>
+
             </div>
             <div class="list-box__item-right">
-                <div class="list-box__item-collection"><span class="ift-add"></span><span class="btn-sub subscribe">
-                        <!--{__ 收藏}-->
+                <div class="list-box__item-collection"><span class="btn-sub subscribe">
+                        <!--{__ 删除}-->
                     </span></div>
             </div>
         </a>
@@ -59,7 +51,7 @@
 </ul>
 <div class="bookboxtmp">
     <li class="list-box__item">
-        <a class="list-box__item-wrap" href='<!--{if $list.type==1}-->
+        <a class="list-box__item-wrap" href1='<!--{if $list.type==1}-->
                     <!--{url mod="book" args="bookid:{$list.book_id},title:{$list.other_name}"}-->
                     <!--{else}--> <!--{url mod="cartoon" args="bookid:{$list.book_id},title:{$list.other_name}"}-->
                     <!--{/if}-->' title="<!--{$list.other_name}-->">
@@ -74,22 +66,18 @@
                 <p class="list-box__item-desc">
                     <!--{$list.desc}-->
                 </p>
-                <div class="list-box__item-hot"><span class="fire ift-fire"></span><span class="yi">1.8</span>
+                <div class="list-box__item-hot"><span class="yi">
+                        <!--{$list.watch_time|date_format:"%Y-%m-%d %H:%M:%S"}-->
+                    </span>
                     <span>
-                        <!--{__ 万}-->
+
                     </span>
                 </div>
-                <div class="list-box__item-tag">
-                    <!--{foreach $data.tags as $tag}-->
-                    <span class="list-box__item-tag-item" tagid='<!--{$tag.id}-->'>
-                        <!--{$tag.tag}-->
-                    </span>
-                    <!--{/foreach}-->
-                </div>
+
             </div>
             <div class="list-box__item-right">
-                <div class="list-box__item-collection"><span class="ift-add"></span><span class="btn-sub subscribe">
-                        <!--{__ 收藏}-->
+                <div class="list-box__item-collection"><span class="btn-sub subscribe">
+                        <!--{__ 删除}-->
                     </span></div>
             </div>
         </a>
@@ -145,6 +133,7 @@
         padding: 0 .4266666667rem;
         display: block;
         overflow: scroll;
+        padding-bottom: 2rem;
     }
 
     .list-box .list-box__item {
@@ -212,7 +201,7 @@
         font-size: .33rem;
         line-height: .52rem;
         color: #b6b6b6;
-        height: 1.0933333333rem;
+        height: 1.5933333333rem;
     }
 
     .list-box .list-box__item-hot {
@@ -280,9 +269,7 @@
         }
     };
     function pgscroll() {
-
-
-        $('.list-box').scroll(function () {
+        $('.bookrack-content').scroll(function () {
             var scrollTop = $(this).scrollTop();
 
             var ks_area = $(this).innerHeight();
@@ -333,21 +320,15 @@
                         $obj.find('.list-box__item-left>img').attr('src', book.bpic);
                         $obj.find('.list-box__item-desc').text(book.desc);
                         $obj.find('.list-box__item-title').text(book.other_name);
-                        $obj.find('.yi').text(book.read);
-                        if (book.tags) {
-                            $.each(book.tags, function (i, v) {
-                                $tag = $("<span class='list-box__item-tag-item' tagid=''></span > ");
-                                $tag.attr('tagid', v.id);
-                                $tag.text(v.tag);
-                                $obj.find('.list-box__item-tag').append($tag);
-                            });
-                        }
+                        $obj.find('.yi').text(ftime(book.watch_time));
+
                         if (book.type == 1) {
-                            $url = $urlbook + book.book_id;
+                            $url = $urlbook + book.book_id + "&on=" + book.watch_sec;
                         } else {
-                            $url = $urlcartoon + book.book_id;
+                            $url = $urlcartoon + book.book_id + "&on=" + book.watch_sec;
                         }
-                        $obj.find('a').attr('href', $url);
+                        $obj.find('a').attr('href1', $url);
+                        $obj.find('a').attr('data-id', book.his_id);
                         $d.before($obj);
                     });
                 }
@@ -365,23 +346,18 @@
             $('.loadend').show();
         }
     }
+    function ftime($t) {
+        var now = new Date(parseInt($t) * 1000);
+        // d(now);
+        // d(now);
+        var year = now.getFullYear();
+
+        var month = now.getMonth() + 1;
+        var date = now.getDate();
+        return month + "/" + date;
+    }
     $(function () {
-        searchdata = getCookie(searchindex);
-        try {
-            $str = unescape(searchdata);
-            searchdata = jta($str);
-        } catch (error) {
-            d(error);
-            searchdata = [];
-        }
 
-        if (!searchdata) {
-            searchdata = [];
-        } else {
-            //加载历史搜索
-
-            // loadhis(searchdata);
-        }
         pgscroll();
         $('.js_searchBtn').on('click', function () {
 
