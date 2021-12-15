@@ -55,8 +55,8 @@
                 <div class="bookrack-icons">
                     <div class="js_collect_icon bookrack-icon js_icon jsview" data-func="view" data-status="0"
                         style="display: block;"><i class="ift-menu"></i></div>
-                    <div class="js_collect_icon bookrack-icon js_icon" data-func="manage" style="display: block;"><i
-                            class="ift-edit"></i></div>
+                    <div class="js_collect_icon bookrack-icon js_icon" data-func="manage" id='jsedit'
+                        style="display: block;"><i class="ift-edit"></i></div>
                     <div class="js_record_icon bookrack-icon js_icon" data-func="clean" style="display: none;"><i
                             class="ift-del"></i></div>
                 </div>
@@ -71,14 +71,14 @@
                     <div id="js_collect_main" class="bookrack-items items-block" style="display: block;">
                         <!--{foreach $data as $k=>$v}-->
 
-                        <div class="bookrack-item js_item" data-id="<!--{$v.book_id}-->">
+                        <div class="bookrack-item js_item" data-id="<!--{$v.book_id}-->" data-type="<!--{$v.type}-->">
                             <div class="bookrack-inner">
                                 <img src="<!--{$indextpl}-->imgs/space.gif" alt="" class="cover"
                                     style="background: url(&quot;<!--{$v.bpic}-->&quot;) center center / cover no-repeat; opacity: 1;">
                                 <!--{if ($v.newnum-$v.readlast)>0}-->
                                 <div class="bookup">up</div>
                                 <!--{else}-->
-                                <div class="bookup">up</div>
+
                                 <!--{/if}-->
                                 <h3 class="title">
                                     <!--{$v.other_name}-->
@@ -135,22 +135,86 @@
 
     <!--{include file={$indextpl}"/index_foot.html"}-->
     <script>
+        Array.prototype.aremove = function (val) {
+            var index = this.indexOf(val);
+            if (index > -1) {
+                this.splice(index, 1);
+            }
+        };
+        var sebook = new Array;
+        var secartoon = new Array;
         $(function () {
 
             $('.jsview').on('click', function () {
                 var t = $(this), g = $('#js_collect_main')
-                    // , e = t.data("func")
                     , c = t.children('i');
-                // "manage" === e && (!c.length || g.collect.main.hasClass("items-manage") ? d(!1) : d(!0)),
-                //     "view" === e && (e = 1 === parseInt(t.data("status")) ? 0 : 1,
-                //         t.html(p.collect.iconView[e]).data("status", e),
                 var e = c.hasClass('ift-menu');
                 e ? g.addClass("items-list").removeClass("items-block") : g.addClass("items-block").removeClass("items-list");
                 !e ? c.addClass("ift-menu").removeClass("ift-list") : c.addClass("ift-list").removeClass("ift-menu");
             });
+            $('#jsedit').click(function () {
+                var t = $(this), g = $('#js_collect_main'), a = $('#js_collect_handle');
+                c = t.children('i');
+                e = c.hasClass('ift-edit');
+                e ? g.addClass('items-manage') : g.removeClass('items-manage');
+                !e ? a.addClass('hide') : a.removeClass('hide');
+                !e ? c.addClass("ift-edit").removeClass("ift-multopt") : c.addClass("ift-multopt").removeClass("ift-edit");
 
+            });
+            $('.js_item').on('click', function () {
+                var t = $(this), g = $('#js_collect_main')
+                    , e = t.find(".js_mark")
+                    , t2 = t.data("id");
+                g.hasClass("items-manage") ? (e.hasClass("checked") ? e.removeClass("checked") : e.addClass("checked")
+                    , selectbook(t, e.hasClass("checked"))
+                ) : location.href = "/".concat(t, "/");
 
+            });
+            $('.js_collect_select').click(function () {
+                $t = $(this);
+                d($t);
+                if (!$t.hasClass('all')) {
+                    inall();
+                } else {
+                    unall();
+                }
+            });
         });
+
+        //选择书籍
+        function selectbook(obj, $boolin) {
+            $booktype = obj.attr('data-type');
+            $bookid = obj.attr('data-id');
+            if ($booktype) {
+                $boolin ? sebook.push($bookid) : sebook.aremove($bookid);
+            } else {
+                $boolin ? secartoon.push($bookid) : secartoon.aremove($bookid);
+            }
+            qxstatus();
+        }
+        function inall() {
+            $list = $('.js_item');
+            $list.addClass('checked');
+            $list.each(function (i, v) {
+                selectbook(v, true);
+            });
+
+        }
+        function unall() { }
+        function qxstatus() {
+            $list = $('.js_item');
+            $slen = sebook.length + secartoon.length;
+            $inlen = $list.length;
+            if ($inlen > $slen) {
+                //显示全选
+                $('.js_collect_select').addClass('all');
+                $('.js_collect_select').text('<!--{__ 全选}-->');
+            } else {
+                $('.js_collect_select').removeClass('all');
+                //显示取消全选
+                $('.js_collect_select').text('<!--{__ 取消全选}-->');
+            }
+        }
     </script>
     <style>
         .bookrack-items {
@@ -510,7 +574,7 @@
             z-index: 15;
             left: 0;
             bottom: 0;
-            height: .8533333333rem;
+            height: 1.1933333333rem;
             width: 100%;
             padding: .16rem 0 1.6rem;
             background-color: #fff

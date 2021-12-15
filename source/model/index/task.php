@@ -91,8 +91,8 @@ class task extends Y
         if ($signday < 1) {
             Out::jerror('日期错误', null, '110212');
         }
-
-        if ($signday > date('d', strtotime(date('Y-') . (date('m') + 1) . '-01') - 1)) {
+        $mleng = (date('t', strtotime(date('Y-') . (date('m')) . '-01')));
+        if ($signday > $mleng) {
             Out::jerror('日期错误', null, '110212');
         }
         $day = date('d');
