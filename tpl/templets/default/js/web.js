@@ -273,3 +273,19 @@ $(document).ready(function () {
         history.back();
     });
 });
+function ftime($t) {
+    var now = new Date(parseInt($t) * 1000);
+    // d(now);
+    // d(now);
+    var year = now.getFullYear();
+
+    var month = now.getMonth() + 1;
+    var date = now.getDate();
+    return month + "/" + date;
+}
+Array.prototype.aremove = function (val) {
+    var index = this.indexOf(val);
+    if (index > -1) {
+        this.splice(index, 1);
+    }
+};

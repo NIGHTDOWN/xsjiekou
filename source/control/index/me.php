@@ -20,7 +20,28 @@ class me extends indexbase
 
     public function control_run()
     {
-        // $uid = $this->get_userid();
+
         $this->view();
+    }
+    public function control_buyhis()
+    {
+        $pages = get(['int' => ['page', 'ajax']]);
+        $list = M('coin', 'im')->expand_his($this->get_userid(), $pages['page']);
+        if ($pages['ajax']) {
+            Out::jout($list);
+        } else {
+            $this->view(null, ['data' => $list]);
+        }
+    }
+    public function control_edit()
+    {
+        // $pages = get(['int' => ['page', 'ajax']]);
+        // $list = M('coin', 'im')->expand_his($this->get_userid(), $pages['page']);
+        // if ($pages['ajax']) {
+        //     Out::jout($list);
+        // } else {
+        //     $this->view(null, ['data' => $list]);
+        // }
+        $this->view(null);
     }
 }

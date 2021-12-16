@@ -240,4 +240,29 @@ class coin extends Y
         $coin = $num / 1000 * $price / 0.0125;
         return round($coin, 1);
     }
+    /**
+     * 章节消费记录
+     */
+    public function expand_his($uid, $page)
+    {
+        if (!$uid) return false;
+        $list = T('expend')->field('users_id,section_id,expend_red,expend_time,cart_section_id,cother_name,bother_name,section_title,cart_section_title,expend_type,addtime')
+            ->where(["users_id" => $uid])->order('addtime desc')->set_limit([$page, 20])->get_all();
+        return $list;
+    }
+
+    public function charge($uid, $page)
+    {
+        if (!$uid) return false;
+        $list = T('charge')->field('users_id,charge_icon,send_coin,addtime,charge_type')
+            ->where(["users_id" => $uid])->order('addtime desc')->set_limit([$page, 20])->get_all();
+        return $list;
+    }
+    public function record($uid, $page)
+    {
+        if (!$uid) return false;
+        $list = T('task_reward_count')->field('users_id,treward_coin,task_time,task_type,addtime')
+            ->where(["users_id" => $uid])->order('task_time desc')->set_limit([$page, 20])->get_all();
+        return $list;
+    }
 }

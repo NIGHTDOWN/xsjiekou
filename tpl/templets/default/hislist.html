@@ -262,12 +262,7 @@
     var searchindex = 'searchhis';
     var searchdata, page = 1, have = 1, loadings = 0;
     var searurl = '<!--{url mod="search"}-->?word=';
-    Array.prototype.aremove = function (val) {
-        var index = this.indexOf(val);
-        if (index > -1) {
-            this.splice(index, 1);
-        }
-    };
+   
     function pgscroll() {
         $('.bookrack-content').scroll(function () {
             var scrollTop = $(this).scrollTop();
@@ -346,16 +341,7 @@
             $('.loadend').show();
         }
     }
-    function ftime($t) {
-        var now = new Date(parseInt($t) * 1000);
-        // d(now);
-        // d(now);
-        var year = now.getFullYear();
-
-        var month = now.getMonth() + 1;
-        var date = now.getDate();
-        return month + "/" + date;
-    }
+   
     $(function () {
 
         pgscroll();

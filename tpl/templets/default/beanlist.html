@@ -1,0 +1,288 @@
+<ul class="list-box">
+    <!--{foreach $data as $list}-->
+    <li class="list-box__item">
+
+        <div class="list-box__item-center">
+            <p class="list-box__item-title">
+                <!--{if $list.charge_type==1}-->
+                <!--{__ 充值}-->
+                <!--{/if}-->
+                <!--{if $list.charge_type==2}-->
+                <!--{__ 赠送}-->
+                <!--{/if}-->
+                <!--{if $list.charge_type==3}-->
+                <!--{__ 代充}-->
+                <!--{/if}-->
+
+            </p>
+
+            <div class="list-box__item-hot"><span class="yi">
+                    <!--{$list.addtime|date_format:'%m/%d'}-->
+                </span>
+
+            </div>
+
+        </div>
+        <div class="list-box__item-right">
+            <div class="list-box__item-collection"><span class="btn-sub subscribe">
+
+                    +<!--{$list.charge_icon}-->
+                </span>
+                <span class="fire ift-bean"></span>
+            </div>
+        </div>
+
+    </li>
+    <!--{/foreach}-->
+
+    <div class="bottom_">
+        <div class="flexCenter-ai-center">
+
+            <div class="loadimg">
+                <img src="<!--{$indextpl}-->imgs/loading-2.gif">
+                <!--{__ 加载中}-->...
+            </div>
+            <div class="loadend">
+
+                <!--{__ 没有了}-->
+            </div>
+        </div>
+
+    </div>
+</ul>
+<div class="bookboxtmp">
+    <li class="list-box__item">
+
+        <div class="list-box__item-center">
+            <p class="list-box__item-title">
+                <!--{$list.bother_name}-->
+            </p>
+
+            <div class="list-box__item-hot"><span class="yi">
+                    <!--{$list.expend_time|date_format:'%m/%d'}-->
+                </span>
+
+            </div>
+
+        </div>
+        <div class="list-box__item-right">
+            <div class="list-box__item-collection"><span class="btn-sub subscribe">
+                    <!--{$list.expend_red}-->
+                </span>
+                <span class="fire ift-bean"></span>
+            </div>
+        </div>
+
+    </li>
+</div>
+</section>
+
+<style>
+    .loadimg {
+        display: none;
+    }
+
+    .list-box__item-collection {
+        display: flex;
+        flex-direction: column;
+        flex-flow: nowrap;
+        align-items: flex-end;
+    }
+
+    span.fire.ift-bean {
+        display: block;
+        width: 0.4rem;
+        height: 0.4rem;
+        background: url('<!--{$indextpl}-->imgs/bean.png');
+        background-size: cover;
+        margin: 0 0.05rem;
+    }
+
+    .header-wrap {
+        -webkit-box-shadow: 0 0 0.2666666667rem 0 rgba(0, 0, 0, .2);
+        -moz-box-shadow: 0 0 .2666666667rem 0 rgba(0, 0, 0, .2);
+        box-shadow: 0 0 0.2666666667rem 0 rgba(0, 0, 0, .2);
+        background-color: #fff;
+        /* -webkit-transition: all .4s; */
+        -o-transition: all .4s;
+        -moz-transition: all .4s;
+        transition: all .4s;
+    }
+
+    .loadend {
+        display: none;
+    }
+
+    .bookboxtmp {
+        display: none;
+    }
+
+    .flexCenter-ai-center {
+        display: flex;
+        align-content: center;
+        width: 100%;
+        align-items: center;
+        justify-items: center;
+        justify-content: center;
+        margin: 0.3rem 0;
+        color: #ccc;
+    }
+
+    .flexCenter-ai-center img {
+        width: 20%;
+    }
+
+    li.list-box__item {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-items: baseline;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        border-bottom: solid 1px;
+        border-color: #f4f4f4;
+        padding: 0.3rem 0.4rem;
+    }
+
+    ul.list-box {
+        display: block;
+        overflow: scroll;
+    }
+
+    p.list-box__item-desc {
+        font-size: 85%;
+        /* font-weight: 600; */
+        color: #b6b6b6;
+        margin-bottom: 0.15rem;
+    }
+
+    p.list-box__item-title {
+        font-size: 110%;
+        font-weight: 500;
+        color: #3a3636;
+        margin-bottom: 0.2rem;
+    }
+
+    .list-box__item-hot {
+        font-size: 85%;
+        /* font-weight: 600; */
+        color: #b6b6b6;
+        margin-bottom: 0.15rem;
+    }
+
+    .list-box__item-collection {
+        font-size: 140%;
+        font-weight: 600;
+        color: red;
+        margin-bottom: 0.15rem;
+    }
+</style>
+
+<script>
+    //初始化banner高度，宽高比。0.73
+    var searchdata, page = 1, have = 1, loadings = 0;
+    Array.prototype.aremove = function (val) {
+        var index = this.indexOf(val);
+        if (index > -1) {
+            this.splice(index, 1);
+        }
+    };
+    function pgscroll() {
+
+        $('.list-box').scroll(function () {
+            var scrollTop = $(this).scrollTop();
+            var ks_area = $(this).innerHeight();
+            //滚动距离总长(注意不是滚动条的长度)  
+            nScrollHight = $('body')[0].scrollHeight;
+            if (scrollTop + ks_area >= (nScrollHight - 1 * $(window).height())) {
+                loading();
+            }
+            if (scrollTop + ks_area >= nScrollHight) {
+                loading();
+                showloadbox();
+            }
+            if ($(this).scrollTop() == 0) {
+            }
+        });
+    }
+    function loading() {
+
+        if (!have) return false;
+        if (loadings) return false;
+
+        // $word = $('.search-area').val();
+        // if (!$word) return false;
+        loadings = 1;
+
+        $url = '';
+        $data = {
+            'page': page++,
+            'ajax': 1
+            // 'keyword': $word
+        };
+        yAjax($url, $data, function ($ret) {
+            loadings = 0;
+            if ($ret['code'] == 1) {
+                $books = $ret['result'];
+                if ($books.length <= 0) {
+                    have = 0;
+                    //变更加载状态
+                    showloadbox();
+                } else {
+                    //加载
+                    $d = $('.bottom_');
+                    $urlbook = "<!--{url mod='book'}-->?bookid=";
+                    $urlcartoon = "<!--{url mod='cartoon'}-->?bookid=";
+                    $.each($books, function (i, book) {
+                        $obj = $('.bookboxtmp').find('.list-box__item').clone();
+                        // $obj.find('.list-box__item-left>img').attr('src', book.bpic);
+                        $str = ""
+
+                        if (book.charge_type == 1) {
+                            $str = "<!--{__ 充值}-->";
+                        }
+                        if (book.charge_type == 2) {
+                            $str = "<!--{__ 赠送}-->";
+                        }
+                        if (book.charge_type == 3) {
+                            $str = "  <!--{__ 代充}-->";
+                        }
+                        $obj.find('.list-box__item-title').text($str);
+                        // $obj.find('.list-box__item-title').text(book.bother_name);
+                        $obj.find('.subscribe').text('+' + book.charge_icon);
+                        $obj.find('.yi').text(ftime(book.addtime));
+                        // if (book.tags) {
+                        //     $.each(book.tags, function (i, v) {
+                        //         $tag = $("<span class='list-box__item-tag-item' tagid=''></span > ");
+                        //         $tag.attr('tagid', v.id);
+                        //         $tag.text(v.tag);
+                        //         $obj.find('.list-box__item-tag').append($tag);
+                        //     });
+                        // }
+                        // if (book.type == 1) {
+                        //     $url = $urlbook + book.book_id;
+                        // } else {
+                        //     $url = $urlcartoon + book.book_id;
+                        // }
+                        // $obj.find('a').attr('href', $url);
+                        $d.before($obj);
+                    });
+                }
+            } else {
+                showd('error' + $ret['code']);
+            }
+        });
+    }
+    function showloadbox() {
+        if (have) {
+            $('.loadimg').show();
+            $('.loadend').hide();
+        } else {
+            $('.loadimg').hide();
+            $('.loadend').show();
+        }
+    }
+    $(function () {
+        pgscroll();
+    });
+</script>
