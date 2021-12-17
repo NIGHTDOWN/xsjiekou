@@ -6,11 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="renderer" content="webkit">
     <title>
+        <!--{__ 分类}-->
         <!--{__ LoveNovel}-->
     </title>
-    <meta name="keywords" content="<!--{__ 多语言免费、流行、浪漫、小说,漫画阅读器.}-->">
+    <meta name="keywords" content=" <!--{__ 分类}--> <!--{__ 多语言免费、流行、浪漫、小说,漫画阅读器.}-->">
     <meta name="description" itemprop="description"
-        content="<!--{__ LoveNovel一直坚持提供小说漫画免费阅读。看小说、看漫画，为阅读而生，就上LoveNovel}-->">
+        content=" <!--{__ 分类}--> <!--{__ LoveNovel一直坚持提供小说漫画免费阅读。看小说、看漫画，为阅读而生，就上LoveNovel}-->">
 
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <meta http-equiv="Cache-Control" content="no-transform">
@@ -33,7 +34,7 @@
     <meta name="x5-orientation" content="portrait">
     <meta name="x5-pagetype" content="webapp">
 
-    <script src="<!--{$indextpl}-->js/jquery.min.js"></script>
+    <script src="<!--{$static}-->js/jquery.min.js"></script>
     <script src="<!--{$indextpl}-->js/swiper.min.js"></script>
     <script src="<!--{$static}-->js/night_Trad.v1.0.js"></script>
     <script src="<!--{$indextpl}-->js/web.js"></script>
@@ -48,94 +49,273 @@
 
     <section class="view-port">
         <section class="view-body">
-            <div class="mine-wrap">
-                <div id="js_bsWrapper" class="bs-wrapper">
-                    <div class="bs-content"
-                        style="padding-right: 0px; padding-bottom: 1px; transition-duration: 0ms; transform: translate(0px, 0px) scale(1) translateZ(0px); transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);">
-                        <section class="mine-hat" style="pointer-events: auto;"></section>
-                        <section class="mine-main" style="pointer-events: auto;">
-                            <div class="my-face">
-                                <div class="circle"><img id="js_face" class="face"
-                                        src="/static/images/user/unlogin_head.png" alt="我的头像"></div>
-                                <div class="sex"><i id="js_sex" class="ift-sex-nv"></i></div>
-                            </div>
-                            <div class="my-friend"><a class="js_friend friend" href="/uc/fans.html" title="粉丝">粉丝 <span
-                                        id="js_fans"> - </span></a>
-                                <div class="split"></div><a class="js_friend friend" href="/uc/focus.html" title="关注">关注
-                                    <span id="js_focus"> - </span></a>
-                            </div>
-                            <div class="my-info"><a id="js_modify" href="/uc/active.html" title="我的信息"></a>
-                                <h1 id="js_name" class="title" acgn-auth="login"><span class="name name-visitor">游客
-                                    </span><span class="tag tag-visitor">lv.1</span></h1>
-                                <h2 id="js_desc" class="desc">还没登录呢，快去登录吧</h2>
-                                <h2 id="js_uid" class="uid"></h2>
-                            </div>
-                            <div class="my-property"><a class="js_property block" href="/uc/gold.html" title="我的钻石"><i
-                                        class="mark icon-user-diamond"></i> <span class="text" id="js_diamond"> -
-                                    </span> </a><a class="js_property block" href="/uc/coins.html" title="我的金币"><i
-                                        class="mark icon-user-coins"></i> <span class="text" id="js_coins"> - </span>
-                                </a><a class="js_property block" href="/uc/recommend.html" title="我的推荐票"><i
-                                        class="mark icon-user-recommend"></i> <span class="text"
-                                        id="js_recommendTicket"> - </span> </a><a class="js_property block"
-                                    href="/uc/ticket.html" title="我的月票"><i class="mark icon-user-ticket"></i> <span
-                                        class="text" id="js_monthTicket"> - </span></a></div>
-                        </section>
-                        <section id="js_linkMain" class="mine-func footer-space"
-                            style="display: block; pointer-events: auto;"><a href="/uc/booklist.html" title="我的书单">
-                                <div id="js_goContack" class="js_link link-row"><i class="mark icon-user-booklist"></i>
-                                    <i class="arrow ift-right"></i>
-                                    <p class="text">我的书单</p>
-                                </div>
-                            </a><a href="/uc/bookrack.html" title="我的书架">
-                                <div id="js_goContack" class="js_link link-row"><i class="mark icon-user-bookrack"></i>
-                                    <i class="arrow ift-right"></i>
-                                    <p class="text">我的书架</p>
-                                </div>
-                            </a><a id="js_goPay" title="充值中心">
-                                <div id="js_goRecharge" class="js_link link-row"><i class="mark icon-user-shopping"></i>
-                                    <i class="arrow ift-right"></i>
-                                    <p class="text">充值中心</p>
-                                </div>
-                            </a><a href="/uc/feedback.html" title="意见反馈">
-                                <div id="js_goFeelback" class="js_link link-row"><i class="mark icon-user-feedback"></i>
-                                    <i class="arrow ift-right"></i>
-                                    <p class="text">意见反馈</p>
-                                </div>
-                            </a><a href="/contact.html" title="联系我们">
-                                <div id="js_goContack" class="js_link link-row" type="contact"><i
-                                        class="mark icon-user-contact"></i> <i class="arrow ift-right"></i>
-                                    <p class="text">联系我们</p>
-                                </div>
-                            </a><a class="___report___"
-                                href="//shareact.womanhua.com/2021/netaccuse/?uid=&amp;uname=&amp;source_url=https%3A%2F%2Fm.kanman.com%2Fuc%2F&amp;product_name=kmh"
-                                title="在线举报" target="_blank">
-                                <div id="js_goContack" class="js_link link-row" type="contact"><i
-                                        class="mark icon-user-feedback"></i> <i class="arrow ift-right"></i>
-                                    <p class="text">在线举报</p>
-                                </div>
-                            </a><a id="js_goLogin" href="/login.htm" title="登录" style="">
-                                <div class="link-row"><i class="mark icon-user-login"></i> <i
-                                        class="arrow ift-right"></i>
-                                    <p class="text">用户登录</p>
-                                </div>
-                            </a>
-                            <div id="js_goExit" title="注销" style="display:none">
-                                <div class="link-row"><i class="mark icon-user-exit"></i> <i
-                                        class="arrow ift-right"></i>
-                                    <p class="text">退出登录</p>
-                                </div>
-                            </div>
-                        </section>
-                        <div class="bs-pulldown bs-wait" style="height: 100px; pointer-events: auto;">
-                            <p class="bs-pulldown-text">下拉刷新哦～</p>
-                            <div class="bs-pulldown-animation"></div>
-                        </div>
+            <div class="t1">
+                <div class="t2">
+                    <div class="t11 on" data-type="1" data-id="29">
+                        <!--{__ 女生}-->
+                    </div>
+                    <div class="t11" data-type="1" data-id="30">
+                        <!--{__ 男生}-->
+                    </div>
+                    <div class="t11" data-type="2" data-id="29">
+                        <!--{__ 女漫}-->
+                    </div>
+                    <div class="t11" data-type="2" data-id="30">
+                        <!--{__ 男漫}-->
                     </div>
                 </div>
+                <div class="t3">
+                    <div class="t4">
+                        <!--{foreach $data as $k=>$v}-->
+                        <div class="t41 <!--{if $k!=0}-->
+                       hide
+                        <!--{/if}-->" data-id='<!--{$v.category_id}-->'>
+
+                            <!--{foreach $v.child as $k2=>$v2}-->
+                            <div class="t411 <!--{if $k2==0}-->
+                            on
+                            <!--{/if}-->" data-id='<!--{$v2.category_id}-->'>
+
+                                <!--{$v2.category_name}-->
+
+                            </div>
+                            <!--{/foreach}-->
+                        </div>
+                        <!--{/foreach}-->
+
+
+                    </div>
+                    <div class="t5">
+                        <div class="t51">
+                            <div class="t511">
+                                <div class="t5111 tc3 on" data-id=0>
+                                    <!--{__ 全部}-->
+                                </div>
+                            </div>
+                            <div class="t512">
+                                <!--{foreach $lb0 as $k=>$v}-->
+                                <div class="t5111 tc3" data-id='<!--{$v.id}-->'>
+                                    <!--{$v.tag}-->
+                                </div>
+                                <!--{/foreach}-->
+                            </div>
+                        </div>
+                        <div class="t51">
+                            <div class="t522 t5111 on" data-id='1'>
+                                <!--{__ 最新}-->
+                            </div>
+                            <div class="t522 t5111 " data-id='2'>
+                                <!--{__ 最热}-->
+                            </div>
+                            <div class="t522 t5111 " data-id='3'>
+                                <!--{__ 完结}-->
+                            </div>
+                        </div>
+                        <div class="t53">
+                            <iframe src="" id="t_page"></iframe>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
         </section>
-         <!--{include file={$indextpl}"/index_foot.html"}-->
+        <!--{include file={$indextpl}"/index_foot.html"}-->
     </section>
 </body>
+<script>
+    var catejson = '<!--{$catejson}-->';
+    var cateobj = jta(catejson);
+    var catetag = {};
+    var ifrbaseurl = "<!--{url action='page' mod='' args=''}-->?";
+    var c1 = 1, c2 = cateobj[0]['category_id'], c3 = cateobj[0]['child'][0]['category_id'], c4 = 0, c5 = 1;
+    function init_catetag() {
+        $.each(cateobj[0]['child'], function (i, v) {
+            catetag[v.category_id] = v.tag;
+        });
+        $.each(cateobj[1]['child'], function (i, v) { catetag[v.category_id] = v.tag; });
+    }
+    init_catetag();
+    function load512($tags) {
+        $('.t512').html('');
+        $.each($tags, function (i, v) {
+            $div = $('<div class="t5111 tc3" data-id="0"></div >');
+            $div.text(v.tag);
+            $div.attr('data-id', v.id);
+            $('.t512').append($div);
+        });
+    }
+    function loadurl() {
+        //这里加载frame；
+
+        $url = ifrbaseurl + '&c1=' + c1 + '&c2=' + c2 + '&c3=' + c3 + '&c4=' + c4 + '&c5=' + c5 + '&page=' + 0;
+        $('#t_page').attr('src', $url);
+    }
+    function loadifr_height() {
+        $h = $('.t53').height();
+        $f = $('.footer-nav').height();
+        d($h);
+        $('#t_page').css({ 'height': $h - $f });
+    }
+    $(function () {
+        loadifr_height();
+        $('.t11').click(function () {
+            $(this).addClass('on').siblings().removeClass('on');
+            c1 = $(this).attr('data-type');
+            c2 = $(this).attr('data-id');
+            $('.t41').each(function (i, v) {
+                $(v).attr('data-id') == c2 ? ($(v).removeClass('hide'), $(v).children().eq(0).click()) : $(v).addClass('hide');
+            });
+        });
+        $('.t411').live('click', function () {
+            $(this).addClass('on').siblings().removeClass('on');
+            c3 = $(this).attr('data-id');
+            $tag = catetag[c3];
+            load512($tag);
+            loadurl();
+        });
+        $('.tc3').live('click', function () {
+            $('.tc3').removeClass('on');
+            $(this).addClass('on').siblings().removeClass('on');
+            c4 = $(this).attr('data-id');
+            d(c4);
+            loadurl();
+        });
+        $('.t522').live('click', function () {
+            $(this).addClass('on').siblings().removeClass('on');
+            c5 = $(this).attr('data-id');
+            loadurl();
+        });
+        loadurl();
+    });
+    d(catetag);
+</script>
+<style>
+    .t1 {
+        font-size: 0.3rem;
+        position: fixed;
+        height: 100%;
+        width: 100%;
+    }
+
+    iframe#t_page {
+        border: none;
+        width: 100%;
+        /* height: 100%; */
+    }
+
+    .t5111.on {
+        color: #fc6976;
+    }
+
+    .t51 {
+        display: flex;
+        flex-direction: row;
+        margin: 0.1rem 0;
+    }
+
+    .t512 {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .t53 {
+        flex: 1;
+    }
+
+    .t52 {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .t5111 {
+        color: #000;
+        margin: 0.15rem .1rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .t411.on {
+        background: #ecd9dba8;
+        border-left: solid 0.08rem;
+        /* border-left: 3px; */
+        color: #fc6976;
+    }
+
+    .t411 {
+        background: #fff;
+        width: 1.5rem;
+        height: 1rem;
+        text-align: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-content: center;
+        justify-content: center;
+        justify-items: center;
+        align-items: center;
+        border-radius: 0 0.3rem 0 0;
+        /* margin: 0.3rem; */
+        padding: 0.1rem;
+        color: #080808;
+    }
+
+    .t1 {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .t2 {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        padding: 0.5rem 0;
+        justify-content: space-evenly;
+    }
+
+    .t3 {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+    }
+
+    .t4 {
+        display: flex;
+        flex-direction: column;
+        margin-right: 0.2rem;
+    }
+
+    .t5 {
+        display: flex;
+        flex-direction: column;
+        margin-right: 0.3rem;
+    }
+
+    .t11.on {
+        color: #fff;
+        background: #fc6976;
+    }
+
+    .t11 {
+        background: #ddd;
+        width: 1.5rem;
+        height: 0.7rem;
+        text-align: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-content: center;
+        justify-content: center;
+        justify-items: center;
+        align-items: center;
+        border-radius: 0.1rem;
+        /* margin: 0.3rem; */
+        padding: 0.1rem;
+        color: #000;
+    }
+</style>
 
 </html>

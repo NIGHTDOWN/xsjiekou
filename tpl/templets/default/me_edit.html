@@ -34,18 +34,23 @@
     <meta name="x5-orientation" content="portrait">
     <meta name="x5-pagetype" content="webapp">
 
-    <script src="<!--{$indextpl}-->js/jquery.min.js"></script>
-    <script src="<!--{$indextpl}-->js/swiper.min.js"></script>
+    <script src="<!--{$static}-->js/jquery.min.js"></script>
+
     <script src="<!--{$static}-->js/night_Trad.v1.0.js"></script>
+    <script src="<!--{$static}-->js/ajaxFileUpload.js"></script>
     <script src="<!--{$indextpl}-->js/web.js"></script>
+    <script src="<!--{$indextpl}-->js/date.js"></script>
+    <script src="<!--{$indextpl}-->js/iscroll_date.js"></script>
     <script>
         function isMobileHanddle() { var e = navigator.userAgent; return (screen.width / screen.height < 1 || /AppleWebKit.*Mobile/i.test(e) || /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(e)) && !/ipad/gi.test(e) } var host = location.host; isMobileHanddle() || "m" !== host.substr(0, host.indexOf(".")) || (location.href = location.href.replace("//m.", "//www.")), top.location != location && (top.location = location.href), function (i, e) { function t() { var e = o.getBoundingClientRect().width; 540 < e / s && (e = 540 * s); var t = e / 10; o.style.fontSize = t + "px", m.rem = i.rem = t } var a, n = i.document, o = n.documentElement, r = n.querySelector('meta[name="viewport"]'), l = n.querySelector('meta[name="flexible"]'), s = 0, d = 0, m = e.flexible || (e.flexible = {}); if (r) { console.warn("将根据已有的meta标签来设置缩放比例"); var c = r.getAttribute("content").match(/initial\-scale=([\d\.]+)/); c && (d = parseFloat(c[1]), s = parseInt(1 / d)) } else if (l) { var p = l.getAttribute("content"); if (p) { var u = p.match(/initial\-dpr=([\d\.]+)/), f = p.match(/maximum\-dpr=([\d\.]+)/); u && (s = parseFloat(u[1]), d = parseFloat((1 / s).toFixed(2))), f && (s = parseFloat(f[1]), d = parseFloat((1 / s).toFixed(2))) } } if (!s && !d) { var h = (i.navigator.appVersion.match(/android/gi), i.navigator.appVersion.match(/iphone/gi)), v = i.devicePixelRatio; d = 1 / (s = h ? 3 <= v && (!s || 3 <= s) ? 3 : 2 <= v && (!s || 2 <= s) ? 2 : 1 : 1) } if (o.setAttribute("data-dpr", s), !r) if ((r = n.createElement("meta")).setAttribute("name", "viewport"), r.setAttribute("content", "initial-scale=" + d + ", maximum-scale=" + d + ", minimum-scale=" + d + ", user-scalable=no"), o.firstElementChild) o.firstElementChild.appendChild(r); else { var b = n.createElement("div"); b.appendChild(r), n.write(b.innerHTML) } i.addEventListener("resize", function () { clearTimeout(a), a = setTimeout(t, 300) }, !1), i.addEventListener("pageshow", function (e) { e.persisted && (clearTimeout(a), a = setTimeout(t, 300)) }, !1), "complete" === n.readyState ? n.body.style.fontSize = 12 * s + "px" : n.addEventListener("DOMContentLoaded", function () { n.body.style.fontSize = 12 * s + "px" }, !1), t(), m.dpr = i.dpr = s, m.refreshRem = t, m.rem2px = function (e) { var t = parseFloat(e) * this.rem; return "string" == typeof e && e.match(/rem$/) && (t += "px"), t }, m.px2rem = function (e) { var t = parseFloat(e) / this.rem; return "string" == typeof e && e.match(/px$/) && (t += "rem"), t } }(window, window.lib || (window.lib = {})), window.shareConf = null</script>
     <link href="<!--{$indextpl}-->css/vendor.38cae4.css" rel="stylesheet">
     <link href="<!--{$indextpl}-->css/entry.index.53baaf.css" rel="stylesheet">
     <link href="<!--{$indextpl}-->css/swiper.min.css" rel="stylesheet">
+    <link href="<!--{$indextpl}-->css/date.css" rel="stylesheet">
 </head>
 
 <body style="font-size: 12px;">
+    <div id="datePlugin"></div>
     <section class="view-port slide-wrap" id="js_searchCenter" style="display: flex;">
         <header class="view-header">
             <div class="header-wrap">
@@ -65,38 +70,122 @@
             </div>
         </header>
         <selection class="view-body">
-            <ul id="js_main" class="modify-group" style="">
-                <li id="js_user_id" class="modify-row disabled">
-                    <div class="title">ID</div>
-                    <div class="desc js_desc">267493445</div>
-                </li>
-                <li id="js_user_face" class="modify-row disabled">
-                    <div class="title">头像</div>
-                    <div class="desc"><img src="/static//images/comm/space.gif" alt="我的头像" class="face js_desc"
-                            style="background: url(&quot;//head.samanlehua.com/kmh_user_head/267/493/445.jpg-100x100.webp&quot;) center center / cover no-repeat; opacity: 1;">
-                    </div>
-                </li>
-                <li id="js_user_name" class="modify-row">
-                    <div class="title">昵称</div>
-                    <div class="desc js_desc">User_N0SqhG5Rl</div>
-                    <div class="arrow"><i class="ift-right"></i></div>
-                </li>
-                <li id="js_user_sex" class="modify-row">
-                    <div class="title">性别</div>
-                    <div class="desc js_desc">男</div>
-                    <div class="arrow"><i class="ift-right"></i></div>
-                </li>
-                <li id="js_user_age" class="modify-row">
-                    <div class="title">年龄</div>
-                    <div class="desc js_desc">23岁</div>
-                    <div class="arrow"><i class="ift-right"></i></div>
-                </li>
-                <li id="js_user_sign" class="modify-row">
-                    <div class="title">个性签名</div>
-                    <div class="desc js_desc">这个家伙很懒，什么都没留下</div>
-                    <div class="arrow"><i class="ift-right"></i></div>
-                </li>
-            </ul>
+            <form action="" method="POST">
+                <ul id="js_main" class="modify-group" style="">
+                    <li id="js_user_id" class="modify-row disabled">
+                        <div class="title">ID</div>
+                        <div class="desc js_desc">
+                            <!--{$user.id}-->
+                        </div>
+                    </li>
+
+                    <li id="js_user_face" class="modify-row disabled">
+                        <div class="title">
+                            <!--{__ 头像}-->
+                        </div>
+                        <button class="avater" tag='img_up_one' type="button" tag='img_up_one'
+                            url="<!--{url action='uphead' mod='' args=''}-->">
+
+                            <!--{if $user.avater}-->
+                            <img src="<!--{$user.avater}-->" alt="" class="face js_desc" id="viewimg_avater">
+                            <!--{else}-->
+                            <img src="<!--{$indextpl}-->images/yyq_morentu@2x (3).png" alt="" class="face js_desc"
+                                id="viewimg_avater">
+                            <!--{/if}-->
+
+                        </button>
+                        <input type="hidden" name="avater" value="<!--{$user.avater}-->">
+                    </li>
+                    <li id="js_user_id" class="modify-row disabled">
+                        <div class="title">
+                            <!--{__ 账号}-->
+                        </div>
+                        <div class="desc js_desc">
+                            <!--{$user.username}-->
+                        </div>
+                    </li>
+                    <!--{if $user.invite_id}-->
+                    <li id="js_user_name" class="modify-row">
+                        <div class="title">
+                            <!--{__ 邀请人ID}-->
+                        </div>
+                        <div class="desc js_desc">
+                            <!--{$user.invite_id}-->
+                        </div>
+                        <!-- <div class="arrow"><i class="ift-right"></i></div> -->
+                    </li>
+                    <!--{else}-->
+                    <!--{/if}-->
+                    <li id="js_user_name" class="modify-row">
+                        <div class="title">
+                            <!--{__ 昵称}-->
+                        </div>
+                        <div class="desc js_desc jsedit">
+                            <!--{$user.nickname}-->
+                        </div>
+                        <input type="hidden" name="nickname" value="<!--{$user.nickname}-->">
+                        <div class="arrow"><i class="ift-right"></i></div>
+                    </li>
+
+                    <li id="js_user_sex" class="modify-row">
+                        <div class="title">
+                            <!--{__ 性别}-->
+                        </div>
+                        <div class="desc js_desc">
+                            <select name="sex" style="border:none;text-align: right;color: #999;">
+                                <option value="0">
+                                    <!--{__ 待选择}-->
+                                </option>
+                                <option value="1" <!--{if $user.sex==1}-->
+                                    selected
+                                    <!--{/if}-->>
+                                    <!--{__ 男}-->
+                                </option>
+                                <option value="2" <!--{if $user.sex==2}-->
+                                    selected
+                                    <!--{/if}-->>
+                                    <!--{__ 女}-->
+                                </option>
+
+                            </select>
+                        </div>
+                        <div class="arrow"><i class="ift-right"></i></div>
+                    </li>
+                    <li id="js_user_age" class="modify-row">
+                        <div class="title">
+                            <!--{__ 出生日期}-->
+                        </div>
+                        <div class="desc js_desc">
+                            <input type="text" name="borth" id="borth" value="  <!--{$user.borth}-->"
+                                style="border:none;text-align: right;color: #999;">
+                        </div>
+                        <div class="arrow"><i class="ift-right"></i></div>
+                    </li>
+                    <li id="js_user_sign" class="modify-row">
+                        <div class="title">
+                            <!--{__ 个性签名}-->
+                        </div>
+                        <div class="desc js_desc jsedit">
+                            <!--{if $$user.more}-->
+                            <!--{$user.more}-->
+                            <!--{else}-->
+                            <!--{__ 这个家伙很懒，什么都没留下}-->
+                            <!--{/if}-->
+
+
+                        </div>
+                        <input type="hidden" name="nickname" value="<!--{$user.more}-->">
+                        <div class="arrow"><i class="ift-right"></i></div>
+                    </li>
+                    <li>
+
+                        <div id="js_submit" class="feedback-button">
+                            <!--{__ 保存}-->
+                        </div>
+
+                    </li>
+                </ul>
+            </form>
             <div class="status-wrapper js_status_error" style="display:none">
                 <div class="status-block">
                     <div class="icon icon-cry"></div>
@@ -110,8 +199,154 @@
                 </div>
             </div>
         </selection>
+        <div class="tmpbox">
+            <div id="layui-m-layer2" class="layui-m-layer layui-m-layer1" index="1" style="display: none;">
+                <div style="background-color: rgba(0, 0, 0, 0.2)" class="layui-m-layershade"></div>
+                <div class="layui-m-layermain">
+                    <div class="layui-m-layersection">
+                        <div class="layui-m-layerchild layui-m-layer-confirm  layui-m-anim-up">
+                            <textarea class="editdata"></textarea>
+
+                            <div class="layui-m-layerbtn"><span no="" type="0" onclick="closebox()">
+                                    <!--{__ 取消}-->
+                                </span><span yes="" type="1" onclick="save()">
+                                    <!--{__ 确定}-->
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
 </body>
+<script>
+    var editobj;
+    $(function () {
+        $('.jsedit').click(function () {
+            editobj = $(this);
+            $tmpbox = $('.tmpbox').find('#layui-m-layer2').clone();
+            $tmpbox.find('.editdata').text(trim(editobj.text()));
+            msgbox('', $tmpbox);
+        });
+        //<div id="datePlugin"></div>必须又这个不然会报错
+        $('#borth').date();
+        $('#js_submit').click(function () {
+            if ($(this).hasClass('dis')) {
+                return false;
+            }
+            $(this).addClass('dis');
+            $post = {};
+            $('input').each(function (i, v) {
+                $post[$(v).attr('name')] = $(v).val();
+            });
+            $post['sex'] = $('[name=sex]').val();
+            yAjax('', $post, (data) => {
+                if (!data.code) {
+                    $(this).removeClass('dis');
+                } else {
+                }
+            });
+        });
+    });
+
+    function save() {
+        $box = $('#msgbox');
+        $str = $box.find('.editdata').val();
+        editobj.text($str);
+        editobj.siblings('input').val($str);
+        closebox();
+    }
+    _ajax_recv = function ($json_obj, $fun) {
+
+        if (typeof ($json_obj) == 'object') {
+            if ($json_obj.code) {
+                try {
+                    if (typeof ($fun) == 'string') {
+
+                        $fun = eval($fun);
+                    }
+
+                } catch (e) {
+                }
+                if (typeof ($fun) == 'function') {
+
+                    $fun.call(this, $json_obj);
+                }
+                //  _go_url($json_obj.url);
+            } else {
+                showd($json_obj.error.errormsg);
+            }
+            if (_tobool($json_obj.url)) {
+                _go_url($json_obj.url);
+            }
+
+        } else {
+            try {
+                if (jta($json_obj)) {
+
+                    arguments.callee(jta($json_obj));
+                } else {
+
+                    showd($json_obj);
+                    return;
+                }
+            } catch (e) {
+
+            }
+
+
+        }
+
+        return;
+    }
+    _img_process = (data) => {
+
+        var img = '';
+        if (data.code) {
+            img = data.result;
+            $('#viewimg_avater').attr('src', img);
+            $('[name=avater]').val(img);
+        } else { showd("<!--{__ 上传失败}-->"); }
+    }
+</script>
 <style>
+    .tmpbox {
+        display: none;
+    }
+
+    div#js_submit.dis {
+        background: #ddd;
+    }
+
+    .feedback-button {
+        display: block;
+        height: 1.1733333333rem;
+        -webkit-border-radius: .5866666667rem;
+        -moz-border-radius: .5866666667rem;
+        border-radius: .5866666667rem;
+        font-size: .4266666667rem;
+        line-height: 1.1733333333rem;
+        color: #fff;
+        text-align: center;
+        background-color: #fc6976;
+        -webkit-transition: background-color .1s ease-out;
+        -o-transition: background-color .1s ease-out;
+        -moz-transition: background-color .1s ease-out;
+        transition: background-color .1s ease-out;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        touch-callout: none;
+        margin: 0.4rem auto;
+        width: 80%;
+    }
+
+    .layui-m-layerbtn span {
+        width: 100%;
+    }
+
     .simulate-form-input {
         display: none;
         position: absolute;
@@ -361,6 +596,29 @@
         background-color: #fff
     }
 
+    .modify-row .avater {
+        padding-left: .32rem;
+        text-align: right;
+        border: none;
+        background: #fff;
+        font-size: .32rem;
+        color: #999;
+        white-space: nowrap;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        -webkit-box-flex: 1;
+        -webkit-flex: auto;
+        -moz-box-flex: 1;
+        -ms-flex: auto;
+        flex: auto;
+        height: 1.3866666667rem;
+        line-height: 1.3866666667rem;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
     .simulate-form-date .field-select::-webkit-scrollbar {
         display: none
     }
@@ -485,7 +743,24 @@
         -ms-flex: auto;
         flex: auto;
         height: 1.3866666667rem;
-        line-height: 1.3866666667rem
+        line-height: 1.3866666667rem;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    select {
+        border: none;
+        text-align: right;
+        appearance: none;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        width: auto;
+        direction: rtl;
+    }
+
+    select::-ms-expand {
+        display: none;
     }
 
     .modify-row .icon {
@@ -518,9 +793,23 @@
         overflow: hidden
     }
 
+    button:focus {
+        outline: none;
+    }
+
+    input:focus {
+        outline: none;
+    }
+
+    select:focus {
+        outline: none;
+    }
+
     .modify-row .desc {
         padding-left: .32rem;
-        text-align: right
+        text-align: right;
+        border: none;
+        background: #fff;
     }
 
     .modify-row .arrow {
@@ -538,8 +827,14 @@
         -webkit-border-radius: 50%;
         -moz-border-radius: 50%;
         border-radius: 50%;
-        margin-top: .16rem;
+        margin: .16rem 0;
         overflow: hidden
+    }
+
+    textarea {
+        height: 2rem;
+        margin: 0.5rem;
+        color: #8e8989;
     }
 </style>
 

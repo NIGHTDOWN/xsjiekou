@@ -24,20 +24,23 @@ class mark extends apibase
     public function control_getcategory()
     {
         //缓存
-        list($bool, $cache) = Y::$cache->get('category');
-        if ($bool) {
-            Out::jout($cache);
-        } else {
-            $data = T('category')->get_all(['depth' => 1]);
-            foreach ($data as $k => $v) {
-                $data[$k]['child'] = T('category')->get_all(['depth' => 2, 'pid' => $v['category_id']]);
-                foreach ($data[$k]['child'] as $k2 => $v2) {
-                    $data[$k]['child'][$k2]['child'] = T('category')->get_all(['depth' => 3, 'pid' => $v2['category_id']]);
-                }
-            }
-            Y::$cache->set('category', $data, '-1');
-            Out::jout($data);
-        }
+        // list($bool, $cache) = Y::$cache->get('category');
+        // if ($bool) {
+        //     Out::jout($cache);
+        // } else {
+        //     $data = T('category')->get_all(['depth' => 1]);
+        //     foreach ($data as $k => $v) {
+        //         $data[$k]['child'] = T('category')->get_all(['depth' => 2, 'pid' => $v['category_id']]);
+        //         foreach ($data[$k]['child'] as $k2 => $v2) {
+        //             $data[$k]['child'][$k2]['child'] = T('category')->get_all(['depth' => 3, 'pid' => $v2['category_id']]);
+        //         }
+        //     }
+        //     Y::$cache->set('category', $data, '-1');
+        //     Out::jout($data);
+        // }
+        $cityid = $this->head['cityid'];
+        $data = M('cate', 'im')->getcate($cityid);
+        Out::jout($data);
     }
     public function control_mark()
     {
