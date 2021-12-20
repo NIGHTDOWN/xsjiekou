@@ -18,7 +18,14 @@ define('FTYPE', 1);
 #相对URL路径
 error_reporting(E_ALL ^ E_NOTICE);
 
-
+class BOOK_FROM_TYPE
+{
+    const  qikan = 0;
+    const lanovel = 2;
+    const mtoon = 1;
+    const aqiyi = 10;
+    const qq = 11;
+}
 
 
 class Clibase  extends Cli
@@ -777,10 +784,13 @@ class Clibase  extends Cli
             $dbid = $dbbook[$this->db_id];
         } else {
             //添加新小说
+            $category_id = $this->get_category_id(@$data[$refield["category_id"]]);
+            $cate_id = $this->get_cate_id($category_id, @$data[$refield["cate_id"]]);
+            $lable =   $this->get_lable($cate_id, @$data[$refield["lable"]]);
             $add = [
                 "fid" => $id,
                 "ftype" => $this->bookdstdesc,
-                "writer_name" => "lookstory",
+                "writer_name" => $data[$refield["writer_name"]],
                 // "book_name" => $data["other_name"],
                 "status" => 2, //下架
                 "wordnum"   => $data[$refield["wordnum"]],
@@ -795,6 +805,10 @@ class Clibase  extends Cli
                 "update_status" => '2',
                 // "update_status" => $this->getbookisend($data[$refield["update_status"]], 1), //状态2为完结 ，1为连载
                 "other_name" => $data["other_name"],
+                'category_id' => $category_id,
+                'cate_id' =>    $cate_id,
+                'lable' =>      $lable,
+                'cate_name' =>       @$data[$refield["lable"]],
             ];
 
             if ($this->in_rmote_db) {
@@ -860,6 +874,22 @@ class Clibase  extends Cli
     public $update_status_end_val = 1;
     public $is_un_free_val = 1;
     public $incount;
+    //获取男女类别
+    public function get_category_id($data)
+    {
+        if (!$data) return 0;
+    }
+    //获取标签
+    public function get_lable($cateid, $data)
+    {
+        if (!$data) return 0;
+    }
+    //获取分类
+    public function get_cate_id($cateid, $data)
+    {
+        if (!$data) return 0;
+    }
+
     //子类复写
     public function getseclist($id, $dbid)
     {

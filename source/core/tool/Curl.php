@@ -120,15 +120,17 @@ class Curl
 		$curl = $this->curl;
 		// if (!is_null($proxy))
 		// 	curl_setopt($curl, CURLOPT_PROXY, $proxy);
+		
 		curl_setopt($curl, CURLOPT_URL, $url);
 		if ($ssl) {
 			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
 			curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
 		}
+		curl_setopt($curl, CURLOPT_USERAGENT, 'okhttp/3.6.0');
 		if ($this->head) {
 			curl_setopt($curl, CURLOPT_HTTPHEADER, $this->head);
 		}
-		curl_setopt($curl, CURLOPT_USERAGENT, 'okhttp/3.6.0');
+	
 		curl_setopt($curl, CURLOPT_HEADER, false);
 		if ($timeout) {
 			curl_setopt($curl, CURLOPT_TIMEOUT, $timeout);
@@ -170,17 +172,19 @@ class Curl
 		}
 		// 		$headers[] = 'User-Agent: Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0);';
 		// curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+		
 		if ($this->head) {
 
 			curl_setopt($curl, CURLOPT_HTTPHEADER, $this->head);
 		}
+		curl_setopt($curl, CURLOPT_USERAGENT, 'okhttp/3.6.0');
 		if ($timeout) {
-		
+
 			curl_setopt($curl, CURLOPT_TIMEOUT, $timeout);
 		}
 
 		// User-Agent: okhttp/3.12.0
-		curl_setopt($curl, CURLOPT_USERAGENT, 'okhttp/3.6.0');
+		
 		// curl_setopt($curl, CURLOPT_CON, 'okhttp/3.6.0');
 		curl_setopt($curl, CURLOPT_HEADER, false);
 		curl_setopt($curl, CURLOPT_POST, true);
@@ -220,8 +224,12 @@ class Curl
 				$tmp = $arrays;
 				break;
 			}
+
 			array_push($tmp, $k . ":" . $v);
 		}
+
+
+
 		$this->head = $tmp;
 	}
 	public function catchpc($url, $data, $proxy = null, $timeout = 15)

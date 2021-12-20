@@ -122,6 +122,9 @@
         </section>
         <!--{include file={$indextpl}"/index_foot.html"}-->
     </section>
+
+
+
 </body>
 <script>
     var catejson = '<!--{$catejson}-->';
@@ -154,7 +157,7 @@
     function loadifr_height() {
         $h = $('.t53').height();
         $f = $('.footer-nav').height();
-        d($h);
+
         $('#t_page').css({ 'height': $h - $f });
     }
     $(function () {
@@ -170,6 +173,7 @@
         $('.t411').live('click', function () {
             $(this).addClass('on').siblings().removeClass('on');
             c3 = $(this).attr('data-id');
+            $('.tc3').eq(0).click();
             $tag = catetag[c3];
             load512($tag);
             loadurl();
@@ -197,6 +201,8 @@
         height: 100%;
         width: 100%;
     }
+
+   
 
     iframe#t_page {
         border: none;

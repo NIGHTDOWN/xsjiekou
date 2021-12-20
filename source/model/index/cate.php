@@ -43,9 +43,7 @@ class cate
     {
         $index = "category:" . $lang;
         list($bool, $cache) = Y::$cache->get($index);
-
         if ($bool) {
-
             return $cache;
             // Out::jout($cache);
         } else {
@@ -62,5 +60,66 @@ class cate
 
             return $data;
         }
+    }
+    /**
+     * 获取对应分类小说
+     * lang 国家id
+     * booktype 书籍类型，1小说，2漫画
+     * cate1 男女分类id
+     * cate2 分类id
+     * cate3 标签id
+     * orderby 排序类型 1最新，2最热，3完结
+     */
+    public function getlist($lang, $booktype, $cate1, $cate2, $cate3, $orderby, $page = 0)
+    {
+        // $data = get(['int' => ['c1', 'c2', 'c3', 'c4', 'page']]);
+       
+        $arr = [];
+        // $cityid = $this->head['cityid'];
+        $where['lang'] = $lang;
+        $where['status'] = 1;
+        if (!$booktype) return ($arr);
+        if (!$lang) return ($arr);
+        // if (!$data['c2']) return ($arr);
+        $filed = "other_name,`desc`,bpic_dsl,bpic,writer_name,isfree,update_status,lable";
+        if ($booktype < 2) {
+            $type = 'book';
+            $filed .= ",book_id,1 as type";
+        } else {
+            $type = 'cartoon';
+            $filed .= ",cartoon_id as book_id,2 as type";
+        }
+        $where['cate_id'] = $cate2;
+        $where['category_id'] = $cate1;
+        $where = array_filter($where);
+        $list = T($type)
+            ->field($filed)
+            ->where($where);
+        $lable = "";
+        if ($cate3) {
+            $lable = ' lable like  "%L' . $cate3 . ',%" ';
+            $list = $list->where($lable);
+        }
+        $desc = "update_time desc";
+        switch ($orderby) {
+            case '1':
+                # code...
+                $desc = "update_time desc";
+                break;
+            case '2':
+                $desc = "collect desc";
+                break;
+            case '3':
+                # code...
+                $list = $list->where(['update_status' => 1]);
+                break;
+            default:
+                # code...
+                break;
+        }
+        $list = $list->order($desc)->set_limit([$page, 10]);
+
+        $arr = $list->get_all();
+        return ($arr);
     }
 }
