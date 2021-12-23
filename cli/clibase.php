@@ -44,7 +44,7 @@ class Clibase  extends Cli
     public $thred_books_arr = [];
     public $isthread = false;
     public $in_rmote_db = false;
-    public $max_thread = 20; //最大线程20个
+    public $max_thread = 1500; //最大线程20个
     public function logstart($file)
     {
         $in['filename'] = $file;
@@ -91,6 +91,10 @@ class Clibase  extends Cli
     }
     public function thpush($id)
     {
+        // if (sizeof($this->thred_books) > 30000) {
+        //     d('书籍列表超过6w,请重写遍历函数分割');
+        //     return false;
+        // }
         if ($this->isthread) {
             //压入数组
             if (!in_array($id, $this->thred_books)) {
@@ -126,6 +130,7 @@ class Clibase  extends Cli
         // $this->thred_books = [];
         // Y::$cache->set($cachename, serialize($this));
         $w['id'] = $this->logid;
+
         $up['books'] = json_encode($thred_books_arr);
         T('spiner')->update($up, $w);
 

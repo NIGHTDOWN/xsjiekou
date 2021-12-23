@@ -68,25 +68,35 @@ class txt_qq extends Clibase
     public $last = 0;
     public $lastbid;
     public $loop = [];
-    public function start()
+    /**
+     * group分组 男女
+     */
+    public function start($group = 0)
     {
         $this->autoproxy();
-        $cachename = date('Ymdhis') . 'obj';
+        $cachename = date('Ymdhis') . 'obj' . $group;
+        $this->bookdstdesc = $this->_bookdstdesc . $group;
         $this->thinit();
         $page = 100;
         $i = 0;
+        $cate = [
+            [1505, 1501, 1504, 1502, 1506, 1503,], //男生
+            [1524, 1523, 1518, 1517, 1516, 1707, 1522] //女生
+        ];
         $this->logstart(__FILE__);
         $this->thcacheobj($cachename);
         if (!$this->get_th_listcache()) {
 
-
-            for ($i; $i <= $page; $i++) {
-                $size = $this->getbooklist($i);
-                if (!$size) {
-                    //分页已经没东西了，直接退出
-                    break;
+            foreach ($cate[$group] as $cc) {
+                for ($i = 0; $i <= $page; $i++) {
+                    $size = $this->getbooklist($i, $cc, $group);
+                    if (!$size) {
+                        //分页已经没东西了，直接退出
+                        break;
+                    }
                 }
             }
+
             $this->set_th_listcache();
         }
         $this->logend($this->upcount, $this->upinfo, sizeof($this->rmbookid));
@@ -95,7 +105,7 @@ class txt_qq extends Clibase
         d("任务结束");
     }
     // 获取远程小说列表，根据实际情况修改fun
-    public function getbooklist($page)
+    public function getbooklist($page, $cate, $manorwoman)
     {
         // https://novel.html5.qq.com/qbread/intro-same?&sub2=2&count=100&page=17
         $size = 0;
@@ -106,21 +116,30 @@ class txt_qq extends Clibase
             // "type" => "header",
             // "token" => $this->token
         ];
-        // $this->appneedinfo[''] = '';
-        $api = "/qbread/intro-same";
-        $datatmp = $this->apisign($api,  $post);
-        preg_match_all("/\"resourceID\"\:\"([\d]{1,})\"/", $datatmp, $ids);
-        // preg_match_all("/[\d]{10}/", $datatmp, $ids);
-        // d($ids, 1);
-        // d($datatmp, 1);
-        if (!$ids[1]) {
-            $this->debuginfo("获取书籍列表失败" . $datatmp);
-        }
+        $pagesize = 1000;
+        // $api = "/qbread/intro-same";
+        // $datatmp = $this->apisign($api,  $post);
+        // preg_match_all("/\"resourceID\"\:\"([\d]{1,})\"/", $datatmp, $ids);
+
+        // if (!$ids[1]) {
+        //     $this->debuginfo("获取书籍列表失败" . $datatmp);
+        // }
+        // $status = sizeof($ids[1]);
+        // $data = $ids[1];
+        $post = '{"query":"query {\n    groups(param: {\n    cond: {\n      id: ' . $cate . '\n      condName: \"test\"\n      sortBy: GroupSortByHotCount\n      pageQuery: {\n        first: ' . $pagesize . '\n        after: \"' . ($page * $pagesize) . '\"\n      }\n      openFilterSupportPageQuery: {\n        first: 13\n        after: \"0\"\n      }\n      \n    selectRangeFilter: {\n      key: BookFilterCategory1\n      value: ' . (!$manorwoman ? 'BookCategory1Male' : 'BookCategory1Female') . '\n  }\n      \n      \n    }\n    epubFilter: true\n  }){\n      id\n      info {\n        groupID\n        books {\n          id\n          bookBaseInfo {\n            id\n            name\n            picURL\n            category2 \n            isOriginal\n            isExclusiveAdsFree\n            summary\n            isFinished\n            category1ID\n            category2ID\n            category3ID\n            bookState\n          }\n          bookFeatureInfo {\n            bookShowScore\n          }\n        }\n        openFilterSupported {\n          key\n          value {\n            label\n            value\n          }\n        }\n        pageInfo {\n          cursor\n          total\n          hasNextPage\n        }\n      }\n    }\n  }"}';
+        $api = "/be-api/gql";
+        $datatmp = $this->apisign2($api, null, $post);
+
+
         //返回数据里面数据id字段
         $remote_bookarr_id = "id";
-        // list($status, $data) = $this->getdata($datatmp);
-        $status = sizeof($ids[1]);
-        $data = $ids[1];
+        list($status, $data) = $this->getdata($datatmp);
+        $datatmp = json_decode($datatmp, 1);
+        $datatmp = $datatmp['data']['groups']['0']['info'][0]['books'];
+        if (!$datatmp) return 0;
+        $data = array_column($datatmp, 'id');
+        // d($data, 1);
+        $status = sizeof($data);
         if (!$status) {
             $this->debuginfo("列表中断" . $datatmp);
             //取数据库记录的id，循环拉去
@@ -550,13 +569,11 @@ class txt_qq extends Clibase
     public function apisign2($api, $parem, $post = null)
     {
 
-        $p = [
-            "_" => time(),
-        ];
+
         // $parem = array_merge($p, $this->appneedinfo, $parem);
         // $parem["sign"] = $this->sign($api, $parem);
         // d($parem);
-        $url = $api . '';
+        $url = $api . '?';
         if ($parem) {
             foreach ($parem as $key => $value) {
                 # code...
@@ -565,6 +582,7 @@ class txt_qq extends Clibase
         }
 
         $url = trim($url, '&');
+        $url = trim($url, '?');
         $this->appneedinfo['Content-Type'] = 'application/json';
         $this->head($this->appneedinfo);
         if ($post) {

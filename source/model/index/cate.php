@@ -73,7 +73,7 @@ class cate
     public function getlist($lang, $booktype, $cate1, $cate2, $cate3, $orderby, $page = 0)
     {
         // $data = get(['int' => ['c1', 'c2', 'c3', 'c4', 'page']]);
-       
+
         $arr = [];
         // $cityid = $this->head['cityid'];
         $where['lang'] = $lang;
@@ -81,7 +81,7 @@ class cate
         if (!$booktype) return ($arr);
         if (!$lang) return ($arr);
         // if (!$data['c2']) return ($arr);
-        $filed = "other_name,`desc`,bpic_dsl,bpic,writer_name,isfree,update_status,lable";
+        $filed = "other_name,`desc`,bpic_dsl,bpic,writer_name,isfree,update_status,lable,read";
         if ($booktype < 2) {
             $type = 'book';
             $filed .= ",book_id,1 as type";
