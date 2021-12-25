@@ -6,11 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="renderer" content="webkit">
     <title>
+        <!--{$data.other_name}-->
         <!--{__ LoveNovel}-->
     </title>
-    <meta name="keywords" content="<!--{__ 多语言免费、流行、浪漫、小说,漫画阅读器.}-->">
-    <meta name="description" itemprop="description"
-        content="<!--{__ LoveNovel一直坚持提供小说漫画免费阅读。看小说、看漫画，为阅读而生，就上LoveNovel}-->">
+    <meta name="keywords" content="<!--{$data.other_name}--> <!--{__ 多语言免费、流行、浪漫、小说,漫画阅读器.}-->">
+    <meta name="description" itemprop="description" content=" <!--{$data.desc}--> <!--{__ LoveNovel}-->">
 
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <meta http-equiv="Cache-Control" content="no-transform">
@@ -77,29 +77,52 @@
                                 <!--{$data.author}-->
                             </span>
                         </h1>
+                        <ul class="types">
+                            <li class="liting">
+                                <!--{__ 人气}-->
+                            </li>
+                            <li class="count">
+                                <!--{$data.read}-->
+                            </li>
+
+                        </ul>
                         <div class="comic-info-detail">
                             <ul class="stars">
                                 <li class="item fullStar"></li>
                                 <li class="item fullStar"></li>
                                 <li class="item fullStar"></li>
                                 <li class="item fullStar"></li>
-                                <li class="item halfStar3"></li>
-                                <li class="item raft">4.6</li>
+                                <li class="item fullStar"></li>
+                                <li class="item raft" style="
+                                margin-left: 0.1rem;
+                            ">
+                                    <!--{$data.replynum}-->
+                                </li>
                             </ul>
                             <ul class="types">
-                                <li class="liting">人气</li>
-                                <li class="count">28.1亿人</li>
-                                <li><a class="type" href="/sort/xuanhuan.html" target="_blank" title="玄幻漫画">玄幻</a></li>
-                                <li><a class="type" href="/sort/xiuzhen.html" target="_blank" title="修真漫画">修真</a></li>
-                                <li><a class="type" href="/sort/rexue.html" target="_blank" title="热血漫画">热血</a></li>
-                                <li><a class="type" href="/sort/shenmo.html" target="_blank" title="神魔漫画">神魔</a></li>
+                                <!--{foreach $data.tags as $k=>$v}-->
+                                <!--{if $v}-->
+
+
+                                <li><a class="type" href='<!--{url action=' page' mod='category'
+                                        args="c1:$data.type,c2:$data.category_id,c3:$data.cate_id,c4:$v.id,title:$v.tag"
+                                        }-->'
+                                        target="_blank" title="
+                                        <!--{$v.tag}-->">
+                                        <!--{$v.tag}-->
+                                    </a></li>
+                                <!--{/if}-->
+                                <!--{/foreach}-->
+
+
                             </ul>
                         </div>
                     </div>
                     <div class="book-cover comic-item">
-                        <div class="thumbnail"><img src="../imgs/space.gif" alt="<!--{$data.other_name}-->"
+                        <div class="thumbnail" style="border: 2px solid #fff"><img
+                                src="<!--{$indextpl}-->imgs/space.gif" alt="<!--{$data.other_name}-->"
                                 style="background: url(&quot;<!--{$data.bpic}-->&quot;) center center / cover no-repeat; opacity: 1;">
-                            <span class="origin">自制</span>
+                            <!-- <span class="origin"></span> -->
                         </div>
                     </div>
                 </div>
@@ -122,11 +145,15 @@
                         <!--{__ 开始阅读}-->
                     </div>
                     <div class="tucaofather js_tucao btn-menu-item button">
+                        <a href="#COMMENT"> 
+
+                       
                         <span>
                             <!--{__ 点评}-->
                         </span> <span class="js_collect_num">
                             <!--{$data.replynum}-->
                         </span>
+                    </a>
                     </div>
                 </div>
                 <div class="intro-text">
@@ -400,35 +427,34 @@
                             class="list-tucao-num">32689</span></div> -->
                 </div>
             </div>
-            <div class="comic-box comment-box">
+            <div class="comic-box comment-box" id="COMMENT" data-ssid="108680">
                 <div class="hd">
-                    <h2 class="plate-title">留言</h2>
+                    <h2 class="comic-icon-title">留言</h2>
                 </div>
-                <div class="bd" id="COMMENT" data-ssid="107751" data-title="修罗剑尊 修罗剑尊漫画 修罗剑尊漫画全集 神漫画"
-                    data-background="#FFF">
-                    <div class="comment">
-                        <div class="comment-hd" style="border: none;">
+                <div class="bd" data-title="吾乃苍天 吾乃苍天漫画 吾乃苍天漫画全集 吾乃苍天漫画免费阅读 看漫画" data-background="#FFF"></div>
+                <div class="comment">
+                    <div class="comment-hd" style="border: none;">
 
-                            <span class="comment-number"><strong id="js_comment_number">0</strong>条评论</span>
-                        </div>
-                        <div class="comment-bd">
-                            <div class="comment-textarea-box">
-                                <div class="comment-textarea-box-bd">
-                                    <textarea class="comment-textarea" maxlength="500"
-                                        placeholder="有事没事说两句..."></textarea>
-                                    <span class="comment-input-num">0/500</span>
-                                </div>
-                                <div class="comment-textarea-box-ft">
-                                    <button class="comment-submit js_submit_comment" data-uid="" data-id=""
-                                        type="button">吐槽一下</button>
-                                </div>
+                        <span class="comment-number"><strong id="js_comment_number">
+                                <!--{$discussd.count}-->
+                            </strong>条评论</span>
+                    </div>
+                    <div class="comment-bd">
+                        <div class="comment-textarea-box">
+                            <div class="comment-textarea-box-bd">
+                                <textarea class="comment-textarea" maxlength="500" placeholder="有事没事说两句..."></textarea>
+                                <span class="comment-input-num">0/500</span>
                             </div>
-                            <div class="comment-noinfo" id="js_comment_noinfo" style="display: block;">
-                                <p>评论正在审核中~</p>
+                            <div class="comment-textarea-box-ft">
+                                <button class="comment-submit js_submit_comment" data-uid="" data-id=""
+                                    type="button">吐槽一下</button>
                             </div>
-                            <div class="comment-more-box" id="js_comment_more_box" style="display: none;"><span
-                                    id="js_comment_more" class="comment-more">查看更多</span></div>
                         </div>
+                        <div class="comment-noinfo" id="js_comment_noinfo" style="display: block;">
+                            <p>评论正在审核中~</p>
+                        </div>
+                        <div class="comment-more-box" id="js_comment_more_box" style="display: none;"><span
+                                id="js_comment_more" class="comment-more">查看更多</span></div>
                     </div>
                 </div>
             </div>
@@ -515,28 +541,38 @@
     <script>
         //初始化banner高度，宽高比。0.73
         $(function () {
-            $('.tpl-74').height($(window).width() * 0.73);
+            $fs = $('.raft').text();
+            $val = Number($fs).toFixed(1);
+            $('.raft').text($val);
+            $('.fullStar').remove();
+            $min = Number($fs).toFixed(0);
+            $obj = $('.stars');
+            $li = $('<li class="item "></li>');
+            for (let index = 1; index <= 5; index++) {
+                if (index < $min) {
+                    $tmp = $li.clone().addClass('fullStar');
+
+                } else {
+                    if (index == $min && $val != index) {
+
+
+                        $tmp = $li.clone().addClass('halfStar1');
+                    } else {
+                        if (($val - $min) == 0) {
+                            $tmp = $li.clone().addClass('fullStar');
+                        } else {
+                            $tmp = $li.clone().addClass('halfStar0');
+                        }
+
+                    }
+
+                }
+                $obj.append($tmp);
+            }
+            $obj.append($('.raft'));
+
         });
-        var mySwiper = new Swiper('.swiper-container', {
-            // direction: 'h', // 垂直切换选项
-            loop: true, // 循环模式选项
-            autoplay: true,
-            // 如果需要分页器
-            pagination: {
-                el: '.swiper-pagination',
-            },
 
-            // 如果需要前进后退按钮
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-
-            // 如果需要滚动条
-            // scrollbar: {
-            //     el: '.swiper-scrollbar',
-            // },
-        })        
     </script>
 </body>
 

@@ -12,6 +12,7 @@ class cate
     /**获取书籍标签对应语言 */
     public function getlable($lable, $lang)
     {
+       
         if (!$lable) return false;
         list($bool, $tags) = Y::$cache->get($this->tagindex);
 
@@ -81,7 +82,7 @@ class cate
         if (!$booktype) return ($arr);
         if (!$lang) return ($arr);
         // if (!$data['c2']) return ($arr);
-        $filed = "other_name,`desc`,bpic_dsl,bpic,writer_name,isfree,update_status,lable,read";
+        $filed = "other_name,`desc`,bpic_dsl,bpic,writer_name,isfree,update_status,lable,`read`";
         if ($booktype < 2) {
             $type = 'book';
             $filed .= ",book_id,1 as type";

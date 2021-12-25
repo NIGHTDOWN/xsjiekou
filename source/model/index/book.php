@@ -398,17 +398,20 @@ LnUG4Z69pKZHtL6ljwIDAQAB
             //登入 修复书籍书架状态
             //修复未审核的评论
             $cache = Y::$cache->get($index);
+
             if ($cache[0]) {
                 $arr = $cache[1];
             } else {
                 $data = T('book')
-                    ->field('other_name,book_id,bpic,bpic_dsl,writer_name,`desc`,section,update_status,isfree,wordnum,end_share,share_banner,lang,cate_id,lable,category_id,collect')
+                    // ->field('other_name,book_id,bpic,bpic_dsl,writer_name,`desc`,section,update_status,isfree,wordnum,end_share,share_banner,lang,cate_id,lable,category_id,collect,`read`')
                     ->where($w)
-                    ->find();
+                    ->get_one();
+
                 if (!$data) {
                     return false;
                     // Out::jerror('书籍不存在', null, '100143');
                 }
+
                 $data['isgroom'] = 0;
                 $w['status'] = 1;
                 // $star = T('discuss')->where($w)->get_count();
@@ -497,7 +500,7 @@ LnUG4Z69pKZHtL6ljwIDAQAB
             } else {
                 $w = ['cartoon_id' => $cartoon_id];
                 $data = T('cartoon')
-                    ->field('other_name,cartoon_id as book_id,cartoon_id,bpic,bpic_dsl,writer_name,`desc`,cate_id,lable,category_id,likes,update_time,hits,collect,bpic_detail,update_status,isfree,`read`,end_share,share_banner,0 as isgroom,lang')
+                    // ->field('other_name,cartoon_id as book_id,cartoon_id,bpic,bpic_dsl,writer_name,`desc`,cate_id,lable,category_id,likes,update_time,hits,collect,bpic_detail,update_status,isfree,`read`,end_share,share_banner,0 as isgroom,lang,`read`')
                     ->where($w)
                     ->get_one();
 
@@ -595,7 +598,9 @@ LnUG4Z69pKZHtL6ljwIDAQAB
             M('bookcensus', 'im')->readnum($uid, 2, $cartoon_id);
             M('census', 'im')->cartoonhitcounts($cartoon_id);
         }
-
+        if ($arr['data']) {
+            $arr['data']['tags'] = M('cate', 'im')->getlable($arr['data']['lable'], $arr['data']['lang']);
+        }
         return $arr;
     }
     private function getdiscussavater($discuss)

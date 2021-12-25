@@ -25,8 +25,12 @@ class book extends indexbase
             Out::page404();
         }
         $detail = M('book', 'im')->detail($get['bookid'], $this->get_userid());
-
-        $this->view(null, $detail);
+        // d($detail, 1);
+        if ($detail) {
+            $this->view(null, $detail);
+        } else {
+            Out::page404();
+        }
     }
     public function control_new()
     {
