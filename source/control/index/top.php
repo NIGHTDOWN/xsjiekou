@@ -20,7 +20,7 @@ class top extends indexbase
 
     public function control_run()
     {
-        $cache = 'topbook100';
+        $cache = 'topbook100' . $this->langid;
         list($bool, $data) = parent::$cache->get($cache);
         if (!$bool) {
             $w['lang'] = $this->langid;
@@ -36,7 +36,7 @@ class top extends indexbase
     }
     public function control_cartoon()
     {
-        $cache = 'topcartoon100';
+        $cache = 'topcartoon100' . $this->langid;
         list($bool, $data) = parent::$cache->get($cache);
         if (!$bool) {
             $w['lang'] = $this->langid;
