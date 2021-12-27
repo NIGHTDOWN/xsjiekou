@@ -33,7 +33,7 @@
     <meta name="x5-orientation" content="portrait">
     <meta name="x5-pagetype" content="webapp">
 
-    <script src="<!--{$indextpl}-->js/jquery.min.js"></script>
+    <script src="<!--{$staticjs}-->/jquery.min.js"></script>
     <script src="<!--{$indextpl}-->js/swiper.min.js"></script>
     <script src="<!--{$static}-->js/night_Trad.v1.0.js"></script>
     <script src="<!--{$indextpl}-->js/web.js"></script>
@@ -83,6 +83,7 @@
                             </li>
                             <li class="count">
                                 <!--{$data.read}-->
+                                <!--{__ 万}-->
                             </li>
 
                         </ul>
@@ -104,10 +105,10 @@
                                 <!--{if $v}-->
 
 
-                                <li><a class="type" href='<!--{url action=' page' mod='category'
-                                        args="c1:$data.type,c2:$data.category_id,c3:$data.cate_id,c4:$v.id,title:$v.tag"
+                                <li><a class="type" href='<!--{url action=' lable' mod='category'
+                                        args="c1:$data.type,c2:$data.category_id,c3:$data.cate_id,c4:$v.id,lable:$v.tag"
                                         }-->'
-                                        target="_blank" title="
+                                        title="
                                         <!--{$v.tag}-->">
                                         <!--{$v.tag}-->
                                     </a></li>
@@ -132,28 +133,33 @@
                     <div class="radius"></div>
                 </div>
                 <div class="btn-menu">
-                    <div id="collection" class="collectfather btn-menu-item button">
+                    <div id="collection" class="collectfather btn-menu-item button <!--{if $inrack}--> disabled
+                    <!--{else}-->
+                    <!--{/if}-->">
 
                         <span>
                             <!--{__ 收藏}-->
                         </span> <span class="js_collect_num">
-                            <!--{$data.collect}-->
+                            <!--{$data.rack}-->
                         </span>
                         <!--{__ 万}-->
                     </div>
-                    <div class="startReadfather btn-menu-item button">
+                    <div class="startReadfather btn-menu-item button" <!--{if $his}-->
+                        readsec='
+                        <!--{$his.watch_nums}-->'
+                        <!--{/if}-->>
                         <!--{__ 开始阅读}-->
                     </div>
                     <div class="tucaofather js_tucao btn-menu-item button">
-                        <a href="#COMMENT"> 
+                        <a href="#COMMENT">
 
-                       
-                        <span>
-                            <!--{__ 点评}-->
-                        </span> <span class="js_collect_num">
-                            <!--{$data.replynum}-->
-                        </span>
-                    </a>
+
+                            <span>
+                                <!--{__ 点评}-->
+                            </span> <span class="js_collect_num">
+                                <!--{$data.replynum}-->
+                            </span>
+                        </a>
                     </div>
                 </div>
                 <div class="intro-text">
@@ -201,17 +207,23 @@
 
                     </ul>
                     <div class="more-chapter more-chapter-wrapper js_chapter_btn"><span
-                            class="js_more_chapters more-chapter-btn">上神，这里还有<i
-                                class="ift-down arrow-direction"></i></span></div>
+                            class="js_more_chapters more-chapter-btn">
+                            <!--{__ 查看全部}--><i class="ift-down arrow-direction"></i>
+                        </span></div>
                 </div>
             </section>
             <div id="detail_ad_2"></div>
 
+
+
             <div class="comic-box recommend-box" id="recommend">
                 <div class="bd">
+                    <!--{if $similar|sizeof}-->
                     <div data-tpl="2" class="tpl-2 mult sow">
                         <div class="mult-head">
-                            <h2 class="left mult-caption"><span class="mult-title">相关推荐</span></h2>
+                            <h2 class="left mult-caption"><span class="mult-title">
+                                    <!--{__ 猜你喜欢}-->
+                                </span></h2>
                             <div class="mult-style-func">
                                 <div class="mult-change" key="66246" horizonratio="3:4"><i class="icon-change"></i>
                                 </div>
@@ -219,209 +231,112 @@
                         </div>
                         <div class="mult-body">
                             <ul class="mult-warp siw">
-                                <li class="card r1c3"><a href="/dabaozhutian/" title="打爆诸天漫画">
+                                <!--{foreach $similar as $k=>$v}-->
+
+                                <li class="card r1c3"><a
+                                        href='<!--{url args="bookid:{$v.book_id},title:{$v.other_name}"}-->''
+                                        title="
+                                        <!--{$v.other_name}-->">
                                         <div class="card-graph r3x4"><img class="lazy-image"
-                                                src="<!--{$indextpl}-->imgs/space.gif" alt="打爆诸天,打爆诸天漫画"
-                                                style="background: url(&quot;//image.yqmh.com/mh/108709.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
-                                            <div class="abs-bottom">
-                                                <div class="card-title">打爆诸天</div>
-                                                <ul class="tags-list">
-                                                    <li class="item">热血</li>
-                                                    <li class="item">玄幻</li>
-                                                </ul>
+                                                src="<!--{$indextpl}-->imgs/space.gif" alt="<!--{$v.other_name}-->"
+                                                style="background: url(' <!--{$v.bpic}-->') center center / cover
+                                        no-repeat; opacity: 1;">
+                                        <div class="abs-bottom">
+                                            <div class="card-title">
+                                                <!--{$v.other_name}-->
+
                                             </div>
+                                            <ul class="tags-list">
+
+                                                <!--{foreach $v.tags  as $k1=>$v1}-->
+                                                <!--{if $v1}-->
+
+
+                                                <li class="item" data-id="<!--{$v1.id}-->">
+                                                    <!--{$v1.tag}-->
+                                                </li>
+                                                <!--{/if}-->
+                                                <!--{/foreach}-->
+
+
+                                            </ul>
                                         </div>
-                                        <div class="card-text"><i class="lbl-bar ift-fire"></i> 216万</div>
-                                    </a></li>
-                                <li class="card r1c3"><a href="/woyoubuhuiyineng/" title="我又不会异能漫画">
-                                        <div class="card-graph r3x4"><img class="lazy-image"
-                                                src="<!--{$indextpl}-->imgs/space.gif" alt="我又不会异能,我又不会异能漫画"
-                                                style="background: url(&quot;//image.yqmh.com/mh/108439.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
-                                            <div class="abs-bottom">
-                                                <div class="card-title">我又不会异能</div>
-                                                <ul class="tags-list">
-                                                    <li class="item">热血</li>
-                                                    <li class="item">后宫</li>
-                                                    <li class="item">都市</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="card-text"><i class="lbl-bar ift-fire"></i> 2827万</div>
-                                    </a></li>
-                                <li class="card r1c3"><a href="/tudidushinumotou/" title="徒弟都是女魔头漫画">
-                                        <div class="card-graph r3x4"><img class="lazy-image"
-                                                src="<!--{$indextpl}-->imgs/space.gif" alt="徒弟都是女魔头,徒弟都是女魔头漫画"
-                                                style="background: url(&quot;//image.yqmh.com/mh/108607.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
-                                            <div class="abs-bottom">
-                                                <div class="card-title">徒弟都是女魔头</div>
-                                                <ul class="tags-list">
-                                                    <li class="item">热血</li>
-                                                    <li class="item">后宫</li>
-                                                    <li class="item">玄幻</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="card-text"><i class="lbl-bar ift-fire"></i> 4.7亿</div>
-                                    </a></li>
-                                <li class="card r1c3"><a href="/zhegexiushilaiziweilai/" title="这个修士来自未来漫画">
-                                        <div class="card-graph r3x4"><img class="lazy-image"
-                                                src="<!--{$indextpl}-->imgs/space.gif" alt="这个修士来自未来,这个修士来自未来漫画"
-                                                style="background: url(&quot;//image.yqmh.com/mh/108141.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
-                                            <div class="abs-bottom">
-                                                <div class="card-title">这个修士来自未来</div>
-                                                <ul class="tags-list">
-                                                    <li class="item">热血</li>
-                                                    <li class="item">玄幻</li>
-                                                    <li class="item">穿越</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="card-text"><i class="lbl-bar ift-fire"></i> 4.6亿</div>
-                                    </a></li>
-                                <li class="card r1c3"><a href="/kaijusongmeiwoyoubaiwanyouxiniang/"
-                                        title="开局送妹：我有百万游戏娘漫画">
-                                        <div class="card-graph r3x4"><img class="lazy-image"
-                                                src="<!--{$indextpl}-->imgs/space.gif" alt="开局送妹：我有百万游戏娘,开局送妹：我有百万游戏娘漫画"
-                                                style="background: url(&quot;//image.yqmh.com/mh/108699.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
-                                            <div class="abs-bottom">
-                                                <div class="card-title">开局送妹：我有百万游戏娘</div>
-                                                <ul class="tags-list">
-                                                    <li class="item">热血</li>
-                                                    <li class="item">搞笑</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="card-text"><i class="lbl-bar ift-fire"></i> 3344万</div>
-                                    </a></li>
-                                <li class="card r1c3"><a href="/diyizhuixu/" title="第一赘婿漫画">
-                                        <div class="card-graph r3x4"><img class="lazy-image"
-                                                src="<!--{$indextpl}-->imgs/space.gif" alt="第一赘婿,第一赘婿漫画"
-                                                style="background: url(&quot;//image.yqmh.com/mh/108398.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
-                                            <div class="abs-bottom">
-                                                <div class="card-title">第一赘婿</div>
-                                                <ul class="tags-list">
-                                                    <li class="item">热血</li>
-                                                    <li class="item">都市</li>
-                                                    <li class="item">玄幻</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="card-text"><i class="lbl-bar ift-fire"></i> 12.0亿</div>
-                                    </a></li>
-                            </ul>
                         </div>
-                    </div>
-                    <div data-tpl="2" class="tpl-2 mult sow">
-                        <div class="mult-head">
-                            <h2 class="left mult-caption"><span class="mult-title">猜你喜欢</span></h2>
-                            <div class="mult-style-func">
-                                <div class="mult-change" key="66247" horizonratio="3:4"><i class="icon-change"></i>
-                                </div>
-                            </div>
+                        <div class="card-text"><i class="lbl-bar ift-fire"></i>
+                            <!--{$v.read}-->
+                            <!--{__ 万}-->
                         </div>
-                        <div class="mult-body">
-                            <ul class="mult-warp siw">
-                                <li class="card r1c3"><a href="/fengqicanglan/" title="风起苍岚漫画">
-                                        <div class="card-graph r3x4"><img class="lazy-image"
-                                                src="<!--{$indextpl}-->imgs/space.gif" alt="风起苍岚,风起苍岚漫画"
-                                                style="background: url(&quot;//image.yqmh.com/mh/9680.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
-                                            <div class="abs-bottom">
-                                                <div class="card-title">风起苍岚</div>
-                                                <ul class="tags-list">
-                                                    <li class="item">古风</li>
-                                                    <li class="item">穿越</li>
-                                                    <li class="item">修真</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="card-text"><i class="lbl-bar ift-fire"></i> 418亿</div>
-                                    </a></li>
-                                <li class="card r1c3"><a href="/kczphnpzjzn/" title="快穿之炮灰女配自救指南漫画">
-                                        <div class="card-graph r3x4"><img class="lazy-image"
-                                                src="<!--{$indextpl}-->imgs/space.gif" alt="快穿之炮灰女配自救指南,快穿之炮灰女配自救指南漫画"
-                                                style="background: url(&quot;//image.yqmh.com/mh/107502.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
-                                            <div class="abs-bottom">
-                                                <div class="card-title">快穿之炮灰女配自救指南</div>
-                                                <ul class="tags-list">
-                                                    <li class="item">搞笑</li>
-                                                    <li class="item">恋爱</li>
-                                                    <li class="item">古风</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="card-text"><i class="lbl-bar ift-fire"></i> 11.7亿</div>
-                                    </a></li>
-                                <li class="card r1c3"><a href="/buyaodaraowofeisheng/" title="不要打扰我飞升漫画">
-                                        <div class="card-graph r3x4"><img class="lazy-image"
-                                                src="<!--{$indextpl}-->imgs/space.gif" alt="不要打扰我飞升,不要打扰我飞升漫画"
-                                                style="background: url(&quot;//image.yqmh.com/mh/106661.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
-                                            <div class="abs-bottom">
-                                                <div class="card-title">不要打扰我飞升</div>
-                                                <ul class="tags-list">
-                                                    <li class="item">恋爱</li>
-                                                    <li class="item">都市</li>
-                                                    <li class="item">修真</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="card-text"><i class="lbl-bar ift-fire"></i> 12.6亿</div>
-                                    </a></li>
-                                <li class="card r1c3"><a href="/zhanding/" title="战鼎漫画">
-                                        <div class="card-graph r3x4"><img class="lazy-image"
-                                                src="<!--{$indextpl}-->imgs/space.gif" alt="战鼎,战鼎漫画"
-                                                style="background: url(&quot;//image.yqmh.com/mh/107204.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
-                                            <div class="abs-bottom">
-                                                <div class="card-title">战鼎</div>
-                                                <ul class="tags-list">
-                                                    <li class="item">热血</li>
-                                                    <li class="item">玄幻</li>
-                                                    <li class="item">修真</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="card-text"><i class="lbl-bar ift-fire"></i> 37.8亿</div>
-                                    </a></li>
-                                <li class="card r1c3"><a href="/wbtdxwl/" title="我把天道修歪了漫画">
-                                        <div class="card-graph r3x4"><img class="lazy-image"
-                                                src="<!--{$indextpl}-->imgs/space.gif" alt="我把天道修歪了,我把天道修歪了漫画"
-                                                style="background: url(&quot;//image.yqmh.com/mh/106843.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
-                                            <div class="abs-bottom">
-                                                <div class="card-title">我把天道修歪了</div>
-                                                <ul class="tags-list">
-                                                    <li class="item">恋爱</li>
-                                                    <li class="item">武侠</li>
-                                                    <li class="item">修真</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="card-text"><i class="lbl-bar ift-fire"></i> 17.1亿</div>
-                                    </a></li>
-                                <li class="card r1c3"><a href="/woshiyuhuangdadi/" title="我是玉皇大帝漫画">
-                                        <div class="card-graph r3x4"><img class="lazy-image"
-                                                src="<!--{$indextpl}-->imgs/space.gif" alt="我是玉皇大帝,我是玉皇大帝漫画"
-                                                style="background: url(&quot;//image.yqmh.com/mh/107470.jpg-300x400.webp&quot;) center center / cover no-repeat; opacity: 1;">
-                                            <div class="abs-bottom">
-                                                <div class="card-title">我是玉皇大帝</div>
-                                                <ul class="tags-list">
-                                                    <li class="item">神魔</li>
-                                                    <li class="item">后宫</li>
-                                                    <li class="item">修真</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="card-text"><i class="lbl-bar ift-fire"></i> 16.2亿</div>
-                                    </a></li>
-                            </ul>
-                        </div>
+                        </a></li>
+                        <!--{/foreach}-->
+                        </ul>
                     </div>
                 </div>
+                <!--{/if}-->
+                <!--{if $author}-->
+
+
+                <div data-tpl="2" class="tpl-2 mult sow">
+                    <div class="mult-head">
+                        <h2 class="left mult-caption"><span class="mult-title">
+                                <!--{__ 作者书籍}-->
+                            </span></h2>
+                        <div class="mult-style-func">
+                            <div class="mult-change" key="66247" horizonratio="3:4"><i class="icon-change"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mult-body">
+                        <ul class="mult-warp siw">
+                            <!--{foreach $author as $k=>$v}-->
+
+                            <li class="card r1c3"><a
+                                    href='<!--{url args="bookid:{$v.book_id},title:{$v.other_name}"}-->''
+                                        title="
+                                        <!--{$v.other_name}-->">
+                                        <div class="card-graph r3x4"><img class="lazy-image"
+                                                src="<!--{$indextpl}-->imgs/space.gif" alt="<!--{$v.other_name}-->"
+                                                style="background: url(' <!--{$v.bpic}-->') center center / cover
+                                    no-repeat; opacity: 1;">
+                                    <div class="abs-bottom">
+                                        <div class="card-title">
+                                            <!--{$v.other_name}-->
+
+                                        </div>
+                                        <ul class="tags-list">
+                                            <!--{foreach $v.tags  as $k1=>$v1}-->
+                                            <!--{if $v1}-->
+
+
+                                            <li class="item" data-id="<!--{$v1.id}-->">
+                                                <!--{$v1.tag}-->
+                                            </li>
+                                            <!--{/if}-->
+                                            <!--{/foreach}-->
+
+                                        </ul>
+                                    </div>
+                    </div>
+                    <div class="card-text"><i class="lbl-bar ift-fire"></i>
+                        <!--{$v.read}-->
+                        <!--{__ 万}-->
+                    </div>
+                    </a></li>
+                    <!--{/foreach}-->
+                    </ul>
+                </div>
             </div>
+            <!--{/if}-->
+            </div>
+            </div>
+
             <div class="up-chapter-list js_up_chapterList">
                 <div class="list-content">
                     <!-- <div class="comic-collect" id="js_btn_collect"><span class="list-collect-num">129万</span> <span
                             class="js_colloect_logo js_collect collect-info-logo collect-logo"></span></div> -->
                     <div class="close-list">
-                        <div class="close-content"><span>上神，这里折叠</span><span class="ift-top"></span></div>
+                        <div class="close-content"><span>
+                                <!--{__ 这里折叠}-->
+                            </span><span class="ift-top"></span></div>
                     </div>
                     <!-- <div class="tucao-page"><span id="js_tocao-logo" class="tocao-logo"></span><span
                             class="list-tucao-num">32689</span></div> -->
@@ -429,29 +344,50 @@
             </div>
             <div class="comic-box comment-box" id="COMMENT" data-ssid="108680">
                 <div class="hd">
-                    <h2 class="comic-icon-title">留言</h2>
+                    <h2 class="comic-icon-title">
+                        <!--{__ 留言}-->
+                    </h2>
                 </div>
-                <div class="bd" data-title="吾乃苍天 吾乃苍天漫画 吾乃苍天漫画全集 吾乃苍天漫画免费阅读 看漫画" data-background="#FFF"></div>
                 <div class="comment">
                     <div class="comment-hd" style="border: none;">
 
                         <span class="comment-number"><strong id="js_comment_number">
                                 <!--{$discussd.count}-->
-                            </strong>条评论</span>
+                            </strong>
+                            <!--{__ 条评论}-->
+                        </span>
                     </div>
                     <div class="comment-bd">
                         <div class="comment-textarea-box">
                             <div class="comment-textarea-box-bd">
-                                <textarea class="comment-textarea" maxlength="500" placeholder="有事没事说两句..."></textarea>
-                                <span class="comment-input-num">0/500</span>
+                                <textarea class="comment-textarea" maxlength="100"
+                                    placeholder="<!--{__ 有事没事说两句}-->..."></textarea>
+                                <!-- <span class="comment-input-num">0/500</span> -->
                             </div>
                             <div class="comment-textarea-box-ft">
-                                <button class="comment-submit js_submit_comment" data-uid="" data-id=""
-                                    type="button">吐槽一下</button>
+
+                                <ul class="pfstars">
+
+
+
+                                    <li class="item pfstar ">★</li>
+                                    <li class="item pfstar ">★</li>
+                                    <li class="item pfstar ">★</li>
+                                    <li class="item pfstar ">★</li>
+                                    <li class="item pfstar ">★</li>
+
+                                </ul>
+                                <span style="flex: 1;">
+                                </span>
+                                <button class="comment-submit js_submit_comment" data-uid="" data-id="" type="button">
+                                    <!--{__ 吐槽一下}-->
+                                </button>
                             </div>
                         </div>
                         <div class="comment-noinfo" id="js_comment_noinfo" style="display: block;">
-                            <p>评论正在审核中~</p>
+                            <p>
+                                <!--{__ 评论正在审核中}-->~
+                            </p>
                         </div>
                         <div class="comment-more-box" id="js_comment_more_box" style="display: none;"><span
                                 id="js_comment_more" class="comment-more">查看更多</span></div>
@@ -463,6 +399,29 @@
     </section>
 
     <style>
+        .pfstars {
+            white-space: nowrap;
+            text-align: center;
+            /* margin-top: 20px;
+            margin-bottom: 20px; */
+        }
+
+        .comment-textarea-box-ft {
+            display: flex;
+            flex-direction: row;
+            align-content: center;
+            justify-items: center;
+            justify-content: space-between;
+            align-content: flex-start;
+            align-items: center;
+        }
+
+        .pfstars li {
+            display: inline-block;
+            color: #ffce06;
+            font-size: 30px;
+        }
+
         .guide-hd-banner {
             box-sizing: border-box;
             position: fixed;
@@ -536,15 +495,25 @@
             color: white;
             background-color: #FC6976;
         }
+
+        div#collection.disabled {
+            background: #bfbfbf;
+        }
     </style>
 
     <script>
         //初始化banner高度，宽高比。0.73
+        var isClicked = false;
+        var beforeClickedIndex = -1;
+        var clickNum = 0; //点击同一颗星次数
+        var pfstar = 5;
+        $bookid = "<!--{$data.book_id}-->";
+        $type = "<!--{$data.type}-->";
         $(function () {
             $fs = $('.raft').text();
             $val = Number($fs).toFixed(1);
             $('.raft').text($val);
-            $('.fullStar').remove();
+            $('.stars').find('.fullStar').remove();
             $min = Number($fs).toFixed(0);
             $obj = $('.stars');
             $li = $('<li class="item "></li>');
@@ -571,7 +540,115 @@
             }
             $obj.append($('.raft'));
 
+            $('.pfstar').hover(
+                function () {
+
+                    if (!isClicked) {
+                        $(this).css('color', '#ffce06');
+                        var index = $(this).index();
+                        pfstar = index + 1;
+                        for (var i = 0; i <= index; i++) {
+                            $('.pfstar:nth-child(' + i + ')').css('color', '#ffce06');
+                        }
+                    }
+                },
+                function () {
+
+                    if (!isClicked) {
+                        $('.pfstar').css('color', '#ADADAD');
+                    }
+                }
+            );
+            //星星点击事件
+            $('.pfstar').click(function () {
+                $('.pfstar').css('color', '#ADADAD');
+                isClicked = true;
+                var index = $(this).index();
+                pfstar = index + 1;
+                for (var i = 1; i <= index + 1; i++) {
+                    $('.pfstar:nth-child(' + i + ')').css('color', '#ffce06');
+                }
+                if (index == beforeClickedIndex) { //两次点击同一颗星星 该星星颜色变化
+                    clickNum++;
+                    if (clickNum % 2 == 1) {
+                        $('.pfstar:nth-child(' + (index + 1) + ')').css('color', '#ADADAD');
+                    } else {
+                        $('.pfstar:nth-child(' + (index + 1) + ')').css('color', '#ffce06');
+                    }
+                } else {
+                    clickNum = 0;
+                    beforeClickedIndex = index;
+                }
+            });
+            $('.js_submit_comment').click(function () {
+
+                $star = pfstar;
+                $content = $('.comment-textarea').val();
+                if ($content.length == 0) {
+                    $('.comment-textarea').focus();
+                    return false;
+                }
+                $url = "<!--{url mod='me' action='discuss'}-->";
+                $('.comment-textarea').val('');
+                yAjax($url, {
+                    'bookid': $bookid,
+                    'type': $type,
+                    'star': $star,
+                    'content': $content,
+                }, function (data) {
+
+                    switch (data.code + '') {
+                        case '-1':
+                            _go_url(data.result);
+                            break;
+                        case '0':
+                            showd(data.msg);
+
+                            break;
+                        case '1':
+                            showd(data.result);
+                            break;
+                        default:
+                            showd(data.msg);
+                            break;
+                    }
+                });
+
+            });
+            $('#collection').click(() => {
+                $bool = $('#collection').hasClass('disabled');
+                $bool ? '' : addrack();
+            });
         });
+
+
+        function addrack() {
+            $url = "<!--{url mod='rack' action='add'}-->";
+            yAjax($url,
+                {
+                    'book_id': $bookid,
+                    'type': $type,
+                }, function (data) {
+                    d(data);
+                    switch (data.code + '') {
+                        case '-1':
+                            _go_url(data.result);
+                            break;
+                        case '0':
+                            showd(data.msg);
+                            break;
+                        case '1':
+                            // showd(data.result);
+                            $('#collection').addClass('disabled');
+                            break;
+                        default:
+                            showd(data.msg);
+                            break;
+                    }
+                }
+            )
+
+        }
 
     </script>
 </body>

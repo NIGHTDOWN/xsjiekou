@@ -78,7 +78,8 @@ class indexbase extends general
 
 			$login = $this->checkLogin();
 		} else {
-			parent::$wrap_user = $this->getcookie();
+			$this->inituser();
+			// parent::$wrap_user = $this->getcookie();
 		}
 
 		unset($login['password']);
@@ -398,7 +399,29 @@ class indexbase extends general
 		}
 		Out::redirect(geturl(null, null, 'login', 'index'), 0);
 	}
+	public
+	function inituser()
+	{
+		$userinfo = $this->getcookie();
+		if (!empty($userinfo)) {
 
+			$user = T('user_token');
+			$w    = array_filter(array(
+				'device_type' => $userinfo['devicetype'],
+				'user_id' => $userinfo['uid'],
+				'token' => $userinfo['token']
+			));
+			$usertoken = $user->set_where($w)->get_one();
+			if ($usertoken) {
+				$user = T('third_party_user')->set_where(['id' => $userinfo['uid']])->get_one();
+				if ($user) {
+					parent::$wrap_user = $user;
+					return 1;
+				}
+			}
+		}
+		// Out::redirect(geturl(null, null, 'login', 'index'), 0);
+	}
 	public
 	function getusertype($string)
 	{

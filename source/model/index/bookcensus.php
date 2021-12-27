@@ -63,7 +63,7 @@ class bookcensus extends Y
     public function addgroom($uid, $type, $bookid)
     {
         if ($this->init($bookid, $type)) {
-            T('n_daybook')->update(['jrsjs' => $this->bookcensus['jrsjs'] + 1], $this->bookw);
+            T('n_daybook')->update('jrsjs=jrsjs+1', $this->bookw);
         }
     }
     public function aword($type, $bookid, $fee)

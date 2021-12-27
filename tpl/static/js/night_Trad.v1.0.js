@@ -1606,17 +1606,22 @@ function yAjax(ur, ar, $fun, $obj, $lock) {
 		error: function (data) {
 
 			_load_view_hide();
-			$info = jta(data.responseText);
-			if ($info) {
-				if ($fun == null) {
-					_ajax_recv($info);
+			try {
+				$info = jta(data.responseText);
+				if ($info) {
+					if ($fun == null) {
+						_ajax_recv($info);
+					}
+					else {
+						$fun.call(this, $info, status);
+					}
+				} else {
+					d(data.responseText);
 				}
-				else {
-					$fun.call(this, $info, status);
-				}
-			} else {
-				d(data.responseText);
+			} catch (error) {
+				$fun.call(this, data, status);
 			}
+
 
 
 		}

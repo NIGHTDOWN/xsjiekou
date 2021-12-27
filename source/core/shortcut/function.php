@@ -79,7 +79,7 @@ function wallet($to_uid, $money, $info, $orderid, $tablename)
 		error('支付成功,请回到确认页面点击确认,完成支付');
 	}
 }
-function M($name, $type)
+function M($name, $type = 'im')
 {
 	return Y::model($name, $type);
 }

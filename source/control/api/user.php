@@ -17,8 +17,18 @@ class user extends apibase
     {
         $data = get(['string' => ['book_id', 'star' => 1, 'content' => 1, 'cartoon_id']]);
         $data['users_id'] = $this->get_userid();
-        $data['plat'] = $this->head['devicetype'];
-        $arr = M('user', 'im')->add_discuss($data);
+        // $data['plat'] = $this->head['devicetype'];
+        // $arr = M('user', 'im')->add_discuss($data);
+        if ($data['book_id']) {
+            $booktype = 1;
+            $bookid = $data['book_id'];
+        } else {
+            $booktype = 2;
+            $bookid = $data['cartoon_id'];
+        }
+        $content = $data['content'];
+        $star = $data['star'];
+        $arr = M('user', 'im')->add_discuss($this->get_userid(), $booktype, $bookid, $content, $star, getdevicetype($this->head));
         if ($arr) {
             Out::jout('评论成功');
         } else {
@@ -30,7 +40,7 @@ class user extends apibase
     public function control_reward()
     {
         // $data = get(['int' => ['book_id' => 1, 'reward_price' => 1, 'type' => 1]]);
-      
+
         // $user = parent::$wrap_user;
         // if ($user['remainder'] < $data['reward_price']) {
         //     Out::jerror('余额不足', null, '100111');
@@ -159,12 +169,12 @@ class user extends apibase
             Out::jerror('余额不足', null, '100111');
         }
         if (($data['book_id']) && ($data['section_id']) && ($data['expend_red'])) {
-            $bool = M('coin', 'im')->unlocktxt($this->get_userid(1), $data['book_id'], $data['section_id'], $data['expend_red'], $this->head['devicetype'],$data['isauto']);
+            $bool = M('coin', 'im')->unlocktxt($this->get_userid(1), $data['book_id'], $data['section_id'], $data['expend_red'], $this->head['devicetype'], $data['isauto']);
 
             // $user = T('third_party_user')->set_field('remainder,golden_bean')->get_one(['id' => $this->get_userid()]);
             // Out::jout($user);
         } elseif (($data['cartoon_id']) && ($data['cart_section_id']) && ($data['expend_red'])) {
-            $bool = M('coin', 'im')->unlockcartoon($this->get_userid(1), $data['cartoon_id'], $data['cart_section_id'], $data['expend_red'], $this->head['devicetype'],$data['isauto']);
+            $bool = M('coin', 'im')->unlockcartoon($this->get_userid(1), $data['cartoon_id'], $data['cart_section_id'], $data['expend_red'], $this->head['devicetype'], $data['isauto']);
         } else {
             Out::jerror('获取参数失败', null, '10001');
         }
@@ -610,7 +620,7 @@ class user extends apibase
         //     $charge_time = substr($times, 0, -3);
         //     $time = strtotime($charge_time);
         //     $list[$key]['task_time'] = date('Y-m-d H:i', $time);
-          
+
         //     $ltimes = date('Y-m-d', strtotime($dates));
         //     $list[$key]['local_time'] = strtotime($ltimes);
         //     // $index = $ltimes;

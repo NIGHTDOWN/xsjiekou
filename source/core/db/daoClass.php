@@ -999,14 +999,23 @@ class daoClass
         $name = null;
         $value = null;
         $douhao = ',';
-        foreach ($ar as $index => $val) {
-            if ($bool) {
-                $name .= "`" . $index . "`='" . $val . "'" . $douhao;
-            } else {
-                $name .= "`" . $index . "`=" . $val . "" . $douhao;
+        if (is_array($ar)) {
+            foreach ($ar as $index => $val) {
+                if ($bool) {
+                    $name .= "`" . $index . "`='" . $val . "'" . $douhao;
+                } else {
+                    $name .= "`" . $index . "`=" . $val . "" . $douhao;
+                }
             }
+            $name = trim($name, $douhao);
+        } else {
+            if (!$ar) {
+                //更新为空退出
+                return false;
+            }
+            $name = ' ' . $ar . ' ';
         }
-        $name = trim($name, $douhao);
+
 
         $sql = "update  $t set $name ";
 

@@ -27,11 +27,22 @@ class category  extends indexbase
     {
         $data = get(['int' => ['c1', 'c2', 'c3', 'c4', 'c5', 'page']]);
         $data = M('cate', 'im')->getlist($this->langid, $data['c1'], $data['c2'], $data['c3'], $data['c4'], $data['c5'], $data['page']);
-        
+
         if ($_POST) {
             Out::jout($data);
         } else {
             $this->view(null, ['data' => $data]);
+        }
+    }
+    public function control_lable()
+    {
+        $data = get(['int' => ['c1', 'c2', 'c3', 'c4', 'c5', 'page'], 'string' => ['lable']]);
+        $res = M('cate', 'im')->getlist($this->langid, $data['c1'], $data['c2'], $data['c3'], $data['c4'], $data['c5'], $data['page']);
+
+        if ($_POST) {
+            Out::jout($res);
+        } else {
+            $this->view(null, ['data' => $res, 'lable' => $data['lable']]);
         }
     }
 }

@@ -100,18 +100,8 @@ class census extends Y
     {
         if (!$book_id) return false;
         $where = ['book_id' => $book_id];
-        // $have = T('book_other')->get_one($where);
-        // if (!$have) {
-        //     // $rec['dates'] = date('Y-m-d',time());
-        //     $where['rack'] = 1;
-        //     $where['collect'] = 1;
-        //     T('book_other')->add($where);
-        // } else {
-        //     $w['rack'] = $have['rack'] + 1;
-        //     $w['collect'] = $have['collect'] + 1;
-        //     T('book_other')->update($w, $where);
-        // }
-        T('book')->update(['collect' => 'collect+1'], $where, 0);
+      
+        T('book')->update(['collect' => 'collect+1', 'rack' => 'rack+1'], $where, 0);
     }
     //小说支付统计
     public function bpaycounts($book_id, $money)
@@ -119,13 +109,13 @@ class census extends Y
         $where = ['book_id' => $book_id];
         $have = T('book_other')->get_one($where);
         if (!$have) {
-            // $rec['dates'] = date('Y-m-d',time());
+
             $where['i_recharge'] = $money;
-            //$where['collect'] = 1;
+
             T('book_other')->add($where);
         } else {
             $w['i_recharge'] = $have['i_recharge'] + $money;
-            // $w['collect'] = $have['collect'] + 1;
+
             T('book_other')->update($w, $where);
         }
     }
@@ -135,13 +125,13 @@ class census extends Y
         $where = ['cartoon_id' => $book_id];
         $have = T('cartoon_other')->get_one($where);
         if (!$have) {
-            // $rec['dates'] = date('Y-m-d',time());
+
             $where['i_recharge'] = $money;
-            //$where['collect'] = 1;
+
             T('cartoon_other')->add($where);
         } else {
             $w['i_recharge'] = $have['i_recharge'] + $money;
-            // $w['collect'] = $have['collect'] + 1;
+
             T('cartoon_other')->update($w, $where);
         }
     }
@@ -167,52 +157,21 @@ class census extends Y
     public function hitcounts($book_id)
     {
         $where = ['book_id' => $book_id];
-        // $have = T('book_other')->get_one($where);
-        // if (!$have) {
-        //     // $rec['dates'] = date('Y-m-d',time());
-        //     $where['hits'] = 1;
 
-        //     T('book_other')->add($where);
-        // } else {
-        //     $w['hits'] = $have['hits'] + 1;
-        //     //$w['collect'] = $have['collect'] + 1;
-        //     T('book_other')->update($w, $where);
-        // }
-        T('book')->update(['hits' => 'hits+1'], $where, 0);
+        T('book')->update('hits=hits+1,`read`=`read`+1', $where, 0);
     }
     public function cartoonhitcounts($book_id)
     {
         $where = ['cartoon_id' => $book_id];
-        // $have = T('cartoon_other')->get_one($where);
-        // if (!$have) {
-        //     // $rec['dates'] = date('Y-m-d',time());
-        //     $where['hits'] = 1;
 
-        //     T('cartoon_other')->add($where);
-        // } else {
-        //     $w['hits'] = $have['hits'] + 1;
-        //     //$w['collect'] = $have['collect'] + 1;
-        //     T('cartoon_other')->update($w, $where);
-        // }
-        T('cartoon')->update(['hits' => 'hits+1'], $where, 0);
+        T('cartoon')->update('hits=hits+1,`read`=`read`+1', $where, 0);
     }
     public function cartooncollectcounts($book_id)
     {
         $where = ['cartoon_id' => $book_id];
         if ($book_id) {
-            T('cartoon')->update(['collect' => 'collect+1'], $where, 0);
+            T('cartoon')->update(['collect' => 'collect+1', 'rack' => 'rack+1'], $where, 0);
         }
-        // $have = T('cartoon_other')->get_one($where);
-        // if (!$have) {
-        //     // $rec['dates'] = date('Y-m-d',time());
-        //     $where['rack'] = 1;
-        //     $where['collect'] = 1;
-        //     T('cartoon_other')->add($where);
-        // } else {
-        //     $w['rack'] = $have['rack'] + 1;
-        //     $w['collect'] = $have['collect'] + 1;
-        //     T('cartoon_other')->update($w, $where);
-        // }
     }
     //免費小説統計
     public function freecollectcounts($book_id)
@@ -1007,7 +966,7 @@ class census extends Y
             unset($insert['idfa']);
             $insert['ip'] = Request::getip();
         }
-      
+
         //天
         if (!T('count_log')->set_filed('id')->get_one($insert)) {
 

@@ -56,4 +56,15 @@ class rack extends indexbase
         $data = M('rack', 'im')->delhis($this->get_userid(), $data['his_id']);
         Out::jout($data);
     }
+    /**加入书架 */
+    public function control_add()
+    {
+        $data = get(['int' => ['book_id' => 1, 'type' => 1]]);
+        $flag = M('rack', 'im')->addrack($this->get_userid(1), $data['type'], $data['book_id']);
+        if ($flag) {
+            Out::jout(__('加入成功'));
+        } else {
+            Out::jerror(__('加入失败'), null, '1001291');
+        }
+    }
 }

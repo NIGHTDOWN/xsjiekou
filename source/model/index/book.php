@@ -617,4 +617,68 @@ LnUG4Z69pKZHtL6ljwIDAQAB
         }
         return $discuss;
     }
+    //获取书籍同类木书籍id集合
+    public function getsimilar($bookid, $type, $num)
+    {
+        $similarcacheindex = 'similarcacheindex' . $type;
+        if ($type == 1) {
+            $table = 'book';
+            $tableid = 'book_id';
+        } else {
+            $table = 'cartoon';
+            $tableid = 'cartoon_id';
+        }
+        $data = T($table)->set_where([$tableid => $bookid])->set_field('category_id,lang,cate_id,lable')->get_one();
+        if (!$data) return false;
+        $similarcacheindex .= $data['category_id'] . $data['cate_id'] . $data['lang'];
+        list($bool, $cache) = Y::$cache->get($similarcacheindex);
+        if (!$bool) {
+            $w['category_id'] = $data['category_id'];
+            $w['cate_id'] = $data['cate_id'];
+            $w['lang'] = $data['lang'];
+            $w['status'] = 1;
+            $list = T($table)->set_where($w)->set_field($tableid)->set_limit(500)->order_by(['f' => 'collect', 's' => 'down'])->get_all();
+            $cache = array_column($list, $tableid);
+            Y::$cache->set($similarcacheindex, $cache, G_DAY * 5);
+        }
+        $cache = array_diff($cache, [$bookid]);
+        $ret = array_rand($cache, $num);
+        $retbookid = [];
+        foreach ($ret as $val) {
+            array_push($retbookid, $cache[$val]);
+        }
+        return $retbookid;
+    }
+    //获取书籍同作者书籍id集合
+    public function getsimilarauthor($bookid, $type, $num)
+    {
+        $similarcacheindex = 'getsimilarauthor' . $type;
+        if ($type == 1) {
+            $table = 'book';
+            $tableid = 'book_id';
+        } else {
+            $table = 'cartoon';
+            $tableid = 'cartoon_id';
+        }
+        $data = T($table)->set_where([$tableid => $bookid])->set_field('category_id,lang,writer_name')->get_one();
+        if (!$data) return false;
+        $similarcacheindex .= $data['category_id'] . $data['cate_id'] . $data['lang'];
+        list($bool, $cache) = Y::$cache->get($similarcacheindex);
+        if (!$bool) {
+            $w['category_id'] = $data['category_id'];
+            $w['writer_name'] = $data['writer_name'];
+            $w['lang'] = $data['lang'];
+            $w['status'] = 1;
+            $list = T($table)->set_where($w)->set_field($tableid)->set_limit(500)->order_by(['f' => 'collect', 's' => 'down'])->get_all();
+            $cache = array_column($list, $tableid);
+            Y::$cache->set($similarcacheindex, $cache, G_DAY * 5);
+        }
+        $cache = array_diff($cache, [$bookid]);
+        $ret = array_rand($cache, $num);
+        $retbookid = [];
+        foreach ($ret as $val) {
+            array_push($retbookid, $cache[$val]);
+        }
+        return $retbookid;
+    }
 }

@@ -7,6 +7,7 @@ use ng169\cache\Rediscache;
 use ng169\control\indexbase;
 use ng169\lib\Log;
 use ng169\tool\Out;
+use ng169\Y;
 
 checktop();
 
@@ -25,8 +26,36 @@ class book extends indexbase
             Out::page404();
         }
         $detail = M('book', 'im')->detail($get['bookid'], $this->get_userid());
-        // d($detail, 1);
+        //判断是否已经添加书架
+
         if ($detail) {
+            $detail['inrack'] = M('rack', 'im')->in_rack($this->get_userid(), 1, $get['bookid']);
+            $detail['his'] = M('rack', 'im')->getbookhis($this->get_userid(), 1, $get['bookid']);
+            $tjcache = 'tjcache' . $get['bookid'] . $detail['data']['type'];
+            list($bool, $cache) = Y::$cache->get($tjcache);
+
+            if ($bool) {
+                $detail = array_merge($detail, $cache);
+            } else {
+                $similars = M('book', 'im')->getsimilar($get['bookid'], $detail['data']['type'], 6);
+                $author = M('book', 'im')->getsimilar($get['bookid'], $detail['data']['type'], 3);
+                if (sizeof($similars)) {
+                    $detailtmp['similar'] = T('book')->set_field('bpic,book_id,1 as type,other_name,lable,lang,`read`')->whereIn('book_id', $similars)->get_all();
+                    foreach ($detailtmp['similar']  as $k => $book) {
+                        $detailtmp['similar'][$k]['tags'] =  M('cate', 'im')->getlable($book['lable'], $book['lang']);
+                    }
+                }
+                if (sizeof($author)) {
+                    $detailtmp['author'] = T('book')->set_field('bpic,book_id,1 as type,other_name,lable,lang,`read`')->whereIn('book_id', $author)->get_all();
+                    foreach ($detailtmp['author']  as $k => $book) {
+                        $detailtmp['author'][$k]['tags'] =  M('cate', 'im')->getlable($book['lable'], $book['lang']);
+                    }
+                }
+                $detail = array_merge($detail, $detailtmp);
+                Y::$cache->set($tjcache, $detailtmp, G_DAY * 2);
+            }
+
+
             $this->view(null, $detail);
         } else {
             Out::page404();

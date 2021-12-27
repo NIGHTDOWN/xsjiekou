@@ -18,50 +18,7 @@ class cate extends apibase
         $data = get(['int' => ['c1', 'c2', 'c3', 'c4', 'sex', 'page']]);
         $data = M('cate', 'im')->getlist($this->head['cityid'], $data['c1'], $data['sex'], $data['c2'], $data['c3'], $data['c4'], $data['page']);
 
-        // $arr = [];
-        // $cityid = $this->head['cityid'];
-        // $where['lang'] = $cityid;
-        // if (!$data['c1']) Out::jout($arr);
-        // if (!$data['c2']) Out::jout($arr);
-        // $filed = "other_name,`desc`,bpic_dsl,bpic,writer_name,isfree,update_status,lable";
-        // if ($data['c1'] <= 2) {
-        //     $type = 'book';
-        //     $filed .= ",book_id,1 as type";
-        // } else {
-        //     $type = 'cartoon';
-        //     $filed .= ",cartoon_id as book_id,2 as type";
-        // }
-        // $where['cate_id'] = $data['c2'];
-        // $list = T($type)
-        //     ->field($filed)
-        //     ->where($where);
-        // $lable = "";
-        // if ($data['c3']) {
-        //     $lable = ' lable like  "%L' . $data['c3'] . ',%" ';
-        //     $list = $list->where($lable);
-        // }
-        // if ($data['c4']) {
-        // }
-        // $desc = "update_time desc";
-        // switch ($data['c4']) {
-        //     case '1':
-        //         # code...
-        //         $desc = "update_time desc";
-        //         break;
-        //     case '2':
-        //         $desc = "collect desc";
-        //         break;
-        //     case '3':
-        //         # code...
-        //         $list = $list->where(['update_status' => 1]);
-        //         break;
-        //     default:
-        //         # code...
-        //         break;
-        // }
-        // $list = $list->order($desc)->set_limit([$data['page'], 10]);
-
-        // $arr = $list->get_all();
+        
         Out::jout($data);
     }
 }

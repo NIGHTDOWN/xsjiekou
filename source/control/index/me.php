@@ -15,7 +15,7 @@ checktop();
 class me extends indexbase
 {
 
-    protected $noNeedLogin = ['run'];
+    protected $noNeedLogin = ['run', 'discuss'];
 
 
     public function control_run()
@@ -77,6 +77,32 @@ class me extends indexbase
             }
             $f = trim($f, ',');
             Out::jout($f);
+        }
+    }
+    public function control_discuss()
+    {
+        $data = get(['int' => ['bookid', 'star', 'type'], 'string' => ['content',]]);
+        $uid = $this->get_userid();
+        if (!$uid) {
+            Out::jerror(__('请登入'),  geturl(null, null, 'login', 'index'), '-1');
+        }
+
+        // $data['plat'] = $this->head['devicetype'];
+        // $arr = M('user', 'im')->add_discuss($data);
+        // if ($data['book_id']) {
+        $booktype = $data['type'];
+        $bookid = $data['bookid'];
+        // } else {
+        //     $booktype = 2;
+        //     $bookid = $data['cartoon_id'];
+        // }
+        $content = $data['content'];
+        $star = $data['star'];
+        $arr = M('user', 'im')->add_discuss($this->get_userid(), $booktype, $bookid, $content, $star, getdevicetype($this->head));
+        if ($arr) {
+            Out::jout(__('评论成功'));
+        } else {
+            Out::jerror(__('评论失败'), null, '100155');
         }
     }
 }

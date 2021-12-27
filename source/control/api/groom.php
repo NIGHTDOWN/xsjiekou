@@ -42,66 +42,72 @@ class groom extends apibase
     public function control_add_rack()
     {
         $data = get(['int' => ['book_id' => 1, 'type' => 1]]);
-        $arr = $data;
-        // $arr['rack_time'] = date('Y-m-d H:i:s', time());
-        // $arr['read_time'] = date('Y-m-d H:i:s', time());
-        $racks1['read_time'] = date('Y-m-d H:i:s', time());
-        $arr['users_id'] = $this->get_userid(1);
-        $where['users_id'] = $arr['users_id'];
-        $where['book_id'] = $arr['book_id'];
-        $where['type'] = $arr['type'];
-        $where['status'] = 1;
-        //$where['isdelete'] = '0';
-        $res = T('user_groom')->set_field('grooms_id')->where($where)->find();
-        if ($res) {
-            Out::jerror('已經加入書架了', null, '100128');
-        }
-        if ($arr['type'] == '1') {
-            $w = ['book_id' => $arr['book_id']];
-            $book = T('book')->field('other_name,bpic,`desc`,isfree')->where($w)->find();
-
-            if ($book) {
-                $w['other_name'] = $book['other_name'];
-                $w['bpic'] = $book['bpic'];
-                $w['desc'] = $book['desc'];
-                //$racks1['rack_id'] = T('racks')->addid($arr);
-                //T('racks_1')->add($racks1);
-                M('census', 'im')->collectcounts($w['book_id']);
-                // M('census', 'im')->freecollectcounts($w['book_id']);
-
-                $w['status'] = 1;
-                $w['users_id'] = $this->users_id;
-                $w['type'] = $arr['type'];
-                T('user_groom')->add($w);
-                M('bookcensus', 'im')->addgroom($this->get_userid(), 1, $data['book_id']);
-                Out::jout('加入成功');
-            }
-            Out::jerror('ID不存在', null, '100129');
+        $flag = M('rack', 'im')->addrack($this->get_userid(1), $data['type'], $data['book_id']);
+        if ($flag) {
+            Out::jout('加入成功');
         } else {
-            $w1 = ['cartoon_id' => $arr['book_id']];
-            $cartoon = T('cartoon')->field('other_name,bpic,`desc`,isfree')->where($w1)->find();
-            if ($cartoon) {
-                $w = ['book_id' => $arr['book_id']];
-                $w['other_name'] = $cartoon['other_name'];
-                $w['bpic'] = $cartoon['bpic'];
-                $w['desc'] = $cartoon['desc'];
-                // $racks1['rack_id'] = T('racks')->add($w);
-                // T('racks_1')->add($racks1);
-
-                M('census', 'im')->cartooncollectcounts($w['book_id']);
-
-                // M('census', 'im')->cartoonfreecollectcounts($w['book_id']);
-
-                $w['users_id'] = $this->get_userid(1);
-                $w['type'] = $arr['type'];
-                $w['status'] = 1;
-
-                T('user_groom')->add($w);
-                M('bookcensus', 'im')->addgroom($this->get_userid(), 2, $data['book_id']);
-                Out::jout('加入成功');
-            }
-            Out::jerror('ID不存在', null, '100129');
+            Out::jerror('添加失败', null, '1001291');
         }
+        // $arr = $data;
+        // // $arr['rack_time'] = date('Y-m-d H:i:s', time());
+        // // $arr['read_time'] = date('Y-m-d H:i:s', time());
+        // $racks1['read_time'] = date('Y-m-d H:i:s', time());
+        // $arr['users_id'] = $this->get_userid(1);
+        // $where['users_id'] = $arr['users_id'];
+        // $where['book_id'] = $arr['book_id'];
+        // $where['type'] = $arr['type'];
+        // $where['status'] = 1;
+        // //$where['isdelete'] = '0';
+        // $res = T('user_groom')->set_field('grooms_id')->where($where)->find();
+        // if ($res) {
+        //     Out::jerror('已經加入書架了', null, '100128');
+        // }
+        // if ($arr['type'] == '1') {
+        //     $w = ['book_id' => $arr['book_id']];
+        //     $book = T('book')->field('other_name,bpic,`desc`,isfree')->where($w)->find();
+
+        //     if ($book) {
+        //         $w['other_name'] = $book['other_name'];
+        //         $w['bpic'] = $book['bpic'];
+        //         $w['desc'] = $book['desc'];
+        //         //$racks1['rack_id'] = T('racks')->addid($arr);
+        //         //T('racks_1')->add($racks1);
+        //         M('census', 'im')->collectcounts($w['book_id']);
+        //         // M('census', 'im')->freecollectcounts($w['book_id']);
+
+        //         $w['status'] = 1;
+        //         $w['users_id'] = $this->users_id;
+        //         $w['type'] = $arr['type'];
+        //         T('user_groom')->add($w);
+        //         M('bookcensus', 'im')->addgroom($this->get_userid(), 1, $data['book_id']);
+        //         Out::jout('加入成功');
+        //     }
+        //     Out::jerror('ID不存在', null, '100129');
+        // } else {
+        //     $w1 = ['cartoon_id' => $arr['book_id']];
+        //     $cartoon = T('cartoon')->field('other_name,bpic,`desc`,isfree')->where($w1)->find();
+        //     if ($cartoon) {
+        //         $w = ['book_id' => $arr['book_id']];
+        //         $w['other_name'] = $cartoon['other_name'];
+        //         $w['bpic'] = $cartoon['bpic'];
+        //         $w['desc'] = $cartoon['desc'];
+        //         // $racks1['rack_id'] = T('racks')->add($w);
+        //         // T('racks_1')->add($racks1);
+
+        //         M('census', 'im')->cartooncollectcounts($w['book_id']);
+
+        //         // M('census', 'im')->cartoonfreecollectcounts($w['book_id']);
+
+        //         $w['users_id'] = $this->get_userid(1);
+        //         $w['type'] = $arr['type'];
+        //         $w['status'] = 1;
+
+        //         T('user_groom')->add($w);
+        //         M('bookcensus', 'im')->addgroom($this->get_userid(), 2, $data['book_id']);
+        //         Out::jout('加入成功');
+        //     }
+        //     Out::jerror('ID不存在', null, '100129');
+        // }
     }
     // 删除书架书籍
     public function control_delrack()

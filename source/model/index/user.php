@@ -139,8 +139,8 @@ class user extends Y
             M('census', 'im')->task_reward_count($channel_id, $invite_coin['invite_coin'], $invite_coin['invite_task']);
             M('coin', 'im')->change($channel_id, $invite_coin['invite_coin']);
         }
-    
-      
+
+
         $token = $this->gettoken($user_id, $type, 1);
         return [$user_id, $token];
     }
@@ -215,21 +215,24 @@ class user extends Y
         ];
         return T('u_action_log')->add($data);
     }
-    public function add_discuss($data = '')
+    public function add_discuss($uid, $booktype, $bookid, $content, $star, $plat)
     {
-        $arr['users_id'] = $data['users_id'];
-        $arr['star'] = $data['star'];
-        $arr['content'] = $data['content'];
-        $arr['plat'] = $data['plat'];
+        $arr['users_id'] = $uid;
+        if (!$uid) return false;
+        if (!$bookid) return false;
+        if (!$content) return false;
+        $arr['star'] = $star;
+        $arr['content'] = $content;
+        $arr['plat'] = $plat;
         $arr['discuss_time'] = date('Y-m-d H:i:s', time());
-        $user = T('third_party_user')->set_field('nickname')->where(['id' => $arr['users_id']])->get_one();
+        $user = T('third_party_user')->set_field('nickname')->where(['id' => $uid])->get_one();
         if (!$user) {
             return false;
         }
         $arr['nick_name'] = $user['nickname'];
 
-        if (isset($data['book_id']) && $data['book_id']) {
-            $arr['book_id'] = $data['book_id'];
+        if ($booktype != 2) {
+            $arr['book_id'] = $bookid;
             $book = T('book')->set_field('other_name,replynum')->where(['book_id' => $arr['book_id']])->get_one();
             if (!$book) {
                 return false;
@@ -238,9 +241,9 @@ class user extends Y
             $res = T('discuss')->add($arr);
             $replynum['replynum'] = $book['replynum'] + 1;
             T('book')->update($replynum, ['book_id' => $arr['book_id']]);
-        } elseif (isset($data['cartoon_id']) && $data['cartoon_id']) {
+        } else {
 
-            $arr['cartoon_id'] = $data['cartoon_id'];
+            $arr['cartoon_id'] = $bookid;
             $book = T('cartoon')->set_field('other_name,replynum')->where(['cartoon_id' => $arr['cartoon_id']])->get_one();
 
             if (!$book) {
