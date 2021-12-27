@@ -148,8 +148,20 @@
                                         <div class="comic-author">
                                             <!--{$data.desc}-->
                                         </div>
-                                        <div class="sort-list"><a href="###" title="热血,热血漫画">热血 </a><a href="###"
-                                                title="玄幻,玄幻漫画">玄幻 </a><a href="###" title="都市,都市漫画">都市</a></div>
+                                        <div class="sort-list">
+                                            <!--{foreach $data.tags as $k2=>$v2}-->
+                                            <!--{if $v2}-->
+
+                                            <a href='<!--{url action="lable" mod="category" args="c1:$data.type,c2:$data.category_id,c3:$data.cate_id,c4:$v2.id,lable:$v2.tag"}-->'
+                                                title=" <!--{$v2.tag}-->">
+                                                <!--{$v2.tag}-->
+                                            </a>
+                                            <!--{/if}-->
+
+                                            <!--{/foreach}-->
+
+
+                                        </div>
                                     </div>
                                 </div>
                             </li>
