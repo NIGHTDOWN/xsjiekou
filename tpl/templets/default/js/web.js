@@ -272,6 +272,9 @@ $(document).ready(function () {
     $('.back').on('click', function () {
         history.back();
     });
+    $('.js_go_home').on('click', function () {
+        _go_url('/');
+    });
 });
 function ftime($t) {
     var now = new Date(parseInt($t) * 1000);
