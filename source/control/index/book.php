@@ -35,9 +35,12 @@ class book extends indexbase
             list($bool, $cache) = Y::$cache->get($tjcache);
 
             if ($bool) {
-                $detail = array_merge($detail, $cache);
+                if (sizeof($cache)) {
+                    $detail = array_merge($detail, $cache);
+                }
             } else {
                 $similars = M('book', 'im')->getsimilar($get['bookid'], $detail['data']['type'], 6);
+
                 $author = M('book', 'im')->getsimilar($get['bookid'], $detail['data']['type'], 3);
                 if (sizeof($similars)) {
                     $detailtmp['similar'] = T('book')->set_field('bpic,book_id,1 as type,other_name,lable,lang,`read`')->whereIn('book_id', $similars)->get_all();
@@ -51,9 +54,12 @@ class book extends indexbase
                         $detailtmp['author'][$k]['tags'] =  M('cate', 'im')->getlable($book['lable'], $book['lang']);
                     }
                 }
-                $detail = array_merge($detail, $detailtmp);
-                Y::$cache->set($tjcache, $detailtmp, G_DAY * 2);
+                if (sizeof($detailtmp)) {
+                    $detail = array_merge($detail, $detailtmp);
+                    Y::$cache->set($tjcache, $detailtmp, G_DAY * 2);
+                }
             }
+
 
 
             $this->view(null, $detail);
