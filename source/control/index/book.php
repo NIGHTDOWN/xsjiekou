@@ -41,7 +41,8 @@ class book extends indexbase
             } else {
                 $similars = M('book', 'im')->getsimilar($get['bookid'], $detail['data']['type'], 6);
 
-                $author = M('book', 'im')->getsimilar($get['bookid'], $detail['data']['type'], 3);
+                $author = M('book', 'im')->getsimilarauthor($get['bookid'], $detail['data']['type'], 3);
+               
                 if (sizeof($similars)) {
                     $detailtmp['similar'] = T('book')->set_field('bpic,book_id,1 as type,other_name,lable,lang,`read`')->whereIn('book_id', $similars)->get_all();
                     foreach ($detailtmp['similar']  as $k => $book) {
