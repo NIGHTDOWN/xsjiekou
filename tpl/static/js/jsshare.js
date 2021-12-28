@@ -45,9 +45,14 @@ function share(type, title, pic, url) {
 
             break;
         case 'qzone':
-            $baseurl = "http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?";
+            // $baseurl = "http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?";
+            // $title = "&title=" + encodeURIComponent(title);
+            // $pic = "&image=" + encodeURIComponent(pic);
+            // $url = "&url=" + encodeURIComponent(url);
+            // $key = "";
+            $baseurl = "https://h5.qzone.qq.com/q/qzs/open/connect/widget/mobile/qzshare/index.html?page=qzshare.html&loginpage=loginindex.html&logintype=qzone";
             $title = "&title=" + encodeURIComponent(title);
-            $pic = "&image=" + encodeURIComponent(pic);
+            $pic = "&imageUrl=" + encodeURIComponent(pic);
             $url = "&url=" + encodeURIComponent(url);
             $key = "";
             $shareurl = $baseurl + $title + $pic + $url + $key;
