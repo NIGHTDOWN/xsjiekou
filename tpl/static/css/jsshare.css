@@ -1,0 +1,267 @@
+.hd {
+    position: relative;
+    z-index: 2;
+    margin: 0.1rem;
+    background-color: #ffffff;
+    height: 0.7rem;
+    border-bottom: 0.1rem solid #FFF4F4;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-content: flex-end;
+    align-items: baseline;
+    padding: 0 0.2rem;
+}
+.js_sharebox{
+    display: none;
+}
+.icon {
+    content: '';
+}
+.wap.bd.js_sharebox.acgn-clearfix {
+    position: fixed;
+    bottom: 0px;
+}
+.bd.js_sharebox.acgn-clearfix.web {
+    position: fixed;
+    top: 20%;
+    width: 50%;
+    margin: 0 auto;
+    left: 25%;
+}
+ul.acgn-share {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.tc {
+    flex: 1;
+}
+
+.acgn-share .item {
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 0.4rem 0.4rem 0;
+}
+.shareicon i{
+    font-size: 1.1rem;
+    padding-bottom: 0.1rem;
+}
+.hd .title {
+  
+    vertical-align: bottom;
+    color: #333333;
+    flex: 1;
+    font-size: 110%;
+    font-weight: 600;
+}
+
+
+
+.hd .num {
+    color: #fc6976;
+    vertical-align: bottom
+}
+
+.bd {
+    z-index: 2;
+    position: relative;
+    padding: 0.1rem;
+    background-color: #ffffff;
+    font-size: 0.5rem;
+    -webkit-border-radius: 0.2rem;
+    -moz-border-radius: 0.2rem;
+    border-radius: 0.2rem;
+    border: 0.1rem solid #FFF4F4;
+    -webkit-box-shadow: inset 0 0.1rem 0.4rem 0 #FFF4F4;
+    -moz-box-shadow: inset 0 0.1rem 0.4rem 0 #FFF4F4;
+    box-shadow: inset 0 0.1rem 0.4rem 0 #FFF4F4;    padding-bottom: 0.2rem;
+}
+
+
+
+
+@font-face {
+    font-family: "acgn_share";
+  
+    src: url(../../static/font/jsshare.woff) format("woff"), url(../../static/font/jsshare.ttf) format("truetype");
+   
+}
+
+[class*="icoift-"],.icon, .icoift {
+    font-family: "acgn_share" !important;
+ 
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    
+}
+.shareicon i::before{
+    vertical-align: text-top;
+}
+.icoift-qfriend:before {
+    content: "\eae7";
+}
+.icoift-qfriend-bg{
+    background-color: #fece00;
+}
+.icoift-qzone:before {
+    content: "\eae2";
+}
+.icoift-qzone-bg{
+    background-color: #fece00;
+}
+.icoift-wechat:before {
+    content: "\eae3";
+}
+.icoift-wechat-bg {
+    background-color: #09b70e;
+}
+.icoift-copy:before {
+    content: "\eae4";
+}
+.icoift-copy-bg {
+    background-color: #8cda09;
+}
+.icoift-tqq:before {
+    content: "\e626";
+}
+.icoift-tqq-bg {
+    background-color: #00b0fd;
+}
+.icoift-sina:before {
+    content: "\eae6";
+}
+.icoift-sina-bg {
+    background-color: #ff001f;
+}
+.icoift-qq:before {
+    content: "\eae7";
+}
+.icoift-qq-bg {
+    background-color: #00b0fd;
+}
+.icoift-baidu:before {
+    content: "\eae8";
+}
+.icoift-baidu-bg {
+    background-color: #3245df;
+}
+.icoift-facebook:before {
+    content: "\ea90";
+}
+.icoift-facebook-bg {
+    background-color: #3c5fac;
+}
+.icoift-google:before {
+    content: "\e900";
+}
+.icoift-google-bg {
+    background-color: #f15a49;
+}
+.icoift-twitter:before {
+    content: "\ea96";
+}
+.icoift-twitter-bg {
+    background-color: #5ad5f7;
+}
+.icoift-kaixin:before {
+    content: "\eaea";
+}
+.icoift-kaixin-bg {
+    background-color: #ffc421;
+}
+.icoift-renren:before {
+    content: "\ea99";
+}
+.icoift-renren-bg {
+    background-color: #4487c6;
+}
+
+.icoift-douban:before {
+    content: "\eaee";
+}
+.icoift-douban-bg {
+    background-color: #3ca14b;
+}
+.icoift-pinterest:before {
+    content: "\ead1";
+}
+.icoift-pinterest-bg {
+    background-color: #cc2127;
+}
+.icon-comm-close:before {
+    content: "\eaef";
+}
+
+
+.sharebox * {
+    padding: 0;
+    margin: 0;
+}
+
+.sharebox a {
+    color: #333;
+    text-decoration: none;
+}
+
+.sharebox .icolist {
+    font-size: 0;
+}
+
+.sharebox .icolist .icoitem {
+    
+    text-align: center;
+    display: inline-block;
+}
+
+.sharebox .icolist .icoicon {
+    display: inline-block;
+    
+    color: #999;
+}
+
+.sharebox .icolist .icoicon:hover {
+    color: #333;
+}
+
+.sharebox .icolist .icotitle {
+    display: block;
+    
+}
+
+
+
+
+
+
+
+
+.icoqrcode-wrap.bottom::before {
+    border-color: #f5f5f5 transparent transparent transparent;
+}
+
+.icoqrcode-wrap.bottom::after {
+    border-color: #fff transparent transparent transparent;
+}
+.shareicon {
+    display: block;
+    line-height: .96rem;
+    height: .96rem;
+    width: .96rem;
+    color: #fff;
+    margin: 0 auto;
+    text-align: center;
+    font-size: .64rem;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+.shareicon:hover{
+    background-color: #999;
+}

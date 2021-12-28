@@ -37,11 +37,13 @@
     <script src="<!--{$indextpl}-->js/swiper.min.js"></script>
     <script src="<!--{$static}-->js/night_Trad.v1.0.js"></script>
     <script src="<!--{$indextpl}-->js/web.js"></script>
+    <script src="<!--{$static}-->js/jsshare.js"></script>
     <script>
         function isMobileHanddle() { var e = navigator.userAgent; return (screen.width / screen.height < 1 || /AppleWebKit.*Mobile/i.test(e) || /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(e)) && !/ipad/gi.test(e) } var host = location.host; isMobileHanddle() || "m" !== host.substr(0, host.indexOf(".")) || (location.href = location.href.replace("//m.", "//www.")), top.location != location && (top.location = location.href), function (i, e) { function t() { var e = o.getBoundingClientRect().width; 540 < e / s && (e = 540 * s); var t = e / 10; o.style.fontSize = t + "px", m.rem = i.rem = t } var a, n = i.document, o = n.documentElement, r = n.querySelector('meta[name="viewport"]'), l = n.querySelector('meta[name="flexible"]'), s = 0, d = 0, m = e.flexible || (e.flexible = {}); if (r) { console.warn("将根据已有的meta标签来设置缩放比例"); var c = r.getAttribute("content").match(/initial\-scale=([\d\.]+)/); c && (d = parseFloat(c[1]), s = parseInt(1 / d)) } else if (l) { var p = l.getAttribute("content"); if (p) { var u = p.match(/initial\-dpr=([\d\.]+)/), f = p.match(/maximum\-dpr=([\d\.]+)/); u && (s = parseFloat(u[1]), d = parseFloat((1 / s).toFixed(2))), f && (s = parseFloat(f[1]), d = parseFloat((1 / s).toFixed(2))) } } if (!s && !d) { var h = (i.navigator.appVersion.match(/android/gi), i.navigator.appVersion.match(/iphone/gi)), v = i.devicePixelRatio; d = 1 / (s = h ? 3 <= v && (!s || 3 <= s) ? 3 : 2 <= v && (!s || 2 <= s) ? 2 : 1 : 1) } if (o.setAttribute("data-dpr", s), !r) if ((r = n.createElement("meta")).setAttribute("name", "viewport"), r.setAttribute("content", "initial-scale=" + d + ", maximum-scale=" + d + ", minimum-scale=" + d + ", user-scalable=no"), o.firstElementChild) o.firstElementChild.appendChild(r); else { var b = n.createElement("div"); b.appendChild(r), n.write(b.innerHTML) } i.addEventListener("resize", function () { clearTimeout(a), a = setTimeout(t, 300) }, !1), i.addEventListener("pageshow", function (e) { e.persisted && (clearTimeout(a), a = setTimeout(t, 300)) }, !1), "complete" === n.readyState ? n.body.style.fontSize = 12 * s + "px" : n.addEventListener("DOMContentLoaded", function () { n.body.style.fontSize = 12 * s + "px" }, !1), t(), m.dpr = i.dpr = s, m.refreshRem = t, m.rem2px = function (e) { var t = parseFloat(e) * this.rem; return "string" == typeof e && e.match(/rem$/) && (t += "px"), t }, m.px2rem = function (e) { var t = parseFloat(e) / this.rem; return "string" == typeof e && e.match(/px$/) && (t += "rem"), t } }(window, window.lib || (window.lib = {})), window.shareConf = null</script>
     <link href="<!--{$indextpl}-->css/vendor.38cae4.css" rel="stylesheet">
     <link href="<!--{$indextpl}-->css/entry.index.53baaf.css" rel="stylesheet">
     <link href="<!--{$indextpl}-->css/swiper.min.css" rel="stylesheet">
+    <link href="<!--{$static}-->css/jsshare.css" rel="stylesheet">
 </head>
 
 <body style="font-size: 12px;">
@@ -61,7 +63,8 @@
                 </div>
 
                 <div class="header-right">
-                    <div class="header-icon js_share"><i class="ift-share white"></i></div>
+                    <div class="header-icon js_share" title="<!--{$data.other_name}-->" pic='<!--{$data.bpic}-->'
+                        url=''><i class="ift-share white"></i></div>
                 </div>
 
             </div>
@@ -398,6 +401,8 @@
         </article>
     </section>
 
+
+
     <style>
         .pfstars {
             white-space: nowrap;
@@ -510,6 +515,7 @@
         $bookid = "<!--{$data.book_id}-->";
         $type = "<!--{$data.type}-->";
         $(function () {
+            initshare('<!--{__ 分享}-->', '', $('.js_share'));
             $fs = $('.raft').text();
             $val = Number($fs).toFixed(1);
             $('.raft').text($val);
