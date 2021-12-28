@@ -50,12 +50,15 @@ function share(type, title, pic, url) {
             // $pic = "&image=" + encodeURIComponent(pic);
             // $url = "&url=" + encodeURIComponent(url);
             // $key = "";
-            $baseurl = "https://h5.qzone.qq.com/q/qzs/open/connect/widget/mobile/qzshare/index.html?page=qzshare.html&loginpage=loginindex.html&logintype=qzone";
+            $baseurl = "https://h5.qzone.qq.com/q/qzs/open/connect/widget/mobile/qzshare/index.html?page=qzshare.html&loginpage=loginindex.html&logintype=qzone&referer=https://m.taomanhua.com/";
             $title = "&title=" + encodeURIComponent(title);
             $pic = "&imageUrl=" + encodeURIComponent(pic);
             $url = "&url=" + encodeURIComponent(url);
+            $desc = "&desc=" + encodeURIComponent(title);
+            $summary = "&summary=" + encodeURIComponent(title);
+            $site = "&site=" + encodeURIComponent(title);
             $key = "";
-            $shareurl = $baseurl + $title + $pic + $url + $key;
+            $shareurl = $baseurl + $title + $pic + $url + $desc+$site+$summary;
             _go_url($shareurl);
 
             break;
