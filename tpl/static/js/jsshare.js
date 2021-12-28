@@ -145,6 +145,7 @@ function initshare(title, types, $obj) {
     $html = '<div class="bd js_sharebox acgn-clearfix"><div class="hd"><span class="title">' + title + '</span><i class="icon icon-comm-close close js_chare_close"></i></div><ul class="acgn-share"></ul></div>';
     $btn = '<li class="item shareicon "><i class=""></i></li>';
     sharebox = $($html);
+    shareclickin=$obj;
     var devietype = 'wap';
     if ((navigator.userAgent.match(/(iPhone|iPod|Android|ios|iOS|iPad|Backerry|WebOS|Symbian|Windows Phone|Phone)/i))) {
         devietype = 'wap';
