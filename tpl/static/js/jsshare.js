@@ -25,9 +25,9 @@ function share(type, title, pic, url) {
 
             break;
         case 'qq':
-            $baseurl = "http://v.t.qq.com/share/share.php?c=share&a=index&";
+            $baseurl = "https://connect.qq.com/widget/shareqq/index.html?";
             $title = "&title=" + encodeURIComponent(title);
-            $pic = "&pic=" + encodeURIComponent(pic);
+            $pic = "&pics=" + encodeURIComponent(pic);
             $url = "&sourceUrl=" + encodeURIComponent(url);
             $key = "&appkey=" + '5bd32d6f1dff4725ba40338b233ff155';
             $shareurl = $baseurl + $title + $pic + $url + $key;
