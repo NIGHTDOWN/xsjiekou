@@ -75,7 +75,13 @@
                         <!--{foreach $data as $k=>$v}-->
 
                         <div class="bookrack-item js_item" data-id="<!--{$v.book_id}-->" data-type="<!--{$v.type}-->"
-                            url='这里是阅读页面url'>
+                            url='
+                            <!--{if $v.type==1}-->
+<!--{url action="sec" mod="book" args="bookid:$v.book_id,id:$v.readsec"}-->
+                            <!--{else}-->
+                            <!--{url action="sec" mod="cartoon" args="bookid:$v.book_id,id:$v.readsec"}-->
+                            <!--{/if}-->
+                            '>
                             <div class="bookrack-inner">
                                 <img src="<!--{$indextpl}-->imgs/space.gif" alt="" class="cover"
                                     style="background: url(&quot;<!--{$v.bpic}-->&quot;) center center / cover no-repeat; opacity: 1;">

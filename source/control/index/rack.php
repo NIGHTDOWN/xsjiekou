@@ -15,7 +15,7 @@ checktop();
 class rack extends indexbase
 {
 
-    protected $noNeedLogin = [''];
+    protected $noNeedLogin = ['add'];
 
 
     public function control_run()

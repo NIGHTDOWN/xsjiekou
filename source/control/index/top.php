@@ -25,6 +25,7 @@ class top extends indexbase
         if (!$bool) {
             $w['lang'] = $this->langid;
             $w['status'] = 1;
+           
             $data = T('book')->set_where($w)->set_field('book_id,1 as type,`read`,bpic,other_name,lable,`desc`,lang,category_id,cate_id,lable')->set_limit(100)->order_by(['s' => 'down', 'f' => '`read`'])->get_all();
             foreach ($data  as $k => $book) {
                 $data[$k]['tags'] =  M('cate', 'im')->getlable($book['lable'], $book['lang']);

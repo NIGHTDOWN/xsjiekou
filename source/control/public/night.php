@@ -195,7 +195,7 @@ class general extends Y
         $userid = @parent::$wrap_user['id'];
 
         if ($userid == null && $type) {
-            error('请登入在操作', geturl(null, null, 'login', 'index'), 1);
+            error(__('请登入在操作'), geturl(null, null, 'login', 'index'), 1);
         }
 
         return $userid;

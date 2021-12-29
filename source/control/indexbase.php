@@ -102,6 +102,7 @@ class indexbase extends general
 			'city'  => parent::$wrap_city,
 			'indextpl' => PATH_URL . $this->tpl_path,
 			'realindextpl' => ROOT . $this->tpl_path,
+			'url' => \ng169\tool\Request::curPageURL(),
 		);
 
 		$this->init($this->tpl_path);

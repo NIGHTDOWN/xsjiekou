@@ -32,6 +32,25 @@
     <meta name="browsermode" content="application">
     <meta name="x5-orientation" content="portrait">
     <meta name="x5-pagetype" content="webapp">
+    <!-- 分享标签 -->
+    <meta itemprop="name" content="<!--{$data.other_name}-->">
+    <meta itemprop="image" content="<!--{$data.bpic}-->">
+    <meta property="og:type" content="novel">
+    <meta property="og:title" content="<!--{$data.other_name}-->">
+    <meta property="og:description" content="<!--{$data.desc}-->">
+    <meta property="og:image" content="<!--{$data.bpic}-->">
+    <meta property="og:novel:category" content="<!--{$sahretag}-->">
+    <meta property="og:novel:author" content="<!--{$data.writer_name}-->">
+    <meta property="og:novel:book_name" content="<!--{$data.other_name}-->">
+    <meta property="og:novel:read_url" content="<!--{$url}-->">
+    <meta property="og:url" content="<!--{$url}-->">
+    <meta property="og:novel:status"
+        content="<!--{if $data.update_status==1}--><!--{__ 完结}--><!--{else}--><!--{__ 连载}--><!--{/if}-->">
+    <meta property="og:novel:update_time" content="<!--{$data.new_section_time|date_format:'%Y-%m-%d'}-->">
+    <meta property="og:novel:latest_chapter_name" content="  <!--{$data.new_section_title}-->">
+    <meta property="og:novel:latest_chapter_url"
+        content='<!--{url action="sec" args="id:$data.update_section,bookid:$data.book_id" }-->'>
+
 
     <script src="<!--{$staticjs}-->/jquery.min.js"></script>
     <script src="<!--{$indextpl}-->js/swiper.min.js"></script>
@@ -200,12 +219,14 @@
                         <!--{foreach $seclist as $sec}-->
                         <li class="comic-chapter-item" data-index="<!--{$sec.list_order}-->"
                             data-chapterid="<!--{$sec.section_id}-->"><a class="comic-chapter-link"
-                                href="/xiuluojianzun/di261hua-1635488330005.html" title="<!--{$sec.title}-->">
+                                href='<!--{url action="sec" args="id:$sec.list_order,bookid:$data.book_id" }-->' title="
+                                <!--{$sec.title}-->">
                                 <!--{$sec.title}-->
                                 <!--{if $sec.isfree}-->
                                 <i class="ift-lock js_lock"></i>
                                 <!--{/if}-->
-                            </a></li>
+                            </a>
+                        </li>
                         <!--{/foreach}-->
 
                     </ul>
@@ -515,6 +536,17 @@
         $bookid = "<!--{$data.book_id}-->";
         $type = "<!--{$data.type}-->";
         $(function () {
+            $securl = '<!--{url args="bookid:$data.book_id" action="sec"}-->';
+            $('.startReadfather').click(function () {
+                $id = $(this).attr('readsec');
+                $gourl = $securl;
+                if ($id) {
+                    // d($id);
+                    $gourl = $securl + "?id=" + $id;
+                }
+               
+                _go_url($gourl);
+            });
             initshare('<!--{__ 分享}-->', '', $('.js_share'));
             $fs = $('.raft').text();
             $val = Number($fs).toFixed(1);

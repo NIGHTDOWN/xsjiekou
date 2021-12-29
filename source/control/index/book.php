@@ -30,6 +30,8 @@ class book extends indexbase
 
         if ($detail) {
             $detail['inrack'] = M('rack', 'im')->in_rack($this->get_userid(), 1, $get['bookid']);
+            $detail['sahretag'] = implode(',', array_column($detail['data']['tags'], 'tag'));
+            // d($detail);
             $detail['his'] = M('rack', 'im')->getbookhis($this->get_userid(), 1, $get['bookid']);
             $tjcache = 'tjcache' . $get['bookid'] . $detail['data']['type'];
             list($bool, $cache) = Y::$cache->get($tjcache);
@@ -42,7 +44,7 @@ class book extends indexbase
                 $similars = M('book', 'im')->getsimilar($get['bookid'], $detail['data']['type'], 6);
 
                 $author = M('book', 'im')->getsimilarauthor($get['bookid'], $detail['data']['type'], 3);
-               
+
                 if (sizeof($similars)) {
                     $detailtmp['similar'] = T('book')->set_field('bpic,book_id,1 as type,other_name,lable,lang,`read`')->whereIn('book_id', $similars)->get_all();
                     foreach ($detailtmp['similar']  as $k => $book) {
@@ -60,7 +62,6 @@ class book extends indexbase
                     Y::$cache->set($tjcache, $detailtmp, G_DAY * 2);
                 }
             }
-
 
 
             $this->view(null, $detail);
