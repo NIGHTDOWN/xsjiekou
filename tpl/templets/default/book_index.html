@@ -208,9 +208,11 @@
                             <i class="chapter-rank desc" id="js_chapter_rank"></i>
                             <span class="update_time">
                                 <!--{$data.new_section_time|date_format:"%Y-%m-%d"}-->
-                            </span> <span class="last-chapter">
-                                <!--{$data.new_section_title}-->
                             </span>
+                            <a href='<!--{url action="sec" args="id:$data.update_section,bookid:$data.book_id" }-->'>
+                                <span class="last-chapter">
+                                    <!--{$data.new_section_title}-->
+                                </span></a>
                         </div>
                     </div>
                 </div>
@@ -544,7 +546,7 @@
                     // d($id);
                     $gourl = $securl + "?id=" + $id;
                 }
-               
+
                 _go_url($gourl);
             });
             initshare('<!--{__ 分享}-->', '', $('.js_share'));

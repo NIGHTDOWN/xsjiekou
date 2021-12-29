@@ -3736,7 +3736,9 @@ span.js_collect_num {
     /*! autoprefixer: off */
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
-    overflow: hidden
+    overflow: hidden;
+    flex: 1;
+    text-align: right;
 }
 
 .lianzai .commen-topbar {
