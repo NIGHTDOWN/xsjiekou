@@ -57,8 +57,9 @@ function share(type, title, pic, url) {
             $desc = "&desc=" + encodeURIComponent(title);
             $summary = "&summary=" + encodeURIComponent(title);
             $site = "&site=" + encodeURIComponent(title);
+            $referer = "&referer=" + encodeURIComponent(url);
             $key = "";
-            $shareurl = $baseurl + $title + $pic + $url + $desc+$site+$summary;
+            $shareurl = $baseurl + $title + $pic + $url + $desc+$site+$summary+$referer;
             _go_url($shareurl);
 
             break;
