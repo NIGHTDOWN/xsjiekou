@@ -25,13 +25,21 @@ class category  extends indexbase
     }
     public function control_page()
     {
-        $data = get(['int' => ['c1', 'c2', 'c3', 'c4', 'c5', 'page']]);
-        $data = M('cate', 'im')->getlist($this->langid, $data['c1'], $data['c2'], $data['c3'], $data['c4'], $data['c5'], $data['page']);
+        $get = get(['int' => ['c1', 'c2', 'c3', 'c4', 'c5', 'page']]);
+        $data = M('cate', 'im')->getlist($this->langid, $get['c1'], $get['c2'], $get['c3'], $get['c4'], $get['c5'], $get['page']);
 
         if ($_POST) {
+
+
             Out::jout($data);
         } else {
-            $this->view(null, ['data' => $data]);
+            if (sizeof($data)) {
+                $get['page'] = $get['page'] + 1;
+                $nextpage = geturl($get);
+                $get['page'] = $get['page'] - 2;
+                $prepage = geturl($get);
+            }
+            $this->view(null, ['data' => $data,'prepage'=>$prepage,'nextpage'=>$nextpage]);
         }
     }
     public function control_lable()
