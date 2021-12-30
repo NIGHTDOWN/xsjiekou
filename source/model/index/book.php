@@ -552,8 +552,8 @@ LnUG4Z69pKZHtL6ljwIDAQAB
                 } else {
                     $tpsec = 'cartoon_section_' . $data['lang'];
                 }
-                $new_section = T($tpsec)->where($w)->set_field('title,cart_section_id as section_id,list_order')->order_by(['s' => 'down', 'f' => 'cart_section_id'])->get_one();
-                $seclist = T($tpsec)->where($w)->set_field('title,cart_section_id as section_id,list_order')->order_by(['s' => 'up', 'f' => 'cart_section_id'])->get_all();
+                $new_section = T($tpsec)->where($w)->set_field('title,cart_section_id as section_id,list_order')->order_by(['s' => 'down', 'f' => 'list_order'])->get_one();
+                $seclist = T($tpsec)->where($w)->set_field('title,cart_section_id as section_id,list_order')->order_by(['s' => 'up', 'f' => 'list_order'])->get_all();
 
                 $update_section = $new_section['list_order'];
                 $data['update_section'] = $update_section;

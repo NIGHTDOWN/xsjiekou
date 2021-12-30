@@ -7,6 +7,7 @@ use ng169\cache\Rediscache;
 use ng169\control\indexbase;
 use ng169\lib\Log;
 use ng169\tool\Out;
+use ng169\Y;
 
 checktop();
 
@@ -20,13 +21,54 @@ class cartoon extends indexbase
 
     public function control_run()
     {
+        $type = 2;
         $get = get(['int' => ['bookid']]);
         if (!$get['bookid']) {
             Out::page404();
         }
-        $detail = M('book', 'im')->detail($get['bookid'], $this->get_userid());
+        $detail = M('book', 'im')->detail($get['bookid'], $this->get_userid(), $type);
+        //判断是否已经添加书架
 
-        $this->view(null, $detail);
+        if ($detail) {
+            $detail['inrack'] = M('rack', 'im')->in_rack($this->get_userid(), $type, $get['bookid']);
+            $detail['sahretag'] = implode(',', array_column($detail['data']['tags'], 'tag'));
+            // d($detail);
+            $detail['his'] = M('rack', 'im')->getbookhis($this->get_userid(), $type, $get['bookid']);
+            $tjcache = 'tjcache' . $get['bookid'] . $detail['data']['type'];
+            list($bool, $cache) = Y::$cache->get($tjcache);
+
+            if ($bool) {
+                if (sizeof($cache)) {
+                    $detail = array_merge($detail, $cache);
+                }
+            } else {
+                $similars = M('book', 'im')->getsimilar($get['bookid'], $detail['data']['type'], 6);
+
+                $author = M('book', 'im')->getsimilarauthor($get['bookid'], $detail['data']['type'], 3);
+
+                if (sizeof($similars)) {
+                    $detailtmp['similar'] = T('cartoon')->set_field('bpic,cartoon_id as book_id,' . $type . ' as type,other_name,lable,lang,`read`')->whereIn('cartoon_id', $similars)->get_all();
+                    foreach ($detailtmp['similar']  as $k => $book) {
+                        $detailtmp['similar'][$k]['tags'] =  M('cate', 'im')->getlable($book['lable'], $book['lang']);
+                    }
+                }
+                if (sizeof($author)) {
+                    $detailtmp['author'] = T('cartoon')->set_field('bpic,cartoon_id as book_id,' . $type . ' as type,other_name,lable,lang,`read`')->whereIn('cartoon_id', $author)->get_all();
+                    foreach ($detailtmp['author']  as $k => $book) {
+                        $detailtmp['author'][$k]['tags'] =  M('cate', 'im')->getlable($book['lable'], $book['lang']);
+                    }
+                }
+                if (sizeof($detailtmp)) {
+                    $detail = array_merge($detail, $detailtmp);
+                    Y::$cache->set($tjcache, $detailtmp, G_DAY * 2);
+                }
+            }
+
+
+            $this->view(null, $detail);
+        } else {
+            Out::page404();
+        }
     }
     public function control_new()
     {
