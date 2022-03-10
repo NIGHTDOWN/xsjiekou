@@ -64,31 +64,35 @@ class book extends Y
             $str = preg_replace('|(?<!<br />)\s*\n|', "<br />\n", $str); // optionally make line breaks
         return $str;
     }
-    // 用户阅读历史
-    public function user_read_history($users_id = '', $book_id = "", $cartoon_id = "")
+    // 用户阅读历史,书架记录，更新书籍阅读数量
+    public function user_read_history($users_id = '', $book_id = "", $cartoon_id = "", $sec_id = '')
     {
-        if (!$users_id) return false;
         $w = ['users_id' => $users_id];
         if ($book_id) {
             $w1['book_id'] = $book_id;
             $w['book_id'] = $book_id;
+            $w3['book_id'] = $book_id;
             $type = 1;
-            $book = T('book')->field('book_id,other_name,`desc`,bpic,writer_name,isfree,`read`')->where($w1)->get_one();
-            T('book')->update(['read' => $book['read'] + 1], $w1);
+            $book = T('book')->field('book_id,other_name,`desc`,bpic,writer_name,isfree,`lang`,section')->where($w1)->get_one();
+            T('book')->update('`read`=`read`+1', $w1);
         } elseif ($cartoon_id) {
             $w1 = ['cartoon_id' => $cartoon_id];
             $w['book_id'] = $cartoon_id;
+            $w3['cartoon_id'] = $cartoon_id;
             $type = 2;
-            $book = T('cartoon')->field('cartoon_id,other_name,`desc`,bpic,writer_name,isfree,`read`')->where($w1)->find();
-            T('cartoon')->update(['read' => $book['read'] + 1], $w1);
+            $book = T('cartoon')->field('cartoon_id,other_name,`desc`,bpic,writer_name,isfree,`lang`,section')->where($w1)->find();
+            T('cartoon')->update('`read`=`read`+1', $w1);
         }
         $w['type'] = $type;
+        if (!$users_id) return false;
+        if (!$sec_id) return false;
+        //添加历史记录
         $user_history = T('user_history')->set_field('watch_nums')->set_where($w)->get_one();
         if ($user_history) {
             //更新
             $insert['watch_time'] = time();
             $insert['watch_nums'] = $user_history['watch_nums'] + 1;
-            T('user_history')->update($insert, $w);
+            T('user_history')->update('watch_nums=`watch_nums`+1,watch_sec=' . $sec_id . ',watch_time=' . time(), $w);
         } else {
             //插入
             $data = [
@@ -98,6 +102,7 @@ class book extends Y
                 'bpic' => $book['bpic'],
                 'writer_name' => $book['writer_name'],
                 'watch_time' => time(),
+                'watch_sec' => $sec_id,
                 'watch_nums' => 1,
                 'isfree' => $book['isfree'],
                 'type' => $type,
@@ -105,51 +110,30 @@ class book extends Y
             ];
             T('user_history')->add($data);
         }
+        //更新书架记录
+        //判断是否书架
+        $groomdata = T('user_groom')->set_field('readpoinstion,booknumlast,readsec')->set_where($w)->find();
+        if ($groomdata) {
+            //统计当前章节总数
+            // T()
+            $tpsec = M('book', 'im')->gettpsec($type, $book['lang']);
+
+            $data = T($tpsec)->set_field('list_order')->set_where($w3)->order_by(['s' => 'down', 'f' => 'list_order'])->get_one();
+            //判断下章节跟记录里面的是否相同，不相同就更新
+            if ($data['list_order'] != $book['section']) {
+                $up['section'] = $data['list_order'];
+                if ($type == 1) {
+                    T('book')->update($up, $w3);
+                } else {
+                    T('cartoon')->update($up, $w3);
+                }
+            }
+
+            T('user_groom')->update(['readsec' => $sec_id, 'readpoinstion' => $data['list_order'], 'booknumlast' => $data['list_order'], 'readtime' => time()], $w);
+        }
         return;
 
 
-        // if ($book_id != "") {
-        //     $w2 = ['book_id' => $book_id];
-
-        //     $user_history = T('user_history')->set_where(array_merge($w, $w2))->get_one();
-
-        //     if ($user_history) {
-
-        //         //    d(T('user_history')->where($w)->where($w2)->update($watch));            
-        //         return (T('user_history')->update($watch, ['users_id' => $users_id, 'book_id' => $book_id]));
-        //     } else {
-
-        //         $bid = $book['book_id'];
-        //         $type = 1;
-        //     }
-        // } elseif ($cartoon_id != "") {
-        //     $w2 = ['book_id' => $cartoon_id];
-        //     $user_history = T('user_history')->set_where($w)->set_where($w2)->find();
-        //     if ($user_history) {
-        //         $watch['watch_time'] = time();
-        //         $watch['watch_nums'] = $user_history['watch_nums'] + 1;
-        //         return (T('user_history')->update($watch, ['users_id' => $users_id, 'book_id' => $book_id]));
-        //     } else {
-
-        //         $bid = $book['cartoon_id'];
-        //         $type = 2;
-        //         T('cartoon')->update(['read' => '`read`+1'], ['cartoon_id' => $book_id], 0);
-        //     }
-        // }
-
-        // $data = [
-        //     'book_id' => $bid,
-        //     'other_name' => $book['other_name'],
-        //     'desc' => $book['desc'],
-        //     'bpic' => $book['bpic'],
-        //     'writer_name' => $book['writer_name'],
-        //     'watch_time' => time(),
-        //     'isfree' => $book['isfree'],
-        //     'type' => $type,
-        //     'users_id' => $users_id,
-        // ];
-
-        // return (T('user_history')->add($data));
     }
     //修复小说字数
     public function fixbooknum($bookid)

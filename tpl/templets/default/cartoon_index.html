@@ -49,7 +49,7 @@
     <meta property="og:novel:update_time" content="<!--{$data.new_section_time|date_format:'%Y-%m-%d'}-->">
     <meta property="og:novel:latest_chapter_name" content="  <!--{$data.new_section_title}-->">
     <meta property="og:novel:latest_chapter_url"
-        content='<!--{url action="sec" args="id:$data.update_section,bookid:$data.book_id" }-->'>
+        content='<!--{url action="sec" args="id:$data.update_section,bookid:$data.cartoon_id" }-->'>
 
 
     <script src="<!--{$staticjs}-->/jquery.min.js"></script>
@@ -69,7 +69,7 @@
 
     <section class="view-port" style="background-color: rgb(255, 255, 255); ">
         <header class="view-header comic-detail-header">
-            <div id="js_top_nav" class="header-wrap header-wrap-normal" style=" "><i id="js_change_bg"
+            <div id="js_top_nav" class="header-wrap header-wrap-normal" ><i id="js_change_bg"
                     class="change-bg "></i>
                 <div class="header-left"><span class="header-icon js_go_back"><i class="ift-back white"></i> </span><a
                         class="header-icon" href="/" title="<!--{__ 首页}-->"><i class="ift-home white"></i></a></div>
@@ -209,7 +209,7 @@
                             <span class="update_time">
                                 <!--{$data.new_section_time|date_format:"%Y-%m-%d"}-->
                             </span>
-                            <a href='<!--{url action="sec" args="id:$data.update_section,bookid:$data.book_id" }-->'>
+                            <a href='<!--{url action="sec" args="id:$data.update_section,bookid:$data.cartoon_id" }-->'>
                                 <span class="last-chapter">
                                     <!--{$data.new_section_title}-->
                                 </span></a>
@@ -219,9 +219,9 @@
                 <div class="chapter-list" id="js_chapter_list">
                     <ul id="js_chapters" class="asc">
                         <!--{foreach $seclist as $sec}-->
-                        <li class="comic-chapter-item" data-index="<!--{$sec.list_order}-->"
+                        <li class="comic-chapter-item" data-index="<!--{$sec.section_id}-->"
                             data-chapterid="<!--{$sec.section_id}-->"><a class="comic-chapter-link"
-                                href='<!--{url action="sec" args="id:$sec.list_order,bookid:$data.book_id" }-->' title="
+                                href='<!--{url action="sec" args="id:$sec.section_id,bookid:$data.cartoon_id" }-->' title="
                                 <!--{$sec.title}-->">
                                 <!--{$sec.title}-->
                                 <!--{if $sec.isfree}-->
@@ -535,10 +535,10 @@
         var beforeClickedIndex = -1;
         var clickNum = 0; //点击同一颗星次数
         var pfstar = 5;
-        $bookid = "<!--{$data.book_id}-->";
+        $bookid = "<!--{$data.cartoon_id}-->";
         $type = "<!--{$data.type}-->";
         $(function () {
-            $securl = '<!--{url args="bookid:$data.book_id" action="sec"}-->';
+            $securl = '<!--{url args="bookid:$data.cartoon_id" action="sec"}-->';
             $('.startReadfather').click(function () {
                 $id = $(this).attr('readsec');
                 $gourl = $securl;

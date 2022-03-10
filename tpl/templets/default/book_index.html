@@ -219,9 +219,9 @@
                 <div class="chapter-list" id="js_chapter_list">
                     <ul id="js_chapters" class="asc">
                         <!--{foreach $seclist as $sec}-->
-                        <li class="comic-chapter-item" data-index="<!--{$sec.list_order}-->"
+                        <li class="comic-chapter-item" data-index="<!--{$sec.section_id}-->"
                             data-chapterid="<!--{$sec.section_id}-->"><a class="comic-chapter-link"
-                                href='<!--{url action="sec" args="id:$sec.list_order,bookid:$data.book_id" }-->' title="
+                                href='<!--{url action="sec" args="id:$sec.section_id,bookid:$data.book_id" }-->' title="
                                 <!--{$sec.title}-->">
                                 <!--{$sec.title}-->
                                 <!--{if $sec.isfree}-->

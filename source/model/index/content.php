@@ -1,36 +1,36 @@
 <?php
 
-namespace ng169\control\api;
+namespace ng169\model\index;
 
-use ng169\control\apibase;
-use ng169\tool\Out;
 use ng169\Y;
 
 checktop();
-class content extends apibase
+//统计埋点
+class content
 {
-    protected $noNeedLogin = ['*'];
-    public function control_get_cartoon()
+    public function cartoon($bid, $sid, $uid)
     {
-        M('version', 'im')->lockold($this->head['version']);
-        $cartoon = get(['int' => ['cartoon_id' => 1, 'cart_section_id' => 1]]);
-        $cartoon_id = $cartoon['cartoon_id'];
-        $cart_section_id = $cartoon['cart_section_id'];
-        M('census', 'im')->logcount($this->get_userid()); //安装统计
+        // $cartoon = get(['int' => ['cartoon_id' => 1, 'cart_section_id' => 1]]);
+        $cartoon_id = $bid;
+        $cart_section_id = &$sid;
+        M('census', 'im')->logcount($uid); //安装统计
         $lang = T('cartoon')->set_where(['cartoon_id' => $cartoon_id,])->set_field('lang')->get_one();
+        if (!$lang) return false;
         $tpsec = M('book', 'im')->gettpsec(2, $lang['lang']);
-        $tpsecc = M('book', 'im')->gettpseccontent(2, $lang['lang']);
-        $users_id = $this->uid;
+        if (!$sid) {
+            $first = T($tpsec)->set_field('cart_section_id as section_id')->set_where(['cartoon_id' => $bid, 'status' => 1])->order_by(['s' => 'up', 'f' => 'list_order'])->get_one();
+            $sid = $first['section_id'];
+        }
 
+        $tpsecc = M('book', 'im')->gettpseccontent(2, $lang['lang']);
+        $users_id = $uid;
         $where = [
             'cartoon_id' => $cartoon_id,
             'cart_section_id' => $cart_section_id,
         ];
-
-
         $index = 'ccontent_' . $cartoon_id . '_:' . $cart_section_id;
-
         $cache = Y::$cache->get($index);
+
         if ($cache[0]) {
             $arr = $cache[1];
             if (!$arr['next']) {
@@ -38,13 +38,12 @@ class content extends apibase
                 $arr['next'] = $up['section_id'] ? $up['section_id'] : '0';
             }
         } else {
-
-
-
             // M('census', 'im')->uprackreadtime($this->get_userid(), $cartoon_id, 1, $cart_section_id);
             $data = T($tpsec)->field('cart_section_id,title,cartoon_id,likes,collects,update_time,isfree,charge_coin,list_order')->where($where)->where(['status' => 1])->where(['isdelete' => 0])->find();
+
             if (!$data) {
-                Out::jerror('章节不存在', null, '102222');
+                return false;
+                // Out::jerror('章节不存在', null, '102222');
             }
             $content = T($tpsecc)->field('cart_sec_content,cart_sec_content_dsl,cart_sec_content_id')->where(['cart_section_id' => $data['cart_section_id']])->where(['isdelete' => 0])->find();
 
@@ -74,6 +73,7 @@ class content extends apibase
             $up = T($tpsec)->set_where(['cartoon_id' => $cartoon_id, 'isdelete' => 0, 'status' => 1])->set_where('list_order>' . $data['list_order'])->set_field('cart_section_id')->order_by(['f' => 'list_order', 's' => 'up'])->get_one();
             $arr['next'] = $up['cart_section_id'] ? $up['cart_section_id'] : '0';
             $arr['pre'] = $down['cart_section_id'] ? $down['cart_section_id'] : '0';
+
             Y::$cache->set($index, $arr);
         }
         $commonModel = M('book', 'im');
@@ -82,8 +82,8 @@ class content extends apibase
         if ($arr['isfree']) {
 
 
-            if ($this->get_userid()) {
-                $arr['ispay'] = T('expend')->set_field('users_id')->where(['users_id' => $this->get_userid(), 'expend_type' => 2, 'book_id' => $cartoon_id, 'section_id' => $cart_section_id])->get_one() ? 1 : 0;
+            if ($users_id) {
+                $arr['ispay'] = T('expend')->set_field('users_id')->where(['users_id' => $users_id, 'expend_type' => 2, 'book_id' => $cartoon_id, 'section_id' => $cart_section_id])->get_one() ? 1 : 0;
             }
             // d($arr['ispay']);
             if (!$arr['ispay']) {
@@ -99,14 +99,13 @@ class content extends apibase
                 }
             }
         }
-        $this->returnSuccess($arr);
+        return $arr;
+        // $this->returnSuccess($arr);
     }
-    public function control_get_book()
+    public function book($bid, $sid, $uid)
     {
-        M('version', 'im')->lockold($this->head['version']);
-        $get = get(['int' => ['book_id' => 1, 'section_id' => 1]]);
-        $book_id = $get['book_id'];
-        $section_id = $get['section_id'];
+        $book_id = $bid;
+        $section_id = &$sid;
         $index = 'bcontent_' . $book_id . '_:' . $section_id;
         $where = [
             'book_id' => $book_id,
@@ -114,23 +113,29 @@ class content extends apibase
         ];
         $lang = T('book')->set_where(['book_id' => $book_id,])->set_field('lang')->get_one();
         $tpsec = M('book', 'im')->gettpsec(1, $lang['lang']);
+        if (!$sid) {
+            $first = T($tpsec)->set_field('section_id')->set_where(['book_id' => $bid, 'status' => 1])->order_by(['s' => 'up', 'f' => 'list_order'])->get_one();
+            $sid = $first['section_id'];
+        }
         $tpsecc = M('book', 'im')->gettpseccontent(1, $lang['lang']);
         $cache = Y::$cache->get($index);
         if ($cache[0]) {
             $arr = $cache[1];
             if (!$arr['next']) {
-                $up = T($tpsec)->set_field('section_id')->set_where(['book_id' => $get['book_id'], 'isdelete' => 0, 'status' => 1])->set_where('list_order>' . $arr['list_order'])->set_field('section_id')->order_by(['f' => 'list_order', 's' => 'up'])->get_one();
+                $up = T($tpsec)->set_field('section_id')->set_where(['book_id' => $book_id, 'isdelete' => 0, 'status' => 1])->set_where('list_order>' . $arr['list_order'])->set_field('section_id')->order_by(['f' => 'list_order', 's' => 'up'])->get_one();
                 $arr['next'] = $up['section_id'] ? $up['section_id'] : '0';
             }
         } else {
             $data = T($tpsec)->field('section_id,title,book_id,update_time,isfree,secnum,list_order,coin')->where($where)->where(['status' => 1])->where(['isdelete' => 0])->find();
             if (!$data) {
-                Out::jerror('小说或章节不存在', null, '100154');
+                return false;
+                // Out::jerror('小说或章节不存在', null, '100154');
             }
             $content = T($tpsecc)->field('sec_content,sec_content_id')->where(['section_id' => $data['section_id']])->where(['isdelete' => 0])->find();
             // 引入aes加密
             if (!$content) {
-                Out::jerror('章节不存在或删除', null, '100153');
+                return false;
+                // Out::jerror('章节不存在或删除', null, '100153');
             }
             $coin = $data['coin'];
             $arr = $data;
@@ -141,10 +146,10 @@ class content extends apibase
 
             $arr['sec_content'] = M('book', 'im')->trimhtml($content['sec_content']);
 
-            $down = T($tpsec)->set_field('section_id')->set_where(['book_id' => $get['book_id'], 'isdelete' => 0, 'status' => 1])->set_where('list_order<' . $data['list_order'])->set_field('section_id')->order_by(['f' => 'list_order', 's' => 'down'])->get_one();
+            $down = T($tpsec)->set_field('section_id')->set_where(['book_id' => $book_id, 'isdelete' => 0, 'status' => 1])->set_where('list_order<' . $data['list_order'])->set_field('section_id')->order_by(['f' => 'list_order', 's' => 'down'])->get_one();
             $arr['pre'] = $down['section_id'] ? $down['section_id'] : '0';
             $arr['coin'] = $coin;
-            $up = T($tpsec)->set_field('section_id')->set_where(['book_id' => $get['book_id'], 'isdelete' => 0, 'status' => 1])->set_where('list_order>' . $data['list_order'])->set_field('section_id')->order_by(['f' => 'list_order', 's' => 'up'])->get_one();
+            $up = T($tpsec)->set_field('section_id')->set_where(['book_id' => $book_id, 'isdelete' => 0, 'status' => 1])->set_where('list_order>' . $data['list_order'])->set_field('section_id')->order_by(['f' => 'list_order', 's' => 'up'])->get_one();
             $arr['next'] = $up['section_id'] ? $up['section_id'] : '0';
             if (!$arr['coin'] <= 0  && $arr['isfree'] != 0) {
                 $arr['coin'] = M('coin', 'im')->bookcalculate($arr['secnum'], 0.6);
@@ -155,11 +160,11 @@ class content extends apibase
         //这些都是要实时更新的
         //缓存中下一章获取失败就试着从数据库在获取一次
         $commonModel = M('book', 'im');
-        $commonModel->user_read_history($this->get_userid(), $book_id, "",$get['section_id']);
-        M('bookcensus', 'im')->sceread($this->get_userid(), 1, $get['book_id'], $get['section_id']);
+        $commonModel->user_read_history($uid, $book_id, "", $section_id);
+        M('bookcensus', 'im')->sceread($uid, 1, $book_id, $section_id);
         if ($arr['isfree']) {
-            if ($this->get_userid()) {
-                $arr['ispay'] = T('expend')->set_field('users_id')->where(['users_id' => $this->get_userid(), 'expend_type' => 1, 'book_id' => $book_id, 'section_id' => $section_id])->get_one() ? 1 : 0;
+            if ($uid) {
+                $arr['ispay'] = T('expend')->set_field('users_id')->where(['users_id' => $uid, 'expend_type' => 1, 'book_id' => $book_id, 'section_id' => $section_id])->get_one() ? 1 : 0;
             }
 
             if (!$arr['coin'] <= 0 && $arr['isfree'] != 0) {
@@ -174,6 +179,6 @@ class content extends apibase
                 }
             }
         }
-        $this->returnSuccess($arr);
+        return ($arr);
     }
 }
