@@ -186,7 +186,7 @@ class book extends Y
                 $tpsec = 'section_' . $lang['lang'];
             }
         }
-        $data = T($tpsec)->field('section_id,title,book_id,isfree,secnum,update_time,coin,0 as ispay')->where($w)->order('list_order asc')->get_all();
+        $data = T($tpsec)->field('section_id,title,book_id,isfree,secnum,update_time,coin,0 as ispay,list_order')->where($w)->order('list_order asc')->get_all();
         foreach ($data as $key => $val) {
             if ($val['isfree'] == 1 || $val['isfree'] == 4) {
                 if (!$data[$key]['coin']) {
@@ -214,7 +214,7 @@ class book extends Y
                 $tpsec = 'cartoon_section_' . $lang['lang'];
             }
         }
-        $data = T($tpsec)->field('cart_section_id as section_id,title,cartoon_id as book_id,isfree,charge_coin,update_time,2 booktype,0 as ispay')->where($w)->order('list_order asc')->get_all();
+        $data = T($tpsec)->field('cart_section_id as section_id,title,cartoon_id as book_id,isfree,charge_coin,update_time,2 booktype,0 as ispay,list_order')->where($w)->order('list_order asc')->get_all();
 
         return $data;
     }

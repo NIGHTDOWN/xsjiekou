@@ -49,7 +49,7 @@
     <meta property="og:novel:update_time" content="<!--{$data.new_section_time|date_format:'%Y-%m-%d'}-->">
     <meta property="og:novel:latest_chapter_name" content="  <!--{$data.new_section_title}-->">
     <meta property="og:novel:latest_chapter_url"
-        content='<!--{url action="sec" args="id:$data.update_section,bookid:$data.cartoon_id" }-->'>
+        content='<!--{url action="sec" args="id:$data.new_section_id,bookid:$data.cartoon_id" }-->'>
 
 
     <script src="<!--{$staticjs}-->/jquery.min.js"></script>
@@ -208,7 +208,7 @@
                             <span class="update_time">
                                 <!--{$data.new_section_time|date_format:"%Y-%m-%d"}-->
                             </span>
-                            <a href='<!--{url action="sec" args="id:$data.update_section,bookid:$data.cartoon_id" }-->'>
+                            <a href='<!--{url action="sec" args="id:$data.new_section_id,bookid:$data.cartoon_id" }-->'>
                                 <span class="last-chapter">
                                     <!--{$data.new_section_title}-->
                                 </span></a>

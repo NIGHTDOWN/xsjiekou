@@ -1582,11 +1582,7 @@ function yAjax(ur, ar, $fun, $obj, $lock) {
 	yajaxobj = $obj;
 	_load_view_show();
 	ar = makePost(ar);
-	$async = $lock ? false : _ajax_asyn;
-
-
-
-
+	$async = $lock != undefined ? $lock : _ajax_asyn;
 	$.ajax({
 		url: ur,
 		type: "POST",
@@ -3469,6 +3465,66 @@ function delCookie(name) {
 	var cval = getCookie(name);
 	if (cval != null)
 		document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
+}
+function gettime() {
+	var timestamp = Date.parse(new Date()) / 1000;
+	timestamp = Math.round(timestamp);
+	return timestamp;
+}
+//获取本地缓存
+function getStorage($name) {
+	if (window.localStorage) {
+		$data = localStorage.getItem($name);
+		$data = jta($data);
+		if (!$data) return false;
+		$time = gettime();
+		$reptime = $data['time'];
+		if ($time > $reptime && $reptime != 0) {
+			localStorage.removeItem($name);
+			return false;
+		}
+		return $data['data'];
+		// alert('This browser supports localStorage');
+	} else {
+		return false;
+		// alert('This browser does NOT support');
+	}
+
+}
+/**
+ * 保存本地缓存
+ * @param {string} $name  键名
+ * @param {object} $val 	键值
+ * @param {int} $exptime 	有效时间/秒
+ */
+function setStorage($name, $val, $exptime = 0) {
+	if (window.localStorage) {
+
+		if ($exptime == 0) {
+			$time = 0;
+		} else {
+			$tie = gettime();
+			$time = $tie + $exptime;
+		}
+		$data = { 'data': $val, 'time': $time };
+		$data = atj($data);
+		$data = localStorage.setItem($name,$data);
+		return $data;
+		// $data = jta($data);
+		// if (!$data) return false;
+		// $time = gettime();
+		// $reptime = $data['time'];
+		// if ($time > $reptime) {
+		// 	localstorage.removeItem($name);
+		// 	return false;
+		// }
+		// return $data['data'];
+		// alert('This browser supports localStorage');
+	} else {
+		return false;
+		// alert('This browser does NOT support');
+	}
+
 }
 var yip, ypost, yaction, ydata, tcallback, ws;
 function reconnect() {

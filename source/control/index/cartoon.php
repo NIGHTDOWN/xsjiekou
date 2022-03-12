@@ -114,22 +114,30 @@ class cartoon extends indexbase
     }
     public function control_sec()
     {
-        $get = get(['int' => ['id', 'bookid', 'ajax']]);
+        $get = get(['int' => ['id',  'bookid', 'ajax']]);
+        // if ($get['ids']) {
 
+        // }
         $data = M('content', 'im')->cartoon($get['bookid'], $get['id'], $this->get_userid());
         // d($data,1);
         //获取登入状态
         //获取解锁状态
         //记录阅读指针
-       
+
         if ($get['ajax']) {
             Out::jout($data);
         } else {
             if (!$data) {
                 Out::page404();
             }
-            $data['size']=sizeof($data['images']);
+            $data['size'] = sizeof($data['images']);
             $this->view('', ['data' => $data]);
         }
+    }
+    public function control_get_section()
+    {
+        $book_id = get(['string' => ['bookid' => 1]]);
+        $data = M('content', 'im')->cart_section($this->get_userid(), $book_id['bookid']);
+        Out::jout($data);
     }
 }

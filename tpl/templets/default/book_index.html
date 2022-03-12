@@ -49,7 +49,7 @@
     <meta property="og:novel:update_time" content="<!--{$data.new_section_time|date_format:'%Y-%m-%d'}-->">
     <meta property="og:novel:latest_chapter_name" content="  <!--{$data.new_section_title}-->">
     <meta property="og:novel:latest_chapter_url"
-        content='<!--{url action="sec" args="id:$data.update_section,bookid:$data.book_id" }-->'>
+        content='<!--{url action="sec" args="id:$data.new_section_id,bookid:$data.book_id" }-->'>
 
 
     <script src="<!--{$staticjs}-->/jquery.min.js"></script>
@@ -209,7 +209,7 @@
                             <span class="update_time">
                                 <!--{$data.new_section_time|date_format:"%Y-%m-%d"}-->
                             </span>
-                            <a href='<!--{url action="sec" args="id:$data.update_section,bookid:$data.book_id" }-->'>
+                            <a href='<!--{url action="sec" args="id:$data.new_section_id,bookid:$data.book_id" }-->'>
                                 <span class="last-chapter">
                                     <!--{$data.new_section_title}-->
                                 </span></a>
@@ -537,15 +537,43 @@
         var pfstar = 5;
         $bookid = "<!--{$data.book_id}-->";
         $type = "<!--{$data.type}-->";
+        $sid = 0;
+        $pg = 0;
+        //初始话阅读指针，先判断缓存，无缓存就从接口取然后更新缓存
+        function initreadpoint() {
+            $index = 'pageindex' + $bookid + '_' + $type;
+            $index = getCookie($index);
+            if ($index) {
+                arr = $index.split('.');
+                $sid = arr[0];
+                $pg = arr[1];
+                //取缓存指针
+            } else {
+                //取远程指针
+                //更新缓存
+                $url = "<!--{url action='readpoint' mod='rack' args=''}-->";
+                $groom = '<!--{$inrack}-->';
+                $data = {
+                    'bookid': $bookid,
+                    'type': $type,
+                    'groom': $groom
+                };
+                yAjax($url, $data, function (data) {
+                    $ret = data.result;
+                    // d($ret);
+                    if ($ret) {
+                        $sid = $ret;
+                        setCookie($index, $sid + '.' + $pg);
+                    }
+                });
+            }
+
+        }
         $(function () {
+            initreadpoint();
             $securl = '<!--{url args="bookid:$data.book_id" action="sec"}-->';
             $('.startReadfather').click(function () {
-                $id = $(this).attr('readsec');
-                $gourl = $securl;
-                if ($id) {
-                    // d($id);
-                    $gourl = $securl + "?id=" + $id;
-                }
+                $gourl = $securl + "?id=" + $sid + "&page=" + $pg;
 
                 _go_url($gourl);
             });

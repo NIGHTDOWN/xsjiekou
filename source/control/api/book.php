@@ -123,73 +123,7 @@ class book extends apibase
     public function control_get_section()
     {
         $book_id = get(['string' => ['book_id' => 1]]);
-        if (!($this->uid)) {
-            $users_id = false;
-        } else {
-            $users_id = $this->uid;
-        }
-        $w = $book_id;
-        $money = T('book')->field('money,section,lang')->where($book_id)->find();
-        $index = 'bseclist_:' . $book_id['book_id'];
-        //取最新一条
-        //判断 是否相等，相等就取缓存，不相等就取数据库的
-        $w['isdelete'] = 0;
-        $w['status'] = 1;
-        if ($money['lang'] == 0) {
-            $tpsec = 'section';
-        } else {
-            $tpsec = 'section_' . $money['lang'];
-        }
-        $now = T($tpsec)->set_field('list_order')->where($w)->order('list_order desc')->get_one();
-        if ($now['list_order'] != $money['section']) {
-            $data = M('book', 'im')->getsectionlist($w['book_id'], $money['money']);
-            T('book')->update(['section' => $now['list_order']], $book_id);
-            Y::$cache->set($index, $data, 46000);
-        } else {
-            $cache = Y::$cache->get($index);
-            if ($cache[0]) {
-                $data = $cache[1];
-            } else {
-                $data = M('book', 'im')->getsectionlist($w['book_id'], $money['money']);
-                Y::$cache->set($index, $data, 46000);
-            }
-        }
-
-
-        $expend_ispay_arr = [];
-        if ($users_id) {
-            // $isvip = M('user', 'im')->checkvip($this->uid);
-            // if ($isvip) {
-            //     foreach ($data as $key => $val) {
-            //         $data[$key]['isfree'] = 0;
-            //         $data[$key]['update_time'] = strtotime($val['update_time']);
-            //     }
-            //     $this->returnSuccess($data);
-            // }
-            //有用户id才取消耗表
-            // $sec_ids = implode(',', array_column($data, 'section_id'));
-            //$sec_ids = array_column($data, 'section_id');
-            $expend_list = T('expend')->field('ispay,section_id')->where(['users_id' => $users_id, 'book_id' => $book_id, 'expend_type' => 1])
-                ->get_all();
-            $expend_ispay_arr = array_column($expend_list, 'ispay', 'section_id');
-
-
-            foreach ($data as $key => $val) {
-                if ($val['isfree'] == 1) {
-                    if (isset($expend_ispay_arr[$val['section_id']])) {
-                        $data[$key]['ispay'] = $expend_ispay_arr[$val['section_id']];
-                    }
-                } elseif ($val['isfree'] == 4) {
-                    $data[$key]['isadvert'] = 1;
-                    if (isset($expend_ispay_arr[$val['section_id']])) {
-                        $data[$key]['ispay'] = $expend_ispay_arr[$val['section_id']];
-                    }
-                }
-                // $data[$key]['update_time'] = strtotime($val['update_time']);
-            }
-        }
-
-
+        $data = M('content', 'im')->book_section($this->get_userid(), $book_id['book_id']);
         $this->returnSuccess($data);
     }
     // 获取小说详情

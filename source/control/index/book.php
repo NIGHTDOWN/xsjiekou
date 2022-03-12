@@ -111,4 +111,10 @@ class book extends indexbase
             $this->view('book_end', ['data' => $data]);
         }
     }
+    public function control_get_section()
+    {
+        $book_id = get(['string' => ['bookid' => 1]]);
+        $data = M('content', 'im')->book_section($this->get_userid(), $book_id['bookid']);
+        Out::jout($data);
+    }
 }

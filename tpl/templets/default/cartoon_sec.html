@@ -64,6 +64,7 @@
     <link href="<!--{$indextpl}-->css/entry.index.53baaf.css" rel="stylesheet">
 
     <link href="<!--{$static}-->css/jsshare.css" rel="stylesheet">
+    <link href="<!--{$indextpl}-->css/barfont.css" rel="stylesheet">
 </head>
 
 <body style="font-size: 12px;">
@@ -84,29 +85,59 @@
                 <h1 id="js_headTitle" class="hd-title">
                     <!--{$data.title}-->
                 </h1>
-                <div class="hd-right"><a href="/" title="Home" class="icon-box tar"><span class="Home">首页</span></a>
-                    <span id="js_shareBtn" class="icon-box js_share"><i class="ift-read-share share-btn"></i></span>
+                <div class="hd-right">
+
+                    <a class="header-icon" href="/" title="<!--{__ 首页}-->"><i class="ift-home white"></i></a>
+
                 </div>
             </header>
             <footer id="js_footMenu" class="rd-ft show-page" style="display: none;">
 
 
                 <div class="ft-menu rd-flex rd-flex-around">
-                    <div id="js_ftMenuBtn" class="menu-block"><i class="icon ift-read-list"></i> <span
-                            class="name">目录</span></div>
-                    <div id="js_ftLightBtn" class="menu-block"><i class="icon ift-light"></i> <span
-                            class="name">上一页</span></div>
-                    <div id="js_ftBookmarkBtn" class="menu-block"><i class="icon ift-bookmark"></i> <span
-                            class="name">下一页</span></div>
+                    <div id="js_ftMenuBtn" class="menu-block"><i class="icon ifst-read-list"></i> <span class="name">
+                            <!--{__ 目录}-->
+                        </span></div>
+                    <div id="js_ftLightBtn" class="menu-block"><i class="icon ifst-pre"
+                            style="transform: rotate(180deg);"></i> <span class="name">
+                            <!--{__ 上一页}-->
+                        </span></div>
+                    <div id="js_ftBookmarkBtn" class="menu-block"><i class="icon ifst-auto-play"></i> <span
+                            class="name">
+                            <!--{__ 下一页}-->
+                        </span></div>
 
-                    <div id="js_ftAutoBtn" class="menu-block"><i class="icon stop ift-auto-play"></i> <i
-                            class="icon play ift-stop-play"></i> <i class="stop ift-stop"></i> <span
-                            class="name">评论</span></div>
-                    <div id="js_ftSettingBtn" class="menu-block"><i class="icon ift-setting"></i> <span
-                            class="name">分享</span></div>
+                    <div id="js_ftAutoBtn" class="menu-block"> <i class="stop ifst-nameEdit"></i> <span class="name">
+                            <!--{__ 评论}-->
+                        </span></div>
+                    <div id="js_ftSettingBtn" class="menu-block"><i class="icon ifst-read-share"></i> <span
+                            class="name">
+                            <!--{__ 分享}-->
+                        </span></div>
+
                 </div>
             </footer>
+            <div class="read-category-dialog" style="display: none;">
 
+                <div class="read-category-wrapper">
+                    <div class="read-category-head">
+                        <span class="comic-finish"><!--{$data.other_name}--></span>
+                        <span class="chapter-count">(<span class="num"></span>)</span>
+                        <div class="read-category-ctrls">
+                            <i class="icon ifst-caret-top active"></i>
+                            <i class="icon ifst-caret-bottom"></i>
+
+                        </div>
+                    </div>
+                    <div class="read-category-chapters ">
+                        <div class="chapter-item-wrap tmp" style="display: none;"><span class="chapter-item "></span>
+                            <div class="chapter-bought"><i class="ifst-lock"></i></div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="read-category-mask"></div>
+            </div>
 
             <!-- <div id="js_dmMenu" class="rd-dm-menu dm-menu-hide" style="right: 15px; bottom: 112px;">
                 <ul class="dm-menu">
@@ -209,6 +240,116 @@
 
 
     <style>
+        .read-category-dialog {
+            display: flex;
+            flex-direction: row;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 999;
+        }
+
+        .chapter-bought {
+            float: right;
+        }
+
+        .read-category-wrapper {
+            height: 100%;
+            width: 70%;
+            display: flex;
+            flex-flow: column;
+            align-items: stretch;
+            background-color: #fff;
+        }
+
+        .read-category-head {
+            position: relative;
+            width: 100%;
+            height: 1.28rem;
+            line-height: 1.28rem;
+            font-size: 0.5rem;
+            font-weight: bold;
+            text-indent: .32rem;
+            display: block;
+            flex-direction: row;
+
+        }
+
+        .read-category-ctrls {
+            /* flex: 1; */
+            display: flex;
+            flex-direction: column;
+            float: right;
+        }
+
+        .read-category-ctrls i {
+            font-size: 0.5rem;
+            width: 1rem;
+            height: 0.3rem;
+            font-weight: 100;
+        }
+
+        .read-category-chapters {
+
+            flex: 1 1 auto;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            flex-direction: column;
+            display: flex;
+        }
+
+        span.comic-finish {
+            float: left;
+        }
+
+        span.chapter-count {
+            float: left;
+        }
+
+        .read-category-chapters .chapter-item-wrap {
+            position: relative;
+            width: 100%;
+            padding: 0 .4rem;
+            height: 1.33333rem;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            cursor: pointer;
+            font-size: 0.4rem;
+            font-weight: 600;
+            padding: 0.3rem 0.4rem;
+            color: #28292d;
+        }
+
+        span.chapter-item {
+            flex: 1;
+        }
+
+        .read-category-ctrls .active {
+            color: #FF620E;
+        }
+
+        .chapter-item-wrap.active {
+            color: #FF620E;
+        }
+
+        .read-category-mask {
+            display: block;
+            height: 100%;
+            flex: 1;
+            background: #000;
+            opacity: 0.6;
+        }
+
+        .read-category-ctrls .gap-line {
+            display: inline-block;
+            width: .01333rem;
+            height: .26667rem;
+            margin: 0 .25333rem;
+            background: #ddd;
+        }
+
         .icon-user-blueticket,
         .icon-user-booklist,
         .icon-user-bookrack,
@@ -711,7 +852,7 @@
             right: 0;
             bottom: 0;
             display: none;
-            padding: .1333333333rem .48rem;
+            padding: .11333333333rem .48rem;
             color: #fff;
             background-color: rgba(0, 0, 0, .6);
             -webkit-animation: riseShow .36s ease-out;
@@ -2161,7 +2302,7 @@
 
         .rd-ft {
             background-color: rgba(0, 0, 0, .7);
-            padding: .2133333333rem .4266666667rem .32rem
+            padding: .1133333333rem .1266666667rem .22rem
         }
 
         .rd-ft * {
@@ -2568,7 +2709,9 @@
 
     <script>
         //初始化banner高度，宽高比。0.73
-
+        var pgurl = '<!--{url action="sec" args="bookid:{$data.cartoon_id}"}-->';
+        var cateurl = '<!--{url action="get_section" }-->';
+        var uid = "<!--{$user.id}-->";
         function fn() {
             $arr = $('.acgn-reader-chapter__item-box').find('.loading');
             $arr.removeClass('loading');
@@ -2591,10 +2734,82 @@
 
             return 1;
         }
+        function cate() {
+            $index = "cate." + uid + '.' + bookid + '.' + type;
+            $cate = getStorage($index);
+            if (!$cate) {
+                $cate = loadcate(1);
+                setStorage($index, $cate, 1800);
+            }
 
+            initcate($cate);
+            $('.read-category-dialog').show();
+            gocate();
+            //生成列表
+        }
+        function hidecate() {
+            $('.read-category-dialog').hide();
+        }
+        function gochapter($id) {
+            hidecate();
+            if ($id) {
+                $url = pgurl + "?id=" + $id;
+                _go_url($url);
+            }
+        }
+        function initcate($cate) {
+            $('.chapter-item-wrap.tmp').siblings().remove();
+            $ob = $('.chapter-item-wrap.tmp').clone().removeClass('tmp').show();
+            // $ob.css({ 'display': 'flex' });
+            $list = $('.read-category-chapters');
+
+            if ($cate) {
+                $num = $cate[$cate.length - 1]['list_order'];
+                $('.chapter-count').find('.num').text($num);
+
+                $.each($cate, function (i, v) {
+                    $tmp = $ob.clone();
+                    $tmp.find('.chapter-item').text(v.title);
+                    $tmp.attr('chapter-id', v.section_id);
+                    $tmp.attr('id', 'chapter' + v.section_id);
+                    if (v.isfree == 0) {
+                        $tmp.find('i').remove();
+                    } else {
+                        if (v.ispay == 1) {
+                            $tmp.find('i').addClass('ifst-unlock').removeClass('ifst-lock');
+                        } else {
+                            $tmp.find('i').removeClass('ifst-unlock').addClass('ifst-lock');
+                        }
+
+                    }
+                    $list.append($tmp);
+
+                });
+
+            }
+
+        }
+        //滚动到对应章节
+        function gocate() {
+
+            $t = $($('.acgn-reader-chapter__item-box').eq(nows));
+            $id = '#chapter' + $t.attr('chapter-id');
+            $('.chapter-item-wrap.active').removeClass('active');
+            $ob = $($id).addClass('active');
+            _go_url($id);
+        }
+        function savecate() {
+            $index = "cate." + uid + '.' + bookid + '.' + type;
+            $cate = getStorage($index);
+            if (!$cate) {
+                $cate = loadcate(0);
+                setStorage($index, $cate, 1800);
+            }
+        }
         $(function () {
 
             fn();
+            savecate();
             $('.acgn-reader-chapter__scroll-box').click(function (event) {
 
                 $y = event.clientY;
@@ -2626,8 +2841,62 @@
                         break;
                 }
             });
-            //
-            // gopage();
+            //目录按钮
+            $('#js_ftMenuBtn').on('click', function () {
+                menu();
+                //先加载目录
+                cate();
+
+            });
+            $('.read-category-ctrls').on('click', function () {
+
+                $child = $(this).find('.ifst-caret-top');
+                if ($child.hasClass('active')) {
+                    $child.removeClass('active').siblings().addClass('active');
+                    $('.read-category-chapters').css({ 'flex-direction': 'column-reverse' });
+                    //正序
+                } else {
+                    $child.addClass('active').siblings().removeClass('active');
+                    //倒叙
+                    $('.read-category-chapters').css({ 'flex-direction': 'column' });
+                }
+                gocate();
+            });
+            $('.read-category-mask').on('click', function () {
+
+                hidecate();
+
+            });
+            $('.chapter-item-wrap').live('click', function () {
+
+                gochapter($(this).attr('chapter-id'));
+
+            });
+            //上一页
+            $('#js_ftLightBtn').on('click', function () {
+                menu();
+                if (pre1 == 0) {
+                    showd('<!--{__ 已经是第一章了}-->');
+                    return false;
+                }
+                $url = pgurl + "?id=" + pre1;
+                _go_url($url);
+
+            });
+            //下一页
+            $('#js_ftBookmarkBtn').on('click', function () {
+                menu();
+                if (next1 == 0) {
+                    showd('<!--{__ 已经是最新一章了}-->');
+                    return false;
+                }
+                $url = pgurl + "?id=" + next1;
+                _go_url($url);
+            });
+            //评论
+            $('#js_ftAutoBtn').on('click', function () { menu(); });
+            //分享
+            $('#js_ftSettingBtn').on('click', function () { menu(); });
         });
         function menu() {
             $('#js_headMenu').toggle();
@@ -2648,6 +2917,7 @@
         }
         $(window).load(function () {
             gopage();
+
         });
         //滚动脚本
         function getQueryVariable(variable) {
@@ -2664,12 +2934,24 @@
 
         var secid = '<!--{$data.next}-->';
         var pre = '<!--{$data.pre}-->';
+        var pre1 = pre;
+        var next1 = secid;
         var bookid = '<!--{$data.cartoon_id}-->';
         var type = 2;
         var nows = 0;
         var showdload = false;
         DEBUG = true;
         var scrollTop, ks_area;
+        function loadcate($wait) {
+            $data = {
+                'bookid': bookid
+            };
+            var ret;
+            yAjax(cateurl, $data, (data) => {
+                ret = data.result;
+            }, '', !$wait);
+            return ret;
+        }
         function showloadbox2() {
 
             $('.bottom_download').slideUp();
@@ -2682,10 +2964,14 @@
             //判断是否显示，
             //显示
             $('.islast').show();
+            hideload();
         }
         function isfirst() { $('.isfirst').show().slideToggle(2000); }
         function isload() { $('.isload').show(); }
-        function hideload() { $('.isload').hide(); }
+        function hideload() {
+
+            $('.isload').hide();
+        }
         function loading() {
             if (showdload) return false;
             if (lock) return false;
@@ -2709,6 +2995,8 @@
                 if (data['code'] == 1) {
                     var ret = data['result'];
                     secid = ret['next'];
+                    next1 = ret['next'];
+                    pre1 = ret['pre'];
                     var imgs = '';
                     if (ret['images']) {
                         $.each(ret['images'], function (i, v) {
@@ -2744,6 +3032,8 @@
                 if (data['code'] == 1) {
                     var ret = data['result'];
                     pre = ret['pre'];
+                    pre1 = ret['pre'];
+                    next1 = ret['next'];
                     var imgs = '';
                     if (ret['images']) {
                         $.each(ret['images'], function (i, v) {
@@ -2849,8 +3139,8 @@
         }
         $(document).ready(function () {
             //fix底部
-
             inittime();
+            rmbpoint($('.acgn-reader-chapter__item-box').attr('chapter-id'), 1);
             $('.acgn-reader-chapter').scroll(function () {
                 scrollTop = $(this).scrollTop();
 

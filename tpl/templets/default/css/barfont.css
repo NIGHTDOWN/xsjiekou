@@ -1,0 +1,415 @@
+@font-face {
+    font-family: shenmanhua_m;
+    src: url(../font/shenmanhua_m.eot);
+    src: url(../font/shenmanhua_m.eot?6e8bc03f#iefix) format("embedded-opentype"),url(../font/shenmanhua_m.woff2?6e8bc03f) format("woff2"),url(../font/shenmanhua_m.woff?6e8bc03f) format("woff"),url(../font/shenmanhua_m.ttf?6e8bc03f) format("truetype"),url(../font/shenmanhua_m.svg?6e8bc03f#shenmanhua_m) format("svg");
+    font-weight: 400;
+    font-style: normal
+}
+
+[class*=" ifst"],[class^=ifst] {
+    font-family: shenmanhua_m!important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-style: normal
+}
+
+.ifst-add-btn:before {
+    content: ""
+}
+
+.ifst-add:before {
+    content: ""
+}
+
+.ifst-auto-play:before {
+    content: ""
+}
+.ifst-pre:before {
+    content: "";
+    
+}
+.ifst-back:before {
+    content: ""
+}
+
+.ifst-book:before {
+    content: ""
+}
+
+.ifst-booklist:before {
+    content: ""
+}
+
+.ifst-bookmark:before {
+    content: ""
+}
+
+.ifst-bookmore:before {
+    content: ""
+}
+
+.ifst-bookshare:before {
+    content: ""
+}
+
+.ifst-caret-bottom:before {
+    content: ""
+}
+
+.ifst-caret-top:before {
+    content: ""
+}
+
+.ifst-chapter-next:before {
+    content: ""
+}
+
+.ifst-chapter-prev:before {
+    content: ""
+}
+
+.ifst-check:before {
+    content: ""
+}
+
+.ifst-checked:before {
+    content: ""
+}
+
+.ifst-circle-jia:before {
+    content: ""
+}
+
+.ifst-circle-jian:before {
+    content: ""
+}
+
+.ifst-circle:before {
+    content: ""
+}
+
+.ifst-close:before {
+    content: ""
+}
+
+.ifst-closeCircle:before {
+    content: ""
+}
+
+.ifst-copy:before {
+    content: ""
+}
+
+.ifst-dashang:before {
+    content: ""
+}
+
+.ifst-del:before {
+    content: ""
+}
+
+.ifst-dkx:before {
+    content: ""
+}
+
+.ifst-down-db:before {
+    content: ""
+}
+
+.ifst-down:before {
+    content: ""
+}
+
+.ifst-drumstick:before {
+    content: ""
+}
+
+.ifst-edit:before {
+    content: ""
+}
+
+.ifst-eye-close:before {
+    content: ""
+}
+
+.ifst-eye-open:before {
+    content: ""
+}
+
+.ifst-eye-open2:before {
+    content: ""
+}
+
+.ifst-female:before {
+    content: ""
+}
+
+.ifst-fire:before {
+    content: ""
+}
+
+.ifst-friend:before {
+    content: ""
+}
+
+.ifst-heart-line:before {
+    content: ""
+}
+
+.ifst-heart:before {
+    content: ""
+}
+
+.ifst-home:before {
+    content: ""
+}
+
+.ifst-jiahao:before {
+    content: ""
+}
+
+.ifst-jian:before {
+    content: ""
+}
+
+.ifst-left:before {
+    content: ""
+}
+
+.ifst-light:before {
+    content: ""
+}
+
+.ifst-list:before {
+    content: ""
+}
+
+.ifst-liwu:before {
+    content: ""
+}
+
+.ifst-lock:before {
+    content: ""
+}
+
+.ifst-male:before {
+    content: ""
+}
+
+.ifst-manage:before {
+    content: ""
+}
+
+.ifst-menu:before {
+    content: ""
+}
+
+.ifst-moon:before {
+    content: ""
+}
+
+.ifst-multOpt:before {
+    content: ""
+}
+
+.ifst-nameEdit:before {
+    content: "";
+    font-size: 170%;
+}
+
+.ifst-nocheck:before {
+    content: ""
+}
+
+.ifst-order-asc:before {
+    content: ""
+}
+
+.ifst-order-desc:before {
+    content: ""
+}
+
+.ifst-qq:before {
+    content: ""
+}
+
+.ifst-qqzone:before {
+    content: ""
+}
+
+.ifst-question:before {
+    content: ""
+}
+
+.ifst-qzone:before {
+    content: ""
+}
+
+.ifst-rank-down:before {
+    content: ""
+}
+
+.ifst-rank-up:before {
+    content: ""
+}
+
+.ifst-read-list:before {
+    content: ""
+}
+
+.ifst-read-share:before {
+    content: "";
+    font-size: 90%;
+}
+
+.ifst-reload:before {
+    content: ""
+}
+
+.ifst-return-top:before {
+    content: ""
+}
+
+.ifst-right:before {
+    content: ""
+}
+
+.ifst-score:before {
+    content: ""
+}
+
+.ifst-scroll-verticle:before {
+    content: ""
+}
+
+.ifst-search:before {
+    content: ""
+}
+
+.ifst-setting-list:before {
+    content: ""
+}
+
+.ifst-setting-s:before {
+    content: ""
+}
+
+.ifst-setting:before {
+    content: ""
+}
+
+.ifst-shanchu:before {
+    content: ""
+}
+
+.ifst-share:before {
+    content: ""
+}
+
+.ifst-shoucang:before {
+    content: ""
+}
+
+.ifst-sina:before {
+    content: ""
+}
+
+.ifst-single-page:before {
+    content: ""
+}
+
+.ifst-star-line:before {
+    content: ""
+}
+
+.ifst-star:before {
+    content: ""
+}
+
+.ifst-steering:before {
+    content: ""
+}
+
+.ifst-stop-play:before {
+    content: ""
+}
+
+.ifst-stop:before {
+    content: ""
+}
+
+.ifst-subscribe:before {
+    content: ""
+}
+
+.ifst-sun:before {
+    content: ""
+}
+
+.ifst-support-line:before {
+    content: ""
+}
+
+.ifst-support:before {
+    content: ""
+}
+
+.ifst-swipe-left:before {
+    content: ""
+}
+
+.ifst-swipe-right:before {
+    content: ""
+}
+
+.ifst-tjx:before {
+    content: ""
+}
+
+.ifst-top:before {
+    content: ""
+}
+
+.ifst-tqq:before {
+    content: ""
+}
+
+.ifst-tuijianpiao:before {
+    content: ""
+}
+
+.ifst-unlock:before {
+    content: ""
+}
+
+.ifst-up-db:before {
+    content: ""
+}
+
+.ifst-user:before {
+    content: ""
+}
+
+.ifst-wechat:before {
+    content: ""
+}
+
+.ifst-ypx:before {
+    content: ""
+}
+
+.ifst-yuedu:before {
+    content: ""
+}
+
+.ifst-yuepiao:before {
+    content: ""
+}
+
+.ifst-zanshang:before {
+    content: ""
+}
+
+::-webkit-scrollbar {
+    display: none
+}
