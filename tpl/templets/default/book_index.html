@@ -225,7 +225,11 @@
                                 <!--{$sec.title}-->">
                                 <!--{$sec.title}-->
                                 <!--{if $sec.isfree}-->
+                                <!--{if $sec.ispay}-->
+                                <i class="ift-unlock js_lock"></i>
+                                <!--{else}-->
                                 <i class="ift-lock js_lock"></i>
+                                <!--{/if}-->
                                 <!--{/if}-->
                             </a>
                         </li>
@@ -444,6 +448,13 @@
             align-items: center;
         }
 
+        i.js_lock {
+            float: right;
+            margin-right: 0.3rem;
+        }
+        i.ift-unlock.js_lock {
+    color: #fc6976;
+}
         .pfstars li {
             display: inline-block;
             color: #ffce06;
