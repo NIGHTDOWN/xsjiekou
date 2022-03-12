@@ -6,10 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="renderer" content="webkit">
     <title>
-        <!--{$data.other_name}-->
+        <!--{$data.title}--> -
+        <!--{$data.other_name}--> -
         <!--{__ LoveNovel}-->
     </title>
-    <meta name="keywords" content="<!--{$data.other_name}--> <!--{__ 多语言免费、流行、浪漫、小说,漫画阅读器.}-->">
+    <meta name="keywords" content="<!--{$data.other_name}--> <!--{$data.title}--> <!--{__ 多语言免费、流行、浪漫、小说,漫画阅读器.}-->">
     <meta name="description" itemprop="description" content=" <!--{$data.desc}--> <!--{__ LoveNovel}-->">
 
     <meta http-equiv="Cache-Control" content="no-siteapp">
@@ -75,7 +76,7 @@
                 </span>&nbsp;
                 <span id="js_staticPage">1/
                     <!--{$data.size}-->
-                </span>&nbsp; <span id="js_staticTime">22:10</span>&nbsp;
+                </span>&nbsp; <span id="js_staticTime"></span>&nbsp;
             </section>
             <header id="js_headMenu" class="rd-hd header-show" style="display: none;">
                 <a href='<!--{url action="" mod="cartoon" args="bookid:{$data.cartoon_id}"}-->' class="hd-left"><i
@@ -88,25 +89,8 @@
                 </div>
             </header>
             <footer id="js_footMenu" class="rd-ft show-page" style="display: none;">
-                <div id="js_ftPageRow" class="ft-page rd-flex">
-                    <div id="js_pagePrevBtn" class="page-prev disabled"><i class="ift-chapter-prev"></i></div>
-                    <div id="js_pageInfoText" class="page-info">1/31</div>
-                    <div class="page-row flex">
-                        <div id="js_pageProgress" class="rd-progress">
-                            <div class="rd-progress-cursor" style="left: 0%;"><i class="cursor"></i></div>
-                        </div>
-                    </div>
-                    <div id="js_pageNextBtn" class="page-next"><i class="ift-chapter-next"></i></div>
-                </div>
-                <div class="ft-speed rd-flex">
-                    <div id="js_speedPrevBtn" class="speed-reduce"><i class="ift-circle-jian"></i></div>
-                    <div class="speed-row flex">
-                        <div id="js_speedProgress" class="rd-progress">
-                            <div class="rd-progress-cursor" style="left: 1%;"><i class="cursor"></i></div>
-                        </div>
-                    </div>
-                    <div id="js_speedNextBtn" class="speed-add"><i class="ift-circle-jia"></i></div>
-                </div>
+
+
                 <div class="ft-menu rd-flex rd-flex-around">
                     <div id="js_ftMenuBtn" class="menu-block"><i class="icon ift-read-list"></i> <span
                             class="name">目录</span></div>
@@ -258,10 +242,11 @@
         }
 
         .islast,
-        isfirst,
+        .isfirst,
         .isload {
             width: 100%;
             height: 1rem;
+            line-height: 1rem;
             background: #fff;
             color: #000;
             font-size: 0.4rem;
@@ -2633,8 +2618,7 @@
                         break;
                     case 2:
                         //弹出菜单
-                        $('#js_headMenu').toggle();
-                        $('#js_footMenu').toggle();
+                        menu();
                         break;
                     case 3:
                         //向下滚动
@@ -2642,20 +2626,47 @@
                         break;
                 }
             });
-
-
+            //
+            // gopage();
         });
+        function menu() {
+            $('#js_headMenu').toggle();
+            $('#js_footMenu').toggle();
+        }
+        //定位到上次阅读位置
+        function gopage() {
+            $pg = getQueryVariable('page');
+            if (!$pg) return false;
+            $ob = $('.acgn-reader-chapter__item-box');
+            $pagenum = $ob.children().length;
+            $tpagesize = $ob.height();
+            //本章单张图片平均尺寸
+            $prepagesize = $tpagesize / $pagenum;
+            $(".acgn-reader-chapter").scrollTop($pg * $prepagesize);
+            $('#js_staticPage').text($pg + '/' + $pagenum);
 
-
+        }
+        $(window).load(function () {
+            gopage();
+        });
         //滚动脚本
-
+        function getQueryVariable(variable) {
+            var query = window.location.search.substring(1);
+            var vars = query.split("&");
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split("=");
+                if (pair[0] == variable) { return pair[1]; }
+            }
+            return (false);
+        }
         var nScrollHight = 0;
         var lock = false;
 
         var secid = '<!--{$data.next}-->';
         var pre = '<!--{$data.pre}-->';
         var bookid = '<!--{$data.cartoon_id}-->';
-        var type = 1;
+        var type = 2;
+        var nows = 0;
         var showdload = false;
         DEBUG = true;
         var scrollTop, ks_area;
@@ -2672,7 +2683,7 @@
             //显示
             $('.islast').show();
         }
-        function isfirst() { $('.isfirst').show(); }
+        function isfirst() { $('.isfirst').show().slideToggle(2000); }
         function isload() { $('.isload').show(); }
         function hideload() { $('.isload').hide(); }
         function loading() {
@@ -2701,20 +2712,13 @@
                     var imgs = '';
                     if (ret['images']) {
                         $.each(ret['images'], function (i, v) {
-
-
                             imgs += ' <div style="width:auto" class="acgn-reader-chapter__item loading" chapter-index="1" chapter-name="' + ret['title'] + '" dataurl="' + v.url + '"><div class="acgn-reader-chapter__loading-tip">' + i + '</div> </div>'
-
                         });
                     }
-
-                    // var html = "<p>" + ret['title'] + "</p>" + ret['sec_content'];
-                    var html = "<div class='acgn-reader-chapter__item-box' id='mid" + ret['list_order'] + "' chapter-name='" + ret['title'] + "'>" + imgs + "</div>";
+                    var html = "<div chapter-id='" + ret['cart_section_id'] + "' class='acgn-reader-chapter__item-box' id='mid" + ret['list_order'] + "' chapter-name='" + ret['title'] + "'>" + imgs + "</div>";
                     $('.acgn-reader-chapter__scroll-box').append(html);
-
                     fn();
                 } else {
-
                     showdload = true;
                 }
             });
@@ -2727,7 +2731,6 @@
                 if (scrollTop + ks_area >= nScrollHight) {
                     isfirst();
                 }
-
                 return false;
             }
             lock = true;
@@ -2744,73 +2747,110 @@
                     var imgs = '';
                     if (ret['images']) {
                         $.each(ret['images'], function (i, v) {
-
-
                             imgs += ' <div style="width:auto" class="acgn-reader-chapter__item loading" chapter-index="1"  dataurl="' + v.url + '"><div class="acgn-reader-chapter__loading-tip">' + i + '</div> </div>'
-
                         });
                     }
 
-                    // var html = "<p>" + ret['title'] + "</p>" + ret['sec_content'];
-                    var html = "<div class='acgn-reader-chapter__item-box' id='mid" + ret['list_order'] + "' chapter-name='" + ret['title'] + "'>" + imgs + "</div>";
-
+                    var html = "<div chapter-id='" + ret['cart_section_id'] + "'  class='acgn-reader-chapter__item-box hide' id='mid" + ret['list_order'] + "' chapter-name='" + ret['title'] + "'>" + imgs + "</div>";
                     $id = '#' + $('.acgn-reader-chapter__item-box').eq(0).attr('id');
-                    // d($id);
-
                     $('.acgn-reader-chapter__scroll-box').prepend(html);
                     fn();
                     setTimeout(($id) => {
-
+                        $('.acgn-reader-chapter__item-box.hide').removeClass('hide');
                         _go_url($id);
                         $(".acgn-reader-chapter").animate({ 'scrollTop': "-=" + 200 + "px" }, 300);
-                    }, 500, $id);
-
+                    }, 300, $id);
                 } else {
                     showdload = true;
                 }
             });
         }
         var titlelock = false;
+        var lastpointy = 0;
         function settitle() {
             if (titlelock) return false;
             titlelock = true;
             setTimeout(() => {
-                $all = $('.acgn-reader-chapter__item-box');
-                $top = $('#reader-scroll').scrollTop();
-                $allh = 0, $n = 0;
-                $.each($all, function (i, v) {
-                    $n = i;
-                    $allh += v.offsetHeight;
+                Yscroll();
+            }, 500);
+        }
+        function Yscroll() {
+            $top = $('#reader-scroll').scrollTop();
+            if (!lastpointy) {
+                lastpointy = $top;
+                titlelock = false;
+                return 1;
+            }
+            // if (lastpointy > $top) {
+            //     $fx = -1;
+            // } else {
+            //     $fx = 1;
+            // }
+            // $cz = Math.abs(lastpointy - $top);
 
-                    if ($top < $allh) {
-                        //说明在￥n这个区块
-                        // d($all.eq($n));
-                        $ob = $($all.eq($n));
-                        d(($n));
-                        $name = $ob.attr('chapter-name');
-                        $('#js_headTitle').text($name);
-                        $('#js_staticChapter').text($name);
-                        $('#js_staticPage').text('1/' + $ob.children().length);
-                        titlelock = false;
-                        return;
-                    }
-                });
-            }, 2000);
+            $all = $('.acgn-reader-chapter__item-box');
+            lastpointy = $top;
+            $allh = 0, $n = 0, $last = 0;
+            //向下滚动
 
+            $.each($all, function (i, v) {
+                $n = i;
+                $last = $allh;
+                $allh += v.offsetHeight;
+
+                if ($top < $allh && $top >= $last) {
+                    nows = $n;
+                    // d($n);
+                    //说明在￥n这个区块
+                    // d($all.eq($n));
+                    $ob = $($all.eq($n));
+                    // d(($n));
+                    $name = $ob.attr('chapter-name');
+                    $('#js_headTitle').text($name);
+                    $('#js_staticChapter').text($name);
+                    $('title').text($name);
+                    //计算页面
+                    $pg = getpage($ob);
+
+                    $('#js_staticPage').text($pg + '/' + $pagenum);
+
+                    inittime();
+                    titlelock = false;
+                    rmbpoint($ob.attr('chapter-id'), $pg);
+                    return;
+                }
+            });
 
         }
-
+        function inittime() {
+            var myDate = new Date();
+            // myDate.getHours();       //获取当前小时数(0-23)
+            // myDate.getMinutes();     //获取当前分钟数(0-59)
+            $('#js_staticTime').text(myDate.getHours() + ':' + myDate.getMinutes());
+        }
+        function getpage($ob) {
+            $pagenum = $ob.children().length;
+            $tpagesize = $ob.height();
+            //本章单张图片平均尺寸
+            $prepagesize = $tpagesize / $pagenum;
+            $y1 = $ob.offset().top;
+            // $y2 = $top;
+            $pg = Math.round(Math.abs($y1) / $prepagesize);
+            if ($pg == 0) {
+                $pg = 1;
+            }
+            return $pg;
+        }
+        //阅读记录保存
+        function rmbpoint($sid, $pg) {
+            $index = 'pageindex' + bookid + '_' + type;
+            // d($sid + ',' + $pg);
+            setCookie($index, $sid + '.' + $pg);
+        }
         $(document).ready(function () {
             //fix底部
-            // $h = $('.bottom_download').height();
-            // $('.mask').css({
-            //     top: $(window).height() + 100,
-            //     display: 'flex'
-            // });
-            // $('.content').css({
-            //     'padding-bottom': $h * 1.8
-            // });
-            // jsuan();
+
+            inittime();
             $('.acgn-reader-chapter').scroll(function () {
                 scrollTop = $(this).scrollTop();
 
@@ -2820,20 +2860,11 @@
 
                 nScrollHight = $('body')[0].scrollHeight;
                 $h = $('.acgn-reader-chapter__scroll-box').innerHeight();
-
                 settitle();
-                // if (scrollTop + ks_area >= (nScrollHight - 1 * $(window).height())) {
-                //     loading();
-                // }
 
                 if (scrollTop > ($h - nScrollHight * 1.5)) {
                     loading();
                 }
-
-                // if (scrollTop + ks_area >= nScrollHight) {
-                //     loading();
-                //     showloadbox();
-                // }
 
                 if ($(this).scrollTop() == 0) {
                     loadpre();

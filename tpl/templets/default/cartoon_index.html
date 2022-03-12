@@ -69,8 +69,7 @@
 
     <section class="view-port" style="background-color: rgb(255, 255, 255); ">
         <header class="view-header comic-detail-header">
-            <div id="js_top_nav" class="header-wrap header-wrap-normal" ><i id="js_change_bg"
-                    class="change-bg "></i>
+            <div id="js_top_nav" class="header-wrap header-wrap-normal"><i id="js_change_bg" class="change-bg "></i>
                 <div class="header-left"><span class="header-icon js_go_back"><i class="ift-back white"></i> </span><a
                         class="header-icon" href="/" title="<!--{__ 首页}-->"><i class="ift-home white"></i></a></div>
                 <div class="header-center top-title js_top_title" style="visibility: visible;">
@@ -221,7 +220,8 @@
                         <!--{foreach $seclist as $sec}-->
                         <li class="comic-chapter-item" data-index="<!--{$sec.section_id}-->"
                             data-chapterid="<!--{$sec.section_id}-->"><a class="comic-chapter-link"
-                                href='<!--{url action="sec" args="id:$sec.section_id,bookid:$data.cartoon_id" }-->' title="
+                                href='<!--{url action="sec" args="id:$sec.section_id,bookid:$data.cartoon_id" }-->'
+                                title="
                                 <!--{$sec.title}-->">
                                 <!--{$sec.title}-->
                                 <!--{if $sec.isfree}-->
@@ -536,17 +536,45 @@
         var clickNum = 0; //点击同一颗星次数
         var pfstar = 5;
         $bookid = "<!--{$data.cartoon_id}-->";
-        $type = "<!--{$data.type}-->";
+        $type = "2";
+
+        $sid = 0;
+        $pg = 0;
+        //初始话阅读指针，先判断缓存，无缓存就从接口取然后更新缓存
+        function initreadpoint() {
+            $index = 'pageindex' + $bookid + '_' + $type;
+            $index = getCookie($index);
+            if ($index) {
+                arr = $index.split('.');
+                $sid = arr[0];
+                $pg = arr[1];
+                //取缓存指针
+            } else {
+                //取远程指针
+                //更新缓存
+                $url = "<!--{url action='readpoint' mod='rack' args=''}-->";
+                $groom = '<!--{$inrack}-->';
+                $data = {
+                    'bookid': $bookid,
+                    'type': $type,
+                    'groom': $groom
+                };
+                yAjax($url, $data, function (data) {
+                    $ret = data.result;
+                    // d($ret);
+                    if ($ret) {
+                        $sid = $ret;
+                        setCookie($index, $sid + '.' + $pg);
+                    }
+                });
+            }
+
+        }
         $(function () {
+            initreadpoint();
             $securl = '<!--{url args="bookid:$data.cartoon_id" action="sec"}-->';
             $('.startReadfather').click(function () {
-                $id = $(this).attr('readsec');
-                $gourl = $securl;
-                if ($id) {
-                    // d($id);
-                    $gourl = $securl + "?id=" + $id;
-                }
-
+                $gourl = $securl + "?id=" + $sid + "&page=" + $pg;
                 _go_url($gourl);
             });
             initshare('<!--{__ 分享}-->', '', $('.js_share'));

@@ -14,7 +14,7 @@ class content
         $cartoon_id = $bid;
         $cart_section_id = &$sid;
         M('census', 'im')->logcount($uid); //安装统计
-        $lang = T('cartoon')->set_where(['cartoon_id' => $cartoon_id,])->set_field('lang')->get_one();
+        $lang = T('cartoon')->set_where(['cartoon_id' => $cartoon_id,])->set_field('lang,other_name')->get_one();
         if (!$lang) return false;
         $tpsec = M('book', 'im')->gettpsec(2, $lang['lang']);
         if (!$sid) {
@@ -56,6 +56,7 @@ class content
             $arr = array(
                 'cart_section_id' => $data['cart_section_id'],
                 'title' => $data['title'],
+                'other_name' => $lang['other_name'],
                 'cartoon_id' => $data['cartoon_id'],
                 'hits' => $data['likes'],
                 'coin' => $data['charge_coin'],
@@ -74,7 +75,7 @@ class content
             $arr['next'] = $up['cart_section_id'] ? $up['cart_section_id'] : '0';
             $arr['pre'] = $down['cart_section_id'] ? $down['cart_section_id'] : '0';
 
-            Y::$cache->set($index, $arr);
+            Y::$cache->set($index, $arr, 7200);
         }
         $commonModel = M('book', 'im');
         $commonModel->user_read_history($users_id, "", $cartoon_id, $cart_section_id);
@@ -111,7 +112,7 @@ class content
             'book_id' => $book_id,
             'section_id' => $section_id,
         ];
-        $lang = T('book')->set_where(['book_id' => $book_id,])->set_field('lang')->get_one();
+        $lang = T('book')->set_where(['book_id' => $book_id,])->set_field('lang,other_name')->get_one();
         $tpsec = M('book', 'im')->gettpsec(1, $lang['lang']);
         if (!$sid) {
             $first = T($tpsec)->set_field('section_id')->set_where(['book_id' => $bid, 'status' => 1])->order_by(['s' => 'up', 'f' => 'list_order'])->get_one();
@@ -149,13 +150,14 @@ class content
             $down = T($tpsec)->set_field('section_id')->set_where(['book_id' => $book_id, 'isdelete' => 0, 'status' => 1])->set_where('list_order<' . $data['list_order'])->set_field('section_id')->order_by(['f' => 'list_order', 's' => 'down'])->get_one();
             $arr['pre'] = $down['section_id'] ? $down['section_id'] : '0';
             $arr['coin'] = $coin;
+            $arr['other_name'] = $lang['other_name'];
             $up = T($tpsec)->set_field('section_id')->set_where(['book_id' => $book_id, 'isdelete' => 0, 'status' => 1])->set_where('list_order>' . $data['list_order'])->set_field('section_id')->order_by(['f' => 'list_order', 's' => 'up'])->get_one();
             $arr['next'] = $up['section_id'] ? $up['section_id'] : '0';
             if (!$arr['coin'] <= 0  && $arr['isfree'] != 0) {
                 $arr['coin'] = M('coin', 'im')->bookcalculate($arr['secnum'], 0.6);
             }
             //内容容错自修复机制；缓存2天；后台修改了数据后2天重新覆盖
-            Y::$cache->set($index, $arr, 2 * G_DAY);
+            Y::$cache->set($index, $arr,  G_DAY);
         }
         //这些都是要实时更新的
         //缓存中下一章获取失败就试着从数据库在获取一次

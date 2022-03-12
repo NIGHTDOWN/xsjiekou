@@ -203,7 +203,27 @@ class rack extends Y
         return $a1;
     }
     //更新书籍历史记录，及书架记录
-    public function update()
+    public function update($uid, $bookid, $type, $sid)
     {
+        if ($type == 1) {
+            M('rack', 'im')->user_read_history($uid, $bookid, '', $sid);
+        } else {
+            M('rack', 'im')->user_read_history($uid, '', $bookid,  $sid);
+        }
+    }
+    //获取阅读定位
+    public function getpoint($uid, $bookid, $type, $groom)
+    {
+        if (!$uid) return 0;
+        if ($groom) {
+            //取书架记录
+            $read = T('user_groom')->set_field('readsec')->set_where(['status' => 1, 'book_id' => $bookid, 'type' => $type, 'users_id' => $uid])->get_one();
+            if ($read) return $read['readsec'];
+        } else {
+            //取历史记录
+            $read = T('user_history')->set_field('watch_sec')->set_where(['book_id' => $bookid, 'type' => $type, 'users_id' => $uid])->get_one();
+            if ($read) return $read['watch_sec'];
+        }
+        return 0;
     }
 }

@@ -15,9 +15,19 @@ checktop();
 class rack extends indexbase
 {
 
-    protected $noNeedLogin = ['add'];
-
-
+    protected $noNeedLogin = ['add', 'readpoint'];
+    //然后阅读记录
+    public function control_readpoint()
+    {
+        $get = get(['int' => ['bookid', 'type', 'groom', 'ajax']]);
+        if (!$get['bookid']) Out::jout(0);
+        if (!$get['type']) Out::jout(0);
+        $uid = $this->get_userid();
+        if (!$uid) Out::jout(0);
+        $sid = M('rack', 'im')->getpoint($uid, $get['bookid'], $get['type'], $get['groom']);
+        Out::jout($sid);
+        // $data = M('rack', 'im')->readhis($this->get_userid(), $get['page']);
+    }
     public function control_run()
     {
         $data = M('rack', 'im')->list($this->get_userid());
@@ -44,12 +54,14 @@ class rack extends indexbase
         $data = M('rack', 'im')->del($this->get_userid(), $data['book_id'], $data['cartoon_id']);
         Out::jout($data);
     }
+    //清空历史记录
     public function control_clearhis()
     {
         // $data = get(['string' => ['his_id']]);
         $data = M('rack', 'im')->clearhis($this->get_userid());
         Out::jout($data);
     }
+    //删除历史记录
     public function control_delhis()
     {
         $data = get(['string' => ['his_id']]);
