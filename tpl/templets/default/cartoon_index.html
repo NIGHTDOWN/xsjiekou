@@ -587,6 +587,7 @@
             initreadpoint();
             $securl = '<!--{url args="bookid:$data.cartoon_id" action="sec"}-->';
             $('.startReadfather').click(function () {
+                initreadpoint();
                 $gourl = $securl + "?id=" + $sid + "&page=" + $pg;
                 _go_url($gourl);
             });
