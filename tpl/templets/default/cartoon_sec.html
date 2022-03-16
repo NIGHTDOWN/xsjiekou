@@ -238,36 +238,72 @@
                 </div>
 
                 <div id="js_payChapter" style="display:none" class="pay-chapter-bg modal-cover modal-cover-rise"
-                    chapter-id="di227hua-1589768332859" style="display: block;">
+                    chapter-id="" style="display: block;">
                     <div class="pay-chapter-modal">
                         <div class="bd">
-                            <div class="guide-hd-pay">
-                                <img src="//m.kanman.com/static/images/comm/tj_logo.png" alt="logo" class="guide-logo">
-                                <h2 class="guide-title">下载看漫APP</h2>
-                                <p class="guide-desc">海量漫画享免费阅读</p>
-                                <div class="guide-btn">立即打开</div>
+                            <div class="guide-hd-pay" onclick="_go_url('<!--{url action='page' mod='down' }-->')">
+                                <img src="<!--{$static}-->logo/logo.png" alt="logo" class="guide-logo">
+                                <h2 class="guide-title">
+                                    <!--{__ 下载}-->
+                                    <!--{__ LoveNovel}-->
+                                </h2>
+                                <p class="guide-desc">
+                                    <!--{__ 海量漫画享免费阅读}-->
+                                </p>
+                                <div class="guide-btn">
+                                    <!--{__ 立即下載}-->
+                                </div>
                             </div>
                             <i id="js_payChapterClose" class="close-bar ift-close"></i>
                             <div class="chapter-content">
                                 <div class="need-chapter">
-                                    <p id="js_payChapterContent" class="info">第227话 再也回不去了</p>
+                                    <span id="js_paycash" class="info" chapter-id="">
+                                        <!--{__ 需支付}-->:
+                                        <b class="paycash">
+                                            <!--{$data.coin}-->
+                                        </b>
+                                        <i class="icon-user-bean icon"></i>
+                                    </span>
+                                    <span id="js_payChapterContent" class="info" chapter-id="<!--{$data.id}-->">
+                                        <!--{$data.title}-->
+                                    </span>
+
                                 </div>
                                 <div class="pay-btn-box">
+                                    <!--{if !$user}-->
+                                    <div class="need-gold js_gologin">
+                                        <!--{__ 去登录}-->
+                                    </div>
+                                    <!--{else}-->
+                                    <div class="need-gold js_goPay">
+                                        <!--{__ 解锁}-->
+                                    </div>
+                                    <!--{/if}-->
 
-                                    <div class="need-gold js_goPay">去登录</div>
 
                                     <div class="pay-btn guide-btn">用《看漫画》APP免费</div>
                                 </div>
                                 <div class="pay-attached-box">
-                                    <div class="pay-attached-left">
-                                        我的果币&nbsp;<span class="num">0</span>
-                                        <a class="balance-recharge" id="js_goPay" title="果币充值">去充值&nbsp;&gt;</a>
-                                    </div>
+                                    <div class="flex1"> </div>
+
                                     <div id="js_autoBuy" class="autobuy">
                                         <i class="icon ift-check"></i>
                                         <span class="text">自动购买下一章</span>
                                     </div>
                                 </div>
+
+                            </div>
+                            <div class="cbt">
+                                <span class="cbt1">余额：</span>
+
+                                <span class="cbt3">1000</span>
+                                <span class="cbt2"><i class="icon-user-bean icon"></i></span>
+                                <span class="cbt4">充值</span>
+                                <span class="flex1"></span>
+
+                                <span class="cbt6">2000</span>
+                                <span class="cbt5"><i class="icon-user-star icon"></i></span>
+                                <span class="cbt7">领星星</span>
                             </div>
                         </div>
                     </div>
@@ -281,6 +317,75 @@
 
 
     <style>
+        span#js_paycash {
+            font-size: 130%;
+        }
+
+        .flex1 {
+            flex: 1;
+        }
+
+        .pay-attached-box {
+            display: flex;
+            flex-direction: revert;
+        }
+
+        .cbt {
+            display: flex;
+            flex-direction: row;
+            border-top: solid 1px #827e7e;
+            padding: .2666666667rem .8533333333rem 0;
+        }
+
+        .cbt span {
+            /* flex: 1; */
+            /* display: block; */
+            font-size: 0.1rem;
+            color: #827e7e;
+        }
+
+        .icon {
+            width: 0.4rem;
+            height: 0.4rem;
+        }
+
+        .icon-user-bean {
+            display: inline-block;
+            background-image: url('<!--{$indextpl}-->/imgs/bean1.png');
+            background-repeat: no-repeat;
+            -moz-background-size: cover;
+            background-size: cover;
+
+            background-position: center;
+        }
+
+        .icon-user-star {
+            display: inline-block;
+            background-image: url('<!--{$indextpl}-->/images/tc_shubi@2x.png');
+            background-repeat: no-repeat;
+            -moz-background-size: cover;
+            background-size: cover;
+
+            background-position: center;
+        }
+
+        span#js_payChapterContent {
+            color: #827e7e;
+        }
+
+        b.paycash {
+            font-size: 150%;
+            color: #fc6976;
+        }
+
+        .need-chapter span {
+            display: block;
+            height: 1rem;
+            text-align: left;
+            line-height: 0.7rem;
+
+        }
+
         span.comic-finish {
             flex: 1;
             white-space: nowrap;
@@ -2134,7 +2239,7 @@
 
         .pay-chapter-modal .bd {
             position: relative;
-            padding: .9066666667rem 0 .5333333333rem;
+            padding: .9066666667rem 0 .333333333rem;
             background-color: #fff
         }
 
@@ -2168,7 +2273,7 @@
 
         .pay-chapter-modal .need-chapter .info {
             font-size: .3733333333rem;
-            line-height: 1.6rem;
+
             text-align: center;
             white-space: nowrap;
             -o-text-overflow: ellipsis;
@@ -2964,7 +3069,19 @@
                 hidecate();
 
             });
+            $('.js_gologin').on('click', function () {
 
+                _go_url("<!--{url action='' mod='login' args=''}-->");
+
+            });
+            //解锁
+            $('.js_goPay').on('click', function () {
+                // _go_url("<!--{url action='' mod='login' args=''}-->");
+            });
+            //充值
+            $('.js_recharge').on('click', function () {
+                // _go_url("<!--{url action='' mod='login' args=''}-->");
+            });
             $('#js_payChapterClose').on('click', function () {
 
                 hidepay();
