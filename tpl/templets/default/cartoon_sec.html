@@ -209,6 +209,8 @@
                     </div>
                 </div>
             </div> -->
+
+
             <div class="acgn-reader-chapter v" id="reader-scroll">
                 <div class="isfirst">
                     <!--{__ 已经是第一章了}-->
@@ -234,6 +236,79 @@
                 <div class="isload">
                     <!--{__  加载中}-->
                 </div>
+
+                <div id="js_payChapter" style="display:none" class="pay-chapter-bg modal-cover modal-cover-rise"
+                    chapter-id="" style="display: block;">
+                    <div class="pay-chapter-modal">
+                        <div class="bd">
+                            <div class="guide-hd-pay" onclick="_go_url('<!--{url action='page' mod='down' }-->')">
+                                <img src="<!--{$static}-->logo/logo.png" alt="logo" class="guide-logo">
+                                <h2 class="guide-title">
+                                    <!--{__ 下载}-->
+                                    <!--{__ LoveNovel}-->
+                                </h2>
+                                <p class="guide-desc">
+                                    <!--{__ 海量漫画享免费阅读}-->
+                                </p>
+                                <div class="guide-btn">
+                                    <!--{__ 立即下載}-->
+                                </div>
+                            </div>
+                            <i id="js_payChapterClose" class="close-bar ift-close"></i>
+                            <div class="chapter-content">
+                                <div class="need-chapter">
+                                    <span id="js_paycash" class="info" chapter-id="">
+                                        <!--{__ 需支付}-->:
+                                        <b class="paycash">
+                                            <!--{$data.coin}-->
+                                        </b>
+                                        <i class="icon-user-bean icon"></i>
+                                    </span>
+                                    <span id="js_payChapterContent" class="info" chapter-id="<!--{$data.id}-->">
+                                        <!--{$data.title}-->
+                                    </span>
+
+                                </div>
+                                <div class="pay-btn-box">
+                                    <!--{if !$user}-->
+                                    <div class="need-gold js_gologin">
+                                        <!--{__ 去登录}-->
+                                    </div>
+                                    <!--{else}-->
+                                    <div class="need-gold js_goPay">
+                                        <!--{__ 解锁}-->
+                                    </div>
+                                    <!--{/if}-->
+
+
+                                    <div class="pay-btn guide-btn">用《看漫画》APP免费</div>
+                                </div>
+                                <div class="pay-attached-box">
+                                    <div class="flex1"> </div>
+
+                                    <div id="js_autoBuy" class="autobuy">
+                                        <i class="icon ift-check"></i>
+                                        <span class="text">自动购买下一章</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="cbt">
+                                <span class="cbt1">余额：</span>
+
+                                <span class="cbt3">1000</span>
+                                <span class="cbt2"><i class="icon-user-bean icon"></i></span>
+                                <span class="cbt4">充值</span>
+                                <span class="flex1"></span>
+
+                                <span class="cbt6">2000</span>
+                                <span class="cbt5"><i class="icon-user-star icon"></i></span>
+                                <span class="cbt7">领星星</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
         </section>
@@ -242,6 +317,94 @@
 
 
     <style>
+        span#js_paycash {
+            font-size: 130%;
+        }
+
+        .flex1 {
+            flex: 1;
+        }
+
+        .pay-attached-box {
+            display: flex;
+            flex-direction: revert;
+        }
+
+        .cbt {
+            display: flex;
+            flex-direction: row;
+            border-top: solid 1px #827e7e;
+            padding: .2666666667rem .8533333333rem 0;
+        }
+
+        .cbt span {
+            /* flex: 1; */
+            /* display: block; */
+            font-size: 0.1rem;
+            color: #827e7e;
+        }
+
+        .icon {
+            width: 0.4rem;
+            height: 0.4rem;
+        }
+
+        .icon-user-bean {
+            display: inline-block;
+            background-image: url('<!--{$indextpl}-->/imgs/bean1.png');
+            background-repeat: no-repeat;
+            -moz-background-size: cover;
+            background-size: cover;
+
+            background-position: center;
+        }
+
+        .icon-user-star {
+            display: inline-block;
+            background-image: url('<!--{$indextpl}-->/images/tc_shubi@2x.png');
+            background-repeat: no-repeat;
+            -moz-background-size: cover;
+            background-size: cover;
+
+            background-position: center;
+        }
+
+        span#js_payChapterContent {
+            color: #827e7e;
+        }
+
+        b.paycash {
+            font-size: 150%;
+            color: #fc6976;
+        }
+
+        .need-chapter span {
+            display: block;
+            height: 1rem;
+            text-align: left;
+            line-height: 0.7rem;
+
+        }
+
+        span.comic-finish {
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .read-category-ctrls {
+            /* height: 1.5rem; */
+            margin-top: -0.9rem;
+        }
+
+        div#js_payChapter {
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            display: block;
+        }
+
         .read-category-dialog {
             display: flex;
             flex-direction: row;
@@ -267,13 +430,19 @@
         .read-category-head {
             position: relative;
             width: 100%;
-            height: 1.28rem;
+
             line-height: 1.28rem;
             font-size: 0.5rem;
             font-weight: bold;
             text-indent: .32rem;
             display: block;
             flex-direction: row;
+            display: flex;
+            /* justify-content: normal; */
+            /* justify-items: normal; */
+            /* align-content: flex-end; */
+            align-items: center;
+            border-bottom: solid 1px #ddd;
 
         }
 
@@ -337,7 +506,7 @@
         }
 
         i.ifst-unlock {
-            color: #fc6976;
+            font-weight: 100;
         }
 
         .read-category-mask {
@@ -2070,7 +2239,7 @@
 
         .pay-chapter-modal .bd {
             position: relative;
-            padding: .9066666667rem 0 .5333333333rem;
+            padding: .9066666667rem 0 .333333333rem;
             background-color: #fff
         }
 
@@ -2104,7 +2273,7 @@
 
         .pay-chapter-modal .need-chapter .info {
             font-size: .3733333333rem;
-            line-height: 1.6rem;
+
             text-align: center;
             white-space: nowrap;
             -o-text-overflow: ellipsis;
@@ -2718,6 +2887,33 @@
         var pgurl = '<!--{url action="sec" args="bookid:{$data.cartoon_id}"}-->';
         var cateurl = '<!--{url action="get_section" }-->';
         var uid = "<!--{$user.id}-->";
+        var needpay = parseInt('<!--{ $data.isfree }-->') && !parseInt('<!--{ $data.ispay }-->');
+        //加載購買模塊，
+        function loadpay() {
+            if (!needpay) return false;
+            $ob = $($('.acgn-reader-chapter__item-box').eq(nows));
+            $title = $ob.attr('chapter-name');
+            $id = $ob.attr('chapter-id');
+            $('#js_payChapterContent').text($title);
+            $('#js_payChapterContent').attr('chapter-id', $id);
+            $('#js_payChapter').show();
+        }
+        function loadpay2() {
+
+            $ob = $($('.acgn-reader-chapter__item-box').eq(nows));
+            needpay = parseInt($ob.attr('needpay'));
+            d(needpay);
+            if (!needpay) return false;
+            $title = $ob.attr('chapter-name');
+            $id = $ob.attr('chapter-id');
+            $('#js_payChapterContent').text($title);
+            $('#js_payChapterContent').attr('chapter-id', $id);
+            $('#js_payChapter').show();
+        }
+        function hidepay() {
+
+            $('#js_payChapter').hide();
+        }
         function fn() {
             $arr = $('.acgn-reader-chapter__item-box').find('.loading');
             $arr.removeClass('loading');
@@ -2873,6 +3069,24 @@
                 hidecate();
 
             });
+            $('.js_gologin').on('click', function () {
+
+                _go_url("<!--{url action='' mod='login' args=''}-->");
+
+            });
+            //解锁
+            $('.js_goPay').on('click', function () {
+                // _go_url("<!--{url action='' mod='login' args=''}-->");
+            });
+            //充值
+            $('.js_recharge').on('click', function () {
+                // _go_url("<!--{url action='' mod='login' args=''}-->");
+            });
+            $('#js_payChapterClose').on('click', function () {
+
+                hidepay();
+
+            });
             $('.chapter-item-wrap').live('click', function () {
 
                 gochapter($(this).attr('chapter-id'));
@@ -2979,6 +3193,7 @@
             $('.isload').hide();
         }
         function loading() {
+
             if (showdload) return false;
             if (lock) return false;
             isload();
@@ -2997,9 +3212,14 @@
                 'id': secid
             }, function (data) {
                 lock = false;
+
+
+
                 hideload();
                 if (data['code'] == 1) {
                     var ret = data['result'];
+                    $needpay = parseInt(ret['isfree']) && !parseInt(ret['ispay']) ? 1 : 0;
+
                     secid = ret['next'];
                     next1 = ret['next'];
                     pre1 = ret['pre'];
@@ -3009,9 +3229,10 @@
                             imgs += ' <div style="width:auto" class="acgn-reader-chapter__item loading" chapter-index="1" chapter-name="' + ret['title'] + '" dataurl="' + v.url + '"><div class="acgn-reader-chapter__loading-tip">' + i + '</div> </div>'
                         });
                     }
-                    var html = "<div chapter-id='" + ret['cart_section_id'] + "' class='acgn-reader-chapter__item-box' id='mid" + ret['list_order'] + "' chapter-name='" + ret['title'] + "'>" + imgs + "</div>";
+                    var html = "<div chapter-id='" + ret['cart_section_id'] + "' class='acgn-reader-chapter__item-box' needpay='" + $needpay + "' id='mid" + ret['list_order'] + "' chapter-name='" + ret['title'] + "'>" + imgs + "</div>";
                     $('.acgn-reader-chapter__scroll-box').append(html);
                     fn();
+
                 } else {
                     showdload = true;
                 }
@@ -3033,13 +3254,14 @@
                 'ajax': 1,
                 'id': pre
             }, function (data) {
-                lock = false;
 
+                lock = false;
                 if (data['code'] == 1) {
                     var ret = data['result'];
                     pre = ret['pre'];
                     pre1 = ret['pre'];
                     next1 = ret['next'];
+                    $needpay = parseInt(ret['isfree']) && !parseInt(ret['ispay']) ? 1 : 0;
                     var imgs = '';
                     if (ret['images']) {
                         $.each(ret['images'], function (i, v) {
@@ -3047,7 +3269,7 @@
                         });
                     }
 
-                    var html = "<div chapter-id='" + ret['cart_section_id'] + "'  class='acgn-reader-chapter__item-box hide' id='mid" + ret['list_order'] + "' chapter-name='" + ret['title'] + "'>" + imgs + "</div>";
+                    var html = "<div chapter-id='" + ret['cart_section_id'] + "'  class='acgn-reader-chapter__item-box hide' needpay='" + $needpay + "' id='mid" + ret['list_order'] + "' chapter-name='" + ret['title'] + "'>" + imgs + "</div>";
                     $id = '#' + $('.acgn-reader-chapter__item-box').eq(0).attr('id');
                     $('.acgn-reader-chapter__scroll-box').prepend(html);
                     fn();
@@ -3095,7 +3317,13 @@
                 $allh += v.offsetHeight;
 
                 if ($top < $allh && $top >= $last) {
+                    lastrmb = nows;
+
                     nows = $n;
+                    if (lastrmb != $n) {
+
+                        loadpay2();
+                    }
                     // d($n);
                     //说明在￥n这个区块
                     // d($all.eq($n));
@@ -3105,11 +3333,10 @@
                     $('#js_headTitle').text($name);
                     $('#js_staticChapter').text($name);
                     $('title').text($name);
+                    // window.location.href = changeURLArg(window.location.href, 'id', $ob.attr('chapter-id'))
                     //计算页面
                     $pg = getpage($ob);
-
                     $('#js_staticPage').text($pg + '/' + $pagenum);
-
                     inittime();
                     titlelock = false;
                     rmbpoint($ob.attr('chapter-id'), $pg);
@@ -3117,6 +3344,21 @@
                 }
             });
 
+        }
+        function changeURLArg(url, arg, arg_val) {
+            var pattern = arg + '=([^&]*)';
+            var replaceText = arg + '=' + arg_val;
+            if (url.match(pattern)) {
+                var tmp = '/(' + arg + '=)([^&]*)/gi';
+                tmp = url.replace(eval(tmp), replaceText);
+                return tmp;
+            } else {
+                if (url.match('[\?]')) {
+                    return url + '&' + replaceText;
+                } else {
+                    return url + '?' + replaceText;
+                }
+            }
         }
         function inittime() {
             var myDate = new Date();
@@ -3146,22 +3388,18 @@
         $(document).ready(function () {
             //fix底部
             inittime();
+            loadpay();
             rmbpoint($('.acgn-reader-chapter__item-box').attr('chapter-id'), 1);
             $('.acgn-reader-chapter').scroll(function () {
                 scrollTop = $(this).scrollTop();
-
                 ks_area = $(this).innerHeight();
-
                 //滚动距离总长(注意不是滚动条的长度)  
-
                 nScrollHight = $('body')[0].scrollHeight;
                 $h = $('.acgn-reader-chapter__scroll-box').innerHeight();
                 settitle();
-
                 if (scrollTop > ($h - nScrollHight * 1.5)) {
                     loading();
                 }
-
                 if ($(this).scrollTop() == 0) {
                     loadpre();
                 }
