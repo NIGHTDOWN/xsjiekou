@@ -154,7 +154,9 @@ class content
             $up = T($tpsec)->set_field('section_id')->set_where(['book_id' => $book_id, 'isdelete' => 0, 'status' => 1])->set_where('list_order>' . $data['list_order'])->set_field('section_id')->order_by(['f' => 'list_order', 's' => 'up'])->get_one();
             $arr['next'] = $up['section_id'] ? $up['section_id'] : '0';
             if (!$arr['coin'] <= 0  && $arr['isfree'] != 0) {
-                $arr['coin'] = M('coin', 'im')->bookcalculate($arr['secnum'], 0.6);
+                $arr['coin'] = intval(M('coin', 'im')->bookcalculate($arr['secnum'], 0.6));
+                //更新章节金币值
+                T($tpsec)->update(['coin'=>$arr['coin']],['section_id'=>$arr['section_id']]);
             }
             //内容容错自修复机制；缓存2天；后台修改了数据后2天重新覆盖
             Y::$cache->set($index, $arr,  G_DAY);

@@ -382,4 +382,43 @@ class user extends Y
         $user['devicetype'] = $devicetype;
         return $user;
     }
+    //解锁章节
+    public function unlock($uid, $bookid, $type, $sid, $autopay)
+    {
+        if (!$uid)
+            return false;
+        if (!$bookid)
+            return false;
+        if (!$type)
+            return false;
+        if (!$sid)
+            return false;
+        $head = getdevicetype(Y::$wrap_head);
+        if ($type == 1) {
+            $w = ['book_id' => $bookid];
+            $lang = T('book')->set_field('lang')->set_where($w)->get_one();
+            if (!$lang) return false;
+            $tpsec = M('book', 'im')->gettpsec($type, $lang['lang']);
+            $w['section_id'] = $sid;
+            $exp = T($tpsec)->set_field('coin')->set_where($w)->get_one();
+            if (!$exp) return false;
+            $bool = M('coin', 'im')->unlocktxt($uid, $bookid, $sid, $exp['coin'], $head, $autopay);
+        } else {
+            $w = ['cartoon_id' => $bookid];
+            $lang = T('cartoon')->set_field('lang')->set_where($w)->get_one();
+            if (!$lang) return false;
+            $tpsec = M('book', 'im')->gettpsec($type, $lang['lang']);
+            $w['cart_section_id'] = $sid;
+            $exp = T($tpsec)->set_field('charge_coin')->set_where($w)->get_one();
+            if (!$exp) return false;
+            $bool = M('coin', 'im')->unlockcartoon($uid, $bookid, $sid, $exp['charge_coin'], $head, $autopay);
+        }
+        if ($bool) {
+            $user = T('third_party_user')->set_field('remainder,golden_bean')->get_one(['id' => $uid]);
+            return $user;
+        } else {
+            return false;
+            // Out::jerror('解锁失败', null, '10091');
+        }
+    }
 }

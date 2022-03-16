@@ -100,7 +100,7 @@ class census extends Y
     {
         if (!$book_id) return false;
         $where = ['book_id' => $book_id];
-      
+
         T('book')->update(['collect' => 'collect+1', 'rack' => 'rack+1'], $where, 0);
     }
     //小说支付统计
@@ -396,7 +396,7 @@ class census extends Y
         $stime = $user['create_time'];
         //$etime = $user['create_time'] +  $day;
         $w = ['dates' => date('Ymd', $stime)];
-        // $type = Y::$wrap_head['devicetype'];
+        // $type = getdevicetype(Y::$wrap_head);;
 
         $_datac = T('n_day_recharge')->where($w)->find();
         if (!$_datac) {
@@ -405,8 +405,7 @@ class census extends Y
         }
         if ($type == 'android') {
             $key = "a";
-        }
-        if ($type == 'iphone') {
+        } else {
             $key = "i";
         }
         if ($type == 'wap') {
@@ -854,8 +853,7 @@ class census extends Y
         $pre = 'yfk';
         if ($type == 'android') {
             $key = "a" . $pre;
-        }
-        if ($type == 'iphone') {
+        } else {
             $key = "i" . $pre;
         }
         if (!$have) {
@@ -871,22 +869,25 @@ class census extends Y
     }
     public function _aword($money)
     {
+
         $where = ['dates' => date('Ymd', time())];
         $have = T('n_count')->get_one($where);
-        $type = Y::$wrap_head['devicetype'];
+
+        $type = getdevicetype(Y::$wrap_head);
         $pre = 'xhsb';
         if ($type == 'android') {
             $key = "a" . $pre;
-        }
-        if ($type == 'iphone') {
+        } else {
             $key = "i" . $pre;
         }
+
         if (!$have) {
             $where['zds'] = $money;
             $where['zxh'] = $money;
             $where[$key] = $money;
             // $where['qdrs'] = 1;
             $where['addtime'] = time();
+
             T('n_count')->add($where);
         } else {
             $u['zds'] = $have['zds'] + $money;
@@ -899,8 +900,8 @@ class census extends Y
     public function _install()
     {
 
-        $type = Y::$wrap_head['devicetype'];
-        $w['device_type'] = Y::$wrap_head['devicetype'];
+        $type = getdevicetype(Y::$wrap_head);;
+        $w['device_type'] = getdevicetype(Y::$wrap_head);;
         $w['device_token'] = Y::$wrap_head['idfa'] ? Y::$wrap_head['idfa'] : Request::getip();
         //设备类型不存在，表示接口直接请求，不算入设备统计
         if (!$type) return false;
@@ -916,8 +917,7 @@ class census extends Y
             T('user_install')->add($w);
             if ($type == 'android') {
                 $key = "aazl";
-            }
-            if ($type == 'iphone') {
+            } else {
                 $key = "iazl";
             }
             if (!isset($key)) {
@@ -1089,13 +1089,12 @@ class census extends Y
     }
     public function _reg()
     {
-        $type = Y::$wrap_head['Devicetype'];
+        $type = getdevicetype(Y::$wrap_head);;
 
         $pre = 'reg';
         if ($type == 'android') {
             $key = "a" . $pre;
-        }
-        if ($type == 'iphone') {
+        } else {
             $key = "i" . $pre;
         }
         if (!isset($key)) {
@@ -1121,7 +1120,7 @@ class census extends Y
     public function _invitation($bool = true)
     {
 
-        $type = Y::$wrap_head['Devicetype'];
+        $type = getdevicetype(Y::$wrap_head);;
         if (!$bool) {
             $pre = 'yqyh';
         } else {
@@ -1130,8 +1129,7 @@ class census extends Y
 
         if ($type == 'android') {
             $key = "a" . $pre;
-        }
-        if ($type == 'iphone') {
+        } else {
             $key = "i" . $pre;
         }
         if (!isset($key)) {
@@ -1164,13 +1162,12 @@ class census extends Y
             return false;
         }
         T('n_dotask')->add($w);
-        $type = Y::$wrap_head['Devicetype'];
+        $type = getdevicetype(Y::$wrap_head);;
         $pre = 'fqyq';
 
         if ($type == 'android') {
             $key = "a" . $pre;
-        }
-        if ($type == 'iphone') {
+        } else {
             $key = "i" . $pre;
         }
         if (!isset($key)) {
@@ -1205,12 +1202,11 @@ class census extends Y
     }
     public function _share()
     {
-        $type = Y::$wrap_head['Devicetype'];
+        $type = getdevicetype(Y::$wrap_head);;
         $pre = 'fqfx';
         if ($type == 'android') {
             $key = "a" . $pre;
-        }
-        if ($type == 'iphone') {
+        } else {
             $key = "i" . $pre;
         }
         if (!isset($key)) {
@@ -1234,14 +1230,13 @@ class census extends Y
     }
     public function _newrecharge()
     {
-        $type = Y::$wrap_head['devicetype'];
+        $type = getdevicetype(Y::$wrap_head);;
         $pre = 'xyhfcz';
         $pre2 = 'xyhfcz';
         if ($type == 'android') {
             $key = "a" . $pre;
             $k2 = "a" . $pre2;
-        }
-        if ($type == 'iphone') {
+        } else {
             $key = "i" . $pre;
             $k2 = "i" . $pre2;
         }
@@ -1280,14 +1275,13 @@ class census extends Y
     }
     public function _oldrecharge()
     {
-        $type = Y::$wrap_head['devicetype'];
+        $type = getdevicetype(Y::$wrap_head);;
         $pre = 'xyhfcz';
         $pre2 = 'xyhecz';
         if ($type == 'android') {
             $key = "a" . $pre;
             $k2 = "a" . $pre2;
-        }
-        if ($type == 'iphone') {
+        } else {
             $key = "i" . $pre;
             $k2 = "i" . $pre2;
         }
@@ -1378,7 +1372,7 @@ class census extends Y
     public function _activity($uid)
     {
         return false;
-        $type = Y::$wrap_head['Devicetype'];
+        $type = getdevicetype(Y::$wrap_head);;
         $w['uid'] = $uid;
         $w['dates'] = date('Ymd');
         if (T('n_activity')->get_one($w)) {
@@ -1389,8 +1383,7 @@ class census extends Y
         $pre = 'hyzh';
         if ($type == 'android') {
             $key = "a" . $pre;
-        }
-        if ($type == 'iphone') {
+        } else {
             $key = "i" . $pre;
         }
         if (!isset($key)) {
@@ -1414,14 +1407,13 @@ class census extends Y
     }
     public function _dayorder()
     {
-        $type = Y::$wrap_head['devicetype'];
+        $type = getdevicetype(Y::$wrap_head);;
         // $w['uid'] = $uid;
         // $w['dates'] = date('Ymd');
         $pre = 'zdd';
         if ($type == 'android') {
             $key = "a" . $pre;
-        }
-        if ($type == 'iphone') {
+        } else {
             $key = "i" . $pre;
         }
         if ($type == 'wap') {

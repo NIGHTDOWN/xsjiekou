@@ -165,9 +165,10 @@ class user extends apibase
         $data = get(['string' => ['book_id', 'expend_red', 'section_id', 'cartoon_id', 'cart_section_id', 'isauto']]);
         //d($data);
         $user = parent::$wrap_user;
-        if ($user['remainder'] < $data['expend_red']) {
-            Out::jerror('余额不足', null, '100111');
-        }
+        //这里2个钱包都要判断
+        // if ($user['remainder'] < $data['expend_red']) {
+        //     Out::jerror('余额不足', null, '100111');
+        // }
         if (($data['book_id']) && ($data['section_id']) && ($data['expend_red'])) {
             $bool = M('coin', 'im')->unlocktxt($this->get_userid(1), $data['book_id'], $data['section_id'], $data['expend_red'], $this->head['devicetype'], $data['isauto']);
 
