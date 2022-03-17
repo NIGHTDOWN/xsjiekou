@@ -31,10 +31,10 @@ function loadpay() {
 }
 //获取钱包
 function initcash($coin) {
-    yAjax(wallerurl, {}, (data) => {
+    yAjax(wallerurl, {}, function(data) {
         if (data.code == 1) {
-            $wallet = data.result;
-            if ($wallet.golden_bean < $coin && $wallet.remainder < $coin) {
+            $walvar = data.result;
+            if ($walvar.golden_bean < $coin && $walvar.remainder < $coin) {
                 //显示充值按钮
                 $('.pay-btn-box .js_goPay').hide();
                 $('.pay-btn-box .js_recharge').show();
@@ -43,8 +43,8 @@ function initcash($coin) {
                 $('.pay-btn-box .js_goPay').show();
                 $('.pay-btn-box .js_recharge').hide();
             }
-            $('.cbt3').text($wallet.golden_bean);
-            $('.cbt6 ').text($wallet.remainder);
+            $('.cbt3').text($walvar.golden_bean);
+            $('.cbt6 ').text($walvar.remainder);
             return true;
         }
         return false;
@@ -94,7 +94,7 @@ function subcomment() {
 
     };
     hidecomment();
-    yAjax(commenturl, $data, (data) => {
+    yAjax(commenturl, $data, function(data) {
         if (data.code == 1) {
             showd(data.result);
         } else {
@@ -112,10 +112,10 @@ function subcomment() {
 function fn() {
     $arr = $('.acgn-reader-chapter__item-box').find('.loading');
     $arr.removeClass('loading');
-    $arr.each((i, v) => {
+    $arr.each(function(i, v) {
         v = $(v);
         $str = "<img width='100%' src='" + v.attr('dataurl') + "'/>";
-        let ob;
+        var ob;
         ob = $($str);
         // d("<img src='" + v.attr('dataurl') + "' />");
         ob[0].onload = function() {
@@ -434,7 +434,7 @@ function loadcate($wait) {
         'bookid': bookid
     };
     var ret;
-    yAjax(cateurl, $data, (data) => {
+    yAjax(cateurl, $data, function(data) {
         ret = data.result;
     }, '', !$wait);
     return ret;
@@ -472,7 +472,7 @@ function waitunlock($chapterid) {
         'autopay': $isautopay
     };
 
-    yAjax(payurl, $data, (data) => {
+    yAjax(payurl, $data, function(data) {
 
         if (data.code == 1) {
             changesecstatus($chapterid);
@@ -490,7 +490,7 @@ function changesecstatus($chapterid) {
 
 function catelistindex($chapterid) {
     $cache = getcatechache();
-    for (let index = 0; index < $cache.length; index++) {
+    for (var index = 0; index < $cache.length; index++) {
         if (parseInt($cache[index]['section_id']) == parseInt($chapterid)) {
             return index;
         }
@@ -515,9 +515,9 @@ function unlock($chapterid, $auto) {
         'sid': $chapterid,
         'autopay': $auto
     };
-    yAjax(payurl, $data, (data) => {
+    yAjax(payurl, $data, function(data) {
 
-        setTimeout(() => {
+        setTimeout(function() {
             //2秒才能再次点击解锁
             $('.js_goPay').removeClass('lock');
         }, 2000);
@@ -589,7 +589,7 @@ function loading() {
         'id': secid
     }, function(data) {
         //1秒以后才能再次滑动加载
-        setTimeout(() => {
+        setTimeout(function() {
             lock = false;
         }, 3000);
         hideload();
@@ -639,7 +639,7 @@ function loadpre() {
     }, function(data) {
 
         //1秒以后才能再次滑动加载
-        setTimeout(() => {
+        setTimeout(function() {
             lock = false;
         }, 2000);
         if (data['code'] == 1) {
@@ -659,7 +659,7 @@ function loadpre() {
             $id = '#' + $('.acgn-reader-chapter__item-box').eq(0).attr('id');
             $('.acgn-reader-chapter__scroll-box').prepend(html);
             fn();
-            setTimeout(($id) => {
+            setTimeout(function($id) {
                 $('.acgn-reader-chapter__item-box.hide').removeClass('hide');
                 _go_url($id);
                 $(".acgn-reader-chapter").animate({ 'scrollTop': "-=" + 200 + "px" }, 300);
@@ -678,7 +678,7 @@ function getnowob() {
 function settitle() {
     if (titlelock) return false;
     titlelock = true;
-    setTimeout(() => {
+    setTimeout(function() {
         Yscroll();
     }, 200);
 }
