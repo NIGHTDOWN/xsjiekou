@@ -87,108 +87,49 @@ class cartoon extends apibase
         $cartoon_id = get(['int' => ['cartoon_id' => 1]]);
         $cartoon_id = $cartoon_id['cartoon_id'];
 
-        $index = 'cid:' . $cartoon_id;
-        $cache = Y::$cache->get($index);
-        if ($cache[0]) {
-            $arr = $cache[1];
+        //判断是否已经添加书架
+        $type = 2;
+        $get['bookid'] = $cartoon_id;
+        $detail = M('book', 'im')->detail($get['bookid'], $this->get_userid(), $type);
+        if ($detail) {
+            $detail['inrack'] = M('rack', 'im')->in_rack($this->get_userid(), $type, $get['bookid']);
+            $detail['sahretag'] = implode(',', array_column($detail['data']['tags'], 'tag'));
+            // d($detail);
+            $detail['his'] = M('rack', 'im')->getbookhis($this->get_userid(), $type, $get['bookid']);
+            $tjcache = 'tjcache' . $get['bookid'] . $detail['data']['type'];
+            list($bool, $cache) = Y::$cache->get($tjcache);
+
+            if ($bool) {
+                if (sizeof($cache)) {
+                    $detail = array_merge($detail, $cache);
+                }
+            } else {
+                $similars = M('book', 'im')->getsimilar($get['bookid'], $detail['data']['type'], 6);
+
+                $author = M('book', 'im')->getsimilarauthor($get['bookid'], $detail['data']['type'], 3);
+
+                if (sizeof($similars)) {
+                    $detailtmp['similar'] = T('cartoon')->set_field('bpic,cartoon_id as book_id,' . $type . ' as type,other_name,lable,lang,`read`')->whereIn('cartoon_id', $similars)->get_all();
+                    foreach ($detailtmp['similar']  as $k => $book) {
+                        $detailtmp['similar'][$k]['tags'] =  M('cate', 'im')->getlable($book['lable'], $book['lang']);
+                    }
+                }
+                if (sizeof($author)) {
+                    $detailtmp['author'] = T('cartoon')->set_field('bpic,cartoon_id as book_id,' . $type . ' as type,other_name,lable,lang,`read`')->whereIn('cartoon_id', $author)->get_all();
+                    foreach ($detailtmp['author']  as $k => $book) {
+                        $detailtmp['author'][$k]['tags'] =  M('cate', 'im')->getlable($book['lable'], $book['lang']);
+                    }
+                }
+                if (sizeof($detailtmp)) {
+                    $detail = array_merge($detail, $detailtmp);
+                    Y::$cache->set($tjcache, $detailtmp, G_DAY * 2);
+                }
+            }
+
+            $this->returnSuccess($detail);
         } else {
-
-            $w = ['cartoon_id' => $cartoon_id];
-            $data = T('cartoon')
-                ->field('other_name,cartoon_id,bpic,bpic_dsl,writer_name,`desc`,likes,update_time,hits,collect,bpic_detail,update_status,isfree,`read`,end_share,share_banner,0 as isgroom,lang')
-                ->where($w)
-                ->get_one();
-            $data['like'] = $data['likes'];
-            $data['share_banner'] = $data['bpic_detail'];
-
-            unset($data['likes']);
-            $update_time = strtotime($data['update_time']);
-            $time = time() - $update_time;
-            if ($time < 86400) {
-                $data['update_time'] = date("H:i:s", $update_time);
-            } else {
-                $data['update_time'] = date("d-m-Y", $update_time);
-            }
-            $w['status'] = 1;
-            // $star = T('discuss')->where($w)->get_count();
-            $sumss = T('discuss')->set_field('sum(star) as sums,count(1) as counts')->where($w)->get_one();
-            $sums = $sumss['sums'];
-            $star = $sumss['counts'];
-            $replynum = "";
-            if ($star == 0 && $sums == 0) {
-                $replynum = 5;
-            } else {
-                $replynum = $sums / $star;
-                $replynum = round($replynum, 1);
-            }
-
-
-            // 获取本漫画的评论信息
-
-            $discuss = T('discuss')
-                ->field('discuss_id,star,nick_name,discuss_time,content,users_id')
-                ->where($w)
-                ->order('discuss_time desc')
-                ->limit(5)
-                ->get_all();
-
-            $discuss = $this->getdiscussavater($discuss);
-            $count = $star;
-
-            $data['desc'] = str_replace("&quot;", "\"", $data['desc']);
-            $data['replynum'] = $replynum;
-            $w = [];
-            $w['isdelete'] = 0;
-            $w['cartoon_id'] = $cartoon_id;
-            $w['status'] = 1;
-            if ($data['lang'] == 0) {
-                $tpsec = 'cartoon_section';
-            } else {
-                $tpsec = 'cartoon_section_' . $data['lang'];
-            }
-            $new_section = T($tpsec)->where($w)->set_field('title,cart_section_id as section_id,list_order')->order_by(['s' => 'down', 'f' => 'cart_section_id'])->get_one();
-            $update_section = $new_section['list_order'];
-            $data['update_section'] = $update_section;
-            $data['new_section_title'] = $new_section['title'];
-            $data['new_section_id'] = $new_section['section_id'];
-            $arr = [
-                'data' => $data,
-
-                'discussd' => [
-                    'discuss' => $discuss,
-                    'count' => $count,
-                ]
-            ];
-            Y::$cache->set($index, $arr, 43200);
+            $this->returnSuccess([]);
         }
-
-
-        if ($this->get_userid()) {
-
-            if (T('user_groom')->set_field('isgroom')->get_one(['status' => 1, 'book_id' => $cartoon_id, 'users_id' => $this->get_userid(), 'type' => 1])) {
-                $arr['data']['isgroom'] = 1;
-            }
-            unset($w['isdelete']);
-
-            $w = ['cartoon_id' => $cartoon_id];
-            $owenDiscuss = T('discuss')
-                ->field('discuss_id,star,nick_name,discuss_time,content,users_id')
-                ->where($w)
-                ->where(['users_id' => $this->uid])
-                ->order('discuss_time desc')
-                // ->limit(1)
-                ->get_one();
-
-            if ($owenDiscuss) {
-
-                $owenDiscuss['avater'] = parent::$wrap_user['avater'];
-                $arr['discussd']['discuss'] = array_merge([$owenDiscuss], $arr['discussd']['discuss']);
-            }
-        }
-
-        M('bookcensus', 'im')->readnum($this->get_userid(), 2, $cartoon_id);
-        M('census', 'im')->cartoonhitcounts($cartoon_id);
-        $this->returnSuccess($arr);
     }
     private function getdiscussavater($discuss)
     {
@@ -209,7 +150,7 @@ class cartoon extends apibase
     {
 
         $cartoon_id = get(['int' => ['cartoon_id' => 1]]);
-        $data=M('content','im')->cart_section($this->get_userid(),$cartoon_id['cartoon_id']);
+        $data = M('content', 'im')->cart_section($this->get_userid(), $cartoon_id['cartoon_id']);
 
         $this->returnSuccess($data);
     }
