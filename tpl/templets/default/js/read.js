@@ -389,6 +389,10 @@ $(function() {
         menu();
         showcomment();
     });
+    $('#js_sharebox').on('click', function() {
+        menu();
+
+    });
     //分享
     $('#js_ftSettingBtn').on('click', function() { menu(); });
 });
@@ -412,7 +416,7 @@ function gopage() {
 }
 $(window).load(function() {
     gopage();
-
+    initshare('<!--{__ 分享}-->', '', $('#js_sharebox'));
 });
 //滚动脚本
 function getQueryVariable(variable) {
