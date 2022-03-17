@@ -15,7 +15,7 @@ class user extends apibase
 
     public function control_discuss()
     {
-        $data = get(['string' => ['book_id', 'star' => 1, 'content' => 1, 'cartoon_id']]);
+        $data = get(['string' => ['book_id', 'star' => 1, 'content' => 1, 'cartoon_id', 'section_id']]);
         $data['users_id'] = $this->get_userid();
         // $data['plat'] = $this->head['devicetype'];
         // $arr = M('user', 'im')->add_discuss($data);
@@ -28,7 +28,7 @@ class user extends apibase
         }
         $content = $data['content'];
         $star = $data['star'];
-        $arr = M('user', 'im')->add_discuss($this->get_userid(), $booktype, $bookid, $content, $star, getdevicetype($this->head));
+        $arr = M('user', 'im')->add_discuss($this->get_userid(), $booktype, $bookid, $content, $star, getdevicetype($this->head), $data['section_id']);
         if ($arr) {
             Out::jout('评论成功');
         } else {

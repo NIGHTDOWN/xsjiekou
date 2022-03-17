@@ -9,27 +9,40 @@ var autopayindex = 'autopay';
 //加載購買模塊，
 function loadpay() {
     if (!needpay) return false;
-    initcash();
+
     $ob = getnowob();
     $title = $ob.attr('chapter-name');
     $id = $ob.attr('chapter-id');
     $coin = $ob.attr('chapter-coin');
+    initcash($coin);
     $autopay = isautopay();
-    $('#js_autoBuy').addClass('active');
+    if ($autopay) {
+        $('#js_autoBuy').addClass('active');
+    } else {
+        $('#js_autoBuy').removeClass('active');
+    }
+
     $('#js_payChapterContent').text($title);
-    d($coin);
+    // d($coin);
     $('.paycash').text($coin);
 
     $('#js_payChapterContent').attr('chapter-id', $id);
     $('#js_payChapter').show();
 }
 //获取钱包
-function initcash() {
+function initcash($coin) {
     yAjax(wallerurl, {}, (data) => {
-
         if (data.code == 1) {
             $wallet = data.result;
-
+            if ($wallet.golden_bean < $coin && $wallet.remainder < $coin) {
+                //显示充值按钮
+                $('.pay-btn-box .js_goPay').hide();
+                $('.pay-btn-box .js_recharge').show();
+            } else {
+                //显示解锁按钮
+                $('.pay-btn-box .js_goPay').show();
+                $('.pay-btn-box .js_recharge').hide();
+            }
             $('.cbt3').text($wallet.golden_bean);
             $('.cbt6 ').text($wallet.remainder);
             return true;
@@ -37,16 +50,65 @@ function initcash() {
         return false;
     })
 }
+
 function loadpay2() {
 
     $ob = getnowob();
     needpay = parseInt($ob.attr('needpay'));
     loadpay();
 }
+
 function hidepay() {
 
     $('#js_payChapter').hide();
 }
+
+function hidecomment() {
+    $('.comment-textarea').val('');
+    $('#js_comment').hide();
+    $('.comment-textarea-box-bd').removeClass('hover');
+}
+
+function showcomment() {
+    hidecate();
+    $('#js_comment').show();
+}
+
+//提交评论
+function subcomment() {
+    $dstr = $('.comment-textarea').val();
+
+    if ($dstr == '') {
+
+        $('.comment-textarea').focus();
+        $('.comment-textarea-box-bd').addClass('hover');
+        return false;
+    }
+    $ob = getnowob();
+    $data = {
+        'bookid': bookid,
+        'type': type,
+        'star': 5,
+        'section_id': $ob.attr('chapter-id'),
+        'content': $dstr
+
+    };
+    hidecomment();
+    yAjax(commenturl, $data, (data) => {
+        if (data.code == 1) {
+            showd(data.result);
+        } else {
+            showd(data.msg);
+
+        }
+    });
+    // d(3);
+    // d(Sdstr);
+
+    //获取提交就内容
+
+}
+
 function fn() {
     $arr = $('.acgn-reader-chapter__item-box').find('.loading');
     $arr.removeClass('loading');
@@ -55,10 +117,8 @@ function fn() {
         $str = "<img width='100%' src='" + v.attr('dataurl') + "'/>";
         let ob;
         ob = $($str);
-
         // d("<img src='" + v.attr('dataurl') + "' />");
-
-        ob[0].onload = function () {
+        ob[0].onload = function() {
             // d(v.attr('chapter-index'));
             // d(v.find('.acgn-reader-chapter__loading-tip'));
             v.find('.acgn-reader-chapter__loading-tip').remove();
@@ -76,6 +136,7 @@ function catecache() {
     setStorage($index, $cate, 1800);
     return $cate;
 }
+
 function changecache($list_order) {
     $cache = getcatechache();
     $data = $cache[$list_order];
@@ -89,6 +150,7 @@ function changecache($list_order) {
     }
 
 }
+
 function getcatechache() {
     $index = "cate." + uid + '.' + bookid + '.' + type;
     $cate = getStorage($index);
@@ -97,6 +159,7 @@ function getcatechache() {
     }
     return $cate;
 }
+
 function cate() {
     $cate = getcatechache();
     initcate($cate);
@@ -104,9 +167,11 @@ function cate() {
     gocate();
     //生成列表
 }
+
 function hidecate() {
     $('.read-category-dialog').hide();
 }
+
 function gochapter($id) {
     hidecate();
     if ($id) {
@@ -114,6 +179,7 @@ function gochapter($id) {
         _go_url($url);
     }
 }
+
 function initcate($cate) {
     $('.chapter-item-wrap.tmp').siblings().remove();
     $ob = $('.chapter-item-wrap.tmp').clone().removeClass('tmp').show();
@@ -124,7 +190,7 @@ function initcate($cate) {
         $num = $cate[$cate.length - 1]['list_order'];
         $('.chapter-count').find('.num').text($num);
 
-        $.each($cate, function (i, v) {
+        $.each($cate, function(i, v) {
             $tmp = $ob.clone();
             $tmp.find('.chapter-item').text(v.title);
             $tmp.attr('chapter-id', v.section_id);
@@ -155,6 +221,7 @@ function gocate() {
     $ob = $($id).addClass('active');
     _go_url($id);
 }
+
 function savecate() {
     $index = "cate." + uid + '.' + bookid + '.' + type;
     $cate = getStorage($index);
@@ -163,18 +230,23 @@ function savecate() {
         setStorage($index, $cate, 1800);
     }
 }
+
 function isautopay() {
     $data = getCookie(autopayindex);
     if ($data == null) {
         return 0;
     }
+    if ($data == 0) {
+        return 0;
+    }
+
     return $data;
 }
-$(function () {
+$(function() {
 
     fn();
     savecate();
-    $('.acgn-reader-chapter__scroll-box').click(function (event) {
+    $('.acgn-reader-chapter__scroll-box').click(function(event) {
 
         $y = event.clientY;
 
@@ -184,8 +256,7 @@ $(function () {
         $yc = 2;
         if ($y < $y3) {
             $yc = 1;
-        }
-        else if ($y >= $y3 && $y <= 2 * $y3) {
+        } else if ($y >= $y3 && $y <= 2 * $y3) {
             $yc = 2;
         } else if ($y > 2 * $y3) {
             $yc = 3;
@@ -206,13 +277,21 @@ $(function () {
         }
     });
     //目录按钮
-    $('#js_ftMenuBtn').on('click', function () {
+    $('#js_ftMenuBtn').on('click', function() {
         menu();
         //先加载目录
         cate();
 
     });
-    $('.read-category-ctrls').on('click', function () {
+    $(".comment-textarea-box-bd").hover(
+        function() {
+            $(this).addClass("hover");
+        },
+        function() {
+            $(this).removeClass("hover");
+        }
+    );
+    $('.read-category-ctrls').on('click', function() {
 
         $child = $(this).find('.ifst-caret-top');
         if ($child.hasClass('active')) {
@@ -226,18 +305,18 @@ $(function () {
         }
         gocate();
     });
-    $('.read-category-mask').on('click', function () {
+    $('.read-category-mask').on('click', function() {
 
         hidecate();
 
     });
-    $('.js_gologin').on('click', function () {
+    $('.js_gologin').on('click', function() {
 
         _go_url(loginurl);
 
     });
     //解锁
-    $('.js_goPay').on('click', function () {
+    $('.js_goPay').on('click', function() {
         $h = $(this).hasClass('lock');
         if ($h) return false;
         $(this).addClass('lock');
@@ -245,35 +324,47 @@ $(function () {
         $id = $ob.attr('chapter-id');
         // d($id);
         unlock($id, 0);
+        hidepay();
         // $(this).removeClass('lock');
     });
-    $('.js_godown').on('click', function () {
+    $('.js_godown').on('click', function() {
         _go_url(downurl);
     });
 
-    $('#js_autoBuy').on('click', function () {
-        var t = $(this)
-            , e = t.hasClass("active");
+    $('#js_autoBuy').on('click', function() {
+        var t = $(this),
+            e = t.hasClass("active");
         t[e ? "removeClass" : "addClass"]("active");
         setCookie(autopayindex, !e ? 1 : 0);
     });
 
     //充值
-    $('.js_recharge').on('click', function () {
-        _go_url(payurl);
+    $('.js_recharge').on('click', function() {
+        _go_url(rechagreurl);
     });
-    $('#js_payChapterClose').on('click', function () {
-
+    $('#js_payChapterClose').on('click', function() {
         hidepay();
-
     });
-    $('.chapter-item-wrap').live('click', function () {
+    $('#js_comment,.js_cancelcomment').on('click', function() {
+
+        hidecomment();
+    });
+    $('#js_comment .bd').on('click', function() {
+
+        return false;
+    });
+    $('.js_scomment').on('click', function() {
+        subcomment();
+        return false;
+    });
+
+    $('.chapter-item-wrap').live('click', function() {
 
         gochapter($(this).attr('chapter-id'));
 
     });
     //上一页
-    $('#js_ftLightBtn').on('click', function () {
+    $('#js_ftLightBtn').on('click', function() {
         menu();
         if (pre1 == 0) {
             showd(isfirststr);
@@ -284,7 +375,7 @@ $(function () {
 
     });
     //下一页
-    $('#js_ftBookmarkBtn').on('click', function () {
+    $('#js_ftBookmarkBtn').on('click', function() {
         menu();
         if (next1 == 0) {
             showd(islaststr);
@@ -294,10 +385,14 @@ $(function () {
         _go_url($url);
     });
     //评论
-    $('#js_ftAutoBtn').on('click', function () { menu(); });
+    $('#js_ftAutoBtn').on('click', function() {
+        menu();
+        showcomment();
+    });
     //分享
-    $('#js_ftSettingBtn').on('click', function () { menu(); });
+    $('#js_ftSettingBtn').on('click', function() { menu(); });
 });
+
 function menu() {
     $('#js_headMenu').toggle();
     $('#js_footMenu').toggle();
@@ -315,7 +410,7 @@ function gopage() {
     $('#js_staticPage').text($pg + '/' + $pagenum);
 
 }
-$(window).load(function () {
+$(window).load(function() {
     gopage();
 
 });
@@ -340,6 +435,7 @@ function loadcate($wait) {
     }, '', !$wait);
     return ret;
 }
+
 function showloadbox2() {
 
     $('.bottom_download').slideUp();
@@ -348,11 +444,62 @@ function showloadbox2() {
         top: "0px"
     }, 1000);
 }
+
 function islast() {
     //判断是否显示，
     //显示
     $('.islast').show();
     hideload();
+}
+
+function haveneedpay() {
+    return $('[needpay=1]').length;
+}
+
+function waitunlock($chapterid) {
+    if (!$chapterid) return false;
+    if (!getsecneedpay($chapterid)) return false;
+    $isautopay = isautopay();
+    if (!$isautopay) return false;
+    $data = {
+        'bookid': bookid,
+        'type': type,
+        'sid': $chapterid,
+        'autopay': $isautopay
+    };
+
+    yAjax(payurl, $data, (data) => {
+
+        if (data.code == 1) {
+            changesecstatus($chapterid);
+        } else {
+            //取消自动解锁
+            setCookie(autopayindex, 0);
+        }
+    }, null, false);
+}
+//张海靖缓存章节支付状态
+function changesecstatus($chapterid) {
+    $index = catelistindex($chapterid);
+    changecache($index);
+}
+
+function catelistindex($chapterid) {
+    $cache = getcatechache();
+    for (let index = 0; index < $cache.length; index++) {
+        if (parseInt($cache[index]['section_id']) == parseInt($chapterid)) {
+            return index;
+        }
+    }
+    return index;
+}
+
+function getsecneedpay($chapterid) {
+    $index = catelistindex($chapterid);
+    $data = $cache[$index];
+    if ($data['isfree'] == 0) return false;
+    if ($data['ispay'] == 1) return false;
+    return true;
 }
 //解锁
 function unlock($chapterid, $auto) {
@@ -361,19 +508,18 @@ function unlock($chapterid, $auto) {
         'bookid': bookid,
         'type': type,
         'sid': $chapterid,
-        'autopay': isautopay()
+        'autopay': $auto
     };
     yAjax(payurl, $data, (data) => {
-        $ob = $('[chapter-id=' + $chapterid + ']');
-        $list = $ob.attr('id');
-        $listnum = trim($list, 'mid');
-        changecache($listnum - 1);
+
         setTimeout(() => {
             //2秒才能再次点击解锁
             $('.js_goPay').removeClass('lock');
         }, 2000);
         if (data.code == 1) {
+
             //更新目录缓存
+            changesecstatus($chapterid);
             if (!$auto) {
                 _go_url(pgurl + '?id=' + $chapterid);
             } else {
@@ -382,33 +528,19 @@ function unlock($chapterid, $auto) {
                     'bookid': bookid,
                     'ajax': 1,
                     'id': $chapterid
-                }, function (data) {
-                    // lock = false;
+                }, function(data) {
                     if (data['code'] == 1) {
                         var ret = data['result'];
-                        // pre = ret['pre'];
-                        // pre1 = ret['pre'];
-                        // next1 = ret['next'];
                         $needpay = parseInt(ret['isfree']) && !parseInt(ret['ispay']) ? 1 : 0;
                         var imgs = '';
                         if (ret['images']) {
-                            $.each(ret['images'], function (i, v) {
+                            $.each(ret['images'], function(i, v) {
                                 imgs += ' <div style="width:auto" class="acgn-reader-chapter__item loading" chapter-index="1"  dataurl="' + v.url + '"><div class="acgn-reader-chapter__loading-tip">' + i + '</div> </div>'
                             });
                         }
-
-                        // var html = "<div chapter-id='" + ret['cart_section_id'] + "' chapter-coin='" + ret['coin'] + "'  class='acgn-reader-chapter__item-box hide' needpay='" + $needpay + "' id='mid" + ret['list_order'] + "' chapter-name='" + ret['title'] + "'>" + imgs + "</div>";
-                        // $id = '#' + $('.acgn-reader-chapter__item-box').eq(0).attr('id');
-                        // $('.acgn-reader-chapter__scroll-box').prepend(html);
                         $ob.html(imgs);
+                        $ob.attr('needpay', 0);
                         fn();
-                        // setTimeout(($id) => {
-                        //     $('.acgn-reader-chapter__item-box.hide').removeClass('hide');
-                        //     _go_url($id);
-                        //     // $(".acgn-reader-chapter").animate({ 'scrollTop': "-=" + 200 + "px" }, 300);
-                        // }, 300, $id);
-                    } else {
-                        // showdload = true;
                     }
                 });
 
@@ -422,12 +554,16 @@ function unlock($chapterid, $auto) {
 
     }, null, true);
 }
+
 function isfirst() { $('.isfirst').show().slideToggle(2000); }
+
 function isload() { $('.isload').show(); }
+
 function hideload() {
 
     $('.isload').hide();
 }
+
 function loading() {
 
     if (showdload) return false;
@@ -438,42 +574,38 @@ function loading() {
         if (scrollTop + ks_area >= nScrollHight) {
             islast('<!--{__ 已经是最新一章了}-->');
         }
-
         return false;
     }
     lock = true;
-    yAjax('', {
+    waitunlock(secid);
+    yAjax(pgurl, {
         'bookid': bookid,
         'ajax': 1,
         'id': secid
-    }, function (data) {
+    }, function(data) {
         //1秒以后才能再次滑动加载
         setTimeout(() => {
             lock = false;
-        }, 2000);
-
-
-
+        }, 3000);
         hideload();
         if (data['code'] == 1) {
             var ret = data['result'];
             $needpay = parseInt(ret['isfree']) && !parseInt(ret['ispay']) ? 1 : 0;
-
             secid = ret['next'];
             next1 = ret['next'];
             pre1 = ret['pre'];
             var imgs = '';
             if (ret['images']) {
-                $.each(ret['images'], function (i, v) {
+                $.each(ret['images'], function(i, v) {
                     imgs += ' <div style="width:auto" class="acgn-reader-chapter__item loading" chapter-index="1" chapter-name="' + ret['title'] + '" dataurl="' + v.url + '"><div class="acgn-reader-chapter__loading-tip">' + i + '</div> </div>'
                 });
             }
             var html = "<div chapter-id='" + ret['cart_section_id'] + "' chapter-coin='" + ret['coin'] + "'  class='acgn-reader-chapter__item-box' needpay='" + $needpay + "' id='mid" + ret['list_order'] + "' chapter-name='" + ret['title'] + "'>" + imgs + "</div>";
             $('.acgn-reader-chapter__scroll-box').append(html);
             fn();
-            if (isautopay) {
+            if (isautopay()) {
                 // d('自动解锁');
-                unlock(ret['cart_section_id'], 1);
+                // unlock(ret['cart_section_id'], 1);
                 // setTimeout(() => {
                 //     _go_url('#mid' + ret['list_orders']);
                 // }, 1000);
@@ -483,6 +615,7 @@ function loading() {
         }
     });
 }
+
 function loadpre() {
     if (showdload) return false;
     if (lock) return false;
@@ -498,7 +631,7 @@ function loadpre() {
         'bookid': bookid,
         'ajax': 1,
         'id': pre
-    }, function (data) {
+    }, function(data) {
 
         //1秒以后才能再次滑动加载
         setTimeout(() => {
@@ -512,7 +645,7 @@ function loadpre() {
             $needpay = parseInt(ret['isfree']) && !parseInt(ret['ispay']) ? 1 : 0;
             var imgs = '';
             if (ret['images']) {
-                $.each(ret['images'], function (i, v) {
+                $.each(ret['images'], function(i, v) {
                     imgs += ' <div style="width:auto" class="acgn-reader-chapter__item loading" chapter-index="1"  dataurl="' + v.url + '"><div class="acgn-reader-chapter__loading-tip">' + i + '</div> </div>'
                 });
             }
@@ -536,13 +669,15 @@ function getnowob() {
     $ob = $($('.acgn-reader-chapter__item-box').eq(nows));
     return $ob;
 }
+
 function settitle() {
     if (titlelock) return false;
     titlelock = true;
     setTimeout(() => {
         Yscroll();
-    }, 500);
+    }, 200);
 }
+
 function Yscroll() {
     $top = $('#reader-scroll').scrollTop();
     if (!lastpointy) {
@@ -561,18 +696,19 @@ function Yscroll() {
     lastpointy = $top;
     $allh = 0, $n = 0, $last = 0;
     //向下滚动
-
-    $.each($all, function (i, v) {
+    $.each($all, function(i, v) {
         $n = i;
         $last = $allh;
         $allh += v.offsetHeight;
-
         if ($top < $allh && $top >= $last) {
             lastrmb = nows;
-
             nows = $n;
             if (lastrmb != $n) {
-
+                loadpay2();
+            }
+            //或者滑倒底部
+            $h = $allh - ($top + window.innerHeight);
+            if ($h < 20) {
                 loadpay2();
             }
             // d($n);
@@ -596,6 +732,7 @@ function Yscroll() {
     });
 
 }
+
 function changeURLArg(url, arg, arg_val) {
     var pattern = arg + '=([^&]*)';
     var replaceText = arg + '=' + arg_val;
@@ -611,12 +748,14 @@ function changeURLArg(url, arg, arg_val) {
         }
     }
 }
+
 function inittime() {
     var myDate = new Date();
     // myDate.getHours();       //获取当前小时数(0-23)
     // myDate.getMinutes();     //获取当前分钟数(0-59)
     $('#js_staticTime').text(myDate.getHours() + ':' + myDate.getMinutes());
 }
+
 function getpage($ob) {
     $pagenum = $ob.children().length;
     $tpagesize = $ob.height();
@@ -624,7 +763,7 @@ function getpage($ob) {
     $prepagesize = $tpagesize / $pagenum;
     $y1 = $ob.offset().top;
     // $y2 = $top;
-    $pg = Math.round(Math.abs($y1) / $prepagesize);
+    $pg = Math.ceil(Math.abs($y1) / $prepagesize);
     if ($pg == 0) {
         $pg = 1;
     }
@@ -636,25 +775,28 @@ function rmbpoint($sid, $pg) {
     // d($sid + ',' + $pg);
     setCookie($index, $sid + '.' + $pg);
 }
-$(document).ready(function () {
+$(document).ready(function() {
     //fix底部
+    $ob = getnowob(0);
+    $ob.attr('needpay', needpay ? 1 : 0);
     inittime();
     loadpay();
     rmbpoint($('.acgn-reader-chapter__item-box').attr('chapter-id'), 1);
-    $('.acgn-reader-chapter').scroll(function () {
+    $('.acgn-reader-chapter').scroll(function() {
         scrollTop = $(this).scrollTop();
         ks_area = $(this).innerHeight();
         //滚动距离总长(注意不是滚动条的长度)  
         nScrollHight = $('body')[0].scrollHeight;
         $h = $('.acgn-reader-chapter__scroll-box').innerHeight();
         settitle();
-        if (scrollTop > ($h - nScrollHight * 1.5)) {
-            loading();
-        }
-        if ($(this).scrollTop() == 0) {
-            loadpre();
+        if (!haveneedpay()) {
+            if (scrollTop > ($h - nScrollHight * 1.5)) {
+                loading();
+            }
+            if ($(this).scrollTop() == 0) {
+                loadpre();
+            }
         }
     });
 
 });
-

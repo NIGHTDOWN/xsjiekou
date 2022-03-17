@@ -74,15 +74,22 @@ class coin extends Y
     public function change($uid, $coin)
     {
         $w = ['id' => $uid];
-        $p = T('third_party_user')->get_one($w);
-        $now = $p['remainder'] + $coin;
-        if ($now < 0) {
+        $p = T('third_party_user')->set_field('remainder,golden_bean')->get_one($w);
+        $now1 = $p['remainder'] + $coin;
+        $now2 = $p['golden_bean'] + $coin;
+        if ($now1 < 0 && $now2 < 0) {
             //金币不足失败
             return false;
         }
-
-        if ($p) {
-            return T('third_party_user')->update(['remainder' => $now], $w); //奖励书币
+        if ($now1 >= 0) {
+            //星星第二支付
+            $bool = T('third_party_user')->update('`remainder`=`remainder`-' . (-$coin), $w);
+            if ($bool) return 1;
+        }
+        if ($now2 >= 0) {
+            //金豆优先
+            $bool = T('third_party_user')->update('`golden_bean`=`golden_bean`-' . (-$coin), $w);
+            if ($bool) return 2;
         }
         return false;
     }
@@ -101,38 +108,42 @@ class coin extends Y
             return false;
         }
 
-        if (!$fee) {
-            return false;
-        }
+        // if (!$fee) {
+        //     return false;
+        // }
 
         $expends = T('expend')->where(['users_id' => $uid, 'expend_type' => 1, 'book_id' => $bookid, 'section_id' => $sectionid])->get_one();
 
         if (!$expends) {
-            $user = T('third_party_user')->set_field('nickname,remainder,isvip,vip_end_time')->where(['id' => $uid])->get_one();
+            $user = T('third_party_user')->set_field('nickname,remainder,isvip,vip_end_time,golden_bean')->where(['id' => $uid])->get_one();
             if ($user['isvip'] && $user['vip_end_time'] > time()) {
                 return false;
             }
             $bw = ['book_id' => $bookid];
             $sw = ['section_id' => $sectionid];
-            $book = T('book')->set_field('other_name,isfree,money')->where($bw)->get_one();
+            $book = T('book')->set_field('other_name,isfree,money,lang')->where($bw)->get_one();
 
             if (!$book) {
                 return false;
             }
             //解锁的时候需要根据语言获取对应章节id
-            $lang = T('book')->set_field('lang')->set_where(['book_id' => $bookid])->get_one();
-            $tpsec = M('book', 'im')->gettpsec(1, $lang['lang']);
-            $section = T($tpsec)->set_field('title,secnum')->where($sw)->get_one();
+            // $lang = T('book')->set_field('lang')->set_where(['book_id' => $bookid])->get_one();
+            $tpsec = M('book', 'im')->gettpsec(1, $book['lang']);
+            $section = T($tpsec)->set_field('title,secnum,coin,list_order')->where($sw)->get_one();
 
             if (!$section) {
                 return false;
             }
-            $fee = $this->bookcalculate($section['secnum'], $book['money']);
-
-            if (!$this->change($uid, -$fee)) {
+            if ($section['coin']) {
+                $fee =  $section['coin'];
+            } else {
+                $fee = intval($this->bookcalculate($section['secnum'], $book['money']));
+                T($tpsec)->update(['coin' => $fee], $sw);
+            }
+            $feetype = $this->change($uid, -$fee);
+            if (!$feetype) {
                 return false;
             }
-
             $arr['bother_name'] = $book['other_name'];
             $arr['nick_name'] = $user['nickname'];
             $arr['section_title'] = $section['title'];
@@ -146,7 +157,16 @@ class coin extends Y
             $arr['ispay'] = 1;
             $arr['plat'] = $plat;
             $arr['isauto'] = $isauto;
-            $arr['remainder'] = $user['remainder'] - $fee;
+            $arr['list_orders'] = $section['list_orders'];
+            $arr['feetype'] = $feetype;
+            if ($feetype == 1) {
+                $arr['remainder'] = $user['remainder'] - $fee;
+                $arr['golden_bean'] = $user['golden_bean'];
+            }
+            if ($feetype == 2) {
+                $arr['remainder'] = $user['remainder'];
+                $arr['golden_bean'] = $user['golden_bean'] - $fee;
+            }
             T('expend')->add($arr);
 
             M('census', 'im')->txtunlock_count($fee);
@@ -178,14 +198,14 @@ class coin extends Y
             return false;
         }
 
-        if (!$fee) {
-            return false;
-        }
+        // if (!$fee) {
+        //     return false;
+        // }
 
         $expends = T('expend')->where(['users_id' => $uid, 'expend_type' => 2, 'book_id' => $bookid, 'section_id' => $sectionid])->get_one();
 
         if (!$expends) {
-            $user = T('third_party_user')->set_field('nickname,remainder')->where(['id' => $uid])->get_one();
+            $user = T('third_party_user')->set_field('nickname,remainder,golden_bean')->where(['id' => $uid])->get_one();
             $bw = ['cartoon_id' => $bookid];
             $sw = ['cart_section_id' => $sectionid];
             $book = T('cartoon')->set_field('other_name')->where($bw)->get_one();
@@ -194,14 +214,20 @@ class coin extends Y
             }
             $lang = T('cartoon')->set_field('lang')->set_where(['cartoon_id' => $bookid])->get_one();
             $tpsec = M('book', 'im')->gettpsec(2, $lang['lang']);
-            $section = T($tpsec)->set_field('title')->where($sw)->get_one();
+            $section = T($tpsec)->set_field('title,charge_coin,list_order')->where($sw)->get_one();
             if (!$section) {
                 return false;
             }
-            if (!$this->change($uid, -$fee)) {
+            if ($section['charge_coin']) {
+                $fee =  $section['charge_coin'];
+            } else {
+                $fee = 60;
+                T($tpsec)->update(['charge_coin' => $fee], $sw);
+            }
+            $feetype = $this->change($uid, -$fee);
+            if (!$feetype) {
                 return false;
             }
-
             $arr['bother_name'] = $book['other_name'];
             $arr['nick_name'] = $user['nickname'];
             $arr['section_title'] = $section['title'];
@@ -215,13 +241,20 @@ class coin extends Y
             $arr['addtime'] = time();
             $arr['plat'] = $plat;
             $arr['isauto'] = $isauto;
-            $arr['remainder'] = $user['remainder'] - $fee;
+            $arr['list_orders'] = $section['list_order'];
+            $arr['feetype'] = $feetype;
+            if ($feetype == 1) {
+                $arr['remainder'] = $user['remainder'] - $fee;
+                $arr['golden_bean'] = $user['golden_bean'];
+            }
+            if ($feetype == 2) {
+                $arr['remainder'] = $user['remainder'];
+                $arr['golden_bean'] = $user['golden_bean'] - $fee;
+            }
 
             T('expend')->add($arr);
-
             M('census', 'im')->txtunlock_count($fee);
             M('bookcensus', 'im')->unlock($uid, 2, $bookid, $sectionid, $fee);
-
             M('census', 'im')->_aword($fee);
             $devicetype = $plat;
             // 不同平台区分记录

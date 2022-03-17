@@ -215,7 +215,7 @@ class user extends Y
         ];
         return T('u_action_log')->add($data);
     }
-    public function add_discuss($uid, $booktype, $bookid, $content, $star, $plat)
+    public function add_discuss($uid, $booktype, $bookid, $content, $star, $plat, $section_id = 0)
     {
         $arr['users_id'] = $uid;
         if (!$uid) return false;
@@ -224,6 +224,8 @@ class user extends Y
         $arr['star'] = $star;
         $arr['content'] = $content;
         $arr['plat'] = $plat;
+        $arr['type'] = $booktype;
+        $arr['section_id'] = $section_id;
         $arr['discuss_time'] = date('Y-m-d H:i:s', time());
         $user = T('third_party_user')->set_field('nickname')->where(['id' => $uid])->get_one();
         if (!$user) {
@@ -231,28 +233,28 @@ class user extends Y
         }
         $arr['nick_name'] = $user['nickname'];
 
-        if ($booktype != 2) {
+        if ($booktype == 1) {
             $arr['book_id'] = $bookid;
-            $book = T('book')->set_field('other_name,replynum')->where(['book_id' => $arr['book_id']])->get_one();
-            if (!$book) {
-                return false;
-            }
-            $arr['bookname'] = $book['other_name'];
+            // $book = T('book')->set_field('other_name,replynum')->where(['book_id' => $arr['book_id']])->get_one();
+            // if (!$book) {
+            //     return false;
+            // }
+            // $arr['bookname'] = $book['other_name'];
             $res = T('discuss')->add($arr);
-            $replynum['replynum'] = $book['replynum'] + 1;
-            T('book')->update($replynum, ['book_id' => $arr['book_id']]);
+            // $replynum['replynum'] = $book['replynum'] + 1;
+            T('book')->update('`replynum`=`replynum`+1', ['book_id' => $arr['book_id']]);
         } else {
 
-            $arr['cartoon_id'] = $bookid;
-            $book = T('cartoon')->set_field('other_name,replynum')->where(['cartoon_id' => $arr['cartoon_id']])->get_one();
+            $arr['book_id'] = $bookid;
+            // $book = T('cartoon')->set_field('other_name,replynum')->where(['cartoon_id' => $arr['book_id']])->get_one();
 
-            if (!$book) {
-                return false;
-            }
-            $arr['cartoonname'] = $book['other_name'];
+            // if (!$book) {
+            //     return false;
+            // }
+            // $arr['cartoonname'] = $book['other_name'];
             $res = T('discuss')->add($arr);
-            $replynum['replynum'] = $book['replynum'] + 1;
-            T('cartoon')->update($replynum, ['cartoon_id' => $arr['cartoon_id']]);
+            // $replynum['replynum'] = $book['replynum'] + 1;
+            T('cartoon')->update('`replynum`=`replynum`+1', ['cartoon_id' => $arr['book_id']]);
         }
         if ($res) {
             return true;
@@ -395,23 +397,11 @@ class user extends Y
             return false;
         $head = getdevicetype(Y::$wrap_head);
         if ($type == 1) {
-            $w = ['book_id' => $bookid];
-            $lang = T('book')->set_field('lang')->set_where($w)->get_one();
-            if (!$lang) return false;
-            $tpsec = M('book', 'im')->gettpsec($type, $lang['lang']);
-            $w['section_id'] = $sid;
-            $exp = T($tpsec)->set_field('coin')->set_where($w)->get_one();
-            if (!$exp) return false;
-            $bool = M('coin', 'im')->unlocktxt($uid, $bookid, $sid, $exp['coin'], $head, $autopay);
+
+            $bool = M('coin', 'im')->unlocktxt($uid, $bookid, $sid, 1, $head, $autopay);
         } else {
-            $w = ['cartoon_id' => $bookid];
-            $lang = T('cartoon')->set_field('lang')->set_where($w)->get_one();
-            if (!$lang) return false;
-            $tpsec = M('book', 'im')->gettpsec($type, $lang['lang']);
-            $w['cart_section_id'] = $sid;
-            $exp = T($tpsec)->set_field('charge_coin')->set_where($w)->get_one();
-            if (!$exp) return false;
-            $bool = M('coin', 'im')->unlockcartoon($uid, $bookid, $sid, $exp['charge_coin'], $head, $autopay);
+
+            $bool = M('coin', 'im')->unlockcartoon($uid, $bookid, $sid, 1, $head, $autopay);
         }
         if ($bool) {
             $user = T('third_party_user')->set_field('remainder,golden_bean')->get_one(['id' => $uid]);
