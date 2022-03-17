@@ -156,7 +156,7 @@ class content
             if (!$arr['coin'] <= 0  && $arr['isfree'] != 0) {
                 $arr['coin'] = intval(M('coin', 'im')->bookcalculate($arr['secnum'], 0.6));
                 //更新章节金币值
-                T($tpsec)->update(['coin'=>$arr['coin']],['section_id'=>$arr['section_id']]);
+                T($tpsec)->update(['coin' => $arr['coin']], ['section_id' => $arr['section_id']]);
             }
             //内容容错自修复机制；缓存2天；后台修改了数据后2天重新覆盖
             Y::$cache->set($index, $arr,  G_DAY);
@@ -197,7 +197,7 @@ class content
             $data = M('book', 'im')->getcartsectionlist($cartoon_id);
             //缓存半天
             if ($data) {
-                Y::$cache->set($index, $data, 43000);
+                Y::$cache->set($index, $data, 600);
             }
         }
         $expend_ispay_arr = [];
@@ -244,21 +244,21 @@ class content
         if ($now['list_order'] != $money['section']) {
             $data = M('book', 'im')->getsectionlist($w['book_id'], $money['money']);
             T('book')->update(['section' => $now['list_order']], $book_id);
-            Y::$cache->set($index, $data, 46000);
+            Y::$cache->set($index, $data, 1800);
         } else {
             $cache = Y::$cache->get($index);
             if ($cache[0]) {
                 $data = $cache[1];
             } else {
                 $data = M('book', 'im')->getsectionlist($w['book_id'], $money['money']);
-                Y::$cache->set($index, $data, 46000);
+                Y::$cache->set($index, $data, 600);
             }
         }
 
 
         $expend_ispay_arr = [];
         if ($users_id) {
-            
+
             //有用户id才取消耗表
             // $sec_ids = implode(',', array_column($data, 'section_id'));
             //$sec_ids = array_column($data, 'section_id');

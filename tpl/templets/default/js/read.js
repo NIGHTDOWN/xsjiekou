@@ -495,6 +495,7 @@ function catelistindex($chapterid) {
             return index;
         }
     }
+    catecache();
     return index;
 }
 
