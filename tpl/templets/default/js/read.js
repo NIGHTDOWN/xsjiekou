@@ -113,12 +113,14 @@ function fn() {
 
     $arr = $('.acgn-reader-chapter__item-box').find('.loading');
     $arr.removeClass('loading');
+
     if (type == 1) {
-        $find = $arr.find('.acgn-reader-chapter__content');
+        $find = $arr.children('.acgn-reader-chapter__content');
+
         $find.each(function(i, v) {
+            d(v);
             formatText($(v));
         });
-
         return true;
     }
     $arr.each(function(i, v) {
@@ -139,10 +141,14 @@ function fn() {
     return 1;
 }
 
-function formatText($obj) {
-    d($obj);
-    var txt = $obj.text();
+function formatText($objtmp) {
+
+    var txt = $objtmp.text();
     var j = 0;
+    //每段最大字符数值
+    var psize = 5000;
+    var nbsp = '&nbsp;';
+    nbsp = '';
     var span = $('<span></span>');
     for (i = 0; i < txt.length; i++) {
         if (txt.charAt(i) == '\n') {
@@ -151,14 +157,14 @@ function formatText($obj) {
             var outFlag = false; //溢出标识
             for (var z = 0; z < partTxt.length; z++) {
                 //p标签一行展示长度为31的字符
-                var startIndex = z * 31; //开始下标
-                var endIndex = (z + 1) * 31; //结束下标
+                var startIndex = z * psize; //开始下标
+                var endIndex = (z + 1) * psize; //结束下标
                 if (endIndex > partTxt.length) {
                     endIndex = partTxt.length;
                     outFlag = true;
                 }
                 var pTxt = partTxt.slice(startIndex, endIndex);
-                pTxt = pTxt.replace(new RegExp(' ', 'g'), '&nbsp;');
+                pTxt = pTxt.replace(new RegExp(' ', 'g'), nbsp);
                 var p = $('<p />');
                 // p.innerHTML = pTxt;
                 p.html(pTxt);
@@ -176,11 +182,11 @@ function formatText($obj) {
         }
     }
     var p_end = $('<p />');
-    $pend = txt.slice(j).replace(new RegExp(' ', 'g'), '&nbsp;');
+    $pend = txt.slice(j).replace(new RegExp(' ', 'g'), nbsp);
     p_end.html($pend);
-    $obj.text('');
+    $objtmp.text('');
     span.append(p_end);
-    $obj.append(span.html()); //去除span标签
+    $objtmp.append(span.html()); //去除span标签
 
 }
 //目录生产缓存
@@ -672,14 +678,7 @@ function loading() {
             secid = ret['next'];
             next1 = ret['next'];
             pre1 = ret['pre'];
-            var imgs = '';
-            if (ret['images']) {
-                $.each(ret['images'], function(i, v) {
-                    imgs += ' <div style="width:auto" class="acgn-reader-chapter__item loading" chapter-index="1" chapter-name="' + ret['title'] + '" dataurl="' + v.url + '"><div class="acgn-reader-chapter__loading-tip">' + i + '</div> </div>'
-                });
-            }
-            var html = "<div chapter-id='" + ret['cart_section_id'] + "' chapter-coin='" + ret['coin'] + "'  class='acgn-reader-chapter__item-box' needpay='" + $needpay + "' id='mid" + ret['list_order'] + "' chapter-name='" + ret['title'] + "'>" + imgs + "</div>";
-            $('.acgn-reader-chapter__scroll-box').append(html);
+            loadcontent(ret, 1);
             fn();
             if (isautopay()) {
                 // d('自动解锁');
@@ -720,17 +719,7 @@ function loadpre() {
             pre = ret['pre'];
             pre1 = ret['pre'];
             next1 = ret['next'];
-            $needpay = parseInt(ret['isfree']) && !parseInt(ret['ispay']) ? 1 : 0;
-            var imgs = '';
-            if (ret['images']) {
-                $.each(ret['images'], function(i, v) {
-                    imgs += ' <div style="width:auto" class="acgn-reader-chapter__item loading" chapter-index="1"  dataurl="' + v.url + '"><div class="acgn-reader-chapter__loading-tip">' + i + '</div> </div>'
-                });
-            }
-
-            var html = "<div chapter-id='" + ret['cart_section_id'] + "' chapter-coin='" + ret['coin'] + "'  class='acgn-reader-chapter__item-box hide' needpay='" + $needpay + "' id='mid" + ret['list_order'] + "' chapter-name='" + ret['title'] + "'>" + imgs + "</div>";
-            $id = '#' + $('.acgn-reader-chapter__item-box').eq(0).attr('id');
-            $('.acgn-reader-chapter__scroll-box').prepend(html);
+            loadcontent(ret, 0);
             fn();
             setTimeout(function($id) {
                 $('.acgn-reader-chapter__item-box.hide').removeClass('hide');
@@ -741,6 +730,32 @@ function loadpre() {
             showdload = true;
         }
     });
+}
+
+function loadcontent(ret, isafter) {
+    $needpay = parseInt(ret['isfree']) && !parseInt(ret['ispay']) ? 1 : 0;
+    var imgs = '';
+    if (type != 1) {
+        $chapterid = ret['cart_section_id'];
+        if (ret['images']) {
+            $.each(ret['images'], function(i, v) {
+                imgs += ' <div style="width:auto" class="acgn-reader-chapter__item loading" chapter-index="1"  dataurl="' + v.url + '"><div class="acgn-reader-chapter__loading-tip">' + i + '</div> </div>'
+            });
+        }
+    } else {
+        $chapterid = ret['section_id'];
+        imgs += '<div style="width:auto" class="acgn-reader-chapter__item loading"> <div class="acgn-reader-chapter__title">' + ret.title + '</div><div class="acgn-reader-chapter__content loading">' + ret.sec_content + '</div></div>';
+    }
+
+
+    var html = "<div chapter-id='" + $chapterid + "' chapter-coin='" + ret['coin'] + "'  class='acgn-reader-chapter__item-box' needpay='" + $needpay + "' id='mid" + ret['list_order'] + "' chapter-name='" + ret['title'] + "'>" + imgs + "</div>";
+    $id = '#' + $('.acgn-reader-chapter__item-box').eq(0).attr('id');
+    if (isafter) {
+        $('.acgn-reader-chapter__scroll-box').append(html);
+    } else {
+        $('.acgn-reader-chapter__scroll-box').prepend(html);
+    }
+
 }
 //获取当前章节DOM对象
 function getnowob() {
