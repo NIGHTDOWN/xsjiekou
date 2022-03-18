@@ -110,8 +110,17 @@ function subcomment() {
 }
 
 function fn() {
+
     $arr = $('.acgn-reader-chapter__item-box').find('.loading');
     $arr.removeClass('loading');
+    if (type == 1) {
+        $find = $arr.find('.acgn-reader-chapter__content');
+        $find.each(function(i, v) {
+            formatText($(v));
+        });
+
+        return true;
+    }
     $arr.each(function(i, v) {
         v = $(v);
         $str = "<img width='100%' src='" + v.attr('dataurl') + "'/>";
@@ -128,6 +137,51 @@ function fn() {
     });
 
     return 1;
+}
+
+function formatText($obj) {
+    d($obj);
+    var txt = $obj.text();
+    var j = 0;
+    var span = $('<span></span>');
+    for (i = 0; i < txt.length; i++) {
+        if (txt.charAt(i) == '\n') {
+            //以换行符做分割
+            var partTxt = txt.slice(j, i);
+            var outFlag = false; //溢出标识
+            for (var z = 0; z < partTxt.length; z++) {
+                //p标签一行展示长度为31的字符
+                var startIndex = z * 31; //开始下标
+                var endIndex = (z + 1) * 31; //结束下标
+                if (endIndex > partTxt.length) {
+                    endIndex = partTxt.length;
+                    outFlag = true;
+                }
+                var pTxt = partTxt.slice(startIndex, endIndex);
+                pTxt = pTxt.replace(new RegExp(' ', 'g'), '&nbsp;');
+                var p = $('<p />');
+                // p.innerHTML = pTxt;
+                p.html(pTxt);
+                span.append(p);
+                if (outFlag) {
+                    break;
+                }
+            }
+            //由于p标签内容为空时，页面不显示空行，加一个<br>
+            if (partTxt == '') {
+                span.append($('<br />'));
+                span.append(p);
+            }
+            j = i + 1;
+        }
+    }
+    var p_end = $('<p />');
+    $pend = txt.slice(j).replace(new RegExp(' ', 'g'), '&nbsp;');
+    p_end.html($pend);
+    $obj.text('');
+    span.append(p_end);
+    $obj.append(span.html()); //去除span标签
+
 }
 //目录生产缓存
 function catecache() {
@@ -181,11 +235,11 @@ function gochapter($id) {
 }
 
 function initcate($cate) {
+    $list = $('.read-category-chapters');
+    if ($list.hasClass('init')) return false;
     $('.chapter-item-wrap.tmp').siblings().remove();
     $ob = $('.chapter-item-wrap.tmp').clone().removeClass('tmp').show();
-    // $ob.css({ 'display': 'flex' });
-    $list = $('.read-category-chapters');
-
+    $ob.css({ 'display': 'flex' });
     if ($cate) {
         $num = $cate[$cate.length - 1]['list_order'];
         $('.chapter-count').find('.num').text($num);
@@ -208,7 +262,7 @@ function initcate($cate) {
             $list.append($tmp);
 
         });
-
+        $list.addClass('init');
     }
 
 }
@@ -219,7 +273,21 @@ function gocate() {
     $id = '#chapter' + $t.attr('chapter-id');
     $('.chapter-item-wrap.active').removeClass('active');
     $ob = $($id).addClass('active');
-    _go_url($id);
+    $h = $ob.outerHeight();
+    $index = $('.chapter-item-wrap').index($ob);
+    // $length = $('.chapter-item-wrap').length;
+    //全部高度
+    $w = $(document).height() - $('.read-category-head').outerHeight();
+    //半边高度
+    $hh = $w / 2;
+    $gotop = ($index * $h) - $hh;
+    if ($('.ifst-caret-top').hasClass('active')) {
+        // $index = $length - $index;
+        $gotop = -$gotop;
+        $gotop = $gotop + $h;
+    }
+    $('.read-category-chapters').scrollTop($gotop);
+
 }
 
 function savecate() {
@@ -296,12 +364,13 @@ $(function() {
         $child = $(this).find('.ifst-caret-top');
         if ($child.hasClass('active')) {
             $child.removeClass('active').siblings().addClass('active');
-            $('.read-category-chapters').css({ 'flex-direction': 'column-reverse' });
+            $('.read-category-chapters').css({ 'flex-direction': 'column' });
             //正序
         } else {
             $child.addClass('active').siblings().removeClass('active');
+            $('.read-category-chapters').css({ 'flex-direction': 'column-reverse' });
             //倒叙
-            $('.read-category-chapters').css({ 'flex-direction': 'column' });
+
         }
         gocate();
     });
@@ -486,6 +555,10 @@ function waitunlock($chapterid) {
 function changesecstatus($chapterid) {
     $index = catelistindex($chapterid);
     changecache($index);
+    //把章节解锁状态改变
+    $icon = $('#chapter' + $chapterid).children('i');
+
+    $icon.removeClass('ifst-lock').addClass('ifst-unlock');
 }
 
 function catelistindex($chapterid) {
@@ -786,6 +859,9 @@ $(document).ready(function() {
     $ob.attr('needpay', needpay ? 1 : 0);
     inittime();
     loadpay();
+    //初始化目录
+    $cate = getcatechache();
+    initcate($cate);
     rmbpoint($('.acgn-reader-chapter__item-box').attr('chapter-id'), 1);
     $('.acgn-reader-chapter').scroll(function() {
         scrollTop = $(this).scrollTop();

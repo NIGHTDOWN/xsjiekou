@@ -117,9 +117,12 @@ class content
         if (!$sid) {
             $first = T($tpsec)->set_field('section_id')->set_where(['book_id' => $bid, 'status' => 1])->order_by(['s' => 'up', 'f' => 'list_order'])->get_one();
             $sid = $first['section_id'];
+            $where['section_id'] = $sid;
         }
+
         $tpsecc = M('book', 'im')->gettpseccontent(1, $lang['lang']);
         $cache = Y::$cache->get($index);
+
         if ($cache[0]) {
             $arr = $cache[1];
             if (!$arr['next']) {
@@ -127,7 +130,8 @@ class content
                 $arr['next'] = $up['section_id'] ? $up['section_id'] : '0';
             }
         } else {
-            $data = T($tpsec)->field('section_id,title,book_id,update_time,isfree,secnum,list_order,coin')->where($where)->where(['status' => 1])->where(['isdelete' => 0])->find();
+            $data = T($tpsec)->field('section_id,title,book_id,update_time,isfree,secnum,list_order,coin')->where($where)->where(['status' => 1])->where(['isdelete' => 0])->get_one();
+           
             if (!$data) {
                 return false;
                 // Out::jerror('小说或章节不存在', null, '100154');

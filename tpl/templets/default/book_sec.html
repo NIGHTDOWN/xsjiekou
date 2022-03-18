@@ -48,7 +48,7 @@
     <meta property="og:novel:status" content="<!--{if $data.update_status==1}--><!--{__ 完结}--><!--{else}--><!--{__ 连载}--><!--{/if}-->">
     <meta property="og:novel:update_time" content="<!--{$data.new_section_time|date_format:'%Y-%m-%d'}-->">
     <meta property="og:novel:latest_chapter_name" content="  <!--{$data.new_section_title}-->">
-    <meta property="og:novel:latest_chapter_url" content='<!--{url action="sec" args="id:$data.update_section,bookid:$data.cartoon_id" }-->'>
+    <meta property="og:novel:latest_chapter_url" content='<!--{url action="sec" args="id:$data.update_section,bookid:$data.book_id" }-->'>
 
 
     <script src="<!--{$staticjs}-->/jquery.min.js"></script>
@@ -138,7 +138,7 @@
                 </span>&nbsp; <span id="js_staticTime"></span>&nbsp;
             </section>
             <header id="js_headMenu" class="rd-hd header-show" style="display: none;">
-                <a href='<!--{url action="" mod="cartoon" args="bookid:{$data.cartoon_id}"}-->' class="hd-left"><i
+                <a href='<!--{url action="" mod="book" args="bookid:{$data.book_id}"}-->' class="hd-left"><i
                         class="ift-back"></i></a>
                 <h1 id="js_headTitle" class="hd-title">
                     <!--{$data.title}-->
@@ -270,17 +270,20 @@
                 <div class="isfirst">
                     <!--{__ 已经是第一章了}-->
                 </div>
-                <div class="acgn-reader-chapter__scroll-box">
+                <div class="acgn-reader-chapter__scroll-box bookpage">
                     <div class="acgn-reader-chapter__item-box" chapter-coin="<!--{$data.coin}-->" chapter-id="<!--{$data.cart_section_id}-->" chapter-name="<!--{$data.title}-->" id='mid<!--{$data.list_order}-->'>
-                        <!--{foreach $data.images as $k=>$v}-->
+
 
                         <div style="width:auto" class="acgn-reader-chapter__item loading" chapter-index="<!--{$k}-->" chapter-pid="<!--{$data.cart_section_id}-->" dataurl='<!--{$v.url}-->'>
-                            <div class="acgn-reader-chapter__loading-tip">
-                                <!--{$k}-->
+                            <div class="acgn-reader-chapter__title">
+                                <!--{$data.title}-->
+                            </div>
+                            <div class="acgn-reader-chapter__content">
+                                <!--{$data.sec_content}-->
                             </div>
 
                         </div>
-                        <!--{/foreach}-->
+
                     </div>
                 </div>
                 <div class="islast">
@@ -300,7 +303,7 @@
                                     <!--{__ LoveNovel}-->
                                 </h2>
                                 <p class="guide-desc">
-                                    <!--{__ 海量漫画享免费阅读}-->
+                                    <!--{__ 海量小说享免费阅读}-->
                                 </p>
                                 <div class="guide-btn">
                                     <!--{__ 立即下載}-->
@@ -412,7 +415,7 @@
 
     <script>
         //初始化banner高度，宽高比。0.73
-        var pgurl = '<!--{url action="sec" args="bookid:{$data.cartoon_id}"}-->';
+        var pgurl = '<!--{url action="sec" args="bookid:{$data.book_id}"}-->';
         var cateurl = '<!--{url action="get_section" }-->';
         var downurl = "<!--{url action='page' mod='down' args=''}-->";
         var loginurl = "<!--{url action='' mod='login' args=''}-->";
@@ -428,8 +431,8 @@
         var pre = '<!--{$data.pre}-->';
         var pre1 = pre;
         var next1 = secid;
-        var bookid = '<!--{$data.cartoon_id}-->';
-        var type = 2;
+        var bookid = '<!--{$data.book_id}-->';
+        var type = 1;
         DEBUG = true;
     </script>
 </body>

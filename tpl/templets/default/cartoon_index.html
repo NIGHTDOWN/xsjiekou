@@ -44,12 +44,10 @@
     <meta property="og:novel:book_name" content="<!--{$data.other_name}-->">
     <meta property="og:novel:read_url" content="<!--{$url}-->">
     <meta property="og:url" content="<!--{$url}-->">
-    <meta property="og:novel:status"
-        content="<!--{if $data.update_status==1}--><!--{__ 完结}--><!--{else}--><!--{__ 连载}--><!--{/if}-->">
+    <meta property="og:novel:status" content="<!--{if $data.update_status==1}--><!--{__ 完结}--><!--{else}--><!--{__ 连载}--><!--{/if}-->">
     <meta property="og:novel:update_time" content="<!--{$data.new_section_time|date_format:'%Y-%m-%d'}-->">
     <meta property="og:novel:latest_chapter_name" content="  <!--{$data.new_section_title}-->">
-    <meta property="og:novel:latest_chapter_url"
-        content='<!--{url action="sec" args="id:$data.new_section_id,bookid:$data.cartoon_id" }-->'>
+    <meta property="og:novel:latest_chapter_url" content='<!--{url action="sec" args="id:$data.new_section_id,bookid:$data.cartoon_id" }-->'>
 
 
     <script src="<!--{$staticjs}-->/jquery.min.js"></script>
@@ -58,7 +56,64 @@
     <script src="<!--{$indextpl}-->js/web.js"></script>
     <script src="<!--{$static}-->js/jsshare.js"></script>
     <script>
-        function isMobileHanddle() { var e = navigator.userAgent; return (screen.width / screen.height < 1 || /AppleWebKit.*Mobile/i.test(e) || /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(e)) && !/ipad/gi.test(e) } var host = location.host; isMobileHanddle() || "m" !== host.substr(0, host.indexOf(".")) || (location.href = location.href.replace("//m.", "//www.")), top.location != location && (top.location = location.href), function (i, e) { function t() { var e = o.getBoundingClientRect().width; 540 < e / s && (e = 540 * s); var t = e / 10; o.style.fontSize = t + "px", m.rem = i.rem = t } var a, n = i.document, o = n.documentElement, r = n.querySelector('meta[name="viewport"]'), l = n.querySelector('meta[name="flexible"]'), s = 0, d = 0, m = e.flexible || (e.flexible = {}); if (r) { console.warn("将根据已有的meta标签来设置缩放比例"); var c = r.getAttribute("content").match(/initial\-scale=([\d\.]+)/); c && (d = parseFloat(c[1]), s = parseInt(1 / d)) } else if (l) { var p = l.getAttribute("content"); if (p) { var u = p.match(/initial\-dpr=([\d\.]+)/), f = p.match(/maximum\-dpr=([\d\.]+)/); u && (s = parseFloat(u[1]), d = parseFloat((1 / s).toFixed(2))), f && (s = parseFloat(f[1]), d = parseFloat((1 / s).toFixed(2))) } } if (!s && !d) { var h = (i.navigator.appVersion.match(/android/gi), i.navigator.appVersion.match(/iphone/gi)), v = i.devicePixelRatio; d = 1 / (s = h ? 3 <= v && (!s || 3 <= s) ? 3 : 2 <= v && (!s || 2 <= s) ? 2 : 1 : 1) } if (o.setAttribute("data-dpr", s), !r) if ((r = n.createElement("meta")).setAttribute("name", "viewport"), r.setAttribute("content", "initial-scale=" + d + ", maximum-scale=" + d + ", minimum-scale=" + d + ", user-scalable=no"), o.firstElementChild) o.firstElementChild.appendChild(r); else { var b = n.createElement("div"); b.appendChild(r), n.write(b.innerHTML) } i.addEventListener("resize", function () { clearTimeout(a), a = setTimeout(t, 300) }, !1), i.addEventListener("pageshow", function (e) { e.persisted && (clearTimeout(a), a = setTimeout(t, 300)) }, !1), "complete" === n.readyState ? n.body.style.fontSize = 12 * s + "px" : n.addEventListener("DOMContentLoaded", function () { n.body.style.fontSize = 12 * s + "px" }, !1), t(), m.dpr = i.dpr = s, m.refreshRem = t, m.rem2px = function (e) { var t = parseFloat(e) * this.rem; return "string" == typeof e && e.match(/rem$/) && (t += "px"), t }, m.px2rem = function (e) { var t = parseFloat(e) / this.rem; return "string" == typeof e && e.match(/px$/) && (t += "rem"), t } }(window, window.lib || (window.lib = {})), window.shareConf = null</script>
+        function isMobileHanddle() {
+            var e = navigator.userAgent;
+            return (screen.width / screen.height < 1 || /AppleWebKit.*Mobile/i.test(e) || /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(e)) && !/ipad/gi.test(e)
+        }
+        var host = location.host;
+        isMobileHanddle() || "m" !== host.substr(0, host.indexOf(".")) || (location.href = location.href.replace("//m.", "//www.")), top.location != location && (top.location = location.href),
+            function(i, e) {
+                function t() {
+                    var e = o.getBoundingClientRect().width;
+                    540 < e / s && (e = 540 * s);
+                    var t = e / 10;
+                    o.style.fontSize = t + "px", m.rem = i.rem = t
+                }
+                var a, n = i.document,
+                    o = n.documentElement,
+                    r = n.querySelector('meta[name="viewport"]'),
+                    l = n.querySelector('meta[name="flexible"]'),
+                    s = 0,
+                    d = 0,
+                    m = e.flexible || (e.flexible = {});
+                if (r) {
+                    console.warn("将根据已有的meta标签来设置缩放比例");
+                    var c = r.getAttribute("content").match(/initial\-scale=([\d\.]+)/);
+                    c && (d = parseFloat(c[1]), s = parseInt(1 / d))
+                } else if (l) {
+                    var p = l.getAttribute("content");
+                    if (p) {
+                        var u = p.match(/initial\-dpr=([\d\.]+)/),
+                            f = p.match(/maximum\-dpr=([\d\.]+)/);
+                        u && (s = parseFloat(u[1]), d = parseFloat((1 / s).toFixed(2))), f && (s = parseFloat(f[1]), d = parseFloat((1 / s).toFixed(2)))
+                    }
+                }
+                if (!s && !d) {
+                    var h = (i.navigator.appVersion.match(/android/gi), i.navigator.appVersion.match(/iphone/gi)),
+                        v = i.devicePixelRatio;
+                    d = 1 / (s = h ? 3 <= v && (!s || 3 <= s) ? 3 : 2 <= v && (!s || 2 <= s) ? 2 : 1 : 1)
+                }
+                if (o.setAttribute("data-dpr", s), !r)
+                    if ((r = n.createElement("meta")).setAttribute("name", "viewport"), r.setAttribute("content", "initial-scale=" + d + ", maximum-scale=" + d + ", minimum-scale=" + d + ", user-scalable=no"), o.firstElementChild) o.firstElementChild.appendChild(r);
+                    else {
+                        var b = n.createElement("div");
+                        b.appendChild(r), n.write(b.innerHTML)
+                    }
+                i.addEventListener("resize", function() {
+                    clearTimeout(a), a = setTimeout(t, 300)
+                }, !1), i.addEventListener("pageshow", function(e) {
+                    e.persisted && (clearTimeout(a), a = setTimeout(t, 300))
+                }, !1), "complete" === n.readyState ? n.body.style.fontSize = 12 * s + "px" : n.addEventListener("DOMContentLoaded", function() {
+                    n.body.style.fontSize = 12 * s + "px"
+                }, !1), t(), m.dpr = i.dpr = s, m.refreshRem = t, m.rem2px = function(e) {
+                    var t = parseFloat(e) * this.rem;
+                    return "string" == typeof e && e.match(/rem$/) && (t += "px"), t
+                }, m.px2rem = function(e) {
+                    var t = parseFloat(e) / this.rem;
+                    return "string" == typeof e && e.match(/px$/) && (t += "rem"), t
+                }
+            }(window, window.lib || (window.lib = {})), window.shareConf = null
+    </script>
     <link href="<!--{$indextpl}-->css/vendor.38cae4.css" rel="stylesheet">
     <link href="<!--{$indextpl}-->css/entry.index.53baaf.css" rel="stylesheet">
     <link href="<!--{$indextpl}-->css/swiper.min.css" rel="stylesheet">
@@ -70,27 +125,23 @@
     <section class="view-port" style="background-color: rgb(255, 255, 255); ">
         <header class="view-header comic-detail-header">
             <div id="js_top_nav" class="header-wrap header-wrap-normal"><i id="js_change_bg" class="change-bg "></i>
-                <div class="header-left"><span class="header-icon js_go_back"><i class="ift-back white"></i> </span><a
-                        class="header-icon" href="/" title="<!--{__ 首页}-->"><i class="ift-home white"></i></a></div>
+                <div class="header-left"><span class="header-icon js_go_back"><i class="ift-back white"></i> </span><a class="header-icon" href="/" title="<!--{__ 首页}-->"><i class="ift-home white"></i></a></div>
                 <div class="header-center top-title js_top_title" style="visibility: visible;">
-                    <h1 id="js_comic-title" class="header-title" data-id="107751" data-newid="xiuluojianzun"
-                        title="<!--{$data.other_name}-->">
+                    <h1 id="js_comic-title" class="header-title" data-id="107751" data-newid="xiuluojianzun" title="<!--{$data.other_name}-->">
                         <!--{$data.other_name}-->
                     </h1>
 
                 </div>
 
                 <div class="header-right">
-                    <div class="header-icon js_share" title="<!--{$data.other_name}-->" pic='<!--{$data.bpic}-->'
-                        url=''><i class="ift-share white"></i></div>
+                    <div class="header-icon js_share" title="<!--{$data.other_name}-->" pic='<!--{$data.bpic}-->' url=''><i class="ift-share white"></i></div>
                 </div>
 
             </div>
 
         </header>
         <article class="view-body detail-body aaalecj6y" id="js_comic_main" style="background:#fff">
-            <div id="detail" class="comic-header js_comic_header" data-comicid="107751"
-                style="background-image:url('<!--{$data.bpic}-->')">
+            <div id="detail" class="comic-header js_comic_header" data-comicid="107751" style="background-image:url('<!--{$data.bpic}-->')">
                 <div class="comic-info">
                     <div class="book-name">
                         <h1 class="name" data-allprice="8361" title="<!--{$data.other_name}-->">
@@ -126,13 +177,14 @@
                                 <!--{if $v}-->
 
 
-                                <li><a class="type" href='<!--{url action=' lable' mod='category'
+                                <li>
+                                    <a class="type" href='<!--{url action=' lable ' mod=' category '
                                         args="c1:$data.type,c2:$data.category_id,c3:$data.cate_id,c4:$v.id,lable:$v.tag"
-                                        }-->'
-                                        title="
+                                        }-->' title="
                                         <!--{$v.tag}-->">
                                         <!--{$v.tag}-->
-                                    </a></li>
+                                    </a>
+                                </li>
                                 <!--{/if}-->
                                 <!--{/foreach}-->
 
@@ -141,9 +193,7 @@
                         </div>
                     </div>
                     <div class="book-cover comic-item">
-                        <div class="thumbnail" style="border: 2px solid #fff"><img
-                                src="<!--{$indextpl}-->imgs/space.gif" alt="<!--{$data.other_name}-->"
-                                style="background: url(&quot;<!--{$data.bpic}-->&quot;) center center / cover no-repeat; opacity: 1;">
+                        <div class="thumbnail" style="border: 2px solid #fff"><img src="<!--{$indextpl}-->imgs/space.gif" alt="<!--{$data.other_name}-->" style="background: url(&quot;<!--{$data.bpic}-->&quot;) center center / cover no-repeat; opacity: 1;">
                             <!-- <span class="origin"></span> -->
                         </div>
                     </div>
@@ -218,12 +268,12 @@
                 <div class="chapter-list" id="js_chapter_list">
                     <ul id="js_chapters" class="asc">
                         <!--{foreach $seclist as $sec}-->
-                        <li class="comic-chapter-item" data-index="<!--{$sec.section_id}-->"
-                            data-chapterid="<!--{$sec.section_id}-->"><a class="comic-chapter-link"
-                                href='<!--{url action="sec" args="id:$sec.section_id,bookid:$data.cartoon_id" }-->'
-                                title="
+                        <li class="comic-chapter-item" data-index="<!--{$sec.section_id}-->" data-chapterid="<!--{$sec.section_id}-->">
+                            <a class="comic-chapter-link" href='<!--{url action="sec" args="id:$sec.section_id,bookid:$data.cartoon_id" }-->' title="
                                 <!--{$sec.title}-->">
-                                <!--{$sec.title}-->
+                                <span1>
+                                    <!--{$sec.title}-->
+                                </span1>
                                 <!--{if $sec.isfree}-->
                                 <!--{if $sec.ispay}-->
                                 <i class="ift-unlock js_lock"></i>
@@ -236,8 +286,7 @@
                         <!--{/foreach}-->
 
                     </ul>
-                    <div class="more-chapter more-chapter-wrapper js_chapter_btn"><span
-                            class="js_more_chapters more-chapter-btn">
+                    <div class="more-chapter more-chapter-wrapper js_chapter_btn"><span class="js_more_chapters more-chapter-btn">
                             <!--{__ 查看全部}--><i class="ift-down arrow-direction"></i>
                         </span></div>
                 </div>
@@ -263,8 +312,7 @@
                             <ul class="mult-warp siw">
                                 <!--{foreach $similar as $k=>$v}-->
 
-                                <li class="card r1c3"><a
-                                        href='<!--{url args="bookid:{$v.book_id},title:{$v.other_name}"}-->''
+                                <li class="card r1c3"><a href='<!--{url args="bookid:{$v.book_id},title:{$v.other_name}"}-->' '
                                         title="
                                         <!--{$v.other_name}-->">
                                         <div class="card-graph r3x4"><img class="lazy-image"
@@ -297,30 +345,29 @@
                             <!--{__ 万}-->
                         </div>
                         </a></li>
-                        <!--{/foreach}-->
-                        </ul>
-                    </div>
-                </div>
-                <!--{/if}-->
-                <!--{if $author}-->
-
-
-                <div data-tpl="2" class="tpl-2 mult sow">
-                    <div class="mult-head">
-                        <h2 class="left mult-caption"><span class="mult-title">
-                                <!--{__ 作者书籍}-->
-                            </span></h2>
-                        <div class="mult-style-func">
-                            <div class="mult-change" key="66247" horizonratio="3:4"><i class="icon-change"></i>
-                            </div>
+                                <!--{/foreach}-->
+                            </ul>
                         </div>
                     </div>
-                    <div class="mult-body">
-                        <ul class="mult-warp siw">
-                            <!--{foreach $author as $k=>$v}-->
+                    <!--{/if}-->
+                    <!--{if $author}-->
 
-                            <li class="card r1c3"><a
-                                    href='<!--{url args="bookid:{$v.book_id},title:{$v.other_name}"}-->''
+
+                    <div data-tpl="2" class="tpl-2 mult sow">
+                        <div class="mult-head">
+                            <h2 class="left mult-caption"><span class="mult-title">
+                                <!--{__ 作者书籍}-->
+                            </span></h2>
+                            <div class="mult-style-func">
+                                <div class="mult-change" key="66247" horizonratio="3:4"><i class="icon-change"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mult-body">
+                            <ul class="mult-warp siw">
+                                <!--{foreach $author as $k=>$v}-->
+
+                                <li class="card r1c3"><a href='<!--{url args="bookid:{$v.book_id},title:{$v.other_name}"}-->' '
                                         title="
                                         <!--{$v.other_name}-->">
                                         <div class="card-graph r3x4"><img class="lazy-image"
@@ -351,12 +398,12 @@
                         <!--{__ 万}-->
                     </div>
                     </a></li>
-                    <!--{/foreach}-->
-                    </ul>
+                                <!--{/foreach}-->
+                            </ul>
+                        </div>
+                    </div>
+                    <!--{/if}-->
                 </div>
-            </div>
-            <!--{/if}-->
-            </div>
             </div>
 
             <div class="up-chapter-list js_up_chapterList">
@@ -390,8 +437,7 @@
                     <div class="comment-bd">
                         <div class="comment-textarea-box">
                             <div class="comment-textarea-box-bd">
-                                <textarea class="comment-textarea" maxlength="100"
-                                    placeholder="<!--{__ 有事没事说两句}-->..."></textarea>
+                                <textarea class="comment-textarea" maxlength="100" placeholder="<!--{__ 有事没事说两句}-->..."></textarea>
                                 <!-- <span class="comment-input-num">0/500</span> -->
                             </div>
                             <div class="comment-textarea-box-ft">
@@ -419,8 +465,7 @@
                                 <!--{__ 评论正在审核中}-->~
                             </p>
                         </div>
-                        <div class="comment-more-box" id="js_comment_more_box" style="display: none;"><span
-                                id="js_comment_more" class="comment-more">查看更多</span></div>
+                        <div class="comment-more-box" id="js_comment_more_box" style="display: none;"><span id="js_comment_more" class="comment-more">查看更多</span></div>
                     </div>
                 </div>
             </div>
@@ -437,16 +482,16 @@
             /* margin-top: 20px;
             margin-bottom: 20px; */
         }
-
+        
         i.js_lock {
             float: right;
             margin-right: 0.3rem;
         }
-
+        
         i.ift-unlock.js_lock {
             color: #fc6976;
         }
-
+        
         .comment-textarea-box-ft {
             display: flex;
             flex-direction: row;
@@ -456,13 +501,13 @@
             align-content: flex-start;
             align-items: center;
         }
-
+        
         .pfstars li {
             display: inline-block;
             color: #ffce06;
             font-size: 30px;
         }
-
+        
         .guide-hd-banner {
             box-sizing: border-box;
             position: fixed;
@@ -476,7 +521,7 @@
             transition: top .2s ease-out;
             -webkit-transition: top .2s ease-out;
         }
-
+        
         .guide-hd-banner .guide-close {
             position: absolute;
             left: 4px;
@@ -488,7 +533,7 @@
             background: url('<!--{$indextpl}-->images/close.png') no-repeat center;
             background-size: 8px 8px;
         }
-
+        
         .guide-hd-banner .guide-logo {
             position: absolute;
             left: 32px;
@@ -498,7 +543,7 @@
             width: 32px;
             border-radius: 4px;
         }
-
+        
         .guide-hd-banner .guide-title {
             height: 18px;
             font-size: 12px;
@@ -510,7 +555,7 @@
             text-overflow: ellipsis;
             overflow: hidden;
         }
-
+        
         .guide-hd-banner .guide-desc {
             height: 16px;
             font-size: 10px;
@@ -521,7 +566,7 @@
             text-overflow: ellipsis;
             overflow: hidden;
         }
-
+        
         .guide-hd-banner .guide-btn {
             position: absolute;
             right: 12px;
@@ -536,7 +581,7 @@
             color: white;
             background-color: #FC6976;
         }
-
+        
         div#collection.disabled {
             background: #bfbfbf;
         }
@@ -572,7 +617,7 @@
                     'type': $type,
                     'groom': $groom
                 };
-                yAjax($url, $data, function (data) {
+                yAjax($url, $data, function(data) {
                     $ret = data.result;
                     // d($ret);
                     if ($ret) {
@@ -583,10 +628,14 @@
             }
 
         }
-        $(function () {
+        $(function() {
             initreadpoint();
+            $('.comic-chapter-link').each(function(i, v) {
+                $sp = $(v).children('span1');
+                $sp.text(trim($sp.text()));
+            });
             $securl = '<!--{url args="bookid:$data.cartoon_id" action="sec"}-->';
-            $('.startReadfather').click(function () {
+            $('.startReadfather').click(function() {
                 initreadpoint();
                 $gourl = $securl + "?id=" + $sid + "&page=" + $pg;
                 _go_url($gourl);
@@ -623,7 +672,7 @@
             $obj.append($('.raft'));
 
             $('.pfstar').hover(
-                function () {
+                function() {
 
                     if (!isClicked) {
                         $(this).css('color', '#ffce06');
@@ -634,7 +683,7 @@
                         }
                     }
                 },
-                function () {
+                function() {
 
                     if (!isClicked) {
                         $('.pfstar').css('color', '#ADADAD');
@@ -642,7 +691,7 @@
                 }
             );
             //星星点击事件
-            $('.pfstar').click(function () {
+            $('.pfstar').click(function() {
                 $('.pfstar').css('color', '#ADADAD');
                 isClicked = true;
                 var index = $(this).index();
@@ -662,7 +711,7 @@
                     beforeClickedIndex = index;
                 }
             });
-            $('.js_submit_comment').click(function () {
+            $('.js_submit_comment').click(function() {
 
                 $star = pfstar;
                 $content = $('.comment-textarea').val();
@@ -677,7 +726,7 @@
                     'type': $type,
                     'star': $star,
                     'content': $content,
-                }, function (data) {
+                }, function(data) {
 
                     switch (data.code + '') {
                         case '-1':
@@ -706,32 +755,29 @@
 
         function addrack() {
             $url = "<!--{url mod='rack' action='add'}-->";
-            yAjax($url,
-                {
-                    'book_id': $bookid,
-                    'type': $type,
-                }, function (data) {
-                    d(data);
-                    switch (data.code + '') {
-                        case '-1':
-                            _go_url(data.result);
-                            break;
-                        case '0':
-                            showd(data.msg);
-                            break;
-                        case '1':
-                            // showd(data.result);
-                            $('#collection').addClass('disabled');
-                            break;
-                        default:
-                            showd(data.msg);
-                            break;
-                    }
+            yAjax($url, {
+                'book_id': $bookid,
+                'type': $type,
+            }, function(data) {
+                d(data);
+                switch (data.code + '') {
+                    case '-1':
+                        _go_url(data.result);
+                        break;
+                    case '0':
+                        showd(data.msg);
+                        break;
+                    case '1':
+                        // showd(data.result);
+                        $('#collection').addClass('disabled');
+                        break;
+                    default:
+                        showd(data.msg);
+                        break;
                 }
-            )
+            })
 
         }
-
     </script>
 </body>
 

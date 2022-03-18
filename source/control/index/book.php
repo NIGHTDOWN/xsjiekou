@@ -117,4 +117,27 @@ class book extends indexbase
         $data = M('content', 'im')->book_section($this->get_userid(), $book_id['bookid']);
         Out::jout($data);
     }
+    public function control_sec()
+    {
+        $get = get(['int' => ['id',  'bookid', 'ajax']]);
+        // if ($get['ids']) {
+
+        // }
+        $data = M('content', 'im')->book($get['bookid'], $get['id'], $this->get_userid());
+        // d($data,1);
+        //获取登入状态
+        //获取解锁状态
+        //记录阅读指针
+
+        if ($get['ajax']) {
+            Out::jout($data);
+        } else {
+            if (!$data) {
+                Out::page404();
+            }
+           
+            // $data['size'] = sizeof($data['images']);
+            $this->view('', ['data' => $data]);
+        }
+    }
 }
