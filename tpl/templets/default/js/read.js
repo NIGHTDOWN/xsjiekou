@@ -455,6 +455,25 @@ $(function() {
         hideset();
         return false;
     });
+    $('.article-setting').on('click', function() {
+        return false;
+    });
+    $('#font_layer span').click(function() {
+        $fontsize = $(this).css('font-size');
+        d($fontsize);
+        $('.acgn-reader-chapter__content').css('font-size', $fontsize);
+        inittime();
+    });
+    $('#back_scheme span').click(function() {
+        $bg = $(this).css('background-color');
+        d($bg);
+        $('.bookpage').css('background-color', $bg);
+    });
+    $('#back_scheme_font span').click(function() {
+        $bg = $(this).css('background-color');
+        d($bg);
+        $('.acgn-reader-chapter__content').css('color', $bg);
+    });
     $('#js_comment .bd').on('click', function() {
 
         return false;
