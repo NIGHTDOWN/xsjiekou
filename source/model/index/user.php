@@ -397,7 +397,7 @@ class user extends Y
             return false;
         $head = getdevicetype(Y::$wrap_head);
         if ($type == 1) {
-
+            
             $bool = M('coin', 'im')->unlocktxt($uid, $bookid, $sid, 1, $head, $autopay);
         } else {
 

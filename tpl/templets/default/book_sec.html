@@ -266,15 +266,15 @@
             </div> -->
 
 
-            <div class="acgn-reader-chapter v" id="reader-scroll">
+            <div class="acgn-reader-chapter v bookpage" id="reader-scroll">
                 <div class="isfirst">
                     <!--{__ 已经是第一章了}-->
                 </div>
-                <div class="acgn-reader-chapter__scroll-box bookpage">
-                    <div class="acgn-reader-chapter__item-box" chapter-coin="<!--{$data.coin}-->" chapter-id="<!--{$data.cart_section_id}-->" chapter-name="<!--{$data.title}-->" id='mid<!--{$data.list_order}-->'>
+                <div class="acgn-reader-chapter__scroll-box ">
+                    <div class="acgn-reader-chapter__item-box" chapter-coin="<!--{$data.coin}-->" chapter-id="<!--{$data.section_id}-->" chapter-name="<!--{$data.title}-->" id='mid<!--{$data.list_order}-->'>
 
 
-                        <div style="width:auto" class="acgn-reader-chapter__item loading" chapter-index="<!--{$k}-->" chapter-pid="<!--{$data.cart_section_id}-->" dataurl='<!--{$v.url}-->'>
+                        <div style="width:auto" class="acgn-reader-chapter__item loading" chapter-index="<!--{$k}-->" chapter-pid="<!--{$data.section_id}-->" dataurl='<!--{$v.url}-->'>
                             <div class="acgn-reader-chapter__title">
                                 <!--{$data.title}-->
                             </div>
@@ -373,6 +373,12 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div id="js_paywait" style="" class="pay-chapter-bg modal-cover modal-cover-rise" chapter-id="">
+                    <div class="load-png-modal">
+                        <div class="load-png"><img src="<!--{$static}-->images/load.gif"> </div>
+                    </div>
+
                 </div>
                 <div id="js_comment" style="display: none;" class="pay-chapter-bg modal-cover modal-cover-rise" chapter-id="">
                     <div class="pay-chapter-modal">

@@ -27,6 +27,7 @@ class wallet extends indexbase
         $get = get(['int' => ['bookid' => 1, 'type' => 1, 'sid' => 1, 'autopay']]);
         // $uid, $bookid, $type, $sid, $autopay
         $ret = M('user', 'im')->unlock($this->get_userid(), $get['bookid'], $get['type'], $get['sid'], $get['autopay']);
+       
         Out::jout($ret);
     }
     public function control_bean()

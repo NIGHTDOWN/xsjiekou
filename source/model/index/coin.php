@@ -107,22 +107,16 @@ class coin extends Y
         if (!$sectionid) {
             return false;
         }
-
-        // if (!$fee) {
-        //     return false;
-        // }
-
         $expends = T('expend')->where(['users_id' => $uid, 'expend_type' => 1, 'book_id' => $bookid, 'section_id' => $sectionid])->get_one();
 
         if (!$expends) {
             $user = T('third_party_user')->set_field('nickname,remainder,isvip,vip_end_time,golden_bean')->where(['id' => $uid])->get_one();
-            if ($user['isvip'] && $user['vip_end_time'] > time()) {
-                return false;
-            }
+            // if ($user['isvip'] && $user['vip_end_time'] > time()) {
+            //     return false;
+            // }
             $bw = ['book_id' => $bookid];
             $sw = ['section_id' => $sectionid];
             $book = T('book')->set_field('other_name,isfree,money,lang')->where($bw)->get_one();
-
             if (!$book) {
                 return false;
             }
@@ -130,11 +124,11 @@ class coin extends Y
             // $lang = T('book')->set_field('lang')->set_where(['book_id' => $bookid])->get_one();
             $tpsec = M('book', 'im')->gettpsec(1, $book['lang']);
             $section = T($tpsec)->set_field('title,secnum,coin,list_order')->where($sw)->get_one();
-
+            // d($section);
             if (!$section) {
                 return false;
             }
-            if ($section['coin']) {
+            if ($section['coin'] > 0) {
                 $fee =  $section['coin'];
             } else {
                 $fee = intval($this->bookcalculate($section['secnum'], $book['money']));
@@ -271,7 +265,7 @@ class coin extends Y
     public function bookcalculate($num, $price)
     {
         $coin = $num / 1000 * $price / 0.0125;
-        return round($coin, 1);
+        return intval(round($coin, 1));
     }
     /**
      * 章节消费记录

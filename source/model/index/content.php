@@ -131,7 +131,7 @@ class content
             }
         } else {
             $data = T($tpsec)->field('section_id,title,book_id,update_time,isfree,secnum,list_order,coin')->where($where)->where(['status' => 1])->where(['isdelete' => 0])->get_one();
-           
+
             if (!$data) {
                 return false;
                 // Out::jerror('小说或章节不存在', null, '100154');
@@ -180,13 +180,17 @@ class content
             }
             //如果是付费的章节内容截取滞留最大100个单词
             if (!$arr['ispay']) {
-                $pattern = "/.{300,}\s/";
-                preg_match($pattern, $arr['sec_content'], $result);
-                if ($result[0]) {
-                    $arr['sec_content'] =   $result[0];
-                }
+                // d($arr['sec_content']);
+                // $pattern = "/.{300,}\s/";
+                // preg_match($pattern, $arr['sec_content'], $result);
+                // d($result[0]);
+                // if ($result[0]) {
+                //     $arr['sec_content'] =   $result[0];
+                // }
+                $arr['sec_content'] = mb_substr($arr['sec_content'], 0, 300);
             }
         }
+
         return ($arr);
     }
     //获取漫画章节列表

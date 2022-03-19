@@ -2608,7 +2608,7 @@ div#js_comment {
     overflow: hidden;
     text-align: center;
     font-weight: bold;
-    padding-top: 1.25rem
+    padding-top: .25rem
 }
 
 .acgn-reader-chapter__content p {
@@ -2620,4 +2620,22 @@ div#js_comment {
 
 .bookpage {
     background: #fff;
+}
+
+div#js_paywait {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+}
+
+.load-png-modal {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
 }

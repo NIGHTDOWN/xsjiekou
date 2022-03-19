@@ -31,10 +31,12 @@ function loadpay() {
 }
 //获取钱包
 function initcash($coin) {
+
     yAjax(wallerurl, {}, function(data) {
+
         if (data.code == 1) {
             $walvar = data.result;
-            if ($walvar.golden_bean < $coin && $walvar.remainder < $coin) {
+            if (parseFloat($walvar.golden_bean) < parseFloat($coin) && parseFloat($walvar.remainder) < parseFloat($coin)) {
                 //显示充值按钮
                 $('.pay-btn-box .js_goPay').hide();
                 $('.pay-btn-box .js_recharge').show();
@@ -110,15 +112,12 @@ function subcomment() {
 }
 
 function fn() {
-
     $arr = $('.acgn-reader-chapter__item-box').find('.loading');
     $arr.removeClass('loading');
-
+    $arr.css({ 'min-height': $(window).height() });
     if (type == 1) {
         $find = $arr.children('.acgn-reader-chapter__content');
-
         $find.each(function(i, v) {
-            d(v);
             formatText($(v));
         });
         return true;
@@ -246,13 +245,15 @@ function initcate($cate) {
     $('.chapter-item-wrap.tmp').siblings().remove();
     $ob = $('.chapter-item-wrap.tmp').clone().removeClass('tmp').show();
     $ob.css({ 'display': 'flex' });
+
     if ($cate) {
         $num = $cate[$cate.length - 1]['list_order'];
         $('.chapter-count').find('.num').text($num);
 
         $.each($cate, function(i, v) {
             $tmp = $ob.clone();
-            $tmp.find('.chapter-item').text(v.title);
+
+            $tmp.find('.chapter-item').text(trim(v.title));
             $tmp.attr('chapter-id', v.section_id);
             $tmp.attr('id', 'chapter' + v.section_id);
             if (v.isfree == 0) {
@@ -316,11 +317,22 @@ function isautopay() {
 
     return $data;
 }
+//显示网络请求加载状态
+function pagewait() {
+    $('#js_paywait').show();
+}
+
+function pagewaithide() {
+    $('#js_paywait').hide();
+}
 $(function() {
 
     fn();
     savecate();
-    $('.acgn-reader-chapter__scroll-box').click(function(event) {
+    $('#js_paywait').click(function() {
+        return false;
+    });
+    $('#reader-scroll').click(function(event) {
 
         $y = event.clientY;
 
@@ -341,6 +353,7 @@ $(function() {
                 $(".acgn-reader-chapter").animate({ 'scrollTop': "-=" + $y3 + "px" }, 300);
                 break;
             case 2:
+                loadpay();
                 //弹出菜单
                 menu();
                 break;
@@ -397,9 +410,10 @@ $(function() {
         $(this).addClass('lock');
         $ob = getnowob();
         $id = $ob.attr('chapter-id');
-        // d($id);
+
         unlock($id, 0);
         hidepay();
+        pagewait();
         // $(this).removeClass('lock');
     });
     $('.js_godown').on('click', function() {
@@ -416,13 +430,16 @@ $(function() {
     //充值
     $('.js_recharge').on('click', function() {
         _go_url(rechagreurl);
+        return false;
     });
     $('#js_payChapterClose').on('click', function() {
         hidepay();
+        return false;
     });
     $('#js_comment,.js_cancelcomment').on('click', function() {
 
         hidecomment();
+        return false;
     });
     $('#js_comment .bd').on('click', function() {
 
@@ -436,6 +453,7 @@ $(function() {
     $('.chapter-item-wrap').live('click', function() {
 
         gochapter($(this).attr('chapter-id'));
+        return false;
 
     });
     //上一页
@@ -463,13 +481,14 @@ $(function() {
     $('#js_ftAutoBtn').on('click', function() {
         menu();
         showcomment();
+        return false;
     });
     $('#js_sharebox').on('click', function() {
         menu();
-
+        return false;
     });
     //分享
-    $('#js_ftSettingBtn').on('click', function() { menu(); });
+    $('#js_ftSettingBtn').on('click', function() { menu(); return false; });
 });
 
 function menu() {
@@ -481,7 +500,7 @@ function gopage() {
     $pg = getQueryVariable('page');
     if (!$pg) return false;
     $ob = $('.acgn-reader-chapter__item-box');
-    $pagenum = $ob.children().length;
+    $pagenum = getpagenum($ob);
     $tpagesize = $ob.height();
     //本章单张图片平均尺寸
     $prepagesize = $tpagesize / $pagenum;
@@ -617,11 +636,24 @@ function unlock($chapterid, $auto) {
                         var ret = data['result'];
                         $needpay = parseInt(ret['isfree']) && !parseInt(ret['ispay']) ? 1 : 0;
                         var imgs = '';
-                        if (ret['images']) {
-                            $.each(ret['images'], function(i, v) {
-                                imgs += ' <div style="width:auto" class="acgn-reader-chapter__item loading" chapter-index="1"  dataurl="' + v.url + '"><div class="acgn-reader-chapter__loading-tip">' + i + '</div> </div>'
-                            });
+                        // if (ret['images']) {
+                        //     $.each(ret['images'], function(i, v) {
+                        //         imgs += ' <div style="width:auto" class="acgn-reader-chapter__item loading" chapter-index="1"  dataurl="' + v.url + '"><div class="acgn-reader-chapter__loading-tip">' + i + '</div> </div>'
+                        //     });
+                        // }
+                        if (type != 1) {
+                            $chapterid = ret['cart_section_id'];
+                            if (ret['images']) {
+                                $.each(ret['images'], function(i, v) {
+                                    imgs += ' <div style="width:auto" class="acgn-reader-chapter__item loading" chapter-index="1"  dataurl="' + v.url + '"><div class="acgn-reader-chapter__loading-tip">' + i + '</div> </div>'
+                                });
+                            }
+                        } else {
+                            $chapterid = ret['section_id'];
+                            imgs += '<div style="width:auto" class="acgn-reader-chapter__item loading"> <div class="acgn-reader-chapter__title">' + ret.title + '</div><div class="acgn-reader-chapter__content loading">' + ret.sec_content + '</div></div>';
                         }
+
+
                         $ob.html(imgs);
                         $ob.attr('needpay', 0);
                         fn();
@@ -634,6 +666,7 @@ function unlock($chapterid, $auto) {
             //重载页面,自动解锁胡时候不能重载
         } else {
             //弹出错误消息
+            pagewaithide();
         }
 
     }, null, true);
@@ -847,10 +880,26 @@ function inittime() {
     // myDate.getHours();       //获取当前小时数(0-23)
     // myDate.getMinutes();     //获取当前分钟数(0-59)
     $('#js_staticTime').text(myDate.getHours() + ':' + myDate.getMinutes());
+    $('#js_staticPage').text('1/' + getpagenum(getnowob()));
+
+}
+
+function getpagenum($ob) {
+    if (type == 1) {
+        $tpagesize = $ob.height();
+        $h = $(window).height();
+        $pagenum = Math.ceil($tpagesize / $h);
+        return $pagenum;
+    } else {
+        $pagenum = $ob.children().length;
+        return $pagenum;
+    }
 }
 
 function getpage($ob) {
-    $pagenum = $ob.children().length;
+    $pagenum = getpagenum($ob);
+    // if (type == 1) {
+    // }
     $tpagesize = $ob.height();
     //本章单张图片平均尺寸
     $prepagesize = $tpagesize / $pagenum;
