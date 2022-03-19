@@ -848,8 +848,7 @@ function Yscroll() {
             $('title').text($name);
             // window.location.href = changeURLArg(window.location.href, 'id', $ob.attr('chapter-id'))
             //计算页面
-            $pg = getpage($ob);
-            $('#js_staticPage').text($pg + '/' + $pagenum);
+
             inittime();
             titlelock = false;
             rmbpoint($ob.attr('chapter-id'), $pg);
@@ -880,7 +879,9 @@ function inittime() {
     // myDate.getHours();       //获取当前小时数(0-23)
     // myDate.getMinutes();     //获取当前分钟数(0-59)
     $('#js_staticTime').text(myDate.getHours() + ':' + myDate.getMinutes());
-    $('#js_staticPage').text('1/' + getpagenum(getnowob()));
+    $pg = getpage($ob);
+    $('#js_staticPage').text($pg + '/' + getpagenum(getnowob()));
+
 
 }
 
@@ -906,6 +907,7 @@ function getpage($ob) {
     $y1 = $ob.offset().top;
     // $y2 = $top;
     $pg = Math.ceil(Math.abs($y1) / $prepagesize);
+
     if ($pg == 0) {
         $pg = 1;
     }

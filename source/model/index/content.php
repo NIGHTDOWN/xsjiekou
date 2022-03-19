@@ -160,6 +160,7 @@ class content
             if (!$arr['coin'] <= 0  && $arr['isfree'] != 0) {
                 $arr['coin'] = intval(M('coin', 'im')->bookcalculate($arr['secnum'], 0.6));
                 //更新章节金币值
+              
                 T($tpsec)->update(['coin' => $arr['coin']], ['section_id' => $arr['section_id']]);
             }
             //内容容错自修复机制；缓存2天；后台修改了数据后2天重新覆盖
