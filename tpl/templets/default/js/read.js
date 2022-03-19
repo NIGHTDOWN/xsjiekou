@@ -848,6 +848,17 @@ function Yscroll() {
             $('title').text($name);
             // window.location.href = changeURLArg(window.location.href, 'id', $ob.attr('chapter-id'))
             //计算页面
+            // 当前的url为：
+
+            // @状态对象：记录历史记录点的额外对象，可以为空
+            // @页面标题：目前所有浏览器都不支持
+            // @可选的url：浏览器不会检查url是否存在，只改变url，url必须同域，不能跨域
+            try {
+                var json = { time: new Date().getTime() };
+                window.history.pushState(json, $name, pgurl + "?id=" + $ob.attr('chapter-id') + "&page=" + getpage(getnowob()));
+            } catch (error) {
+                d(error);
+            }
 
             inittime();
             titlelock = false;
