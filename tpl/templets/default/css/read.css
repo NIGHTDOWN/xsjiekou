@@ -2643,3 +2643,147 @@ div#js_paywait {
 .header-icon .ift-home.white {
     font-size: 0.64rem;
 }
+
+div#js_setting {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    display: block;
+}
+
+div#js_setting .pay-chapter-modal {
+    background-color: rgba(22, 22, 22, 0.95);
+}
+
+div#js_setting .article-setting {
+    position: absolute;
+    left: 0;
+    bottom: 0rem;
+    width: 100%;
+    background-color: rgba(22, 22, 22, 0.95)
+}
+
+div#js_setting .article-setting>dl {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -moz-box-align: center;
+    -webkit-box-align: center;
+    box-align: center;
+    -moz-align-items: center;
+    -webkit-align-items: center;
+    align-items: center;
+    padding: 0 .25rem;
+    height: 2.05rem;
+    border-bottom: 1px solid #3c3c3c
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 1.5),
+(min-device-pixel-ratio: 1.5),
+(-webkit-min-device-pixel-ratio: 2),
+(min-device-pixel-ratio: 2) {
+    div#js_setting .article-setting>dl {
+        border: 0 none;
+        background-image: -webkit-gradient(linear, left top, left bottom, color-stop(50%, transparent), color-stop(50%, #3c3c3c));
+        background-position: left bottom;
+        background-repeat: repeat-x;
+        background-size: 100% 1px
+    }
+}
+
+div#js_setting .article-setting>dl dt {
+    /* width: 4.1667rem; */
+    text-align: center;
+    /* font-size: 1.3333rem */
+}
+
+div#js_setting .article-setting>dl dd {
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    min-width: 0;
+    display: block;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -moz-box-pack: justify;
+    -webkit-box-pack: justify;
+    box-pack: justify;
+    -moz-flex-pack: justify;
+    -webkit-flex-pack: justify;
+    flex-pack: justify;
+    -moz-justify-content: space-between;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    padding: 0 .333rem
+}
+
+div#js_setting .article-setting>dl dd span {
+    display: block;
+    width: 1.05rem;
+    height: 1.05rem;
+    text-align: center;
+    line-height: 0.88rem;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    border: .05rem solid #373737;
+    cursor: pointer
+}
+
+div#js_setting .article-setting>dl dd span[class^="f-"] {
+    background-color: #1f1f1f
+}
+
+div#js_setting .article-setting>dl dd span.selected {
+    border-color: #ff8e33
+}
+
+div#js_setting .article-setting>dl dd .f-mini {
+    font-size: 0.43rem
+}
+
+div#js_setting .article-setting>dl dd .f-small {
+    font-size: 0.565rem
+}
+
+div#js_setting .article-setting>dl dd .f-default {
+    font-size: 0.638rem
+}
+
+div#js_setting .article-setting>dl dd .f-medium {
+    font-size: 0.71rem
+}
+
+div#js_setting .article-setting>dl dd .f-large {
+    font-size: 0.72rem
+}
+
+div#js_setting .article-setting>dl dd .cs-white {
+    background-color: #fff
+}
+
+div#js_setting .article-setting>dl dd .cs-brown {
+    background-color: #dccbb1
+}
+
+div#js_setting .article-setting>dl dd .cs-green {
+    background-color: #dce5c2
+}
+
+div#js_setting .article-setting>dl dd .cs-blue {
+    background-color: #b1cedc
+}
+
+div#js_setting .article-setting>dl dd .cs-night {
+    background-color: #1f1f1f
+}

@@ -76,6 +76,15 @@ function showcomment() {
     $('#js_comment').show();
 }
 
+function showset() {
+    // hidecate();
+    $('#js_setting').show();
+}
+
+function hideset() {
+    // hidecate();
+    $('#js_setting').hide();
+}
 //提交评论
 function subcomment() {
     $dstr = $('.comment-textarea').val();
@@ -441,6 +450,11 @@ $(function() {
         hidecomment();
         return false;
     });
+    $('#js_setting').on('click', function() {
+
+        hideset();
+        return false;
+    });
     $('#js_comment .bd').on('click', function() {
 
         return false;
@@ -488,7 +502,12 @@ $(function() {
         return false;
     });
     //分享
-    $('#js_ftSettingBtn').on('click', function() { menu(); return false; });
+    $('#js_ftSettingBtn').on('click', function() {
+
+        menu();
+        showset();
+        return false;
+    });
 });
 
 function menu() {
