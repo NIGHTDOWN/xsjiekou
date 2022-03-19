@@ -151,7 +151,7 @@ class coin extends Y
             $arr['ispay'] = 1;
             $arr['plat'] = $plat;
             $arr['isauto'] = $isauto;
-            $arr['list_orders'] = $section['list_orders'];
+            $arr['list_orders'] = $section['list_order'];
             $arr['feetype'] = $feetype;
             if ($feetype == 1) {
                 $arr['remainder'] = $user['remainder'] - $fee;
@@ -161,6 +161,7 @@ class coin extends Y
                 $arr['remainder'] = $user['remainder'];
                 $arr['golden_bean'] = $user['golden_bean'] - $fee;
             }
+           
             T('expend')->add($arr);
 
             M('census', 'im')->txtunlock_count($fee);
