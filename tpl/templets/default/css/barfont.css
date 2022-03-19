@@ -1,12 +1,13 @@
 @font-face {
     font-family: shenmanhua_m;
     src: url(../font/shenmanhua_m.eot);
-    src: url(../font/shenmanhua_m.eot?6e8bc03f#iefix) format("embedded-opentype"),url(../font/shenmanhua_m.woff2?6e8bc03f) format("woff2"),url(../font/shenmanhua_m.woff?6e8bc03f) format("woff"),url(../font/shenmanhua_m.ttf?6e8bc03f) format("truetype"),url(../font/shenmanhua_m.svg?6e8bc03f#shenmanhua_m) format("svg");
+    src: url(../font/shenmanhua_m.eot?6e8bc03f#iefix) format("embedded-opentype"), url(../font/shenmanhua_m.woff2?6e8bc03f) format("woff2"), url(../font/shenmanhua_m.woff?6e8bc03f) format("woff"), url(../font/shenmanhua_m.ttf?6e8bc03f) format("truetype"), url(../font/shenmanhua_m.svg?6e8bc03f#shenmanhua_m) format("svg");
     font-weight: 400;
     font-style: normal
 }
 
-[class*=" ifst"],[class^=ifst] {
+[class*=" ifst"],
+[class^=ifst] {
     font-family: shenmanhua_m!important;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -24,10 +25,11 @@
 .ifst-auto-play:before {
     content: ""
 }
+
 .ifst-pre:before {
     content: "";
-    
 }
+
 .ifst-back:before {
     content: ""
 }
@@ -214,7 +216,7 @@
 
 .ifst-nameEdit:before {
     content: "";
-    font-size: 170%;
+    font-size: 177%;
 }
 
 .ifst-nocheck:before {

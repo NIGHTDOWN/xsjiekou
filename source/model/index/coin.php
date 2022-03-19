@@ -273,7 +273,7 @@ class coin extends Y
     public function expand_his($uid, $page)
     {
         if (!$uid) return false;
-        $list = T('expend')->field('users_id,section_id,expend_red,expend_time,cart_section_id,cother_name,bother_name,section_title,cart_section_title,expend_type,addtime')
+        $list = T('expend')->field('users_id,section_id,expend_red,expend_time,bother_name,section_title,expend_type,addtime,list_orders')
             ->where(["users_id" => $uid])->order('addtime desc')->set_limit([$page, 20])->get_all();
         return $list;
     }

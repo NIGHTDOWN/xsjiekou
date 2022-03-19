@@ -2639,3 +2639,7 @@ div#js_paywait {
     align-items: center;
     justify-content: center;
 }
+
+.header-icon .ift-home.white {
+    font-size: 0.64rem;
+}
