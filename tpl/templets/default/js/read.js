@@ -637,7 +637,7 @@ function unlock($chapterid, $auto) {
         setTimeout(function() {
             //2秒才能再次点击解锁
             $('.js_goPay').removeClass('lock');
-        }, 2000);
+        }, 1000);
         if (data.code == 1) {
 
             //更新目录缓存
@@ -722,7 +722,7 @@ function loading() {
         //1秒以后才能再次滑动加载
         setTimeout(function() {
             lock = false;
-        }, 3000);
+        }, 1000);
         hideload();
         if (data['code'] == 1) {
             var ret = data['result'];
@@ -765,7 +765,7 @@ function loadpre() {
         //1秒以后才能再次滑动加载
         setTimeout(function() {
             lock = false;
-        }, 2000);
+        }, 1000);
         if (data['code'] == 1) {
             var ret = data['result'];
             pre = ret['pre'];
