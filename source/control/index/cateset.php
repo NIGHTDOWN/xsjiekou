@@ -92,6 +92,7 @@ class cateset extends indexbase
         $up['lable'] = $get['cate3'];
         if ($get['type'] == 2) {
             $w = ['cartoon_id' => $get['bookid']];
+           
             $bol = T('cartoon')->update($up, $w);
         } else {
             $w = ['book_id' => $get['bookid']];
