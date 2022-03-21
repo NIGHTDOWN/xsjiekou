@@ -188,7 +188,10 @@ function subcomment() {
 function fn() {
     $arr = $('.acgn-reader-chapter__item-box').find('.loading');
     $arr.removeClass('loading');
-    $arr.css({ 'min-height': $(window).height() });
+    if (type == 1) {
+        $arr.css({ 'min-height': $(window).height() });
+    }
+
     if (type == 1) {
         $find = $arr.children('.acgn-reader-chapter__content');
         $find.each(function(i, v) {
