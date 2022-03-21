@@ -10,8 +10,7 @@
         <!--{__ LoveNovel}-->
     </title>
     <meta name="keywords" content=" <!--{__ 个人资料}--> <!--{__ 多语言免费、流行、浪漫、小说,漫画阅读器.}-->">
-    <meta name="description" itemprop="description"
-        content="<!--{__ 个人资料}--> <!--{__ LoveNovel一直坚持提供小说漫画免费阅读。看小说、看漫画，为阅读而生，就上LoveNovel}-->">
+    <meta name="description" itemprop="description" content="<!--{__ 个人资料}--> <!--{__ LoveNovel一直坚持提供小说漫画免费阅读。看小说、看漫画，为阅读而生，就上LoveNovel}-->">
 
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <meta http-equiv="Cache-Control" content="no-transform">
@@ -37,12 +36,69 @@
     <script src="<!--{$static}-->js/jquery.min.js"></script>
 
     <script src="<!--{$static}-->js/night_Trad.v1.0.js"></script>
-    <script src="<!--{$static}-->js/ajaxFileUpload.js"></script>
+    <script src="<!--{$static}-->js/ajaxfileupload.js"></script>
     <script src="<!--{$indextpl}-->js/web.js"></script>
     <script src="<!--{$indextpl}-->js/date.js"></script>
     <script src="<!--{$indextpl}-->js/iscroll_date.js"></script>
     <script>
-        function isMobileHanddle() { var e = navigator.userAgent; return (screen.width / screen.height < 1 || /AppleWebKit.*Mobile/i.test(e) || /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(e)) && !/ipad/gi.test(e) } var host = location.host; isMobileHanddle() || "m" !== host.substr(0, host.indexOf(".")) || (location.href = location.href.replace("//m.", "//www.")), top.location != location && (top.location = location.href), function (i, e) { function t() { var e = o.getBoundingClientRect().width; 540 < e / s && (e = 540 * s); var t = e / 10; o.style.fontSize = t + "px", m.rem = i.rem = t } var a, n = i.document, o = n.documentElement, r = n.querySelector('meta[name="viewport"]'), l = n.querySelector('meta[name="flexible"]'), s = 0, d = 0, m = e.flexible || (e.flexible = {}); if (r) { console.warn("将根据已有的meta标签来设置缩放比例"); var c = r.getAttribute("content").match(/initial\-scale=([\d\.]+)/); c && (d = parseFloat(c[1]), s = parseInt(1 / d)) } else if (l) { var p = l.getAttribute("content"); if (p) { var u = p.match(/initial\-dpr=([\d\.]+)/), f = p.match(/maximum\-dpr=([\d\.]+)/); u && (s = parseFloat(u[1]), d = parseFloat((1 / s).toFixed(2))), f && (s = parseFloat(f[1]), d = parseFloat((1 / s).toFixed(2))) } } if (!s && !d) { var h = (i.navigator.appVersion.match(/android/gi), i.navigator.appVersion.match(/iphone/gi)), v = i.devicePixelRatio; d = 1 / (s = h ? 3 <= v && (!s || 3 <= s) ? 3 : 2 <= v && (!s || 2 <= s) ? 2 : 1 : 1) } if (o.setAttribute("data-dpr", s), !r) if ((r = n.createElement("meta")).setAttribute("name", "viewport"), r.setAttribute("content", "initial-scale=" + d + ", maximum-scale=" + d + ", minimum-scale=" + d + ", user-scalable=no"), o.firstElementChild) o.firstElementChild.appendChild(r); else { var b = n.createElement("div"); b.appendChild(r), n.write(b.innerHTML) } i.addEventListener("resize", function () { clearTimeout(a), a = setTimeout(t, 300) }, !1), i.addEventListener("pageshow", function (e) { e.persisted && (clearTimeout(a), a = setTimeout(t, 300)) }, !1), "complete" === n.readyState ? n.body.style.fontSize = 12 * s + "px" : n.addEventListener("DOMContentLoaded", function () { n.body.style.fontSize = 12 * s + "px" }, !1), t(), m.dpr = i.dpr = s, m.refreshRem = t, m.rem2px = function (e) { var t = parseFloat(e) * this.rem; return "string" == typeof e && e.match(/rem$/) && (t += "px"), t }, m.px2rem = function (e) { var t = parseFloat(e) / this.rem; return "string" == typeof e && e.match(/px$/) && (t += "rem"), t } }(window, window.lib || (window.lib = {})), window.shareConf = null</script>
+        function isMobileHanddle() {
+            var e = navigator.userAgent;
+            return (screen.width / screen.height < 1 || /AppleWebKit.*Mobile/i.test(e) || /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(e)) && !/ipad/gi.test(e)
+        }
+        var host = location.host;
+        isMobileHanddle() || "m" !== host.substr(0, host.indexOf(".")) || (location.href = location.href.replace("//m.", "//www.")), top.location != location && (top.location = location.href),
+            function(i, e) {
+                function t() {
+                    var e = o.getBoundingClientRect().width;
+                    540 < e / s && (e = 540 * s);
+                    var t = e / 10;
+                    o.style.fontSize = t + "px", m.rem = i.rem = t
+                }
+                var a, n = i.document,
+                    o = n.documentElement,
+                    r = n.querySelector('meta[name="viewport"]'),
+                    l = n.querySelector('meta[name="flexible"]'),
+                    s = 0,
+                    d = 0,
+                    m = e.flexible || (e.flexible = {});
+                if (r) {
+                    console.warn("将根据已有的meta标签来设置缩放比例");
+                    var c = r.getAttribute("content").match(/initial\-scale=([\d\.]+)/);
+                    c && (d = parseFloat(c[1]), s = parseInt(1 / d))
+                } else if (l) {
+                    var p = l.getAttribute("content");
+                    if (p) {
+                        var u = p.match(/initial\-dpr=([\d\.]+)/),
+                            f = p.match(/maximum\-dpr=([\d\.]+)/);
+                        u && (s = parseFloat(u[1]), d = parseFloat((1 / s).toFixed(2))), f && (s = parseFloat(f[1]), d = parseFloat((1 / s).toFixed(2)))
+                    }
+                }
+                if (!s && !d) {
+                    var h = (i.navigator.appVersion.match(/android/gi), i.navigator.appVersion.match(/iphone/gi)),
+                        v = i.devicePixelRatio;
+                    d = 1 / (s = h ? 3 <= v && (!s || 3 <= s) ? 3 : 2 <= v && (!s || 2 <= s) ? 2 : 1 : 1)
+                }
+                if (o.setAttribute("data-dpr", s), !r)
+                    if ((r = n.createElement("meta")).setAttribute("name", "viewport"), r.setAttribute("content", "initial-scale=" + d + ", maximum-scale=" + d + ", minimum-scale=" + d + ", user-scalable=no"), o.firstElementChild) o.firstElementChild.appendChild(r);
+                    else {
+                        var b = n.createElement("div");
+                        b.appendChild(r), n.write(b.innerHTML)
+                    }
+                i.addEventListener("resize", function() {
+                    clearTimeout(a), a = setTimeout(t, 300)
+                }, !1), i.addEventListener("pageshow", function(e) {
+                    e.persisted && (clearTimeout(a), a = setTimeout(t, 300))
+                }, !1), "complete" === n.readyState ? n.body.style.fontSize = 12 * s + "px" : n.addEventListener("DOMContentLoaded", function() {
+                    n.body.style.fontSize = 12 * s + "px"
+                }, !1), t(), m.dpr = i.dpr = s, m.refreshRem = t, m.rem2px = function(e) {
+                    var t = parseFloat(e) * this.rem;
+                    return "string" == typeof e && e.match(/rem$/) && (t += "px"), t
+                }, m.px2rem = function(e) {
+                    var t = parseFloat(e) / this.rem;
+                    return "string" == typeof e && e.match(/px$/) && (t += "rem"), t
+                }
+            }(window, window.lib || (window.lib = {})), window.shareConf = null
+    </script>
     <link href="<!--{$indextpl}-->css/vendor.38cae4.css" rel="stylesheet">
     <link href="<!--{$indextpl}-->css/entry.index.53baaf.css" rel="stylesheet">
     <link href="<!--{$indextpl}-->css/swiper.min.css" rel="stylesheet">
@@ -83,8 +139,7 @@
                         <div class="title">
                             <!--{__ 头像}-->
                         </div>
-                        <button class="avater" tag='img_up_one' type="button" tag='img_up_one'
-                            url="<!--{url action='uphead' mod='' args=''}-->">
+                        <button class="avater" tag='img_up_one' type="button" tag='img_up_one' url="<!--{url action='uphead' mod='' args=''}-->">
 
                             <!--{if $user.avater}-->
                             <img src="<!--{$user.avater}-->" alt="" class="face js_desc" id="viewimg_avater">
@@ -156,8 +211,7 @@
                             <!--{__ 出生日期}-->
                         </div>
                         <div class="desc js_desc">
-                            <input type="text" name="borth" id="borth" value="  <!--{$user.borth}-->"
-                                style="border:none;text-align: right;color: #999;">
+                            <input type="text" name="borth" id="borth" value="  <!--{$user.borth}-->" style="border:none;text-align: right;color: #999;">
                         </div>
                         <div class="arrow"><i class="ift-right"></i></div>
                     </li>
@@ -222,8 +276,8 @@
 </body>
 <script>
     var editobj;
-    $(function () {
-        $('.jsedit').click(function () {
+    $(function() {
+        $('.jsedit').click(function() {
             editobj = $(this);
             $tmpbox = $('.tmpbox').find('#layui-m-layer2').clone();
             $tmpbox.find('.editdata').text(trim(editobj.text()));
@@ -231,21 +285,20 @@
         });
         //<div id="datePlugin"></div>必须又这个不然会报错
         $('#borth').date();
-        $('#js_submit').click(function () {
+        $('#js_submit').click(function() {
             if ($(this).hasClass('dis')) {
                 return false;
             }
             $(this).addClass('dis');
             $post = {};
-            $('input').each(function (i, v) {
+            $('input').each(function(i, v) {
                 $post[$(v).attr('name')] = $(v).val();
             });
             $post['sex'] = $('[name=sex]').val();
             yAjax('', $post, (data) => {
                 if (!data.code) {
                     $(this).removeClass('dis');
-                } else {
-                }
+                } else {}
             });
         });
     });
@@ -257,19 +310,18 @@
         editobj.siblings('input').val($str);
         closebox();
     }
-    _ajax_recv = function ($json_obj, $fun) {
+    _ajax_recv = function($json_obj, $fun) {
 
-        if (typeof ($json_obj) == 'object') {
+        if (typeof($json_obj) == 'object') {
             if ($json_obj.code) {
                 try {
-                    if (typeof ($fun) == 'string') {
+                    if (typeof($fun) == 'string') {
 
                         $fun = eval($fun);
                     }
 
-                } catch (e) {
-                }
-                if (typeof ($fun) == 'function') {
+                } catch (e) {}
+                if (typeof($fun) == 'function') {
 
                     $fun.call(this, $json_obj);
                 }
@@ -307,18 +359,20 @@
             img = data.result;
             $('#viewimg_avater').attr('src', img);
             $('[name=avater]').val(img);
-        } else { showd("<!--{__ 上传失败}-->"); }
+        } else {
+            showd("<!--{__ 上传失败}-->");
+        }
     }
 </script>
 <style>
     .tmpbox {
         display: none;
     }
-
+    
     div#js_submit.dis {
         background: #ddd;
     }
-
+    
     .feedback-button {
         display: block;
         height: 1.1733333333rem;
@@ -342,11 +396,11 @@
         margin: 0.4rem auto;
         width: 80%;
     }
-
+    
     .layui-m-layerbtn span {
         width: 100%;
     }
-
+    
     .simulate-form-input {
         display: none;
         position: absolute;
@@ -361,7 +415,7 @@
         -moz-user-select: none;
         -ms-user-select: none
     }
-
+    
     .simulate-form-input .field-wrap {
         position: relative;
         height: 2.2666666667rem;
@@ -372,12 +426,12 @@
         margin: .48rem .48rem .32rem;
         background-color: #fff
     }
-
+    
     .simulate-form-input .field-wrap .field-value {
         display: block;
         height: 1.76rem
     }
-
+    
     .simulate-form-input .field-wrap .field-value textarea {
         display: block;
         height: 1.76rem;
@@ -390,12 +444,12 @@
         line-height: .5866666667rem;
         color: #999
     }
-
+    
     .simulate-form-input .field-wrap .field-hint {
         padding-right: 1.7066666667rem;
         color: #fd5158
     }
-
+    
     .simulate-form-input .field-wrap .field-hint,
     .simulate-form-input .field-wrap .field-length {
         height: .48rem;
@@ -406,7 +460,7 @@
         text-overflow: ellipsis;
         overflow: hidden
     }
-
+    
     .simulate-form-input .field-wrap .field-length {
         position: absolute;
         right: .2666666667rem;
@@ -414,12 +468,12 @@
         width: 1.7066666667rem;
         color: #ddd
     }
-
+    
     .simulate-form-input .handle-wrap {
         height: .72rem;
         padding: 0 .48rem
     }
-
+    
     .simulate-form-input .handle-wrap .save-btn {
         float: right;
         height: .72rem;
@@ -433,11 +487,11 @@
         line-height: .72rem;
         background-color: #fff
     }
-
+    
     .simulate-form-input .handle-wrap .save-btn:active {
         background-color: #f5f5f5
     }
-
+    
     .simulate-form-radio {
         display: none;
         position: absolute;
@@ -452,19 +506,19 @@
         -moz-user-select: none;
         -ms-user-select: none
     }
-
+    
     .simulate-form-radio .field-wrap {
         position: absolute;
         left: 0;
         bottom: 0;
         width: 100%
     }
-
+    
     .simulate-form-radio .field-group {
         position: relative;
         margin-bottom: .32rem
     }
-
+    
     .simulate-form-radio .field-group:after {
         content: "";
         position: absolute;
@@ -474,7 +528,7 @@
         width: 100%;
         background-color: #fff
     }
-
+    
     .simulate-form-radio .field-option {
         height: .8533333333rem;
         border-bottom: .0266666667rem solid #ddd;
@@ -484,11 +538,11 @@
         color: #555;
         background-color: #fff
     }
-
+    
     .simulate-form-radio .field-option:active {
         background-color: #f5f5f5
     }
-
+    
     .simulate-form-radio .field-cancel {
         height: .8533333333rem;
         font-size: .3733333333rem;
@@ -497,11 +551,11 @@
         color: #fc6976;
         background-color: #fff
     }
-
+    
     .simulate-form-radio .field-cancel:active {
         background-color: #f5f5f5
     }
-
+    
     .simulate-form-date {
         display: none;
         position: absolute;
@@ -516,7 +570,7 @@
         -moz-user-select: none;
         -ms-user-select: none
     }
-
+    
     .simulate-form-date .field-wrap {
         position: absolute;
         left: 0;
@@ -524,20 +578,20 @@
         width: 100%;
         background-color: #fff
     }
-
+    
     .simulate-form-date .field-menu {
         position: relative;
         height: 1.12rem;
         text-align: center
     }
-
+    
     .simulate-form-date .field-menu .field-title {
         font-size: .3733333333rem;
         line-height: .96rem;
         color: #333;
         padding: 0 1.6533333333rem
     }
-
+    
     .simulate-form-date .field-menu .select-cancel,
     .simulate-form-date .field-menu .select-ok {
         position: absolute;
@@ -547,22 +601,22 @@
         font-size: .3733333333rem;
         line-height: .96rem
     }
-
+    
     .simulate-form-date .field-menu .select-cancel:active,
     .simulate-form-date .field-menu .select-ok:active {
         background-color: #f5f5f5
     }
-
+    
     .simulate-form-date .field-menu .select-cancel {
         left: 0;
         color: #999
     }
-
+    
     .simulate-form-date .field-menu .select-ok {
         right: 0;
         color: #fc6976
     }
-
+    
     .simulate-form-date .field-group {
         display: -webkit-box;
         display: -webkit-flex;
@@ -583,7 +637,7 @@
         -ms-flex-line-pack: stretch;
         align-content: stretch
     }
-
+    
     .simulate-form-date .field-select {
         position: relative;
         -webkit-box-flex: 1;
@@ -595,7 +649,7 @@
         overflow-y: scroll;
         background-color: #fff
     }
-
+    
     .modify-row .avater {
         padding-left: .32rem;
         text-align: right;
@@ -618,19 +672,19 @@
         align-items: center;
         justify-content: flex-end;
     }
-
+    
     .simulate-form-date .field-select::-webkit-scrollbar {
         display: none
     }
-
+    
     .simulate-form-date .field-select::-moz-scrollbar {
         display: none
     }
-
+    
     .simulate-form-date .field-empty {
         height: 1.1733333333rem
     }
-
+    
     .simulate-form-date .field-option {
         height: .8533333333rem;
         font-size: .48rem;
@@ -638,28 +692,28 @@
         text-align: center;
         color: #999
     }
-
+    
     .simulate-form-date .field-option.active,
     .simulate-form-date .field-option:active {
         color: #333;
         background-color: #f5f5f5
     }
-
+    
     body {
         cursor: pointer;
         background: #f5f5f5
     }
-
+    
     .view-port {
         background-color: #fff
     }
-
+    
     .modify-group {
         position: relative;
         margin: 0 0 .2133333333rem;
         padding: 0
     }
-
+    
     .modify-group:after {
         content: "";
         display: block;
@@ -670,7 +724,7 @@
         width: 100%;
         background-color: #fff
     }
-
+    
     .modify-row {
         position: relative;
         display: -webkit-box;
@@ -703,15 +757,15 @@
         -moz-user-select: none;
         -ms-user-select: none
     }
-
+    
     .modify-row:active {
         background-color: #ddd
     }
-
+    
     .modify-row.disabled:active {
         background-color: #fff
     }
-
+    
     .modify-row:after {
         content: "";
         display: block;
@@ -722,7 +776,7 @@
         height: .0266666667rem;
         background-color: #ddd
     }
-
+    
     .modify-row .arrow,
     .modify-row .icon,
     .modify-row .suffix,
@@ -735,7 +789,7 @@
         height: 1.3866666667rem;
         line-height: 1.3866666667rem
     }
-
+    
     .modify-row .desc {
         -webkit-box-flex: 1;
         -webkit-flex: auto;
@@ -748,7 +802,7 @@
         align-items: center;
         justify-content: flex-end;
     }
-
+    
     select {
         border: none;
         text-align: right;
@@ -758,16 +812,16 @@
         width: auto;
         direction: rtl;
     }
-
+    
     select::-ms-expand {
         display: none;
     }
-
+    
     .modify-row .icon {
         width: 1.0666666667rem;
         text-align: center
     }
-
+    
     .modify-row .title {
         max-width: 2.4rem;
         padding-right: .16rem;
@@ -778,11 +832,11 @@
         text-overflow: ellipsis;
         overflow: hidden
     }
-
+    
     .modify-row .suffix {
         max-width: 2.4rem
     }
-
+    
     .modify-row .desc,
     .modify-row .suffix {
         font-size: .32rem;
@@ -792,33 +846,33 @@
         text-overflow: ellipsis;
         overflow: hidden
     }
-
+    
     button:focus {
         outline: none;
     }
-
+    
     input:focus {
         outline: none;
     }
-
+    
     select:focus {
         outline: none;
     }
-
+    
     .modify-row .desc {
         padding-left: .32rem;
         text-align: right;
         border: none;
         background: #fff;
     }
-
+    
     .modify-row .arrow {
         width: .48rem;
         font-size: .3733333333rem;
         text-align: right;
         color: #999
     }
-
+    
     .modify-row .face {
         float: right;
         height: 1.0133333333rem;
@@ -830,7 +884,7 @@
         margin: .16rem 0;
         overflow: hidden
     }
-
+    
     textarea {
         height: 2rem;
         margin: 0.5rem;

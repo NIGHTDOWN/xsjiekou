@@ -27,7 +27,7 @@ class order extends Y
 
         //     $recharge = T('recharge')->field('recharge_price,dummy_icon,first_send')->where(['applepayId' => $pid, 'isfrist' => 0])->find();
         // } else {
-            $recharge = T('recharge')->field('recharge_price,dummy_icon,first_send')->where(['applepayId' => $pid])->find();
+        $recharge = T('recharge')->field('recharge_price,dummy_icon,first_send')->where(['applepayId' => $pid])->find();
         // }
         if (!$recharge) {
             Out::jerror('购买商品不存在或者已下架', null, '100151');
@@ -64,9 +64,9 @@ class order extends Y
             }
         }
         //付款方显示
-       // M('order', 'im')->chargelog($order['proxy_id'] ? $order['proxy_id'] : $order['users_id'], $cztype, $recharge['recharge_price'], $recharge['dummy_icon'], $send);
-       //到账方显示 
-       M('order', 'im')->chargelog( $order['users_id'], $cztype, $recharge['recharge_price'], $recharge['dummy_icon'], $send);
+        // M('order', 'im')->chargelog($order['proxy_id'] ? $order['proxy_id'] : $order['users_id'], $cztype, $recharge['recharge_price'], $recharge['dummy_icon'], $send);
+        //到账方显示 
+        M('order', 'im')->chargelog($order['users_id'], $cztype, $recharge['recharge_price'], $recharge['dummy_icon'], $send);
         //增加金币
         M('coin', 'im')->cz($uid, $recharge['dummy_icon'] + $send, $recharge['recharge_price']);
         M('count', 'im')->recharge($recharge['recharge_price'], $order['plat']);
@@ -97,13 +97,13 @@ class order extends Y
         $order = T('order')->where($w)->get_one();
         if (!$order) {
             return '订单不存在';
-           // Out::jerror('订单不存在', null, '100140');
+            // Out::jerror('订单不存在', null, '100140');
         }
         if ($order['pay_status'] != 0) {
             return '订单已经失效';
-           // Out::jerror('订单已经失效', null, '100141');
+            // Out::jerror('订单已经失效', null, '100141');
         }
-        
+
         $uid = $order['users_id'];
         $pid = $order['create_syntony'];
         $is = T('order')->get_one(['users_id' => $order['users_id'], 'pay_status' => 1]);
@@ -115,7 +115,7 @@ class order extends Y
         }
         if (!$recharge) {
             return '购买商品不存在或者已下架';
-           // Out::jerror('', null, '100151');
+            // Out::jerror('', null, '100151');
         }
         $user = T('third_party_user')
             ->field('id,remainder,charge_all,create_time,invite_id,isnew')
@@ -242,5 +242,61 @@ class order extends Y
             $ret = M('fb', 'im')->s2s($detoken, $yuan, $currency, $uid, $ordernum, $p);
             // Log::txt($ret, 's2s.txt');
         }
+    }
+    public function get_charge($uid)
+    {
+        $index = 'userisfirstpay' . $uid;
+        $user = false;
+        $cache = Y::$cache->get($index);
+        if ($cache[0]) {
+            $user = $cache[1];
+        } else {
+            $user = T('order')->field('order_id')->where(['users_id' => $uid, 'proxy_id' => 0])
+                ->where(['pay_status' => 1])->get_one();
+            if ($user) {
+                Y::$cache->set($index, $user, G_DAY * 31);
+            }
+        }
+
+        // if ($device_type == 'android') {
+        //     $where2['device_type'] = '2';
+        // } else {
+        //     $where2['device_type'] = '1';
+        // }
+        $where2['device_type'] = '2';
+        if ($user) {
+            //正常充值模式
+            $where['isfrist'] = 0;
+        } else {
+            //首充模式
+            $where['isfrist'] = 1;
+        }
+
+        $where['isshow'] = 1;
+        $index2 = 'paylist3_' . $where['isfrist'] . '_' . $where2['device_type'];
+        $cache2 = Y::$cache->get($index2);
+        if ($cache2[0]) {
+            $res = $cache2[1];
+        } else {
+            $res = T('recharge')
+                ->field('recharge_price,dummy_icon,first_send,yuenan_icon,applepayId,invite,intro,USD,isfrist')
+                ->where('(device_type=' . $where2['device_type'] . ')')
+                ->where($where)
+                ->get_all();
+            Y::$cache->set($index2, $res, G_DAY);
+        }
+
+        // 查询充值参数
+        if (sizeof($res) == 0) {
+            //未配置首充选项，显示正常模式
+            $where['isfrist'] = 0;
+            $res = T('recharge')
+                ->field('recharge_price,dummy_icon,first_send,yuenan_icon,applepayId,invite,intro,USD,isfrist')
+                ->where('(device_type=' . $where2['device_type'] . ')')
+                ->where($where)
+                ->get_all();
+        }
+
+        return $res;
     }
 }

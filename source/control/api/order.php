@@ -131,64 +131,65 @@ class order extends apibase
         $device_type = $this->head['devicetype'];
         $agent_ids = get(['int' => ['agent_id']]);
         $agent_id = $agent_ids['agent_id'];
-        $where = ['type' => 0];
-        $index = 'userisfirstpay' . $this->get_userid(1);
+        // $where = ['type' => 0];
+        // $index = 'userisfirstpay' . $this->get_userid(1);
 
-        $cache = Y::$cache->get($index);
+        // $cache = Y::$cache->get($index);
 
-        if ($cache[0]) {
-            $user = $cache[1];
-        } else {
-            $user = T('order')->field('order_id')->where(['users_id' => $this->get_userid(1), 'proxy_id' => 0])
-                ->where(['pay_status' => 1])->get_one();
-            if ($user) {
-                Y::$cache->set($index, $user);
-            }
-        }
+        // if ($cache[0]) {
+        //     $user = $cache[1];
+        // } else {
+        //     $user = T('order')->field('order_id')->where(['users_id' => $this->get_userid(1), 'proxy_id' => 0])
+        //         ->where(['pay_status' => 1])->get_one();
+        //     if ($user) {
+        //         Y::$cache->set($index, $user);
+        //     }
+        // }
 
-        if ($device_type == 'android') {
-            $where2['device_type'] = '2';
-        } else {
-            $where2['device_type'] = '1';
-        }
-        if ($user) {
-            //正常充值模式
-            $where['isfrist'] = 0;
-        } else {
-            //首充模式
-            $where['isfrist'] = 1;
-        }
+        // if ($device_type == 'android') {
+        //     $where2['device_type'] = '2';
+        // } else {
+        //     $where2['device_type'] = '1';
+        // }
+        // if ($user) {
+        //     //正常充值模式
+        //     $where['isfrist'] = 0;
+        // } else {
+        //     //首充模式
+        //     $where['isfrist'] = 1;
+        // }
 
-        $where['isshow'] = 1;
-        $index2 = 'paylist_' . $where['isfrist'] . '_' . $where2['device_type'];
-        $cache2 = Y::$cache->get($index2);
-        if ($cache2[0]) {
-            $res = $cache2[1];
-        } else {
-            $res = T('recharge')
-                ->field('recharge_price,dummy_icon,first_send,yuenan_icon,applepayId,invite,intro,USD,isfrist')
-                ->where('(device_type=' . $where2['device_type'] . ')')
-                ->where($where)
-                ->get_all();
-            Y::$cache->set($index2, $res, G_DAY);
-        }
-        // 查询充值参数
+        // $where['isshow'] = 1;
+        // $index2 = 'paylist_' . $where['isfrist'] . '_' . $where2['device_type'];
+        // $cache2 = Y::$cache->get($index2);
+        // if ($cache2[0]) {
+        //     $res = $cache2[1];
+        // } else {
+        //     $res = T('recharge')
+        //         ->field('recharge_price,dummy_icon,first_send,yuenan_icon,applepayId,invite,intro,USD,isfrist')
+        //         ->where('(device_type=' . $where2['device_type'] . ')')
+        //         ->where($where)
+        //         ->get_all();
+        //     Y::$cache->set($index2, $res, G_DAY);
+        // }
+        // // 查询充值参数
 
-        if (sizeof($res) == 0) {
-            //未配置首充选项，显示正常模式
-            $where['isfrist'] = 0;
-            $res = T('recharge')
-                ->field('recharge_price,dummy_icon,first_send,yuenan_icon,applepayId,invite,intro,USD,isfrist')
-                ->where('(device_type=' . $where2['device_type'] . ')')
-                ->where($where)
-                ->get_all();
-        }
+        // if (sizeof($res) == 0) {
+        //     //未配置首充选项，显示正常模式
+        //     $where['isfrist'] = 0;
+        //     $res = T('recharge')
+        //         ->field('recharge_price,dummy_icon,first_send,yuenan_icon,applepayId,invite,intro,USD,isfrist')
+        //         ->where('(device_type=' . $where2['device_type'] . ')')
+        //         ->where($where)
+        //         ->get_all();
+        // }
 
-        if ($agent_id) {
-            foreach ($res as $k => $v) {
-                $res[$k]['first_send'] = 0;
-            }
-        }
+        // if ($agent_id) {
+        //     foreach ($res as $k => $v) {
+        //         $res[$k]['first_send'] = 0;
+        //     }
+        // }
+        $res = M('order', 'im')->get_charge($this->get_userid());
         $this->returnSuccess($res);
     }
     //根据国家汇率计算显示值

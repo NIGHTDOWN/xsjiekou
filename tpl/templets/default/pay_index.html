@@ -1,0 +1,247 @@
+<html style="font-size: 41.1px;">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Language" content="zh-CN">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <title>
+        <!--{__ 充值中心}-->
+        <!--{__ LoveNovel}-->
+    </title>
+    <meta name="keywords" content="<!--{$data.other_name}--> <!--{__ 多语言免费、流行、浪漫、小说,漫画阅读器.}-->">
+    <meta name="description" itemprop="description" content=" <!--{__ 充值中心}--> <!--{__ LoveNovel}-->">
+
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="canonical" href="http://www.love-novel.com/">
+    <meta name="applicable-device" content="mobile">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta name="browsermode" content="application">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#999">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="full-screen" content="yes">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="360-fullscreen" content="true">
+    <meta name="browsermode" content="application">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="x5-pagetype" content="webapp">
+    <!-- 分享标签 -->
+    <meta itemprop="name" content="<!--{$data.other_name}-->">
+    <meta itemprop="image" content="<!--{$data.bpic}-->">
+    <meta property="og:type" content="novel">
+    <meta property="og:title" content="<!--{$data.other_name}-->">
+    <meta property="og:description" content="<!--{$data.desc}-->">
+    <meta property="og:image" content="<!--{$data.bpic}-->">
+    <meta property="og:novel:category" content="<!--{$sahretag}-->">
+    <meta property="og:novel:author" content="<!--{$data.writer_name}-->">
+    <meta property="og:novel:book_name" content="<!--{$data.other_name}-->">
+    <meta property="og:novel:read_url" content="<!--{$url}-->">
+    <meta property="og:url" content="<!--{$url}-->">
+    <meta property="og:novel:status" content="<!--{if $data.update_status==1}--><!--{__ 完结}--><!--{else}--><!--{__ 连载}--><!--{/if}-->">
+    <meta property="og:novel:update_time" content="<!--{$data.new_section_time|date_format:'%Y-%m-%d'}-->">
+    <meta property="og:novel:latest_chapter_name" content="  <!--{$data.new_section_title}-->">
+    <meta property="og:novel:latest_chapter_url" content='<!--{url action="sec" args="id:$data.new_section_id,bookid:$data.book_id" }-->'>
+
+
+    <script src="<!--{$staticjs}-->/jquery.min.js"></script>
+    <script src="<!--{$indextpl}-->js/swiper.min.js"></script>
+    <script src="<!--{$static}-->js/night_Trad.v1.0.js"></script>
+    <script src="<!--{$indextpl}-->js/web.js"></script>
+    <script src="<!--{$static}-->js/jsshare.js"></script>
+    <script>
+        function isMobileHanddle() {
+            var e = navigator.userAgent;
+            return (screen.width / screen.height < 1 || /AppleWebKit.*Mobile/i.test(e) || /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(e)) && !/ipad/gi.test(e)
+        }
+        var host = location.host;
+        isMobileHanddle() || "m" !== host.substr(0, host.indexOf(".")) || (location.href = location.href.replace("//m.", "//www.")), top.location != location && (top.location = location.href),
+            function(i, e) {
+                function t() {
+                    var e = o.getBoundingClientRect().width;
+                    540 < e / s && (e = 540 * s);
+                    var t = e / 10;
+                    o.style.fontSize = t + "px", m.rem = i.rem = t
+                }
+                var a, n = i.document,
+                    o = n.documentElement,
+                    r = n.querySelector('meta[name="viewport"]'),
+                    l = n.querySelector('meta[name="flexible"]'),
+                    s = 0,
+                    d = 0,
+                    m = e.flexible || (e.flexible = {});
+                if (r) {
+                    console.warn("将根据已有的meta标签来设置缩放比例");
+                    var c = r.getAttribute("content").match(/initial\-scale=([\d\.]+)/);
+                    c && (d = parseFloat(c[1]), s = parseInt(1 / d))
+                } else if (l) {
+                    var p = l.getAttribute("content");
+                    if (p) {
+                        var u = p.match(/initial\-dpr=([\d\.]+)/),
+                            f = p.match(/maximum\-dpr=([\d\.]+)/);
+                        u && (s = parseFloat(u[1]), d = parseFloat((1 / s).toFixed(2))), f && (s = parseFloat(f[1]), d = parseFloat((1 / s).toFixed(2)))
+                    }
+                }
+                if (!s && !d) {
+                    var h = (i.navigator.appVersion.match(/android/gi), i.navigator.appVersion.match(/iphone/gi)),
+                        v = i.devicePixelRatio;
+                    d = 1 / (s = h ? 3 <= v && (!s || 3 <= s) ? 3 : 2 <= v && (!s || 2 <= s) ? 2 : 1 : 1)
+                }
+                if (o.setAttribute("data-dpr", s), !r)
+                    if ((r = n.createElement("meta")).setAttribute("name", "viewport"), r.setAttribute("content", "initial-scale=" + d + ", maximum-scale=" + d + ", minimum-scale=" + d + ", user-scalable=no"), o.firstElementChild) o.firstElementChild.appendChild(r);
+                    else {
+                        var b = n.createElement("div");
+                        b.appendChild(r), n.write(b.innerHTML)
+                    }
+                i.addEventListener("resize", function() {
+                    clearTimeout(a), a = setTimeout(t, 300)
+                }, !1), i.addEventListener("pageshow", function(e) {
+                    e.persisted && (clearTimeout(a), a = setTimeout(t, 300))
+                }, !1), "complete" === n.readyState ? n.body.style.fontSize = 12 * s + "px" : n.addEventListener("DOMContentLoaded", function() {
+                    n.body.style.fontSize = 12 * s + "px"
+                }, !1), t(), m.dpr = i.dpr = s, m.refreshRem = t, m.rem2px = function(e) {
+                    var t = parseFloat(e) * this.rem;
+                    return "string" == typeof e && e.match(/rem$/) && (t += "px"), t
+                }, m.px2rem = function(e) {
+                    var t = parseFloat(e) / this.rem;
+                    return "string" == typeof e && e.match(/px$/) && (t += "rem"), t
+                }
+            }(window, window.lib || (window.lib = {})), window.shareConf = null
+    </script>
+    <link href="<!--{$indextpl}-->css/vendor.38cae4.css" rel="stylesheet">
+    <link href="<!--{$indextpl}-->css/entry.index.53baaf.css" rel="stylesheet">
+    <link href="<!--{$indextpl}-->css/swiper.min.css" rel="stylesheet">
+    <link href="<!--{$indextpl}-->css/read.css" rel="stylesheet">
+    <link href="<!--{$static}-->css/jsshare.css" rel="stylesheet">
+</head>
+
+<body style="font-size: 12px;">
+
+    <section class="view-port" style="background-color: rgb(255, 255, 255); ">
+        <header class="view-header comic-detail-header">
+            <div id="js_top_nav" class="header-wrap header-wrap-normal" style=" "><i id="js_change_bg" class="change-bg "></i>
+                <div class="header-left"><span class="header-icon js_go_back">
+                        <i class="ift-back white"></i> </span>
+                </div>
+                <div class="header-center top-title js_top_title" style="visibility: visible;">
+                    <h1 id="js_comic-title" class="header-title" data-id="107751" data-newid="xiuluojianzun" title="<!--{$data.other_name}-->">
+                        <!--{__ 充值中心}-->
+                    </h1>
+
+                </div>
+
+                <div class="header-right">
+                    <a class="header-icon" href="/" title="<!--{__ 首页}-->">
+                        <i class="ift-home white"></i></a>
+
+                </div>
+
+            </div>
+
+        </header>
+        <section class="view-body">
+            <section class="recharge-surplus">
+                <!--{__ 余额}-->
+                <p class="surplus"><span id="js_balance">
+                        <!--{$wallet.golden_bean}-->
+                    </span> <i class="icon-user-bean icon"></i> （
+                    <span id="js_balance_real">
+                        <!--{$wallet.remainder}-->
+                    </span>
+                    <i class="icon-user-star icon"></i> ）
+                </p>
+            </section>
+            <section id="js_list" class="recharge-list">
+                <h3 class="title">
+                    <!--{__ 充值金额}-->
+                </h3>
+                <div class="main">
+                    <!--{foreach $data as $k=>$v}-->
+                    <div class="block js_block" data-id="<!--{$v.applepayId}-->"> <span class="rmb">$
+                            <!--{$v.USD}-->
+                        </span>
+                        <p class="diamond" coin="<!--{$v.dummy_icon}-->">
+                            <!--{$v.dummy_icon}-->
+
+                            <i class="icon-user-bean icon"></i>
+                        </p>
+                        <!--{if $v.first_send>0}-->
+                        <small class="gift">(
+                            <!--{__ 送}-->
+                            <!--{$v.first_send}--><i class="icon-user-star icon"></i>)
+                        </small>
+                        <!--{else}-->
+                        <!--{/if}-->
+                    </div>
+                    <!--{/foreach}-->
+
+
+                </div>
+                <div class="hint">
+                    <!--{__ 温馨提示}-->：<br>
+                    <!--{__ 购买后，账户余额若长时间无变化，请及时下载APP联系在线客服解决}-->.
+                </div>
+            </section>
+            <div id="js_recharge" class="fix-layer">
+                <div id="js_pay_bg" class="fix-layer-cover"></div>
+                <div class="recharge-pay fix-layer-push">
+                    <h3 class="title">
+                        <!--{__ 确认支付方式}-->
+                    </h3>
+                    <div id="js_pay_close" class="close">
+
+                        <i id="" class="close-bar ift-close"></i>
+                    </div>
+                    <ul class="list" id="js_select_paytype">
+                        <!-- <li class="row" data-paytype="13"><img class="logo" src="/static/images/bank/wx.png" alt="微信">
+                            <p class="name">微信</p><i class="ift-check"></i>
+                        </li> -->
+                        <li class="row active" data-paytype="11"><img class="logo" src="<!--{$indextpl}-->imgs/zfb.png" alt="">
+                            <p class="name">
+                                <!--{__ 支付宝}-->
+                            </p><i class="ift-check"></i>
+                        </li>
+                    </ul>
+                    <p class="count"><strong id="js_payPrice">¥0.0</strong><br><span id="js_payGem">
+                            <!--{__ 金豆}--> x
+                            <span id="bean">0</span>
+                        </span>
+                    </p>
+                    <div class="bt">
+                        <div id="js_payOrder" class="pay-btn">
+                            <!--{__ 立即支付}-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+
+
+    <style>
+
+    </style>
+
+    <script>
+        $(function() {
+            $('.js_block').click(function() {
+                $(this).addClass('active').siblings().removeClass('active');
+                $('#js_payPrice').text($(this).children('.rmb').text());
+                $('#bean').text($(this).children('.diamond').attr('coin'));
+                $('#js_recharge').show();
+            });
+            $('#js_pay_close').click(function() {
+                $('#js_recharge').hide();
+            });
+        });
+    </script>
+</body>
+
+</html>

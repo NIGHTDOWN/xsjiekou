@@ -251,7 +251,7 @@ function formatText($objtmp) {
             }
             //由于p标签内容为空时，页面不显示空行，加一个<br>
             if (partTxt == '') {
-                span.append($('<br />'));
+                // span.append($('<br />'));
                 span.append(p);
             }
             j = i + 1;
