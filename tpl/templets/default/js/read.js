@@ -6,6 +6,7 @@ var scrollTop, ks_area;
 var titlelock = false;
 var lastpointy = 0;
 var autopayindex = 'autopay';
+var settingindex = 'settingindex';
 //加載購買模塊，
 function loadpay() {
     if (!needpay) return false;
@@ -78,12 +79,76 @@ function showcomment() {
 
 function showset() {
     // hidecate();
+    $h = $('#js_footMenu').outerHeight();
+    $('.article-setting').css('bottom', $h);
     $('#js_setting').show();
 }
 
 function hideset() {
     // hidecate();
     $('#js_setting').hide();
+}
+
+function getseting() {
+    $data = getCookie(settingindex);
+
+    try {
+        $data = jta(unescape($data));
+    } catch (error) {
+        $data = null;
+    }
+    if ($data != null) {
+        return $data;
+    } else {
+        $data = { 'bgcolor': '', 'fontsize': '' };
+        $data['bgcolor'] = $('.f-mini').css('font-size');
+        $data['fontsize'] = $('.cs-white').css('background-color');
+        return $data;
+    }
+}
+
+function loadset() {
+    $set = getseting();
+
+    // if (!$set) return false;
+    if ($data['bgcolor']) {
+
+        $('.bookpage').css('background-color', $data['bgcolor']);
+
+        $('#back_scheme').children('span').each(function(i, v) {
+
+            if ($(v).css('background-color') == $data['bgcolor']) {
+
+                $(v).addClass('selected').siblings().removeClass('selected');
+
+            } else {}
+        });
+
+    }
+    if ($data['fontsize']) {
+        $('.acgn-reader-chapter').css('font-size', $data['fontsize']);
+
+        $('#font_layer').children('span').each(function(i, v) {
+
+            if ($(v).css('font-size') == $data['fontsize']) {
+                $(v).addClass('selected').siblings().removeClass('selected');;
+
+            } else {}
+        });
+    }
+}
+
+function setseting($bgcolor, $fontsize) {
+    $data = getseting();
+
+    if ($bgcolor) {
+        $data['bgcolor'] = $bgcolor;
+    }
+    if ($fontsize) {
+        $data['fontsize'] = $fontsize;
+    }
+
+    setCookie(settingindex, (atj($data)));
 }
 //提交评论
 function subcomment() {
@@ -460,18 +525,20 @@ $(function() {
     });
     $('#font_layer span').click(function() {
         $fontsize = $(this).css('font-size');
-        d($fontsize);
-        $('.acgn-reader-chapter__content').css('font-size', $fontsize);
+        $(this).addClass('selected').siblings().removeClass('selected');
+        setseting(false, $fontsize);
+        $('.acgn-reader-chapter').css('font-size', $fontsize);
         inittime();
     });
     $('#back_scheme span').click(function() {
         $bg = $(this).css('background-color');
-        d($bg);
+        $(this).addClass('selected').siblings().removeClass('selected');
+        setseting($bg, false);
         $('.bookpage').css('background-color', $bg);
     });
     $('#back_scheme_font span').click(function() {
         $bg = $(this).css('background-color');
-        d($bg);
+        $(this).addClass('selected').siblings().removeClass('selected');
         $('.acgn-reader-chapter__content').css('color', $bg);
     });
     $('#js_comment .bd').on('click', function() {
@@ -523,13 +590,14 @@ $(function() {
     //分享
     $('#js_ftSettingBtn').on('click', function() {
 
-        menu();
+        // menu();
         showset();
         return false;
     });
 });
 
 function menu() {
+    hideset();
     $('#js_headMenu').toggle();
     $('#js_footMenu').toggle();
 }
@@ -547,6 +615,7 @@ function gopage() {
 
 }
 $(window).load(function() {
+
     gopage();
     initshare('<!--{__ 分享}-->', '', $('#js_sharebox'));
 });
@@ -969,6 +1038,9 @@ function rmbpoint($sid, $pg) {
     setCookie($index, $sid + '.' + $pg);
 }
 $(document).ready(function() {
+    if (type == 1) {
+        loadset();
+    }
     //fix底部
     $ob = getnowob(0);
     $ob.attr('needpay', needpay ? 1 : 0);
