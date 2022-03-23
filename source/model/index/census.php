@@ -488,7 +488,7 @@ class census extends Y
             $where['orders'] = 1;
             T('data_count')->add($where);
         } else {
-            T('data_count')->update(['orders' => $have['orders'] + 1], $where);
+            T('data_count')->update('`orders`=`orders`+1', $where);
         }
     }
     public function iinstallcount()

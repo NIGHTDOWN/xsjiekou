@@ -17,4 +17,4 @@ php mtoon_id.php
 php mtoon_th.php
 php mtoon_vi.php
 php mtxt_id.php
-goto start
+@REM goto start

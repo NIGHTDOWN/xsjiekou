@@ -299,4 +299,94 @@ class order extends Y
 
         return $res;
     }
+
+    /**
+     * 创建订单
+     * @uid 用户ID
+     * @pid 商品id
+     * paytype 支付类型
+     * bookid 书id
+     * booktype 书类型
+     * sid   章节id
+     * active_id 充值入口
+     */
+
+    public function create($uid, $pid, $paytype, $bookid = 0, $booktype = 0, $sid = 0, $active_id = 1)
+    {
+
+        if (!$uid) return false;
+        if (!$pid) return false;
+        if (!$paytype) return false;
+        // $data = get(['int' => ['book_id', 'section_id', 'pay_type' => 1, 'agent_id'], 'string' => ['applepayId' => 1, 'type' => 1]]);
+        $recharge = T('recharge')->field('recharge_price,dummy_icon,first_send,USD')->where(['applepayId' => $pid])->find();
+
+        if (!$recharge) return false;
+        $devicetype = getdevicetype(Y::$wrap_head);
+        $arr['order_num'] = date('YmdHis') . $uid . str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT);
+        //中文金额
+        $arr['price'] = $recharge['USD'];
+        $arr['pay_status'] = 0;
+        $arr['make_time'] = date('Y-m-d H:i:s', time());
+        $arr['dates'] = date('Ymd');
+        $arr['fact_price'] = $recharge['recharge_price'];
+        $arr['plat'] = $devicetype;
+        $arr['source_version'] = @Y::$wrap_head['version'];
+        $arr['create_syntony'] = $pid;
+        $arr['user_message'] = $devicetype;
+        // 新加
+        $id = $uid;
+        if (isset($data['agent_id']) && $data['agent_id']) {
+            // //代充
+            // if ($data['agent_id'] != $this->users_id) {
+            //     $user = T('third_party_user')->field('id')->where(['id' => $data['agent_id']])->find();
+            //     if ($user) {
+            //         $arr['users_id'] = $data['agent_id'];
+            //         $arr['proxy_id'] = $this->users_id;
+            //     } else {
+            //         Out::jerror('代充用户不存在', null, '100138');
+            //     }
+            // } else {
+            //     Out::jerror('代充对象不能是自己', null, '100137');
+            // }
+            // //代充无首充
+            // $arr['first_charge'] = 2;
+        } else {
+            $userorder = T('order')->field('first_charge')->where(['users_id' => $id, 'create_syntony' => $pid, 'pay_status' => 1, 'proxy_id' => 0])->find();
+            // $userorder = T('order')->field('first_charge')->where('users_id', $this->users_id)->where('create_syntony', $data['applepayId'])->where('pay_status', 1)->find();
+            $arr['users_id'] = $uid;
+            // $arr['proxy_id'] = $this->users_id;
+            if ($userorder) {
+                $arr['first_charge'] = 2;
+            } else {
+                $arr['first_charge'] = 1;
+            }
+        }
+
+        $arr['book_id'] = $bookid;
+        $arr['section_id'] = $sid;
+        $arr['booktype'] = $booktype;
+        // if (isset($data['type']) && isset($data['book_id']) && isset($data['section_id'])) {
+        //     if ($data['type'] == 1) {
+        //         $arr['book_id'] = $data['book_id'];
+        //         $arr['section_id'] = $data['section_id'];
+        //         // $arr['type'] = 1;
+        //     } elseif ($data['type'] == 2) {
+        //         $arr['cartoon_id'] = $data['book_id'];
+        //         $arr['cart_section_id'] = $data['section_id'];
+        //         // $arr['type'] = 2;
+        //     }
+        //     $arr['active_id'] = $data['type'];
+        // }
+        $arr['pay_type'] = $paytype;
+        $arr['active_id'] = $active_id;
+        $id = T('order')->add($arr);
+        $arr['id'] = $id;
+        M('census', 'im')->ordercount(); //下单订单统计
+        // M('census', 'im')->ordercount(); //下单订单统计
+        M('bookcensus', 'im')->ordernum($booktype, $bookid, $sid);
+        M('count', 'im')->countorder();
+        // $result['order_num'] = $arr['order_num'];
+        return $arr;
+        // $this->returnSuccess($result);
+    }
 }

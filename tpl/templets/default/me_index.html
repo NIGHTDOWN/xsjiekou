@@ -9,8 +9,7 @@
         <!--{__ LoveNovel}-->
     </title>
     <meta name="keywords" content="<!--{__ 多语言免费、流行、浪漫、小说,漫画阅读器.}-->">
-    <meta name="description" itemprop="description"
-        content="<!--{__ LoveNovel一直坚持提供小说漫画免费阅读。看小说、看漫画，为阅读而生，就上LoveNovel}-->">
+    <meta name="description" itemprop="description" content="<!--{__ LoveNovel一直坚持提供小说漫画免费阅读。看小说、看漫画，为阅读而生，就上LoveNovel}-->">
 
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <meta http-equiv="Cache-Control" content="no-transform">
@@ -36,7 +35,64 @@
     <script src="<!--{$indextpl}-->js/jquery.min.js"></script>
     <script src="<!--{$static}-->js/night_Trad.v1.0.js"></script>
     <script>
-        function isMobileHanddle() { var e = navigator.userAgent; return (screen.width / screen.height < 1 || /AppleWebKit.*Mobile/i.test(e) || /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(e)) && !/ipad/gi.test(e) } var host = location.host; isMobileHanddle() || "m" !== host.substr(0, host.indexOf(".")) || (location.href = location.href.replace("//m.", "//www.")), top.location != location && (top.location = location.href), function (i, e) { function t() { var e = o.getBoundingClientRect().width; 540 < e / s && (e = 540 * s); var t = e / 10; o.style.fontSize = t + "px", m.rem = i.rem = t } var a, n = i.document, o = n.documentElement, r = n.querySelector('meta[name="viewport"]'), l = n.querySelector('meta[name="flexible"]'), s = 0, d = 0, m = e.flexible || (e.flexible = {}); if (r) { console.warn("将根据已有的meta标签来设置缩放比例"); var c = r.getAttribute("content").match(/initial\-scale=([\d\.]+)/); c && (d = parseFloat(c[1]), s = parseInt(1 / d)) } else if (l) { var p = l.getAttribute("content"); if (p) { var u = p.match(/initial\-dpr=([\d\.]+)/), f = p.match(/maximum\-dpr=([\d\.]+)/); u && (s = parseFloat(u[1]), d = parseFloat((1 / s).toFixed(2))), f && (s = parseFloat(f[1]), d = parseFloat((1 / s).toFixed(2))) } } if (!s && !d) { var h = (i.navigator.appVersion.match(/android/gi), i.navigator.appVersion.match(/iphone/gi)), v = i.devicePixelRatio; d = 1 / (s = h ? 3 <= v && (!s || 3 <= s) ? 3 : 2 <= v && (!s || 2 <= s) ? 2 : 1 : 1) } if (o.setAttribute("data-dpr", s), !r) if ((r = n.createElement("meta")).setAttribute("name", "viewport"), r.setAttribute("content", "initial-scale=" + d + ", maximum-scale=" + d + ", minimum-scale=" + d + ", user-scalable=no"), o.firstElementChild) o.firstElementChild.appendChild(r); else { var b = n.createElement("div"); b.appendChild(r), n.write(b.innerHTML) } i.addEventListener("resize", function () { clearTimeout(a), a = setTimeout(t, 300) }, !1), i.addEventListener("pageshow", function (e) { e.persisted && (clearTimeout(a), a = setTimeout(t, 300)) }, !1), "complete" === n.readyState ? n.body.style.fontSize = 12 * s + "px" : n.addEventListener("DOMContentLoaded", function () { n.body.style.fontSize = 12 * s + "px" }, !1), t(), m.dpr = i.dpr = s, m.refreshRem = t, m.rem2px = function (e) { var t = parseFloat(e) * this.rem; return "string" == typeof e && e.match(/rem$/) && (t += "px"), t }, m.px2rem = function (e) { var t = parseFloat(e) / this.rem; return "string" == typeof e && e.match(/px$/) && (t += "rem"), t } }(window, window.lib || (window.lib = {})), window.shareConf = null</script>
+        function isMobileHanddle() {
+            var e = navigator.userAgent;
+            return (screen.width / screen.height < 1 || /AppleWebKit.*Mobile/i.test(e) || /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(e)) && !/ipad/gi.test(e)
+        }
+        var host = location.host;
+        isMobileHanddle() || "m" !== host.substr(0, host.indexOf(".")) || (location.href = location.href.replace("//m.", "//www.")), top.location != location && (top.location = location.href),
+            function(i, e) {
+                function t() {
+                    var e = o.getBoundingClientRect().width;
+                    540 < e / s && (e = 540 * s);
+                    var t = e / 10;
+                    o.style.fontSize = t + "px", m.rem = i.rem = t
+                }
+                var a, n = i.document,
+                    o = n.documentElement,
+                    r = n.querySelector('meta[name="viewport"]'),
+                    l = n.querySelector('meta[name="flexible"]'),
+                    s = 0,
+                    d = 0,
+                    m = e.flexible || (e.flexible = {});
+                if (r) {
+                    console.warn("将根据已有的meta标签来设置缩放比例");
+                    var c = r.getAttribute("content").match(/initial\-scale=([\d\.]+)/);
+                    c && (d = parseFloat(c[1]), s = parseInt(1 / d))
+                } else if (l) {
+                    var p = l.getAttribute("content");
+                    if (p) {
+                        var u = p.match(/initial\-dpr=([\d\.]+)/),
+                            f = p.match(/maximum\-dpr=([\d\.]+)/);
+                        u && (s = parseFloat(u[1]), d = parseFloat((1 / s).toFixed(2))), f && (s = parseFloat(f[1]), d = parseFloat((1 / s).toFixed(2)))
+                    }
+                }
+                if (!s && !d) {
+                    var h = (i.navigator.appVersion.match(/android/gi), i.navigator.appVersion.match(/iphone/gi)),
+                        v = i.devicePixelRatio;
+                    d = 1 / (s = h ? 3 <= v && (!s || 3 <= s) ? 3 : 2 <= v && (!s || 2 <= s) ? 2 : 1 : 1)
+                }
+                if (o.setAttribute("data-dpr", s), !r)
+                    if ((r = n.createElement("meta")).setAttribute("name", "viewport"), r.setAttribute("content", "initial-scale=" + d + ", maximum-scale=" + d + ", minimum-scale=" + d + ", user-scalable=no"), o.firstElementChild) o.firstElementChild.appendChild(r);
+                    else {
+                        var b = n.createElement("div");
+                        b.appendChild(r), n.write(b.innerHTML)
+                    }
+                i.addEventListener("resize", function() {
+                    clearTimeout(a), a = setTimeout(t, 300)
+                }, !1), i.addEventListener("pageshow", function(e) {
+                    e.persisted && (clearTimeout(a), a = setTimeout(t, 300))
+                }, !1), "complete" === n.readyState ? n.body.style.fontSize = 12 * s + "px" : n.addEventListener("DOMContentLoaded", function() {
+                    n.body.style.fontSize = 12 * s + "px"
+                }, !1), t(), m.dpr = i.dpr = s, m.refreshRem = t, m.rem2px = function(e) {
+                    var t = parseFloat(e) * this.rem;
+                    return "string" == typeof e && e.match(/rem$/) && (t += "px"), t
+                }, m.px2rem = function(e) {
+                    var t = parseFloat(e) / this.rem;
+                    return "string" == typeof e && e.match(/px$/) && (t += "rem"), t
+                }
+            }(window, window.lib || (window.lib = {})), window.shareConf = null
+    </script>
 
 
 </head>
@@ -67,8 +123,7 @@
                     </p>
 
                     <div class="my-property">
-                        <a class="js_property block" href="<!--{url action='star' mod='wallet' args=''}-->"
-                            title="<!--{__ 我的星星}-->"><i class="mark icon-user-star"></i> <span class="text"
+                        <a class="js_property block" href="<!--{url action='star' mod='wallet' args=''}-->" title="<!--{__ 我的星星}-->"><i class="mark icon-user-star"></i> <span class="text"
                                 id="js_diamond">
                                 <!--{if $user}-->
                                 <!--{$user.remainder}-->
@@ -76,8 +131,7 @@
                                 -
                                 <!--{/if}-->
                             </span> </a>
-                        <a class="js_property block" href="<!--{url action='bean' mod='wallet' args=''}-->"
-                            title="<!--{__ 我的金豆}-->"><i class="mark icon-user-bean"></i> <span class="text"
+                        <a class="js_property block" href="<!--{url action='bean' mod='wallet' args=''}-->" title="<!--{__ 我的金豆}-->"><i class="mark icon-user-bean"></i> <span class="text"
                                 id="js_coins">
                                 <!--{if $user}-->
                                 <!--{$user.golden_bean}-->
@@ -86,8 +140,7 @@
                                 <!--{/if}-->
 
                             </span> </a>
-                        <a class="js_property block" href="<!--{url action='bean' mod='wallet' args=''}-->"
-                            title="<!--{__ 我的奖金}-->"><i class="mark icon-user-jj"></i> <span class="text" id="js_coins">
+                        <a class="js_property block" href="<!--{url action='bean' mod='wallet' args=''}-->" title="<!--{__ 我的奖金}-->"><i class="mark icon-user-jj"></i> <span class="text" id="js_coins">
                                 <!--{if $user}-->
                                 <!--{$user.award_cach}-->
                                 <!--{else}-->
@@ -95,8 +148,7 @@
                                 <!--{/if}-->
 
                             </span> </a>
-                        <a class="js_property block" href="<!--{url action='bean' mod='wallet' args=''}-->"
-                            title="<!--{__ 我的现金}-->"><i class="mark icon-user-cash"></i> <span class="text"
+                        <a class="js_property block" href="<!--{url action='bean' mod='wallet' args=''}-->" title="<!--{__ 我的现金}-->"><i class="mark icon-user-cash"></i> <span class="text"
                                 id="js_coins">
                                 <!--{if $user}-->
                                 <!--{$user.cash}-->
@@ -111,7 +163,7 @@
         </section>
 
         <section class="mod-item mod-history">
-            <a href="<!--{url action=" his" mod="rack" }-->" data-name="history">
+            <a href="<!--{url action=" his " mod="rack " }-->" data-name="history">
                 <div class="mod-title">
                     <!--{__ 阅读历史}-->
                 </div>
@@ -130,7 +182,7 @@
         </section>
 
         <section class="mod-item mod-collect">
-            <a data-name="collect" href="<!--{url action=" run" mod="rack" }-->">
+            <a data-name="collect" href="<!--{url action=" run " mod="rack " }-->">
                 <div class="mod-title">
                     <!--{__ 我的书架}-->
                 </div>
@@ -138,7 +190,7 @@
             </a>
         </section>
         <section class="mod-item mod-recharge">
-            <a href="javascript:void(0)" data-name="recharge">
+            <a href="<!--{url action='' mod='pay' args=''}-->" data-name="recharge">
                 <div class="mod-title">
                     <!--{__ 充值金豆}-->
                 </div>
@@ -187,9 +239,7 @@
         padding: 0;
         background: #f4f4f4;
     }
-
-
-
+    
     .my-property,
     .my-property .block {
         display: -webkit-box;
@@ -201,7 +251,7 @@
         border-color: #f4f4f4;
         width: 100%;
     }
-
+    
     .my-property .block {
         -webkit-box-flex: 1;
         -webkit-flex: 1;
@@ -224,17 +274,16 @@
         color: #444;
         margin-left: 3%;
         /* min-width: 2.5rem; */
-
     }
-
+    
     .my-property .block:active {
         /* background-color: #f2f2f2 */
     }
-
+    
     .my-property .block .mark {
         margin-right: .08rem
     }
-
+    
     .my-property .block .text {
         display: block;
         -webkit-box-flex: 1;
@@ -250,7 +299,7 @@
         text-overflow: ellipsis;
         overflow: hidden
     }
-
+    
     .icon-user-star {
         display: inline-block;
         background-image: url(<!--{$indextpl}-->images/tc_shubi@2x.png);
@@ -261,7 +310,7 @@
         height: .7466666667rem;
         background-position: center;
     }
-
+    
     .icon-user-bean {
         display: inline-block;
         background-image: url(<!--{$indextpl}-->imgs/bean1.png);
@@ -272,7 +321,7 @@
         height: .7466666667rem;
         background-position: center;
     }
-
+    
     .icon-user-cash {
         display: inline-block;
         background-image: url(<!--{$indextpl}-->imgs/cash.png);
@@ -283,7 +332,7 @@
         height: .7466666667rem;
         background-position: center;
     }
-
+    
     .icon-user-jj {
         display: inline-block;
         background-image: url(<!--{$indextpl}-->imgs/jj.png);
@@ -294,21 +343,21 @@
         height: .7466666667rem;
         background-position: center;
     }
-
+    
     article.main.under-top-bar {
         margin-bottom: 1.8rem;
     }
-
+    
     .mod {
         margin-bottom: 0.25rem;
     }
-
+    
     .mod-user-info,
     .mod-item {
         background-color: #fff;
         margin-bottom: 0.25rem;
     }
-
+    
     .mod-item a {
         color: #3f3f3f;
         font-size: 0.4rem;
@@ -321,11 +370,11 @@
         position: relative;
         text-decoration: none;
     }
-
+    
     .mod-item .mod-title {
         margin-left: 4%;
     }
-
+    
     .mod-item .sub-info {
         position: absolute;
         right: 4%;
@@ -335,7 +384,7 @@
         font-size: 0.35rem;
         color: #999;
     }
-
+    
     .mod-item .sub-info .icon-arrow-right {
         display: inline-block;
         vertical-align: middle;
@@ -345,16 +394,15 @@
         background-size: cover;
         background-repeat: no-repeat;
     }
-
+    
     .mod-item.mod-logout {
         text-align: center;
         color: #999;
     }
-
+    
     .user-info {
         background-image: url(<!--{$indextpl}-->images/personal-center-bg.png);
         padding-top: 0.75rem;
-
         background-size: 100% 70%;
         background-position: center top;
         background-repeat: no-repeat;
@@ -366,7 +414,7 @@
         -ms-flex-align: center;
         align-items: center;
     }
-
+    
     .user-info .user-head {
         -webkit-box-flex: 0;
         -ms-flex: 0 0 1.75rem;
@@ -379,14 +427,14 @@
         vertical-align: middle;
         /* margin-left: 4%; */
     }
-
+    
     .user-info .user-head img {
         display: block;
         width: 100%;
         height: 100%;
         border-radius: 50%;
     }
-
+    
     .user-info .user-detail {
         -webkit-box-flex: 1;
         -ms-flex: 1;
@@ -401,24 +449,24 @@
         /* height: 100%; */
         justify-content: flex-end;
     }
-
+    
     .user-info .user-detail .user-name {
         font-size: 0.4rem;
         color: #333;
         padding-bottom: 0.4rem;
         margin: 0.2rem;
     }
-
+    
     .user-info .user-detail .user-balance {
         font-size: 0.3rem;
         line-height: 0.41rem;
         color: #333;
     }
-
+    
     .user-info .user-detail .user-balance #text_balance_count {
         color: #FF613E;
     }
-
+    
     .user-info .user-detail .user-balance span {
         color: #999;
     }

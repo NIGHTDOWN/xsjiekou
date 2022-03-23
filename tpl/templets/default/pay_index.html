@@ -240,6 +240,30 @@
             $('#js_pay_close').click(function() {
                 $('#js_recharge').hide();
             });
+            $('#js_payOrder').click(function() {
+
+                $('#js_recharge').hide();
+                $data = {
+                    'payid': $('.js_block.active').attr('data-id'),
+                    'from': '<!--{$get.from}-->',
+                    'bookid': '<!--{$get.bookid}-->',
+                    'sid': '<!--{$get.sid}-->',
+                    'type': '<!--{$get.type}-->',
+                }
+                gopayurl = "<!--{url action='alipay' mod='pay' args=''}-->";
+                yAjax(gopayurl, $data, function(data) {
+                    if (data.code == 1) {
+                        if (data.result.pay_url) {
+                            _go_url_new(data.result.pay_url);
+                        } else {
+                            d(data);
+                            showd('<!--{__ 订单创建失败}-->');
+                        }
+                    } else {
+                        showd(data.msg);
+                    }
+                });
+            });
         });
     </script>
 </body>
