@@ -63,10 +63,11 @@ class adapaytest extends Y
         return false;
     }
 
-    public function create($uid, $pid, $bookid = 0, $booktype = 0, $sid = 0, $active_id = 1)
+    public function create($callbackurl,$uid, $pid, $bookid = 0, $booktype = 0, $sid = 0, $active_id = 1)
     {
         $this->init();
         # 初始化支付类
+        $this->callurl=$callbackurl;
         $paytype = 'alipay';
         $pay_type_id = 8;
         $payment = new \AdaPaySdk\Payment();

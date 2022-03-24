@@ -23,21 +23,19 @@ class pay extends indexbase
     }
     public function control_alipay()
     {
+        
         // $get = get(['string' => ['orders' => 1, 'title' => 1, 'desc' => 1, 'pay_money' => 1, 'callurl', 'mid']]);
         $get = get(['string' => ['payid'], 'int' => ['bookid', 'sid', 'type', 'from']]);
-        // $title = '额任务';
-        // $desc = '委屈';
-        // $pay_money = '0.01';
-        // $callurl = 'baidu.com';
-        // $attr = '';
-        // $mid = 118;
-        $payinfo = M('adapaytest', 'im')->create($this->get_userid(), $get['payid'],  $get['type'], $get['bookid'], $get['sid'], $get['from']);
+   
+        $callbackurl = geturl('','callback', 'pay');
+        $payinfo = M('adapaytest', 'im')->create($callbackurl, $this->get_userid(), $get['payid'],  $get['type'], $get['bookid'], $get['sid'], $get['from']);
         Out::jout($payinfo);
     }
     public function control_callback()
     {
 
         $get = get(['string' => ['data', 'sign', 'type']]);
+        Log::txt('支付' . json_encode($_POST), DATA . '/log/adapay.txt');
         // if (!json_encode($get['data'])) {
         $get['data'] = str_replace("\\", "", $get['data']);
         // }
