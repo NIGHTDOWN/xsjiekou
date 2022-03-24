@@ -8,6 +8,9 @@ use ng169\Y;
 checktop();
 class order extends Y
 {
+    /**
+     * 支付回调处理逻辑
+     */
     public function deal($orderid, $tradenum, $syntony, $ptime)
     {
 

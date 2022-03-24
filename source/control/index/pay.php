@@ -38,38 +38,39 @@ class pay extends indexbase
     {
 
         $get = get(['string' => ['data', 'sign', 'type']]);
-
-        // if (!json_encode($get['data'])) {
         $get['data'] = str_replace("\\", "", $get['data']);
-        // }
-
         $bool = M('adapaytest', 'im')->verifySign($get['data'], $get['sign']);
-        Log::txt('验签成功' . $bool, DATA . '/log/paysucceeded.txt');
-        $bool = true;
+        // Log::txt('验签成功' . $bool, DATA . '/log/paysucceeded.txt');
+        // $bool = true;
         if ($bool && $get['type'] == 'payment.succeeded') {
             //成功改变状态
             $orderinfo = json_decode($get['data'], 1);
-            $ret = M('adapay', 'im')->sureOrder($orderinfo['order_no']);
-            // d($ret, 1);
-            //这里回调
-            $url = new \ng169\tool\Curl();
-            $post['paystatus'] = $ret['paystatus'];
-            $post['orders_id'] = $ret['orders_id'];
-            $post['thirdpayid'] = $ret['thirdpayid'];
-            $post['money'] = $ret['pay_money'];
-            $post['attr'] = $ret['attr'];
-            $post['order_no'] = M('adapay', 'im')->getpre() . $ret['payid'];
-            $ret = $url->post($ret['callurl'], $post);
-            Log::txt('验签成功' . json_encode($post), DATA . '/log/paysucceeded.txt');
-            Out::jout($post);
+            //这里可以写回调逻辑了
+            $ret = M('order', 'im')->deal(
+                M('adapaytest', 'im')->get_our_orderid($orderinfo['order_no']),
+                $orderinfo['out_trans_id'],
+                $orderinfo['id'],
+                time()
+            );
+            // // d($ret, 1);
+            // //这里回调
+            // $url = new \ng169\tool\Curl();
+            // $post['paystatus'] = $ret['paystatus'];
+            // $post['orders_id'] = $ret['orders_id'];
+            // $post['thirdpayid'] = $ret['thirdpayid'];
+            // $post['money'] = $ret['pay_money'];
+            // $post['attr'] = $ret['attr'];
+            // $post['order_no'] = M('adapay', 'im')->getpre() . $ret['payid'];
+            // $ret = $url->post($ret['callurl'], $post);
+            // Log::txt('验签成功' , DATA . '/log/paysucceeded.txt');
+            Out::jout(1);
         } else {
             //验签失败
-            // d(($get['data']));
-            // d(json_decode($get['data']));
-            Log::txt('验签失败', DATA . '/log/payfail.txt');
+
             Log::txt($get['data'], DATA . '/log/payfail.txt');
-            Log::txt(json_decode($get['data']), DATA . '/log/payfail.txt');
-            d('验签失败', 1);
+
+            // d('验签失败', 1);
+            Out::jerror(0);
         }
     }
     /**
@@ -96,5 +97,9 @@ class pay extends indexbase
         // $bankcity = $get['bankcity'];
         // $bool = $payobj->addrecvuser($type, $name, $tel, $usernum, $bankname, $cardid, $bankprovice, $bankcity);
 
+    }
+    //手动确认支付状态
+    public function surepay()
+    {
     }
 }

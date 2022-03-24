@@ -63,15 +63,15 @@ class adapaytest extends Y
         return false;
     }
 
-    public function create($callbackurl,$uid, $pid, $bookid = 0, $booktype = 0, $sid = 0, $active_id = 1)
+    public function create($callbackurl, $uid, $pid, $bookid = 0, $booktype = 0, $sid = 0, $active_id = 1)
     {
         $this->init();
         # 初始化支付类
-        $this->callurl=$callbackurl;
+        $this->callurl = $callbackurl;
         $paytype = 'alipay';
         $pay_type_id = 8;
         $payment = new \AdaPaySdk\Payment();
-        
+
         // $payid = $this->createOurOrder($orderids, $title, $desc, $cost, $call, $paytype);
         $ourorder = M('order', 'im')->create($uid,  $pid, $pay_type_id, $bookid, $booktype, $sid, $active_id);
         if (!$ourorder) {
@@ -81,7 +81,7 @@ class adapaytest extends Y
         $cost = number_format($ourorder['price'], 2);
         $cost = '0.01';
         $mid = T('paymerber')->order_by(['s' => 'down', 'f' => 'mid'])->field('mid')->set_where(['flag' => 1])->get_one();
-        
+
         if (!$mid) {
             $mid = $this->try_add_merber();
             if (!$mid) {
@@ -109,10 +109,10 @@ class adapaytest extends Y
 
         // currency這個參數好像無效;
         # 发起支付
-        
+
         $payment->create($payment_params);
         $ret = $this->getret($payment->result);
-       
+
         if ($ret) {
             //更新数据库
             T('order')->update(['pay_syntony' => $ret['party_order_id']], ['order_id' =>  $ourorder['id']]);
@@ -335,6 +335,14 @@ class adapaytest extends Y
             }
         }
         return false;
+    }
+    /**
+     * 把第三方回调订单转成我们订单表订单号
+     */
+    public function get_our_orderid($third_orderid)
+    {
+        if (!$third_orderid) return false;
+        return trim($third_orderid, $this->pre);
     }
     public function createwx($orderids, $title, $desc, $cost, $openid, $call, $mid)
     {
