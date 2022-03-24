@@ -143,7 +143,7 @@ class Url
 			unset($args['catid']);
 		}
 
-		if (self::isstatic($group) && !in_array($group, self::$debar) && $ip == null) {
+		if (self::isstatic($group) && !in_array($group, self::$debar)) {
 			$url = self::get_url_static($args, $action, $mod, $group, $ip);
 		} else {
 			$url = self::get_url_dynamic($args, $action, $mod, $group, $ip);
@@ -271,11 +271,15 @@ class Url
 		} else {
 			$pre = G_URLPRE;
 		}
+		$params = trim($group . $mod . $action . $param ,'/') . $pre;
+		if ($ip) {
+			return $ip . '/' . $params;
+		} else {
+			return $url . $params;
+		}
+		// $url = trim(self::gethttp() . $_SERVER["HTTP_HOST"] . '/' . $group . $mod . $action . $param, '/') . $pre;
 
-
-		$url = trim(self::gethttp() . $_SERVER["HTTP_HOST"] . '/' . $group . $mod . $action . $param, '/') . $pre;
-
-		return $url;
+		// return $url;
 	}
 
 	public static

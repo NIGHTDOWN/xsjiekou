@@ -71,6 +71,7 @@ class adapaytest extends Y
         $paytype = 'alipay';
         $pay_type_id = 8;
         $payment = new \AdaPaySdk\Payment();
+        
         // $payid = $this->createOurOrder($orderids, $title, $desc, $cost, $call, $paytype);
         $ourorder = M('order', 'im')->create($uid,  $pid, $pay_type_id, $bookid, $booktype, $sid, $active_id);
         if (!$ourorder) {
@@ -78,8 +79,9 @@ class adapaytest extends Y
         }
         $order_no = $ourorder['order_num'];
         $cost = number_format($ourorder['price'], 2);
-        $cost = '0.10';
+        $cost = '0.01';
         $mid = T('paymerber')->order_by(['s' => 'down', 'f' => 'mid'])->field('mid')->set_where(['flag' => 1])->get_one();
+        
         if (!$mid) {
             $mid = $this->try_add_merber();
             if (!$mid) {
@@ -107,8 +109,10 @@ class adapaytest extends Y
 
         // currency這個參數好像無效;
         # 发起支付
+        
         $payment->create($payment_params);
         $ret = $this->getret($payment->result);
+       
         if ($ret) {
             //更新数据库
             T('order')->update(['pay_syntony' => $ret['party_order_id']], ['order_id' =>  $ourorder['id']]);

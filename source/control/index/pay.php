@@ -12,7 +12,7 @@ checktop();
 class pay extends indexbase
 {
 
-    protected $noNeedLogin = ['addmerber','callback'];
+    protected $noNeedLogin = ['addmerber', 'callback'];
 
     public function control_run()
     {
@@ -23,14 +23,15 @@ class pay extends indexbase
     }
     public function control_alipay()
     {
-        
+
         // $get = get(['string' => ['orders' => 1, 'title' => 1, 'desc' => 1, 'pay_money' => 1, 'callurl', 'mid']]);
         $get = get(['string' => ['payid'], 'int' => ['bookid', 'sid', 'type', 'from']]);
-   
-        $callbackurl = geturl('','callback', 'pay');
-        $callbackurl = 'https://www.love-novel.com/pay/callback.html';
+
+        $callbackurl = geturl('', 'callback', 'pay', 'index', 'https://www.love-novel.com');
+        // $callbackurl = 'https://www.love-novel.com/pay/callback.html';
         $payinfo = M('adapaytest', 'im')->create($callbackurl, $this->get_userid(), $get['payid'],  $get['type'], $get['bookid'], $get['sid'], $get['from']);
-        $payinfo['callback']=$callbackurl;
+
+        $payinfo['callback'] = $callbackurl;
         Out::jout($payinfo);
     }
     public function control_callback()
@@ -41,7 +42,7 @@ class pay extends indexbase
         // if (!json_encode($get['data'])) {
         $get['data'] = str_replace("\\", "", $get['data']);
         // }
-
+        Log::txt('验签成功' . json_encode($post), DATA . '/log/paysucceeded.txt');
         $bool = M('adapaytest', 'im')->verifySign($get['data'], $get['sign']);
         $bool = true;
         if ($bool && $get['type'] == 'payment.succeeded') {
