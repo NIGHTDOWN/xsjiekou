@@ -20,10 +20,10 @@ class Url
 		// 	return '';
 		// }
 
-		// return 'http://';
-		if ($_SERVER['HTTPS'] == 'off')
-			return 'http://';
-		return 'https://';
+		return $_SERVER['REQUEST_SCHEME'] ?? 'http://';
+		// if ($_SERVER['HTTPS'] == 'off')
+		// 	return 'http://';
+		// return 'https://';
 	}
 	public static
 	function isstatic($group)
@@ -43,6 +43,7 @@ class Url
 	 */
 	public static function resolve()
 	{
+		d($_SERVER, 1);
 		/**
 		 * 1斜杠分割
 		 * 2-号分割
