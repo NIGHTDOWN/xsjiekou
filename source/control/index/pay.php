@@ -12,7 +12,7 @@ checktop();
 class pay extends indexbase
 {
 
-    protected $noNeedLogin = ['addmerber'];
+    protected $noNeedLogin = ['addmerber','callback'];
 
     public function control_run()
     {
@@ -28,6 +28,7 @@ class pay extends indexbase
         $get = get(['string' => ['payid'], 'int' => ['bookid', 'sid', 'type', 'from']]);
    
         $callbackurl = geturl('','callback', 'pay');
+        $callbackurl = 'https://www.love-novel.com/pay/callback.html';
         $payinfo = M('adapaytest', 'im')->create($callbackurl, $this->get_userid(), $get['payid'],  $get['type'], $get['bookid'], $get['sid'], $get['from']);
         $payinfo['callback']=$callbackurl;
         Out::jout($payinfo);
