@@ -29,6 +29,7 @@ class pay extends indexbase
    
         $callbackurl = geturl('','callback', 'pay');
         $payinfo = M('adapaytest', 'im')->create($callbackurl, $this->get_userid(), $get['payid'],  $get['type'], $get['bookid'], $get['sid'], $get['from']);
+        $payinfo['callback']=$callbackurl;
         Out::jout($payinfo);
     }
     public function control_callback()
