@@ -15,15 +15,15 @@ class Url
 	{
 
 
-		if (preg_match('/(http[s]{0,1}):\/\/*?/', self::$ip)) {
+		// if (preg_match('/(http[s]{0,1}):\/\/*?/', self::$ip)) {
 
-			return '';
-		}
+		// 	return '';
+		// }
 
-		return 'http://';
-		/*  if($_SERVER['HTTPS']=='off')
-		return 'http://';
-		return 'https://';*/
+		// return 'http://';
+		if ($_SERVER['HTTPS'] == 'off')
+			return 'http://';
+		return 'https://';
 	}
 	public static
 	function isstatic($group)
@@ -271,7 +271,7 @@ class Url
 		} else {
 			$pre = G_URLPRE;
 		}
-		$params = trim($group . $mod . $action . $param ,'/') . $pre;
+		$params = trim($group . $mod . $action . $param, '/') . $pre;
 		if ($ip) {
 			return $ip . '/' . $params;
 		} else {
