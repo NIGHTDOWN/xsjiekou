@@ -79,7 +79,7 @@ class adapaytest extends Y
         }
         $order_no = $ourorder['order_num'];
         $cost = number_format($ourorder['price'], 2);
-        $cost = '0.01';
+        // $cost = '0.01';
         $mid = T('paymerber')->order_by(['s' => 'down', 'f' => 'mid'])->field('mid')->set_where(['flag' => 1])->get_one();
 
         if (!$mid) {

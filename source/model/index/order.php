@@ -336,7 +336,7 @@ class order extends Y
         $devicetype = getdevicetype(Y::$wrap_head);
         $arr['order_num'] = date('YmdHis') . $uid . str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT);
         //中文金额
-        $arr['price'] = $recharge['USD'];
+        $arr['price'] = $recharge['recharge_price'];
         $arr['pay_status'] = 0;
         $arr['make_time'] = date('Y-m-d H:i:s', time());
         $arr['dates'] = date('Ymd');
