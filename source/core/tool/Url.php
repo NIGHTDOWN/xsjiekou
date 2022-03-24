@@ -43,7 +43,7 @@ class Url
 	 */
 	public static function resolve()
 	{
-		d($_SERVER, 1);
+
 		/**
 		 * 1斜杠分割
 		 * 2-号分割
