@@ -71,7 +71,11 @@ class order extends Y
         //到账方显示 
         M('order', 'im')->chargelog($order['users_id'], $cztype, $recharge['recharge_price'], $recharge['dummy_icon'], $send);
         //增加金币
-        M('coin', 'im')->cz($uid, $recharge['dummy_icon'] + $send, $recharge['recharge_price']);
+        // M('coin', 'im')->cz($uid, $recharge['dummy_icon'] + $send, $recharge['recharge_price']);
+        //加金豆
+        M('coin', 'im')->cz($uid, $recharge['dummy_icon'], $recharge['recharge_price']);
+        //加星星
+        M('coin', 'im')->addstar($uid, $send);
         M('count', 'im')->recharge($recharge['recharge_price'], $order['plat']);
         $this->s2s($orderid);
 
@@ -214,6 +218,7 @@ class order extends Y
             ->where(['pay_status' => 1])->get_one();
         return !$userorder;
     }
+    //添加充值记录
     public function chargelog($payuid, $type, $money, $coin, $send_coin)
     {
         $chargesd['users_id'] = $payuid;

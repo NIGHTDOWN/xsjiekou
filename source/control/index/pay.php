@@ -23,15 +23,12 @@ class pay extends indexbase
     }
     public function control_alipay()
     {
-
-        // $get = get(['string' => ['orders' => 1, 'title' => 1, 'desc' => 1, 'pay_money' => 1, 'callurl', 'mid']]);
         $get = get(['string' => ['payid'], 'int' => ['bookid', 'sid', 'type', 'from']]);
-
         $callbackurl = geturl('', 'callback', 'pay', 'index', 'https://www.love-novel.com');
         // $callbackurl = 'https://www.love-novel.com/pay/callback.html';
         $payinfo = M('adapaytest', 'im')->create($callbackurl, $this->get_userid(), $get['payid'],  $get['type'], $get['bookid'], $get['sid'], $get['from']);
 
-        $payinfo['callback'] = $callbackurl;
+        // $payinfo['callback'] = $callbackurl;
         Out::jout($payinfo);
     }
     public function control_callback()

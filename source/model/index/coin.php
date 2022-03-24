@@ -8,9 +8,10 @@ checktop();
 //统计埋点
 class coin extends Y
 {
-    //奖励书币,$type奖励类型
+    //奖励书币,$type奖励类型(废弃)
     public function add($uid, $coin, $type)
     {
+        return false;
 
         if (!$this->change($uid, $coin)) {
             return false;
@@ -40,18 +41,19 @@ class coin extends Y
             return false;
         }
         if ($p) {
-            T('third_party_user')->update(['remainder' => $now, 'charge_all' => $now2], $w); //奖励书币
-            $type = 'charge_icon';
-            $w = ['users_id' => $uid];
-            $coin_detail = T('users_icon_detail')->set_field($type)->where($w)->get_one();
-            if ($coin_detail) {
+            $str = "`golden_bean`=`golden_bean`+$coin,`charge_all`=`charge_all`+$money";
+            T('third_party_user')->update($str, $w); //奖励书币
+            // $type = 'charge_icon';
+            // $w = ['users_id' => $uid];
+            // $coin_detail = T('users_icon_detail')->set_field($type)->where($w)->get_one();
+            // if ($coin_detail) {
 
-                T('users_icon_detail')->update([$type => $coin_detail[$type] + $coin], $w);
-            } else {
-                $icon_detail[$type] = $coin;
-                $icon_detail['users_id'] = $uid;
-                T('users_icon_detail')->add($icon_detail);
-            }
+            //     T('users_icon_detail')->update([$type => $coin_detail[$type] + $coin], $w);
+            // } else {
+            //     $icon_detail[$type] = $coin;
+            //     $icon_detail['users_id'] = $uid;
+            //     T('users_icon_detail')->add($icon_detail);
+            // }
             return true;
         }
         return false;
@@ -66,10 +68,28 @@ class coin extends Y
         //     T('third_party_user')->update($remain, $w);
         // }
         $coins = $coin / 10;
-        $this->change($pid, $coins);
+        $this->addstar($pid, $coins);
         //领导奖励金额增加
         //奖励记录汇总
         //单个子用户奖励金额
+    }
+    //增加星星
+    public function addstar($uid, $coin)
+    {
+        if (!$uid) return false;
+        if ($coin <= 0) return false;
+        $w = ['id' => $uid];
+        $bool = T('third_party_user')->update('`remainder`=`remainder`+' . ($coin), $w);
+        return $bool;
+    }
+    //增加金豆
+    public function addbean($uid, $coin)
+    {
+        if (!$uid) return false;
+        if ($coin <= 0) return false;
+        $w = ['id' => $uid];
+        $bool = T('third_party_user')->update('`golden_bean`=`golden_bean`+' . ($coin), $w);
+        return $bool;
     }
     public function change($uid, $coin)
     {
@@ -161,7 +181,7 @@ class coin extends Y
                 $arr['remainder'] = $user['remainder'];
                 $arr['golden_bean'] = $user['golden_bean'] - $fee;
             }
-           
+
             T('expend')->add($arr);
 
             M('census', 'im')->txtunlock_count($fee);
