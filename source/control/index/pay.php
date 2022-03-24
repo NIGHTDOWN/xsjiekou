@@ -38,12 +38,13 @@ class pay extends indexbase
     {
 
         $get = get(['string' => ['data', 'sign', 'type']]);
-        Log::txt('支付' . json_encode($_POST), DATA . '/log/adapay.txt');
+
         // if (!json_encode($get['data'])) {
         $get['data'] = str_replace("\\", "", $get['data']);
         // }
-        Log::txt('验签成功' . json_encode($post), DATA . '/log/paysucceeded.txt');
+
         $bool = M('adapaytest', 'im')->verifySign($get['data'], $get['sign']);
+        Log::txt('验签成功' . $bool, DATA . '/log/paysucceeded.txt');
         $bool = true;
         if ($bool && $get['type'] == 'payment.succeeded') {
             //成功改变状态
