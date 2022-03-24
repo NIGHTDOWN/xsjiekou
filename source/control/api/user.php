@@ -45,7 +45,7 @@ class user extends apibase
         // if ($user['remainder'] < $data['reward_price']) {
         //     Out::jerror('余额不足', null, '100111');
         // } else {
-        //     M('coin', 'im')->change($this->get_userid(), -$data['reward_price']);
+        //     M('coin', 'im')->addstar($this->get_userid(), -$data['reward_price']);
         //     $res['reward_price'] = $data['reward_price'];
         //     $res['users_id'] = $this->get_userid();
         //     $res['nick_name'] = $user['nickname'];
@@ -270,7 +270,7 @@ class user extends apibase
             $data['share_coin'] = $share_coin['share_coin'];
             T('user_share_record')->add($data);
             M('census', 'im')->task_reward_count($uid, $share_coin['share_coin'], $share_coin['day_share']);
-            M('coin', 'im')->change($uid, $share_coin['share_coin']);
+            M('coin', 'im')->addstar($uid, $share_coin['share_coin']);
         } else {
         }
         M('census', 'im')->_share();
@@ -297,7 +297,7 @@ class user extends apibase
             T('user_day_read')->add($data);
             M('census', 'im')->task_reward_count($uid, $read_coin['read_coin'], $read_coin['day_read']);
             //T( 'task_reward_count' )->add( $tcount );
-            M('coin', 'im')->change($uid, $read_coin['read_coin']);
+            M('coin', 'im')->addstar($uid, $read_coin['read_coin']);
             $user = T('third_party_user')->set_field('remainder,golden_bean')->get_one(['id' => $this->get_userid()]);
             Out::jout($user);
         } else {
@@ -336,7 +336,7 @@ class user extends apibase
                 T('user_read_advert')->update($data, $where);
             }
         }
-        M('coin', 'im')->change($uid, $advert_coin['advert_coin']);
+        M('coin', 'im')->addstar($uid, $advert_coin['advert_coin']);
         M('census', 'im')->task_reward_count($uid, $advert_coin['advert_coin'], $advert_coin['day_advert']);
         $result = T('third_party_user')->field('remainder')->where(['id' => $this->get_userid(1)])->get_one();
         $record_count = T('user_read_advert')->field('nums')->where($where)->get_one();

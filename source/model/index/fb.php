@@ -115,6 +115,7 @@ class fb extends Y
     //$this->call($user_re['deviceToken'],$recharge['yuenan_icon'],'IDR',$this->users_id,$data['order_num']);
     public  function s2s($advertiser_id, $money, $currency, $users_id, $order_num, $paytype)
     {
+        return false;
         // Log::init([
         //     'type'  =>  'File',
         //     'path'  =>  APP_PATH.'../log/'

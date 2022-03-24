@@ -75,8 +75,11 @@ class order extends Y
         //加金豆
         M('coin', 'im')->cz($uid, $recharge['dummy_icon'], $recharge['recharge_price']);
         //加星星
-        M('coin', 'im')->addstar($uid, $send);
+
         M('count', 'im')->recharge($recharge['recharge_price'], $order['plat']);
+        M('coin', 'im')->addstar($uid, $send);
+        //奖励星星记录
+        M('census', 'im')->task_reward_count($uid, $send, 13);
         $this->s2s($orderid);
 
         $isoneday = M('count', 'im')->dayrecharge($user, $recharge['recharge_price'], $order['pay_type'], $order['plat']);
@@ -234,6 +237,7 @@ class order extends Y
     public function s2s($ordernum)
     {
         // $this->call($user_re['deviceToken'],$recharge['yuenan_icon'],'IDR',$this->users_id,$data['order_num']);
+        return false;
         if (!$ordernum) {
             return false;
         }

@@ -69,6 +69,7 @@ class coin extends Y
         // }
         $coins = $coin / 10;
         $this->addstar($pid, $coins);
+        M('census', 'im')->task_reward_count($pid, $coins, 12);
         //领导奖励金额增加
         //奖励记录汇总
         //单个子用户奖励金额

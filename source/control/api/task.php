@@ -47,7 +47,7 @@ class task extends apibase
 			$where['readsec'] = $get['readsec'];
 			T('usertask')->add($where);
 			M('census', 'im')->task_reward_count($where['uid'], $coin, 2);
-			M('coin', 'im')->change($where['uid'], $coin);
+			M('coin', 'im')->addstar($where['uid'], $coin);
 			$user = T('third_party_user')->set_field('remainder,golden_bean')->get_one(['id' => $where['uid']]);
 			Out::jout($user);
 		} else {
@@ -79,7 +79,7 @@ class task extends apibase
 			// $where['readsec'] = $get['readsec'];
 			T('usertask')->add($where);
 			M('census', 'im')->task_reward_count($where['uid'], $coin, $where['type']);
-			M('coin', 'im')->change($where['uid'], $coin);
+			M('coin', 'im')->addstar($where['uid'], $coin);
 			$user = T('third_party_user')->set_field('remainder,golden_bean')->get_one(['id' => $where['uid']]);
 			Out::jout($user);
 		} else {
@@ -92,7 +92,7 @@ class task extends apibase
 			// $where['readsec'] = $get['readsec'];
 			T('usertask')->update($where2, $where);
 			M('census', 'im')->task_reward_count($where['uid'], $coin, $where['type']);
-			M('coin', 'im')->change($where['uid'], $coin);
+			M('coin', 'im')->addstar($where['uid'], $coin);
 			$user = T('third_party_user')->set_field('remainder,golden_bean')->get_one(['id' => $where['uid']]);
 			Out::jout($user);
 		}
@@ -116,7 +116,7 @@ class task extends apibase
 			// $where['readsec'] = $get['readsec'];
 			T('usertask')->add($where);
 			M('census', 'im')->task_reward_count($where['uid'], $coin, $where['type']);
-			M('coin', 'im')->change($where['uid'], $coin);
+			M('coin', 'im')->addstar($where['uid'], $coin);
 			$user = T('third_party_user')->set_field('remainder,golden_bean')->get_one(['id' => $where['uid']]);
 			Out::jout($user);
 		} else {
@@ -128,7 +128,7 @@ class task extends apibase
 			// $where['readsec'] = $get['readsec'];
 			T('usertask')->update($where2, $where);
 			M('census', 'im')->task_reward_count($where['uid'], $coin, $where['type']);
-			M('coin', 'im')->change($where['uid'], $coin);
+			M('coin', 'im')->addstar($where['uid'], $coin);
 			$user = T('third_party_user')->set_field('remainder,golden_bean')->get_one(['id' => $where['uid']]);
 			Out::jout($user);
 		}
@@ -152,7 +152,7 @@ class task extends apibase
 			// $where['readsec'] = $get['readsec'];
 			T('usertask')->add($where);
 			M('census', 'im')->task_reward_count($where['uid'], $coin, 8);
-			M('coin', 'im')->change($where['uid'], $coin);
+			M('coin', 'im')->addstar($where['uid'], $coin);
 			$user = T('third_party_user')->set_field('remainder,golden_bean')->get_one(['id' => $where['uid']]);
 			Out::jout($user);
 		} else {
@@ -182,7 +182,7 @@ class task extends apibase
 			// $where['readsec'] = $get['readsec'];
 			T('usertask')->add($where);
 			M('census', 'im')->task_reward_count($where['uid'], $coin, $where['type']);
-			M('coin', 'im')->change($where['uid'], $coin);
+			M('coin', 'im')->addstar($where['uid'], $coin);
 			$user = T('third_party_user')->set_field('remainder,golden_bean')->get_one(['id' => $where['uid']]);
 			Out::jout($user);
 		} else {
@@ -208,7 +208,7 @@ class task extends apibase
 			// $where['readsec'] = $get['readsec'];
 			T('usertask')->add($where);
 			M('census', 'im')->task_reward_count($where['uid'], $coin, $where['type']);
-			M('coin', 'im')->change($where['uid'], $coin);
+			M('coin', 'im')->addstar($where['uid'], $coin);
 			$user = T('third_party_user')->set_field('remainder,golden_bean')->get_one(['id' => $where['uid']]);
 			Out::jout($user);
 		} else {
@@ -290,7 +290,7 @@ class task extends apibase
 				$coin = 500;
 				$uid = $get['inviteid'];
 				M('census', 'im')->task_reward_count($uid, $coin, 3);
-				M('coin', 'im')->change($uid, $coin);
+				M('coin', 'im')->addstar($uid, $coin);
 			}
 			$user = T('third_party_user')->set_field('invite_id')->set_where(['id' => $this->get_userid()])->get_one();
 			Out::jout($user);
