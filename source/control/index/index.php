@@ -1,5 +1,6 @@
 <?php
 
+
 namespace ng169\control\index;
 
 use FacebookAds\Api;
@@ -19,6 +20,16 @@ class index extends indexbase
 
     public function control_run()
     {
+
+        //是否https
+
+        if ($_SERVER['REQUEST_SCHEME'] == 'http') {
+            //判断是否主域名
+            $main = 'www.love-novel.com';
+            if ($_SERVER['SERVER_NAME'] == 'love-novel.com' || $_SERVER['SERVER_NAME'] == $main) {
+                gourl('https://' . $main);
+            }
+        }
         $endpoint = [[1, 4], [2, 3]];
         $newbook = M('index', 'im')->booknew(1, $this->langid, 6);
 
