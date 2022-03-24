@@ -9,13 +9,12 @@
         <!--{__ LoveNovel}-->
     </title>
     <meta name="keywords" content="<!--{__ 多语言免费、流行、浪漫、小说,漫画阅读器.}-->">
-    <meta name="description" itemprop="description"
-        content="<!--{__ LoveNovel一直坚持提供小说漫画免费阅读。看小说、看漫画，为阅读而生，就上LoveNovel}-->">
+    <meta name="description" itemprop="description" content="<!--{__ LoveNovel一直坚持提供小说漫画免费阅读。看小说、看漫画，为阅读而生，就上LoveNovel}-->">
 
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <meta http-equiv="Cache-Control" content="no-transform">
     <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="canonical" href="http://www.love-novel.com/">
+    <link rel="canonical" href="https://www.love-novel.com/">
     <meta name="applicable-device" content="mobile">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta content="yes" name="apple-touch-fullscreen">
@@ -38,7 +37,64 @@
     <script src="<!--{$static}-->js/night_Trad.v1.0.js"></script>
     <script src="<!--{$indextpl}-->js/web.js"></script>
     <script>
-        function isMobileHanddle() { var e = navigator.userAgent; return (screen.width / screen.height < 1 || /AppleWebKit.*Mobile/i.test(e) || /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(e)) && !/ipad/gi.test(e) } var host = location.host; isMobileHanddle() || "m" !== host.substr(0, host.indexOf(".")) || (location.href = location.href.replace("//m.", "//www.")), top.location != location && (top.location = location.href), function (i, e) { function t() { var e = o.getBoundingClientRect().width; 540 < e / s && (e = 540 * s); var t = e / 10; o.style.fontSize = t + "px", m.rem = i.rem = t } var a, n = i.document, o = n.documentElement, r = n.querySelector('meta[name="viewport"]'), l = n.querySelector('meta[name="flexible"]'), s = 0, d = 0, m = e.flexible || (e.flexible = {}); if (r) { console.warn("将根据已有的meta标签来设置缩放比例"); var c = r.getAttribute("content").match(/initial\-scale=([\d\.]+)/); c && (d = parseFloat(c[1]), s = parseInt(1 / d)) } else if (l) { var p = l.getAttribute("content"); if (p) { var u = p.match(/initial\-dpr=([\d\.]+)/), f = p.match(/maximum\-dpr=([\d\.]+)/); u && (s = parseFloat(u[1]), d = parseFloat((1 / s).toFixed(2))), f && (s = parseFloat(f[1]), d = parseFloat((1 / s).toFixed(2))) } } if (!s && !d) { var h = (i.navigator.appVersion.match(/android/gi), i.navigator.appVersion.match(/iphone/gi)), v = i.devicePixelRatio; d = 1 / (s = h ? 3 <= v && (!s || 3 <= s) ? 3 : 2 <= v && (!s || 2 <= s) ? 2 : 1 : 1) } if (o.setAttribute("data-dpr", s), !r) if ((r = n.createElement("meta")).setAttribute("name", "viewport"), r.setAttribute("content", "initial-scale=" + d + ", maximum-scale=" + d + ", minimum-scale=" + d + ", user-scalable=no"), o.firstElementChild) o.firstElementChild.appendChild(r); else { var b = n.createElement("div"); b.appendChild(r), n.write(b.innerHTML) } i.addEventListener("resize", function () { clearTimeout(a), a = setTimeout(t, 300) }, !1), i.addEventListener("pageshow", function (e) { e.persisted && (clearTimeout(a), a = setTimeout(t, 300)) }, !1), "complete" === n.readyState ? n.body.style.fontSize = 12 * s + "px" : n.addEventListener("DOMContentLoaded", function () { n.body.style.fontSize = 12 * s + "px" }, !1), t(), m.dpr = i.dpr = s, m.refreshRem = t, m.rem2px = function (e) { var t = parseFloat(e) * this.rem; return "string" == typeof e && e.match(/rem$/) && (t += "px"), t }, m.px2rem = function (e) { var t = parseFloat(e) / this.rem; return "string" == typeof e && e.match(/px$/) && (t += "rem"), t } }(window, window.lib || (window.lib = {})), window.shareConf = null</script>
+        function isMobileHanddle() {
+            var e = navigator.userAgent;
+            return (screen.width / screen.height < 1 || /AppleWebKit.*Mobile/i.test(e) || /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(e)) && !/ipad/gi.test(e)
+        }
+        var host = location.host;
+        isMobileHanddle() || "m" !== host.substr(0, host.indexOf(".")) || (location.href = location.href.replace("//m.", "//www.")), top.location != location && (top.location = location.href),
+            function(i, e) {
+                function t() {
+                    var e = o.getBoundingClientRect().width;
+                    540 < e / s && (e = 540 * s);
+                    var t = e / 10;
+                    o.style.fontSize = t + "px", m.rem = i.rem = t
+                }
+                var a, n = i.document,
+                    o = n.documentElement,
+                    r = n.querySelector('meta[name="viewport"]'),
+                    l = n.querySelector('meta[name="flexible"]'),
+                    s = 0,
+                    d = 0,
+                    m = e.flexible || (e.flexible = {});
+                if (r) {
+                    console.warn("将根据已有的meta标签来设置缩放比例");
+                    var c = r.getAttribute("content").match(/initial\-scale=([\d\.]+)/);
+                    c && (d = parseFloat(c[1]), s = parseInt(1 / d))
+                } else if (l) {
+                    var p = l.getAttribute("content");
+                    if (p) {
+                        var u = p.match(/initial\-dpr=([\d\.]+)/),
+                            f = p.match(/maximum\-dpr=([\d\.]+)/);
+                        u && (s = parseFloat(u[1]), d = parseFloat((1 / s).toFixed(2))), f && (s = parseFloat(f[1]), d = parseFloat((1 / s).toFixed(2)))
+                    }
+                }
+                if (!s && !d) {
+                    var h = (i.navigator.appVersion.match(/android/gi), i.navigator.appVersion.match(/iphone/gi)),
+                        v = i.devicePixelRatio;
+                    d = 1 / (s = h ? 3 <= v && (!s || 3 <= s) ? 3 : 2 <= v && (!s || 2 <= s) ? 2 : 1 : 1)
+                }
+                if (o.setAttribute("data-dpr", s), !r)
+                    if ((r = n.createElement("meta")).setAttribute("name", "viewport"), r.setAttribute("content", "initial-scale=" + d + ", maximum-scale=" + d + ", minimum-scale=" + d + ", user-scalable=no"), o.firstElementChild) o.firstElementChild.appendChild(r);
+                    else {
+                        var b = n.createElement("div");
+                        b.appendChild(r), n.write(b.innerHTML)
+                    }
+                i.addEventListener("resize", function() {
+                    clearTimeout(a), a = setTimeout(t, 300)
+                }, !1), i.addEventListener("pageshow", function(e) {
+                    e.persisted && (clearTimeout(a), a = setTimeout(t, 300))
+                }, !1), "complete" === n.readyState ? n.body.style.fontSize = 12 * s + "px" : n.addEventListener("DOMContentLoaded", function() {
+                    n.body.style.fontSize = 12 * s + "px"
+                }, !1), t(), m.dpr = i.dpr = s, m.refreshRem = t, m.rem2px = function(e) {
+                    var t = parseFloat(e) * this.rem;
+                    return "string" == typeof e && e.match(/rem$/) && (t += "px"), t
+                }, m.px2rem = function(e) {
+                    var t = parseFloat(e) / this.rem;
+                    return "string" == typeof e && e.match(/px$/) && (t += "rem"), t
+                }
+            }(window, window.lib || (window.lib = {})), window.shareConf = null
+    </script>
     <link href="<!--{$indextpl}-->css/vendor.38cae4.css" rel="stylesheet">
     <link href="<!--{$indextpl}-->css/entry.index.53baaf.css" rel="stylesheet">
     <link href="<!--{$indextpl}-->css/swiper.min.css" rel="stylesheet">
@@ -55,8 +111,7 @@
                 </div>
                 <div class="header-center header-pull-right">
                     <div class="search-container">
-                        <input class="search-area " id='enter' oninput="if(value.length>40)value=value.slice(0,40)"
-                            type="text" value="<!--{$word}-->" placeholder="<!--{__ 搜索小说名或者漫画名}-->">
+                        <input class="search-area " id='enter' oninput="if(value.length>40)value=value.slice(0,40)" type="text" value="<!--{$word}-->" placeholder="<!--{__ 搜索小说名或者漫画名}-->">
                         <span class="search-btn js_searchBtn">
                             <i class="ift-search"></i>
                         </span>
@@ -188,15 +243,15 @@
         .loadimg {
             display: none;
         }
-
+        
         .loadend {
             display: none;
         }
-
+        
         .bookboxtmp {
             display: none;
         }
-
+        
         .flexCenter-ai-center {
             display: flex;
             align-content: center;
@@ -205,11 +260,11 @@
             justify-items: center;
             justify-content: center;
         }
-
+        
         .flexCenter-ai-center img {
             width: 20%;
         }
-
+        
         .bookbox {
             position: relative;
             zoom: 1;
@@ -217,7 +272,7 @@
             padding: 14px 8px;
             border-bottom: 1px solid #dfdfdf
         }
-
+        
         .bookbox::after {
             visibility: hidden;
             display: block;
@@ -226,28 +281,28 @@
             clear: both;
             height: 0;
         }
-
+        
         .bookbox:hover {
             background: #f9f9f9
         }
-
+        
         .bookbox .bookimg {
             float: left;
             margin-right: 10px;
             width: 74px;
             height: 98px
         }
-
+        
         .bookimg img {
             width: 74px;
             height: 98px
         }
-
+        
         .bookinfo {
             overflow: hidden;
             z-index: 2
         }
-
+        
         .bookbox .bookname {
             font-size: 16px;
             color: #4c4c4c;
@@ -256,14 +311,14 @@
             display: -webkit-box;
             position: relative;
         }
-
+        
         .bookbox .bookname div {
             -webkit-box-flex: 1;
             height: 22px;
             line-height: 22px;
             overflow: hidden;
         }
-
+        
         .bookbox .author,
         .bookbox .cat {
             float: left;
@@ -271,11 +326,11 @@
             height: 24px;
             font-size: 13px
         }
-
+        
         .bookbox .cat {
             float: right;
         }
-
+        
         .bookbox .tj {
             float: left;
             width: 20px;
@@ -291,7 +346,7 @@
             padding: 0;
             margin: 0
         }
-
+        
         .bookbox .intro {
             color: #4c4c4c;
             font-size: 13px;
@@ -300,7 +355,7 @@
             overflow: hidden;
             padding-left: 8px
         }
-
+        
         .bookbox .update,
         .bookbox .intro_line {
             color: #4c4c4c;
@@ -311,14 +366,14 @@
             text-overflow: ellipsis;
             white-space: nowrap
         }
-
+        
         .bookbox .update span,
         .bookbox .intro_line span,
         .bookbox .num span,
         .bookbox .info span {
             color: #a8a8a8
         }
-
+        
         .bookbox .num {
             color: #8f8f8f;
             padding-left: 18px;
@@ -328,21 +383,21 @@
             line-height: 24px;
             height: 24px;
         }
-
+        
         .bookbox .info {
             color: #4c4c4c;
             font-size: 13px;
             line-height: 23px;
             height: auto;
         }
-
+        
         .bookbox .delbutton {
             z-index: 999;
             position: absolute;
             right: 8px;
             top: 14px;
         }
-
+        
         .bookbox .delbutton a {
             display: inline-block;
             width: 55px;
@@ -354,14 +409,14 @@
             background: #f2f2f2;
             color: #4c4c4c;
         }
-
+        
         .bookbox .delbutton .add_but {
             border: 1px solid #ff4643;
             background: none;
             color: #ff4643;
             box-sizing: border-box;
         }
-
+        
         .bookbox .topnum {
             position: absolute;
             width: 16px;
@@ -374,7 +429,7 @@
             line-height: 16px;
             background: #f1f1f1
         }
-
+        
         .bookbox .bookname .iTit {
             overflow: hidden;
             max-width: 6em;
@@ -382,7 +437,7 @@
             height: 22px;
             line-height: 22px
         }
-
+        
         .bookbox .bookname .update_tips {
             background: #ff4644;
             color: #fff;
@@ -391,17 +446,16 @@
             border-radius: 2px;
             margin-left: 3px
         }
-
+        
         .book_slist {
             display: block;
             overflow: scroll;
         }
-
+        
         .type1,
         .update1,
         .desc1 {
             color: #4c4c4c !important;
-
         }
     </style>
 
@@ -410,18 +464,21 @@
     <script>
         //初始化banner高度，宽高比。0.73
         var searchindex = 'searchhis';
-        var searchdata, page = 1, have = 1, loadings = 0;
+        var searchdata, page = 1,
+            have = 1,
+            loadings = 0;
         var searurl = '<!--{url mod="search"}-->?word=';
-        Array.prototype.aremove = function (val) {
+        Array.prototype.aremove = function(val) {
             var index = this.indexOf(val);
             if (index > -1) {
                 this.splice(index, 1);
             }
         };
+
         function pgscroll() {
 
 
-            $('.book_slist').scroll(function () {
+            $('.book_slist').scroll(function() {
                 var scrollTop = $(this).scrollTop();
 
                 var ks_area = $(this).innerHeight();
@@ -435,10 +492,10 @@
                     loading();
                     showloadbox();
                 }
-                if ($(this).scrollTop() == 0) {
-                }
+                if ($(this).scrollTop() == 0) {}
             });
         }
+
         function loading() {
             if (!have) return false;
             if (loadings) return false;
@@ -452,7 +509,7 @@
                 'page': page++,
                 'keyword': $word
             };
-            yAjax($url, $data, function ($ret) {
+            yAjax($url, $data, function($ret) {
                 loadings = 0;
                 if ($ret['code'] == 1) {
                     $books = $ret['result'];
@@ -465,7 +522,7 @@
                         $d = $('.bottom_');
                         $urlbook = "<!--{url mod='book'}-->?bookid=";
                         $urlcartoon = "<!--{url mod='cartoon'}-->?bookid=";
-                        $.each($books, function (i, book) {
+                        $.each($books, function(i, book) {
                             $obj = $('.bookboxtmp').find('.bookbox').clone();
                             $obj.find('.bookimg>img').attr('src', book.bpic);
                             $obj.find('.desc1').text(book.desc);
@@ -491,6 +548,7 @@
                 }
             });
         }
+
         function showloadbox() {
             if (have) {
                 $('.loadimg').show();
@@ -500,7 +558,7 @@
                 $('.loadend').show();
             }
         }
-        $(function () {
+        $(function() {
             searchdata = getCookie(searchindex);
             try {
                 $str = unescape(searchdata);
@@ -518,7 +576,7 @@
                 // loadhis(searchdata);
             }
             pgscroll();
-            $('.js_searchBtn').on('click', function () {
+            $('.js_searchBtn').on('click', function() {
 
                 $txt = $('.search-area').val();
                 if (!$txt) {
@@ -536,26 +594,27 @@
                 loadhis(searchdata);
                 _go_url(searurl + $txt);
             });
-            $('.historyDel').on('click', function () {
+            $('.historyDel').on('click', function() {
                 d('del');
                 seardel($(this));
                 // loadhis(searchdata);
             });
-            $('.historyClear').on('click', function () {
+            $('.historyClear').on('click', function() {
 
                 delCookie(searchindex);
                 searchdata = [];
 
                 loadhis(searchdata);
             });
-            $('.history-text').on('click', function () { });
-            $('#enter').on('keydown', function (event) {
+            $('.history-text').on('click', function() {});
+            $('#enter').on('keydown', function(event) {
                 if (event.keyCode == 13) {
                     $('.js_searchBtn').click();
                 }
 
             });
         });
+
         function save(val) {
             // val = encodeURIComponent(val);
 
@@ -565,6 +624,7 @@
 
             setCookie(searchindex, $in);
         }
+
         function seardel($obj) {
             $txt = $obj.attr('data-searched');
             $ob = $obj.parentsUntil('li');
@@ -573,6 +633,7 @@
             setCookie(searchindex, searchdata);
             save(searchdata);
         }
+
         function loadhis(his) {
             $obj = $('.tmpSrch').children('li');
             $obj2 = $('.hisSrch-list');
@@ -590,7 +651,7 @@
                 }
                 $('.hisSrch').show();
 
-                $.each(his, function (i, v) {
+                $.each(his, function(i, v) {
                     $obj3 = $obj.clone();
                     $obj3.find('.history-text').text(v);
                     $obj3.find('.historyDel').attr('data-searched', v);

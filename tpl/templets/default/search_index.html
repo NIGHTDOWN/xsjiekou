@@ -9,13 +9,12 @@
         <!--{__ LoveNovel}-->
     </title>
     <meta name="keywords" content="<!--{__ 多语言免费、流行、浪漫、小说,漫画阅读器.}-->">
-    <meta name="description" itemprop="description"
-        content="<!--{__ LoveNovel一直坚持提供小说漫画免费阅读。看小说、看漫画，为阅读而生，就上LoveNovel}-->">
+    <meta name="description" itemprop="description" content="<!--{__ LoveNovel一直坚持提供小说漫画免费阅读。看小说、看漫画，为阅读而生，就上LoveNovel}-->">
 
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <meta http-equiv="Cache-Control" content="no-transform">
     <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="canonical" href="http://www.love-novel.com/">
+    <link rel="canonical" href="https://www.love-novel.com/">
     <meta name="applicable-device" content="mobile">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta content="yes" name="apple-touch-fullscreen">
@@ -38,7 +37,64 @@
     <script src="<!--{$static}-->js/night_Trad.v1.0.js"></script>
     <script src="<!--{$indextpl}-->js/web.js"></script>
     <script>
-        function isMobileHanddle() { var e = navigator.userAgent; return (screen.width / screen.height < 1 || /AppleWebKit.*Mobile/i.test(e) || /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(e)) && !/ipad/gi.test(e) } var host = location.host; isMobileHanddle() || "m" !== host.substr(0, host.indexOf(".")) || (location.href = location.href.replace("//m.", "//www.")), top.location != location && (top.location = location.href), function (i, e) { function t() { var e = o.getBoundingClientRect().width; 540 < e / s && (e = 540 * s); var t = e / 10; o.style.fontSize = t + "px", m.rem = i.rem = t } var a, n = i.document, o = n.documentElement, r = n.querySelector('meta[name="viewport"]'), l = n.querySelector('meta[name="flexible"]'), s = 0, d = 0, m = e.flexible || (e.flexible = {}); if (r) { console.warn("将根据已有的meta标签来设置缩放比例"); var c = r.getAttribute("content").match(/initial\-scale=([\d\.]+)/); c && (d = parseFloat(c[1]), s = parseInt(1 / d)) } else if (l) { var p = l.getAttribute("content"); if (p) { var u = p.match(/initial\-dpr=([\d\.]+)/), f = p.match(/maximum\-dpr=([\d\.]+)/); u && (s = parseFloat(u[1]), d = parseFloat((1 / s).toFixed(2))), f && (s = parseFloat(f[1]), d = parseFloat((1 / s).toFixed(2))) } } if (!s && !d) { var h = (i.navigator.appVersion.match(/android/gi), i.navigator.appVersion.match(/iphone/gi)), v = i.devicePixelRatio; d = 1 / (s = h ? 3 <= v && (!s || 3 <= s) ? 3 : 2 <= v && (!s || 2 <= s) ? 2 : 1 : 1) } if (o.setAttribute("data-dpr", s), !r) if ((r = n.createElement("meta")).setAttribute("name", "viewport"), r.setAttribute("content", "initial-scale=" + d + ", maximum-scale=" + d + ", minimum-scale=" + d + ", user-scalable=no"), o.firstElementChild) o.firstElementChild.appendChild(r); else { var b = n.createElement("div"); b.appendChild(r), n.write(b.innerHTML) } i.addEventListener("resize", function () { clearTimeout(a), a = setTimeout(t, 300) }, !1), i.addEventListener("pageshow", function (e) { e.persisted && (clearTimeout(a), a = setTimeout(t, 300)) }, !1), "complete" === n.readyState ? n.body.style.fontSize = 12 * s + "px" : n.addEventListener("DOMContentLoaded", function () { n.body.style.fontSize = 12 * s + "px" }, !1), t(), m.dpr = i.dpr = s, m.refreshRem = t, m.rem2px = function (e) { var t = parseFloat(e) * this.rem; return "string" == typeof e && e.match(/rem$/) && (t += "px"), t }, m.px2rem = function (e) { var t = parseFloat(e) / this.rem; return "string" == typeof e && e.match(/px$/) && (t += "rem"), t } }(window, window.lib || (window.lib = {})), window.shareConf = null</script>
+        function isMobileHanddle() {
+            var e = navigator.userAgent;
+            return (screen.width / screen.height < 1 || /AppleWebKit.*Mobile/i.test(e) || /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(e)) && !/ipad/gi.test(e)
+        }
+        var host = location.host;
+        isMobileHanddle() || "m" !== host.substr(0, host.indexOf(".")) || (location.href = location.href.replace("//m.", "//www.")), top.location != location && (top.location = location.href),
+            function(i, e) {
+                function t() {
+                    var e = o.getBoundingClientRect().width;
+                    540 < e / s && (e = 540 * s);
+                    var t = e / 10;
+                    o.style.fontSize = t + "px", m.rem = i.rem = t
+                }
+                var a, n = i.document,
+                    o = n.documentElement,
+                    r = n.querySelector('meta[name="viewport"]'),
+                    l = n.querySelector('meta[name="flexible"]'),
+                    s = 0,
+                    d = 0,
+                    m = e.flexible || (e.flexible = {});
+                if (r) {
+                    console.warn("将根据已有的meta标签来设置缩放比例");
+                    var c = r.getAttribute("content").match(/initial\-scale=([\d\.]+)/);
+                    c && (d = parseFloat(c[1]), s = parseInt(1 / d))
+                } else if (l) {
+                    var p = l.getAttribute("content");
+                    if (p) {
+                        var u = p.match(/initial\-dpr=([\d\.]+)/),
+                            f = p.match(/maximum\-dpr=([\d\.]+)/);
+                        u && (s = parseFloat(u[1]), d = parseFloat((1 / s).toFixed(2))), f && (s = parseFloat(f[1]), d = parseFloat((1 / s).toFixed(2)))
+                    }
+                }
+                if (!s && !d) {
+                    var h = (i.navigator.appVersion.match(/android/gi), i.navigator.appVersion.match(/iphone/gi)),
+                        v = i.devicePixelRatio;
+                    d = 1 / (s = h ? 3 <= v && (!s || 3 <= s) ? 3 : 2 <= v && (!s || 2 <= s) ? 2 : 1 : 1)
+                }
+                if (o.setAttribute("data-dpr", s), !r)
+                    if ((r = n.createElement("meta")).setAttribute("name", "viewport"), r.setAttribute("content", "initial-scale=" + d + ", maximum-scale=" + d + ", minimum-scale=" + d + ", user-scalable=no"), o.firstElementChild) o.firstElementChild.appendChild(r);
+                    else {
+                        var b = n.createElement("div");
+                        b.appendChild(r), n.write(b.innerHTML)
+                    }
+                i.addEventListener("resize", function() {
+                    clearTimeout(a), a = setTimeout(t, 300)
+                }, !1), i.addEventListener("pageshow", function(e) {
+                    e.persisted && (clearTimeout(a), a = setTimeout(t, 300))
+                }, !1), "complete" === n.readyState ? n.body.style.fontSize = 12 * s + "px" : n.addEventListener("DOMContentLoaded", function() {
+                    n.body.style.fontSize = 12 * s + "px"
+                }, !1), t(), m.dpr = i.dpr = s, m.refreshRem = t, m.rem2px = function(e) {
+                    var t = parseFloat(e) * this.rem;
+                    return "string" == typeof e && e.match(/rem$/) && (t += "px"), t
+                }, m.px2rem = function(e) {
+                    var t = parseFloat(e) / this.rem;
+                    return "string" == typeof e && e.match(/px$/) && (t += "rem"), t
+                }
+            }(window, window.lib || (window.lib = {})), window.shareConf = null
+    </script>
     <link href="<!--{$indextpl}-->css/vendor.38cae4.css" rel="stylesheet">
     <link href="<!--{$indextpl}-->css/entry.index.53baaf.css" rel="stylesheet">
     <link href="<!--{$indextpl}-->css/swiper.min.css" rel="stylesheet">
@@ -55,8 +111,7 @@
                 </div>
                 <div class="header-center header-pull-right">
                     <div class="search-container">
-                        <input class="search-area " id='enter' oninput="if(value.length>40)value=value.slice(0,40)"
-                            type="text" value="" placeholder="<!--{__ 搜索小说名或者漫画名}-->">
+                        <input class="search-area " id='enter' oninput="if(value.length>40)value=value.slice(0,40)" type="text" value="" placeholder="<!--{__ 搜索小说名或者漫画名}-->">
                         <span class="search-btn js_searchBtn">
                             <i class="ift-search"></i>
                         </span>
@@ -135,72 +190,72 @@
             background: #ffefff;
             color: #ff84fc;
         }
-
+        
         .c2 {
             background: #eafcfd;
             color: #25d7e4;
         }
-
+        
         .c3 {
             background: #effae4;
             color: #7ed321;
         }
-
+        
         .c4 {
             background: #ebf7ff;
             color: #3bafff;
         }
-
+        
         .c5 {
             background: #fff4f3;
             color: #fa7669;
         }
-
+        
         .c6 {
             background: #ffefff;
             color: #ff84fc;
         }
-
+        
         .c7 {
             background: #eafcfd;
             color: #25d7e4;
         }
-
+        
         .c8 {
             background: #effae4;
             color: #7ed321;
         }
-
+        
         .c9 {
             background: #ebf7ff;
             color: #3bafff;
         }
-
+        
         .c10 {
             background: #fff4f3;
             color: #fa7669;
         }
-
+        
         .c11 {
             background: #ffefff;
             color: #ff84fc;
         }
-
+        
         .c12 {
             background: #eafcfd;
             color: #25d7e4;
         }
-
+        
         .c13 {
             background: #effae4;
             color: #7ed321;
         }
-
+        
         .c14 {
             background: #ebf7ff;
             color: #3bafff;
         }
-
+        
         .c15 {
             background: #fff4f3;
             color: #fa7669;
@@ -211,13 +266,13 @@
         var searchindex = 'searchhis';
         var searchdata;
         var searurl = '<!--{url mod="search"}-->?word=';
-        Array.prototype.aremove = function (val) {
+        Array.prototype.aremove = function(val) {
             var index = this.indexOf(val);
             if (index > -1) {
                 this.splice(index, 1);
             }
         };
-        $(function () {
+        $(function() {
             searchdata = getCookie(searchindex);
 
             try {
@@ -235,7 +290,7 @@
 
                 loadhis(searchdata);
             }
-            $('.js_searchBtn').on('click', function () {
+            $('.js_searchBtn').on('click', function() {
 
                 $txt = $('.search-area').val();
                 if (!$txt) {
@@ -252,26 +307,27 @@
                 loadhis(searchdata);
                 _go_url(searurl + $txt);
             });
-            $('.historyDel').on('click', function () {
+            $('.historyDel').on('click', function() {
                 d('del');
                 seardel($(this));
                 // loadhis(searchdata);
             });
-            $('.historyClear').on('click', function () {
+            $('.historyClear').on('click', function() {
 
                 delCookie(searchindex);
                 searchdata = [];
 
                 loadhis(searchdata);
             });
-            $('.history-text').on('click', function () { });
-            $('#enter').on('keydown', function (event) {
+            $('.history-text').on('click', function() {});
+            $('#enter').on('keydown', function(event) {
                 if (event.keyCode == 13) {
                     $('.js_searchBtn').click();
                 }
 
             });
         });
+
         function save(val) {
             // val = encodeURIComponent(val);
 
@@ -281,6 +337,7 @@
 
             setCookie(searchindex, $in);
         }
+
         function seardel($obj) {
             $txt = $obj.attr('data-searched');
             $ob = $obj.parentsUntil('li');
@@ -289,6 +346,7 @@
             setCookie(searchindex, searchdata);
             save(searchdata);
         }
+
         function loadhis(his) {
             $obj = $('.tmpSrch').children('li');
             $obj2 = $('.hisSrch-list');
@@ -306,7 +364,7 @@
                 }
                 $('.hisSrch').show();
 
-                $.each(his, function (i, v) {
+                $.each(his, function(i, v) {
                     $obj3 = $obj.clone();
                     $obj3.find('.history-text').text(v);
                     $obj3.find('.historyDel').attr('data-searched', v);

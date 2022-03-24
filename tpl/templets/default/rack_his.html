@@ -10,13 +10,12 @@
         <!--{__ LoveNovel}-->
     </title>
     <meta name="keywords" content="<!--{__ 多语言免费、流行、浪漫、小说,漫画阅读器.}-->">
-    <meta name="description" itemprop="description"
-        content="<!--{__ LoveNovel一直坚持提供小说漫画免费阅读。看小说、看漫画，为阅读而生，就上LoveNovel}-->">
+    <meta name="description" itemprop="description" content="<!--{__ LoveNovel一直坚持提供小说漫画免费阅读。看小说、看漫画，为阅读而生，就上LoveNovel}-->">
 
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <meta http-equiv="Cache-Control" content="no-transform">
     <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="canonical" href="http://www.love-novel.com/">
+    <link rel="canonical" href="https://www.love-novel.com/">
     <meta name="applicable-device" content="mobile">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta content="yes" name="apple-touch-fullscreen">
@@ -38,7 +37,64 @@
     <script src="<!--{$static}-->js/night_Trad.v1.0.js"></script>
     <script src="<!--{$indextpl}-->js/web.js"></script>
     <script>
-        function isMobileHanddle() { var e = navigator.userAgent; return (screen.width / screen.height < 1 || /AppleWebKit.*Mobile/i.test(e) || /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(e)) && !/ipad/gi.test(e) } var host = location.host; isMobileHanddle() || "m" !== host.substr(0, host.indexOf(".")) || (location.href = location.href.replace("//m.", "//www.")), top.location != location && (top.location = location.href), function (i, e) { function t() { var e = o.getBoundingClientRect().width; 540 < e / s && (e = 540 * s); var t = e / 10; o.style.fontSize = t + "px", m.rem = i.rem = t } var a, n = i.document, o = n.documentElement, r = n.querySelector('meta[name="viewport"]'), l = n.querySelector('meta[name="flexible"]'), s = 0, d = 0, m = e.flexible || (e.flexible = {}); if (r) { console.warn("将根据已有的meta标签来设置缩放比例"); var c = r.getAttribute("content").match(/initial\-scale=([\d\.]+)/); c && (d = parseFloat(c[1]), s = parseInt(1 / d)) } else if (l) { var p = l.getAttribute("content"); if (p) { var u = p.match(/initial\-dpr=([\d\.]+)/), f = p.match(/maximum\-dpr=([\d\.]+)/); u && (s = parseFloat(u[1]), d = parseFloat((1 / s).toFixed(2))), f && (s = parseFloat(f[1]), d = parseFloat((1 / s).toFixed(2))) } } if (!s && !d) { var h = (i.navigator.appVersion.match(/android/gi), i.navigator.appVersion.match(/iphone/gi)), v = i.devicePixelRatio; d = 1 / (s = h ? 3 <= v && (!s || 3 <= s) ? 3 : 2 <= v && (!s || 2 <= s) ? 2 : 1 : 1) } if (o.setAttribute("data-dpr", s), !r) if ((r = n.createElement("meta")).setAttribute("name", "viewport"), r.setAttribute("content", "initial-scale=" + d + ", maximum-scale=" + d + ", minimum-scale=" + d + ", user-scalable=no"), o.firstElementChild) o.firstElementChild.appendChild(r); else { var b = n.createElement("div"); b.appendChild(r), n.write(b.innerHTML) } i.addEventListener("resize", function () { clearTimeout(a), a = setTimeout(t, 300) }, !1), i.addEventListener("pageshow", function (e) { e.persisted && (clearTimeout(a), a = setTimeout(t, 300)) }, !1), "complete" === n.readyState ? n.body.style.fontSize = 12 * s + "px" : n.addEventListener("DOMContentLoaded", function () { n.body.style.fontSize = 12 * s + "px" }, !1), t(), m.dpr = i.dpr = s, m.refreshRem = t, m.rem2px = function (e) { var t = parseFloat(e) * this.rem; return "string" == typeof e && e.match(/rem$/) && (t += "px"), t }, m.px2rem = function (e) { var t = parseFloat(e) / this.rem; return "string" == typeof e && e.match(/px$/) && (t += "rem"), t } }(window, window.lib || (window.lib = {})), window.shareConf = null</script>
+        function isMobileHanddle() {
+            var e = navigator.userAgent;
+            return (screen.width / screen.height < 1 || /AppleWebKit.*Mobile/i.test(e) || /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(e)) && !/ipad/gi.test(e)
+        }
+        var host = location.host;
+        isMobileHanddle() || "m" !== host.substr(0, host.indexOf(".")) || (location.href = location.href.replace("//m.", "//www.")), top.location != location && (top.location = location.href),
+            function(i, e) {
+                function t() {
+                    var e = o.getBoundingClientRect().width;
+                    540 < e / s && (e = 540 * s);
+                    var t = e / 10;
+                    o.style.fontSize = t + "px", m.rem = i.rem = t
+                }
+                var a, n = i.document,
+                    o = n.documentElement,
+                    r = n.querySelector('meta[name="viewport"]'),
+                    l = n.querySelector('meta[name="flexible"]'),
+                    s = 0,
+                    d = 0,
+                    m = e.flexible || (e.flexible = {});
+                if (r) {
+                    console.warn("将根据已有的meta标签来设置缩放比例");
+                    var c = r.getAttribute("content").match(/initial\-scale=([\d\.]+)/);
+                    c && (d = parseFloat(c[1]), s = parseInt(1 / d))
+                } else if (l) {
+                    var p = l.getAttribute("content");
+                    if (p) {
+                        var u = p.match(/initial\-dpr=([\d\.]+)/),
+                            f = p.match(/maximum\-dpr=([\d\.]+)/);
+                        u && (s = parseFloat(u[1]), d = parseFloat((1 / s).toFixed(2))), f && (s = parseFloat(f[1]), d = parseFloat((1 / s).toFixed(2)))
+                    }
+                }
+                if (!s && !d) {
+                    var h = (i.navigator.appVersion.match(/android/gi), i.navigator.appVersion.match(/iphone/gi)),
+                        v = i.devicePixelRatio;
+                    d = 1 / (s = h ? 3 <= v && (!s || 3 <= s) ? 3 : 2 <= v && (!s || 2 <= s) ? 2 : 1 : 1)
+                }
+                if (o.setAttribute("data-dpr", s), !r)
+                    if ((r = n.createElement("meta")).setAttribute("name", "viewport"), r.setAttribute("content", "initial-scale=" + d + ", maximum-scale=" + d + ", minimum-scale=" + d + ", user-scalable=no"), o.firstElementChild) o.firstElementChild.appendChild(r);
+                    else {
+                        var b = n.createElement("div");
+                        b.appendChild(r), n.write(b.innerHTML)
+                    }
+                i.addEventListener("resize", function() {
+                    clearTimeout(a), a = setTimeout(t, 300)
+                }, !1), i.addEventListener("pageshow", function(e) {
+                    e.persisted && (clearTimeout(a), a = setTimeout(t, 300))
+                }, !1), "complete" === n.readyState ? n.body.style.fontSize = 12 * s + "px" : n.addEventListener("DOMContentLoaded", function() {
+                    n.body.style.fontSize = 12 * s + "px"
+                }, !1), t(), m.dpr = i.dpr = s, m.refreshRem = t, m.rem2px = function(e) {
+                    var t = parseFloat(e) * this.rem;
+                    return "string" == typeof e && e.match(/rem$/) && (t += "px"), t
+                }, m.px2rem = function(e) {
+                    var t = parseFloat(e) / this.rem;
+                    return "string" == typeof e && e.match(/px$/) && (t += "rem"), t
+                }
+            }(window, window.lib || (window.lib = {})), window.shareConf = null
+    </script>
 </head>
 
 <body>
@@ -50,7 +106,8 @@
                         <li class="bookrack-tab js_collect_tab js_tab " data-action="collect">
                             <!--{__ 阅读历史}-->
                         </li>
-                    </a> <a href="<!--{url action='his' mod='rack' args=''}-->">
+                    </a>
+                    <a href="<!--{url action='his' mod='rack' args=''}-->">
                         <li class="bookrack-tab js_record_tab js_tab active" data-action="record">
                             <!--{__ 阅读历史}-->
                         </li>
@@ -77,8 +134,7 @@
                             <div class="msg">
                                 <!--{__ 主人, 暂时没有书籍哦～}--><br>
                             </div>
-                            <div class="btn js_status_again" style="cursor: pointer;"
-                                onclick="_go_url('<!--{url mod=index }-->')">
+                            <div class="btn js_status_again" style="cursor: pointer;" onclick="_go_url('<!--{url mod=index }-->')">
                                 <!--{__ 去书城}-->
                             </div>
                         </div>
@@ -137,7 +193,7 @@
     </section>
     <!--{include file={$indextpl}"/index_foot.html"}-->
     <script>
-        Array.prototype.aremove = function (val) {
+        Array.prototype.aremove = function(val) {
             var index = this.indexOf(val);
             if (index > -1) {
                 this.splice(index, 1);
@@ -147,31 +203,32 @@
         var secartoon = new Array;
         var delob;
         _ajax_asyn = false;
-        $(function () {
+        $(function() {
 
-            $('.jsclean').click(function () {
+            $('.jsclean').click(function() {
                 msgbox('', $('#layui-m-layer2'));
             });
-            $('.btn-sub').live('click', function (event) {
+            $('.btn-sub').live('click', function(event) {
                 event.stopPropagation();
                 var t = $(this);
                 delob = t.parentsUntil('a').parent();
                 msgbox('', $('#layui-m-layer1'));
             });
-            $('.list-box__item-wrap').live('click', function () {
+            $('.list-box__item-wrap').live('click', function() {
                 // d($(this));
                 _go_url($(this).attr('href1'));
             });
         });
         $delurl = " <!--{url action='clearhis' mod='rack' args=''}-->";
         $deloneurl = " <!--{url action='delhis' mod='rack' args=''}-->";
+
         function delall() {
             closebox();
-            yAjax($delurl, {
-            }, () => {
+            yAjax($delurl, {}, () => {
                 _go_url(location.href);
             });
         }
+
         function delone() {
             closebox();
             yAjax($deloneurl, {
@@ -180,17 +237,16 @@
                 delob.parent().remove();
             });
         }
-
     </script>
     <style>
         .msgtitle {
             display: none;
         }
-
+        
         .bookrack-items {
             zoom: 1
         }
-
+        
         .bookup {
             display: block;
             position: absolute;
@@ -204,22 +260,22 @@
             text-align: center;
             font-size: 0.3rem;
         }
-
+        
         .bookrack-items:after {
             content: "";
             display: table;
             clear: both
         }
-
+        
         .view-body {
             background-color: #fff
         }
-
+        
         .bookrack-header {
             position: relative;
             height: 1.1733333333rem
         }
-
+        
         .bookrack-header .bookrack-menu {
             height: 1.1733333333rem;
             padding: 0 1.44rem 0 .48rem;
@@ -227,7 +283,7 @@
             line-height: 1.1733333333rem;
             text-align: left
         }
-
+        
         .bookrack-header .bookrack-menu .bookrack-tab {
             position: relative;
             display: inline-block;
@@ -240,7 +296,7 @@
             color: #333;
             vertical-align: middle
         }
-
+        
         .bookrack-header .bookrack-menu .bookrack-tab:after {
             content: "";
             position: absolute;
@@ -251,15 +307,15 @@
             height: 0;
             border-bottom: .0533333333rem solid rgba(0, 0, 0, 0)
         }
-
+        
         .bookrack-header .bookrack-menu .bookrack-tab.active {
             color: #fc6976
         }
-
+        
         .bookrack-header .bookrack-menu .bookrack-tab.active:after {
             border-color: #fc6976
         }
-
+        
         .bookrack-header .bookrack-icons {
             position: absolute;
             right: 0;
@@ -268,7 +324,7 @@
             height: 1.1733333333rem;
             width: 2.3466666667rem
         }
-
+        
         .bookrack-header .bookrack-icons .bookrack-icon {
             float: right;
             display: none;
@@ -279,15 +335,15 @@
             text-align: center;
             color: #fc6976
         }
-
+        
         .bookrack-header .bookrack-icons .bookrack-icon:active {
             background-color: #f5f5f5
         }
-
+        
         .bookrack-header .bookrack-icons .bookrack-icon i {
             font-size: .5333333333rem
         }
-
+        
         .bookrack-main {
             position: relative;
             height: 100%;
@@ -300,20 +356,20 @@
             transition: transform .2s ease-out;
             transition: transform .2s ease-out, -webkit-transform .2s ease-out, -moz-transform .2s ease-out, -o-transform .2s ease-out
         }
-
+        
         .bookrack-main,
         .bookrack-main.bookrack-main-0 {
             -webkit-transform: translateZ(0);
             -moz-transform: translateZ(0);
             transform: translateZ(0)
         }
-
+        
         .bookrack-main.bookrack-main-1 {
             -webkit-transform: translate3d(-50%, 0, 0);
             -moz-transform: translate3d(-50%, 0, 0);
             transform: translate3d(-50%, 0, 0)
         }
-
+        
         .bookrack-main .bookrack-content {
             position: relative;
             float: left;
@@ -322,17 +378,17 @@
             overflow-x: hidden;
             overflow-y: scroll
         }
-
+        
         .bookrack-items {
             padding: .32rem 0 2.1333333333rem;
             margin-left: .32rem
         }
-
+        
         .bookrack-items .bookrack-item {
             display: block;
             float: left
         }
-
+        
         .bookrack-items.items-block .bookrack-item {
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
@@ -341,20 +397,20 @@
             padding-right: .32rem;
             padding-bottom: .1066666667rem
         }
-
+        
         .bookrack-items.items-block .bookrack-item .bookrack-inner {
             position: relative;
             z-index: 10;
             display: block
         }
-
+        
         .bookrack-items.items-block .bookrack-item .cover {
             display: block;
             height: 0;
             width: 100%;
             padding-bottom: 133.33333333%
         }
-
+        
         .bookrack-items.items-block .bookrack-item .title {
             height: .7466666667rem;
             width: 100%;
@@ -368,13 +424,13 @@
             text-overflow: ellipsis;
             overflow: hidden
         }
-
+        
         .bookrack-items.items-block .bookrack-item .btns,
         .bookrack-items.items-block .bookrack-item .desc,
         .bookrack-items.items-block .bookrack-item .subtitle {
             display: none
         }
-
+        
         .bookrack-items.items-block .bookrack-item .cloth {
             position: absolute;
             z-index: 12;
@@ -386,7 +442,7 @@
             padding-bottom: 133.33333333%;
             background-color: rgba(0, 0, 0, .3)
         }
-
+        
         .bookrack-items.items-block .bookrack-item .mark {
             position: absolute;
             z-index: 13;
@@ -404,25 +460,25 @@
             line-height: .4266666667rem;
             color: rgba(0, 0, 0, 0)
         }
-
+        
         .bookrack-items.items-block .bookrack-item .mark.checked {
             color: #fff;
             background-color: #fc6976
         }
-
+        
         .bookrack-items.items-list .bookrack-item {
             float: none;
             height: 2.6666666667rem;
             margin: 0 .32rem .32rem 0
         }
-
+        
         .bookrack-items.items-list .bookrack-item .bookrack-inner {
             position: relative;
             display: block;
             height: 2.6666666667rem;
             padding-left: 2.32rem
         }
-
+        
         .bookrack-items.items-list .bookrack-item .cover {
             position: absolute;
             left: 0;
@@ -431,7 +487,7 @@
             height: 2.6666666667rem;
             width: 2rem
         }
-
+        
         .bookrack-items.items-list .bookrack-item .title {
             height: .7466666667rem;
             font-size: .3733333333rem;
@@ -443,14 +499,14 @@
             text-overflow: ellipsis;
             overflow: hidden
         }
-
+        
         .bookrack-items.items-list .bookrack-item .subtitle {
             height: .5333333333rem;
             width: 2.8rem;
             line-height: .5333333333rem;
             color: #999
         }
-
+        
         .bookrack-items.items-list .bookrack-item .desc,
         .bookrack-items.items-list .bookrack-item .subtitle {
             font-size: .32rem;
@@ -465,14 +521,14 @@
             height: 1.5rem;
             width: 80%;
         }
-
+        
         .bookrack-items.items-list .bookrack-item .desc {
             height: .64rem;
             padding-top: .7466666667rem;
             color: #ddd;
             line-height: .64rem
         }
-
+        
         .bookrack-items.items-list .bookrack-item .btns {
             position: absolute;
             right: 0;
@@ -482,7 +538,7 @@
             line-height: .5866666667rem;
             text-align: right
         }
-
+        
         .bookrack-items.items-list .bookrack-item .cloth {
             position: absolute;
             z-index: 12;
@@ -493,7 +549,7 @@
             width: 2rem;
             background-color: rgba(0, 0, 0, .3)
         }
-
+        
         .bookrack-items.items-list .bookrack-item .mark {
             position: absolute;
             z-index: 13;
@@ -508,21 +564,21 @@
             border-radius: 50%;
             color: rgba(0, 0, 0, 0)
         }
-
+        
         .bookrack-items.items-list .bookrack-item .mark.checked {
             color: #fff;
             background-color: #fc6976
         }
-
+        
         .bookrack-items.items-manage .bookrack-item .cloth,
         .bookrack-items.items-manage .bookrack-item .mark {
             display: block
         }
-
+        
         .bookrack-items.items-manage .bookrack-item .btns {
             display: none
         }
-
+        
         .bookrack-handle {
             display: -webkit-box;
             display: -webkit-flex;
@@ -549,7 +605,7 @@
             padding: .16rem 0 1.6rem;
             background-color: #fff
         }
-
+        
         .bookrack-handle .bookrack-btn {
             display: block;
             height: .7466666667rem;
@@ -568,22 +624,22 @@
             -moz-transition: background-color .15s ease-out;
             transition: background-color .15s ease-out
         }
-
+        
         .bookrack-handle .bookrack-btn:active {
             color: #fff;
             background-color: #fd5158
         }
-
+        
         .bookrack-handle.hide {
             display: none
         }
-
+        
         .layui-m-layermain .layui-m-layer-confirm {
             -webkit-border-radius: .08rem;
             -moz-border-radius: .08rem;
             border-radius: .08rem
         }
-
+        
         .layui-m-layermain .layui-m-layer-confirm .layui-m-layercont {
             position: relative;
             line-height: 1;
@@ -594,7 +650,7 @@
             box-sizing: border-box;
             text-align: center
         }
-
+        
         .layui-m-layermain .layui-m-layer-confirm .layui-m-layercont .box-img {
             position: absolute;
             left: 50%;
@@ -603,16 +659,16 @@
             width: 3.2rem;
             margin-left: -1.6rem
         }
-
+        
         .layui-m-layermain .layui-m-layer-confirm .layui-m-layercont .box-img img {
             width: 100%
         }
-
+        
         .layui-m-layermain .layui-m-layer-confirm .layui-m-layercont .msg {
             margin-bottom: .5333333333rem;
             color: #333
         }
-
+        
         .layui-m-layermain .layui-m-layer-confirm .layui-m-layerbtn {
             display: -webkit-box;
             display: -webkit-flex;
@@ -640,7 +696,7 @@
             height: auto;
             border: none
         }
-
+        
         .layui-m-layermain .layui-m-layer-confirm .layui-m-layerbtn span {
             display: block;
             font-size: .32rem;

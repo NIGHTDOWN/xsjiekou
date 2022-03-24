@@ -9,13 +9,12 @@
         <!--{__ LoveNovel}-->
     </title>
     <meta name="keywords" content="<!--{__ 多语言免费、流行、浪漫、小说,漫画阅读器.}-->">
-    <meta name="description" itemprop="description"
-        content="<!--{__ LoveNovel一直坚持提供小说漫画免费阅读。看小说、看漫画，为阅读而生，就上LoveNovel}-->">
+    <meta name="description" itemprop="description" content="<!--{__ LoveNovel一直坚持提供小说漫画免费阅读。看小说、看漫画，为阅读而生，就上LoveNovel}-->">
 
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <meta http-equiv="Cache-Control" content="no-transform">
     <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="canonical" href="http://www.love-novel.com/">
+    <link rel="canonical" href="https://www.love-novel.com/">
     <meta name="applicable-device" content="mobile">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta content="yes" name="apple-touch-fullscreen">
@@ -39,7 +38,64 @@
     <script src="<!--{$static}-->js/night_Trad.v1.0.js"></script>
     <script src="<!--{$indextpl}-->js/web.js"></script>
     <script>
-        function isMobileHanddle() { var e = navigator.userAgent; return (screen.width / screen.height < 1 || /AppleWebKit.*Mobile/i.test(e) || /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(e)) && !/ipad/gi.test(e) } var host = location.host; isMobileHanddle() || "m" !== host.substr(0, host.indexOf(".")) || (location.href = location.href.replace("//m.", "//www.")), top.location != location && (top.location = location.href), function (i, e) { function t() { var e = o.getBoundingClientRect().width; 540 < e / s && (e = 540 * s); var t = e / 10; o.style.fontSize = t + "px", m.rem = i.rem = t } var a, n = i.document, o = n.documentElement, r = n.querySelector('meta[name="viewport"]'), l = n.querySelector('meta[name="flexible"]'), s = 0, d = 0, m = e.flexible || (e.flexible = {}); if (r) { console.warn("将根据已有的meta标签来设置缩放比例"); var c = r.getAttribute("content").match(/initial\-scale=([\d\.]+)/); c && (d = parseFloat(c[1]), s = parseInt(1 / d)) } else if (l) { var p = l.getAttribute("content"); if (p) { var u = p.match(/initial\-dpr=([\d\.]+)/), f = p.match(/maximum\-dpr=([\d\.]+)/); u && (s = parseFloat(u[1]), d = parseFloat((1 / s).toFixed(2))), f && (s = parseFloat(f[1]), d = parseFloat((1 / s).toFixed(2))) } } if (!s && !d) { var h = (i.navigator.appVersion.match(/android/gi), i.navigator.appVersion.match(/iphone/gi)), v = i.devicePixelRatio; d = 1 / (s = h ? 3 <= v && (!s || 3 <= s) ? 3 : 2 <= v && (!s || 2 <= s) ? 2 : 1 : 1) } if (o.setAttribute("data-dpr", s), !r) if ((r = n.createElement("meta")).setAttribute("name", "viewport"), r.setAttribute("content", "initial-scale=" + d + ", maximum-scale=" + d + ", minimum-scale=" + d + ", user-scalable=no"), o.firstElementChild) o.firstElementChild.appendChild(r); else { var b = n.createElement("div"); b.appendChild(r), n.write(b.innerHTML) } i.addEventListener("resize", function () { clearTimeout(a), a = setTimeout(t, 300) }, !1), i.addEventListener("pageshow", function (e) { e.persisted && (clearTimeout(a), a = setTimeout(t, 300)) }, !1), "complete" === n.readyState ? n.body.style.fontSize = 12 * s + "px" : n.addEventListener("DOMContentLoaded", function () { n.body.style.fontSize = 12 * s + "px" }, !1), t(), m.dpr = i.dpr = s, m.refreshRem = t, m.rem2px = function (e) { var t = parseFloat(e) * this.rem; return "string" == typeof e && e.match(/rem$/) && (t += "px"), t }, m.px2rem = function (e) { var t = parseFloat(e) / this.rem; return "string" == typeof e && e.match(/px$/) && (t += "rem"), t } }(window, window.lib || (window.lib = {})), window.shareConf = null</script>
+        function isMobileHanddle() {
+            var e = navigator.userAgent;
+            return (screen.width / screen.height < 1 || /AppleWebKit.*Mobile/i.test(e) || /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(e)) && !/ipad/gi.test(e)
+        }
+        var host = location.host;
+        isMobileHanddle() || "m" !== host.substr(0, host.indexOf(".")) || (location.href = location.href.replace("//m.", "//www.")), top.location != location && (top.location = location.href),
+            function(i, e) {
+                function t() {
+                    var e = o.getBoundingClientRect().width;
+                    540 < e / s && (e = 540 * s);
+                    var t = e / 10;
+                    o.style.fontSize = t + "px", m.rem = i.rem = t
+                }
+                var a, n = i.document,
+                    o = n.documentElement,
+                    r = n.querySelector('meta[name="viewport"]'),
+                    l = n.querySelector('meta[name="flexible"]'),
+                    s = 0,
+                    d = 0,
+                    m = e.flexible || (e.flexible = {});
+                if (r) {
+                    console.warn("将根据已有的meta标签来设置缩放比例");
+                    var c = r.getAttribute("content").match(/initial\-scale=([\d\.]+)/);
+                    c && (d = parseFloat(c[1]), s = parseInt(1 / d))
+                } else if (l) {
+                    var p = l.getAttribute("content");
+                    if (p) {
+                        var u = p.match(/initial\-dpr=([\d\.]+)/),
+                            f = p.match(/maximum\-dpr=([\d\.]+)/);
+                        u && (s = parseFloat(u[1]), d = parseFloat((1 / s).toFixed(2))), f && (s = parseFloat(f[1]), d = parseFloat((1 / s).toFixed(2)))
+                    }
+                }
+                if (!s && !d) {
+                    var h = (i.navigator.appVersion.match(/android/gi), i.navigator.appVersion.match(/iphone/gi)),
+                        v = i.devicePixelRatio;
+                    d = 1 / (s = h ? 3 <= v && (!s || 3 <= s) ? 3 : 2 <= v && (!s || 2 <= s) ? 2 : 1 : 1)
+                }
+                if (o.setAttribute("data-dpr", s), !r)
+                    if ((r = n.createElement("meta")).setAttribute("name", "viewport"), r.setAttribute("content", "initial-scale=" + d + ", maximum-scale=" + d + ", minimum-scale=" + d + ", user-scalable=no"), o.firstElementChild) o.firstElementChild.appendChild(r);
+                    else {
+                        var b = n.createElement("div");
+                        b.appendChild(r), n.write(b.innerHTML)
+                    }
+                i.addEventListener("resize", function() {
+                    clearTimeout(a), a = setTimeout(t, 300)
+                }, !1), i.addEventListener("pageshow", function(e) {
+                    e.persisted && (clearTimeout(a), a = setTimeout(t, 300))
+                }, !1), "complete" === n.readyState ? n.body.style.fontSize = 12 * s + "px" : n.addEventListener("DOMContentLoaded", function() {
+                    n.body.style.fontSize = 12 * s + "px"
+                }, !1), t(), m.dpr = i.dpr = s, m.refreshRem = t, m.rem2px = function(e) {
+                    var t = parseFloat(e) * this.rem;
+                    return "string" == typeof e && e.match(/rem$/) && (t += "px"), t
+                }, m.px2rem = function(e) {
+                    var t = parseFloat(e) / this.rem;
+                    return "string" == typeof e && e.match(/px$/) && (t += "rem"), t
+                }
+            }(window, window.lib || (window.lib = {})), window.shareConf = null
+    </script>
     <link href="<!--{$indextpl}-->css/vendor.38cae4.css" rel="stylesheet">
     <link href="<!--{$indextpl}-->css/entry.index.53baaf.css" rel="stylesheet">
     <link href="<!--{$indextpl}-->css/swiper.min.css" rel="stylesheet">
@@ -56,16 +112,11 @@
                 <div class="book-content" id="js_content">
                     <div data-tpl="74" data-type="6" class="mult dow tpl-74">
                         <div class="mult-body">
-                            <div
-                                class="mult-warp diw swiper-container swiper-container-horizontal swiper-container-initialized swiper-container-android">
+                            <div class="mult-warp diw swiper-container swiper-container-horizontal swiper-container-initialized swiper-container-android">
                                 <div class="swiper-wrapper" style="width: 100%;">
-                                    <div class="swiper-slide"><img class="lazy-image"
-                                            src="http://cms.samanlehua.com/cms/chendan/ed04d250-3d10-11ec-9aa2-c999b1672f22.jpeg"
-                                            alt="逆天剑神,逆天剑神漫画">
+                                    <div class="swiper-slide"><img class="lazy-image" src="http://cms.samanlehua.com/cms/chendan/ed04d250-3d10-11ec-9aa2-c999b1672f22.jpeg" alt="逆天剑神,逆天剑神漫画">
                                     </div>
-                                    <div class="swiper-slide"><img class="lazy-image"
-                                            src="http://cms.samanlehua.com/cms/chendan/ed04d250-3d10-11ec-9aa2-c999b1672f22.jpeg"
-                                            alt="逆天剑神,逆天剑神漫画">
+                                    <div class="swiper-slide"><img class="lazy-image" src="http://cms.samanlehua.com/cms/chendan/ed04d250-3d10-11ec-9aa2-c999b1672f22.jpeg" alt="逆天剑神,逆天剑神漫画">
                                     </div>
                                 </div>
                                 <div class="cat-ear"></div>
@@ -80,40 +131,39 @@
                         <div class="mult-body">
                             <ul class="mult-warp biw">
 
-                                <li class="card r1c3"><a href="<!--{url mod='top'}-->" title="<!--{__ 排行}-->">
+                                <li class="card r1c3">
+                                    <a href="<!--{url mod='top'}-->" title="<!--{__ 排行}-->">
                                         <div class="inner-bpd no-pad-top">
-                                            <div class="card-graph r16x16"><img class="lazy-image" alt="<!--{__ 排行}-->"
-                                                    src="<!--{$indextpl}-->imgs/25933.webp"
-                                                    style="background: url('<!--{$indextpl}-->imgs/25933.webp') center center / cover no-repeat; opacity: 1;">
+                                            <div class="card-graph r16x16"><img class="lazy-image" alt="<!--{__ 排行}-->" src="<!--{$indextpl}-->imgs/25933.webp" style="background: url('<!--{$indextpl}-->imgs/25933.webp') center center / cover no-repeat; opacity: 1;">
                                             </div>
                                         </div>
                                         <div class="title-tc title-fsz28">
                                             <!--{__ 排行}-->
                                         </div>
-                                    </a></li>
-                                <li class="card r1c3"><a href="<!--{url mod='category'}-->" title="<!--{__ 分类}-->">
+                                    </a>
+                                </li>
+                                <li class="card r1c3">
+                                    <a href="<!--{url mod='category'}-->" title="<!--{__ 分类}-->">
                                         <div class="inner-bpd no-pad-top">
-                                            <div class="card-graph r16x16"><img class="lazy-image" alt="<!--{__ 分类}-->"
-                                                    src="<!--{$indextpl}-->imgs/25935.webp"
-                                                    style="background: url(&quot;<!--{$indextpl}-->imgs/25935.webp&quot;) center center / cover no-repeat; opacity: 1;">
+                                            <div class="card-graph r16x16"><img class="lazy-image" alt="<!--{__ 分类}-->" src="<!--{$indextpl}-->imgs/25935.webp" style="background: url(&quot;<!--{$indextpl}-->imgs/25935.webp&quot;) center center / cover no-repeat; opacity: 1;">
                                             </div>
                                         </div>
                                         <div class="title-tc title-fsz28">
                                             <!--{__ 分类}-->
                                         </div>
-                                    </a></li>
-                                <li class="card r1c3"><a href="<!--{url mod='down' action='page'}-->"
-                                        title="<!--{__ 下载app}-->">
+                                    </a>
+                                </li>
+                                <li class="card r1c3">
+                                    <a href="<!--{url mod='down' action='page'}-->" title="<!--{__ 下载app}-->">
                                         <div class="inner-bpd no-pad-top">
-                                            <div class="card-graph r16x16"><img class="lazy-image"
-                                                    alt="<!--{__ 下载app}-->" src="<!--{$indextpl}-->imgs/25937.webp"
-                                                    style="background: url(&quot;<!--{$indextpl}-->imgs/25937.webp&quot;) center center / cover no-repeat; opacity: 1;">
+                                            <div class="card-graph r16x16"><img class="lazy-image" alt="<!--{__ 下载app}-->" src="<!--{$indextpl}-->imgs/25937.webp" style="background: url(&quot;<!--{$indextpl}-->imgs/25937.webp&quot;) center center / cover no-repeat; opacity: 1;">
                                             </div>
                                         </div>
                                         <div class="title-tc title-fsz28">
                                             <!--{__ 下载app}-->
                                         </div>
-                                    </a></li>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -124,8 +174,8 @@
                                 </span></h2>
                             <div class="mult-style-func">
                                 <div class="mult-change" key="495356" horizonratio="3:4"><i class="icon-change"></i>
-                                </div><a class="mult-more" href="<!--{url mod=" book" action=' new' }-->"
-                                    title="
+                                </div>
+                                <a class="mult-more" href="<!--{url mod=" book " action=' new' }-->" title="
                                     <!--{__ 最近更新·小说}-->">
                                     <!--{__ 更多}-->
                                 </a>
@@ -135,12 +185,9 @@
                             <ul class="mult-warp siw">
 
                                 <!--{foreach $newbook as $volist}-->
-                                <li class="card r1c3"><a
-                                        href='<!--{url mod="book" args="bookid:{$volist.book_id},title:{$volist.other_name}" }-->'
-                                        title="<!--{$volist.other_name}-->">
-                                        <div class="card-graph r3x4"><img class="lazy-image"
-                                                src="<!--{$indextpl}-->imgs/space.gif" alt="<!--{$volist.other_name}-->"
-                                                style="background: url('<!--{$volist.bpic}-->') center center / cover no-repeat; opacity: 1;">
+                                <li class="card r1c3">
+                                    <a href='<!--{url mod="book" args="bookid:{$volist.book_id},title:{$volist.other_name}" }-->' title="<!--{$volist.other_name}-->">
+                                        <div class="card-graph r3x4"><img class="lazy-image" src="<!--{$indextpl}-->imgs/space.gif" alt="<!--{$volist.other_name}-->" style="background: url('<!--{$volist.bpic}-->') center center / cover no-repeat; opacity: 1;">
                                         </div>
                                         <div class="card-title">
                                             <!--{$volist.other_name}-->
@@ -148,7 +195,8 @@
                                         <div class="card-text">
                                             <!--{$volist.desc}-->
                                         </div>
-                                    </a></li>
+                                    </a>
+                                </li>
                                 <!--{/foreach}-->
                             </ul>
                         </div>
@@ -160,8 +208,8 @@
                                 </span></h2>
                             <div class="mult-style-func">
                                 <div class="mult-change" horizonratio="3:4"><i class="icon-change"></i>
-                                </div><a class="mult-more" href='<!--{url mod="cartoon" action=' new'}-->'
-                                    title="
+                                </div>
+                                <a class="mult-more" href='<!--{url mod="cartoon" action=' new '}-->' title="
                                     <!--{__ 最近更新·漫画}-->">
                                     <!--{__ 更多}-->
                                 </a>
@@ -170,12 +218,9 @@
                         <div class="mult-body">
                             <ul class="mult-warp siw">
                                 <!--{foreach $newcartoon as $volist}-->
-                                <li class="card r1c3"><a
-                                        href='<!--{url mod="cartoon" args="bookid:{$volist.book_id},title:{$volist.other_name}" }-->'
-                                        title="<!--{$volist.other_name}-->">
-                                        <div class="card-graph r3x4"><img class="lazy-image"
-                                                src="<!--{$indextpl}-->imgs/space.gif" alt="<!--{$volist.desc}-->"
-                                                style="background: url('<!--{$volist.bpic}-->') center center / cover no-repeat; opacity: 1;">
+                                <li class="card r1c3">
+                                    <a href='<!--{url mod="cartoon" args="bookid:{$volist.book_id},title:{$volist.other_name}" }-->' title="<!--{$volist.other_name}-->">
+                                        <div class="card-graph r3x4"><img class="lazy-image" src="<!--{$indextpl}-->imgs/space.gif" alt="<!--{$volist.desc}-->" style="background: url('<!--{$volist.bpic}-->') center center / cover no-repeat; opacity: 1;">
                                             <div class="abs-bottom">
                                                 <div class="card-title">
                                                     <!--{$volist.other_name}-->
@@ -193,7 +238,8 @@
                                             <!--{$volist.hits*1000}-->
                                             <!--{__ 万}-->
                                         </div>
-                                    </a></li>
+                                    </a>
+                                </li>
                                 <!--{/foreach}-->
                             </ul>
                         </div>
@@ -205,8 +251,8 @@
                                 </span></h2>
                             <div class="mult-style-func">
                                 <div class="mult-change" key="495356" horizonratio="3:4"><i class="icon-change"></i>
-                                </div><a class="mult-more" href="<!--{url mod=" book" action="hot" }-->"
-                                    title="
+                                </div>
+                                <a class="mult-more" href="<!--{url mod=" book " action="hot " }-->" title="
                                     <!--{__ 人气爆款·小说}-->">
                                     <!--{__ 更多}-->
                                 </a>
@@ -216,12 +262,9 @@
                             <ul class="mult-warp siw">
 
                                 <!--{foreach $hotbook as $volist}-->
-                                <li class="card r1c3"><a
-                                        href='<!--{url mod="book" args="bookid:{$volist.book_id},title:{$volist.other_name}" }-->'
-                                        title="<!--{$volist.other_name}-->">
-                                        <div class="card-graph r3x4"><img class="lazy-image"
-                                                src="<!--{$indextpl}-->imgs/space.gif" alt="<!--{$volist.other_name}-->"
-                                                style="background: url('<!--{$volist.bpic}-->') center center / cover no-repeat; opacity: 1;">
+                                <li class="card r1c3">
+                                    <a href='<!--{url mod="book" args="bookid:{$volist.book_id},title:{$volist.other_name}" }-->' title="<!--{$volist.other_name}-->">
+                                        <div class="card-graph r3x4"><img class="lazy-image" src="<!--{$indextpl}-->imgs/space.gif" alt="<!--{$volist.other_name}-->" style="background: url('<!--{$volist.bpic}-->') center center / cover no-repeat; opacity: 1;">
                                         </div>
                                         <div class="card-title">
                                             <!--{$volist.other_name}-->
@@ -229,7 +272,8 @@
                                         <div class="card-text">
                                             <!--{$volist.desc}-->
                                         </div>
-                                    </a></li>
+                                    </a>
+                                </li>
                                 <!--{/foreach}-->
                             </ul>
                         </div>
@@ -241,7 +285,8 @@
                                 </span></h2>
                             <div class="mult-style-func">
                                 <div class="mult-change" horizonratio="3:4"><i class="icon-change"></i>
-                                </div><a class="mult-more" href='<!--{url mod="cartoon" action="hot"}-->' title="
+                                </div>
+                                <a class="mult-more" href='<!--{url mod="cartoon" action="hot"}-->' title="
                                     <!--{__ 人气爆款·漫画}-->">
                                     <!--{__ 更多}-->
                                 </a>
@@ -250,12 +295,9 @@
                         <div class="mult-body">
                             <ul class="mult-warp siw">
                                 <!--{foreach $hotcartoon as $volist}-->
-                                <li class="card r1c3"><a
-                                        href='<!--{url mod="cartoon" args="bookid:{$volist.book_id},title:{$volist.other_name}" }-->'
-                                        title="<!--{$volist.other_name}-->">
-                                        <div class="card-graph r3x4"><img class="lazy-image"
-                                                src="<!--{$indextpl}-->imgs/space.gif" alt="<!--{$volist.desc}-->"
-                                                style="background: url('<!--{$volist.bpic}-->') center center / cover no-repeat; opacity: 1;">
+                                <li class="card r1c3">
+                                    <a href='<!--{url mod="cartoon" args="bookid:{$volist.book_id},title:{$volist.other_name}" }-->' title="<!--{$volist.other_name}-->">
+                                        <div class="card-graph r3x4"><img class="lazy-image" src="<!--{$indextpl}-->imgs/space.gif" alt="<!--{$volist.desc}-->" style="background: url('<!--{$volist.bpic}-->') center center / cover no-repeat; opacity: 1;">
                                             <div class="abs-bottom">
                                                 <div class="card-title">
                                                     <!--{$volist.other_name}-->
@@ -274,7 +316,8 @@
                                             <!--{$volist.hits*1000}-->
                                             <!--{__ 万}-->
                                         </div>
-                                    </a></li>
+                                    </a>
+                                </li>
                                 <!--{/foreach}-->
                             </ul>
                         </div>
@@ -287,7 +330,8 @@
                                 </span></h2>
                             <div class="mult-style-func">
                                 <div class="mult-change" key="495400" horizonratio="3:4"><i class="icon-change"></i>
-                                </div><a class="mult-more" href="<!--{url mod=" book" action=' end' }-->" title="
+                                </div>
+                                <a class="mult-more" href="<!--{url mod=" book " action=' end' }-->" title="
                                     <!--{__ 完结小说，一看到底}-->">
                                     <!--{__ 更多}-->
                                 </a>
@@ -297,29 +341,25 @@
                             <ul class="mult-warp siw">
                                 <!--{foreach $endbook as $volist}-->
                                 <!--{if $volist.big}-->
-                                <li class="card r1c69 "><a
-                                        href='<!--{url mod="book" args="bookid:{$volist.book_id},title:{$volist.other_name}" }-->'
-                                        title="<!--{$volist.other_name}-->">
-                                        <div class="card-graph r16x9"><img class="lazy-image"
-                                                src="<!--{$indextpl}-->imgs/space.gif" alt="<!--{$volist.other_name}-->"
-                                                style="background: url(&quot;<!--{if $volist.share_banner}--><!--{$volist.share_banner}--><!--{else}--><!--{$volist.bpic}--><!--{/if}-->&quot;) center center / cover no-repeat; opacity: 1;">
+                                <li class="card r1c69 ">
+                                    <a href='<!--{url mod="book" args="bookid:{$volist.book_id},title:{$volist.other_name}" }-->' title="<!--{$volist.other_name}-->">
+                                        <div class="card-graph r16x9"><img class="lazy-image" src="<!--{$indextpl}-->imgs/space.gif" alt="<!--{$volist.other_name}-->" style="background: url(&quot;<!--{if $volist.share_banner}--><!--{$volist.share_banner}--><!--{else}--><!--{$volist.bpic}--><!--{/if}-->&quot;) center center / cover no-repeat; opacity: 1;">
                                         </div>
                                         <div class="card-title">
                                             <!--{$volist.other_name}-->
                                         </div>
-                                    </a></li>
+                                    </a>
+                                </li>
                                 <!--{else}-->
-                                <li class="card r1c31"><a
-                                        href='<!--{url mod="book" args="bookid:{$volist.book_id},title:{$volist.other_name}" }-->'
-                                        title="<!--{$volist.other_name}-->">
-                                        <div class="card-graph r3x4"><img class="lazy-image"
-                                                src="<!--{$indextpl}-->imgs/space.gif" alt="<!--{$volist.other_name}-->"
-                                                style="background: url(&quot;<!--{$volist.bpic}-->&quot;) center center / cover no-repeat; opacity: 1;">
+                                <li class="card r1c31">
+                                    <a href='<!--{url mod="book" args="bookid:{$volist.book_id},title:{$volist.other_name}" }-->' title="<!--{$volist.other_name}-->">
+                                        <div class="card-graph r3x4"><img class="lazy-image" src="<!--{$indextpl}-->imgs/space.gif" alt="<!--{$volist.other_name}-->" style="background: url(&quot;<!--{$volist.bpic}-->&quot;) center center / cover no-repeat; opacity: 1;">
                                         </div>
                                         <div class="card-title">
                                             <!--{$volist.other_name}-->
                                         </div>
-                                    </a></li>
+                                    </a>
+                                </li>
                                 <!--{/if}-->
 
                                 <!--{/foreach}-->
@@ -335,7 +375,8 @@
                                 </span></h2>
                             <div class="mult-style-func">
                                 <div class="mult-change" key="495400" horizonratio="3:4"><i class="icon-change"></i>
-                                </div><a class="mult-more" href="<!--{url mod=" cartoon" action=' end' }-->" title="
+                                </div>
+                                <a class="mult-more" href="<!--{url mod=" cartoon " action=' end' }-->" title="
                                     <!--{__ 完结漫画，一看到底}-->">
                                     <!--{__ 更多}-->
                                 </a>
@@ -345,29 +386,25 @@
                             <ul class="mult-warp siw">
                                 <!--{foreach $endcartoon as $volist}-->
                                 <!--{if $volist.big}-->
-                                <li class="card r1c69 "><a
-                                        href='<!--{url mod="cartoon" args="bookid:{$volist.book_id},title:{$volist.other_name}" }-->'
-                                        title="<!--{$volist.other_name}-->">
-                                        <div class="card-graph r16x9"><img class="lazy-image"
-                                                src="<!--{$indextpl}-->imgs/space.gif" alt="<!--{$volist.other_name}-->"
-                                                style="background: url(&quot;<!--{if $volist.share_banner}--><!--{$volist.share_banner}--><!--{else}--><!--{$volist.bpic}--><!--{/if}-->&quot;) center center / cover no-repeat; opacity: 1;">
+                                <li class="card r1c69 ">
+                                    <a href='<!--{url mod="cartoon" args="bookid:{$volist.book_id},title:{$volist.other_name}" }-->' title="<!--{$volist.other_name}-->">
+                                        <div class="card-graph r16x9"><img class="lazy-image" src="<!--{$indextpl}-->imgs/space.gif" alt="<!--{$volist.other_name}-->" style="background: url(&quot;<!--{if $volist.share_banner}--><!--{$volist.share_banner}--><!--{else}--><!--{$volist.bpic}--><!--{/if}-->&quot;) center center / cover no-repeat; opacity: 1;">
                                         </div>
                                         <div class="card-title">
                                             <!--{$volist.other_name}-->
                                         </div>
-                                    </a></li>
+                                    </a>
+                                </li>
                                 <!--{else}-->
-                                <li class="card r1c31"><a
-                                        href='<!--{url mod="cartoon" args="bookid:{$volist.book_id},title:{$volist.other_name}" }-->'
-                                        title="<!--{$volist.other_name}-->">
-                                        <div class="card-graph r3x4"><img class="lazy-image"
-                                                src="<!--{$indextpl}-->imgs/space.gif" alt="<!--{$volist.other_name}-->"
-                                                style="background: url(&quot;<!--{$volist.bpic}-->&quot;) center center / cover no-repeat; opacity: 1;">
+                                <li class="card r1c31">
+                                    <a href='<!--{url mod="cartoon" args="bookid:{$volist.book_id},title:{$volist.other_name}" }-->' title="<!--{$volist.other_name}-->">
+                                        <div class="card-graph r3x4"><img class="lazy-image" src="<!--{$indextpl}-->imgs/space.gif" alt="<!--{$volist.other_name}-->" style="background: url(&quot;<!--{$volist.bpic}-->&quot;) center center / cover no-repeat; opacity: 1;">
                                         </div>
                                         <div class="card-title">
                                             <!--{$volist.other_name}-->
                                         </div>
-                                    </a></li>
+                                    </a>
+                                </li>
                                 <!--{/if}-->
 
                                 <!--{/foreach}-->
@@ -415,7 +452,7 @@
             transition: top .2s ease-out;
             -webkit-transition: top .2s ease-out;
         }
-
+        
         .guide-hd-banner .guide-close {
             position: absolute;
             left: 4px;
@@ -427,7 +464,7 @@
             background: url('<!--{$indextpl}-->images/close.png') no-repeat center;
             background-size: 8px 8px;
         }
-
+        
         .guide-hd-banner .guide-logo {
             position: absolute;
             left: 32px;
@@ -437,7 +474,7 @@
             width: 32px;
             border-radius: 4px;
         }
-
+        
         .guide-hd-banner .guide-title {
             height: 18px;
             font-size: 12px;
@@ -449,7 +486,7 @@
             text-overflow: ellipsis;
             overflow: hidden;
         }
-
+        
         .guide-hd-banner .guide-desc {
             height: 16px;
             font-size: 10px;
@@ -460,7 +497,7 @@
             text-overflow: ellipsis;
             overflow: hidden;
         }
-
+        
         .guide-hd-banner .guide-btn {
             position: absolute;
             right: 12px;
@@ -479,7 +516,7 @@
 
     <script>
         //初始化banner高度，宽高比。0.73
-        $(function () {
+        $(function() {
             $('.tpl-74').height($(window).width() * 0.73);
         });
         var mySwiper = new Swiper('.swiper-container', {
@@ -501,7 +538,7 @@
             // scrollbar: {
             //     el: '.swiper-scrollbar',
             // },
-        });        
+        });
     </script>
 </body>
 

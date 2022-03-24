@@ -10,13 +10,12 @@
         <!--{__ LoveNovel}-->
     </title>
     <meta name="keywords" content=" <!--{__ 人气爆款}--> <!--{__ 多语言免费、流行、浪漫、小说,漫画阅读器.}-->">
-    <meta name="description" itemprop="description"
-        content="<!--{__ 人气爆款}--> <!--{__ LoveNovel一直坚持提供小说漫画免费阅读。看小说、看漫画，为阅读而生，就上LoveNovel}-->">
+    <meta name="description" itemprop="description" content="<!--{__ 人气爆款}--> <!--{__ LoveNovel一直坚持提供小说漫画免费阅读。看小说、看漫画，为阅读而生，就上LoveNovel}-->">
 
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <meta http-equiv="Cache-Control" content="no-transform">
     <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="canonical" href="http://www.love-novel.com/">
+    <link rel="canonical" href="https://www.love-novel.com/">
     <meta name="applicable-device" content="mobile">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta content="yes" name="apple-touch-fullscreen">
@@ -52,9 +51,7 @@
                     <!--{url mod="book" args="bookid:{$list.book_id},title:{$list.other_name}"}-->
                     <!--{else}--> <!--{url mod="cartoon" args="bookid:{$list.book_id},title:{$list.other_name}"}-->
                     <!--{/if}-->' title="<!--{$list.other_name}-->">
-                    <div class="list-box__item-left"><img src="<!--{$indextpl}-->imgs/space.gif"
-                            alt=" <!--{$list.other_name}-->" class="list-box__item-cover"
-                            style="background: url(' <!--{$list.bpic}-->') center center / cover no-repeat; opacity: 1;">
+                    <div class="list-box__item-left"><img src="<!--{$indextpl}-->imgs/space.gif" alt=" <!--{$list.other_name}-->" class="list-box__item-cover" style="background: url(' <!--{$list.bpic}-->') center center / cover no-repeat; opacity: 1;">
                     </div>
                     <div class="list-box__item-center">
                         <p class="list-box__item-title">
@@ -75,7 +72,7 @@
                             <span class="upstatus red">
                                 <!--{__ 连载}-->
                             </span>
-                            <!--{else}--> <span class="upstatus">
+                            <!--{else}--><span class="upstatus">
                                 <!--{__ 完结}-->
                             </span>
                             <!--{/if}-->
@@ -125,9 +122,7 @@
                     <!--{url mod="book" args="bookid:{$list.book_id},title:{$list.other_name}"}-->
                     <!--{else}--> <!--{url mod="cartoon" args="bookid:{$list.book_id},title:{$list.other_name}"}-->
                     <!--{/if}-->' title="<!--{$list.other_name}-->" target="__blank">
-                    <div class="list-box__item-left"><img src="<!--{$indextpl}-->imgs/space.gif"
-                            alt=" <!--{$list.other_name}-->" class="list-box__item-cover"
-                            style="background: url(' <!--{$list.bpic}-->') center center / cover no-repeat; opacity: 1;">
+                    <div class="list-box__item-left"><img src="<!--{$indextpl}-->imgs/space.gif" alt=" <!--{$list.other_name}-->" class="list-box__item-cover" style="background: url(' <!--{$list.bpic}-->') center center / cover no-repeat; opacity: 1;">
                     </div>
                     <div class="list-box__item-center">
                         <p class="list-box__item-title">
@@ -168,11 +163,11 @@
         .loadimg {
             display: none;
         }
-
+        
         .red {
             color: #fc6976;
         }
-
+        
         .header-wrap {
             -webkit-box-shadow: 0 0 0.2666666667rem 0 rgba(0, 0, 0, .2);
             -moz-box-shadow: 0 0 .2666666667rem 0 rgba(0, 0, 0, .2);
@@ -183,15 +178,15 @@
             -moz-transition: all .4s;
             transition: all .4s;
         }
-
+        
         .loadend {
             display: none;
         }
-
+        
         .bookboxtmp {
             display: none;
         }
-
+        
         .flexCenter-ai-center {
             display: flex;
             align-content: center;
@@ -202,11 +197,11 @@
             margin: 0.3rem 0;
             color: #ccc;
         }
-
+        
         .flexCenter-ai-center img {
             width: 20%;
         }
-
+        
         .list-box {
             position: relative;
             width: 100%;
@@ -217,17 +212,17 @@
             display: block;
             overflow: scroll;
         }
-
+        
         .list-box .list-box__item {
             height: 2.9866666667rem;
             margin-top: .34rem;
             position: relative
         }
-
+        
         .list-box .list-box__item:last-child {
             margin-bottom: .34rem
         }
-
+        
         .list-box .list-box__item-wrap {
             display: -webkit-box;
             display: -webkit-flex;
@@ -235,7 +230,7 @@
             display: -ms-flexbox;
             display: flex
         }
-
+        
         .list-box .list-box__item-cover {
             -webkit-border-radius: .1066666667rem;
             -moz-border-radius: .1066666667rem;
@@ -243,16 +238,16 @@
             width: 2.24rem;
             height: 2.9866666667rem
         }
-
+        
         .list-box .list-box__item-left {
             margin-right: .32rem
         }
-
+        
         .list-box .list-box__item-center {
             width: 4.8rem;
             margin-right: .32rem
         }
-
+        
         .list-box .list-box__item-right {
             position: absolute;
             top: 50%;
@@ -263,13 +258,13 @@
             -o-transform: translateY(-50%);
             transform: translateY(-50%)
         }
-
+        
         .list-box .list-box__item-title {
             font-size: .4533333333rem;
             margin-top: .16rem;
             color: #333
         }
-
+        
         .list-box .list-box__item-desc,
         .list-box .list-box__item-title {
             display: -webkit-box;
@@ -277,7 +272,7 @@
             -webkit-line-clamp: 2;
             overflow: hidden;
         }
-
+        
         .list-box .list-box__item-desc {
             margin-top: .1066666667rem;
             font-size: .33rem;
@@ -285,28 +280,28 @@
             color: #b6b6b6;
             height: 1.0933333333rem;
         }
-
+        
         .list-box .list-box__item-hot {
             margin-top: .1066666667rem;
             color: #b6b6b6;
             font-size: .2666666667rem
         }
-
+        
         .list-box .list-box__item-hot .ift-fire {
             font-size: .2933333333rem;
             margin-right: .0533333333rem
         }
-
+        
         .list-box .list-box__item-hot span {
             vertical-align: bottom
         }
-
+        
         .list-box .list-box__item-tag {
             margin-top: .24rem;
             font-size: .2666666667rem;
             color: #b6b6b6
         }
-
+        
         .list-box .list-box__item-tag-item {
             border: .0133333333rem solid #b6b6b6;
             -webkit-border-radius: .1866666667rem;
@@ -316,7 +311,7 @@
             padding: .0266666667rem .08rem;
             margin: .0266666667rem
         }
-
+        
         .list-box .list-box__item-collection {
             width: 1.4933333333rem;
             height: .64rem;
@@ -328,20 +323,20 @@
             color: #fff;
             text-align: center
         }
-
+        
         .list-box .list-box__item-collection.done {
             background: #f5f5f5;
             color: #999
         }
-
+        
         .list-box .list-box__item-collection.done .ift-add {
             display: none
         }
-
+        
         .upstatus {
             float: right;
         }
-
+        
         .list-box__item a {
             display: flex;
             flex-direction: row;
@@ -349,14 +344,14 @@
             /* justify-items: self-end; */
             align-items: flex-end;
         }
-
+        
         .list-box__item-center {
             display: flex;
             flex-direction: column;
             flex: 1;
             height: 100%;
         }
-
+        
         .list-box__item-desc {
             flex: 1;
         }
@@ -365,18 +360,21 @@
     <script>
         //初始化banner高度，宽高比。0.73
         var searchindex = 'searchhis';
-        var searchdata, page = 1, have = 1, loadings = 0;
+        var searchdata, page = 1,
+            have = 1,
+            loadings = 0;
         var searurl = '<!--{url mod="search"}-->?word=';
-        Array.prototype.aremove = function (val) {
+        Array.prototype.aremove = function(val) {
             var index = this.indexOf(val);
             if (index > -1) {
                 this.splice(index, 1);
             }
         };
+
         function pgscroll() {
 
 
-            $('.list-box').scroll(function () {
+            $('.list-box').scroll(function() {
                 var scrollTop = $(this).scrollTop();
 
                 var ks_area = $(this).innerHeight();
@@ -390,10 +388,10 @@
                     loading();
                     showloadbox();
                 }
-                if ($(this).scrollTop() == 0) {
-                }
+                if ($(this).scrollTop() == 0) {}
             });
         }
+
         function loading() {
 
             if (!have) return false;
@@ -407,9 +405,9 @@
             $data = {
                 'page': page++,
                 'ajax': 1
-                // 'keyword': $word
+                    // 'keyword': $word
             };
-            yAjax($url, $data, function ($ret) {
+            yAjax($url, $data, function($ret) {
                 loadings = 0;
                 if ($ret['code'] == 1) {
                     $books = $ret['result'];
@@ -422,14 +420,14 @@
                         $d = $('.bottom_');
                         $urlbook = "<!--{url mod='book'}-->?bookid=";
                         $urlcartoon = "<!--{url mod='cartoon'}-->?bookid=";
-                        $.each($books, function (i, book) {
+                        $.each($books, function(i, book) {
                             $obj = $('.bookboxtmp').find('.list-box__item').clone();
                             $obj.find('.list-box__item-left>img').attr('src', book.bpic);
                             $obj.find('.list-box__item-desc').text(book.desc);
                             $obj.find('.list-box__item-title').text(book.other_name);
                             $obj.find('.yi').text(book.read);
                             if (book.tags) {
-                                $.each(book.tags, function (i, v) {
+                                $.each(book.tags, function(i, v) {
                                     $tag = $("<span class='list-box__item-tag-item' tagid=''></span > ");
                                     $tag.attr('tagid', v.id);
                                     $tag.text(v.tag);
@@ -458,6 +456,7 @@
                 }
             });
         }
+
         function showloadbox() {
             if (have) {
                 $('.loadimg').show();
@@ -467,7 +466,7 @@
                 $('.loadend').show();
             }
         }
-        $(function () {
+        $(function() {
             searchdata = getCookie(searchindex);
             try {
                 $str = unescape(searchdata);
@@ -485,7 +484,7 @@
                 // loadhis(searchdata);
             }
             pgscroll();
-            $('.js_searchBtn').on('click', function () {
+            $('.js_searchBtn').on('click', function() {
 
                 $txt = $('.search-area').val();
                 if (!$txt) {
@@ -503,26 +502,27 @@
                 loadhis(searchdata);
                 _go_url(searurl + $txt);
             });
-            $('.historyDel').on('click', function () {
+            $('.historyDel').on('click', function() {
                 d('del');
                 seardel($(this));
                 // loadhis(searchdata);
             });
-            $('.historyClear').on('click', function () {
+            $('.historyClear').on('click', function() {
 
                 delCookie(searchindex);
                 searchdata = [];
 
                 loadhis(searchdata);
             });
-            $('.history-text').on('click', function () { });
-            $('#enter').on('keydown', function (event) {
+            $('.history-text').on('click', function() {});
+            $('#enter').on('keydown', function(event) {
                 if (event.keyCode == 13) {
                     $('.js_searchBtn').click();
                 }
 
             });
         });
+
         function save(val) {
             // val = encodeURIComponent(val);
 
@@ -532,6 +532,7 @@
 
             setCookie(searchindex, $in);
         }
+
         function seardel($obj) {
             $txt = $obj.attr('data-searched');
             $ob = $obj.parentsUntil('li');
@@ -540,6 +541,7 @@
             setCookie(searchindex, searchdata);
             save(searchdata);
         }
+
         function loadhis(his) {
             $obj = $('.tmpSrch').children('li');
             $obj2 = $('.hisSrch-list');
@@ -557,7 +559,7 @@
                 }
                 $('.hisSrch').show();
 
-                $.each(his, function (i, v) {
+                $.each(his, function(i, v) {
                     $obj3 = $obj.clone();
                     $obj3.find('.history-text').text(v);
                     $obj3.find('.historyDel').attr('data-searched', v);
