@@ -20,7 +20,7 @@ class Url
 		// 	return '';
 		// }
 
-		return $_SERVER['REQUEST_SCHEME'] ? 'https://' : 'http://';
+		return $_SERVER['REQUEST_SCHEME'] == 'https' ? 'https://' : 'http://';
 		// if ($_SERVER['HTTPS'] == 'off')
 		// 	return 'http://';
 		// return 'https://';
