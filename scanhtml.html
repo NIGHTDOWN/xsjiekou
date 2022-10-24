@@ -97,7 +97,8 @@
                     .scanFile(imageFile, true)
                     .then((decodedText) => {
                         res.innerText = "扫码成功结果:\n" + decodedText;
-                        _go_url(decodedText);
+                        // _go_url(decodedText);
+                        location.href=decodedText;
                     })
                     .catch((err) => {
                         res.innerText = "扫码失败:\n" + error;
