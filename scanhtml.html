@@ -37,10 +37,11 @@
             bottom: 40px;
             user-select: none;
         } */
-        /* #reader{
+        #reader{
             width: 100%;
-            height: 100%;
-        } */
+    margin: 0px;
+    padding: 0px;
+        }
     </style>
 </head>
 
@@ -81,7 +82,7 @@
         let uploadInput = document.getElementById('upload-input');
         var w=window.innerWidth;
         var h=window.innerHeight;
-        let config = { fps: 10, qrbox: { width: w, height: h } }; //扫一扫相关设置
+        let config = { fps: 10, qrbox: { width: 280, height: 280 } }; //扫一扫相关设置
 
         //使用本地文件
         function useLocal() {
