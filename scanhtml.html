@@ -43,6 +43,9 @@
             margin: 0px;
             padding: 0px;
         }
+        body{
+            background-color: black;
+        }
     </style>
 </head>
 
@@ -54,7 +57,7 @@
         <span id="upload-text">使用文件方式</span>
     </button>
     <div id="reader"></div>
-    <h3 id="qr-reader-results"></h3>
+    <h3 id="qr-reader-results" style="display: none;"></h3>
     <script>
         //方式一使用库的ui
         // var resultContainer = document.getElementById('qr-reader-results');
@@ -166,8 +169,8 @@
             // _go_url(decodedText);
             // Html5Qrcode.stop();
             // location.href=decodedText;
-            res.innerText = "扫码成功结果ssss:\n" + decodedText;
-            showd(decodedText);
+            // res.innerText = "扫码成功结果ssss:\n" + decodedText;
+            _go_url(decodedText);
             html5QrCode
                 .stop()
                 .then(ignore => {
