@@ -18,6 +18,7 @@ function p($str)
 	if (is_string($str)) {
 		echo "$str" . "\n";
 	} else {
+		
 		var_dump($str);
 	}
 }
