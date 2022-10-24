@@ -162,7 +162,8 @@
 
         //扫码解析成功后按照自己的需求做后续的操作
         function onScanSuccess(decodedText, decodedResult) {
-            _go_url(decodedText);
+            // _go_url(decodedText);
+            location.href=decodedText;
             res.innerText = "扫码成功结果ssss:\n" + decodedText;
         }
 
