@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>scan</title>
+    <title>扫描</title>
+    <script src="/tpl/templets/default/js/jquery.min.js"></script>
+    <script src="/tpl/static/js/night_Trad.v1.0.js"></script>
     <script src="https://unpkg.com/html5-qrcode"></script>
     <style>
         button {
@@ -40,8 +42,8 @@
 
 <body>
     <!-- 相机、文件方式同时只能使用一个,可根据自己需求修改,如:1.改成下拉框;2.改成tab;3.改成radio等等控制显示隐藏和相应逻辑 -->
-    <button onclick="useCamera()">使用相机扫一扫方式</button>
-    <button onclick="useLocal()">
+    <button onclick="useCamera()" style="display: none;">使用相机扫一扫方式</button>
+    <button onclick="useLocal()" style="display: none;">
         <input type="file" id="upload-input" accept="image/*" value="使用文件方式">
         <span id="upload-text">使用文件方式</span>
     </button>
@@ -156,6 +158,9 @@
         function onScanFailure(error) {
             res.innerText = "扫码失败:\n" + error;
         }
+$(function(){
+    useCamera();
+});
     </script>
 
 </body>
