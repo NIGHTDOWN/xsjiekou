@@ -81,24 +81,20 @@ class me extends indexbase
     }
     public function control_discuss()
     {
-        $data = get(['int' => ['bookid', 'star', 'type'], 'string' => ['content',]]);
+        $data = get(['int' => ['bookid', 'star', 'type', 'section_id'], 'string' => ['content',]]);
         $uid = $this->get_userid();
         if (!$uid) {
             Out::jerror(__('请登入'),  geturl(null, null, 'login', 'index'), '-1');
         }
 
-        // $data['plat'] = $this->head['devicetype'];
-        // $arr = M('user', 'im')->add_discuss($data);
-        // if ($data['book_id']) {
+
         $booktype = $data['type'];
         $bookid = $data['bookid'];
-        // } else {
-        //     $booktype = 2;
-        //     $bookid = $data['cartoon_id'];
-        // }
+
         $content = $data['content'];
         $star = $data['star'];
-        $arr = M('user', 'im')->add_discuss($this->get_userid(), $booktype, $bookid, $content, $star, getdevicetype($this->head));
+        $arr = M('user', 'im')->add_discuss($this->get_userid(), $booktype, $bookid, $content, $star, getdevicetype($this->head), $data['section_id']);
+        
         if ($arr) {
             Out::jout(__('评论成功'));
         } else {

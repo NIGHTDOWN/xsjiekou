@@ -6,11 +6,11 @@
  */
 
 
-require_once (dirname(__FILE__)) . "/spbase/cart_mtoon.php";
+require_once (dirname(__FILE__)) . "/spbase/mtoon_txt.php";
 
 
 //越南
-$ob = new cart_mtoon();
+$ob = new mtoon_txt();
 $ob->_booklang = 0;
 
 $ob->_bookdstdesc = '泰国_mtxt';

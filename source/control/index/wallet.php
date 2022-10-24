@@ -17,8 +17,19 @@ class wallet extends indexbase
 
     protected $noNeedLogin = [''];
 
-
-
+    public function control_run()
+    {
+        $data = T('third_party_user')->set_field('golden_bean,remainder')->set_where(['id' => $this->get_userid()])->get_one();
+        Out::jout($data);
+    }
+    public function control_unlock()
+    {
+        $get = get(['int' => ['bookid' => 1, 'type' => 1, 'sid' => 1, 'autopay']]);
+        // $uid, $bookid, $type, $sid, $autopay
+        $ret = M('user', 'im')->unlock($this->get_userid(), $get['bookid'], $get['type'], $get['sid'], $get['autopay']);
+       
+        Out::jout($ret);
+    }
     public function control_bean()
     {
         $pages = get(['int' => ['page', 'ajax']]);

@@ -193,7 +193,7 @@ class share extends indexbase
             }
 
             M('census', 'im')->task_reward_count($w['uid'], $coin, 1);
-            M('coin', 'im')->change($w['uid'], $coin);
+            M('coin', 'im')->addstar($w['uid'], $coin);
             // $user = T('third_party_user')->set_field('remainder,golden_bean')->get_one(['id' => $w['uid']]);
             echo json_encode(['code' => 1]);
             return;

@@ -117,9 +117,12 @@ class content
         if (!$sid) {
             $first = T($tpsec)->set_field('section_id')->set_where(['book_id' => $bid, 'status' => 1])->order_by(['s' => 'up', 'f' => 'list_order'])->get_one();
             $sid = $first['section_id'];
+            $where['section_id'] = $sid;
         }
+
         $tpsecc = M('book', 'im')->gettpseccontent(1, $lang['lang']);
         $cache = Y::$cache->get($index);
+
         if ($cache[0]) {
             $arr = $cache[1];
             if (!$arr['next']) {
@@ -127,7 +130,8 @@ class content
                 $arr['next'] = $up['section_id'] ? $up['section_id'] : '0';
             }
         } else {
-            $data = T($tpsec)->field('section_id,title,book_id,update_time,isfree,secnum,list_order,coin')->where($where)->where(['status' => 1])->where(['isdelete' => 0])->find();
+            $data = T($tpsec)->field('section_id,title,book_id,update_time,isfree,secnum,list_order,coin')->where($where)->where(['status' => 1])->where(['isdelete' => 0])->get_one();
+
             if (!$data) {
                 return false;
                 // Out::jerror('小说或章节不存在', null, '100154');
@@ -154,7 +158,10 @@ class content
             $up = T($tpsec)->set_field('section_id')->set_where(['book_id' => $book_id, 'isdelete' => 0, 'status' => 1])->set_where('list_order>' . $data['list_order'])->set_field('section_id')->order_by(['f' => 'list_order', 's' => 'up'])->get_one();
             $arr['next'] = $up['section_id'] ? $up['section_id'] : '0';
             if (!$arr['coin'] <= 0  && $arr['isfree'] != 0) {
-                $arr['coin'] = M('coin', 'im')->bookcalculate($arr['secnum'], 0.6);
+                $arr['coin'] = intval(M('coin', 'im')->bookcalculate($arr['secnum'], 0.6));
+                //更新章节金币值
+              
+                T($tpsec)->update(['coin' => $arr['coin']], ['section_id' => $arr['section_id']]);
             }
             //内容容错自修复机制；缓存2天；后台修改了数据后2天重新覆盖
             Y::$cache->set($index, $arr,  G_DAY);
@@ -174,13 +181,17 @@ class content
             }
             //如果是付费的章节内容截取滞留最大100个单词
             if (!$arr['ispay']) {
-                $pattern = "/.{300,}\s/";
-                preg_match($pattern, $arr['sec_content'], $result);
-                if ($result[0]) {
-                    $arr['sec_content'] =   $result[0];
-                }
+                // d($arr['sec_content']);
+                // $pattern = "/.{300,}\s/";
+                // preg_match($pattern, $arr['sec_content'], $result);
+                // d($result[0]);
+                // if ($result[0]) {
+                //     $arr['sec_content'] =   $result[0];
+                // }
+                $arr['sec_content'] = mb_substr($arr['sec_content'], 0, 300);
             }
         }
+
         return ($arr);
     }
     //获取漫画章节列表
@@ -195,7 +206,7 @@ class content
             $data = M('book', 'im')->getcartsectionlist($cartoon_id);
             //缓存半天
             if ($data) {
-                Y::$cache->set($index, $data, 43000);
+                Y::$cache->set($index, $data, 600);
             }
         }
         $expend_ispay_arr = [];
@@ -242,21 +253,21 @@ class content
         if ($now['list_order'] != $money['section']) {
             $data = M('book', 'im')->getsectionlist($w['book_id'], $money['money']);
             T('book')->update(['section' => $now['list_order']], $book_id);
-            Y::$cache->set($index, $data, 46000);
+            Y::$cache->set($index, $data, 1800);
         } else {
             $cache = Y::$cache->get($index);
             if ($cache[0]) {
                 $data = $cache[1];
             } else {
                 $data = M('book', 'im')->getsectionlist($w['book_id'], $money['money']);
-                Y::$cache->set($index, $data, 46000);
+                Y::$cache->set($index, $data, 600);
             }
         }
 
 
         $expend_ispay_arr = [];
         if ($users_id) {
-            
+
             //有用户id才取消耗表
             // $sec_ids = implode(',', array_column($data, 'section_id'));
             //$sec_ids = array_column($data, 'section_id');

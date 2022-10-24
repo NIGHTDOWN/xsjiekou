@@ -1,0 +1,414 @@
+<html style="font-size: 41.1px;">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Language" content="zh-CN">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <title>
+        <!--{$data.title}-->-
+        <!--{$data.other_name}-->-
+        <!--{__ LoveNovel}-->
+    </title>
+    <meta name="keywords" content="<!--{$data.other_name}--> <!--{$data.title}--> <!--{__ 多语言免费、流行、浪漫、小说,漫画阅读器.}-->">
+    <meta name="description" itemprop="description" content=" <!--{$data.desc}--> <!--{__ LoveNovel}-->">
+
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="canonical" href="https://www.love-novel.com/">
+    <meta name="applicable-device" content="mobile">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta name="browsermode" content="application">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#999">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="full-screen" content="yes">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="360-fullscreen" content="true">
+    <meta name="browsermode" content="application">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="x5-pagetype" content="webapp">
+    <!-- 分享标签 -->
+    <meta itemprop="name" content="<!--{$data.other_name}-->">
+    <meta itemprop="image" content="<!--{$data.bpic}-->">
+    <meta property="og:type" content="novel">
+    <meta property="og:title" content="<!--{$data.other_name}-->">
+    <meta property="og:description" content="<!--{$data.desc}-->">
+    <meta property="og:image" content="<!--{$data.bpic}-->">
+    <meta property="og:novel:category" content="<!--{$sahretag}-->">
+    <meta property="og:novel:author" content="<!--{$data.writer_name}-->">
+    <meta property="og:novel:book_name" content="<!--{$data.other_name}-->">
+    <meta property="og:novel:read_url" content="<!--{$url}-->">
+    <meta property="og:url" content="<!--{$url}-->">
+    <meta property="og:novel:status" content="<!--{if $data.update_status==1}--><!--{__ 完结}--><!--{else}--><!--{__ 连载}--><!--{/if}-->">
+    <meta property="og:novel:update_time" content="<!--{$data.new_section_time|date_format:'%Y-%m-%d'}-->">
+    <meta property="og:novel:latest_chapter_name" content="  <!--{$data.new_section_title}-->">
+    <meta property="og:novel:latest_chapter_url" content='<!--{url action="sec" args="id:$data.update_section,bookid:$data.book_id" }-->'>
+
+
+    <script src="<!--{$staticjs}-->/jquery.min.js"></script>
+
+    <script src="<!--{$static}-->js/night_Trad.v1.0.js"></script>
+    <script src="<!--{$indextpl}-->js/web.js"></script>
+    <script src="<!--{$static}-->js/jsshare.js"></script>
+    <script src="<!--{$indextpl}-->js/read.js"></script>
+    <script>
+        function isMobileHanddle() {
+            var e = navigator.userAgent;
+            return (screen.width / screen.height < 1 || /AppleWebKit.*Mobile/i.test(e) || /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(e)) && !/ipad/gi.test(e)
+        }
+        var host = location.host;
+        isMobileHanddle() || "m" !== host.substr(0, host.indexOf(".")) || (location.href = location.href.replace("//m.", "//www.")), top.location != location && (top.location = location.href),
+            function(i, e) {
+                function t() {
+                    var e = o.getBoundingClientRect().width;
+                    540 < e / s && (e = 540 * s);
+                    var t = e / 10;
+                    o.style.fontSize = t + "px", m.rem = i.rem = t
+                }
+                var a, n = i.document,
+                    o = n.documentElement,
+                    r = n.querySelector('meta[name="viewport"]'),
+                    l = n.querySelector('meta[name="flexible"]'),
+                    s = 0,
+                    d = 0,
+                    m = e.flexible || (e.flexible = {});
+                if (r) {
+                    console.warn("将根据已有的meta标签来设置缩放比例");
+                    var c = r.getAttribute("content").match(/initial\-scale=([\d\.]+)/);
+                    c && (d = parseFloat(c[1]), s = parseInt(1 / d))
+                } else if (l) {
+                    var p = l.getAttribute("content");
+                    if (p) {
+                        var u = p.match(/initial\-dpr=([\d\.]+)/),
+                            f = p.match(/maximum\-dpr=([\d\.]+)/);
+                        u && (s = parseFloat(u[1]), d = parseFloat((1 / s).toFixed(2))), f && (s = parseFloat(f[1]), d = parseFloat((1 / s).toFixed(2)))
+                    }
+                }
+                if (!s && !d) {
+                    var h = (i.navigator.appVersion.match(/android/gi), i.navigator.appVersion.match(/iphone/gi)),
+                        v = i.devicePixelRatio;
+                    d = 1 / (s = h ? 3 <= v && (!s || 3 <= s) ? 3 : 2 <= v && (!s || 2 <= s) ? 2 : 1 : 1)
+                }
+                if (o.setAttribute("data-dpr", s), !r)
+                    if ((r = n.createElement("meta")).setAttribute("name", "viewport"), r.setAttribute("content", "initial-scale=" + d + ", maximum-scale=" + d + ", minimum-scale=" + d + ", user-scalable=no"), o.firstElementChild) o.firstElementChild.appendChild(r);
+                    else {
+                        var b = n.createElement("div");
+                        b.appendChild(r), n.write(b.innerHTML)
+                    }
+                i.addEventListener("resize", function() {
+                    clearTimeout(a), a = setTimeout(t, 300)
+                }, !1), i.addEventListener("pageshow", function(e) {
+                    e.persisted && (clearTimeout(a), a = setTimeout(t, 300))
+                }, !1), "complete" === n.readyState ? n.body.style.fontSize = 12 * s + "px" : n.addEventListener("DOMContentLoaded", function() {
+                    n.body.style.fontSize = 12 * s + "px"
+                }, !1), t(), m.dpr = i.dpr = s, m.refreshRem = t, m.rem2px = function(e) {
+                    var t = parseFloat(e) * this.rem;
+                    return "string" == typeof e && e.match(/rem$/) && (t += "px"), t
+                }, m.px2rem = function(e) {
+                    var t = parseFloat(e) / this.rem;
+                    return "string" == typeof e && e.match(/px$/) && (t += "rem"), t
+                }
+            }(window, window.lib || (window.lib = {})), window.shareConf = null
+    </script>
+    <link href="<!--{$indextpl}-->css/vendor.38cae4.css" rel="stylesheet">
+    <link href="<!--{$indextpl}-->css/entry.index.53baaf.css" rel="stylesheet">
+
+
+    <link href="<!--{$static}-->css/jsshare.css" rel="stylesheet">
+    <link href="<!--{$indextpl}-->css/barfont.css" rel="stylesheet">
+    <link href="<!--{$indextpl}-->css/read.css" rel="stylesheet">
+</head>
+
+<body style="font-size: 12px;">
+
+    <section class="view-port" data-history-filter="true">
+        <section class="rd-body">
+            <section id="js_staticBlock" class="rd-static" style="">
+                <span id="js_staticChapter">
+                    <!--{$data.title}-->
+                </span>&nbsp;
+                <span id="js_staticPage">1/
+                    <!--{$data.size}-->
+                </span>&nbsp; <span id="js_staticTime"></span>&nbsp;
+            </section>
+            <header id="js_headMenu" class="rd-hd header-show" style="display: none;">
+                <a href='<!--{url action="" mod="book" args="bookid:{$data.book_id}"}-->' class="hd-left"><i
+                        class="ift-back"></i></a>
+                <h1 id="js_headTitle" class="hd-title">
+                    <!--{$data.title}-->
+                </h1>
+                <div class="hd-right">
+
+                    <a class="header-icon" href="/" title="<!--{__ 首页}-->"><i class="ift-home white"></i></a>
+                    <span id="js_sharebox" class="icon-box js_share"><i class="ift-read-share share-btn"></i></span>
+                </div>
+            </header>
+            <footer id="js_footMenu" class="rd-ft show-page" style="display: none;">
+
+
+                <div class="ft-menu rd-flex rd-flex-around">
+                    <div id="js_ftMenuBtn" class="menu-block"><i class="icon ifst-read-list"></i> <span class="name">
+                            <!--{__ 目录}-->
+                        </span></div>
+                    <div id="js_ftLightBtn" class="menu-block"><i class="icon ifst-pre" style="transform: rotate(180deg);"></i> <span class="name">
+                            <!--{__ 上一页}-->
+                        </span></div>
+                    <div id="js_ftBookmarkBtn" class="menu-block"><i class="icon ifst-auto-play"></i> <span class="name">
+                            <!--{__ 下一页}-->
+                        </span></div>
+
+                    <div id="js_ftAutoBtn" class="menu-block"> <i class="stop ifst-nameEdit"></i> <span class="name" style="padding-top: 0.1rem;">
+                            <!--{__ 评论}-->
+                        </span></div>
+
+                    <div id="js_ftSettingBtn" class="menu-block"><i class="icon ifst-setting"></i> <span class="name">
+                            <!--{__ 设置}-->
+                        </span></div>
+
+                </div>
+            </footer>
+            <div class="read-category-dialog" style="display: none;">
+
+                <div class="read-category-wrapper">
+                    <div class="read-category-head">
+                        <span class="comic-finish">
+                            <!--{$data.other_name}-->
+                        </span>
+                        <span class="chapter-count">(<span class="num"></span>)</span>
+                        <div class="read-category-ctrls">
+                            <i class="icon ifst-caret-top "></i>
+                            <i class="icon ifst-caret-bottom active"></i>
+
+                        </div>
+                    </div>
+                    <div class="read-category-chapters ">
+                        <div class="chapter-item-wrap tmp" style="display: none;"><span class="chapter-item "></span>
+                            <div class="chapter-bought"><i class="ifst-lock"></i></div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="read-category-mask"></div>
+            </div>
+
+
+
+            <div class="acgn-reader-chapter v bookpage" id="reader-scroll" style="font-size: 0.43rem;">
+                <div class="isfirst">
+                    <!--{__ 已经是第一章了}-->
+                </div>
+                <div class="acgn-reader-chapter__scroll-box ">
+                    <div class="acgn-reader-chapter__item-box" chapter-coin="<!--{$data.coin}-->" chapter-id="<!--{$data.section_id}-->" chapter-name="<!--{$data.title}-->" id='mid<!--{$data.list_order}-->'>
+
+
+                        <div style="width:auto" class="acgn-reader-chapter__item loading" chapter-index="<!--{$k}-->" chapter-pid="<!--{$data.section_id}-->" dataurl='<!--{$v.url}-->'>
+                            <div class="acgn-reader-chapter__title">
+                                <!--{$data.title}-->
+                            </div>
+                            <div class="acgn-reader-chapter__content">
+                                <!--{$data.sec_content}-->
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="islast">
+                    <!--{__ 已经是最新一章了}-->
+                </div>
+                <div class="isload">
+                    <!--{__  加载中}-->
+                </div>
+
+                <div id="js_payChapter" style="display:none" class="pay-chapter-bg modal-cover modal-cover-rise" chapter-id="" style="display: block;">
+                    <div class="pay-chapter-modal">
+                        <div class="bd">
+                            <div class="guide-hd-pay" onclick="_go_url(downurl)">
+                                <img src="<!--{$static}-->logo/logo.png" alt="logo" class="guide-logo">
+                                <h2 class="guide-title">
+                                    <!--{__ 下载}-->
+                                    <!--{__ LoveNovel}-->
+                                </h2>
+                                <p class="guide-desc">
+                                    <!--{__ 海量小说享免费阅读}-->
+                                </p>
+                                <div class="guide-btn">
+                                    <!--{__ 立即下載}-->
+                                </div>
+                            </div>
+                            <i id="js_payChapterClose" class="close-bar ift-close"></i>
+                            <div class="chapter-content">
+                                <div class="need-chapter">
+                                    <span id="js_paycash" class="info" chapter-id="">
+                                        <!--{__ 需支付}-->:
+                                        <b class="paycash">
+                                            <!--{$data.coin}-->
+                                        </b>
+                                        <i class="icon-user-bean icon"></i>
+                                    </span>
+                                    <span id="js_payChapterContent" class="info" chapter-id="<!--{$data.id}-->">
+                                        <!--{$data.title}-->
+                                    </span>
+
+                                </div>
+                                <div class="pay-btn-box">
+                                    <!--{if !$user}-->
+                                    <div class="need-gold js_gologin">
+                                        <!--{__ 去登录}-->
+                                    </div>
+                                    <!--{else}-->
+                                    <div class="need-gold js_goPay">
+                                        <!--{__ 解锁}-->
+                                    </div>
+                                    <div class="need-gold js_recharge" style="display: none;">
+                                        <!--{__ 充值}-->
+                                    </div>
+                                    <!--{/if}-->
+
+
+                                    <div class="pay-btn guide-btn js_godown">
+                                        <!--{__ APP免费观看}-->
+                                    </div>
+                                </div>
+                                <div class="pay-attached-box">
+                                    <div class="flex1"> </div>
+
+                                    <div id="js_autoBuy" class="autobuy">
+                                        <i class="icon ifst-check"></i>
+                                        <span class="text">
+                                            <!--{__ 自动购买下一章}-->
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="cbt">
+                                <span class="cbt1">余额：</span>
+
+                                <span class="cbt3">0</span>
+                                <span class="cbt2 icons"><i class="icon-user-bean icon"></i></span>
+                                <span class="cbt4 an js_recharge">
+                                    <!--{__ 充值}--><i class=" ifst-right"></i>
+                                </span>
+                                <span class="flex1"></span>
+
+                                <span class="cbt6 ">0</span>
+                                <span class="cbt5 icons"><i class="icon-user-star icon"></i></span>
+                                <span class="cbt7 an js_godown">
+                                    <!--{__ 领星星}--><i class=" ifst-right"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="js_paywait" style="" class="pay-chapter-bg modal-cover modal-cover-rise" chapter-id="">
+                    <div class="load-png-modal">
+                        <div class="load-png"><img src="<!--{$static}-->images/load.gif"> </div>
+                    </div>
+
+                </div>
+                <div id="js_comment" style="display: none;" class="pay-chapter-bg modal-cover modal-cover-rise" chapter-id="">
+                    <div class="pay-chapter-modal">
+                        <div class="bd">
+
+                            <!-- <i id="js_commentClose" class="close-bar ift-close"></i> -->
+                            <div class="chapter-content">
+                                <div class="comment-textarea-box">
+                                    <div class="comment-textarea-box-bd">
+                                        <textarea class="comment-textarea" maxlength="100" placeholder="<!--{__ 吐槽之魂熊熊燃烧}-->..."></textarea>
+
+                                    </div>
+
+                                </div>
+                                <div class="pay-btn-box">
+                                    <div class="need-gold js_cancelcomment">
+                                        <!--{__ 取消}-->
+                                    </div>
+
+
+                                    <div class="pay-btn guide-btn js_scomment">
+                                        <!--{__ 发布}-->
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="js_setting" style="display: none;" class=" modal-cover modal-cover-rise" chapter-id="">
+                    <div class="pay-chapter-modal">
+                        <div class="article-setting" id="article_setting">
+                            <!-- <dl>
+                                <dd id="back_scheme_font">
+                                    <span class="cs-white" data-val="white"></span>
+                                    <span class="cs-brown selected" data-val="brown"></span>
+                                    <span class="cs-green" data-val="green"></span>
+                                    <span class="cs-blue" data-val="blue"></span>
+                                    <span class="cs-night" data-val="night"></span>
+                                </dd>
+                            </dl> -->
+                            <dl>
+
+                                <dd id="font_layer">
+                                    <span class="f-mini selected" data-val="mini">A</span>
+                                    <span class="f-small" data-val="small">A</span>
+                                    <span class="f-default" data-val="default">A</span>
+                                    <span class="f-medium" data-val="medium">A</span>
+                                    <span class="f-large" data-val="large">A</span>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dd id="back_scheme">
+                                    <span class="cs-white" data-val="white"></span>
+                                    <span class="cs-brown selected" data-val="brown"></span>
+                                    <span class="cs-green" data-val="green"></span>
+                                    <span class="cs-blue" data-val="blue"></span>
+                                    <span class="cs-night" data-val="night"></span>
+                                </dd>
+                            </dl>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </section>
+
+
+
+
+
+    <script>
+        //初始化banner高度，宽高比。0.73
+        var pgurl = '<!--{url action="sec" args="bookid:{$data.book_id}"}-->';
+        var cateurl = '<!--{url action="get_section" }-->';
+        var downurl = "<!--{url action='page' mod='down' args=''}-->";
+        var loginurl = "<!--{url action='' mod='login' args=''}-->";
+        var payurl = "<!--{url action='unlock' mod='wallet' args=''}-->";
+        var wallerurl = "<!--{url action='' mod='wallet' args=''}-->";
+        var rechagreurl = "<!--{url action='' mod='pay' args=''}-->";
+        var commenturl = "<!--{url action='discuss' mod='me' args=''}-->";
+        var isfirststr = "<!--{__ 已经是第一章了}-->";
+        var islaststr = "<!--{__ 已经是最新一章了}-->";
+        var uid = "<!--{$user.id}-->";
+        var needpay = parseInt('<!--{ $data.isfree }-->') && !parseInt('<!--{ $data.ispay }-->');
+        var secid = '<!--{$data.next}-->';
+        var pre = '<!--{$data.pre}-->';
+        var pre1 = pre;
+        var next1 = secid;
+        var bookid = '<!--{$data.book_id}-->';
+        var type = 1;
+        DEBUG = true;
+    </script>
+</body>
+
+</html>

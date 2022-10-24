@@ -1,4 +1,12 @@
 <?php
+/*
+ * @Author: your name
+ * @Date: 2022-03-15 22:18:04
+ * @LastEditTime: 2022-03-24 23:57:08
+ * @LastEditors: your name
+ * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ * @FilePath: \xsjiekou\source\control\api\question.php
+ */
 namespace ng169\control\api;
 
 use ng169\control\apibase;
@@ -62,7 +70,7 @@ class question extends apibase
         
             T('reply')->add($arr);
            
-            M('coin', 'im')->change($uid, $question_coin['question_coin']);
+            M('coin', 'im')->addstar($uid, $question_coin['question_coin']);
             M('census', 'im')->task_reward_count($uid, $question_coin['question_coin'], $question_coin['question_task']);
             Out::jout('提交成功');
         } else {

@@ -98,9 +98,9 @@ class count extends Y
         //今日付费总人数
         $iss = false;
         $ww = ['dates' => date('Ymd') . '2', 'uid' => $user['id']];
-       
+
         if (!T('n_dotask')->get_one($ww)) {
-            
+
             $iss = T('n_dotask')->add($ww);
             //每日付费人数统计点
             $wher = ['dates' => date('Ymd')];
@@ -125,23 +125,20 @@ class count extends Y
             // $this->_oldrecharge();
         }
         return $is;
-
     }
     //下单统计
     public function countorder()
     {
 
-        $type = Y::$wrap_head['Devicetype'];
-        $w['uid'] = $uid;
+        $type = getdevicetype(Y::$wrap_head);
+        // $w['uid'] = $uid;
         $w['dates'] = date('Ymd');
         $pre = 'zdd';
+        $key = "i" . $pre;
         if ($type == 'android') {
             $key = "a" . $pre;
         }
         if ($type == 'iphone') {
-            $key = "i" . $pre;
-        }
-        if ($type == 'wap') {
             $key = "i" . $pre;
         }
         if (!isset($key)) {
@@ -154,20 +151,17 @@ class count extends Y
             $where['addtime'] = time();
             T('n_day_recharge')->add($where);
         } else {
-            $u[$key] = $have[$key] + 1;
-            T('n_day_recharge')->update($u, $where);
+            T('n_day_recharge')->update("`$key`=`$key`+1", $where);
         }
         return true;
     }
     public function countnew($money, $isnewuser, $key)
     {
-
         $w2['dates'] = date('Ymd');
         $_data = T('n_count')->where($w2)->get_one();
         if (!$_data) {
             $w2['addtime'] = time();
             T('n_count')->add($w2);
-
             $_data = T('n_count')->where($w2)->get_one();
         }
         $up['zcz'] = $_data['zcz'] + $money;
@@ -179,5 +173,6 @@ class count extends Y
         T('n_count')->update($up, ['dates' => date('Ymd')]);
     }
     public function taskcount()
-    {}
+    {
+    }
 }

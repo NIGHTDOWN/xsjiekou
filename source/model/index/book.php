@@ -450,7 +450,7 @@ LnUG4Z69pKZHtL6ljwIDAQAB
                 }
                 Y::$cache->set($index, $arr, 43200);
             }
-            
+
             if ($uid) {
                 if (T('user_groom')->set_field('isgroom')->get_one(['status' => 1, 'book_id' => $bookid, 'users_id' => $uid, 'type' => 1])) {
                     $arr['data']['isgroom'] = 1;
@@ -483,6 +483,7 @@ LnUG4Z69pKZHtL6ljwIDAQAB
                 $w = ['cartoon_id' => $cartoon_id];
                 $data = T('cartoon')
                     // ->field('other_name,cartoon_id as book_id,cartoon_id,bpic,bpic_dsl,writer_name,`desc`,cate_id,lable,category_id,likes,update_time,hits,collect,bpic_detail,update_status,isfree,`read`,end_share,share_banner,0 as isgroom,lang,`read`')
+                    ->field('v.*,v.cartoon_id as book_id,2 as type')
                     ->where($w)
                     ->get_one();
 
@@ -497,9 +498,10 @@ LnUG4Z69pKZHtL6ljwIDAQAB
                 } else {
                     $data['update_time'] = date("d-m-Y", $update_time);
                 }
-                $w['status'] = 1;
+                $w2['status'] = 1;
+                $w2['book_id'] =  $cartoon_id;
                 // $star = T('discuss')->where($w)->get_count();
-                $sumss = T('discuss')->set_field('sum(star) as sums,count(1) as counts')->where($w)->get_one();
+                $sumss = T('discuss')->set_field('sum(star) as sums,count(1) as counts')->where($w2)->get_one();
                 $sums = $sumss['sums'];
                 $star = $sumss['counts'];
                 $replynum = "";
@@ -515,7 +517,7 @@ LnUG4Z69pKZHtL6ljwIDAQAB
 
                 $discuss = T('discuss')
                     ->field('discuss_id,star,nick_name,discuss_time,content,users_id')
-                    ->where($w)
+                    ->where($w2)
                     ->order('discuss_time desc')
                     ->limit(5)
                     ->get_all();
@@ -564,7 +566,7 @@ LnUG4Z69pKZHtL6ljwIDAQAB
                 $w = ['cartoon_id' => $cartoon_id];
                 $owenDiscuss = T('discuss')
                     ->field('discuss_id,star,nick_name,discuss_time,content,users_id')
-                    ->where($w)
+                    ->where($w2)
                     ->where(['users_id' => $this->uid])
                     ->order('discuss_time desc')
                     // ->limit(1)
@@ -580,7 +582,7 @@ LnUG4Z69pKZHtL6ljwIDAQAB
             M('bookcensus', 'im')->readnum($uid, 2, $cartoon_id);
             M('census', 'im')->cartoonhitcounts($cartoon_id);
         }
-       
+
         if ($type == 1) {
             $arr['seclist'] = M('content', 'im')->book_section($uid, $bookid);
         } else {

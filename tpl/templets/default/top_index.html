@@ -9,13 +9,12 @@
         <!--{__ LoveNovel}-->
     </title>
     <meta name="keywords" content="<!--{__ 多语言免费、流行、浪漫、小说,漫画阅读器.}-->">
-    <meta name="description" itemprop="description"
-        content="<!--{__ LoveNovel一直坚持提供小说漫画免费阅读。看小说、看漫画，为阅读而生，就上LoveNovel}-->">
+    <meta name="description" itemprop="description" content="<!--{__ LoveNovel一直坚持提供小说漫画免费阅读。看小说、看漫画，为阅读而生，就上LoveNovel}-->">
 
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <meta http-equiv="Cache-Control" content="no-transform">
     <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="canonical" href="http://www.love-novel.com/">
+    <link rel="canonical" href="https://www.love-novel.com/">
     <meta name="applicable-device" content="mobile">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta content="yes" name="apple-touch-fullscreen">
@@ -38,7 +37,64 @@
     <script src="<!--{$static}-->js/night_Trad.v1.0.js"></script>
     <script src="<!--{$indextpl}-->js/web.js"></script>
     <script>
-        function isMobileHanddle() { var e = navigator.userAgent; return (screen.width / screen.height < 1 || /AppleWebKit.*Mobile/i.test(e) || /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(e)) && !/ipad/gi.test(e) } var host = location.host; isMobileHanddle() || "m" !== host.substr(0, host.indexOf(".")) || (location.href = location.href.replace("//m.", "//www.")), top.location != location && (top.location = location.href), function (i, e) { function t() { var e = o.getBoundingClientRect().width; 540 < e / s && (e = 540 * s); var t = e / 10; o.style.fontSize = t + "px", m.rem = i.rem = t } var a, n = i.document, o = n.documentElement, r = n.querySelector('meta[name="viewport"]'), l = n.querySelector('meta[name="flexible"]'), s = 0, d = 0, m = e.flexible || (e.flexible = {}); if (r) { console.warn("将根据已有的meta标签来设置缩放比例"); var c = r.getAttribute("content").match(/initial\-scale=([\d\.]+)/); c && (d = parseFloat(c[1]), s = parseInt(1 / d)) } else if (l) { var p = l.getAttribute("content"); if (p) { var u = p.match(/initial\-dpr=([\d\.]+)/), f = p.match(/maximum\-dpr=([\d\.]+)/); u && (s = parseFloat(u[1]), d = parseFloat((1 / s).toFixed(2))), f && (s = parseFloat(f[1]), d = parseFloat((1 / s).toFixed(2))) } } if (!s && !d) { var h = (i.navigator.appVersion.match(/android/gi), i.navigator.appVersion.match(/iphone/gi)), v = i.devicePixelRatio; d = 1 / (s = h ? 3 <= v && (!s || 3 <= s) ? 3 : 2 <= v && (!s || 2 <= s) ? 2 : 1 : 1) } if (o.setAttribute("data-dpr", s), !r) if ((r = n.createElement("meta")).setAttribute("name", "viewport"), r.setAttribute("content", "initial-scale=" + d + ", maximum-scale=" + d + ", minimum-scale=" + d + ", user-scalable=no"), o.firstElementChild) o.firstElementChild.appendChild(r); else { var b = n.createElement("div"); b.appendChild(r), n.write(b.innerHTML) } i.addEventListener("resize", function () { clearTimeout(a), a = setTimeout(t, 300) }, !1), i.addEventListener("pageshow", function (e) { e.persisted && (clearTimeout(a), a = setTimeout(t, 300)) }, !1), "complete" === n.readyState ? n.body.style.fontSize = 12 * s + "px" : n.addEventListener("DOMContentLoaded", function () { n.body.style.fontSize = 12 * s + "px" }, !1), t(), m.dpr = i.dpr = s, m.refreshRem = t, m.rem2px = function (e) { var t = parseFloat(e) * this.rem; return "string" == typeof e && e.match(/rem$/) && (t += "px"), t }, m.px2rem = function (e) { var t = parseFloat(e) / this.rem; return "string" == typeof e && e.match(/px$/) && (t += "rem"), t } }(window, window.lib || (window.lib = {})), window.shareConf = null</script>
+        function isMobileHanddle() {
+            var e = navigator.userAgent;
+            return (screen.width / screen.height < 1 || /AppleWebKit.*Mobile/i.test(e) || /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(e)) && !/ipad/gi.test(e)
+        }
+        var host = location.host;
+        isMobileHanddle() || "m" !== host.substr(0, host.indexOf(".")) || (location.href = location.href.replace("//m.", "//www.")), top.location != location && (top.location = location.href),
+            function(i, e) {
+                function t() {
+                    var e = o.getBoundingClientRect().width;
+                    540 < e / s && (e = 540 * s);
+                    var t = e / 10;
+                    o.style.fontSize = t + "px", m.rem = i.rem = t
+                }
+                var a, n = i.document,
+                    o = n.documentElement,
+                    r = n.querySelector('meta[name="viewport"]'),
+                    l = n.querySelector('meta[name="flexible"]'),
+                    s = 0,
+                    d = 0,
+                    m = e.flexible || (e.flexible = {});
+                if (r) {
+                    console.warn("将根据已有的meta标签来设置缩放比例");
+                    var c = r.getAttribute("content").match(/initial\-scale=([\d\.]+)/);
+                    c && (d = parseFloat(c[1]), s = parseInt(1 / d))
+                } else if (l) {
+                    var p = l.getAttribute("content");
+                    if (p) {
+                        var u = p.match(/initial\-dpr=([\d\.]+)/),
+                            f = p.match(/maximum\-dpr=([\d\.]+)/);
+                        u && (s = parseFloat(u[1]), d = parseFloat((1 / s).toFixed(2))), f && (s = parseFloat(f[1]), d = parseFloat((1 / s).toFixed(2)))
+                    }
+                }
+                if (!s && !d) {
+                    var h = (i.navigator.appVersion.match(/android/gi), i.navigator.appVersion.match(/iphone/gi)),
+                        v = i.devicePixelRatio;
+                    d = 1 / (s = h ? 3 <= v && (!s || 3 <= s) ? 3 : 2 <= v && (!s || 2 <= s) ? 2 : 1 : 1)
+                }
+                if (o.setAttribute("data-dpr", s), !r)
+                    if ((r = n.createElement("meta")).setAttribute("name", "viewport"), r.setAttribute("content", "initial-scale=" + d + ", maximum-scale=" + d + ", minimum-scale=" + d + ", user-scalable=no"), o.firstElementChild) o.firstElementChild.appendChild(r);
+                    else {
+                        var b = n.createElement("div");
+                        b.appendChild(r), n.write(b.innerHTML)
+                    }
+                i.addEventListener("resize", function() {
+                    clearTimeout(a), a = setTimeout(t, 300)
+                }, !1), i.addEventListener("pageshow", function(e) {
+                    e.persisted && (clearTimeout(a), a = setTimeout(t, 300))
+                }, !1), "complete" === n.readyState ? n.body.style.fontSize = 12 * s + "px" : n.addEventListener("DOMContentLoaded", function() {
+                    n.body.style.fontSize = 12 * s + "px"
+                }, !1), t(), m.dpr = i.dpr = s, m.refreshRem = t, m.rem2px = function(e) {
+                    var t = parseFloat(e) * this.rem;
+                    return "string" == typeof e && e.match(/rem$/) && (t += "px"), t
+                }, m.px2rem = function(e) {
+                    var t = parseFloat(e) / this.rem;
+                    return "string" == typeof e && e.match(/px$/) && (t += "rem"), t
+                }
+            }(window, window.lib || (window.lib = {})), window.shareConf = null
+    </script>
     <link href="<!--{$indextpl}-->css/vendor.38cae4.css" rel="stylesheet">
     <link href="<!--{$indextpl}-->css/entry.index.53baaf.css" rel="stylesheet">
     <link href="<!--{$indextpl}-->css/swiper.min.css" rel="stylesheet">
@@ -64,14 +120,16 @@
 
             <div class="rank-option-menu" id="J_rankOptionMenu">
                 <ul class="menu">
-                    <li class="list <!--{if $booktype=='book'}-->active<!--{/if}-->"><a class="menu-link"
-                            title="<!--{__ 小说排行榜}-->" href="<!--{url action='run'}-->">
+                    <li class="list <!--{if $booktype=='book'}-->active<!--{/if}-->">
+                        <a class="menu-link" title="<!--{__ 小说排行榜}-->" href="<!--{url action='run'}-->">
                             <!--{__ 小说排行榜}-->
-                        </a></li>
-                    <li class="list <!--{if $booktype=='cartoon'}-->active<!--{/if}-->"><a class="menu-link"
-                            title="<!--{__ 漫画排行榜}-->" href="<!--{url action='cartoon'}-->">
+                        </a>
+                    </li>
+                    <li class="list <!--{if $booktype=='cartoon'}-->active<!--{/if}-->">
+                        <a class="menu-link" title="<!--{__ 漫画排行榜}-->" href="<!--{url action='cartoon'}-->">
                             <!--{__ 漫画排行榜}-->
-                        </a></li>
+                        </a>
+                    </li>
 
                 </ul>
 
@@ -152,8 +210,7 @@
                                             <!--{foreach $data.tags as $k2=>$v2}-->
                                             <!--{if $v2}-->
 
-                                            <a href='<!--{url action="lable" mod="category" args="c1:$data.type,c2:$data.category_id,c3:$data.cate_id,c4:$v2.id,lable:$v2.tag"}-->'
-                                                title=" <!--{$v2.tag}-->">
+                                            <a href='<!--{url action="lable" mod="category" args="c1:$data.type,c2:$data.category_id,c3:$data.cate_id,c4:$v2.id,lable:$v2.tag"}-->' title=" <!--{$v2.tag}-->">
                                                 <!--{$v2.tag}-->
                                             </a>
                                             <!--{/if}-->
@@ -174,7 +231,7 @@
     </div>
 
 
-   
+
 </body>
 
 </html>

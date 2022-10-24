@@ -9,13 +9,12 @@
         <!--{__ LoveNovel}-->
     </title>
     <meta name="keywords" content="<!--{__ 多语言免费、流行、浪漫、小说,漫画阅读器.}-->">
-    <meta name="description" itemprop="description"
-        content="<!--{__ LoveNovel一直坚持提供小说漫画免费阅读。看小说、看漫画，为阅读而生，就上LoveNovel}-->">
+    <meta name="description" itemprop="description" content="<!--{__ LoveNovel一直坚持提供小说漫画免费阅读。看小说、看漫画，为阅读而生，就上LoveNovel}-->">
 
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <meta http-equiv="Cache-Control" content="no-transform">
     <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="canonical" href="http://www.love-novel.com/">
+    <link rel="canonical" href="https://www.love-novel.com/">
     <meta name="applicable-device" content="mobile">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta content="yes" name="apple-touch-fullscreen">
@@ -38,7 +37,64 @@
     <script src="<!--{$static}-->js/night_Trad.v1.0.js"></script>
     <script src="<!--{$indextpl}-->js/web.js"></script>
     <script>
-        function isMobileHanddle() { var e = navigator.userAgent; return (screen.width / screen.height < 1 || /AppleWebKit.*Mobile/i.test(e) || /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(e)) && !/ipad/gi.test(e) } var host = location.host; isMobileHanddle() || "m" !== host.substr(0, host.indexOf(".")) || (location.href = location.href.replace("//m.", "//www.")), top.location != location && (top.location = location.href), function (i, e) { function t() { var e = o.getBoundingClientRect().width; 540 < e / s && (e = 540 * s); var t = e / 10; o.style.fontSize = t + "px", m.rem = i.rem = t } var a, n = i.document, o = n.documentElement, r = n.querySelector('meta[name="viewport"]'), l = n.querySelector('meta[name="flexible"]'), s = 0, d = 0, m = e.flexible || (e.flexible = {}); if (r) { console.warn("将根据已有的meta标签来设置缩放比例"); var c = r.getAttribute("content").match(/initial\-scale=([\d\.]+)/); c && (d = parseFloat(c[1]), s = parseInt(1 / d)) } else if (l) { var p = l.getAttribute("content"); if (p) { var u = p.match(/initial\-dpr=([\d\.]+)/), f = p.match(/maximum\-dpr=([\d\.]+)/); u && (s = parseFloat(u[1]), d = parseFloat((1 / s).toFixed(2))), f && (s = parseFloat(f[1]), d = parseFloat((1 / s).toFixed(2))) } } if (!s && !d) { var h = (i.navigator.appVersion.match(/android/gi), i.navigator.appVersion.match(/iphone/gi)), v = i.devicePixelRatio; d = 1 / (s = h ? 3 <= v && (!s || 3 <= s) ? 3 : 2 <= v && (!s || 2 <= s) ? 2 : 1 : 1) } if (o.setAttribute("data-dpr", s), !r) if ((r = n.createElement("meta")).setAttribute("name", "viewport"), r.setAttribute("content", "initial-scale=" + d + ", maximum-scale=" + d + ", minimum-scale=" + d + ", user-scalable=no"), o.firstElementChild) o.firstElementChild.appendChild(r); else { var b = n.createElement("div"); b.appendChild(r), n.write(b.innerHTML) } i.addEventListener("resize", function () { clearTimeout(a), a = setTimeout(t, 300) }, !1), i.addEventListener("pageshow", function (e) { e.persisted && (clearTimeout(a), a = setTimeout(t, 300)) }, !1), "complete" === n.readyState ? n.body.style.fontSize = 12 * s + "px" : n.addEventListener("DOMContentLoaded", function () { n.body.style.fontSize = 12 * s + "px" }, !1), t(), m.dpr = i.dpr = s, m.refreshRem = t, m.rem2px = function (e) { var t = parseFloat(e) * this.rem; return "string" == typeof e && e.match(/rem$/) && (t += "px"), t }, m.px2rem = function (e) { var t = parseFloat(e) / this.rem; return "string" == typeof e && e.match(/px$/) && (t += "rem"), t } }(window, window.lib || (window.lib = {})), window.shareConf = null</script>
+        function isMobileHanddle() {
+            var e = navigator.userAgent;
+            return (screen.width / screen.height < 1 || /AppleWebKit.*Mobile/i.test(e) || /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(e)) && !/ipad/gi.test(e)
+        }
+        var host = location.host;
+        isMobileHanddle() || "m" !== host.substr(0, host.indexOf(".")) || (location.href = location.href.replace("//m.", "//www.")), top.location != location && (top.location = location.href),
+            function(i, e) {
+                function t() {
+                    var e = o.getBoundingClientRect().width;
+                    540 < e / s && (e = 540 * s);
+                    var t = e / 10;
+                    o.style.fontSize = t + "px", m.rem = i.rem = t
+                }
+                var a, n = i.document,
+                    o = n.documentElement,
+                    r = n.querySelector('meta[name="viewport"]'),
+                    l = n.querySelector('meta[name="flexible"]'),
+                    s = 0,
+                    d = 0,
+                    m = e.flexible || (e.flexible = {});
+                if (r) {
+                    console.warn("将根据已有的meta标签来设置缩放比例");
+                    var c = r.getAttribute("content").match(/initial\-scale=([\d\.]+)/);
+                    c && (d = parseFloat(c[1]), s = parseInt(1 / d))
+                } else if (l) {
+                    var p = l.getAttribute("content");
+                    if (p) {
+                        var u = p.match(/initial\-dpr=([\d\.]+)/),
+                            f = p.match(/maximum\-dpr=([\d\.]+)/);
+                        u && (s = parseFloat(u[1]), d = parseFloat((1 / s).toFixed(2))), f && (s = parseFloat(f[1]), d = parseFloat((1 / s).toFixed(2)))
+                    }
+                }
+                if (!s && !d) {
+                    var h = (i.navigator.appVersion.match(/android/gi), i.navigator.appVersion.match(/iphone/gi)),
+                        v = i.devicePixelRatio;
+                    d = 1 / (s = h ? 3 <= v && (!s || 3 <= s) ? 3 : 2 <= v && (!s || 2 <= s) ? 2 : 1 : 1)
+                }
+                if (o.setAttribute("data-dpr", s), !r)
+                    if ((r = n.createElement("meta")).setAttribute("name", "viewport"), r.setAttribute("content", "initial-scale=" + d + ", maximum-scale=" + d + ", minimum-scale=" + d + ", user-scalable=no"), o.firstElementChild) o.firstElementChild.appendChild(r);
+                    else {
+                        var b = n.createElement("div");
+                        b.appendChild(r), n.write(b.innerHTML)
+                    }
+                i.addEventListener("resize", function() {
+                    clearTimeout(a), a = setTimeout(t, 300)
+                }, !1), i.addEventListener("pageshow", function(e) {
+                    e.persisted && (clearTimeout(a), a = setTimeout(t, 300))
+                }, !1), "complete" === n.readyState ? n.body.style.fontSize = 12 * s + "px" : n.addEventListener("DOMContentLoaded", function() {
+                    n.body.style.fontSize = 12 * s + "px"
+                }, !1), t(), m.dpr = i.dpr = s, m.refreshRem = t, m.rem2px = function(e) {
+                    var t = parseFloat(e) * this.rem;
+                    return "string" == typeof e && e.match(/rem$/) && (t += "px"), t
+                }, m.px2rem = function(e) {
+                    var t = parseFloat(e) / this.rem;
+                    return "string" == typeof e && e.match(/px$/) && (t += "rem"), t
+                }
+            }(window, window.lib || (window.lib = {})), window.shareConf = null
+    </script>
     <link href="<!--{$indextpl}-->css/vendor.38cae4.css" rel="stylesheet">
     <link href="<!--{$indextpl}-->css/entry.index.53baaf.css" rel="stylesheet">
     <link href="<!--{$indextpl}-->css/swiper.min.css" rel="stylesheet">
@@ -48,10 +104,8 @@
 
     <section class="view-port" style="background-color: rgb(255, 255, 255); ">
         <header class="view-header comic-detail-header">
-            <div id="js_top_nav" class="header-wrap header-wrap-normal" style=" "><i id="js_change_bg"
-                    class="change-bg "></i>
-                <div class="header-left"><span class="header-icon js_go_back"><i class="ift-back white"></i> </span><a
-                        class="header-icon" href="/" title="<!--{__ 首页}-->"><i class="ift-home white"></i></a></div>
+            <div id="js_top_nav" class="header-wrap header-wrap-normal" style=" "><i id="js_change_bg" class="change-bg "></i>
+                <div class="header-left"><span class="header-icon js_go_back"><i class="ift-back white"></i> </span><a class="header-icon" href="/" title="<!--{__ 首页}-->"><i class="ift-home white"></i></a></div>
                 <div class="header-center top-title js_top_title" style="visibility: visible;">
 
                     <input class="header-title" value="<!--{$data.other_name}-->">
@@ -65,8 +119,7 @@
 
         </header>
         <article class="view-body detail-body aaalecj6y" id="js_comic_main" style="background:#fff">
-            <div id="detail" class="comic-header js_comic_header" data-comicid="107751"
-                style="background-image:url('<!--{$data.bpic}-->')">
+            <div id="detail" class="comic-header js_comic_header" data-comicid="107751" style="background-image:url('<!--{$data.bpic}-->')">
                 <div class="comic-info">
                     <div class="book-name">
                         <h1 class="name" data-allprice="8361" title="<!--{$data.other_name}-->">
@@ -107,8 +160,7 @@
                         </div>
                     </div>
                     <div class="book-cover comic-item" style="    border: none;">
-                        <div class="thumbnail"><img src="<!--{$data.bpic}-->" alt="<!--{$data.other_name}-->"
-                                style="background: url(&quot;<!--{$data.bpic}-->&quot;) center center / cover no-repeat; opacity: 1;">
+                        <div class="thumbnail"><img src="<!--{$data.bpic}-->" alt="<!--{$data.other_name}-->" style="background: url(&quot;<!--{$data.bpic}-->&quot;) center center / cover no-repeat; opacity: 1;">
 
                         </div>
                     </div>
@@ -171,19 +223,18 @@
                 <div class="chapter-list" id="js_chapter_list">
                     <ul id="js_chapters" class="asc">
                         <!--{foreach $seclist as $sec}-->
-                        <li class="comic-chapter-item" data-index="<!--{$sec.list_order}-->"
-                            data-chapterid="<!--{$sec.section_id}-->"><a class="comic-chapter-link"
-                                href="/xiuluojianzun/di261hua-1635488330005.html" title="<!--{$sec.title}-->">
+                        <li class="comic-chapter-item" data-index="<!--{$sec.list_order}-->" data-chapterid="<!--{$sec.section_id}-->">
+                            <a class="comic-chapter-link" href="/xiuluojianzun/di261hua-1635488330005.html" title="<!--{$sec.title}-->">
                                 <!--{$sec.title}-->
                                 <!--{if $sec.isfree}-->
                                 <i class="ift-lock js_lock"></i>
                                 <!--{/if}-->
-                            </a></li>
+                            </a>
+                        </li>
                         <!--{/foreach}-->
 
                     </ul>
-                    <div class="more-chapter more-chapter-wrapper js_chapter_btn"><span
-                            class="js_more_chapters more-chapter-btn">上神，这里还有<i
+                    <div class="more-chapter more-chapter-wrapper js_chapter_btn"><span class="js_more_chapters more-chapter-btn">上神，这里还有<i
                                 class="ift-down arrow-direction"></i></span></div>
                 </div>
             </section>
@@ -209,33 +260,37 @@
         $cate1 = 0, $cate2 = 0, $cate3 = [];
         $cate2url = '<!--{url action="cate2"}-->';
         $cate3url = '<!--{url action="cate3"}-->';
-        Array.prototype.aremove = function (val) {
+        Array.prototype.aremove = function(val) {
             var index = this.indexOf(val);
             if (index > -1) {
                 this.splice(index, 1);
             }
         };
+
         function lion($obj) {
             $obj.addClass('on').siblings().removeClass('on');
         }
+
         function lion2($obj) {
             $obj.toggleClass('on');
         }
-        $(function () {
+        $(function() {
 
 
-            $('.cate1>li').on('click', function (obj) {
+            $('.cate1>li').on('click', function(obj) {
                 $e = $(this);
                 lion($e);
                 $cate1 = $e.attr('tag-id');
                 $cate3 = [];
                 $cate2 = 0;
-                yAjax($cate2url, { 'cateid': $cate1 }, function (data) {
+                yAjax($cate2url, {
+                    'cateid': $cate1
+                }, function(data) {
                     $data = data['result'];
 
                     $ob2 = $('.cate2');
                     $ob2.html('');
-                    $.each($data, function (i, v) {
+                    $.each($data, function(i, v) {
                         $li = $("<li onclick='c2click(this)'></li>");
                         $li.attr('tag-id', v.category_id);
                         $li.text(v.category_name);
@@ -244,30 +299,33 @@
 
                 });
             });
-            $('.startReadfather').click(function () {
+            $('.startReadfather').click(function() {
                 tj();
             });
-            $('.ift-setting').click(function () {
+            $('.ift-setting').click(function() {
                 _go_url_new('https://www.baidu.com/s?&wd=' + $('input').val());
             });
-            $('.js_tucao').click(function () {
+            $('.js_tucao').click(function() {
                 _go_url('<!--{url args="lang:{$data.lang},type:{$data.type}"}-->');
             });
-            $('.collectfather').click(function () {
+            $('.collectfather').click(function() {
                 _go_url_new('https://www.baidu.com/s?&wd=' + $('input').val());
             });
 
         });
+
         function c2click(ob) {
             $e = $(ob);
             lion($e);
             $cate2 = $e.attr('tag-id');
             $cate3 = [];
-            yAjax($cate3url, { 'cateid': $cate2 }, function (data) {
+            yAjax($cate3url, {
+                'cateid': $cate2
+            }, function(data) {
                 $data = data['result'];
                 $ob2 = $('.cate3');
                 $ob2.html('');
-                $.each($data, function (i, v) {
+                $.each($data, function(i, v) {
                     $li = $("<li onclick='c3click(this)'></li>");
                     $li.attr('tag-id', v.id);
                     $li.text(v.tag);
@@ -276,6 +334,7 @@
 
             });
         }
+
         function c3click(ob) {
             $e = $(ob);
             $id = $e.attr('tag-id');
@@ -288,20 +347,28 @@
             lion2($e);
 
         }
+
         function tj() {
             if (!$cate1 || !$cate2) {
-                showd('一级二级分类未选择'); return false;
+                showd('一级二级分类未选择');
+                return false;
             }
             $cate3str = '';
-            $.each($cate3, function (i, v) {
+            $.each($cate3, function(i, v) {
                 if (v) {
                     $cate3str += "L" + v + ','
                 }
             });
             $cate3str = trim($cate3str, ',');
-            $post = { 'cate1': $cate1, 'cate2': $cate2, 'cate3': $cate3str, 'bookid': '<!--{$data.book_id}-->', 'type': '<!--{$data.type}-->' };
+            $post = {
+                'cate1': $cate1,
+                'cate2': $cate2,
+                'cate3': $cate3str,
+                'bookid': '<!--{$data.book_id}-->',
+                'type': '<!--{$data.type}-->'
+            };
             $url = "<!--{url action='set'}-->";
-            yAjax($url, $post, function (data) {
+            yAjax($url, $post, function(data) {
 
                 if (data.result) {
                     _go_url('');
@@ -330,11 +397,11 @@
             padding: 0.1rem 0.3rem;
             margin: 0.1rem 0.1rem;
         }
-
+        
         li.on {
             background: #ef4958 !important;
         }
-
+        
         input {
             background: #fc6976;
             border: none;
