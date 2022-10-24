@@ -37,10 +37,11 @@
             bottom: 40px;
             user-select: none;
         }
-        #reader{
+
+        #reader {
             width: 100%;
-    margin: 0px;
-    padding: 0px;
+            margin: 0px;
+            padding: 0px;
         }
     </style>
 </head>
@@ -53,7 +54,7 @@
         <span id="upload-text">使用文件方式</span>
     </button>
     <div id="reader"></div>
-    <h3 id="qr-reader-results" ></h3>
+    <h3 id="qr-reader-results"></h3>
     <script>
         //方式一使用库的ui
         // var resultContainer = document.getElementById('qr-reader-results');
@@ -76,12 +77,12 @@
 
 
         //1.Html5QrcodeScanner是js提供的ui; 2.Html5Qrcode是自定义面板
-        let html5QrCode = new Html5Qrcode("reader"); 
+        let html5QrCode = new Html5Qrcode("reader");
         let reader = document.getElementById("reader");
         let res = document.getElementById('qr-reader-results');
         let uploadInput = document.getElementById('upload-input');
-        var w=window.innerWidth;
-        var h=window.innerHeight;
+        var w = window.innerWidth;
+        var h = window.innerHeight;
         let config = { fps: 10, qrbox: { width: 280, height: 280 } }; //扫一扫相关设置
 
         //使用本地文件
@@ -108,7 +109,7 @@
         //     });
         // }
 
-       //相机授权
+        //相机授权
         function useCamera() {
             reader.style.display = "block";
             res.innerText = "";
@@ -163,18 +164,31 @@
         //扫码解析成功后按照自己的需求做后续的操作
         function onScanSuccess(decodedText, decodedResult) {
             // _go_url(decodedText);
-            Html5Qrcode.stop();
-            location.href=decodedText;
+            // Html5Qrcode.stop();
+            // location.href=decodedText;
             res.innerText = "扫码成功结果ssss:\n" + decodedText;
+            showd(decodedText);
+            html5QrCode
+                .stop()
+                .then(ignore => {
+                    // QR Code scanning is stopped.
+                    console.log('QR Code scanning stopped.');
+                })
+                .catch(err => {
+                    // Stop failed, handle it.
+                    console.log('Unable to stop scanning.');
+                });
+
+
         }
 
         //扫码解析失败后按照自己的需求做后续的操作
         function onScanFailure(error) {
             res.innerText = "扫码失败:\n" + error;
         }
-$(function(){
-    useCamera();
-});
+        $(function () {
+            useCamera();
+        });
     </script>
 
 </body>
