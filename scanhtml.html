@@ -96,9 +96,11 @@
                 html5QrCode
                     .scanFile(imageFile, true)
                     .then((decodedText) => {
+                        showd('神秘说试试');
                         res.innerText = "扫码成功结果:\n" + decodedText;
                         // _go_url(decodedText);
                         location.href=decodedText;
+                        showd('333333');
                     })
                     .catch((err) => {
                         res.innerText = "扫码失败:\n" + error;
