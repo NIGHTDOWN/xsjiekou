@@ -85,28 +85,28 @@
         let config = { fps: 10, qrbox: { width: 280, height: 280 } }; //扫一扫相关设置
 
         //使用本地文件
-        function useLocal() {
-            reader.style.display = "none";
-            res.innerText = "";
-            uploadInput.addEventListener("change", (e) => {
-                if (e.target.files.length == 0) {
-                    return;
-                }
-                const imageFile = e.target.files[0];
-                html5QrCode
-                    .scanFile(imageFile, true)
-                    .then((decodedText) => {
-                        showd('神秘说试试');
-                        res.innerText = "扫码成功结果www:\n" + decodedText;
-                        // _go_url(decodedText);
-                        location.href=decodedText;
-                        showd('333333');
-                    })
-                    .catch((err) => {
-                        res.innerText = "扫码失败:\n" + error;
-                    });
-            });
-        }
+        // function useLocal() {
+        //     reader.style.display = "none";
+        //     res.innerText = "";
+        //     uploadInput.addEventListener("change", (e) => {
+        //         if (e.target.files.length == 0) {
+        //             return;
+        //         }
+        //         const imageFile = e.target.files[0];
+        //         html5QrCode
+        //             .scanFile(imageFile, true)
+        //             .then((decodedText) => {
+        //                 showd('神秘说试试');
+        //                 res.innerText = "扫码成功结果www:\n" + decodedText;
+        //                 // _go_url(decodedText);
+        //                 location.href=decodedText;
+        //                 showd('333333');
+        //             })
+        //             .catch((err) => {
+        //                 res.innerText = "扫码失败:\n" + error;
+        //             });
+        //     });
+        // }
 
        //相机授权
         function useCamera() {
@@ -162,6 +162,7 @@
 
         //扫码解析成功后按照自己的需求做后续的操作
         function onScanSuccess(decodedText, decodedResult) {
+            _go_url(decodedText);
             res.innerText = "扫码成功结果:\n" + decodedText;
         }
 
