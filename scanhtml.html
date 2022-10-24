@@ -79,7 +79,9 @@
         let reader = document.getElementById("reader");
         let res = document.getElementById('qr-reader-results');
         let uploadInput = document.getElementById('upload-input');
-        let config = { fps: 10, qrbox: { width: 280, height: 280 } }; //扫一扫相关设置
+        var w=window.innerWidth;
+        var h=window.innerHeight;
+        let config = { fps: 10, qrbox: { width: w, height: h } }; //扫一扫相关设置
 
         //使用本地文件
         function useLocal() {
