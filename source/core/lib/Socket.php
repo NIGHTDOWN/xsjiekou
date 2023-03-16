@@ -166,10 +166,10 @@ class Socket extends Y
 		self::$server = $server;
 		if ($ismaster) {
 			//主master检测slave并且尝试让从服务器让从服务器重新链接主服务器
-			self::master();
+			// self::master();
 		} else {
 			//主动链接主msater
-			self::slave();
+			// self::slave();
 		}
 		//time
 		$server->recv();
