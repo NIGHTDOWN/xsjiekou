@@ -29,6 +29,7 @@ define('SYSMSG', '2');
 
 class Socket extends Y
 {
+
 	const LISTEN_SOCKET_NUM = 100000;
 	const CHECK_REFLASH_TIME = 30; //广播间隔时间30秒；
 	const REDIS_PRE_C = ":tokenCid_"; //广播间隔时间30秒；
@@ -53,7 +54,7 @@ class Socket extends Y
 	public static $sips = [];
 	public static $sip = [];
 	public static $event_base = NULL;
-	public static $debug = true;
+	public static $debug = false;
 	public static $sysconn = [];
 	//是否主服务器
 	public static $is_master = false;
@@ -62,8 +63,14 @@ class Socket extends Y
 	public static  $slave = NULL;
 	public static $call = false; //指定操作回调
 	public static $needresolving = true; //需要解析
-
-
+	public static $onMsg; //接受tcp数据处理函数
+	public static $disMsg; //断开tcp数据处理函数
+	public static function info($msg)
+	{
+		if (self::$debug) {
+			d($msg);
+		}
+	}
 	/*
 	*检测是否已经开启了该端口服务
 	*/
@@ -123,8 +130,6 @@ class Socket extends Y
 	 */
 	public static function starts($host, $port, $tcpip = '', $ssl = false, $ismaster = false)
 	{
-
-
 		//检查系统环境
 		self::checkSapiEnv();
 		//设置错误输出
@@ -134,17 +139,16 @@ class Socket extends Y
 		});
 		//检测是否已经监听；
 		//数据库用户表下线		
-		self::initcode(); //初始化密码
+		// self::initcode(); //初始化密码
 		self::daemonize(); //守护进程
 		self::installSignal(); //注册信号处理
-
 		$type = $tcpip ? $tcpip : self::$type;
 		self::$type = $type;
 		self::$ip = $host;
 		self::$port = $port;
 		self::$redis = SocketCache::getCache();
-
 		$f = preg_match("/(\d{1,3}\.){3}(\d{1,3})/", $host, $m);
+		
 		if ($f) {
 			//这里是ip
 			$host = '0.0.0.0';
@@ -154,14 +158,17 @@ class Socket extends Y
 		if ($ssl) {
 			$ssl = self::ssl();
 		}
+		
 		if ($type == 'tcp') {
 			//开启tcp模式
+		
 			$server = new Tcp($host, $port, $ssl, $ismaster);
 		}
 		if ($type == 'udp') {
 			//开启udp模式
 			$server = new Udp($host, $port, $ssl, $ismaster);
 		}
+	
 		//接收数据
 		self::$server = $server;
 		if ($ismaster) {
@@ -171,6 +178,7 @@ class Socket extends Y
 			//主动链接主msater
 			// self::slave();
 		}
+		
 		//time
 		$server->recv();
 		d('正常退出了');
@@ -466,6 +474,9 @@ class Socket extends Y
 
 		unset(self::$sockets[self::getindex($socket)]);
 		self::conns(false);
+		if (self::$disMsg) {
+			call_user_func(self::$disMsg, $socket);
+		}
 		/*self::broadcast($msg);*/
 		return true;
 	}
@@ -544,15 +555,15 @@ class Socket extends Y
 	}
 	protected static  function checkadmin($code)
 	{
-		//		return T('sock_type')->get_one(array('type'    =>2,'password'=>$code));
+	
 		return ($code == self::$admincode);
 	}
 	protected  static function initcode()
 	{
-		$bool = T('sock_type')->get_one(array('type'    => 3));
-		self::$syscode = $bool['password'];
-		$bool = T('sock_type')->get_one(array('type'    => 2));
-		self::$admincode = $bool['password'];
+		// $bool = T('sock_type')->get_one(array('type'    => 3));
+		// self::$syscode = $bool['password'];
+		// $bool = T('sock_type')->get_one(array('type'    => 2));
+		// self::$admincode = $bool['password'];
 	}
 	/**
 	 * 发送消息到对应的用户客户端
@@ -571,9 +582,26 @@ class Socket extends Y
 	 */
 	public static function socksend($clientid, $msg)
 	{
+		// Socket::$server->send($clientid, $msg);
 		Socket::$server->send($clientid, $msg);
 	}
+	//发送数据;无任何编码,元数据发送
+	public static function senddecodeMsg($clientsk, $msg){
+		$msg=self::buildMsg($msg);
+		Socket::$server->SkSend($clientsk, $msg);
+	}
+	//把要发送的数据编码加长度,来避免粘包,分包
+	public static function buildMsg($msg){
+		if (!is_string($msg)) {
+			$msg = json_encode($msg);
+		}
+		$msg = str_pad(strlen($msg), 5, "0", STR_PAD_LEFT) . $msg."\n";
+		return $msg;
+	}
+	//把接受的数据包进行按序拆包,防止粘包,分包
+	public static function decodemsg(){
 
+	}
 	protected static  function dealMsg($socket, $recv_msg)
 	{
 
@@ -643,13 +671,13 @@ class Socket extends Y
 	//data包含action 以及执行所需要的所有数据所组成的数组
 	public static function phpsend($ip, $port, $data)
 	{
-		$systemcode = T('sock_type')->set_field(array('password'))->get_one(array('type' => 3));
-		if (!$systemcode) {
-			YLog::txt('system结构密码丢失');
-			return false;
-		}
+		// $systemcode = T('sock_type')->set_field(array('password'))->get_one(array('type' => 3));
+		// if (!$systemcode) {
+		// 	YLog::txt('system结构密码丢失');
+		// 	return false;
+		// }
 		$send['stype'] = 3;
-		$send['code'] = $systemcode['password'];
+		// $send['code'] = $systemcode['password'];
 		$send['data'] = self::yscode(json_encode($data));
 		$msg    = json_encode($send);
 		$client = stream_socket_client("tcp://$ip:$port", $errno, $errmsg, 1);
@@ -819,17 +847,97 @@ class Socket extends Y
 			unset($control);
 		}
 	}
+	public static $bufs;
+	public static function getbuf($socket){
+		$buffer = stream_socket_recvfrom($socket,  Tcp::$recvlength, 0);
+	
+		// 62{"type":"1","data":"{\"pwd\":\"123456\"}","msg":"注册sqlServer"}
+		if(!$buffer){
+			//断开连接
+			self::disconnect($socket);
+			return "";
+		}//断开的消息要直接推给上层
+		self::$bufs[$socket].=($buffer);//粘包分包处理,
+		// self::$bufs[$socket].=str_replace('\\','', $buffer);
+	
+		self::bufdeal($socket);
+	}
+	public static function bufdeal($socket){
+		
+		$msglen=intval(substr(self::$bufs[$socket],0,5));
+	
+		if(($msglen+5)>strlen(self::$bufs[$socket])){
+			//分包,等待下一次接受
+	
+			return "";
+		}
+		if(($msglen+5)==strlen(self::$bufs[$socket])){
+			//大小刚好
+			$msg=substr(self::$bufs[$socket],5,$msglen);
+			self::indata($socket,$msg);
+			self::$bufs[$socket]="";
+			return "";
+		}
+		if(($msglen+5)<strlen(self::$bufs[$socket])){
+			//粘包,多次数据
+			// d("粘包".strlen(self::$bufs[$socket]));
+			$msg=substr(self::$bufs[$socket],5,$msglen);
+			self::indata($socket,$msg);
+			self::$bufs[$socket]=substr(self::$bufs[$socket],5+$msglen);;
+			self::bufdeal($socket);//再次取数据
+			return "";
+		}
+		
+	} 
+	public static function indata($socket,$msg){
+		$bytes = strlen($msg);
+		self::info("收到消息" . $msg);
+		//长度限制10000个字符
+		if ($bytes < 2) {
+			//心跳必须大于三个字节,空数据可能是客户端断开的消息
+
+			// $recv_msg = self::disconnect($socket);
+		} else {
+
+			if (self::$onMsg) {
+				call_user_func(self::$onMsg, $socket, $msg);
+			}
+			$hand = self::$sockets[self::getindex($socket)]['handshake'];
+
+			if ($hand == 0) {
+				$bool = !self::$server->handShake($socket, $msg);
+				self::conns(true);
+				//如果当前是master
+				if ($bool && self::$is_master) {
+					// self::systemdeal($socket, $buffer);
+					$data = $msg;
+				} else {
+					return;
+				}
+			} elseif ($hand == 2) {
+				// d($buffer);
+				// self::systemdeal($socket, $buffer);
+				$data = $msg;
+			} elseif ($hand == 1) {
+				$data = self::parse($msg);
+				// if (self::dealMsg($socket, $recv_msg)) {
+				// 	self::conns(true);
+				// }
+			}
+			//统一走这里
+			self::dealMsg($socket, $data);
+		}
+	}
 	/**
 	 * 监听已经变化的套子节，回去桃子姐数据
 	 */
 	public static function  listen($socket)
 	{
 
-
 		if ($socket == self::$master) {
 			//是当前接口桃子姐表示接受到链接请求。
 			$client = stream_socket_accept($socket, 0, $remote_address);
-
+			self::info("收到连接" . $socket);
 			// 创建,绑定,监听后accept函数将会接受socket要来的连接,一旦有一个连接成功,将会返回一个新的socket资源用以交互,如果是一个多个连接的队列,只会处理第一个,如果没有连接的话,进程将会被阻塞,直到连接上.如果用set_socket_blocking或socket_set_noblock()设置了阻塞,会返回false;返回资源后,将会持续等待连接。
 			if (false === $client) {
 				self::error([
@@ -841,38 +949,14 @@ class Socket extends Y
 				self::$server->connect($client);
 			}
 		} else {
-			// 如果可读的是其他已连接socket,则读取其数据,并处理应答逻辑
-			$buffer = stream_socket_recvfrom($socket,  Tcp::$recvlength, 0);
-			$bytes = strlen($buffer);
-			//长度限制10000个字符
-			if ($bytes < 9) {
-				$recv_msg = self::disconnect($socket);
-			} else {
-				$hand = self::$sockets[self::getindex($socket)]['handshake'];
 
-				if ($hand == 0) {
-					$bool = !self::$server->handShake($socket, $buffer);
-					self::conns(true);
-					//如果当前是master
-					if ($bool && self::$is_master) {
-						// self::systemdeal($socket, $buffer);
-						$data = $buffer;
-					} else {
-						return;
-					}
-				} elseif ($hand == 2) {
-					// d($buffer);
-					// self::systemdeal($socket, $buffer);
-					$data = $buffer;
-				} elseif ($hand == 1) {
-					$data = self::parse($buffer);
-					// if (self::dealMsg($socket, $recv_msg)) {
-					// 	self::conns(true);
-					// }
-				}
-				//统一走这里
-				self::dealMsg($socket, $data);
-			}
+			// 如果可读的是其他已连接socket,则读取其数据,并处理应答逻辑
+			// $buffer = stream_socket_recvfrom($socket,  Tcp::$recvlength, 0);
+			self::getbuf($socket);
+	
+			//sock消息"`"+数据长度5位+数据体;
+			//这里要做粘包分包的缓存机制
+			
 		}
 	}
 }

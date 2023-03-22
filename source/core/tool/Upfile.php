@@ -17,6 +17,7 @@ class Upfile
     const UPLOAD_ERR_NO_TMP_DIR = 4;
     const FILE_PATH = 'data/image/';
     const GL_FILE_PATH = 'data/illegal/';
+    const USE_REAL_PATH = 0;//是否使用绝对路径
 
     /*private $attchementdir = 'data/attachment/';
     */
@@ -132,6 +133,7 @@ class Upfile
         } else {
             $path = '/' . $path . $datedir;
         }
+      
         $this->params = $this->parseParams($params);
         $uploadInfo = $this->init($name, $newName, $path);
 
@@ -148,14 +150,22 @@ class Upfile
             return $this->error('file_size_is_large');
         if (!$this->checkNewName($newName))
             return $this->error('illegal_file_type');
-        $result = $this->save($uploadInfo['tmp_name'], $this->dir . $uploadInfo['source'], $this->dir . $uploadInfo['path']);
 
+        
+         if(self::USE_REAL_PATH){
+            $result = $this->save($uploadInfo['tmp_name'], $this->dir . $uploadInfo['source'], $this->dir . $uploadInfo['path']);
+
+         }   else{
+            $result = $this->save($uploadInfo['tmp_name'],  $uploadInfo['source'],  $uploadInfo['path']);
+
+         }    
+        
         if ($result == false) {
             return $this->error('upload_error');
         } else {
-
+         
             $checkContentResult = $this->checkContent($uploadInfo);
-
+          
             if ($checkContentResult !== true)
                 return $this->error($checkContentResult);
 
@@ -280,7 +290,12 @@ class Upfile
     public function checkContent($uploadInfo)
     {
         if (!$this->checkcontent) return true;
-        $uploadInfo['source'] = $this->dir . $uploadInfo['source'];
+        if(self::USE_REAL_PATH){
+            $uploadInfo['source'] = $this->dir . $uploadInfo['source'];
+        }else{
+            $uploadInfo['source'] =  $uploadInfo['source'];
+        }
+      
         $file_content = $this->readover($uploadInfo['source']);
 
         if (empty($file_content)) {

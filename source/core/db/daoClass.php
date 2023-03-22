@@ -4,6 +4,8 @@ namespace ng169\db;
 
 use ng169\db\Dbsql;
 use ng169\lib\Option;
+use ng169\lib\Socket;
+use ng169\lib\SocketClient;
 use ng169\tool\Page;
 use ng169\Y;
 
@@ -44,11 +46,19 @@ class daoClass
         $this->dbqz = DB_PREFIX;
         $this->debug = G_DB_DEBUG;
         $dbs = Option::get('db');
+       
         if (isset($dbs[$dbconf])) {
             $conf = $dbs[$dbconf];
             $this->dbqz = $conf['dbpre'];
             try {
-                $this->_db = new Dbsql($conf['dbhost'], $conf['dbuser'], $conf['dbpwd'], $conf['dbname'], $conf['charset']) or error(__('数据库配置不存在'));
+                if(SQL_CONNECT_TYPE==1){
+//连接sql pool
+                $poolconf= Option::get('pool');
+                $this->_db =new SocketClient( $poolconf['ip'], $poolconf['port']);
+                }else{
+                  $this->_db = new Dbsql($conf['dbhost'], $conf['dbuser'], $conf['dbpwd'], $conf['dbname'], $conf['charset']) or error(__('数据库配置不存在'));
+                }
+              
                 //code...
             } catch (\Throwable $th) {
                 //throw $th;
@@ -323,13 +333,10 @@ class daoClass
 
         switch ($type) {
             case 0:
-
                 $ret = $this->_db->query($sql);
                 //在这里记录偏移量保存在cookie 保存类型为当前筛选列，
-
                 if ($this->havepage) {
                     //注入
-
                     Page::getobj()->injection_offset(@$ret[0][$this->getkey()], @$ret[count($ret) - 1][$this->getkey()]);
                 }
 
@@ -348,9 +355,7 @@ class daoClass
             case 3:
                 $sql = $this->t;
                 $sql = preg_replace("/select([\s\S]*?)from/is", "select count(1) as num from", $sql);
-
                 $ret = $this->_db->getone($sql);
-
                 $ret = $ret['num'];
                 break;
             case 4:

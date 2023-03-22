@@ -253,6 +253,7 @@ class Tcp extends Socket
 	public function send($clientid, $msg)
 	{
 		$socket = self::getsock($clientid);
+		
 		$this->sendsock($socket, $msg);
 	}
 	public function sendsock($socket, $msg)
@@ -263,6 +264,11 @@ class Tcp extends Socket
 			$msg = json_encode($msg);
 			$msg = self::build($msg);
 		}
+		if ($socket) stream_socket_sendto($socket, $msg, 0);
+	}
+	public function SkSend($socket, $msg)
+	{
+		
 		if ($socket) stream_socket_sendto($socket, $msg, 0);
 	}
 }

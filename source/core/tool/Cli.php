@@ -15,7 +15,7 @@ class Cli extends Y
     public
     function __construct()
     {
-
+       
         $help = ($this->getargv(['h', 'help', 'thread']));
         if (isset($help['help'])) {
             $this->help();
@@ -25,6 +25,7 @@ class Cli extends Y
             $this->threadcall();
             die();
         }
+    
     }
     public function threadcall()
     {
@@ -82,13 +83,50 @@ class Cli extends Y
     //清屏
     public function clear()
     {
-        $arr = array(27, 91, 72, 27, 91, 50, 74);
-        foreach ($arr as $a) {
-            echo chr($a);
-        }
+        // $arr = array(27, 91, 72, 27, 91, 50, 74);
+        // foreach ($arr as $a) {
+        //     echo chr($a);
+        // }
+        echo chr(27).chr(91).'H'.chr(27).chr(91).'J';
     }
+    function clearLine($message, $force_clear_lines = NULL)
+    {
+        static $last_lines = 0;
+        if (!is_null($force_clear_lines)) {
+            $last_lines = $force_clear_lines;
+        }
 
+        // 获取终端宽度
+        $toss = $status = null;
+        $term_width = exec('tput cols', $toss, $status);
+        if ($status || empty($term_width)) {
+            $term_width = 64; // Arbitrary fall-back term width.
+        }
 
+        $line_count = 0;
+        foreach (explode("\n", $message) as $line) {
+            $line_count += count(str_split($line, $term_width));
+        }
+        // Erasure MAGIC: Clear as many lines as the last output had.
+        for ($i = 0; $i < $last_lines; $i++) {
+            echo "\r\033[K\033[1A\r\033[K\r";
+        }
+        $last_lines = $line_count;
+        return $message . "\n";
+    }
+    public function replaceStr($str)
+    {
+        $line = "\033[1A\n\033[K";
+        $white = "\033[47;30m";
+        $green = "\033[32;40m";
+        $yellow = "\033[33;40m";
+        $red = "\033[31;40m";
+        $purple = "\033[35;40m";
+        $end = "\033[0m";
+        $str = str_replace(array('<n>', '<white>', '<green>', '<yellow>', '<red>', '<purple>'), array($line, $white, $green, $yellow, $red, $purple), $str);
+        $str = str_replace(array('</n>', '</white>', '</green>', '</yellow>', '</red>', '</purple>'), $end, $str);
+        return $str;
+    }
 
 
 

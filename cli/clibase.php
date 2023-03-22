@@ -59,6 +59,7 @@ class Clibase  extends Cli
     }
     public function __construct()
     {
+       
         parent::__construct(); //初始化帮助信息
 
     }

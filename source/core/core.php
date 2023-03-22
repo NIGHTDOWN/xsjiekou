@@ -67,7 +67,7 @@ class Y
         self::_runView();
         #载入钩子
         APP::initHook();
-        self::$dao = new \ng169\db\daoClass;
+        // self::$dao = new \ng169\db\daoClass;
         #载入异步组件
         Y::loadTool('asyn');
     }
@@ -177,19 +177,7 @@ class Y
         return self::$instance['model'][$index];
     }
 
-    public static function importPlugin()
-    {
-        // self::loadLib('option');
-        // $active_plugins = YOption::get('active_plugins');
-        // if ($active_plugins && is_array($active_plugins)) {
-        //     foreach ($active_plugins as $plugin) {
-        //         if (true === YValid::isPlugin($plugin)) {
-        //             include_once PLUGIN . $plugin . '/' . $plugin .
-        //                 '.php';
-        //         }
-        //     }
-        // }
-    }
+   
     public static function table($name)
     {
         $file = 'model';

@@ -12,11 +12,12 @@ require_once   dirname(dirname(__FILE__)) . "/clibase.php";
 use ng169\lib\Socket;
 use ng169\Y;
 
-class sockbase extends Clibase
+class sockbase extends Clibase  
 {
 
     public function __construct()
     {
+      
         parent::__construct(); //初始化帮助信息
 
     }
@@ -26,18 +27,36 @@ class sockbase extends Clibase
         return '';
     }
     //调试类
-    public function start()
+    public function start($ip,$port)
     {
-        $get = $this->getargv(['ip', 'port', 'ismaster', 'type']);
-        $ip = isset($get['ip']) ? $get['ip'] : error('ip未确定');
+      
+        if(!$ip){
+            $ip = isset($get['ip']) ? $get['ip'] : error('ip未确定');
+        }
+      if(!$port){
         $port = isset($get['port']) ? $get['port'] : error('端口未确定');
+      }
+    //   $ip = isset($get['ip']) ? $get['ip'] : error('ip未确定');
+    //   $port = isset($get['port']) ? $get['port'] : error('端口未确定');
+    //     $get = $this->getargv(['ip', 'port', 'ismaster', 'type']);
+       
         $ismaster = isset($get['ismaster']) ? 1 : 0;
         $type = isset($get['type']) ? $get['type'] : 'tcp';
         $ssl = false;
         Socket::starts($ip, $port, $type, $ssl, $ismaster);
     }
-
-
+    public function onmsg($function){
+        
+    Socket::$onMsg=$function;
+   
+   
+    }
+    public function dismsg($function){
+        
+        Socket::$disMsg=$function;
+       
+       
+        }
     public function help()
     {
         echo ('开启参数,支持参数type，值为tcp或者udp' . "\n");
@@ -45,5 +64,5 @@ class sockbase extends Clibase
         echo ('开启参数,支持参数ip,port，值绑定得ip以及端口' . "\n");
     }
 }
-$sock = new sockbase();
-$sock->start();
+// $sock = new sockbase();
+// $sock->start();

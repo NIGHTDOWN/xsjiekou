@@ -14,37 +14,32 @@ checktop();
 
 class upimg extends indexbase{
 	private $dir_base = "data/attachment/";
-	private $config=array('filetype'=>'','upfilepath'=>'','upfilesize'=>'');
+	private $config=array('filetype'=>'gif,png,jpg,bmp','upfilepath'=>'','upfilesize'=>'20000');
   
 	public function control_run(){
-
 		/*Y::import('upfile', 'tool');
 		Y::loadTool('image');*/
-			
 		$conf = $this->config;
-		$conf['filetype']=Y::$conf['filetype'];
-		$conf['upfilepath']=Y::$conf['upfilepath'].'/'.D_GROUP.'/upfile/';
-		$conf['upfilesize']=Y::$conf['upfilesize'];
+		$conf['filetype']=$conf['filetype']?$conf['filetype']:Y::$conf['filetype'];
+		$conf['upfilepath']=$conf['upfilepath']?$conf['upfilepath']:Y::$conf['upfilepath'].'/'.D_GROUP.'/upfile/';
+		$conf['upfilesize']=$conf['upfilesize']?$conf['upfilesize']:Y::$conf['upfilesize'];
 		$upobj = new Upfile($conf);
 		$f='';
+		
 		if($_FILES){
 			$out = null;
 			foreach($_FILES as $key => $name){
-				$a = $upobj->upload($key);
-                
+				$a = $upobj->upload($key,null,$this->dir_base);
 				if(!$a['flag']){
 					/*M('log','am')->log(false,null,null,null,$a.error);*/
 					out($a['error'],null,$a['flag']);
 				}
 				if( $a['data']['source']){
-                    
-                    
 					/*if(YImage::isimg($a['data']['source'])){
 						$sizes=explode(',',Y::$conf['max_img_size']);
 						$size['width']=$sizes[0];
 						$size['height']=$sizes[1];
 						YImage::makeThumb($a['data']['source'],$size,$a['data']['source']);
-                    
 					}*/
 					$f .= $a['data']['source'].',';
 				}
