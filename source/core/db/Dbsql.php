@@ -43,6 +43,7 @@ class Dbsql
                 $cacheob = &Y::$cache;
                 list($bool, $data) = $cacheob->get($index);
                 if ($bool) {
+                  
                     return $data;
                 }
             }
@@ -62,6 +63,7 @@ class Dbsql
             if ($cache) {
                 $cacheob->set($index, $data);
             }
+           
         } catch (\Exception $e) {
             error($e->getMessage() . '【' . $sql . '】');
         }
@@ -99,6 +101,7 @@ class Dbsql
                 //设置缓存
                 $cacheob->set($index, $data);
             }
+          
         } catch (\Exception $e) {
 
             error($e->getMessage() . '【' . $sql . '】');
@@ -114,6 +117,7 @@ class Dbsql
      */
     public function exec($sql)
     {
+      
         //  $sql='insert tp_n_share set type=1';
         //  $this->starttransaction();
         //  try {
@@ -131,6 +135,7 @@ class Dbsql
         $this->link->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $row = $this->link->exec($sql);
+      
         return $row;
     }
     /**

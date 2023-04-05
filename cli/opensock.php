@@ -9,54 +9,57 @@
  */
 require_once    "sock/sockbase.php";
 
-
+use ng169\lib\Socket;
 use ng169\Y;
 
 
-class connectObj{
+class connectObj
+{
     public $sock;
     public $index;
-    public $type;//1表示server,2表示用户
-    public function connectObj(&$sk,$_type){
-        $this->sock= &$sk;
-        $this->type=$_type;
-        $this->index=intval($sk);
+    public $type; //1表示server,2表示用户
+    public function connectObj(&$sk, $_type)
+    {
+        $this->sock = &$sk;
+        $this->type = $_type;
+        $this->index = intval($sk);
     }
-    public function del(){
-
+    public function del()
+    {
     }
-    public function getsk(){
+    public function getsk()
+    {
         return  $this->sock;
     }
 }
-echo 222222222;
+
 //数据库连接池
 class SqlPool extends Clibase
 {
     private static $sqlserver; //数据库连接线程
-    private static $client; //服务器php-fpm连接
     private static $connects; //所有连接
     private static $server; //所有连接
-    private static $skqueue=[];
+    private static $skqueue = [];
+    private static $pwd = "";
     // private static $ip;
     // private static $port;
     public function __construct()
     {
-      
+        Socket::$isServer = true;
         self::$server = new sockbase();
         self::$server->onmsg(__NAMESPACE__ . '\SqlPool::inmsg');
         self::$server->dismsg(__NAMESPACE__ . '\SqlPool::dis');
+        $poolconf = ng169\lib\Option::get('pool');
+        self::$pwd=$poolconf['pwd'];
       
-        $poolconf= ng169\lib\Option::get('pool');
-        // self::$ip=$poolconf['ip'];
-        // self::$port=$poolconf['port'];
         self::$server->start($poolconf['ip'], $poolconf['port']);
+     
         // self::$server->start("127.0.0.1", "4563");
     }
     //消息解码
     public static function decode($data)
     {
-        return json_decode($data,1);
+        return json_decode($data, 1);
     }
     //消息编码
     public static function encode($data)
@@ -65,72 +68,145 @@ class SqlPool extends Clibase
     }
     public static function dis($clientsock)
     {
-       
-        if(isset(self::$sqlserver[intval($clientsock)])){
-            unset(self::$sqlserver[intval($clientsock)]);
+        $key = intval($clientsock);
+        if (isset(self::$sqlserver[$key])) {
+            unset(self::$sqlserver[$key]);
         }
-        if(isset(self::$connects[intval($clientsock)])){
-            unset(self::$connects[intval($clientsock)]);
+        if (isset(self::$connects[$key])) {
+            unset(self::$connects[$key]);
+        }
+        $k = array_search($key, self::$kx);
+        if ($k) {
+            unset(self::$kx[$k]);
         }
         self::UiShow();
     }
     //检测各链接的密码是否正确,正确保持连接,否则断开连接
     public static function checkpwd($pwd)
     {
-        if($pwd=="123456")return true;
+        if ($pwd == self::$pwd) return true;
         return false;
     }
+    //空闲服务
+    static  $kx = [];
+    //忙碌服务
+    static  $ml = [];
     public static function inmsg($clientsock, $data)
     {
-     
         try {
             //心跳包忽略
             if (strlen($data) < 5) {
                 return;
             }
             $dedata = self::decode($data);
-            $obj=new connectObj($clientsock,1);
-            self::$connects[$obj->index]=$obj;
+            $obj = new connectObj($clientsock, 1);
+            //所有连接都记录在connect
+            self::$connects[$obj->index] = $obj;
             if (!$dedata) return false; //无法解码表示数据不对;丢弃
             switch ($dedata['type']) {
                 case '1': //这里是连接数据库的
-                  
-                    $data=self::decode($dedata['data']);
-                    if(!$data)return;
-                    if(!$data['pwd'])return;
-                    if(!self::checkpwd($data['pwd']))return;
-                    self::$sqlserver[$obj->index]=$obj;
+                    self::addsqlSvr($obj, $dedata);
                     self::UiShow();
                     //处理server注册
                     break;
                 case '2': //这里是连接php-fpm的,连接端不用注册
-                    // $data=self::decode($dedata['data']);
-                    // if(!$data)return;
                     //一半线程读.一半线程写
-                    array_push(self::$skqueue[intval($clientsock)],$data);
-                
-                    if(sizeof(self::$sqlserver)){
-                        $obj=self::$sqlserver[array_key_first(self::$sqlserver)];
-                        ng169\lib\Socket::senddecodeMsg($obj->getsk(),$data);
+                    //这里要绑定执行sql的服务跟来源客户端,以便返回
+                    //空闲随机取一个服务,绑定忙碌;
+                    $sqlSvr= self::getkxSvr($obj);
+                    if($sqlSvr){
+                        self::send($sqlSvr,$data);
+                        break;
+                    }else{
+                        //没空闲的时候把记录缓存到消息队列排队.等待服务进程释放,在来继续执行
+                        self::inQueue($obj,$data);
+                        break;
                     }
-                    // $obj=new connectObj($clientsock,1);
-                    // self::$connects[$obj['index']]=$obj;
-                    // self::$client[$obj['index']]=$obj;
-                    //处理用户注册,
+                    break;
+                case '3': //这里是连接php-fpm的,连接端不用注册
+                    //这里要获取回传客户端
+                    // $oob = self::$connects[self::$key];
+                    $client=self::sfSvr($obj);
+
+                    self::send($client,$data);
                     break;
                 default:
                     # code...
                     break;
             }
-          
         } catch (\Throwable $th) {
             //throw $th;
             d($th);
         }
     }
-   
-    public static function addsqlSvr()
+    private static function send($obj,$data){
+        if($obj){
+            ng169\lib\Socket::senddecodeMsg($obj->getsk(), $data);
+        }
+    }
+    private static function inQueue($obj,$data){
+        array_push(self::$skqueue[$obj->index], $data);
+    }
+    private static function loopQueue(){
+        foreach (self::$skqueue as $skindex => $onesks) {
+         foreach ($onesks as $key => $data) {
+            $client=self::getkxSvr(self::$connects[$skindex]);
+            if( $client){
+                self::send($client,$data);
+                unset(self::$skqueue[$skindex][$key]);
+            }else{
+                //没取到直接退出队列
+                return;
+            }
+            //没空闲继续释放,等待下一次空闲释放
+           
+            # code...
+         }
+            # code...
+        }
+    }
+    //释放忙碌服务返回忙碌绑定的客户端
+    private static function sfSvr($mlSvr){
+        $index=$mlSvr->index;
+        $clientid=self::$ml[$index];
+        unset(self::$ml[$index]);
+        array_push(self::$kx, $index);
+        self::loopQueue();
+        return self::$connects[$clientid];
+    }
+//获取空闲服务
+    private static function getkxSvr($obj){
+     
+        if(sizeof(self::$kx)==0){
+            d("当前无服务进程");
+            return;
+        }
+        // $key = array_rand(self::$kx);
+        //优先取第一条服务
+        $key =  array_key_first(self::$kx);
+        $d=self::$kx[$key];
+        // $key=array_search( $d,self::$kx);
+        // d($key);
+        unset(self::$kx[$key]);//移除空闲
+        //绑定忙碌
+        self::$ml[$d]=$obj->index;
+        return self::$sqlserver[$d];
+       
+    }
+    //注册sql服务
+    public static function addsqlSvr($skobj, $dedata)
     {
+      
+        $data = self::decode($dedata['data']);
+        if (!$data) return;
+        if (!$data['pwd']) return;
+       
+        if (!self::checkpwd($data['pwd'])) return;
+        //添加服务记录,如果存在同一个socket;则不变化
+        if(array_search(self::$sqlserver,$skobj))return;
+        self::$sqlserver[$skobj->index] = $skobj;
+        //添加空闲记录
+        array_push(self::$kx, $skobj->index);
     }
     public static function addsqlClient()
     {
@@ -139,12 +215,13 @@ class SqlPool extends Clibase
     {
     }
     //输出信息
-    public static function UiShow(){
-    
+    public static function UiShow()
+    {
+        return;
         self::clear();
-        echo "服务信息:".self::$server->ip.":".self::$server->port."\n";
-        echo "当前SqlServer连接池:".sizeof(self::$sqlserver)."\n";
-        echo "当前所有连接数量:".sizeof(self::$connects)."\n";
+        echo "服务信息:" . self::$server->ip . ":" . self::$server->port . "\n";
+        echo "当前SqlServer连接池:" . sizeof(self::$sqlserver) . "\n";
+        echo "当前所有连接数量:" . sizeof(self::$connects) . "\n";
         // echo chr(3); // 输出文本结束控制字符，这样可以清除之前输出的文本内容
         // echo chr(8); // 将前一个控制字符删掉，避免在控制台留下控制字符的标记
         // // echo "\e[H\e[J";
@@ -158,4 +235,3 @@ class SqlPool extends Clibase
 //启动数据库连接池server
 
 new SqlPool();
-echo 2222222222222;

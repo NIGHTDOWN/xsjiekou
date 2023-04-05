@@ -7,6 +7,7 @@ use ng169\tool\Url as YUrl;
 use ng169\tool\Upfile;
 use ng169\service\Output;
 use ng169\cache\Rediscache;
+use ng169\tool\Out;
 use ng169\Y;
 
 
@@ -47,6 +48,39 @@ class upimg extends indexbase{
 			$f=trim($f,',');
 			/*M('log','am')->log(true,null,null,null,$f);*/
 			out($f);
+		}
+	}
+	public function control_jsonp(){
+		/*Y::import('upfile', 'tool');
+		Y::loadTool('image');*/
+		$conf = $this->config;
+		$conf['filetype']=$conf['filetype']?$conf['filetype']:Y::$conf['filetype'];
+		$conf['upfilepath']=$conf['upfilepath']?$conf['upfilepath']:Y::$conf['upfilepath'].'/'.D_GROUP.'/upfile/';
+		$conf['upfilesize']=$conf['upfilesize']?$conf['upfilesize']:Y::$conf['upfilesize'];
+		$upobj = new Upfile($conf);
+		$f='';
+		
+		if($_FILES){
+			$out = null;
+			foreach($_FILES as $key => $name){
+				$a = $upobj->upload($key,null,$this->dir_base);
+				if(!$a['flag']){
+					/*M('log','am')->log(false,null,null,null,$a.error);*/
+					out($a['error'],null,$a['flag']);
+				}
+				if( $a['data']['source']){
+					/*if(YImage::isimg($a['data']['source'])){
+						$sizes=explode(',',Y::$conf['max_img_size']);
+						$size['width']=$sizes[0];
+						$size['height']=$sizes[1];
+						YImage::makeThumb($a['data']['source'],$size,$a['data']['source']);
+					}*/
+					$f .= $a['data']['source'].',';
+				}
+			}
+			$f=trim($f,',');
+			/*M('log','am')->log(true,null,null,null,$f);*/
+			Out::jpout($f);
 		}
 	}
 	public function control_file(){

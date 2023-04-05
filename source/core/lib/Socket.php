@@ -65,6 +65,7 @@ class Socket extends Y
 	public static $needresolving = true; //需要解析
 	public static $onMsg; //接受tcp数据处理函数
 	public static $disMsg; //断开tcp数据处理函数
+	public static $isServer=false;
 	public static function info($msg)
 	{
 		if (self::$debug) {
@@ -130,6 +131,7 @@ class Socket extends Y
 	 */
 	public static function starts($host, $port, $tcpip = '', $ssl = false, $ismaster = false)
 	{
+		set_time_limit(0); 
 		//检查系统环境
 		self::checkSapiEnv();
 		//设置错误输出
@@ -587,6 +589,7 @@ class Socket extends Y
 	}
 	//发送数据;无任何编码,元数据发送
 	public static function senddecodeMsg($clientsk, $msg){
+		
 		$msg=self::buildMsg($msg);
 		Socket::$server->SkSend($clientsk, $msg);
 	}
@@ -595,7 +598,7 @@ class Socket extends Y
 		if (!is_string($msg)) {
 			$msg = json_encode($msg);
 		}
-		$msg = str_pad(strlen($msg), 5, "0", STR_PAD_LEFT) . $msg."\n";
+		$msg = str_pad(strlen($msg), 5, "0", STR_PAD_LEFT) . $msg;
 		return $msg;
 	}
 	//把接受的数据包进行按序拆包,防止粘包,分包

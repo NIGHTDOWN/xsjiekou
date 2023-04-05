@@ -680,7 +680,7 @@ class daoClass
 
         if (!$bool) {
             $data = $this->_db->query($sql);
-            $cache->set($index, $data);
+            $cache->set($index, $data,G_DAY);
         }
         /* d($data);*/
         return $data;

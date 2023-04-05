@@ -134,7 +134,8 @@ class apibase extends general
 
         $lang = substr($lang, 0, 2);
 
-        $in = T('city')->get_one(['cityname' => $lang]);
+       
+        $in = M('city',"im")->getinfo($lang);
         if (!$in) {
             $this->head['cityid'] = 0;
             $this->head['rate'] = 1;

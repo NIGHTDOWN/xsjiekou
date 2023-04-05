@@ -43,6 +43,7 @@ class cate
     public function getcate($lang = 0)
     {
         $index = "category:" . $lang;
+       
         list($bool, $cache) = Y::$cache->get($index);
         if ($bool) {
             return $cache;

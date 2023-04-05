@@ -241,7 +241,7 @@
         $('.t411').live('click', function() {
             $(this).addClass('on').siblings().removeClass('on');
             c3 = $(this).attr('data-id');
-            $('.tc3').eq(0).click();
+            // $('.tc3').eq(0).click();
             $tag = catetag[c3];
             load512($tag);
             loadurl();

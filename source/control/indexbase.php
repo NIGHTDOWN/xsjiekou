@@ -119,7 +119,9 @@ class indexbase extends general
 
 		$lang = substr($lang, 0, 2);
 		$this->lang = $lang;
-		$in = T('city')->get_one(['cityname' => $lang]);
+		
+		$in = M('city',"im")->getinfo($lang);
+		
 		if ($in) {
 			$this->langid = $in['cityid'];
 		}

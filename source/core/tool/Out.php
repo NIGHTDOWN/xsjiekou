@@ -110,6 +110,14 @@ class Out
 		echo json_encode($msg);
 		die();
 	}
+	public  static function jpout($data)
+	{
+		$msg = ['code' => 1, 'msg' => 'success', 'result' => $data];
+		//Log::txt($msg);
+		$jsonp = $_GET["callback"];
+		echo json_encode($jsonp.$msg);
+		die();
+	}
 	public static function jerror($message, $data = null, $code = 0)
 	{
 		$msg = ['code' => $code, 'msg' => $message, 'result' => $data];
