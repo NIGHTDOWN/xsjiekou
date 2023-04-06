@@ -202,7 +202,8 @@ class SqlPool extends Clibase
         $n = time();
         foreach (self::$mltime as $key => $value) {
             if ($value > $n) {
-                self::sfSvr(self::$sqlserver[$key]);
+                $client= self::sfSvr(self::$sqlserver[$key]);
+                self::send($client, "");
             }
         }
     }
