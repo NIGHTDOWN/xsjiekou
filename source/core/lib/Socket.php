@@ -153,7 +153,7 @@ class Socket extends Y
 		
 		if ($f) {
 			//这里是ip
-			// $host = '0.0.0.0';
+			$host = '0.0.0.0';
 		} else {
 			//这里是域名		
 		}
