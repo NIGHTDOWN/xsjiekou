@@ -521,31 +521,30 @@ class Socket extends Y
 	 */
 	protected  static function build($msg)
 	{
-		$frame = [];
-		$frame[0] = '81';
-		$len = strlen($msg);
-		if ($len < 126) {
-			$frame[1] = $len < 16 ? '0' . dechex($len) : dechex($len);
-		} else
-		if ($len < 65025) {
-			$s = dechex($len);
-			$frame[1] = '7e' . str_repeat('0', 4 - strlen($s)) . $s;
-		} else {
-			$s = dechex($len);
-			$frame[1] = '7f' . str_repeat('0', 16 - strlen($s)) . $s;
-		}
+		// $frame = [];
+		// $frame[0] = '81';
+		// $len = strlen($msg);
+		// if ($len < 126) {
+		// 	$frame[1] = $len < 16 ? '0' . dechex($len) : dechex($len);
+		// } else
+		// if ($len < 65025) {
+		// 	$s = dechex($len);
+		// 	$frame[1] = '7e' . str_repeat('0', 4 - strlen($s)) . $s;
+		// } else {
+		// 	$s = dechex($len);
+		// 	$frame[1] = '7f' . str_repeat('0', 16 - strlen($s)) . $s;
+		// }
 
-		$data = '';
-		$l    = strlen($msg);
-		for ($i = 0; $i < $l; $i++) {
-			$data .= dechex(ord($msg{
-				$i}));
-		}
-		$frame[2] = $data;
+		// $data = '';
+		// $l    = strlen($msg);
+		// for ($i = 0; $i < $l; $i++) {
+		// 	$data .= dechex(ord($msg{$i}));
+		// }
+		// $frame[2] = $data;
 
-		$data = implode('', $frame);
+		// $data = implode('', $frame);
 
-		return pack("H*", $data);
+		// return pack("H*", $data);
 	}
 	protected  static function checksystem($code)
 	{
