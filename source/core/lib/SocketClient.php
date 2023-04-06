@@ -56,7 +56,7 @@ class SocketClient extends Y
 			return;
 		}
 		// STREAM_CLIENT_CONNECT、STREAM_CLIENT_ASYNC_CONNECT、STREAM_CLIENT_PERSISTENT，分别是：默认的同步、异步、持久连接
-		if (false === ($this->sockets = stream_socket_client("tcp://$this->ip:$this->port", $error_code, $error_message, 2))) {
+		if (false === ($this->sockets = stream_socket_client("tcp://$this->ip:$this->port", $error_code, $error_message, 30))) {
 			d("$this->ip:$this->port".$error_message);
 		}
 	}
@@ -176,8 +176,8 @@ private function _send($data){
 		$msg = Socket::buildMsg($data);
 		$bool = fwrite($this->sockets, $msg);
 		if ($bool) {
-			while(1) {
-				$buf .= fread($this->sockets, $this->readlength);
+			while(!feof($this->sockets)) {
+				$buf .= fgets($this->sockets, $this->readlength);
 				// 还不知道数据长度，计算这个包的数据长度
 				if (!$len) {
 					// your_func_of_get_len里还要判断下目前收到的数据长度是否足够计算出整个包的长度
@@ -187,6 +187,7 @@ private function _send($data){
 				if (strlen($buf) >= $len) {
 					// 实际上最好要截取下，因为tcp流式的，可能是多个包粘在一起。如果是多个包粘在一起，还要记得保存下个包的部分数据，避免数据丢失，这里省略了
 					// $buf = substr($buf, 0, $len);
+					// fclose($this->sockets);
 					break;
 				}
 			}
