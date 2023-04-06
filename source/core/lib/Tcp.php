@@ -61,10 +61,10 @@ class Tcp extends Socket
 
 
 		if (self::$EPOLL) {
-			d(11111);
+		
 			$this->epollmodel();
 		} else {
-			d(222222);
+			
 			while (!self::$stop) {
 				$this->selectmodel();
 			}
