@@ -57,7 +57,7 @@ class SocketClient extends Y
 		}
 		// STREAM_CLIENT_CONNECT、STREAM_CLIENT_ASYNC_CONNECT、STREAM_CLIENT_PERSISTENT，分别是：默认的同步、异步、持久连接
 		if (false === ($this->sockets = stream_socket_client("tcp://$this->ip:$this->port", $error_code, $error_message, 2))) {
-			d($error_message);
+			d("$this->ip:$this->port".$error_message);
 		}
 	}
 	
