@@ -50,10 +50,10 @@ class SqlPool extends Clibase
         self::$server->onmsg(__NAMESPACE__ . '\SqlPool::inmsg');
         self::$server->dismsg(__NAMESPACE__ . '\SqlPool::dis');
         $poolconf = ng169\lib\Option::get('pool');
-        self::$pwd=$poolconf['pwd'];
-      
+        self::$pwd = $poolconf['pwd'];
+
         self::$server->start($poolconf['ip'], $poolconf['port']);
-     
+
         // self::$server->start("127.0.0.1", "4563");
     }
     //消息解码
@@ -89,6 +89,7 @@ class SqlPool extends Clibase
     }
     //空闲服务
     static  $kx = [];
+    static  $mltime = [];
     //忙碌服务
     static  $ml = [];
     public static function inmsg($clientsock, $data)
@@ -113,23 +114,21 @@ class SqlPool extends Clibase
                     //一半线程读.一半线程写
                     //这里要绑定执行sql的服务跟来源客户端,以便返回
                     //空闲随机取一个服务,绑定忙碌;
-                    $sqlSvr= self::getkxSvr($obj);
-                    if($sqlSvr){
-                        self::send($sqlSvr,$data);
+                    $sqlSvr = self::getkxSvr($obj);
+                    if ($sqlSvr) {
+                        self::send($sqlSvr, $data);
                         break;
-                    }else{
+                    } else {
                         //没空闲的时候把记录缓存到消息队列排队.等待服务进程释放,在来继续执行
-                        self::inQueue($obj,$data);
+                        self::inQueue($obj, $data);
                         break;
                     }
                     break;
                 case '3': //这里是连接php-fpm的,连接端不用注册
                     //这里要获取回传客户端
                     // $oob = self::$connects[self::$key];
-                   
-                    $client=self::sfSvr($obj);
-
-                    self::send($client,$data);
+                    $client = self::sfSvr($obj);
+                    self::send($client, $data);
                     break;
                 default:
                     # code...
@@ -140,67 +139,84 @@ class SqlPool extends Clibase
             d($th);
         }
     }
-    private static function send($obj,$data){
-        if($obj){
+    private static function send($obj, $data)
+    {
+        if ($obj) {
             ng169\lib\Socket::senddecodeMsg($obj->getsk(), $data);
         }
     }
-    private static function inQueue($obj,$data){
+    private static function inQueue($obj, $data)
+    {
         array_push(self::$skqueue[$obj->index], $data);
     }
-    private static function loopQueue(){
+    private static function loopQueue()
+    {
         foreach (self::$skqueue as $skindex => $onesks) {
-         foreach ($onesks as $key => $data) {
-            $client=self::getkxSvr(self::$connects[$skindex]);
-            if( $client){
-                self::send($client,$data);
-                unset(self::$skqueue[$skindex][$key]);
-            }else{
-                //没取到直接退出队列
-                return;
+            foreach ($onesks as $key => $data) {
+                $client = self::getkxSvr(self::$connects[$skindex]);
+                if ($client) {
+                    self::send($client, $data);
+                    unset(self::$skqueue[$skindex][$key]);
+                } else {
+                    //没取到直接退出队列
+                    return;
+                }
+                //没空闲继续释放,等待下一次空闲释放
+                # code...
             }
-            //没空闲继续释放,等待下一次空闲释放
-            # code...
-         }
             # code...
         }
     }
     //释放忙碌服务返回忙碌绑定的客户端
-    private static function sfSvr($mlSvr){
-        $index=$mlSvr->index;
-        $clientid=self::$ml[$index];
+    private static function sfSvr($mlSvr)
+    {
+        $index = $mlSvr->index;
+        $clientid = self::$ml[$index];
         unset(self::$ml[$index]);
+        unset(self::$mltime[$index]);
         array_push(self::$kx, $index);
         self::loopQueue();
         return self::$connects[$clientid];
     }
-//获取空闲服务
-    private static function getkxSvr($obj){
-     
-        if(sizeof(self::$kx)==0){
+    //获取空闲服务
+    private static function getkxSvr($obj)
+    {
+
+        if (sizeof(self::$kx) == 0) {
+            self::qzsfSvr();
             d("当前无服务进程");
             return;
         }
         // $key = array_rand(self::$kx);
         //优先取第一条服务
         $key =  array_key_first(self::$kx);
-        $d=self::$kx[$key];
-        unset(self::$kx[$key]);//移除空闲
+        $d = self::$kx[$key];
+        unset(self::$kx[$key]); //移除空闲
         //绑定忙碌
-        self::$ml[$d]=$obj->index;
+        self::$ml[$d] = $obj->index;
+        self::$mltime[$d] = time() + 10; //10秒查询超时
         return self::$sqlserver[$d];
+    }
+    public  static function qzsfSvr()
+    {
+        $n = time();
+        foreach (self::$mltime as $key => $value) {
+            if ($value > $n) {
+                self::sfSvr(self::$sqlserver[$key]);
+            }
+        }
     }
     //注册sql服务
     public static function addsqlSvr($skobj, $dedata)
     {
-      
+
         $data = self::decode($dedata['data']);
         if (!$data) return;
         if (!$data['pwd']) return;
-       
+
         if (!self::checkpwd($data['pwd'])) return;
         //添加服务记录,如果存在同一个socket;则不变化
-        if(array_search(self::$sqlserver,$skobj))return;
+        if (array_search(self::$sqlserver, $skobj)) return;
         self::$sqlserver[$skobj->index] = $skobj;
         //添加空闲记录
         array_push(self::$kx, $skobj->index);
