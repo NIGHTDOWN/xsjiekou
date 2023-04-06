@@ -170,7 +170,6 @@ class Socket extends Y
 			//开启udp模式
 			$server = new Udp($host, $port, $ssl, $ismaster);
 		}
-	
 		//接收数据
 		self::$server = $server;
 		if ($ismaster) {

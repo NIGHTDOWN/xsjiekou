@@ -26,17 +26,15 @@ class sqlMsg
 }
 class SocketClient extends Y
 {
-
-
 	public  $sockets = null;
-
 	public  $debug = false;
 	public  $ip = "127.0.0.1";
 	public  $port = false;
-	public $readlength = 1024 * 1024;
+	public $readlength = 10241024;
 	public  $sendqueue = []; //发送消息队列
 	private $ret;
 	public static $obj;
+	public $skCacheIndex="skcacheindex:";
 	private  $loopwait=0;
 	public  function info($msg)
 	{
@@ -58,12 +56,15 @@ class SocketClient extends Y
 			return;
 		}
 		// STREAM_CLIENT_CONNECT、STREAM_CLIENT_ASYNC_CONNECT、STREAM_CLIENT_PERSISTENT，分别是：默认的同步、异步、持久连接
-		if (false === ($this->sockets = stream_socket_client("tcp://$this->ip:$this->port", $error_code, $error_message, 3))) {
+		if (false === ($this->sockets = stream_socket_client("tcp://$this->ip:$this->port", $error_code, $error_message, 2))) {
 			d($error_message);
 		}
 	}
+	
 	public function send($data)
 	{
+		//这里搞一个缓存30秒不要对同一个缓存拉起请求
+		
 		if (Socket::$isServer) {
 			return;
 		}
@@ -72,7 +73,6 @@ class SocketClient extends Y
 			$this->conn();
 		}
 		if(!$data)return;
-		
 		// array_push($this->sendqueue, $data);
 		$this->_send($data);
 		// fwrite($this->sockets, $msg . "\n");
@@ -81,25 +81,32 @@ class SocketClient extends Y
 	{
 		if(!$sql)return;
 		$msg = new sqlMsg(1, $sql);
-		
+		$time=G_DAY;
 		if(!strstr($sql,"where")){
 			$key="sqlhash".md5($sql);
 			list($bool,$data)=Y::$cache->get($key);
 			if($data){
+				return $data;
+			}
+		}else{
+			$key=$this->skCacheIndex.md5($sql);
+			list($bool,$data)=Y::$cache->get($key);
+			if($data){
+				$time=2;
 				return $data;
 			}
 		}
 		$this->send($msg);
 		if(isset($this->ret[0]))$ret= $this->ret[0];
 		$ret=$this->ret;
-		Y::$cache->set($key,$ret,G_DAY);
+		Y::$cache->set($key,$ret,$time);
 		return $ret;
 	}
 	public function query($sql)
 	{
 		if(!$sql)return;
 		$msg = new sqlMsg(2, $sql);
-		
+		$time=G_DAY;
 		if(!strstr($sql,"where")){
 			$key="sqlhash".md5($sql);
 			list($bool,$data)=Y::$cache->get($key);
@@ -107,12 +114,19 @@ class SocketClient extends Y
 				return $data;
 			}
 		
+		}else{
+			$key=$this->skCacheIndex.md5($sql);
+			list($bool,$data)=Y::$cache->get($key);
+			if($data){
+				$time=2;
+				return $data;
+			}
 		}
 		
 		//10秒内的缓存
 		
 		$this->send($msg);
-		Y::$cache->set($key,$this->ret,G_DAY);
+		Y::$cache->set($key,$this->ret,$time);
 		return $this->ret;
 	}
 	public function exec($sql)
@@ -157,20 +171,39 @@ class SocketClient extends Y
 private function _send($data){
 	if(!$data)return;
 	try {
+		$len = 0;
+			$buf = '';
 		$msg = Socket::buildMsg($data);
 		$bool = fwrite($this->sockets, $msg);
 		if ($bool) {
-			$response = false;
-			//阻塞,等待接受消息在执行下一条语句
-			// while (!$response) {
-				// $this->loopwait++;
-				// if($this->loopwait>=5){
-				// 	return;
-				// }
-				$response	=  fread($this->sockets, $this->readlength);
-				if ($response) {
-					$this->bufdeal($response);
+			while(1) {
+				$buf .= fread($this->sockets, $this->readlength);
+				// 还不知道数据长度，计算这个包的数据长度
+				if (!$len) {
+					// your_func_of_get_len里还要判断下目前收到的数据长度是否足够计算出整个包的长度
+					$len = intval(substr($buf,0,5))+5;
 				}
+				// 判断数据是否全部得到，得到就跳出
+				if (strlen($buf) >= $len) {
+					// 实际上最好要截取下，因为tcp流式的，可能是多个包粘在一起。如果是多个包粘在一起，还要记得保存下个包的部分数据，避免数据丢失，这里省略了
+					// $buf = substr($buf, 0, $len);
+					break;
+				}
+			}
+			//完整一个数据包处理
+			$this->bufdeal($buf);
+			// $response = false;
+			// //阻塞,等待接受消息在执行下一条语句
+			// // while (!$response) {
+			// 	// $this->loopwait++;
+			// 	// if($this->loopwait>=5){
+			// 	// 	return;
+			// 	// }
+			// 	$response	=  fread($this->sockets, $this->readlength);
+			// 	d($response);
+			// 	if ($response) {
+			// 		$this->bufdeal($response);
+			// 	}
 				// break;
 			// }
 		}
@@ -183,30 +216,7 @@ private function _send($data){
 		d($th);
 	}
 }
-private function __send($data){
-	if(!$data)return;
-	try {
-		$msg = Socket::buildMsg($data);
-		$bool = fwrite($this->sockets, $msg);
-		if ($bool) {
-			$response = false;
-			//阻塞,等待接受消息在执行下一条语句
-			while (!$response) {
-				$this->loopwait++;
-				if($this->loopwait>=5){
-					return;
-				}
-				$response	=  fread($this->sockets, $this->readlength);
-				if ($response) {
-					$this->bufdeal($response);
-				}
-				break;
-			}
-		} 
-	} catch (\Throwable $th) {
-		d($th);
-	}
-}
+
 	private function loopsend()
 	{
 		$this->loopwait=0;

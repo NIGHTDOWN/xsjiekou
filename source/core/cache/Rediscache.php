@@ -113,7 +113,12 @@ class Rediscache
 		} else {
 			// return $data['value'];
 		}
-		return [true, $data['value']];
+		if($data['value']){
+			return [true, $data['value']];
+		}
+		else{
+			return [false, $data['value']];
+		}
 		/*return array((bool)($data),$data);*/
 	}
 	public

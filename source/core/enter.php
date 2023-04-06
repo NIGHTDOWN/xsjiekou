@@ -4,7 +4,7 @@ use ng169\tool\File;
 
 if (!defined('PATH_URL')) define('PATH_URL', '/');
 define('FG', '/');
-@set_time_limit(0);
+// @set_time_limit(0);
 global $Stime;
 $Stime = microtime(true);
 function getip()

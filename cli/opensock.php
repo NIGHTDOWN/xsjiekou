@@ -126,6 +126,7 @@ class SqlPool extends Clibase
                 case '3': //这里是连接php-fpm的,连接端不用注册
                     //这里要获取回传客户端
                     // $oob = self::$connects[self::$key];
+                   
                     $client=self::sfSvr($obj);
 
                     self::send($client,$data);
@@ -159,7 +160,6 @@ class SqlPool extends Clibase
                 return;
             }
             //没空闲继续释放,等待下一次空闲释放
-           
             # code...
          }
             # code...
@@ -185,13 +185,10 @@ class SqlPool extends Clibase
         //优先取第一条服务
         $key =  array_key_first(self::$kx);
         $d=self::$kx[$key];
-        // $key=array_search( $d,self::$kx);
-        // d($key);
         unset(self::$kx[$key]);//移除空闲
         //绑定忙碌
         self::$ml[$d]=$obj->index;
         return self::$sqlserver[$d];
-       
     }
     //注册sql服务
     public static function addsqlSvr($skobj, $dedata)

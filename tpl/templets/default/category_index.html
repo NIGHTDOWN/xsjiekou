@@ -228,6 +228,7 @@
             'height': $h - $f
         });
     }
+    var load=0;
     $(function() {
         loadifr_height();
         $('.t11').click(function() {
@@ -241,6 +242,10 @@
         $('.t411').live('click', function() {
             $(this).addClass('on').siblings().removeClass('on');
             c3 = $(this).attr('data-id');
+            if(load==0){
+                $('.tc3').eq(0).click();
+                load++;
+            }
             // $('.tc3').eq(0).click();
             $tag = catetag[c3];
             load512($tag);

@@ -17,7 +17,7 @@ class cate
         list($bool, $tags) = Y::$cache->get($this->tagindex);
 
 
-        if (!$bool) {
+        if (!$bool ||!$tags) {
             $tags = T('tag')->get_all();
 
             $tags = array_column($tags, null, 'tagid');
@@ -45,6 +45,7 @@ class cate
         $index = "category:" . $lang;
        
         list($bool, $cache) = Y::$cache->get($index);
+       
         if ($bool) {
             return $cache;
             // Out::jout($cache);
@@ -55,7 +56,10 @@ class cate
                 foreach ($data[$k]['child'] as $k2 => $v2) {
                     $catetmp = T('category')->get_all(['depth' => 3, 'pid' => $v2['category_id']]);
                     $data[$k]['child'][$k2]['child'] = $catetmp;
+                   
                     $data[$k]['child'][$k2]['tag'] = $this->getlable(array_column($catetmp, 'category_name'), $lang);
+                    
+                
                 }
             }
             Y::$cache->set($index, $data, G_DAY * 31);
