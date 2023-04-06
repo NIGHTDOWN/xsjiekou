@@ -142,7 +142,7 @@ class Socket extends Y
 		//检测是否已经监听；
 		//数据库用户表下线		
 		// self::initcode(); //初始化密码
-		self::daemonize(); //守护进程
+		// self::daemonize(); //守护进程
 		self::installSignal(); //注册信号处理
 		$type = $tcpip ? $tcpip : self::$type;
 		self::$type = $type;
