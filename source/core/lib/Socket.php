@@ -150,10 +150,10 @@ class Socket extends Y
 		self::$port = $port;
 		self::$redis = SocketCache::getCache();
 		$f = preg_match("/(\d{1,3}\.){3}(\d{1,3})/", $host, $m);
-		d($f);
+		
 		if ($f) {
 			//这里是ip
-			$host = '0.0.0.0';
+			// $host = '0.0.0.0';
 		} else {
 			//这里是域名		
 		}
