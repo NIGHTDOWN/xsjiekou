@@ -28,7 +28,7 @@ class Tcp extends Socket
 		} else {
 			self::$master = stream_socket_server("tcp://{$host}:{$port}", $errno, $errmsg, STREAM_SERVER_BIND | STREAM_SERVER_LISTEN);
 		}
-
+d("gdfgdfgdf");
 		if (!self::$master) {
 			self::error("错误代码：$errno--$errmsg \n");
 		}
