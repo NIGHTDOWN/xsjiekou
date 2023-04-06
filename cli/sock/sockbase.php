@@ -43,6 +43,7 @@ class sockbase extends Clibase
         $ismaster = isset($get['ismaster']) ? 1 : 0;
         $type = isset($get['type']) ? $get['type'] : 'tcp';
         $ssl = false;
+        d($ip);
         Socket::starts($ip, $port, $type, $ssl, $ismaster);
     }
     public function onmsg($function){
