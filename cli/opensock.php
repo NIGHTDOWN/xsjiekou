@@ -214,7 +214,7 @@ class SqlPool extends Clibase
     //输出信息
     public static function UiShow()
     {
-        // return;
+        return;
         self::clear();
         echo "服务信息:" . self::$server->ip . ":" . self::$server->port . "\n";
         echo "当前SqlServer连接池:" . sizeof(self::$sqlserver) . "\n";
