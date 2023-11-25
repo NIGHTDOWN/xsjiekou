@@ -183,7 +183,8 @@ class cart_mtoon extends Clibase
             $data = $this->fixtoon($data, $refield);
             $this->insertdetail($data, $refield);
         } else {
-            $this->debuginfo("详情原因" . $data);
+d($datas);            
+$this->debuginfo("详情原因" . $data);
         }
     }
     public function fixtoon($detail, $refield)
