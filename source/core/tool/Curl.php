@@ -151,6 +151,7 @@ class Curl
 	}
 	public function post($url, $data, $proxy = null, $timeout = 0)
 	{
+		
 		/*if($this->curl){
 			$curl = $this->curl;
 		}else{

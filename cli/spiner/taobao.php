@@ -9,10 +9,7 @@
 
 
 
-require_once (dirname(__FILE__)) . "/spbase/txt_qq.php";
-
-
-
+require_once (dirname(__FILE__)) . "/spbase/taobaobase.php";
 
 
 
