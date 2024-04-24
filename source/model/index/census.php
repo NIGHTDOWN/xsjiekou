@@ -661,7 +661,7 @@ class census extends Y
             $user_mess['hardware_id'] = $deviceToken;
             $user_mess['invite_code'] = $invite_code;
             $user_mess['u_id'] = $invite_code;
-            $user_mess['invite_time'] = date('Y-m-d H:i:s', time());
+            $user_mess['invite_time'] = time();
             $user_mess['type'] = 1;
             // 奖励数值统计总表
             T('user_invite')->add($user_mess); //邀请记录
