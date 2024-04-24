@@ -1,0 +1,100 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>账号删除</title>  
+    <style>  
+        body {  
+            font-family: Arial, sans-serif;  
+            margin: 0;  
+            padding: 20px;  
+            background-color: #f4f4f4;  
+        }  
+  
+        h1 {  
+            text-align: center;  
+        }  
+  
+        .container {  
+            max-width: 600px;  
+            margin: 0 auto;  
+            background-color: #fff;  
+            padding: 20px;  
+            border-radius: 5px;  
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  
+        }  
+  
+        .form-group {  
+            margin-bottom: 15px;  
+        }  
+  
+        .form-group label {  
+            display: block;  
+            font-weight: bold;  
+            margin-bottom: 5px;  
+        }  
+  
+        .form-group input {  
+            width: 100%;  
+            padding: 8px;  
+            border-radius: 4px;  
+            border: 1px solid #ccc;  
+        }  
+  
+        .form-group input[type="submit"] {  
+            background-color: #4CAF50;  
+            color: white;  
+            cursor: pointer;  
+        }  
+  
+        .form-group input[type="submit"]:hover {  
+            background-color: #45a049;  
+        }  
+  
+        .alert {  
+            color: red;  
+            font-weight: bold;  
+            margin-bottom: 10px;  
+        }  
+    </style>  
+</head>  
+<body>  
+    <div class="container">  
+        <h1>账号删除</h1>  
+        <form id="deleteAccountForm" method="post" action="">  
+            <div class="form-group">  
+                <label for="password">请输入密码以确认删除账号：</label>  
+                <input type="password" id="password" name="password" required>  
+            </div>  
+            <div class="form-group">  
+                <input type="submit" value="删除账号">  
+            </div>  
+        </form>  
+        <div id="alert" class="alert"></div>  
+    </div>  
+  
+    <script>  
+        document.getElementById('deleteAccountForm').addEventListener('submit', function(event) {  
+            event.preventDefault(); // 阻止表单默认提交行为  
+  
+            var passwordInput = document.getElementById('password');  
+            var alertDiv = document.getElementById('alert');  
+  
+            // 在这里可以添加密码验证逻辑，例如发送到后端进行验证  
+            // 以下仅为示例，实际上应使用后端验证  
+            if (passwordInput.value !== 'your_password_here') {  
+                alertDiv.textContent = '密码错误，无法删除账号！';  
+                return;  
+            }  
+  
+            // 如果密码验证通过，可以提交表单或执行其他操作  
+            // 例如，使用 AJAX 发送请求到后端进行账号删除  
+            // 这里仅作示例，实际开发中需要处理错误和异常情况  
+            alert('账号删除请求已发送，请稍候...');  
+            // 可以将表单数据发送到后端进行处理  
+            // 例如：使用 AJAX 发送 POST 请求  
+        });  
+    </script>  
+</body>  
+</html>

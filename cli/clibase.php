@@ -515,7 +515,7 @@ class Clibase  extends Cli
         $this->bookdstdescstr = $bookdstdescstr;
     }
     //请求走代理
-    public function setproxy($ip = '192.168.2.106', $port = '8888')
+    public function setproxy($ip = '192.168.10.5', $port = '8888')
     {
         $this->init();
         $this->spiner->setproxy($ip, $port);
@@ -526,11 +526,16 @@ class Clibase  extends Cli
         $this->init();
 
         if ($this->ip && $this->port) {
-
+          
             $this->setproxy($this->ip, $this->port);
         }
         $url = $this->domian . $api;
+     if($this->ip && $this->port){
+        $data = $this->spiner->post($url, ($data), $this->ip.":". $this->port, $time);
+     }else{
         $data = $this->spiner->post($url, ($data), null, $time);
+     }
+        
 
         return $data;
     }
@@ -541,6 +546,7 @@ class Clibase  extends Cli
             $this->setproxy($this->ip, $this->port);
         }
         $url = $this->domian . $api;
+        d($url);
         $data = $this->spiner->get($url, $time);
         return $data;
     }
