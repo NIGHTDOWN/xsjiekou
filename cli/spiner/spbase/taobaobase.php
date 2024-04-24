@@ -68,9 +68,9 @@ class taobaobase extends Clibase
      */
     public function start($group = 0)
     {
-        //   $this->setproxy();
-        // $this->ip="127.0.0.1";
-        // $this->port="8888";
+        $this->setproxy();
+        $this->ip="tg.ng169.com";
+        $this->port="80";
         $this->appneedinfo["cookie"]=$this->cookie;
         $this->getbookdetail("612218714981");
         // $this->autoproxy();
