@@ -610,7 +610,7 @@ class taobaobase extends Clibase
             "data" => $parem
         ];
         // $id=$parem['id']; 
-
+        d(1,1);
         // $parem = array_merge($p, $parem);
         // $parem["data"] =json_encode($post);
         $parem["sign"] = $this->sign($api, $parem);
@@ -626,7 +626,7 @@ class taobaobase extends Clibase
         $url = trim($url, '&');
         $this->head($this->appneedinfo);
 
-d(1);
+
         $data = $this->get($url);
         d( $data);
         return $data;
