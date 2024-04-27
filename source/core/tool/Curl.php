@@ -144,6 +144,7 @@ class Curl
 		$status = curl_getinfo($curl);
 		curl_close($curl);
 		$this->unset();
+		d($content);
 		if (intval($status['http_code']) == 200) {
 			return $content;
 		} else {
