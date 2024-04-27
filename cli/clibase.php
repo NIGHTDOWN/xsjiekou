@@ -539,9 +539,7 @@ class Clibase  extends Cli
 
         return $data;
     }
-    public function iscli(){
-        return php_sapi_name() === 'cli'?true:false;
-    }
+  
     public function get($api, $data = null, $time = 10)
     {
         $this->init();

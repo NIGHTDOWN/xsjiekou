@@ -12,6 +12,9 @@ declare(ticks=1);
 
 class Cli extends Y
 {
+    public function iscli(){
+        return php_sapi_name() === 'cli'?true:false;
+    }
     public
     function __construct()
     {
@@ -47,6 +50,7 @@ class Cli extends Y
         // //短参数有问题，容易出错，舍弃
         // $options = getopt($shortopts, $longopts);
         // return $options;
+        if(!$this->iscli())return [];
         global $argv;
 
         $argvs = $argv;
