@@ -384,8 +384,8 @@ function rmb($num, $separator = ',', $accuracy = 2)
 
 	$prefix = NULL;
 
-	$IntPart = $c > 0 && $IntPart{
-		0} == '-' ? $prefix = substr($IntPart, 1) : $IntPart;
+	$IntPart = $c > 0 && $IntPart[0]
+		== '-' ? $prefix = substr($IntPart, 1) : $IntPart;
 
 	$IntPart = str_pad($IntPart, $c + (3 - $c % 3), '0', STR_PAD_LEFT);
 

@@ -79,8 +79,7 @@ class APP
       error($e . __('控制器类不存在'));
     }
     //启动控制器
-    if (method_exists($control, $act) && $act{
-      0} != '_') {
+    if (method_exists($control, $act) && $act[0] != '_') {
       $control->$act();
     } else {
       error($act . __('操作动作不存在'));
