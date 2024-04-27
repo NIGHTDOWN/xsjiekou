@@ -198,7 +198,7 @@ class taobaobase extends Clibase
     // 获取远程小说详情，根据实际情况修改fun
     public function getbookdetail($pid)
     {
-        $this->setproxy("ip.ng169.com","8888");
+        // $this->setproxy("ip.ng169.com","8888");
         $api = "mtop.taobao.pcdetail.data.get/1.0/";
         $id = $pid;
         $parem['data'] = '{"id":"' . $id . '","detail_v":"3.3.2","exParams":"{\"id\":\"' . $id . '\",\"queryParams\":\"id=' . $id . '\",\"domain\":\"https://item.taobao.com\",\"path_name\":\"/item.htm\"}"}';
