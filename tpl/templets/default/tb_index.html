@@ -137,7 +137,7 @@
             $url = "<!--{url action='getInfo' mod='tb'}-->";
             yAjax($url, { "pid": $("[name=pid]").val(), "appid": $("[name=appid]").val(), "cookie": $("[name=cookie]").val() }, (data) => {
                 // d(data);
-                $("#rt").val(atj(data));
+                $("#rt").val(atj(data['result']));
                 formatJson();
             });
         }
