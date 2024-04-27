@@ -205,6 +205,7 @@ class taobaobase extends Clibase
         $id = $pid;
         $parem['data'] = '{"id":"' . $id . '","detail_v":"3.3.2","exParams":"{\"id\":\"' . $id . '\",\"queryParams\":\"id=' . $id . '\",\"domain\":\"https://item.taobao.com\",\"path_name\":\"/item.htm\"}"}';
         $datas = $this->apisign($api, $parem['data']);
+        d($datas );
         return $datas;
         // d($datas);
         //第三方内容中对应与本数据库字段对应
