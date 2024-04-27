@@ -539,7 +539,7 @@ class Clibase  extends Cli
 
         return $data;
     }
-    public function get($api, $data = null, $time = 0)
+    public function get($api, $data = null, $time = 10)
     {
         $this->init();
        

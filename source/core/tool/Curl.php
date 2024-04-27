@@ -132,6 +132,7 @@ class Curl
 		}
 	
 		curl_setopt($curl, CURLOPT_HEADER, false);
+		d($timeout ,1);
 		if ($timeout) {
 			curl_setopt($curl, CURLOPT_TIMEOUT, $timeout);
 		}
@@ -174,7 +175,7 @@ class Curl
 		}
 		// 		$headers[] = 'User-Agent: Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0);';
 		// curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-		d($timeout ,1);
+		
 		if ($this->head) {
 
 			curl_setopt($curl, CURLOPT_HTTPHEADER, $this->head);
