@@ -199,7 +199,7 @@ class taobaobase extends Clibase
     public function getbookdetail($pid)
     {
 
-$this->setproxy("ip.ng169.com","8888");
+        $this->setproxy("ip.ng169.com","8888");
 
         $api = "mtop.taobao.pcdetail.data.get/1.0/";
         $id = $pid;
@@ -628,7 +628,7 @@ $this->setproxy("ip.ng169.com","8888");
         $this->head($this->appneedinfo);
 
 
-        $data = $this->get($url);
+        $data = $this->post($url);
        
         return $data;
     }

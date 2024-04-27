@@ -539,6 +539,9 @@ class Clibase  extends Cli
 
         return $data;
     }
+    public function iscli(){
+        return php_sapi_name() === 'cli'?true:false;
+    }
     public function get($api, $data = null, $time = 10)
     {
         $this->init();
@@ -548,7 +551,7 @@ class Clibase  extends Cli
         }
         $url = $this->domian . $api;
         
-        if (php_sapi_name() === 'cli') {
+        if ($this->iscli()) {
         d($url);}
         $data = $this->spiner->get($url, $time);
         return $data;
