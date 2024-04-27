@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>淘宝 & 商品查询页面</title>
+    <script src="/tpl/templets/default/js/jquery.min.js"></script>
+    <script src="/tpl/templets/default/js/swiper.min.js"></script>
+
+    <script src="/tpl/static/js/night_Trad.v1.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/json-beautify@1.1.1/dist/json-beautify.min.js"></script>
+    <!-- 引入一个JSON格式化库 -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .submit-btn {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+
+        .instructions {
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        function cc() {
+            $url = "<!--{url action='getnum' mod='tb'}-->";
+            if ($("[name=appid]").val() == "") {
+                showd("填写正确的appid"); return;
+            }
+            yAjax($url, { "appid": $("[name=appid]").val() }, (data) => {
+                // d(data);
+                // $("#rt").val(atj(data));
+                // formatJson();
+                showd(data['result']);
+            });
+        }
+        function rq() {
+            $url = "<!--{url action='getInfo' mod='tb'}-->";
+            yAjax($url, { "pid": $("[name=pid]").val(), "appid": $("[name=appid]").val(), "cookie": $("[name=cookie]").val() }, (data) => {
+                // d(data);
+                $("#rt").val(atj(data));
+                formatJson();
+            });
+        }
+        function formatJson() {
+            var jsonInput = $("#rt").val();
+            try {
+                var parsedJson = JSON.parse(jsonInput); // 解析JSON字符串为对象  
+                var formattedJson = JSON.stringify(parsedJson, null, 2); // 格式化对象为缩进的JSON字符串  
+                // document.getElementById('jsonOutput').textContent = formattedJson; // 显示格式化后的JSON  
+                $("#rt").val(formattedJson);
+            } catch (e) {
+                d('输入的文本不是有效的JSON格式！');
+            }
+        } 
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>淘宝商品查询页面</h1>
+       
+        <label for="productId">商品ID:</label>
+        <input type="text" id="pid" name="pid" placeholder="请输入商品ID">
+        <br>
+        <label for="account">账号:（联系QQ：752942639开通） <a href="javascript:cc();">查询剩余数量</a></label>
+        <input type="text" id="appid" name="appid" placeholder="请输入您的账号以查看剩余数量">
+        <br>
+        <label for="cookie">Cookie: <a href="#getcookie">查看获取教程</a> </label>
+        <textarea id="cookie" style="width: 100%;min-height: 300px;" placeholder="请在此输入Cookie，通常可以在浏览器的开发者工具中找到"
+            name="cookie"></textarea>
+        <br>
+        <button class="submit-btn" onclick="rq()">查询商品</button>
+
+        <br>
+        <label for="cookie">查询结果:</label>
+        <textarea id="rt" style="width: 100%;min-height: 300px;" placeholder="请在此输入Cookie，通常可以在浏览器的开发者工具中找到"
+            name="rt"></textarea>
+      
+        <div class="instructions">
+
+            <style>
+                tbody {
+                    font-family: Arial, sans-serif;
+                }
+
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                }
+
+                th,
+                td {
+                    padding: 8px;
+                    text-align: left;
+                    border-bottom: 1px solid #ddd;
+                }
+
+                th {
+                    background-color: #f2f2f2;
+                }
+
+                h1,
+                h2 {
+                    color: #333;
+                }
+            </style>
+            </head>
+            <tbody>
+                <h1>接口文档</h1>
+                <h2>请求方法</h2>
+                <p>GET 或 POST（根据实际请求方式确定）</p>
+
+                <h2>请求URL</h2>
+                <p>http://nv.com/tb/getInfo.html</p>
+
+                <h2>请求头（Headers）</h2>
+                <p>无</p>
+
+                <h2>请求体（Data）</h2>
+                <table>
+                    <tr>
+                        <th>参数名称</th>
+                        <th>描述</th>
+                    </tr>
+                    <tr>
+                        <td>pid</td>
+                        <td>商品id</td>
+                    </tr>
+                    <tr>
+                        <td>appid</td>
+                        <td>账号</td>
+                    </tr>
+                    <tr>
+                        <td>cookie</td>
+                        <td>淘宝cookie</td>
+                    </tr>
+                </table>
+            </tbody>
+        </div>
+
+        <div class="instructions" id="getcookie">
+            <h2>获取淘宝cookie:</h2>
+            <p>
+                （1）打开任意淘宝商品详情页面(非天猫商品)； 如:<a href="https://item.taobao.com/item.htm?id=520294829853"
+                    target="_blank">"https://item.taobao.com/item.htm?id=520294829853"</a>
+            </p>
+            <p>
+                （2）请确认你已经登入淘宝账号，未登入请登入对应淘宝账号；
+            </p>
+            <p>
+                （3）按F2打开开发者控制台； 选择 “NetWork”或者“网络”栏目；在选择下面的”Fecth/XHR“；如下图：
+
+            </p>
+            <p>
+                <img src="<!--{$indextpl}-->spimg/1.png" style="width: 100%;">
+            </p>
+            <p>
+                （4）刷新页面
+            </p>
+            <p>
+                （4）点击第一个请求；滚动到下面"Response Headers” 或者 “请求载荷” 找到下面的cookie 把里面的cookie完整复制出来
+            </p>
+            <p>
+                <img src="<!--{$indextpl}-->spimg/2.png" style="width: 100%;">
+            </p>
+            <p>
+            <p style="color: red;">
+                请注意，cookie有效时间为一天；
+            </p>
+        </div>
+
+    </div>
+
+    <script>
+        function submitForm() {
+            // 这里可以添加JavaScript代码来处理表单提交，例如通过Ajax发送请求到后端接口  
+            // 以下是一个简单的示例，实际使用时请根据您的需求进行修改  
+            var cookie = document.getElementById('cookie').value;
+            var productId = document.getElementById('productId').value;
+            var account = document.getElementById('account').value;
+
+            // 在这里可以添加逻辑来验证输入，或者发送请求到后端接口  
+            // 例如使用fetch或XMLHttpRequest进行Ajax请求  
+
+            // 示例：显示输入的值到控制台（仅用于演示）  
+            console.log('Cookie:', cookie);
+            console.log('商品ID:', productId);
+            console.log('账号:', account);
+        }  
+    </script>
+</body>
+
+</html>

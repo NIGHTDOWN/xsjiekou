@@ -546,7 +546,8 @@ class Clibase  extends Cli
             $this->setproxy($this->ip, $this->port);
         }
         $url = $this->domian . $api;
-        d($url);
+        if (php_sapi_name() === 'cli') {
+        d($url);}
         $data = $this->spiner->get($url, $time);
         return $data;
     }
