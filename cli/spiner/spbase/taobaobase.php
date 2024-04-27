@@ -31,8 +31,8 @@ class taobaobase extends Clibase
     public  $wordrate = 3;  //计算字数的时候的倍数比列
     // -------------------app 破解获取的相关信息
     // 签名密钥盐
-    public $code = "66c10a61bd916c23f3b33810d3785d17";
-    public $cookie = "t=c840dd28db1e04f8ffe0415456e36550; thw=cn; cna=GVktHsW5OFECAXhVc2S8Qsjs; xlly_s=1; cookie2=25e34623bf3e599e6f1a4fb1b81a4e74; _tb_token_=7b455f79ae9ba; _samesite_flag_=true; 3PcFlag=1713798789243; unb=482056812; lgc=%5Cu6211%5Cu662F%5Cu6768%5Cu5FD7%5Cu4F1F0895; cancelledSubSites=empty; cookie17=VyTxRXqxXduw; dnk=%5Cu6211%5Cu662F%5Cu6768%5Cu5FD7%5Cu4F1F0895; tracknick=%5Cu6211%5Cu662F%5Cu6768%5Cu5FD7%5Cu4F1F0895; _l_g_=Ug%3D%3D; sg=52c; _nk_=%5Cu6211%5Cu662F%5Cu6768%5Cu5FD7%5Cu4F1F0895; cookie1=AQHw079okxebSHCK24BVpBZALgLffk5VId1d6Xc12WI%3D; sgcookie=E100L22eVkIueLssGmxJzG8SweZ6eQQfkztMBdb1D0JqTJc386ezq7GrSdGrsgCvn7QiQ2wXsBSYnqAGnwiHN5jPxnEyc%2FGTVGvA%2FBQAeBQlubhEdR8I0A04ABsh6c1jUlWI; havana_lgc2_0=eyJoaWQiOjQ4MjA1NjgxMiwic2ciOiJmYjdlMjg3ZjU0MTRiZDA5NWI0OTc3NjE5MWIwNzA3ZiIsInNpdGUiOjAsInRva2VuIjoiMUxLWGZ5OWNOTjNYT2E4RkdZcDJsQmcifQ; _hvn_lgc_=0; havana_lgc_exp=1712984864429; cookie3_bak=25e34623bf3e599e6f1a4fb1b81a4e74; cookie3_bak_exp=1714057999021; wk_cookie2=10209e5326a51bc93ca21048daa73ca9; wk_unb=VyTxRXqxXduw; uc1=cookie15=W5iHLLyFOGW7aA%3D%3D&existShop=false&pas=0&cookie14=UoYfolfRGtYeRQ%3D%3D&cookie21=WqG3DMC9Edo1SB5NB6dxsQ%3D%3D&cookie16=UtASsssmPlP%2Ff1IHDsDaPRu%2BPw%3D%3D; uc3=vt3=F8dD3e3cqF2YJ4l5YuA%3D&nk2=rUtEoeYXZBfXmbAgdwA%3D&lg2=URm48syIIVrSKA%3D%3D&id2=VyTxRXqxXduw; csg=9e1eaea2; env_bak=FM%2BgnE2ezrz41tcZjkwioWkS3Vu60UBXFcmEpHHJ9TTb; skt=589ebc65eaf92c12; existShop=MTcxMzc5ODc5OQ%3D%3D; uc4=id4=0%40VXPh%2BcMw1myhwXOptoE0PHFOCI4%3D&nk4=0%40r7rCNYzd7oTvhWBFn7Uub4CZaBBJMq7gug%3D%3D; _cc_=WqG3DMC9EA%3D%3D; mtop_partitioned_detect=1; _m_h5_tk=bb5728c6beaea22301e562c53a0eb465_1713889710005; _m_h5_tk_enc=022d55e75263f29d3c3cb76b84b317fa; x5sec=7b22733b32223a2264623737643739303639633932653365222c22617365727665723b33223a22307c434b43416e374547454c54706a4e7745476773304f4449774e5459344d5449374d5443416c62532f2f2f2f2f2f2f3842227d; miid=1652294589740362049; isg=BISEdU30vlDfdwkb4VgTzgRHVQJ2nagHE6Hjq54jEM76ySGTx6VQlkoiCWERUeBf; tfstk=fTv-g4ctUq0ltGGHF3GD84JgYqimsLKyDU-_KwbuOELvrhOlZH_hpeLpJafIzTvpkUx6Z_xBKM9dUKAuKa0PpHTGpV0iIAxy4TWISV4orL9RUMbQRJahcxsTz5N0GAxy4o_9YEgiIWUYIRv5Re15hisCl8wCVe6fhGbbFMw5AriAYZ_Cd__CcxshbWNCd8GaQbQxVgwpndxbrbPx1bckHigFW3FgUG952r_2DZ3_0KU5wNt5kJgMzdSVJZJsojK2zQTl0eHtk982OesplrghaHOvkgLoWy7HU3vd03hSynBfyH1py4FPPQYA_i1bvASDSZtyFInUl3TGyTsfiAi9c6ODU1Jol8B6_3XkOelggTKBNtIrydvtvvag4ONSDmFUT_sDCdYnKEM8ABIAS0I8TW530iQiDmFUT_sVDNm8JWPFto5..";
+    public $code = "";
+    public $cookie = "t=c840dd28db1e04f8ffe0415456e36550; thw=cn; cna=GVktHsW5OFECAXhVc2S8Qsjs; 3PcFlag=1713798789243; lgc=%5Cu6211%5Cu662F%5Cu6768%5Cu5FD7%5Cu4F1F0895; dnk=%5Cu6211%5Cu662F%5Cu6768%5Cu5FD7%5Cu4F1F0895; tracknick=%5Cu6211%5Cu662F%5Cu6768%5Cu5FD7%5Cu4F1F0895; sgcookie=E100L22eVkIueLssGmxJzG8SweZ6eQQfkztMBdb1D0JqTJc386ezq7GrSdGrsgCvn7QiQ2wXsBSYnqAGnwiHN5jPxnEyc%2FGTVGvA%2FBQAeBQlubhEdR8I0A04ABsh6c1jUlWI; havana_lgc2_0=eyJoaWQiOjQ4MjA1NjgxMiwic2ciOiJmYjdlMjg3ZjU0MTRiZDA5NWI0OTc3NjE5MWIwNzA3ZiIsInNpdGUiOjAsInRva2VuIjoiMUxLWGZ5OWNOTjNYT2E4RkdZcDJsQmcifQ; _hvn_lgc_=0; havana_lgc_exp=1712984864429; wk_cookie2=10209e5326a51bc93ca21048daa73ca9; wk_unb=VyTxRXqxXduw; uc3=vt3=F8dD3e3cqF2YJ4l5YuA%3D&nk2=rUtEoeYXZBfXmbAgdwA%3D&lg2=URm48syIIVrSKA%3D%3D&id2=VyTxRXqxXduw; uc4=id4=0%40VXPh%2BcMw1myhwXOptoE0PHFOCI4%3D&nk4=0%40r7rCNYzd7oTvhWBFn7Uub4CZaBBJMq7gug%3D%3D; _cc_=WqG3DMC9EA%3D%3D; miid=1652294589740362049; mtop_partitioned_detect=1; _m_h5_tk=78cb7eedd9812d43ce21ad804e6e8062_1714232824249; _m_h5_tk_enc=7317117dc16187619cacf4fefe8e60da; mt=ci=-1_0; cookie2=2b209001657af0f4146164207efacc87; _tb_token_=5633ee63ee13; _samesite_flag_=true; xlly_s=1; uc1=cookie14=UoYfparvfbwdGg%3D%3D; isg=BFJSDHvJYMCxUJ-x41Z9hOZhoxg0Y1b98QeVwRyrEIXwL_IpBPJ6Dc6Mn4sTX86V; tfstk=fpr-tE_O4sfoMX73V8_0T7A-syBciuezH7y6xXckRSFYZRaorJGnvWFL9b0Ca0qLM72_r42QxvZK4o4kxbfrvJNiv1fGjG2zU0oCs1A4usfEAvsnOSD6PGiEA1fceyRtUDPiP8EAw-6xKvKBRWGScEGqpeM7ObgXGAHZAXNIAt3jdALBO2tSGxMr6pQ-MTMWvo4H8xlhqgxXcoHfTfw8Yxk4DPu-1qGvATExe4h_FuRGP7kbmo3iopfIcRz0NxnOmUi_HyNT5W7Mu0eQPWuYas8xira0dXgXdheYMJNIJr59jYnukVE8z9RbF5c850yHB_2xWr3Zhq9pP04gIku_VgdZiVkLZjV1fnnjRg7ujlBdACfVuU6AHe8EPxq_jWj3GgpQJxhGeYLe82vqHfXvBe8EPpkxstxH8eu0z";
     // aes iv
     public $jsv = "2.6.1";      //appkey 浏览器链接上面可以获得
     public $appkey = "12574478"; //appkey 浏览器链接上面可以获得
@@ -43,12 +43,19 @@ class taobaobase extends Clibase
     public $token = "";
 
     public $appneedinfo = [
-        'accept' => 'application/json',
-        'accept-language' => 'zh-CN,zh;q=0.9',
-        'content-type' => 'application/x-www-form-urlencoded',
-        'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.5735.289 Safari/537.36',
-        'origin' => 'https://item.taobao.com',
-        'cookie' => '',
+        'Accept' => 'application/json',
+        'Accept-Language' => 'zh-CN,zh;q=0.9',
+        'Content-type' => 'application/x-www-form-urlencoded',
+        'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.5735.289 Safari/537.36',
+        'sec-ch-ua' => '"Not.A/Brand";v="8", "Chromium";v="114", "Google Chrome";v="114"',
+        'sec-ch-ua-mobile' => '?0',
+        'Sec-Fetch-Site' => 'same-site',
+        'Sec-Fetch-Mode' => 'cors',
+        'sec-ch-ua-platform' => '"Windows"',
+        'Referer' => 'https://item.taobao.com/',
+        'Sec-Fetch-Dest' => 'empty',
+        'Origin' => 'https://item.taobao.com',
+        'Cookie' => '',
     ];
     //远程完结状态值
     public $update_status_end_val = 1;
@@ -69,10 +76,10 @@ class taobaobase extends Clibase
     public function start($group = 0)
     {
         $this->setproxy();
-        $this->ip="tg.ng169.com";
-        $this->port="80";
-        $this->appneedinfo["cookie"]=$this->cookie;
-        $this->getbookdetail("612218714981");
+        $this->ip="127.0.0.1";
+        $this->port="8888";
+        $this->appneedinfo["Cookie"]=$this->cookie;
+        $this->getbookdetail("42216585950");
         // $this->autoproxy();
         // $cachename = date('Ymdhis') . 'obj' . $group;
         // $this->bookdstdesc = $this->_bookdstdesc . $group;
@@ -171,32 +178,13 @@ class taobaobase extends Clibase
     // 获取远程小说详情，根据实际情况修改fun
     public function getbookdetail($pid)
     {
-        // if (in_array($remotebookid, $this->rmbookid)) {
-        //     //这本书籍已经拉取过了，不要重复拉取
-        //     return false;
-        // } else {
-        //     array_push($this->rmbookid, $remotebookid);
-        // }
-        // if ($this->isend($remotebookid)) {
-        //     d('本地完结' . $remotebookid);
-        //     return false;
-        // }
-        // {"id":"784906685850","detail_v":"3.3.2","exParams":"{\"abbucket\":\"17\",\"id\":\"784906685850\",\"ns\":\"1\",\"spm\":\"a21n57.1.item.143.12c7523cUZzch8\",\"queryParams\":\"abbucket=17&id=784906685850&ns=1&spm=a21n57.1.item.143.12c7523cUZzch8\",\"domain\":\"https://item.taobao.com\",\"path_name\":\"/item.htm\"}"}
+      
 
 
         $api = "mtop.taobao.pcdetail.data.get/1.0/";
         $id = $pid;
-        $datas = $this->apisign($api, [
-            "id" => $id,
-            "detail_v" => "3.3.2",
-            "exParams" => json_encode([
-                "id" => "$id",
-                "queryParams" => "id=$id",
-                "domain" => "https://item.taobao.com",
-                "path_name" => "item.htm"
-            ])
-
-        ]);
+        $parem['data']='{"id":"'.$id.'","detail_v":"3.3.2","exParams":"{\"id\":\"'.$id.'\",\"queryParams\":\"id='.$id.'\",\"domain\":\"https://item.taobao.com\",\"path_name\":\"/item.htm\"}"}';
+        $datas = $this->apisign($api, $parem['data']);
         d($datas);
         //第三方内容中对应与本数据库字段对应
         $refield = [
@@ -548,7 +536,7 @@ class taobaobase extends Clibase
     private function gettokenFormCookie()
     {
         if ($this->token) return $this->token;
-        $tk = $this->appneedinfo["cookie"];
+        $tk = $this->appneedinfo["Cookie"];
         if (!$tk) {
             $this->debuginfo("未配置cookie");
         }
@@ -571,22 +559,23 @@ class taobaobase extends Clibase
             "jsv" => $this->jsv,
             "appKey" => $this->appkey,
             "t" => time() . rand(100, 900),
-            //"t" => '1713882567324',
+            // "t" => '1714226343519',
             'api' => $apiinfo[0],
             'v' => $apiinfo[1],
             'isSec' => 0,
             'ecode' => 0,
             'timeout' => 10000,
-            'ttid' => "2022@taobao_litepc_9.17.0",
+            'ttid' => urlencode("2022@taobao_litepc_9.17.0"),
             'AntiFlood' => "true",
             'AntiCreep' => "true",
             'dataType' => "json",
             'valueType' => "string",
             'preventFallback' => "true",
             'type' => "json",
-            "data" => $parem ? json_encode($parem) : "{}"
+            "data" => $parem 
         ];
-
+        // $id=$parem['id']; 
+        
         // $parem = array_merge($p, $parem);
         // $parem["data"] =json_encode($post);
         $parem["sign"] = $this->sign($api, $parem);
