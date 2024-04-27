@@ -140,7 +140,7 @@ class Curl
 		// curl_setopt($curl, CURLOPT_POSTFIELDS, ($data));
 		@curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-		d($curl,1);
+		d(curl_getinfo($curl),1);
 		$content = curl_exec($curl);
 		$status = curl_getinfo($curl);
 		
