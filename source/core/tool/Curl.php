@@ -144,23 +144,23 @@ class Curl
 		
 		$content = curl_exec($curl);
 		$status = curl_getinfo($curl);
-		if (curl_errno($curl)) {  
-			echo 'Curl error: ' . curl_error($curl);  
-		} else {  
-			// 分割响应头和响应体  
-			list($header, $body) = explode("\r\n\r\n", $response, 2);  
+		// if (curl_errno($curl)) {  
+		// 	echo 'Curl error: ' . curl_error($curl);  
+		// } else {  
+		// 	// 分割响应头和响应体  
+		// 	list($header, $body) = explode("\r\n\r\n", $response, 2);  
 			  
-			// 分离各个头信息行  
-			$headers = explode("\r\n", $header);  
+		// 	// 分离各个头信息行  
+		// 	$headers = explode("\r\n", $header);  
 			  
-			// 输出头信息  
-			foreach ($headers as $headerLine) {  
-				echo $headerLine . "\n";  
-			}  
+		// 	// 输出头信息  
+		// 	foreach ($headers as $headerLine) {  
+		// 		echo $headerLine . "\n";  
+		// 	}  
 			  
-			// 输出响应体（如果需要的话）  
-			echo "\nBody:\n" . $body . "\n";  
-		}
+		// 	// 输出响应体（如果需要的话）  
+		// 	echo "\nBody:\n" . $body . "\n";  
+		// }
 		
 
 		curl_close($curl);
