@@ -515,7 +515,7 @@ class Clibase  extends Cli
         $this->bookdstdescstr = $bookdstdescstr;
     }
     //请求走代理
-    public function setproxy($ip = '192.168.10.5', $port = '8888')
+    public function setproxy($ip = '', $port = '')
     {
         $this->init();
         $this->spiner->setproxy($ip, $port);
