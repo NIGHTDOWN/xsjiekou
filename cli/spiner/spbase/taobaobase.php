@@ -6,7 +6,7 @@
  */
 
 use ng169\Y;
-
+use ng169\tool\Out;
 
 
 require_once   dirname(dirname(dirname(__FILE__))) . "/clibase.php";
@@ -66,7 +66,12 @@ class taobaobase extends Clibase
     public $upcount = 0;
     public $tokens = [];
     public $rmbookid = [];
-
+    public function setck($ck)
+    {
+        if (!$ck) return false;
+        $this->cookie = $ck;
+        $this->appneedinfo["Cookie"] = $this->cookie;
+    }
     public $last = 0;
     public $lastbid;
     public $loop = [];
@@ -75,10 +80,24 @@ class taobaobase extends Clibase
      */
     public function start($group = 0)
     {
+        // $get = get(['string' => ["appid" ]]);
+      
+        //  $data=  T('spuser')->set_where($get)->find();
+        
+        //  if($data){
+        //     Out::jout($data['num']);
+        //  }else{
+        //     Out::page404();
+        //  }
+       
+
+
+
+
         $this->setproxy();
-        $this->ip="127.0.0.1";
-        $this->port="8888";
-        $this->appneedinfo["Cookie"]=$this->cookie;
+        // $this->ip="127.0.0.1";
+        // $this->port="8888";
+        $this->appneedinfo["Cookie"] = $this->cookie;
         $this->getbookdetail("42216585950");
         // $this->autoproxy();
         // $cachename = date('Ymdhis') . 'obj' . $group;
@@ -178,14 +197,15 @@ class taobaobase extends Clibase
     // 获取远程小说详情，根据实际情况修改fun
     public function getbookdetail($pid)
     {
-      
+
 
 
         $api = "mtop.taobao.pcdetail.data.get/1.0/";
         $id = $pid;
-        $parem['data']='{"id":"'.$id.'","detail_v":"3.3.2","exParams":"{\"id\":\"'.$id.'\",\"queryParams\":\"id='.$id.'\",\"domain\":\"https://item.taobao.com\",\"path_name\":\"/item.htm\"}"}';
+        $parem['data'] = '{"id":"' . $id . '","detail_v":"3.3.2","exParams":"{\"id\":\"' . $id . '\",\"queryParams\":\"id=' . $id . '\",\"domain\":\"https://item.taobao.com\",\"path_name\":\"/item.htm\"}"}';
         $datas = $this->apisign($api, $parem['data']);
-        d($datas);
+        return $datas;
+        // d($datas);
         //第三方内容中对应与本数据库字段对应
         $refield = [
             "bookname" => "resourceName",
@@ -572,10 +592,10 @@ class taobaobase extends Clibase
             'valueType' => "string",
             'preventFallback' => "true",
             'type' => "json",
-            "data" => $parem 
+            "data" => $parem
         ];
         // $id=$parem['id']; 
-        
+
         // $parem = array_merge($p, $parem);
         // $parem["data"] =json_encode($post);
         $parem["sign"] = $this->sign($api, $parem);
@@ -627,7 +647,7 @@ class taobaobase extends Clibase
     {
         $oken = $this->gettokenFormCookie();
         $signstr = $oken . "&" . $data["t"] . "&" . $data["appKey"] . "&" . ($data['data']);
-        d($signstr);
+        // d($signstr);
         // $signstr = substr($signstr, 0, -1) . $this->code;
         $sign = md5($signstr);
         return $sign;
