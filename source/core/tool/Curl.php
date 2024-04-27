@@ -142,9 +142,15 @@ class Curl
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		$content = curl_exec($curl);
 		$status = curl_getinfo($curl);
+		d($this);
+		d($status);
+		d($content);
+		d($curl,1);
+
 		curl_close($curl);
 		$this->unset();
-		d($content);
+		
+		
 		if (intval($status['http_code']) == 200) {
 			return $content;
 		} else {
