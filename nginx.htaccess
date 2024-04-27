@@ -1,34 +1,14 @@
-location / {
+  location / {
             index  index.html index.htm index.php;
             #autoindex  on;
-             #/**********************************nginx?????????*****************************************************/
-             #?????????????????????????????????????????????????
+             #/**********************************nginx伪静态规则*****************************************************/
+             #如果请求既不是一个文件，也不是一个目录，则执行一下重写规则
              if (!-e $request_filename)
           {
-            #????????????rewrite??index.php???
+            #地址作为将参数rewrite到index.php上。
             rewrite ^/(.*)$ /index.php;
-            #???????????????????????subdir??????????????
+            #若是子目录则使用下面这句，将subdir改成目录名称即可。
             #rewrite ^/subdir/(.*)$ /subdir/index.php?s=$1;
            }
         }
        
-        location ~ \.php(.*)$ {
-            fastcgi_pass   127.0.0.1:9000;
-            fastcgi_index  index.php;
-            fastcgi_split_path_info  ^((?U).+\.php)(/?.+)$;
-            fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
-            fastcgi_param  PATH_INFO  $fastcgi_path_info;
-            fastcgi_param  PATH_TRANSLATED  $document_root$fastcgi_path_info;
-            include        fastcgi_params;
-        }
-        #??????
-        #?????
-      location /?????????/* {
-                           root  /?????????/;     
-                           add_header Access-Control-Allow-Origin '*';
-                           add_header Access-Control-Allow-Credentials 'true';
-                           add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
-                           add_header Access-Control-Allow-Headers 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type';
-                           expires 30d;
-                           }
-
