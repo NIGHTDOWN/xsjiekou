@@ -625,7 +625,7 @@ class taobaobase extends Clibase
         $this->head($this->appneedinfo);
 
 
-        $data = $this->post($url,null);
+        $data = $this->get($url);
        
         return $data;
     }
