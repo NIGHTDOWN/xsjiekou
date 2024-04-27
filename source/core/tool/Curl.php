@@ -132,7 +132,7 @@ class Curl
 		}
 	
 		curl_setopt($curl, CURLOPT_HEADER, false);
-		d($timeout ,1);
+		
 		if ($timeout) {
 			curl_setopt($curl, CURLOPT_TIMEOUT, $timeout);
 		}
