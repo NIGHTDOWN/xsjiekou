@@ -12,55 +12,113 @@
     <script src="<!--{$indextpl}-->/spimg/bt.js"></script>
     <!-- 引入一个JSON格式化库 -->
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
+       <style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f5f5f5;
+        color: #333;
+    }
 
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+    .container {
+        max-width: 800px;
+        margin: 40px auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
 
-        h1 {
-            text-align: center;
-        }
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
 
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 600;
+    }
 
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 8px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-        }
+    input[type="text"],
+    input[type="password"],
+    textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        resize: vertical;
+    }
 
-        .submit-btn {
-            padding: 8px 16px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
+    .submit-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
 
-        .submit-btn:hover {
-            background-color: #45a049;
-        }
+    .submit-btn:hover {
+        background-color: #0056b3;
+    }
 
-        .instructions {
-            margin-top: 20px;
-        }
+    .instructions {
+        margin-top: 40px;
+        background: #fff;
+        padding: 20px;
+        border-radius: 4px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #007bff;
+        color: white;
+    }
+
+    a {
+        color: #007bff;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    a:hover {
+        color: #0056b3;
+    }
+
+    .red {
+        color: #d9534f;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 4px;
+    }
+
+    #getcookie p {
+        margin-bottom: 10px;
+    }
+
+    #getcookie img {
+        margin-bottom: 10px;
+    }
+</style>
     </style>
     <script>
         function cc() {
@@ -83,6 +141,35 @@
                 formatJson();
             });
         }
+        function kyrq(rqdata) {
+            $headers={};
+           
+            $.each(rqdata['head'],(i,v)=>{
+                $headers[i]=v;
+            });
+            d( $headers);
+            fetch("https://"+rqdata['link'], {
+                method: 'GET', // or 'POST'  
+                headers: $headers,
+                credentials: 'include', // 包含cookie在请求中  
+                mode: 'cors', // 默认就是'cors'  
+            })
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.error('Error:', error));
+        }
+        function rqlink() {
+            $url = "<!--{url action='getlink' mod='tb'}-->";
+            yAjax($url, { "pid": $("[name=pid]").val(), "appid": $("[name=appid]").val(), "cookie": $("[name=cookie]").val() }, (data) => {
+                // d(data);
+                $("#rt").val(atj(data));
+                formatJson();
+                kyrq(data['result']);
+                // yAjax(data['link'], {}, data['head'], (data2) => {
+                //     d(data2);
+                // })
+            });
+        }
         function formatJson() {
             var jsonInput = $("#rt").val();
             try {
@@ -100,60 +187,38 @@
 <body>
     <div class="container">
         <h1>淘宝商品查询页面</h1>
-       
+
         <label for="productId">商品ID:</label>
         <input type="text" id="pid" name="pid" placeholder="请输入商品ID">
         <br>
         <label for="account">账号:（联系QQ：752942639开通） <a href="javascript:cc();">查询剩余数量</a></label>
-        <input type="text" id="appid" name="appid" placeholder="请输入您的账号以查看剩余数量">
+        <input type="text" id="appid" name="appid" placeholder="请输入您的账号以查看剩余数量" value="fdgdg1231312">
         <br>
         <label for="cookie">Cookie: <a href="#getcookie">查看获取教程</a> </label>
         <textarea id="cookie" style="width: 100%;min-height: 300px;" placeholder="请在此输入Cookie，通常可以在浏览器的开发者工具中找到"
             name="cookie"></textarea>
         <br>
         <button class="submit-btn" onclick="rq()">查询商品</button>
+        <button class="submit-btn" onclick="rqlink()">查询链接</button>
 
         <br>
         <label for="cookie">查询结果:</label>
         <textarea id="rt" style="width: 100%;min-height: 300px;" placeholder="请在此输入Cookie，通常可以在浏览器的开发者工具中找到"
             name="rt"></textarea>
-      
+
         <div class="instructions">
 
-            <style>
-                tbody {
-                    font-family: Arial, sans-serif;
-                }
-
-                table {
-                    width: 100%;
-                    border-collapse: collapse;
-                }
-
-                th,
-                td {
-                    padding: 8px;
-                    text-align: left;
-                    border-bottom: 1px solid #ddd;
-                }
-
-                th {
-                    background-color: #f2f2f2;
-                }
-
-                h1,
-                h2 {
-                    color: #333;
-                }
-            </style>
+           
             </head>
             <tbody>
                 <h1>接口文档</h1>
                 <h2>请求方法</h2>
                 <p>GET 或 POST（根据实际请求方式确定）</p>
-
+                <p>接口1是直接由服务器获得商品详情；<span class="red">（无需二次请求；成功率低）</span></p>
+                <p> 接口二是由服务器提供淘宝数据连接；由你本机发起数据拉取<span class="red">（需二次请求；成功率高）</span></p>
                 <h2>请求URL</h2>
-                <p>http://nv.com/tb/getInfo.html</p>
+                <p>接口1：http://www.love-novel.com/tb/getInfo.html</p>
+                <p>接口2：http://www.love-novel.com/tb/getlink.html</p>
 
                 <h2>请求头（Headers）</h2>
                 <p>无</p>
@@ -177,11 +242,27 @@
                         <td>淘宝cookie</td>
                     </tr>
                 </table>
+                <h2>返回内容</h2>
+                <table>
+                    <tr>
+                        <th>参数名称</th>
+                        <th>描述</th>
+                    </tr>
+                    <tr>
+                        <td>link</td>
+                        <td>商品链接</td>
+                    </tr>
+                    <tr>
+                        <td>head</td>
+                        <td>商品链接header参数</td>
+                    </tr>
+
+                </table>
             </tbody>
         </div>
 
         <div class="instructions" id="getcookie">
-            <h2>获取淘宝cookie:</h2>
+            <h1>获取淘宝cookie:</h1>
             <p>
                 （1）打开任意淘宝商品详情页面(非天猫商品)； 如:<a href="https://item.taobao.com/item.htm?id=520294829853"
                     target="_blank">"https://item.taobao.com/item.htm?id=520294829853"</a>

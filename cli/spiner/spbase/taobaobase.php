@@ -241,6 +241,20 @@ class taobaobase extends Clibase
             $this->debuginfo("详情原因" . $data);
         }
     }
+    public function getbookdetaillink($pid)
+    {
+
+
+
+        $api = "mtop.taobao.pcdetail.data.get/1.0/";
+        $id = $pid;
+        $parem['data'] = '{"id":"' . $id . '","detail_v":"3.3.2","exParams":"{\"id\":\"' . $id . '\",\"queryParams\":\"id=' . $id . '\",\"domain\":\"https://item.taobao.com\",\"path_name\":\"/item.htm\"}"}';
+        $datas = $this->apisignlink($api, $parem['data']);
+        return $datas;
+        // d($datas);
+        //第三方内容中对应与本数据库字段对应
+       
+    }
     //获取男女类别
     public function get_category_id($data)
     {
@@ -615,6 +629,45 @@ class taobaobase extends Clibase
 
         $data = $this->get($url);
         return $data;
+    }
+    public function apisignlink($api, $parem, $post = null)
+    {
+
+        $apiinfo = explode("/", $api);
+        $parem = [
+            "jsv" => $this->jsv,
+            "appKey" => $this->appkey,
+            "t" => time() . rand(100, 900),
+            // "t" => '1714226343519',
+            'api' => $apiinfo[0],
+            'v' => $apiinfo[1],
+            'isSec' => 0,
+            'ecode' => 0,
+            'timeout' => 10000,
+            'ttid' => urlencode("2022@taobao_litepc_9.17.0"),
+            'AntiFlood' => "true",
+            'AntiCreep' => "true",
+            'dataType' => "json",
+            'valueType' => "string",
+            'preventFallback' => "true",
+            'type' => "json",
+            "data" => $parem
+        ];
+        // $id=$parem['id']; 
+        // $parem = array_merge($p, $parem);
+        // $parem["data"] =json_encode($post);
+        $parem["sign"] = $this->sign($api, $parem);
+        $parem["data"] = urlencode($parem["data"]);
+        // d($parem);
+        $url = $api . '?';
+        foreach ($parem as $key => $value) {
+            # code...
+            $url .= $key . '=' . $value . "&";
+        }
+        $url = trim($url, '&');
+        $this->head($this->appneedinfo);
+        // $data = $this->get($url);
+        return ["link"=>$url,"head"=>$this->appneedinfo];
     }
     public function apisign2($api, $parem, $post = null)
     {

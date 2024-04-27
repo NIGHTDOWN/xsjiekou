@@ -29,6 +29,17 @@ class tb extends indexbase
         $dt = $tbsp->getbookdetail($get['pid']);
         Out::jout($dt);
     }
+    public function control_getlink()
+    {
+        $get = get(['string' => ['cookie' => 1, "appid" => 1, "pid" => 1]]);
+        im(ROOT."/cli/spiner/spbase/taobaobase.php");
+        $tbsp = new taobaobase();
+        if (!$this->checkid($get['appid']))
+            Out::jerror("余额不足；请充值");
+        $tbsp->setck($get['cookie']);
+        $dt = $tbsp->getbookdetaillink($get['pid']);
+        Out::jout($dt);
+    }
     private function checkid($appid)
     {
         // $get = get(['string' => ["appid" => 1]]);
