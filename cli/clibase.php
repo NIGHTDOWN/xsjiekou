@@ -393,7 +393,7 @@ class Clibase  extends Cli
     {
         if (!$this->spiner) {
 
-            $this->spiner = new Curl();
+            $this->spiner = new \ng169\tool\Curl();
         }
     }
     //检查章节是否重复
@@ -1065,7 +1065,7 @@ class Clibase  extends Cli
     }
     public function post2($api, $data)
     {
-        $spiner = new Curl();
+        $spiner = new \ng169\tool\Curl();
         $url = 'http://xsapi.ng169.com' . $api;
         $data = $spiner->post($url, $data);
         return $data;
