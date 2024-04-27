@@ -24,13 +24,20 @@ class tb extends indexbase
         im(ROOT."/cli/spiner/spbase/taobaobase.php");
         $tbsp = new taobaobase();
         if (!$this->checkid($get['appid']))
-            Out::jout("余额不足；请充值");
+            Out::jerror("余额不足；请充值");
         $tbsp->setck($get['cookie']);
         $dt = $tbsp->getbookdetail($get['pid']);
         Out::jout($dt);
     }
     private function checkid($appid)
     {
+        // $get = get(['string' => ["appid" => 1]]);
+        if(!$appid)return false;
+        $get=["appid" => $appid];
+        $data=  T('spuser')->set_where($get)->find();
+        if(!$data)return false;
+        if($data['num']<0)return false;
+        T('spuser')->update(['num'=>'num-1'],$get,0);
         return true;
     }
     public function control_getnum()
