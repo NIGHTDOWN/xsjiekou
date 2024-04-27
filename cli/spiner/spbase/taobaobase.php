@@ -626,8 +626,9 @@ class taobaobase extends Clibase
         $url = trim($url, '&');
         $this->head($this->appneedinfo);
 
-
+d(1);
         $data = $this->get($url);
+        d( $data);
         return $data;
     }
     public function apisignlink($api, $parem, $post = null)
