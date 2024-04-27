@@ -95,7 +95,7 @@ class taobaobase extends Clibase
 
 
 
-        $this->setproxy();
+        
         // $this->ip="127.0.0.1";
         // $this->port="8888";
         $this->appneedinfo["Cookie"] = $this->cookie;
@@ -198,14 +198,11 @@ class taobaobase extends Clibase
     // 获取远程小说详情，根据实际情况修改fun
     public function getbookdetail($pid)
     {
-
         $this->setproxy("ip.ng169.com","8888");
-
         $api = "mtop.taobao.pcdetail.data.get/1.0/";
         $id = $pid;
         $parem['data'] = '{"id":"' . $id . '","detail_v":"3.3.2","exParams":"{\"id\":\"' . $id . '\",\"queryParams\":\"id=' . $id . '\",\"domain\":\"https://item.taobao.com\",\"path_name\":\"/item.htm\"}"}';
         $datas = $this->apisign($api, $parem['data']);
-      
         return $datas;
         // d($datas);
         //第三方内容中对应与本数据库字段对应
@@ -628,7 +625,7 @@ class taobaobase extends Clibase
         $this->head($this->appneedinfo);
 
 
-        $data = $this->post($url);
+        $data = $this->post($url,null);
        
         return $data;
     }
