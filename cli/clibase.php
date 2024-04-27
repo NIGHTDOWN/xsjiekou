@@ -542,7 +542,7 @@ class Clibase  extends Cli
     public function get($api, $data = null, $time = 0)
     {
         $this->init();
-        d($this,1);
+       
         if ($this->ip && $this->port) {
             $this->setproxy($this->ip, $this->port);
         }
