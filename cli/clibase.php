@@ -521,7 +521,7 @@ class Clibase  extends Cli
         $this->spiner->setproxy($ip, $port);
     }
     // 请求
-    public function post($api, $data, $time = 0)
+    public function post($api, $data, $time = 10)
     {
         $this->init();
 
