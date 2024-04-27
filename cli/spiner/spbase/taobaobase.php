@@ -588,7 +588,7 @@ class taobaobase extends Clibase
     //http请求入口，根据实际情况，把一些固定值写进去
     public function apisign($api, $parem, $post = null)
     {
-        d(1,1);
+        
         $apiinfo = explode("/", $api);
         $parem = [
             "jsv" => $this->jsv,
