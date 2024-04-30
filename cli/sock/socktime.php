@@ -1,5 +1,5 @@
 <?php
-
+namespace ng169\cli\sock;
 /**
  * 开启master
  * 选择子线程

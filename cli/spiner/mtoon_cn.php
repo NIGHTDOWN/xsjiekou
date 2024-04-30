@@ -10,7 +10,7 @@
 
 
 require_once (dirname(__FILE__)) . "/spbase/cart_mtoon.php";
-
+use ng169\cli\spiner\spbase\cart_mtoon;
 $ob = new cart_mtoon();
 $ob->_booklang = 5;
 

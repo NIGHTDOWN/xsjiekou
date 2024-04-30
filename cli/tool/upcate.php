@@ -1,5 +1,5 @@
 <?php
-
+namespace ng169\cli\tool;
 /**统计缺失的章节，并且去掉重复章节 */
 
 

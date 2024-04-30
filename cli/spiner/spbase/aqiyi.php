@@ -4,16 +4,13 @@
  * 爱奇艺漫画
  * 列子 ：php opsock 192.168.1.1 8080
  */
-
-
-
-
-
+namespace ng169\cli\spiner\spbase;
 require_once   dirname(dirname(dirname(__FILE__))) . "/clibase.php";
 
-// use \ng169\cli\Clibase;
+
 
 use ng169\Y;
+use ng169\cli\Clibase;
 
 class aqiyi extends Clibase
 {

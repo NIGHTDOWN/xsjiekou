@@ -10,6 +10,7 @@ header('Access-Control-Allow-Origin:*');
 header('Access-Control-Allow-Methods:POST');
 // 响应头设置
 header('Access-Control-Allow-Headers:x-requested-with,content-type');*/
+namespace ng169\cli\tool;
 define('ROOT', dirname(__FILE__) . '/');
 define('FTYPE', 1);
 #相对URL路径

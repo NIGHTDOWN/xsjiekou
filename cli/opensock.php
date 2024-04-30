@@ -7,11 +7,12 @@
  * 另外开一个线程用于master心跳
  * 子线程记录接收消息
  */
+namespace ng169\cli;
 require_once    "sock/sockbase.php";
 
 use ng169\lib\Socket;
 use ng169\Y;
-
+use ng169\cli\sock\sockbase;
 
 class connectObj
 {
@@ -49,7 +50,7 @@ class SqlPool extends Clibase
         self::$server = new sockbase();
         self::$server->onmsg(__NAMESPACE__ . '\SqlPool::inmsg');
         self::$server->dismsg(__NAMESPACE__ . '\SqlPool::dis');
-        $poolconf = ng169\lib\Option::get('pool');
+        $poolconf = \ng169\lib\Option::get('pool');
         self::$pwd = $poolconf['pwd'];
 
         self::$server->start($poolconf['ip'], $poolconf['port']);
@@ -142,7 +143,7 @@ class SqlPool extends Clibase
     private static function send($obj, $data)
     {
         if ($obj) {
-            ng169\lib\Socket::senddecodeMsg($obj->getsk(), $data);
+            \ng169\lib\Socket::senddecodeMsg($obj->getsk(), $data);
         }
     }
     private static function inQueue($obj, $data)

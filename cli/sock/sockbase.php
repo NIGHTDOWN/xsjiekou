@@ -1,5 +1,5 @@
 <?php
-
+namespace ng169\cli\sock;
 /**
  * 开启master
  * 选择子线程
@@ -29,7 +29,7 @@ class sockbase extends Clibase
     //调试类
     public function start($ip,$port)
     {
-      
+        $get=$this->get($ip,$port);
         if(!$ip){
             $ip = isset($get['ip']) ? $get['ip'] : error('ip未确定');
         }

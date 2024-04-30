@@ -9,11 +9,11 @@
 
 
 
-require_once (dirname(__FILE__)) . "/spbase/hinovel.php";
 
 
 
 
+use \ng169\cli\spiner\spbase\Sphinovel;
 
 
 //俄罗斯

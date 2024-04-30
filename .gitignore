@@ -10,3 +10,5 @@ task
 task.bat
 nginx.htaccess
 .user.ini
+nohup.out
+*.swp

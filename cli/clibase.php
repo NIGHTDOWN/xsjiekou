@@ -4,14 +4,13 @@
  * 本服务接收两个参数  IP 端口
  * 列子 ：php opsock 192.168.1.1 8080
  */
-
+namespace ng169\cli;
 use ng169\lib\Log;
 use ng169\tool\Cli;
 use \ng169\Y;
 use \ng169\tool\Curl;
-
+use \ng169\db\daoClass;
 define('ROOT', dirname(__FILE__) . '/../');
-
 require_once ROOT . 'source/core/enter.php';
 
 define('FTYPE', 1);
@@ -54,7 +53,7 @@ class Clibase  extends Cli
         $in['type'] = $this->booktype;
         $in['flag'] = 0;
         $in['day'] = date('Ymd');
-
+       
         $this->logid = T('spiner')->add($in);
     }
     public function __construct()
@@ -327,8 +326,8 @@ class Clibase  extends Cli
         $up['flag'] = 2;
         $up['endtime'] = time();
         if (!$this->isthread) {
-            $up['innum'] = $this->incount;
-            $up['upnum'] = $this->upcount;
+            $up['innum'] = $this->incount??0;
+            $up['upnum'] = $this->upcount??0;
         }
         // $up['upnum'] = $num;s
         $up['endreson'] = $info;

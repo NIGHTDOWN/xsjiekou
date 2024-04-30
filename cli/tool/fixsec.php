@@ -1,5 +1,5 @@
 <?php
-
+namespace ng169\cli\tool;
 /**
  * 本服务接收两个参数  IP 端口
  * 列子 ：php opsock 192.168.1.1 8080

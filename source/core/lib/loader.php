@@ -28,6 +28,7 @@ class Loader
       'control'=>$dir.FG.'control',
       'sock'=>$dir.FG.'sock',
       'sockmodel'=>$dir.FG.'sockmodel',
+      'cli'=>CLI,
     ];
    
   }
@@ -55,7 +56,7 @@ class Loader
 
   public static function autoload($class)
   {
-
+   
   //获得空间类名
   //拆分命名空间
   //倒序加载
@@ -63,7 +64,7 @@ class Loader
     if ($file = self::findFile($class)) {
     	
       // 非 Win 环境不严格区分大小写
-    
+     
       if (!IS_WIN || pathinfo($file, PATHINFO_FILENAME) == pathinfo(realpath($file), PATHINFO_FILENAME)) {
       
         im($file);
@@ -81,7 +82,7 @@ class Loader
   */
   private static function findFile($class)
   {
-
+   
     // 检测命名空间别名
     if (!self::$namespace)self::_init();
 
@@ -91,10 +92,25 @@ class Loader
     $files           = array_reverse(explode(FG,$logicalPathPsr4));
     $filename        = $files[0];
     $realdir         = null;
+   
     unset($files[0]);
+   
     foreach ($files as $key=>$dir) {
-    	
-    	
+    	//这里兼容cli类
+    //  d($class);
+      if ($files[count($files)-1]=="cli" && count($files)>2) {
+        // d("匹配cli");
+        $df="";
+        unset($files[count($files)]);
+        // unset($files[count($files)]);
+        foreach ($files as $key => $dr) {
+          # code...
+          $df=$dr.FG.$df;
+        }
+        $realdir = strtolower(self::$namespace[$dir].FG.$df.$filename);
+       
+        goto end;
+      }
       if (isset(self::$namespace[$dir])) {
         $realdir = self::$namespace[$dir].FG.$realdir.$filename;
         goto end;

@@ -1,5 +1,5 @@
 <?php
-
+namespace ng169\cli\tool;
 /**把json数据中的链接采集到本地，并且修改成mock链接*/
 
 

@@ -1,5 +1,6 @@
 <?php
-if (isset($_GET['dir'])){ //ÉèÖÃÎÄ¼þÄ¿Â¼
+namespace ng169\cli\tool;
+if (isset($_GET['dir'])){ //ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½Ä¿Â¼
 $basedir=$_GET['dir'];
 }else{
 $basedir = '.';

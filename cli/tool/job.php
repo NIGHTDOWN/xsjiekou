@@ -1,4 +1,5 @@
 <?php
+namespace ng169\cli\tool;
 require_once   dirname(dirname(__FILE__)) . "/clibase.php";
 
 

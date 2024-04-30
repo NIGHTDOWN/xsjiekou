@@ -3,7 +3,7 @@
 /**统计缺失的章节，并且去掉重复章节 */
 
 
-
+namespace ng169\cli\tool;
 
 require_once   dirname(dirname(__FILE__)) . "/clibase.php";
 

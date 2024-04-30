@@ -9,9 +9,10 @@
 
 
 
-require_once (dirname(__FILE__)) . "/spbase/lanovel.php";
 
 
+require_once (dirname(__FILE__)) . "/spbase/splanovel.php";
+use ng169\cli\spiner\spbase\Splanovel;
 $ob = new Splanovel();
 $ob->_booklang = 0;
 $ob->wordrate = 18;

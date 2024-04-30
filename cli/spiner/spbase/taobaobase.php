@@ -4,12 +4,13 @@
  * 本服务接收两个参数  IP 端口
  * 列子 ：php opsock 192.168.1.1 8080
  */
-
+namespace ng169\cli\spiner\spbase;
+require_once   dirname(dirname(dirname(__FILE__))) . "/clibase.php";
 use ng169\Y;
 use ng169\tool\Out;
 
-
-require_once   dirname(dirname(dirname(__FILE__))) . "/clibase.php";
+use \ng169\cli\Clibase;
+// require_once   dirname(dirname(dirname(__FILE__))) . "/clibase.php";
 // use \ng169\cli\Clibase;
 //cookie里面提取token；拼接参数取MD5摘要为sign
 // 拼接参数如下：

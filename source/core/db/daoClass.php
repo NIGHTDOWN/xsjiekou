@@ -43,10 +43,10 @@ class daoClass
      */
     public function __construct($dbconf = 'main')
     {
+
         $this->dbqz = DB_PREFIX;
         $this->debug = G_DB_DEBUG;
         $dbs = Option::get('db');
-       
         if (isset($dbs[$dbconf])) {
             $conf = $dbs[$dbconf];
             $this->dbqz = $conf['dbpre'];
@@ -58,7 +58,6 @@ class daoClass
                 }else{
                   $this->_db = new Dbsql($conf['dbhost'], $conf['dbuser'], $conf['dbpwd'], $conf['dbname'], $conf['charset']) or error(__('数据库配置不存在'));
                 }
-              
                 //code...
             } catch (\Throwable $th) {
                 //throw $th;
