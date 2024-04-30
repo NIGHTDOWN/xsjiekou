@@ -9,7 +9,8 @@
 
 
 
-require_once (dirname(__FILE__)) . "/spbase/cart_mtoon.php";
+ require_once (dirname(__FILE__)) . "/spbase/cart_mtoon.php";
+ use ng169\cli\spiner\spbase\cart_mtoon;
 
 // use \ng169\cli\Clibase;
 //印尼

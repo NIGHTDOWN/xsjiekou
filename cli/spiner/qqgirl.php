@@ -11,7 +11,7 @@
 
 require_once (dirname(__FILE__)) . "/spbase/txt_qq.php";
 
-
+use ng169\cli\spiner\spbase\txt_qq; 
 
 
 

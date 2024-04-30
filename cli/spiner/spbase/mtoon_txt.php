@@ -7,9 +7,6 @@
 
  namespace ng169\cli\spiner\spbase;
  require_once   dirname(dirname(dirname(__FILE__))) . "/clibase.php";
- 
- 
- 
  use ng169\cli\Clibase;
 
 // require_once   dirname(dirname(dirname(__FILE__))) . "/clibase.php";

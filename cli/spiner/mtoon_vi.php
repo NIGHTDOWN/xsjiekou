@@ -9,8 +9,8 @@
 
 
 
-require_once (dirname(__FILE__)) . "/spbase/cart_mtoon.php";
-
+ require_once "spbase/mtoon_txt.php";
+ use ng169\cli\spiner\spbase\cart_mtoon;
 
 //越南
 $ob = new cart_mtoon();

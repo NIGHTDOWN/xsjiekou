@@ -9,7 +9,7 @@
 
 
 
-// require_once (dirname(__FILE__)) . "/spbase/mtoon_txt.php";
+ require_once "spbase/mtoon_txt.php";
 
 use ng169\cli\spiner\spbase\mtoon_txt; 
 
