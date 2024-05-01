@@ -617,6 +617,7 @@ class Clibase  extends Cli
     // abstract public function getdata($data);
     public function check($data, $field, $value)
     {
+       
         $data = json_decode($data, 1);
         $status = false;
         $ret = '';
