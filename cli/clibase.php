@@ -549,7 +549,8 @@ class Clibase  extends Cli
         $url = $this->domian . $api;
         
         if ($this->iscli()) {
-        d($url);}
+        d($url);
+    }
         $data = $this->spiner->get($url, $time);
         return $data;
     }
@@ -831,6 +832,7 @@ class Clibase  extends Cli
 
                 $dbid = $this->rmsqladd($this->dbbook, $add);
             } else {
+               
                 $dbid = T($this->dbbook)->add($add);
             }
 
@@ -847,6 +849,7 @@ class Clibase  extends Cli
         //更新章节，并且获取更新的章节数量
         //更新数量，远程数量，实际更新数量
         list($upmu, $zjnum, $innum) = $this->getseclist($id, $dbid);
+        
         if ($upmu) {
             $thisbook['upnum'] = $innum;
             $thisbook['needupnum'] = $upmu;
@@ -968,6 +971,7 @@ class Clibase  extends Cli
                     $secnum++;
                     break; //跳过当前序号内容插入
                 } else {
+                   
                     $bool = $this->insetsec($remotedata, $listorder, $field, $id, $dbid, $remotedata[$field["secid"]]);
                     if ($bool) {
                         $innum++;
@@ -1000,9 +1004,13 @@ class Clibase  extends Cli
             "title"        => $this->xhth($remotedata[$field["title"]]),
             "list_order"   => $listorder,
             $this->db_id      => $dbid,
-            "create_time"  => time(),
+            "create_time"  => date("Y-m-d H:i:s"),
             "update_time"  =>  date("Y-m-d H:i:s"),
+            "check_time"  =>  date("Y-m-d H:i:s"),
+            "crontab_time"  =>  date("Y-m-d H:i:s"),
             "status"       => 1,
+            'user_id'=>0,
+            'check_name'=>'spiner',
             "isfree"       => $this->getsecisfree($remotedata[$field["isfree"]], $this->is_un_free_val),
         ];
         if ($this->booktype == 1) {

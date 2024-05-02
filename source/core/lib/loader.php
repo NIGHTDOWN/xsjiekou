@@ -28,7 +28,7 @@ class Loader
       'control'=>$dir.FG.'control',
       'sock'=>$dir.FG.'sock',
       'sockmodel'=>$dir.FG.'sockmodel',
-      'cli'=>CLI,
+
     ];
    
   }

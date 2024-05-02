@@ -143,8 +143,8 @@ function d($name = null, $interrupt = false, $format = true, $debugindex = 0)
         }
     }
 
-    $name = $format && !is_cli() ? var_export($name) : $name;
-    /*$name = $format?var_export($name):$name;*/
+    // $name = $format && !is_cli() ? var_export($name) : $name;
+    $name = $format?var_export($name):$name;
     echo $name;
     echo $backinfo;
     if (!is_cli()) {
