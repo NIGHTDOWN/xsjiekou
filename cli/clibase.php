@@ -239,7 +239,7 @@ class Clibase  extends Cli
             $up['flag'] = 1;
             $up['endtime'] = time();
             $up['upnum'] = $num + $old['upnum'];
-            $up['innum'] = ($this->incount + $old['innum'])??0;
+            $up['innum'] = intval($this->incount + $old['innum']);
             if (sizeof($this->thred_books)) {
                 $up['rmbooknum'] = sizeof($this->thred_books);
             }
