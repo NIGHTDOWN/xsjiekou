@@ -73,7 +73,7 @@ class pmj029 extends Clibase
             }
             $this->set_th_listcache();
         }
-        d($this->upcount,1);
+      
         $this->logend($this->upcount ?? 0, $this->upinfo, sizeof($this->rmbookid));
         $this->thcache($cachename);
         $this->thstart(__FILE__, $cachename);
