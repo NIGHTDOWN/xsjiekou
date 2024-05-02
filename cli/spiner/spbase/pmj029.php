@@ -4,7 +4,9 @@
  * 爱奇艺漫画
  * 列子 ：php opsock 192.168.1.1 8080
  */
+
 namespace ng169\cli\spiner\spbase;
+
 require_once   dirname(dirname(dirname(__FILE__))) . "/clibase.php";
 
 
@@ -12,7 +14,7 @@ require_once   dirname(dirname(dirname(__FILE__))) . "/clibase.php";
 use ng169\Y;
 use ng169\cli\Clibase;
 
-im(TOOL."simplehtmldom/simple_html_dom.php");
+im(TOOL . "simplehtmldom/simple_html_dom.php");
 class pmj029 extends Clibase
 {
     public  $_booktype = 2; //书籍类型
@@ -32,14 +34,10 @@ class pmj029 extends Clibase
     // aes密钥
     public $aeskey = "";
     //用户token
-    public $token = "39LWdKy9m2FfgfZlB7m1lFC2EfBXlEnXuIaXWMhm1Vm1f57DLIHzBL61MAm3V4xCgJ5Kk826e";
+    public $token = "";
     // authCookie: 
     public $appneedinfo = [
-        'agentVersion' =>    'h5',
-        'qiyiId' =>    '4534e842413f659e8f11554a6d9b47e6',
-        'srcPlatform' =>    '23',
-        'appVer'    => '100.0.0',
-        'userId' => '1840355440027648'
+       
     ];
     //远程完结状态值
     public $update_status_end_val = 1;
@@ -67,6 +65,7 @@ class pmj029 extends Clibase
 
             for ($i; $i <= $page; $i++) {
                 $size = $this->getbooklist($i);
+                
                 if (!$size) {
                     //分页已经没东西了，直接退出
                     break;
@@ -74,40 +73,69 @@ class pmj029 extends Clibase
             }
             $this->set_th_listcache();
         }
-        $this->logend($this->upcount??0, $this->upinfo, sizeof($this->rmbookid));
+        $this->logend($this->upcount ?? 0, $this->upinfo, sizeof($this->rmbookid));
         $this->thcache($cachename);
         $this->thstart(__FILE__, $cachename);
         d("任务结束");
     }
+    public function processBookArray($bookArray)
+    {
+        // 过滤id，保留数字
+        $id = is_string($bookArray['id']) ? preg_replace('/[^0-9]/', '', $bookArray['id']) : null;
+        // 保留pic地址，去除可能的CSS样式声明
+        // $pic = is_string($bookArray['pic']) ? trim($bookArray['pic']) : null;\
+        $picMatch = array();
+        if (is_string($bookArray['pic']) && preg_match('/url\(([^\)]+)\)/', $bookArray['pic'], $picMatch)) {
+            $pic = trim($picMatch[1]);
+        } else {
+            $pic = null;
+        }
+        if ($pic) {
+            $pic = $this->domian . '' . $pic;
+        }
+        // 过滤desc，去除首位空格
+        $desc = is_string($bookArray['desc']) ? trim($bookArray['desc']) : null;
+
+        // 返回处理后的数组
+        return array(
+            'id' => $id,
+            'name' => $bookArray['name'],
+            'pic' => $pic,
+            'desc' => $desc
+        );
+    }
+
+
     // 获取远程小说列表，根据实际情况修改fun
     public function getbooklist($page)
     {
-        $post = [
-        ];
-        $api = "/update/page/$page.html";
+        $post = [];
+        $api = "/category/page/$page.html";
         $datatmp = $this->apisign($api,  $post);
-        
-    
-      $dom=   \str_get_html($datatmp);
-      $data=[];
-      foreach ($dom->find('div.mh-item') as $p) {
-        
-        $book['id']=$p->find("a")->attr['href'];
-      
-        $book['name']=$p->find(".mh-cover")->attr['style'];
-        $book['pic']=$p->find("a")->attr['title'];
-        $book['desc']=$p->find("chapter")->innertext;
-        d($book,1);
-    }
-       
+
+
+        $dom =   \str_get_html($datatmp);
+        $data = [];
+        foreach ($dom->find('div.mh-item') as $p) {
+            $book = [];
+            $book['id'] = $p->find("a")[0]->attr['href'];
+
+            $book['pic'] = $p->find(".mh-cover")[0]->attr['style'];
+            $book['name'] = $p->find("a")[0]->attr['title'];
+            $book['desc'] = $p->find(".chapter")[0]->innertext;
+            // d($p->find("chapter"));
+            $book = $this->processBookArray($book);
+            array_push($data, $book);
+        }
+
         //返回数据里面数据id字段
         $remote_bookarr_id = "id";
-        list($status, $data) = $this->getdata($datatmp, ['code', 'data.comics']);
+        // list($status, $data) = $this->getdata($datatmp, ['code', 'data.comics']);
 
-        if (!$status) {
-            $this->debuginfo("列表中断" . $datatmp);
-            return false;
-        }
+        // if (!$status) {
+        //     $this->debuginfo("列表中断" . $datatmp);
+        //     return false;
+        // }
 
         if (is_array($data) && sizeof($data) > 0) {
             d("远程拉取小说数量" . sizeof($data));
@@ -123,7 +151,7 @@ class pmj029 extends Clibase
                 } else {
 
                     $this->getbookdetail($book);
-                    d(1, 1);
+                    // d(1, 1);
                 }
             }
             return sizeof($data);
@@ -135,6 +163,8 @@ class pmj029 extends Clibase
     {
         $remote_bookarr_id = "id";
         $remotebookid = $book[$remote_bookarr_id];
+
+
         if (in_array($remotebookid, $this->rmbookid)) {
             //这本书籍已经拉取过了，不要重复拉取
             return false;
@@ -145,31 +175,61 @@ class pmj029 extends Clibase
             d('本地完结' . $remotebookid);
             return false;
         }
-        // $api = "/api/content/detail";
-        // $id = $remotebookid;
-        // $datas = $this->apisign($api, [
-        //     "id" => $id,
-        //     // "type" => "1",
-        //     // "token" => $this->token
-        // ]);
-        // d($datas, 1);
+        $id = $remotebookid;
+        $api = "/book/$remotebookid/";
+
+        $datas = $this->apisign($api, [
+            // "id" => $id,
+            // "type" => "1",
+            // "token" => $this->token
+        ]);
+        $html = str_get_html($datas);
+
+
+        $pd = $html->find('.banner_detail_form .info')[0];
+        $sec = $html->find('#chapterlistload')[0];
+
+        //  d($pd->innertext,1);
         //第三方内容中对应与本数据库字段对应
         $refield = [
-            "bookname" => "title",
-            "desc" => "description",
-            "update_status" => "serialize_status",
-            "wordnum" => "last_chapter_order",
-            "section" => "open_episodes_count",
-            "bpic" => "image_url",
+            "cartoon_name" => "name",
+            "bookname" => "name",
+
+            "desc" => "desc",
+            "update_status" => 'update_status',
+            "wordnum" => "wordnum",
+            "section" => "section",
+            "bpic" => "pic",
             "fid" => "id",
         ];
+        // d($pd->find('.tip')[0]->find('.block')[0]->find('span')[0]->innertext);
+        // d($refield,1);
         //更新状态
 
         // list($statu, $data) = $this->getdata($datas);
         $data = $book;
+        if ($sec) {
+
+            $data['section'] = sizeof($sec->find('li'));
+            $data['wordnum'] = $data['section'];
+        }
+        if ($pd) {
+            $data['update_status'] = $pd->find('.tip')[0]->find('.block')[0]->find('span')[0]->innertext;
+        }
+        if ($pd) {
+            $data['desc'] = trim($pd->find('.content')[0]->innertext);
+        }
+        if ($data['update_status'] == "已完结") {
+            $data['update_status'] = 2;
+        } else {
+            $data['update_status'] = 1;
+        }
+
         if ($data) {
+
             // $data = $this->fixtoon($data, $refield);
             $this->insertdetail($data, $refield);
+           
         } else {
             $this->debuginfo("详情原因" . $data);
         }
@@ -189,20 +249,19 @@ class pmj029 extends Clibase
         return $detail;
     }
     //免费收费状态在这里
-    //     "episodeAuthStatus":1,"episodeBossStatus":0,
-    // "episodeAuthStatus":3,"episodeBossStatus":2,
-    // "episodeAuthStatus":3,"episodeBossStatus":2,
+  
 
     public $field = [
-        "title" => "episodeTitle",
-        "isfree" => "episodeAuthStatus",
-        "secid" => "episodeId",
-        'secnum' => 'episodePageCount'
+        "title" => "title",
+        "isfree" => "isfree",
+        "secid" => "secid",
+        'secnum' => 'secnum'
     ];
     // 获取远程章节列表，根据实际情况修改fun
     public function getseclist($id, $dbid)
     {
-        $api = "/views/comicCatalog";
+
+        $api = "/book/$id/";
         $data = [
             'comicId' =>    $id,
             'episodeId' =>    '0',
@@ -215,9 +274,30 @@ class pmj029 extends Clibase
         $datas = $this->apisign($api, $data);
         //更新字数
         //更新状态
-        list($s, $data) = $this->getdata($datas, ['code', 'data.allCatalog.comicEpisodes']);
+        // list($s, $data) = $this->getdata($datas, ['code', 'data.allCatalog.comicEpisodes']);
+        $html = str_get_html($datas);
 
-        if ($data) {
+        $sec = $html->find('#chapterlistload')[0]->find('li a');
+        if ($sec) {
+            $data = [];
+            foreach ($sec as $key => $pli) {
+                # code...
+                $row = array(
+                    'title' => $pli->innertext,
+                    'isfree' => 1,
+                    'secid' => $pli->attr['href'],
+                    'secnum' => '100',
+                );
+                preg_match_all('/\d+/', $row['secid'], $matches);
+
+                if (is_array($matches)) {
+                    $row['secid'] = $matches[0][1];
+                }
+
+                array_push($data, $row);
+            }
+
+
             //取得章节列表，对比现有章节数量相同就跳出
             //必须return 不然无法统计
             return   $this->section_asyn($id, $dbid, $data, $this->field);
@@ -234,10 +314,12 @@ class pmj029 extends Clibase
         $bid = $remote_book_id;
         $sid = $remote_sec_num;
         if ($remote_sec_num == 200) {
-            d(6, 1);
+            // d(6, 1);
         }
+        
         //这里是密文拉取
         $data = $this->getremoc($remote_book_id, $remote_sec_id, $remote_sec_num);
+       
         if (!$data) {
             $data = $this->unlock($remote_book_id, $remote_sec_id, $remote_sec_num);
         }
@@ -247,8 +329,8 @@ class pmj029 extends Clibase
             // 参数 rondom+bid+cid+字符串“com.internationalization.novel”   MD516位小写 就是解密key
             $out = [];
             // array_push($out, (object) ['url' =>  $data['episodeCover'], "name" =>  '0', "id" => '0']);
-            foreach ($data['episodePicture'] as $key => $picobj) {
-                $pic = $picobj['imageUrl'];
+            foreach ($data as $key => $picobj) {
+                $pic = $picobj;
                 // $decodepic = str_replace(['encrypted', 'webp'], ['watermark', 'jpg'], $pic);
                 $obj = (object) ['url' =>  $pic, "name" =>  $key, "id" => $key];
                 array_push($out, $obj);
@@ -264,33 +346,32 @@ class pmj029 extends Clibase
     //获取远程文章内容接口
     public function getremoc($remote_book_id, $remote_sec_id, $remote_sec_num)
     {
-        // GET https://api-comic.if.iqiyi.com/v1/order/submit?dfp=15c723e853751e4e83a20a5c65f4f4e0dc8f0c601f3d3a78abb94e3ef7b5e8c1af&targetX=app&srcPlatform=35&authCookie=b3NtZr5JeKp3Sf7m1UBT4fxLnm3G2zvrAVg1jcnTqcJAn6WlyfcWKUJq6hCsr87cvu2Fd3&agentVersion=2.0.1&userId=1840355440027648&appChannel=20045006fd6e42f16f37d645c93a62a6&qypid=02023771010000000000&couponType=0&capability=3&comicId=285180070&qiyiId=f71fc82818b895da4e3e39721e6f374c1108&couponCount=0&timeStamp=1624203862083&testMode=0&appVer=2.0.1&field=catalog&agentType=354&channel=20045006fd6e42f16f37d645c93a62a6&orderStrategy=1&episodeId=1502957981740170&apiLevel=25 HTTP/1.1
-        // authCookie: b3NtZr5JeKp3Sf7m1UBT4fxLnm3G2zvrAVg1jcnTqcJAn6WlyfcWKUJq6hCsr87cvu2Fd3
-        // md5: b31fbec3045fafe04bac55892db6fbad
-        // Host: api-comic.if.iqiyi.com
-        // Connection: Keep-Alive
-        // Accept-Encoding: gzip
-        // User-Agent: okhttp/3.12.10.1
-
-
-
-
 
         $key = rand(000000, 999999);
-        $api = "/v1/order/submit";
+        $api = "/chapter/$remote_book_id/$remote_sec_id/";
         $bid = $remote_book_id;
         $sid = $remote_sec_id;
         $data = [
             // "token" => $this->token,
-            "episodeId" =>  $sid,
-            "comicId" =>  $bid,
-            "order" =>  0,
-            "size" =>  0,
+            // "episodeId" =>  $sid,
+            // "comicId" =>  $bid,
+            // "order" =>  0,
+            // "size" =>  0,
             // comicId=225640070&episodeId=539170170&order=0&size=0
         ];
         $datas = $this->apisign($api, $data);
+        
+        $html = str_get_html($datas);
+        $imgs = $html->find('.comiclist img');
+        $data = [];
+        if ($imgs) {
+            foreach ($imgs as $key => $value) {
+                array_push($data, $value->attr['data-original']);
+            }
+        }
+
         // d($datas, 1);
-        list($s, $data) = $this->getdata($datas, ['code', 'data.episodes.0'], 'A00001');
+        // list($s, $data) = $this->getdata($datas, ['code', 'data.episodes.0'], 'A00001');
 
         if ($data) {
             return ($data);
@@ -449,7 +530,7 @@ class pmj029 extends Clibase
         ], [
             "invite_code" => $this->invide,
         ]);
-        
+
         list($status, $data) = $this->getdata($datas, ["status", "access_token"], 'success');
 
         if ($status) {
@@ -591,4 +672,3 @@ class pmj029 extends Clibase
         return $num;
     }
 }
-
