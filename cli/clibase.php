@@ -257,7 +257,7 @@ class Clibase  extends Cli
             $up['flag'] = 1;
             $up['endtime'] = time();
             $up['upnum'] = $num;
-            $up['innum'] = $this->incount;
+            $up['innum'] = $this->incount??0;
             $up['rmbooknum'] = $rmnum;
             $up['upinfo'] = $this->dbbook . "|" . $this->dbsec . "|" . $this->dbcontent . json_encode($info);
             T('spiner')->update($up, $w);
