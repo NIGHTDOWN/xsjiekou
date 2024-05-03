@@ -549,7 +549,7 @@ class Clibase  extends Cli
         $url = $this->domian . $api;
         
         if ($this->iscli()) {
-        d($url);
+      //  d($url);
     }
         $data = $this->spiner->get($url, $time);
         return $data;
