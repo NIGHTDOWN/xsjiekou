@@ -113,6 +113,32 @@ class Clibase  extends Cli
             $this->threadstrat($file, $cachename, $i);
         }
     }
+    //php8.1以上线程;
+    /**
+     * $datalist 数据集合
+     * $call回调集合函数参数就是集合子元素
+     *$thnum 线程数量
+     */
+    public function thread($datalist,$call,$thnum=20){
+      d('asdasd',1);
+        if (extension_loaded('parallel')) {
+            // parallel 扩展已加载，可以执行多线程代码
+            // 使用 parallel 的 Runtime 类来创建并行任务
+            $n = 4; // 你想将数组分成几份
+            $chunks = array_chunk($datalist, ceil(count($datalist) / $thnum));
+            foreach($chunks as $smalllist){
+            \parallel\Runtime::run(function() use($smalllist,$call) {
+                // 这里写你的多线程代码
+               $this->$call($smalllist);
+            });
+        }
+            // 如果需要，可以在这里执行更多的多线程任务
+        } else {
+            // parallel 扩展未加载，可以输出错误信息或采取其他行动
+            // echo "The 'parallel' extension is not loaded.\n";
+            $this->$call($datalist);
+        }
+    }
     public function thcache($cachename)
     {
         if (sizeof($this->thred_books) == 0) {
