@@ -123,6 +123,7 @@ class Clibase  extends Cli
     public function thread($datalist,$call,$thnum=20){
         \parallel\Runtime::run(function(){});
         if (extension_loaded('parallel')) {
+            d("线程");
             // parallel 扩展已加载，可以执行多线程代码
             // 使用 parallel 的 Runtime 类来创建并行任务
             $n = 4; // 你想将数组分成几份
