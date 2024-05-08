@@ -448,7 +448,7 @@ class pmj029 extends Clibase
             $out = [];
             // array_push($out, (object) ['url' =>  $data['episodeCover'], "name" =>  '0', "id" => '0']);
             foreach ($data as $key => $picobj) {
-                $pic = $picobj;
+                $pic =  $this->fiximgstr($picobj);
                 // $decodepic = str_replace(['encrypted', 'webp'], ['watermark', 'jpg'], $pic);
                 $obj = (object) ['url' =>  $pic, "name" =>  $key, "id" => $key];
                 array_push($out, $obj);
