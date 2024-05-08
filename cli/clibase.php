@@ -44,6 +44,7 @@ class Clibase  extends Cli
     public $isthread = false;
     public $in_rmote_db = false;
     public $max_thread = 1500; //最大线程20个
+    public $debug=false;
     public function logstart($file)
     {
         $in['filename'] = $file;
@@ -121,7 +122,7 @@ class Clibase  extends Cli
      *$thnum 线程数量
      */
     public function thread($datalist,$call,$thnum=20){
-        \parallel\Runtime::run(function(){});
+        
         if (extension_loaded('parallel')) {
             d("线程");
             // parallel 扩展已加载，可以执行多线程代码
@@ -161,6 +162,7 @@ class Clibase  extends Cli
         $w['id'] = $this->logid;
 
         $up['books'] = json_encode($thred_books_arr);
+       
         T('spiner')->update($up, $w);
 
         // Log::txt(serialize($this));
@@ -315,10 +317,10 @@ class Clibase  extends Cli
             // 不可见窗口
             // pclose(popen("start /B " . $cmd, "r"));
             // 可见窗口
-            pclose(popen("start " . $cmd, "r"));
+            \pclose(popen("start " . $cmd, "r"));
         } else {
-
-            exec($cmd . " > /dev/null &");
+d($cmd);
+            \exec($cmd . " > /dev/null &");
         }
     }
     public function threadcall()
@@ -335,12 +337,15 @@ class Clibase  extends Cli
             $obj->getbookdetail($data['rmbookid']);
             return true;
         }
+  
         // list($bool, $arr) = Y::$cache->get($data['obj'] . 'arr');
         $arrs = T('spiner')->get_one(['id' => $obj->logid]);
         $arr = json_decode($arrs['books'], 1);
-
+       
         foreach ($arr[$data['id']] as $id) {
+          
             $obj->getbookdetail($id);
+           
         }
         //日志记录
         // Log::txt($this);
@@ -701,6 +706,7 @@ class Clibase  extends Cli
     //     parent::__construct();
     // }
     //*************************************************************************** */
+
     //调试类
     public function debuginfo($type, $info = null)
     {
@@ -926,6 +932,8 @@ class Clibase  extends Cli
     public $update_status_end_val = 1;
     public $is_un_free_val = 1;
     public $incount;
+    public $upcount;
+    
     //获取男女类别
     public function get_category_id($data)
     {

@@ -73,6 +73,7 @@ class pmj029 extends Clibase
         }
 
         $this->logend($this->upcount ?? 0, $this->upinfo, sizeof($this->rmbookid));
+      
         $this->thcache($cachename);
         $this->thstart(__FILE__, $cachename);
         d("任务结束");
@@ -179,8 +180,9 @@ public function _getbooklist($page)
             foreach ($data  as $k=>$book) {
 
                 if ($this->isthread) {
-
-                    $this->thpush($book[$remote_bookarr_id]);
+                   Y::$cache->set("spck_".$book[$remote_bookarr_id],$book,G_DAY*2);     
+                   $this->thpush($book[$remote_bookarr_id]);
+                   // $this->thpush($book);
                 } else {
                     $this->getbookdetail($book);
                 }
@@ -234,7 +236,20 @@ public function _getbooklist($page)
     // 获取远程小说详情，根据实际情况修改fun
     public function getbookdetail($book)
     {
+        
+        if(!is_array($book)){
+           
+           $ck= Y::$cache->get("spck_".$book);  
+          
+           if(is_array($ck[1])){
+            $book=$ck[1];
+           }else{
+            return;
+           }
+          
+        }
         $remote_bookarr_id = "id";
+       
         $remotebookid = $book[$remote_bookarr_id];
        
         if (in_array($remotebookid, $this->rmbookid)) {
