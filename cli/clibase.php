@@ -69,7 +69,7 @@ class Clibase  extends Cli
     public function thinit()
     {
         $bookids = $this->getargv(['bookid']);
-        if ($bookids['bookid']) {
+        if (isset($bookids['bookid'])) {
             $this->getbookdetail($bookids['bookid']);
             die();
         }
@@ -102,6 +102,7 @@ class Clibase  extends Cli
             }
         }
     }
+    public $thred_book=[];
     public function thstart($file, $cachename)
     {
         // foreach ($this->thred_books_arr as $key => $value) {
@@ -120,11 +121,12 @@ class Clibase  extends Cli
      *$thnum 线程数量
      */
     public function thread($datalist,$call,$thnum=20){
-      d('asdasd',1);
+        \parallel\Runtime::run(function(){});
         if (extension_loaded('parallel')) {
             // parallel 扩展已加载，可以执行多线程代码
             // 使用 parallel 的 Runtime 类来创建并行任务
             $n = 4; // 你想将数组分成几份
+            
             $chunks = array_chunk($datalist, ceil(count($datalist) / $thnum));
             foreach($chunks as $smalllist){
             \parallel\Runtime::run(function() use($smalllist,$call) {
@@ -818,7 +820,7 @@ class Clibase  extends Cli
             } else {
                 //更新书籍章节以及更新信息
 
-                if ($data["update_section"]) {
+                if (isset($data["update_section"]) && $data["update_section"]) {
                     $up["section"] = $data[$refield["section"]];
                     $up["update_time"] = time();
                     // $up["update_status"] = $this->getbookisend($data[$refield["update_status"]], 1); //状态2为完结 ，1为连载
@@ -830,10 +832,14 @@ class Clibase  extends Cli
             $category_id = $this->get_category_id(@$data[$refield["category_id"]]);
             $cate_id = $this->get_cate_id($category_id, @$data[$refield["cate_id"]]);
             $lable =   $this->get_lable($cate_id, @$data[$refield["lable"]]);
+            $writer_name="";
+            if(isset($data[$refield["writer_name"]])){
+                $writer_name=$data[$refield["writer_name"]];
+            }
             $add = [
                 "fid" => $id,
                 "ftype" => $this->bookdstdesc,
-                "writer_name" => $data[$refield["writer_name"]],
+                "writer_name" => $writer_name,
                 // "book_name" => $data["other_name"],
                 "status" => 2, //下架
                 "wordnum"   => $data[$refield["wordnum"]],
@@ -967,7 +973,11 @@ class Clibase  extends Cli
 
             for ($j = 0; $j <= $upnum; $j++) {
                 $newsecid = $secnum;
-                $remotedata = $data[$newsecid];
+                $remotedata="";
+                if(isset($data[$newsecid])){
+                    $remotedata = $data[$newsecid];
+                }
+              
                 if (!$remotedata) {
                     break;
                 }

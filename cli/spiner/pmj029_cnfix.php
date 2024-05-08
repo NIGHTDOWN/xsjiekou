@@ -18,4 +18,4 @@ $ob->_booklang = 5;
 $ob->_bookdstdesc = '中国_pmj029_txt';
 $ob->appneedinfo['_language'] = 'cn';
 $ob->initsp();
-$ob->fiximgurl();
+$ob->catchbook();

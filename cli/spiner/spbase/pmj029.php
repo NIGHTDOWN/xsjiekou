@@ -104,7 +104,54 @@ class pmj029 extends Clibase
         );
     }
 
-
+public function getbooklistall($pagemax){
+    $cachecindex="pmjbooklist";
+   $cc= Y::$cache->get( $cachecindex);
+   if($cc[0]){
+    $this->thred_book=$cc[1];
+   }else{
+    $this->thred_book=[];
+    for ($i=0; $i <= $pagemax; $i++) {
+        $size = $this->_getbooklist($i);
+        if (!$size) {
+            //分页已经没东西了，直接退出
+            break;
+        }
+    }
+    Y::$cache->set( $cachecindex,$this->thred_book,G_DAY);
+   }
+   
+    return $this->thred_book;
+}
+public function _getbooklist($page)
+{
+    $post = [];
+    $api = "/category/page/$page.html";
+    $datatmp = $this->apisign($api,  $post);
+    $dom =   \str_get_html($datatmp);
+    $data = [];
+    foreach ($dom->find('div.mh-item') as $p) {
+        $book = [];
+        $book['id'] = $p->find("a")[0]->attr['href'];
+        $book['pic'] = $p->find(".mh-cover")[0]->attr['style'];
+        $book['name'] = $p->find("a")[0]->attr['title'];
+        $book['desc'] = $p->find(".chapter")[0]->innertext;
+        // d($p->find("chapter"));
+        $book = $this->processBookArray($book);
+        array_push($data, $book);
+    }
+    //返回数据里面数据id字段
+    $remote_bookarr_id = "id";
+    if (is_array($data) && sizeof($data) > 0) {
+        d("远程拉取小说数量" . sizeof($data));
+        foreach ($data  as $k=>$book) {
+            // $this->thpush($book[$remote_bookarr_id]);
+            array_push($this->thred_book,$book);
+        }
+        return sizeof($data);
+    }
+    return 0;
+}
     // 获取远程小说列表，根据实际情况修改fun
     public function getbooklist($page)
     {
@@ -129,15 +176,13 @@ class pmj029 extends Clibase
 
         if (is_array($data) && sizeof($data) > 0) {
             d("远程拉取小说数量" . sizeof($data));
-            foreach ($data  as $book) {
+            foreach ($data  as $k=>$book) {
 
                 if ($this->isthread) {
 
                     $this->thpush($book[$remote_bookarr_id]);
                 } else {
-
                     $this->getbookdetail($book);
-                    // d(1, 1);
                 }
             }
             return sizeof($data);
@@ -182,7 +227,7 @@ class pmj029 extends Clibase
                 array_push($data, $row);
             }
         }
-        $data = array_replace($data); //章节列表需要倒叙
+        $data = array_reverse($data); //章节列表需要倒叙
         $this->seclist[$id] = $data;
         return  $this->seclist[$id];
     }
@@ -191,6 +236,7 @@ class pmj029 extends Clibase
     {
         $remote_bookarr_id = "id";
         $remotebookid = $book[$remote_bookarr_id];
+       
         if (in_array($remotebookid, $this->rmbookid)) {
             //这本书籍已经拉取过了，不要重复拉取
             return false;
@@ -220,7 +266,7 @@ class pmj029 extends Clibase
         $refield = [
             "cartoon_name" => "name",
             "bookname" => "name",
-
+            "writer_name"=>"writer_name",
             "desc" => "desc",
             "update_status" => 'update_status',
             "wordnum" => "wordnum",
@@ -252,27 +298,13 @@ class pmj029 extends Clibase
         }
 
         if ($data) {
-
             // $data = $this->fixtoon($data, $refield);
             $this->insertdetail($data, $refield);
         } else {
             $this->debuginfo("详情原因" . $data);
         }
     }
-    public function fixtoon($detail, $refield)
-    {
-        $desc = $detail[$refield['desc']];
-        $bpic = $detail[$refield['bpic']];
-        preg_match('/\s.*MangaToon.*/', $desc, $booldesc);
-        preg_match('/\.[\w]{3,4}(-[\w]{1,})$/', $bpic,  $boolbpic);
-        if ($booldesc[0]) {
-            $detail[$refield['desc']] = str_replace($booldesc[0], '', $desc);
-        }
-        if ($boolbpic[1]) {
-            $detail[$refield['bpic']] = str_replace($boolbpic[1], '', $bpic);
-        }
-        return $detail;
-    }
+    
     //免费收费状态在这里
 
 
@@ -285,43 +317,6 @@ class pmj029 extends Clibase
     // 获取远程章节列表，根据实际情况修改fun
     public function getseclist($id, $dbid)
     {
-
-        // $api = "/book/$id/";
-        // $data = [
-        //     'comicId' =>    $id,
-        //     'episodeId' =>    '0',
-        //     'episodeIndex' =>    '0',
-        //     'order' =>    '0',
-        //     'size' =>    '10000',
-        // ];
-        // //远程与本地字段对应
-
-        // $datas = $this->apisign($api, $data);
-        // //更新字数
-        // //更新状态
-        // // list($s, $data) = $this->getdata($datas, ['code', 'data.allCatalog.comicEpisodes']);
-        // $html = str_get_html($datas);
-
-        // $sec = $html->find('#chapterlistload')[0]->find('li a');
-        // if ($sec) {
-        //     $data = [];
-
-        //     foreach ($sec as $key => $pli) {
-        //         # code...
-        //         $row = array(
-        //             'title' => $pli->innertext,
-        //             'isfree' => 1,
-        //             'secid' => $pli->attr['href'],
-        //             'secnum' => '100',
-        //         );
-        //         preg_match_all('/\d+/', $row['secid'], $matches);
-
-        //         if (is_array($matches)) {
-        //             $row['secid'] = $matches[0][1];
-        //         }
-        //         array_push($data, $row);
-        //     }
-        //     $data = array_replace($data); //章节列表需要倒叙
         $data = $this->gethttpsec($id);
         if ($data) {
             //取得章节列表，对比现有章节数量相同就跳出
@@ -346,7 +341,23 @@ class pmj029 extends Clibase
             }
         }
     }
-
+    public function catchbook($list = null)
+    {
+        if ($list == null) {
+            // $tb = $this->dbbook;
+            // $in['lang'] =  $this->booklang;
+            // $in['ftype'] = $this->bookdstdesc;
+            // $list = T($tb)->set_field($this->db_id)->set_where($in)->set_where($this->db_id . ">61820")->get_all(null, 1);
+           $list=$this->getbooklistall(1000);
+        
+           
+            $this->thread($list, 'catchbook');
+        } else {
+            foreach ($list as $key => $value) {
+                $this->getbookdetail($value);
+            }
+        }
+    }
     public function fiximgurl($list = null)
     {
         if ($list == null) {
@@ -410,12 +421,7 @@ class pmj029 extends Clibase
 
         if (sizeof($datasec) > 1) {
             $rand = rand(0, sizeof($datasec) - 1);
-            //    d($datasec[$rand]);
-            //    if($datasec[$rand]){
-
-            //    }
-            //     // $rrecv=array_reverse($datasec);
-            //     d($datasec,1);
+         
             foreach ($datasec as $key => $value) {
                 $w = ['cart_section_id' => $value['cart_section_id']];
                 $up['list_order'] = $key;

@@ -15,6 +15,10 @@ class Rediscache
 	private $host;
 	private $post;
 	private $pre;
+	private $pwd;
+	private $num;
+	private $port;
+
 
 	private static $_instance = null; //静态实例
 	private static $_redis = null; //静态实例
@@ -104,6 +108,7 @@ class Rediscache
 		if (!$name) return false;
 		$data = self::$_redis->get($this->pre . $name);
 		$data = json_decode($data, 1);
+		if(!$data)return[false,false];
 		if ($data['expired'] <= 1) {
 			// return $data['value'];
 		}
