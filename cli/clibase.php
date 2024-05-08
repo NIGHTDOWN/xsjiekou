@@ -526,7 +526,7 @@ d($cmd);
     // //解锁章节
     // abstract public  function unlock($remote_book_id, $remote_sec_id, $remote_sec_num);
     //解密
-    public function aes_cbc_nopadding($data = '', $privateKey, $iv)
+    public function aes_cbc_nopadding($data , $privateKey, $iv)
     {
 
         return openssl_decrypt(base64_decode($data), "AES-128-CBC", $privateKey, OPENSSL_NO_PADDING, $iv);
@@ -658,7 +658,7 @@ d($cmd);
         $ret = '';
         if ($data[$field[0]] == $value) {
             $status = true;
-            //
+           
             $need = explode('.', $field[1]);
             if (sizeof($need) == 1) {
                 $ret = $data[$field[1]];

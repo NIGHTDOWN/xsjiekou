@@ -46,7 +46,12 @@ class TPL extends Y
         self::$tpl->compile_dir = self::$compiled_dir;
         self::$tpl->cache_dir = self::$cache_dir;
     
-      
+    //   if(isset(self::$tpl['allow_php_tag'])){
+    //     self::$tpl['allow_php_tag']=self::$allow_php_tag;
+    //   }
+    //   if(isset(self::$tpl['compile_check'])){
+    //     self::$tpl['compile_check']=self::$allow_php_tag;
+    //   }
         self::$tpl->allow_php_tag = self::$allow_php_tag;
         self::$tpl->cache_lifetime = self::$cache_lifetime;
         self::$tpl->force_compile = true;

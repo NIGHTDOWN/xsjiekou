@@ -137,4 +137,14 @@ class Rediscache
 	{
 		return self::$_redis->close();
 	}
+	//清空一个库
+	public function clear(){
+		self::$_redis->flushDB();
+	}
+	//清空所有库
+	public function clearall(){
+
+
+		self::$_redis->flushAll();
+	}
 }
