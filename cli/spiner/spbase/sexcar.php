@@ -13,6 +13,7 @@ require_once   dirname(dirname(dirname(__FILE__))) . "/clibase.php";
 
 use ng169\Y;
 use ng169\cli\Clibase;
+use ng169\tool\Curl;
 
 im(TOOL . "simplehtmldom/simple_html_dom.php");
 class sexcar extends Clibase
@@ -722,8 +723,6 @@ class sexcar extends Clibase
         $key = 'window.atob'; // 必须是32字节的二进制数据  
       
         $y = 'U2FsdGVkX1855ZWHDfuWj1Yk/F0zs8AD+CqFuvXrfGpskSTwFXgEPDTSbdZF1JyqO7XVZYboKiAWJ0TOWu6XNw==';
-        U2FsdGVkX1855ZWH
-        DfuWj1Yk/F0zs8AD+CqFuvXrfGpskSTwFXgEPDTSbdZF1JyqO7XVZYboKiAWJ0TOWu6XNw==
         //    $t = openssl_decrypt(base64_decode($y), 'aes-128-cbc', $key, OPENSSL_NO_PADDING);  
         // $key=base64_encode($key);
         $s="33c70ec55d96903ca940bd5f0d00b7fe";
@@ -738,31 +737,34 @@ class sexcar extends Clibase
     }
     function decrypt($encrypted, $key, $iv = null)
     {
+        $purl=new Curl();
+        $h=$purl->post('http://192.168.2.109:3000/decode',['str'=>'U2FsdGVkX1855ZWHDfuWj1Yk/F0zs8AD+CqFuvXrfGpskSTwFXgEPDTSbdZF1JyqO7XVZYboKiAWJ0TOWu6XNw==','key'=>'window.atob']);
+        d($h);
         // Base64解码密文
-        if ($iv === null && strlen($encrypted) >= 16) {  
-            $iv = substr($encrypted, 0, 16);  
-            $encrypted = substr($encrypted, 16);  
-        }  
+    //     if ($iv === null && strlen($encrypted) >= 16) {  
+    //         $iv = substr($encrypted, 0, 16);  
+    //         $encrypted = substr($encrypted, 16);  
+    //     }  
       
-        // Base64 解码加密字符串  
-        $encrypted = base64_decode($encrypted);  
-     d($iv);
-        // 解密  
-        $decrypted = openssl_decrypt(  
-            $encrypted,  
-            'AES-128-CBC', // 加密算法  
-            hex2bin($key), // 密钥需要是二进制格式，这里假设密钥是十六进制字符串  
-            0,             // 选项，0 表示没有额外的加密选项  
-            $iv            // 初始化向量  
-        );  
+    //     // Base64 解码加密字符串  
+    //     $encrypted = base64_decode($encrypted);  
+    //  d($iv);
+    //     // 解密  
+    //     $decrypted = openssl_decrypt(  
+    //         $encrypted,  
+    //         'AES-128-CBC', // 加密算法  
+    //         hex2bin($key), // 密钥需要是二进制格式，这里假设密钥是十六进制字符串  
+    //         0,             // 选项，0 表示没有额外的加密选项  
+    //         $iv            // 初始化向量  
+    //     );  
       
-        // 如果解密失败，返回 false  
-        if ($decrypted === false) {  
-            return false;  
-        }  
+    //     // 如果解密失败，返回 false  
+    //     if ($decrypted === false) {  
+    //         return false;  
+    //     }  
       
         // 返回解密后的字符串  
-        return $decrypted;  
+        return $h;  
     }
 
     //签名类返回签名值
