@@ -3,18 +3,9 @@ const CryptoJS = require('./cy');
 const express = require('express');
 const bodyParser = require('body-parser');
 
-// let y = 'U2FsdGVkX1855ZWHDfuWj1Yk/F0zs8AD+CqFuvXrfGpskSTwFXgEPDTSbdZF1JyqO7XVZYboKiAWJ0TOWu6XNw=='
-
-// t =t.toString(CryptoJS.enc.Utf8)
-// console.log(t);
-
-
 const app = express();
 
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: false  }));
 app.use(bodyParser.json({ limit: '50mb' }));
-
 // 为 urlencoded 中间件设置更大的大小限制
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 const port = 3000;
