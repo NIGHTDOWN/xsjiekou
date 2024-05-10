@@ -13,7 +13,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 const port = 3000;
-app.get('/decode/', (req, res) => {
+app.post('/decode/', (req, res) => {
     console.log(req.body);
     const { str, key } = req.body;
    // 简单的参数验证
