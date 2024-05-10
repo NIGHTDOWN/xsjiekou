@@ -18,6 +18,8 @@ use ng169\tool\Curl;
 im(TOOL . "simplehtmldom/simple_html_dom.php");
 class sexcar extends Clibase
 {
+    //本地node服务信息
+    public $lcaesnodeserver="http://127.0.0.1:3000/decode";
     public  $_booktype = 2; //书籍类型
     public  $_booklang = 5;  //书籍语言
     public  $_bookdstdesc_int = 23; //书籍来源描述
@@ -79,39 +81,32 @@ class sexcar extends Clibase
         $this->thstart(__FILE__, $cachename);
         d("任务结束");
     }
-    public function processBookArray($bookArray)
-    {
-        // 过滤id，保留数字
-        // $id = is_string($bookArray['id']) ? preg_replace('/[^0-9]/', '', $bookArray['id']) : null;
-
-        preg_match('/id=(\d+)/', $bookArray['id'], $matches);
+    public function strgetid($str){
+        preg_match('/&id=(\d+)/', $str, $matches);
+        $id="";
         if (!empty($matches)) {
             $id = $matches[1];
             // echo $id; // 输出: 463
         } else {
             d('没有找到匹配的 ID 值。');
         }
-
-
+        return $id;
+    }
+    public function processBookArray($bookArray)
+    {
+        // 过滤id，保留数字
+        // $id = is_string($bookArray['id']) ? preg_replace('/[^0-9]/', '', $bookArray['id']) : null;
+        $id=$this->strgetid($bookArray['id']);
         // 保留pic地址，去除可能的CSS样式声明
         // $pic = is_string($bookArray['pic']) ? trim($bookArray['pic']) : null;\
-        $picMatch = array();
-        if (is_string($bookArray['pic']) && preg_match('/url\(([^\)]+)\)/', $bookArray['pic'], $picMatch)) {
-            $pic = trim($picMatch[1]);
-        } else {
-            $pic = null;
-        }
-        if ($pic) {
-            $pic = $this->domian . '' . $pic;
-        }
-        // 过滤desc，去除首位空格
-        // $desc = is_string($bookArray['desc']) ? trim($bookArray['desc']) : null;
-
-        // 返回处理后的数组
+        $pattern = '/\?.*$/';
+// 使用 preg_replace 移除 URL 末尾的查询字符串
+$cleanedUrl = preg_replace($pattern, '', $bookArray['pic']);
+      
         return array(
             'id' => $id,
             'name' => $bookArray['name'],
-            'pic' => $pic,
+            'pic' => $cleanedUrl,
             // 'desc' => $desc
         );
     }
@@ -123,33 +118,34 @@ class sexcar extends Clibase
         $post = [];
         $api = "/list?pid=3&page=" . $page;
         $datatmp = $this->apisign($api,  $post);
-        d($datatmp, 1);
+       
         $dom =   \str_get_html($datatmp);
         $data = [];
         foreach ($dom->find('div.vod-item-box') as $p) {
             $book = [];
             $book['id'] = $p->find("a")[0]->attr['href'];
             $book['pic'] = $p->find("img")[0]->attr['src'];
+          
             $book['name'] = $p->find(".vod-name")[0]->innertext;
             // $book['desc'] = $p->find(".chapter")[0]->innertext;
             // d($p->find("chapter"));
+           
             $book = $this->processBookArray($book);
-            d($book, 1);
+           
             array_push($data, $book);
         }
         //返回数据里面数据id字段
         $remote_bookarr_id = "id";
-
         if (is_array($data) && sizeof($data) > 0) {
             d("远程拉取小说数量" . sizeof($data));
             foreach ($data  as $k => $book) {
-
                 if ($this->isthread) {
                     Y::$cache->set("spck_" . $book[$remote_bookarr_id], $book, G_DAY * 2);
                     $this->thpush($book[$remote_bookarr_id]);
                     // $this->thpush($book);
                 } else {
                     $this->getbookdetail($book);
+                   
                 }
             }
             return sizeof($data);
@@ -161,7 +157,7 @@ class sexcar extends Clibase
     private function gethttpsec($id)
     {
         if (isset($this->seclist[$id])) return  $this->seclist[$id];
-        $api = "/book/$id/";
+        $api = "/detail?pid=3&id=$id";
         $data = [
             'comicId' =>    $id,
             'episodeId' =>    '0',
@@ -173,9 +169,11 @@ class sexcar extends Clibase
         $datas = $this->apisign($api, $data);
         //更新字数
         //更新状态
-        // list($s, $data) = $this->getdata($datas, ['code', 'data.allCatalog.comicEpisodes']);
         $html = str_get_html($datas);
-        $sec = $html->find('#chapterlistload')[0]->find('li a');
+       
+        $hbox=$html->find('div.my-box')[1];
+       
+        $sec = $hbox->find('a');
         if ($sec) {
             $data = [];
             foreach ($sec as $key => $pli) {
@@ -186,26 +184,24 @@ class sexcar extends Clibase
                     'secid' => $pli->attr['href'],
                     'secnum' => '100',
                 );
-                preg_match_all('/\d+/', $row['secid'], $matches);
+                // preg_match_all('/\d+/', $row['secid'], $matches);
 
-                if (is_array($matches)) {
-                    $row['secid'] = $matches[0][1];
-                }
+                // if (is_array($matches)) {
+                //     $row['secid'] = $matches[0][1];
+                // }
+                $row['secid']=$this->strgetid($row['secid']);
                 array_push($data, $row);
             }
         }
-        $data = array_reverse($data); //章节列表需要倒叙
+        // $data = array_reverse($data); //章节列表需要倒叙
         $this->seclist[$id] = $data;
         return  $this->seclist[$id];
     }
     // 获取远程小说详情，根据实际情况修改fun
     public function getbookdetail($book)
     {
-
         if (!is_array($book)) {
-
             $ck = Y::$cache->get("spck_" . $book);
-
             if (is_array($ck[1])) {
                 $book = $ck[1];
             } else {
@@ -213,9 +209,7 @@ class sexcar extends Clibase
             }
         }
         $remote_bookarr_id = "id";
-
         $remotebookid = $book[$remote_bookarr_id];
-
         if (in_array($remotebookid, $this->rmbookid)) {
             //这本书籍已经拉取过了，不要重复拉取
             return false;
@@ -227,20 +221,15 @@ class sexcar extends Clibase
             return false;
         }
         $id = $remotebookid;
-        $api = "/book/$remotebookid/";
-
-        $datas = $this->apisign($api, [
-            // "id" => $id,
-            // "type" => "1",
-            // "token" => $this->token
-        ]);
+        $api = "/detail?pid=3&id=$remotebookid";
+        $datas = $this->apisign($api, []);
         $html = str_get_html($datas);
 
-
-        $pd = $html->find('.banner_detail_form .info')[0];
+        // $pd = $html->find('.banner_detail_form .info')[0];
+        $pd=$html->find('div.my-box')[2]->find("p")[0];
         // $sec = $html->find('#chapterlistload')[0];
         $sec = $this->gethttpsec($remotebookid);
-        //  d($pd->innertext,1);
+        
         //第三方内容中对应与本数据库字段对应
         $refield = [
             "cartoon_name" => "name",
@@ -253,29 +242,25 @@ class sexcar extends Clibase
             "bpic" => "pic",
             "fid" => "id",
         ];
-        // d($pd->find('.tip')[0]->find('.block')[0]->find('span')[0]->innertext);
-        // d($refield,1);
-        //更新状态
-
-        // list($statu, $data) = $this->getdata($datas);
+        
         $data = $book;
         if ($sec) {
-
+            $data['desc']="";
             $data['section'] = sizeof($sec);
             $data['wordnum'] = $data['section'];
-        }
-        if ($pd) {
-            $data['update_status'] = $pd->find('.tip')[0]->find('.block')[0]->find('span')[0]->innertext;
-        }
-        if ($pd) {
-            $data['desc'] = trim($pd->find('.content')[0]->innertext);
-        }
-        if ($data['update_status'] == "已完结") {
             $data['update_status'] = 2;
-        } else {
-            $data['update_status'] = 1;
         }
-
+        // if ($pd) {
+        //     $data['update_status'] = $pd->find('.tip')[0]->find('.block')[0]->find('span')[0]->innertext;
+        // }
+        if ($pd) {
+            $data['desc'] = trim($pd->innertext);
+        }
+        // if ($data['update_status'] == "已完结") {
+        //     $data['update_status'] = 2;
+        // } else {
+        //     $data['update_status'] = 1;
+        // }
         if ($data) {
             // $data = $this->fixtoon($data, $refield);
             $this->insertdetail($data, $refield);
@@ -324,8 +309,6 @@ class sexcar extends Clibase
     {
         if ($list == null) {
         
-
-
             $this->thread($list, 'catchbook');
         } else {
             foreach ($list as $key => $value) {
@@ -349,17 +332,10 @@ class sexcar extends Clibase
     }
     public function fiximgstr($str)
     {
-        if (strpos($str, 'content.mkzcdn.com') === false) {
-            // 如果不包含，则直接返回原始字符串
-            return "";
-        }
-        // 正则表达式匹配整个图片URL，包括参数
-        // 捕获组 (?<=\.com\/)[\w\/-]+ 用于匹配 .com/ 之后的部分，直到出现空格或问号
-        // $pattern = '/content\.mkzcdn\.com\/(comic\/page\/\d{8}\/[a-zA-Z0-9]+-\d+x\d+\.jpg)\!page-800-x\?auth_key=[^"]+/';
-        // 替换域名为 oss.mkzcdn.com 并移除问号及其后面的参数
-        $replacedStr = preg_replace('/content.mkzcdn.com/', 'oss.mkzcdn.com', $str);
-        $replacedStr = preg_replace('/\![^\s|^\"]+\"/', '\"', $replacedStr);
-        return $replacedStr;
+        $pattern = '/\?.*$/';
+        // 使用 preg_replace 移除 URL 末尾的查询字符串
+        $cleanedUrl = preg_replace($pattern, '', $str);
+        return $cleanedUrl;
     }
     public function fiximgurls($bookid)
     {
@@ -419,9 +395,7 @@ class sexcar extends Clibase
         //这里是密文拉取
         $data = $this->getremoc($remote_book_id, $remote_sec_id, $remote_sec_num);
 
-        if (!$data) {
-            $data = $this->unlock($remote_book_id, $remote_sec_id, $remote_sec_num);
-        }
+       
 
         //密文解密
         if ($data) {
@@ -445,241 +419,57 @@ class sexcar extends Clibase
     //获取远程文章内容接口
     public function getremoc($remote_book_id, $remote_sec_id, $remote_sec_num)
     {
-
-        $key = rand(000000, 999999);
-        $api = "/chapter/$remote_book_id/$remote_sec_id/";
+        $api = "/content?pid=3&id=$remote_sec_id";
         $bid = $remote_book_id;
         $sid = $remote_sec_id;
         $data = [
-            // "token" => $this->token,
-            // "episodeId" =>  $sid,
-            // "comicId" =>  $bid,
-            // "order" =>  0,
-            // "size" =>  0,
-            // comicId=225640070&episodeId=539170170&order=0&size=0
         ];
         $datas = $this->apisign($api, $data);
-
         $html = str_get_html($datas);
-        $imgs = $html->find('.comiclist img');
+        
+         $imgsstr=$html->find('.my-box')[1]->innertext;
+
+         $pattern = '/data-echo="([^"]+)"/';
+
+         // 使用 preg_match_all 来找到所有匹配的内容
+         preg_match_all($pattern, $imgsstr, $matches);
+         
+         // $matches[1] 包含所有匹配的 data-echo 属性的值
+         $imgs = $matches[1];
+
+
+        // $obj=$html->find('.my-box')[1];
+        // d($obj=="");
+        // if(!$obj){
+        //     d("详情获取失败".$bid);
+        //     return false;
+        // }
+        // $imgs = $obj->find('img');
         $data = [];
         if ($imgs) {
             foreach ($imgs as $key => $value) {
-                array_push($data, $value->attr['data-original']);
+                array_push($data, $value);
             }
         }
-
-        // d($datas, 1);
-        // list($s, $data) = $this->getdata($datas, ['code', 'data.episodes.0'], 'A00001');
-
         if ($data) {
             return ($data);
             // return ["key" => $key, "data" => $data];
         } else {
-            // d("中断原因" . $datas);
-            // $this->debuginfo("中断原因" . $datas);
-
-            //章节内容拉取次数
-            // if (isset($this->loop[$bid . "_" . $sid])) {
-            //     $this->loop[$bid . "_" . $sid] = $this->loop[$bid . "_" . $sid] + 1;
-            // } else {
-            //     $this->loop[$bid . "_" . $sid] = 1;
-            // }
+             d("中断原因" . $datas);
+           
         }
         return false;
     }
-    public function h5getremoc($remote_book_id, $remote_sec_id, $remote_sec_num)
-    {
-
-        $key = rand(000000, 999999);
-        $api = "/read/1.0/batchRead";
-        $bid = $remote_book_id;
-        $sid = $remote_sec_id;
-        $data = [
-            // "token" => $this->token,
-            "episodeId" =>  $sid,
-            "comicId" =>  $bid,
-            "order" =>  0,
-            "size" =>  0,
-            // comicId=225640070&episodeId=539170170&order=0&size=0
-        ];
-        $datas = $this->apisign($api, $data);
-        // d($datas, 1);
-        list($s, $data) = $this->getdata($datas, ['code', 'data.episodes.0'], 'A00001');
-
-        if ($data) {
-            return ($data);
-            // return ["key" => $key, "data" => $data];
-        } else {
-            // d("中断原因" . $datas);
-            // $this->debuginfo("中断原因" . $datas);
-
-            //章节内容拉取次数
-            // if (isset($this->loop[$bid . "_" . $sid])) {
-            //     $this->loop[$bid . "_" . $sid] = $this->loop[$bid . "_" . $sid] + 1;
-            // } else {
-            //     $this->loop[$bid . "_" . $sid] = 1;
-            // }
-        }
-        return false;
-    }
+   
     //解锁接口
-    public function unlock($remote_book_id, $remote_sec_id, $remote_sec_num)
-    {
-        $api = "/api/content/unlockByAdWatch";
-        $adid = "8700" . rand(0, 9);
-        $bid = $remote_book_id;
-        $sid = $remote_sec_id;
-        if (($this->loop[$bid . "_" . $sid])) {
-            $this->loop[$bid . "_" . $sid] = $this->loop[$bid . "_" . $sid] + 1;
-        } else {
-            $this->loop[$bid . "_" . $sid] = 1;
-        }
-        $data = [
-            "episode_id" => $sid,
-            "content_id" =>  $adid,
-            // "bid" => $bid,
-        ];
-        $data2 = $this->apisign($api, [], $data);
-        //这里取状态，解锁状态成功就再次拉取内容
-        list($s, $data) =  $this->getdata($data2);
-        if ($s) {
-            $data = $this->getremoc($remote_book_id, $remote_sec_id, $remote_sec_num);
-
-            //解锁成功拉取因为 各种原因失败，所以再次尝试
-            if (!$data) {
-                $this->reg();
-                // return $this->unlock($remote_book_id, $remote_sec_id, $remote_sec_num);
-                $data = $this->getremoc($remote_book_id, $remote_sec_id, $remote_sec_num);
-            }
-            return $data;
-        } {
-            if ($this->loop[$bid . "_" . $sid] > 2) {
-                //d三次失败才把错误原因入库,原因基本就是解锁满三次
-                // $this->debuginfo("解锁中断" . $data2);
-            }
-            // d($data2, 1);
-            //避免死循环
-            if ($this->loop[$bid . "_" . $sid] < 3) {
-                //更换token继续拉取
-                $this->reg();
-                return $this->unlock($remote_book_id, $remote_sec_id, $remote_sec_num);
-            } else {
-                // $this->debuginfo("$remote_book_id, $remote_sec_id, $remote_sec_num" . "尝试三次解锁失败");
-            }
-            //在回调此函数
-        }
-        $this->debuginfo("$remote_book_id, $remote_sec_id, $remote_sec_num" . "内容拉取失败" . $data2);
-        return false;
-    }
-    public $invide;
-    //注册接口
-    public function reg()
-    {
-        $num = $this->getgnum(7);
-        $api = "/api/users/loginEmail";
-        $id = $num;
-
-        $uid = 'hh616065-0cb3-479f-8a27-' . $this->getgnum(12);
-        $datas = $this->apisign($api, [
-            '_udid' => $uid,
-        ], [
-            "type" => $this->appneedinfo['type'],
-            "password" => "y123456",
-            "mail" => $id . "@gmail.com"
-        ]);
-        list($status, $data) = $this->getdata($datas, ["status", "access_token"], 'success');
-
-        if ($status) {
-            $this->token = $data;
-            $this->bindinvite($this->token, $uid);
-            return $this->token;
-        } else {
-            $this->debuginfo("注册中断" . $datas);
-        }
-    }
-    public function getuser()
-    {
-        if ($this->invide) {
-            return;
-        }
-        $api = "/api/users/profile";
-        $datas = $this->apisign($api, [
-            // '_token' => $token,
-            // '_udid' => $uid,
-        ], [
-            // "invite_code" => 'KYNL7H',
-        ]);
-        list($status, $data) = $this->getdata($datas, ["status", "data"], 'success');
-        if ($status) {
-            $this->invide = $data['invite_code'];
-            return $this->invide;
-        } else {
-            $this->debuginfo("获取用户信息失败" . $datas);
-        }
-    }
-    public function bindinvite($token, $uid)
-    {
-        $this->getuser();
-        //如果邀请码为空，获取邀请码
-        $api = "/api/invite/bindInviteCode";
-        $datas = $this->apisign($api, [
-            '_token' => $token,
-            '_udid' => $uid,
-        ], [
-            "invite_code" => $this->invide,
-        ]);
-
-        list($status, $data) = $this->getdata($datas, ["status", "access_token"], 'success');
-
-        if ($status) {
-            $this->token = $data;
-            return $this->token;
-        } else {
-            $this->debuginfo("邀请失败" . $datas);
-        }
-    }
+ 
     //***********************************工具性************************************** */
     //http请求入口，根据实际情况，把一些固定值写进去
     public function apisign($api, $parem, $post = null)
     {
-        // $this->autoproxy();
-        // $this->setproxy('127.0.0.1', '8888');
-        $p = [
-            "timeStamp" => time() . rand(100, 999),
-        ];
-        // if ($api != '/views/comicCatalog') {
-        $parem = array_merge($p, $this->appneedinfo, $parem);
-        // }
-
-
-        $head = [
-            // 'Origin:https://manhua.iqiyi.com',
-            // 'User-Agent: Mozilla/5.0 (Linux; Android 8.0.0; Pixel 2 XL Build/OPD1.170816.004) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.25 Mobile Safari/537.36',
-            // 'DNT: 1',
-            // 'Content-Type: application/json;',
-            // 'Accept: */*',
-            // 'Referer: https://manhua.iqiyi.com/comic/category',
-            // 'Accept-Encoding: gzip, deflate, br',
-            // 'Accept-Language: zh-CN,zh;q=0.9',
-            // 'Connection: keep-alive',
-            'md5:' . $this->sign($api, $parem),
-            'authCookie:' . $this->token
-        ];
-        $this->head($head);
-        // d($parem);
-        $url = $api . '?';
-        foreach ($parem as $key => $value) {
-            # code...
-            $url .= $key . '=' . $value . "&";
-        }
-        $url = substr($url, 0, -1);
-
-        if ($post) {
-            $data = $this->post($url, $post);
-        } else {
-            $data = $this->get($url);
-        }
+        $url = $api;
+        
+        $data = $this->get($url);
         $data = $this->httpdecode($data);
         return $data;
     }
@@ -694,7 +484,6 @@ class sexcar extends Clibase
      */
     public function  httpdecode($hstr)
     {
-
         $y = "";
         $str = "";
         if (!$hstr) {
@@ -708,6 +497,7 @@ class sexcar extends Clibase
             $y = $matches[1];
             // echo $id; // 输出: 463
         } else {
+           
             d('没有找到匹配的 y 值。');
         }
         $patterns = '/let\s+str\s*=\s*\'(.*?)\'/';
@@ -718,81 +508,45 @@ class sexcar extends Clibase
         } else {
             d('没有找到匹配的 y 值。');
         }
-       
-        
         $key = 'window.atob'; // 必须是32字节的二进制数据  
-      
-        $y = 'U2FsdGVkX1855ZWHDfuWj1Yk/F0zs8AD+CqFuvXrfGpskSTwFXgEPDTSbdZF1JyqO7XVZYboKiAWJ0TOWu6XNw==';
-        //    $t = openssl_decrypt(base64_decode($y), 'aes-128-cbc', $key, OPENSSL_NO_PADDING);  
-        // $key=base64_encode($key);
-        $s="33c70ec55d96903ca940bd5f0d00b7fe";
-         $am=$this->aesDecrypt($y, $key);
-         d($am);
-        // $jm=$this->aesDecrypt($am, $key);
-        // d("jiemi:".$jm);
         $t = $this->decrypt($y, $key);
-        d($t);
-
-        d(1, 1);
+        $data = $this->decrypt($str, $t);
+        return $data;
     }
+    function sendPostRequest($url, $postData) {
+        // 初始化cURL会话
+        $ch = curl_init($url);
+        // 设置cURL选项
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // 返回而不是输出内容
+        curl_setopt($ch, CURLOPT_POST, true); // 设置请求方法为POST
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData)); // 设置POST字段的数组
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Content-Type: application/x-www-form-urlencoded'
+        )); // 设置Content-Type头信息，根据你的服务端需要可能需要调整
+        // 执行cURL会话
+        $response = curl_exec($ch);
+        // 关闭cURL会话
+       
+        // 检查是否有错误发生
+        if(curl_errno($ch)) {
+            curl_close($ch);
+            d("解密失败请检查有没有运行node服务，本任务与spbase下的node(aesnode.js)需要搭配使用");;
+        } else {
+            curl_close($ch);
+            // 返回响应数据
+            return $response;
+        }
+    }
+    //调用服务器node服务解密---因为php解密函数没写出来；
     function decrypt($encrypted, $key, $iv = null)
     {
-        $purl=new Curl();
-        $h=$purl->post('http://192.168.2.109:3000/decode',['str'=>'U2FsdGVkX1855ZWHDfuWj1Yk/F0zs8AD+CqFuvXrfGpskSTwFXgEPDTSbdZF1JyqO7XVZYboKiAWJ0TOWu6XNw==','key'=>'window.atob']);
-        d($h);
-        // Base64解码密文
-    //     if ($iv === null && strlen($encrypted) >= 16) {  
-    //         $iv = substr($encrypted, 0, 16);  
-    //         $encrypted = substr($encrypted, 16);  
-    //     }  
-      
-    //     // Base64 解码加密字符串  
-    //     $encrypted = base64_decode($encrypted);  
-    //  d($iv);
-    //     // 解密  
-    //     $decrypted = openssl_decrypt(  
-    //         $encrypted,  
-    //         'AES-128-CBC', // 加密算法  
-    //         hex2bin($key), // 密钥需要是二进制格式，这里假设密钥是十六进制字符串  
-    //         0,             // 选项，0 表示没有额外的加密选项  
-    //         $iv            // 初始化向量  
-    //     );  
-      
-    //     // 如果解密失败，返回 false  
-    //     if ($decrypted === false) {  
-    //         return false;  
-    //     }  
-      
-        // 返回解密后的字符串  
+        $data=['str'=>$encrypted,'key'=>$key];
+        $data=($data);
+        $h=$this->sendPostRequest($this->lcaesnodeserver,$data);
         return $h;  
     }
 
-    //签名类返回签名值
-    public function sign($api, $data)
-    {
-        //h5签名规则
-
-        $signstr = $api;
-        foreach ($data as $key => $value) {
-            # code...
-            $signstr .= $key . "=" . $value . "&";
-        }
-        // $signstr =  $signstr . $this->code;
-        $signstr = substr($signstr, 0, -1) . $this->token . $this->code;
-
-        $sign = md5($signstr);
-        return $sign;
-    }
-
-    //解密类，返回明文
-    public function decode($bid, $sid, $data)
-    {
-        $key = $data["key"] . $bid . $sid . "com.internationalization.novel";
-        $key = md5($key);
-        $key = substr($key, 8, 16);
-        $data = $this->aes_cbc_nopadding($data["data"]["content"], $key, $data["data"]["encryption"]);
-        return $data;
-    }
+    
 
     //接口值判断类，$field[0]判断索引，$field[1]需要返回的摄影,$field[0] ==$value 返回treu
     public function getdata($data, $field = [], $value = '')
@@ -800,32 +554,7 @@ class sexcar extends Clibase
         return  $this->check($data, $field, $value);
     }
 
-    // 一些非不要类---------------------------------
-    public function getgnum($size = 8)
-    {
-        $num = $this->generate_password($size);
-        if (in_array($num, $this->tokens)) {
-            return $this->getgnum();
-        } else {
-            array_push($this->tokens, $num);
-            return $num;
-        }
-    }
-    public function generate_password($length = 8)
-    {
-        // 密码字符集，可任意添加你需要的字符 
-        $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-        $chars = strtolower($chars);
-        $password = '';
-        for ($i = 0; $i < $length; $i++) {
-            // 这里提供两种字符获取方式 
-            // 第一种是使用 substr 截取$chars中的任意一位字符； 
-            // 第二种是取字符数组 $chars 的任意元素 
-            // $password .= substr($chars, mt_rand(0, strlen($chars) – 1), 1); 
-            $password .= $chars[mt_rand(0, strlen($chars) - 1)];
-        }
-        return $password;
-    }
+   
     //初始化进程
     public function __construct()
     {

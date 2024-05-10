@@ -10,29 +10,34 @@ const bodyParser = require('body-parser');
 
 
 const app = express();
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: false  }));
+app.use(bodyParser.json({ limit: '50mb' }));
+
+// 为 urlencoded 中间件设置更大的大小限制
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 const port = 3000;
+function getstr(str,key){
+    const  t = CryptoJS.AES.decrypt(str, key).toString(CryptoJS.enc.Utf8);
+    // console.log(t); 
+    return t;
+  }
 app.post('/decode/', (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     const { str, key } = req.body;
    // 简单的参数验证
         if (!str || !key) {
             return res.status(400).send('密文和密钥参数不能为空');
         }
-
         try {
-            let decryptedText=getstr(str,key);
-            res.send(`解密后的文本是: ${decryptedText}`);  
+            const  decryptedText=    getstr(str,key);
+            // console.log(decryptedText);
+            res.send(`${decryptedText}`);  
         } catch (error) {
             res.status(500).send('解密出错');
         }
   });
-  function getstr(str,key){
-    let t = CryptoJS.AES.decrypt(str, key).t.toString(CryptoJS.enc.Utf8);
-    return t;
-  }
-
 app.listen(port, () => {
     console.log(`解密服务运行在 http://localhost:${port}`);
   });
