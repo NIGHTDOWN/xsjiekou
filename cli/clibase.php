@@ -1124,4 +1124,77 @@ d($cmd);
         $data = $spiner->post($url, $data);
         return $data;
     }
+
+
+
+
+
+
+
+
+
+
+/**
+ * 加密方法
+ * @param string $str 需要加密的字符串
+ * @param string $secret_key 密钥，使用 base64 编码
+ * @return string 加密后的字符串，使用 base64 编码
+ */
+function aesEncrypt($str, $secret_key) {
+    // AES, 128 模式加密数据 CBC
+    $type="AES-128-CBC";
+    $secret_key = ($secret_key);
+    $str = trim($str);
+    $str = $this->addPKCS7Padding($str);
+    $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($type));
+    $encrypt_str = openssl_encrypt($str, $type, $secret_key, OPENSSL_RAW_DATA, $iv);
+    return base64_encode($iv . $encrypt_str); // 将 IV 一起编码到输出中
+}
+
+/**
+ * 解密方法
+ * @param string $encrypted_base64 已加密并使用 base64 编码的字符串
+ * @param string $secret_key 密钥，使用 base64 编码
+ * @return string 解密后的原始字符串
+ */
+function aesDecrypt($encrypted_base64, $secret_key) {
+    // AES, 128 模式解密数据 CBC
+    $type='AES-128-CBC';
+    $encrypted_data = base64_decode($encrypted_base64);
+    $secret_key = ($secret_key);
+    $ivSize = openssl_cipher_iv_length($type);
+    $iv = substr($encrypted_data, 0, $ivSize);
+    $encrypted_data = substr($encrypted_data, $ivSize);
+    $decrypted_str = openssl_decrypt($encrypted_data, $type, $secret_key, OPENSSL_RAW_DATA, $iv);
+    $decrypted_str = trim($decrypted_str);
+    $decrypted_str = $this->stripPKCS7Padding($decrypted_str);
+    return $decrypted_str;
+}
+
+/**
+ * PKCS#7 填充算法
+ * @param string $source 需要填充的原始字符串
+ * @return string 填充后的字符串
+ */
+function addPKCS7Padding($source) {
+    $block = 16; // AES 块大小 128 位
+    $pad = $block - (strlen($source) % $block);
+    $source .= str_repeat(chr($pad), $pad);
+    return $source;
+}
+
+/**
+ * 移除 PKCS#7 填充
+ * @param string $source 填充后的字符串
+ * @return string 移除填充后的原始字符串
+ */
+function stripPKCS7Padding($source) {
+    $char = substr($source, -1);
+    $num = ord($char);
+    if ($num > strlen($source)) {
+        return false;
+    }
+    $source = substr($source, 0, -$num);
+    return $source;
+}
 }

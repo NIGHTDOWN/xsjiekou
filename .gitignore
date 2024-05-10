@@ -5,6 +5,7 @@
 /source/compile
 /conf
 /source/sock
+/cli/spiner/spbase/node_modules
 /source/plugin
 task
 task.bat
