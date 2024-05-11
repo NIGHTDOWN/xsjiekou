@@ -9,6 +9,7 @@ use ng169\tool\Code;
 use ng169\tool\Cookie as YCookie;
 use ng169\tool\Out;
 use ng169\Y;
+use PayPal\Api\Image;
 
 checktop();
 class login extends indexbase
@@ -163,7 +164,8 @@ class login extends indexbase
 	public function control_qr()
 	{
 		$get = get(array('string' => array('url' => 1)));
-
-		M('qr', 'im')->get($get['url']);
+// Image()->qr();
+// 		M('qr', 'im')->get($get['url']);
+YImage::qr($get['url']);
 	}
 }
