@@ -24,7 +24,7 @@ class sexcar extends Clibase
     public  $_booklang = 5;  //书籍语言
     public  $_bookdstdesc_int = 23; //书籍来源描述
     public  $_bookdstdesc = "色情--盗版"; //书籍来源描述
-    public  $_domian = "https://qq.com.nxl5mb.top"; //书籍来源描述
+    public  $_domian = "https://qq.com.nxlmtj.top"; //书籍来源描述
     public  $debug = true;
     public  $wordrate = 3;  //计算字数的时候的倍数比列
     // -------------------app 破解获取的相关信息
