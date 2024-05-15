@@ -7,8 +7,10 @@ namespace ng169\cli\sock;
  * 另外开一个线程用于master心跳
  * 子线程记录接收消息
  */
+
 require_once   dirname(dirname(__FILE__)) . "/clibase.php";
 
+use ng169\cli\Clibase;
 use ng169\lib\Socket;
 use ng169\Y;
 

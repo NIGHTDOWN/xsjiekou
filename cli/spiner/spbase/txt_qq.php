@@ -7,18 +7,18 @@
 
  namespace ng169\cli\spiner\spbase;
 
-
+ require_once   dirname(dirname(dirname(__FILE__))) . "/clibase.php";
+ 
+ use ng169\Y;
  use ng169\cli\Clibase;
-// require_once   dirname(dirname(dirname(__FILE__))) . "/clibase.php";
-
-// use \ng169\cli\Clibase;
-
-use ng169\Y;
+ use ng169\tool\Curl;
+ use ng169\cli\BOOK_FROM_TYPE;
 
 class txt_qq extends Clibase
 {
     public  $_booktype = 1; //书籍类型
     public  $_booklang = 5;  //书籍语言
+    
     public  $_bookdstdesc_int = BOOK_FROM_TYPE::qq; //书籍来源描述
     public  $_bookdstdesc = "china_qq_txt"; //书籍来源描述
     public  $_domian = "https://novel.html5.qq.com"; //书籍来源描述
@@ -73,7 +73,7 @@ class txt_qq extends Clibase
      */
     public function start($group = 0)
     {
-        $this->autoproxy();
+        $this->setproxy("127.0.0.1","8888");
         $cachename = date('Ymdhis') . 'obj' . $group;
         $this->bookdstdesc = $this->_bookdstdesc . $group;
         $this->thinit();

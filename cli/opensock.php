@@ -8,7 +8,7 @@
  * 子线程记录接收消息
  */
 namespace ng169\cli;
-require_once    "sock/sockbase.php";
+require_once    "./sock/sockbase.php";
 
 use ng169\lib\Socket;
 use ng169\Y;
@@ -52,9 +52,7 @@ class SqlPool extends Clibase
         self::$server->dismsg(__NAMESPACE__ . '\SqlPool::dis');
         $poolconf = \ng169\lib\Option::get('pool');
         self::$pwd = $poolconf['pwd'];
-
         self::$server->start($poolconf['ip'], $poolconf['port']);
-
         // self::$server->start("127.0.0.1", "4563");
     }
     //消息解码
