@@ -12,6 +12,7 @@ class im extends apibase
     {
      $server=T('sockserver')->set_field("ip,port")->set_where(['flag'=>1])->get_one(); 
      if($server){
+        $server['url']="ws://".$server['ip'].":".$server['port'];
         Out::jout($server);
      }  else{
         // Out::jout("");
