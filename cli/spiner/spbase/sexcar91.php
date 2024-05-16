@@ -244,7 +244,7 @@ class sexcar91 extends Clibase
         // if ($pd) {
         //     $data['desc'] = trim($pd->innertext);
         // }
-        if ($data['update_status'] != "连载：") {
+        if ($upstatus == "连载：") {
             $data['update_status'] = 2;
         } else {
             $data['update_status'] = 1;

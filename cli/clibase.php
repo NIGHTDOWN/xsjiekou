@@ -550,8 +550,12 @@ d($cmd);
     //请求走代理
     public function setproxy($ip = '', $port = '')
     {
+        if($ip && $port){
         $this->init();
+        $this->ip=$ip;
+        $this->port=$port;
         $this->spiner->setproxy($ip, $port);
+    }
     }
     // 请求
     public function post($api, $data, $time = 10)
@@ -576,7 +580,7 @@ d($cmd);
     public function get($api, $data = null, $time = 10)
     {
         $this->init();
-       
+   
         if ($this->ip && $this->port) {
             $this->setproxy($this->ip, $this->port);
         }

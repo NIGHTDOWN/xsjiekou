@@ -50,11 +50,19 @@ class Ngmatch
         preg_match_all($pattern, $str, $matches);
        return $matches[0];
     }
-    public static function geturllast($str)
+    public static function geturllast($str,$neednum=1)
     {
       $a= explode("/",$str);
-      if(sizeof($a)>0){
+      if(sizeof($a)>0 && $neednum==1){
         return $a[sizeof($a)-1];
+      }
+      $str="";
+      if(sizeof($a)>0 && $neednum>1){
+        for ($i=1; $i <= $neednum; $i++) { 
+          $str=$a[sizeof($a)-$i]."/".$str;
+        }
+        $str=trim($str,"/");
+        return $str;
       }
       return "";
     }

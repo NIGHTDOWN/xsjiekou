@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 爱奇艺漫画
+ * 需要翻墙
  * 列子 ：php opsock 192.168.1.1 8080
  */
 
@@ -17,16 +17,16 @@ use ng169\tool\Curl;
 use ng169\tool\Ngmatch;
 
 im(TOOL . "simplehtmldom/simple_html_dom.php");
-class sexcartx extends Clibase
+class sexcarrm extends Clibase
 {
     //本地node服务信息
     public $lcaesnodeserver = "http://127.0.0.1:3000/decode";
     public  $_booktype = 2; //书籍类型
     public  $_booklang = 5;  //书籍语言
-    public  $_bookdstdesc_int = 25; //书籍来源描述
-    public  $_bookdstdesc = "色情桃心女--基佬"; //书籍来源描述
+    public  $_bookdstdesc_int = 26; //书籍来源描述
+    public  $_bookdstdesc = "色情肉漫男--色情"; //书籍来源描述
     // public  $_domian = "https://qq.com.nxlmtj.top"; //书籍来源描述
-    public  $_domian = "https://txcomic.com/"; //书籍来源描述
+    public  $_domian = "https://rouman5.com/"; //书籍来源描述
 
     public  $debug = true;
     public  $wordrate = 3;  //计算字数的时候的倍数比列
@@ -42,7 +42,7 @@ class sexcartx extends Clibase
     public function start()
     {
        
-      
+        $this->setproxy("127.0.0.1","10809");
         $cachename = date('Ymdhis') . 'obj';
         $this->thinit();
         $page = 1000;
@@ -65,18 +65,7 @@ class sexcartx extends Clibase
         $this->thstart(__FILE__, $cachename);
         d("任务结束");
     }
-    public function strgetid($str)
-    {
-        preg_match('/chapter\/(\d+)/', $str, $matches);
-        $id = "";
-        if (!empty($matches)) {
-            $id = $matches[1];
-            // echo $id; // 输出: 463
-        } else {
-            d('没有找到匹配的 ID 值。');
-        }
-        return $id;
-    }
+   
     public function processBookArray($bookArray)
     {
         // 过滤id，保留数字
@@ -94,19 +83,20 @@ class sexcartx extends Clibase
     // 获取远程小说列表，根据实际情况修改fun
     public function getbooklist($page)
     {  
+      
         $post = [];
-        $api = "booklist?page=" . $page;
+        $api = "books?page=" . $page;
         $datatmp = $this->apisign($api,  $post);
 
         $dom =   \str_get_html($datatmp);
         $data = [];
        
-        foreach ($dom->find('.mh-item') as $p) {
+        foreach ($dom->find('.comicBox_li__yMhmq') as $p) {
             $book = [];
           
             $book['id'] = $p->find("a")[0]->attr['href'];
-            $book['pic'] = $p->find(".mh-cover")[0]->attr['style'];
-            $book['name'] = $p->find("a")[1]->innertext;
+            $book['pic'] = $p->find(".comicBox_thumbImg__Sh8GH")[0]->attr['data-src'];
+            $book['name'] = $p->find(".comicBox_title__2KhbP")[0]->innertext;
             // $book['desc'] = $p->find(".chapter")[0]->innertext;
            
             $book = $this->processBookArray($book);
@@ -124,7 +114,7 @@ class sexcartx extends Clibase
                     // $this->thpush($book);
                 } else {
                     $this->getbookdetail($book);
-                    
+                   
                 }
             }
             return sizeof($data);
@@ -135,8 +125,9 @@ class sexcartx extends Clibase
     //获取远程章节
     private function gethttpsec($id)
     {
+       
         if (isset($this->seclist[$id])) return  $this->seclist[$id];
-        $api = "/comic/$id";
+        $api = "/books/$id";
         $data = [
             'comicId' =>    $id,
             'episodeId' =>    '0',
@@ -148,10 +139,8 @@ class sexcartx extends Clibase
         $datas = $this->apisign($api, $data);
         //更新字数
         //更新状态
-       
         $html = str_get_html($datas);
-
-         $hbox = $html->find('#chapterlistload')[0];
+         $hbox = $html->find('.bookid_chapterBox__EiLKD')[0];
 
         $sec = $hbox->find('a');
       
@@ -203,17 +192,18 @@ class sexcartx extends Clibase
             return false;
         }
         $id = $remotebookid;
-        $api = "/comic/$id";
+        $api = "/books/$id";
         // $api = "/detail?pid=3&id=$remotebookid";
         $datas = $this->apisign($api, []);
         $html = str_get_html($datas);
-         $pd = $html->find('.banner_detail_form')[0];
-        $desc = $pd->find('.content')[0]->innertext;
-        $upstatus = $pd->find('.block')[0]->find('span')->innertext;
+         $pd = $html->find('.bookid_bookInfo__6bSwb')[0];
+        $desc = $pd->find('p')[3]->innertext;
+      
+        $upstatus = $pd->find('p')[1]->innertext;
+      
         // $bpic_detail = $html->find('.box-back')[0]->attr['style'];
         // $sec = $html->find('#chapterlistload')[0];
         $sec = $this->gethttpsec($remotebookid);
-
         //第三方内容中对应与本数据库字段对应
         $refield = [
             "cartoon_name" => "name",
@@ -227,7 +217,6 @@ class sexcartx extends Clibase
             "fid" => "id",
             'bpic_detail' => "bpic_detail",
         ];
-
         $data = $book;
         if ($sec) {
             $data['desc'] = $desc;
@@ -235,19 +224,18 @@ class sexcartx extends Clibase
             $data['wordnum'] = $data['section'];
             $data['update_status'] = 2;
         }
-       
         // if ($pd) {
         //     $data['update_status'] = $pd->find('.tip')[0]->find('.block')[0]->find('span')[0]->innertext;
         // }
         // if ($pd) {
         //     $data['desc'] = trim($pd->innertext);
         // }
-        if ($upstatus != "已完结") {
+        if ( !strpos($upstatus,'完')) {
             $data['update_status'] = 2;
         } else {
             $data['update_status'] = 1;
         }
-     
+    
         if ($data) {
             // $data = $this->fixtoon($data, $refield);
             $this->insertdetail($data, $refield);
@@ -319,14 +307,14 @@ class sexcartx extends Clibase
     //获取远程文章内容接口
     public function getremoc($remote_book_id, $remote_sec_id, $remote_sec_num)
     {
-        $api = "/chapter/$remote_sec_id";
+        $api = "/books/$remote_book_id/$remote_sec_id";
         $bid = $remote_book_id;
         $sid = $remote_sec_id;
         $data = [];
         $datas = $this->apisign($api, $data);
         
-        $data=$this->httpdecode($datas);
-        // $html = str_get_html($datas);
+        // $data=$this->httpdecode($datas);
+         $html = str_get_html($datas);
 
         //  $imgsstr=$html->find('.my-box')[1]->innertext;
 
@@ -339,19 +327,24 @@ class sexcartx extends Clibase
         //  $imgs = $matches[1];
 
 
-        // $obj = $html->find('.rd-article-wr')[0];
-        // // d($obj=="");
-        // if (!$obj) {
-        //     d("详情获取失败" . $bid);
-        //     return false;
-        // }
-        // $imgs = $obj->find('img');
-        // $data = [];
-        // if ($imgs) {
-        //     foreach ($imgs as $key => $value) {
-        //         array_push($data, $value->attr['data-original']);
-        //     }
-        // }
+        $obj = $html->find('.id_chapterRoot__KURA1')[0];
+        // d($obj=="");
+        if (!$obj) {
+            d("详情获取失败" . $bid);
+            return false;
+        }
+        $imgs = $obj->find('img');
+        $data = [];
+        if ($imgs) {
+            foreach ($imgs as $key => $value) {
+                $src=$value->attr['src'];
+                if(!strpos($src, "loading")){
+                    array_push($data, $src);
+                }
+               
+            }
+        }
+       
         if ($data) {
             return ($data);
             // return ["key" => $key, "data" => $data];
