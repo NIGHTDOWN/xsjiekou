@@ -613,7 +613,7 @@ d($cmd);
             p($this->ip . ':' . $this->port);
             return;
         }
-        d(2);
+       
         list($bool, $data) = Y::$cache->get($proxystrindex);
         if ($bool) {
             $this->proxystr = $data;

@@ -35,7 +35,7 @@ class connectObj
 }
 
 //数据库连接池
-class SqlPool extends Clibase
+class Im extends Clibase
 {
     private static $sqlserver; //数据库连接线程
     private static $connects; //所有连接
@@ -48,8 +48,8 @@ class SqlPool extends Clibase
     {
         Socket::$isServer = true;
         self::$server = new sockbase();
-        self::$server->onmsg(__NAMESPACE__ . '\SqlPool::inmsg');
-        self::$server->dismsg(__NAMESPACE__ . '\SqlPool::dis');
+        self::$server->onmsg(__NAMESPACE__ . '\Im::inmsg');
+        self::$server->dismsg(__NAMESPACE__ . '\Im::dis');
         $poolconf = \ng169\lib\Option::get('pool');
         self::$pwd = $poolconf['pwd'];
         self::$server->start($poolconf['ip'], $poolconf['port']);
@@ -248,4 +248,4 @@ class SqlPool extends Clibase
 }
 //启动数据库连接池server
 
-new SqlPool();
+new Im();
