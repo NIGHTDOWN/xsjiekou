@@ -38,7 +38,7 @@ class sexcar117 extends Clibase
     public $loop = [];
     public function start()
     {
-        $this->setproxy("127.0.0.1","10809");
+       
         $cachename = date('Ymdhis') . 'obj';
         $this->thinit();
         $page = 1000;
