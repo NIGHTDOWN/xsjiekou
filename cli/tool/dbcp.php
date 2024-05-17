@@ -343,8 +343,8 @@ class DataSyncProcess
         // 构建并执行查询以获取需要同步的数据
 
         $prefix = $dao->getpre(); // 假设 getpre 方法返回数据库表前缀
-        // $sql="SELECT * FROM `{$prefix}{$table}` WHERE `{$pkey}` >  $maxId  "."order by `{$pkey}` asc limit " .$batchSize  ;
-        $sql = "SELECT * FROM `{$prefix}{$table}` WHERE `{$pkey}` >  $maxId  " . " limit " . $batchSize;
+         $sql="SELECT * FROM `{$prefix}{$table}` WHERE `{$pkey}` >  $maxId  "."order by `{$pkey}` asc limit " .$batchSize  ;
+        // $sql = "SELECT * FROM `{$prefix}{$table}` WHERE `{$pkey}` >  $maxId  " . " limit " . $batchSize;
         //顺序必须是主键上升
         $stmt = $dao->getall($sql);
         return $stmt;
