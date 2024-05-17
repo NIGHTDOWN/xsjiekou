@@ -23,7 +23,7 @@ class dbcp extends Clibase
             $this->isswoole=true; 
         }else{
             d("不支持swoole_process;单线程模式");
-            $this->isswoole=true; 
+            $this->isswoole=false; 
         }
     }
     public function __construct($dbalias1, $dbalias2)
@@ -103,6 +103,7 @@ class DataSyncProcess
         if ( $this->isswoole) {
             // d("开启swoole多线程模式");
             $this->process = new \Swoole\Process(function () {
+              
                 $this->syncData();
             }, true);
             $this->process->start();
