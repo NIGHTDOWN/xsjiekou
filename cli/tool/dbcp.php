@@ -15,7 +15,7 @@ class dbcp extends Clibase
     private $dbalias1;
     private $dbalias2;
     private $table;
-    private $batchSize=10;
+    private $batchSize=100;
     private $isswoole=false;
     private function checkswoole(){
         if (function_exists('Swoole\Process')) {
