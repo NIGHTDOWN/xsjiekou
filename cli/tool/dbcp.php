@@ -18,11 +18,11 @@ class dbcp extends Clibase
     private $batchSize=100;
     private $isswoole=false;
     private function checkswoole(){
-        if (function_exists('Swoole\Process')) {
-            d("支持swoole_process;多线程模式");
+        if (function_exists('pcntl_fork')) {
+            d("支持多线程模式");
             $this->isswoole=true; 
         }else{
-            d("不支持swoole_process;单线程模式");
+            d("单线程模式");
             $this->isswoole=false; 
         }
     }
@@ -102,11 +102,28 @@ class DataSyncProcess
 
         if ( $this->isswoole) {
             // d("开启swoole多线程模式");
-            $this->process = new \Swoole\Process(function () {
+            // $this->process = new \Swoole\Process(function () {
               
+            //     $this->syncData();
+            // }, true);
+            // $this->process->start();
+            $pid = pcntl_fork();
+            if ($pid == -1) {
+                // Fork 失败
+                throw new Exception("Unable to fork process");
+            } elseif ($pid) {
+                // 父进程
+                // 存储子进程的 PID，以便稍后等待
+                $this->process[] = $pid;
+            } else {
+                // 子进程
                 $this->syncData();
-            }, true);
-            $this->process->start();
+                exit(0); // 子进程执行完毕后退出
+            }
+
+
+
+
         } else {
             // d("当前没装swoole扩展；开启单线程模式");
             $this->syncData();
@@ -116,8 +133,8 @@ class DataSyncProcess
     public function join()
     {
         // 等待进程结束
-        if ($this->process)
-            $this->process->join();
+        // if ($this->process)
+        //     $this->process->join();
     }
     //开始同步表
     private function syncData()
