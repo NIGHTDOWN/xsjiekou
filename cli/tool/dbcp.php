@@ -261,12 +261,16 @@ class DataSyncProcess
         // d($this->db2);
         $maxId1 = $this->getMaxId($this->db1, $this->table, $pkey);
         $maxId2 = $this->getMaxId($this->db2, $this->table, $pkey);
+       
         if ($maxId1 <= $maxId2) {
             // d($this->table."数据量一样不用同步");
             return false;
         }
+       
+       
         d($this->table . "同步数据");
         $this->loopinsert($maxId2);
+      
     }
     //开始循环插入；
     private function loopinsert($sid)
@@ -274,8 +278,12 @@ class DataSyncProcess
         $llop = true;
         while ($llop) {
             $list = $this->getSourceData($this->db1, $this->table, $sid, $this->batchSize, $this->pkey);
+           
             $num = sizeof($list);
             if ($num) {
+                if($num<$this->batchSize){
+                    $llop = false; 
+                }
                 $lastmaxid = $list[$num - 1][$this->pkey]; //从最后一条数据id开始；因为id可能不连续所以必须取最后一条
                 $sql = "";
                 foreach ($list as $key => $row) {
@@ -329,7 +337,8 @@ class DataSyncProcess
         try {
             $this->db2->exec($sql);
         } catch (\Throwable $th) {
-            d($th);
+            // d($th);
+            d("插入失败".$this->table."id范围".$this->tmpmid."到".$this->batchSize);
             //throw $th;
         }
 
@@ -338,10 +347,11 @@ class DataSyncProcess
         // 执行更新操作，设置目标表的最大 ID 为当前最新同步的 ID
         // 这里需要根据实际的业务逻辑来确定如何更新最大 ID
     }
+   private  $tmpmid;
     private function getSourceData($dao, $table, $maxId = 0, $batchSize, $pkey)
     {
         // 构建并执行查询以获取需要同步的数据
-
+        $this->tmpmid=$maxId;
         $prefix = $dao->getpre(); // 假设 getpre 方法返回数据库表前缀
          $sql="SELECT * FROM `{$prefix}{$table}` WHERE `{$pkey}` >  $maxId  "."order by `{$pkey}` asc limit " .$batchSize  ;
         // $sql = "SELECT * FROM `{$prefix}{$table}` WHERE `{$pkey}` >  $maxId  " . " limit " . $batchSize;
