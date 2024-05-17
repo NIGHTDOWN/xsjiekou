@@ -23,7 +23,7 @@ class dbcp extends Clibase
             $this->isswoole=true; 
         }else{
             d("不支持swoole_process;单线程模式");
-            $this->isswoole=false; 
+            $this->isswoole=true; 
         }
     }
     public function __construct($dbalias1, $dbalias2)
