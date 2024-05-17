@@ -34,10 +34,14 @@ class daoClass
     private $limit_where = '';
     private $havepage = false;
     private $thispage = 0;
-
+    private $alias;
+    private $cache;
+    public function getpre(){
+        return $this->dbqz;
+    }
     /**
      * 初始化pdo
-     * @param undefined $dbconf
+     * @param 数据库别名 $dbconf
      *
      * @return
      */
@@ -45,6 +49,7 @@ class daoClass
     {
 
         $this->dbqz = DB_PREFIX;
+        $this->alias = $dbconf;
         $this->debug = G_DB_DEBUG;
         $dbs = Option::get('db');
         if (isset($dbs[$dbconf])) {
@@ -67,6 +72,7 @@ class daoClass
             error(__('数据库配置不存在'));
         }
     }
+
     /**
      * 初始化表模型
      * @param string $table
@@ -334,9 +340,11 @@ class daoClass
             case 0:
                 $ret = $this->_db->query($sql);
                 //在这里记录偏移量保存在cookie 保存类型为当前筛选列，
+              
                 if ($this->havepage) {
                     //注入
-                    Page::getobj()->injection_offset(@$ret[0][$this->getkey()], @$ret[count($ret) - 1][$this->getkey()]);
+                    $num=sizeof($ret);
+                    Page::getobj()->injection_offset(@$ret[0][$this->getkey()], @$ret[ $num- 1][$this->getkey()]);
                 }
 
                 break;
@@ -493,7 +501,7 @@ class daoClass
                 if (is_array($val)) {
                     $in = implode(',', $val);
                 }
-                $in = trim($val, ',');
+                $in = trim($in, ',');
                 if (!$in) {
                     return false;
                 }
@@ -583,8 +591,32 @@ class daoClass
                 }
             }
         }
-
         return $this;
+    }
+    public function havetable($tbname){
+        $tables=$this->getalltable();
+      
+        if(in_array($tbname,$tables)){
+        return true;
+        }else{
+            return false;
+        }
+    }
+    //获取库的所有表
+    public function getalltable(){
+        $sql="SHOW TABLES";
+        $ret= $this->_db->query($sql);
+        $tb=[];
+        foreach($ret as $tbb){
+            foreach($tbb as $b){
+                // $b= trim("$b",$this->dbqz);
+                $b = substr($b, strlen($this->dbqz)); 
+                array_push($tb,$b);
+            }
+        }
+      
+        // $ret=array_column($ret,'Tables_in_Novel2');
+      return $tb;
     }
     /**
      * 获取表结构主键（使用缓存 ）
@@ -610,6 +642,12 @@ class daoClass
     {
         return $this->getkey();
     }
+    public function getone($sql){
+    return $this->_db->getone($sql);
+    }
+    public function getall($sql){
+        return $this->_db->query($sql);
+     }
     /**
      * 获取表所有健名
      * @param boolean $p
@@ -659,17 +697,24 @@ class daoClass
 
         return $key;
     }
+    public function gettablesql($table){
+        $tb=$this->getpre().$table;
+       $ssql= "SHOW CREATE TABLE `$tb`";
+       $data = $this->_db->query($ssql);
+       if(!$data)return "";
+        return $data[0];
+    }
     /**
      * 获取表结构
      *
      * @return array
      */
-    private function gettableinfo()
+    public function gettableinfo($tablename=null)
     {
 
-        $tbname = $this->tablename;
+        $tbname = $tablename?($this->dbqz.$tablename):$this->tablename;
         $sql = 'DESCRIBE ' . $tbname;
-        $index = md5($sql);
+        $index =$this->alias.md5($sql);
 
         /*if(self::$loopcache>self::LOOPMAX)return false;*/
         //这里的缓存必须非mysql缓存；否则死循环
@@ -979,7 +1024,10 @@ class daoClass
         return $ret;
         /*return $this->_db->exec($t, $ar, $auto);*/
     }
-
+    public function exec($sql){
+      return  $this->_db->exec($sql);
+    }
+   
     public function insert($t, $ar)
     {
         $this->i($t, $ar);

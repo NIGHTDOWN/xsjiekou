@@ -27,11 +27,9 @@ class sexcar91 extends Clibase
     public  $_bookdstdesc = "色情91--盗版"; //书籍来源描述
     // public  $_domian = "https://qq.com.nxlmtj.top"; //书籍来源描述
     public  $_domian = "https://jymh02.com/"; //书籍来源描述
-
     public  $debug = true;
     public  $wordrate = 3;  //计算字数的时候的倍数比列
     // -------------------app 破解获取的相关信息
-   
     //一些临时数据，无需变动
     public $upinfo = [];
     public $upcount = 0;
@@ -41,8 +39,6 @@ class sexcar91 extends Clibase
     public $loop = [];
     public function start()
     {
-       
-      
         $cachename = date('Ymdhis') . 'obj';
         $this->thinit();
         $page = 1000;
