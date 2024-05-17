@@ -56,21 +56,24 @@ class dbcp extends Clibase
         // 多进程处理数据同步
         $processes = [];
         foreach ($tables as $table) {
-            $processes[] = new DataSyncProcess($this->dbalias1, $this->dbalias2, $table,$this->batchSize,$this->isswoole);
+            $processes =   new DataSyncProcess($this->dbalias1, $this->dbalias2, $table,$this->batchSize,$this->isswoole);
+            $processes->start();
+            unset($processes);
+            gc_collect_cycles();
         }
         // 启动多进程
-        foreach ($processes as $k=>$process) {
-            $process->start();
-            if(!$this->isswoole){
-                unset($processes[$k]); // 释放 list 数组占用的内存
-                gc_collect_cycles();
-            }
+        // foreach ($processes as $k=>$process) {
+        //     $process->start();
+        //     if(!$this->isswoole){
+        //         unset($processes[$k]); // 释放 list 数组占用的内存
+        //         gc_collect_cycles();
+        //     }
             
-        }
+        // }
         // 等待所有进程完成
-        foreach ($processes as $process) {
-            $process->join();
-        }
+        // foreach ($processes as $process) {
+        //     $process->join();
+        // }
     }
 }
 
@@ -101,12 +104,6 @@ class DataSyncProcess
         // 创建一个新的进程
 
         if ( $this->isswoole) {
-            // d("开启swoole多线程模式");
-            // $this->process = new \Swoole\Process(function () {
-              
-            //     $this->syncData();
-            // }, true);
-            // $this->process->start();
             $pid = pcntl_fork();
             if ($pid == -1) {
                 // Fork 失败
@@ -121,21 +118,13 @@ class DataSyncProcess
                 exit(0); // 子进程执行完毕后退出
             }
 
-
-
-
         } else {
             // d("当前没装swoole扩展；开启单线程模式");
             $this->syncData();
         }
     }
 
-    public function join()
-    {
-        // 等待进程结束
-        // if ($this->process)
-        //     $this->process->join();
-    }
+
     //开始同步表
     private function syncData()
     {
@@ -155,27 +144,37 @@ class DataSyncProcess
         return $this->db2->havetable($tb);
     }
     private $allkey;
+    private $dbtb2filed;
     //这里已经包含了表结构同步了
     private function checktb($tb)
     {
         $dbtb1 = $this->db1->gettableinfo($tb);
-
         $dbtb2 = $this->db2->gettableinfo($tb);
-        $dbtb2filed = array_column($dbtb2, 'Field');
+       if(!$this->dbtb2filed){
+        $this->dbtb2filed= array_column($dbtb2, 'Field');
+       }
+      
         // d($dbtb2,1);
         foreach ($dbtb1 as $key => $value) {
-            $findindex = array_search($value['Field'], $dbtb2filed);
+        
+            $findindex = array_search($value['Field'], $this->dbtb2filed);
             if ($findindex !== false) {
                 //找到到加不管了；
                 //或者找到了继续判断属性类型、长度；默认值
-
                 // echo "找到 '$search_value'，索引是 $index";  
             } else {
                 $sql = "ALTER TABLE `" . $this->db2->getpre() . "_$tb` 
                 ADD COLUMN `" . $value['Field'] . "` " . $value['Type'] . " " .( $value['Null'] == 'NO' ? " NOT NULL " : " NULL " ). " " . ($value['Default'] == "" ? "" : "DEFAULT " . $value['Default']) . "  " . ($value['Extra'] != "" ? $value['Extra'] : " ") . ";";
                 $this->db2->exec($sql);
+                unset($sql);
                 // echo "'$search_value' 不在数组中";  
             }
+            // unset($dbtb1);
+            // unset($dbtb2);
+            // unset($findindex);
+            // unset($dbtb2filed);
+            // gc_collect_cycles();
+            
         }
     }
 
@@ -191,9 +190,10 @@ class DataSyncProcess
         //替换表前缀
         $newCreateTableSql = str_replace($tbname1, $tbname2, $sql);
         d("添加表");
-        // d($newCreateTableSql,1);
+       
         // 获取源数据库的表结构
         $this->db2->exec($newCreateTableSql);
+        unset($newCreateTableSql);
     }
     //数据增量同步；判断目标表的最大id值；以目标表的id值从源表开始同步
     private $pkey;
@@ -221,6 +221,8 @@ class DataSyncProcess
     }
     //开始循环插入；
     private function loopinsert($sid){
+        $llop=true;
+        while ( $llop) {  
         $list=$this->getSourceData($this->db1,$this->table,$sid,$this->batchSize,$this->pkey);
         $num=sizeof($list);
         if($num){
@@ -231,7 +233,6 @@ class DataSyncProcess
             $r="";
             $i=0;
             foreach ($row as $key2 => $value) {
-               
                 //修复数据
                 $type=$this->allkey[$i]['Type'];
                 $i++;
@@ -249,20 +250,20 @@ class DataSyncProcess
                 }
                 $r.='\''.$value.'\',';
             }
-        //    $r= substr($r, 0, -1);
            $r= rtrim($r,",");
             $sql.="({$r}),"; 
-            unset($r);
+           // unset($r);
         }
-        // $sql= substr($sql, 0, -1);
         $sql= rtrim($sql,",");
-        $this->addsql($sql);
-        unset($list); // 释放 list 数组占用的内存
-        gc_collect_cycles(); // 触发垃圾回收
-        $this->loopinsert($lastmaxid);
+         $this->addsql($sql);
+       // unset($list); // 释放 list 数组占用的内存
+       // gc_collect_cycles(); // 触发垃圾回收
+        // $this->loopinsert($lastmaxid);
         }else{
-           d($this->table."同步完成"); 
+            $llop=false;
+          d($this->table."同步完成"); 
         }
+    }
     }
     private $intbtmp;
     private function addsql( $sql)
