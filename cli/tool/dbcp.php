@@ -1,5 +1,6 @@
 <?php
-
+ini_set('memory_limit', '2560M');
+ini_set('max_execution_time', 3000000);
 use ng169\cli\Clibase;
 use ng169\db\daoClass;
 use ng169\lib\Option;
@@ -14,9 +15,20 @@ class dbcp extends Clibase
     private $dbalias1;
     private $dbalias2;
     private $table;
-    private $batchSize=1000;
+    private $batchSize=10;
+    private $isswoole=false;
+    private function checkswoole(){
+        if (function_exists('Swoole\Process')) {
+            d("支持swoole_process;多线程模式");
+            $this->isswoole=true; 
+        }else{
+            d("不支持swoole_process;单线程模式");
+            $this->isswoole=false; 
+        }
+    }
     public function __construct($dbalias1, $dbalias2)
     {
+        $this->checkswoole();
         $this->dbalias1 =  ($dbalias1);
         $this->dbalias2 =  ($dbalias2);
         $this->sourcePdo = new daoClass($dbalias1);
@@ -28,6 +40,7 @@ class dbcp extends Clibase
         if(isset($tables['size'])){
             $this->batchSize = $tables['size'];
         }
+        
     }
     public function help(){
         d("支持指定参数size(同步插入速度),table(不带表前缀),不带参数表示同步所有表;命令实例 dbcp.php table=book");
@@ -43,11 +56,16 @@ class dbcp extends Clibase
         // 多进程处理数据同步
         $processes = [];
         foreach ($tables as $table) {
-            $processes[] = new DataSyncProcess($this->dbalias1, $this->dbalias2, $table,$this->batchSize);
+            $processes[] = new DataSyncProcess($this->dbalias1, $this->dbalias2, $table,$this->batchSize,$this->isswoole);
         }
         // 启动多进程
-        foreach ($processes as $process) {
+        foreach ($processes as $k=>$process) {
             $process->start();
+            if(!$this->isswoole){
+                unset($processes[$k]); // 释放 list 数组占用的内存
+                gc_collect_cycles();
+            }
+            
         }
         // 等待所有进程完成
         foreach ($processes as $process) {
@@ -62,17 +80,19 @@ class DataSyncProcess
     private $db2;
     private $table;
     private $process;
+    private $isswoole;
     private $batchSize = 1000;
     function getpdo($dbalias)
     {
         return new daoClass($dbalias);
     }
-    public function __construct($db1name, $db2name, $table,$batchSize)
+    public function __construct($db1name, $db2name, $table,$batchSize,$isswoole)
     {
         $this->db1 = $this->getpdo($db1name);
         $this->db2 = $this->getpdo($db2name);
         $this->table = $table;
         $this->batchSize = $batchSize;
+        $this->isswoole = $isswoole;
         //   start();
     }
 
@@ -80,14 +100,14 @@ class DataSyncProcess
     {
         // 创建一个新的进程
 
-        if (function_exists('swoole_process')) {
-            d("开启swoole多线程模式");
-            $this->process = new \swoole_process(function () {
+        if ( $this->isswoole) {
+            // d("开启swoole多线程模式");
+            $this->process = new \Swoole\Process(function () {
                 $this->syncData();
             }, true);
             $this->process->start();
         } else {
-            d("当前没装swoole扩展；开启单线程模式");
+            // d("当前没装swoole扩展；开启单线程模式");
             $this->syncData();
         }
     }
@@ -116,6 +136,7 @@ class DataSyncProcess
     {
         return $this->db2->havetable($tb);
     }
+    private $allkey;
     //这里已经包含了表结构同步了
     private function checktb($tb)
     {
@@ -139,10 +160,7 @@ class DataSyncProcess
             }
         }
     }
-    //表结构不一样加修改成表使同步
-    private function changetb($tb)
-    {
-    }
+
     //表不存在加添加数据表
     private function addtb($tb)
     {
@@ -165,76 +183,89 @@ class DataSyncProcess
     private $tbname2;
     private function aysndata()
     {
-        $pkeys= $this->db1->gettableinfo($this->table);
+        if($this->allkey){
+            $pkeys=$this->allkey;
+        }else{
+            $this->allkey= $pkeys= $this->db1->gettableinfo($this->table);
+        }
+       
         $this->pkey=$pkeys[0]['Field'];
         $pkey=$this->pkey;
         // d($this->db2);
         $maxId1 = $this->getMaxId($this->db1, $this->table,$pkey);
         $maxId2 = $this->getMaxId($this->db2, $this->table,$pkey);
-        
         if($maxId1<=$maxId2){
             // d($this->table."数据量一样不用同步");
             return false;
         }
         d($this->table."同步数据");
-        $prefix = $this->db2->getpre();
-        $table=$prefix.$this->table;
         $this->loopinsert($maxId2);
-        // 开启事务
-        // $this->db2->beginTransaction();
-        // try {
-        //     // 插入数据到目标表
-        //     foreach ($sourceData as $row) {
-        //         // 构建并执行插入语句
-        //         $placeholders = implode(', ', array_fill(0, count($row), '?'));
-        //         $stmt = $this->db2->exec("INSERT INTO `{$table}` VALUES ({$placeholders})");
-        //         // $stmt->execute(array_values($row));
-        //     }
-        //     // 提交事务
-        //     // $this->db2->commit();
-        // } catch (Exception $e) {
-        //     // 回滚事务
-        //     // $this->db2->rollBack();
-        //     throw $e;
-        // }
-        // // 更新目标表的最大 ID，以便下次同步
-        // $this->updateMaxId($this->db2, $this->table, $maxId);
     }
     //开始循环插入；
     private function loopinsert($sid){
         $list=$this->getSourceData($this->db1,$this->table,$sid,$this->batchSize,$this->pkey);
-      
         $num=sizeof($list);
         if($num){
         $lastmaxid=$list[$num-1][$this->pkey];//从最后一条数据id开始；因为id可能不连续所以必须取最后一条
         $sql="";
-        
         foreach ($list as $key => $row) {
             // $sql.= implode(', ', $row).",";  
             $r="";
+            $i=0;
             foreach ($row as $key2 => $value) {
-                $r.='"'.$value.'",';
+               
+                //修复数据
+                $type=$this->allkey[$i]['Type'];
+                $i++;
+                $position = strpos($type, "int");
+                if ($position !== false) {
+                    //int型
+                    if($value==""){
+                        $value=0; 
+                    }
+                }elseif(strpos($type, "datetime")!== false){
+//时间型 
+                if($value==""){
+                    $value="2024-01-01"; 
+                }
+                }
+                $r.='\''.$value.'\',';
             }
-           $r= substr($r, 0, -1);
+        //    $r= substr($r, 0, -1);
+           $r= rtrim($r,",");
             $sql.="({$r}),"; 
+            unset($r);
         }
-        
-            $sql= substr($sql, 0, -1);
-         $this->addsql($sql);
+        // $sql= substr($sql, 0, -1);
+        $sql= rtrim($sql,",");
+        $this->addsql($sql);
+        unset($list); // 释放 list 数组占用的内存
+        gc_collect_cycles(); // 触发垃圾回收
         $this->loopinsert($lastmaxid);
         }else{
            d($this->table."同步完成"); 
         }
     }
+    private $intbtmp;
     private function addsql( $sql)
     {
+        if($this->intbtmp){
+            //   $this->intbtmp;
+        }else{
+            $table=$this->db2->getpre().$this->table;
+            $this->intbtmp=" INSERT  INTO {$table} VALUES ";
+        }
+        // $table=$this->db2->getpre().$this->table;
+        $sql= $this->intbtmp.  $sql;
+        try {
+            $this->db2->exec($sql);
+        } catch (\Throwable $th) {
+            d($th);
+            //throw $th;
+        }
       
-        $table=$this->db2->getpre().$this->table;
-        // $sql=" INSERT DELAYED INTO {$table} (column1, column2, ...)
-        $sql=" INSERT  INTO {$table} 
-            VALUES {$sql}";
-        //  d($sql,1);
-         $this->db2->exec($sql);
+
+       
         // 执行更新操作，设置目标表的最大 ID 为当前最新同步的 ID
         // 这里需要根据实际的业务逻辑来确定如何更新最大 ID
     }
@@ -243,26 +274,17 @@ class DataSyncProcess
         // 构建并执行查询以获取需要同步的数据
       
         $prefix = $dao->getpre(); // 假设 getpre 方法返回数据库表前缀
-        $sql="SELECT * FROM `{$prefix}{$table}` WHERE `{$pkey}` >  $maxId  "."order by `{$pkey}` asc limit " .$batchSize  ;
+        // $sql="SELECT * FROM `{$prefix}{$table}` WHERE `{$pkey}` >  $maxId  "."order by `{$pkey}` asc limit " .$batchSize  ;
+        $sql="SELECT * FROM `{$prefix}{$table}` WHERE `{$pkey}` >  $maxId  "." limit " .$batchSize  ;
          //顺序必须是主键上升
         $stmt = $dao->getall($sql);
-      
         return $stmt;
-        // $stmt->execute([$maxId]);
-        // $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        // 分批处理以支持大表数据同步
-        // foreach (array_chunk($results, $batchSize) as $batch) {
-        //     yield $batch;
-        // }
     }
     private function getMaxId($dao, $table,$pkey)
     {
         $wztb = $dao->getpre().$table;
-       
         $sql="SELECT MAX({$pkey}) as id FROM {$wztb}";
         $stmt = $dao->getone($sql);
-       
         if(!$stmt['id'])return 0;
         return $stmt['id'];
     }
