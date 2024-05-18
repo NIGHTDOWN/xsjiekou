@@ -33,7 +33,7 @@ class apibase extends general
     ];
     public function _getuserid()
     {
-        d("sdfsfsdfdsfs",2);
+      
         $userid = parent::$wrap_user['uid'];
         if ($userid == null) {
         }
@@ -41,6 +41,7 @@ class apibase extends general
     }
     public function __construct()
     {
+        d("sdfsfsdfdsfs",2);
         $c = D_MEDTHOD;
         $a = D_FUNC;
         $this->init_head();
