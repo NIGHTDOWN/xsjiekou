@@ -41,7 +41,7 @@ class apibase extends general
     }
     public function __construct()
     {
-        d("sdfsfsdfdsfs",2);
+       
         $c = D_MEDTHOD;
         $a = D_FUNC;
         $this->init_head();

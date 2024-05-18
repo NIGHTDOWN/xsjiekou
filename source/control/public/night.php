@@ -17,6 +17,10 @@ class general extends Y
     private $callback = '_seo';
     public $orderby = array();
     public $chattype = array();
+    public function __construct()
+    {
+        d("sdfsfsdfdsfs",2);  
+    }
     public function init_chattype()
     {
         $this->chattype = include CONF . '/type.php';
