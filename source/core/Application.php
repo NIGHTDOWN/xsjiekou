@@ -61,7 +61,7 @@ class APP
 
         error("CLS " . D_MEDTHOD . " is not found!");
       } else {
-        d("sdfsfsdfdsfs",2);
+       
         self::execControl();
       }
     }
@@ -81,6 +81,7 @@ class APP
     }
     //启动控制器
     if (method_exists($control, $act) && $act[0] != '_') {
+      d("sdfsfsdfdsfs",2);
       $control->$act();
     } else {
       error($act . __('操作动作不存在'));
