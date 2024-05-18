@@ -19,8 +19,7 @@ class Url
 
 		// 	return '';
 		// }
-	$s=	$_SERVER['REQUEST_SCHEME'] == 'https' ? 'https://' : 'http://';
-d($s);
+		$s=	$_SERVER['REQUEST_SCHEME'] == 'https' ? 'https://' : 'http://';
 		return $s;
 		// if ($_SERVER['HTTPS'] == 'off')
 		// 	return 'http://';
@@ -44,7 +43,7 @@ d($s);
 	 */
 	public static function resolve()
 	{
-
+d("dfsdfsdfsdf",1);
 		/**
 		 * 1斜杠分割
 		 * 2-号分割
