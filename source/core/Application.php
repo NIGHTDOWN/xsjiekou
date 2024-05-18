@@ -81,6 +81,7 @@ class APP
     }
     //启动控制器
     if (method_exists($control, $act) && $act[0] != '_') {
+      d("werwerwr",2);  
       d("$control",2);  
       $control->$act();
     } else {
