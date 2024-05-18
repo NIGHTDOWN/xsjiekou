@@ -19,7 +19,7 @@ class general extends Y
     public $chattype = array();
     public function __construct()
     {
-        d("sdfsfsdfdsfs",2);  
+       
     }
     public function init_chattype()
     {
