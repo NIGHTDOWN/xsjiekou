@@ -17,9 +17,11 @@ class Dbsql
         try {
             /* $this->link = new PDO($dsn, $dbuser, $dbpw,
             array(PDO::ATTR_PERSISTENT=> true)); */
+           
             $this->link = new PDO($dsn, $dbuser, $dbpw, array(
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_TIMEOUT => 3,
+                PDO::ATTR_PERSISTENT=> true
             ));
             if (PHP_SAPI == 'cli') {
               
