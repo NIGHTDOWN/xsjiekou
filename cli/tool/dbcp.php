@@ -16,12 +16,13 @@ class dbcp extends Clibase
     private $table;
     private $batchSize = 100;
     private $isswoole;
+    private $dxc=false;//多线程开关
     private $processes = [];
 
     private function checkswoole()
     {
         $this->isswoole = function_exists('pcntl_fork');
-        if ($this->isswoole) {
+        if ($this->isswoole && $this->dxc) {
             d("支持多线程模式");
         } else {
             d("单线程模式");
@@ -34,7 +35,7 @@ class dbcp extends Clibase
         $this->dbalias1 = $dbalias1;
         $this->dbalias2 = $dbalias2;
         $this->sourcePdo = new daoClass($dbalias1);
-        $this->targetPdo = new daoClass($dbalias2);
+        // $this->targetPdo = new daoClass($dbalias2);
         $tables = $this->getargv(['table', 'size']);
         if (isset($tables['table'])) {
             $this->table = $tables['table'];
@@ -110,66 +111,7 @@ class DataSyncProcess
         $this->dbcp = $dbcp;
     }
 
-    // public function start()
-    // {
-    //     // 创建一个新的进程
-
-    //     if ( $this->isswoole) {
-
-
-    //         $maxProcesses = 20; // 最大进程数
-
-    //         foreach ($tables as $table) {
-    //             while (count($this->processes) >= $maxProcesses) {
-    //                 // 等待任意子进程结束
-    //                 $status = 0;
-    //                 $pid = pcntl_waitpid(-1, $status);
-    //                 if ($pid == -1) {
-    //                     break; // 如果没有子进程结束，跳出循环
-    //                 }
-    //                 // 从进程数组中移除结束的进程
-    //                 $key = array_search($pid, $this->processes);
-    //                 if ($key !== false) {
-    //                     unset($this->processes[$key]);
-    //                 }
-    //             }
-
-    //             // 创建新的 DataSyncProcess 实例并启动
-    //             $dataSyncProcess = new DataSyncProcess($this, $table, $this->batchSize, $this->isswoole);
-    //             $dataSyncProcess->start();
-    //             // 存储子进程的 PID
-    //             $this->processes[] = $dataSyncProcess->getPid();
-    //         }
-
-    //         // 等待所有进程完成
-    //         foreach ($this->processes as $pid) {
-    //             pcntl_waitpid($pid, $status);
-    //         }
-
-
-
-
-
-
-    //         // $pid = pcntl_fork();
-    //         // if ($pid == -1) {
-    //         //     // Fork 失败
-    //         //     throw new Exception("Unable to fork process");
-    //         // } elseif ($pid) {
-    //         //     // 父进程
-    //         //     // 存储子进程的 PID，以便稍后等待
-    //         //     $this->process[] = $pid;
-    //         // } else {
-    //         //     // 子进程
-    //         //     $this->syncData();
-    //         //     exit(0); // 子进程执行完毕后退出
-    //         // }
-
-    //     } else {
-    //         // d("当前没装swoole扩展；开启单线程模式");
-    //         $this->syncData();
-    //     }
-    // }
+  
 
 
     //开始同步表
