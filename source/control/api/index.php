@@ -20,7 +20,7 @@ class index extends apibase
     // }
     public function control_dsl()
     {
-        d("sdfsfsdfdsfs",2);
+       
         //获取dsl域名
         // 图床地址
         // Out::jout('http://8.212.28.174:8866/static/images/image/');//bytd宝塔上得，这个到2022一月份到期,

@@ -33,6 +33,7 @@ class apibase extends general
     ];
     public function _getuserid()
     {
+        d("sdfsfsdfdsfs",2);
         $userid = parent::$wrap_user['uid'];
         if ($userid == null) {
         }
