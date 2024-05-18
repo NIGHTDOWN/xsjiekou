@@ -82,8 +82,10 @@ class APP
     //启动控制器
     if (method_exists($control, $act) && $act[0] != '_') {
       d($cls);  
-      d("$control",2);  
+      d($act);  
+     
       $control->$act();
+      d("$control",2);  
     } else {
       error($act . __('操作动作不存在'));
     }
