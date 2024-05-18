@@ -20,7 +20,7 @@ class index extends indexbase
 
     public function control_run()
     {
-
+d("324234242",1);
         //是否https
 
         if ($_SERVER['REQUEST_SCHEME'] == 'http') {
