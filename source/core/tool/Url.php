@@ -19,8 +19,9 @@ class Url
 
 		// 	return '';
 		// }
-
-		return $_SERVER['REQUEST_SCHEME'] == 'https' ? 'https://' : 'http://';
+	$s=	$_SERVER['REQUEST_SCHEME'] == 'https' ? 'https://' : 'http://';
+d($s);
+		return $s;
 		// if ($_SERVER['HTTPS'] == 'off')
 		// 	return 'http://';
 		// return 'https://';
