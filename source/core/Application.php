@@ -51,7 +51,7 @@ class APP
     // Lang::load();
     $appfile = ROOT . "./source/" . D_GROUP . ".php";
     $clsfile = ROOT . "./source/control/" . D_GROUP . "/" . D_MEDTHOD . ".php";
-d("sdfsfsdfdsfs",2);
+
     if (!file_exists($appfile)) {
 
       error("Application " . D_GROUP . " is not found!");
@@ -61,6 +61,7 @@ d("sdfsfsdfdsfs",2);
 
         error("CLS " . D_MEDTHOD . " is not found!");
       } else {
+        d("sdfsfsdfdsfs",2);
         self::execControl();
       }
     }
