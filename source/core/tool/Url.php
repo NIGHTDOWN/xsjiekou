@@ -43,7 +43,7 @@ class Url
 	 */
 	public static function resolve()
 	{
-d("dfsdfsdfsdf",1);
+
 		/**
 		 * 1斜杠分割
 		 * 2-号分割
@@ -108,8 +108,6 @@ d("dfsdfsdfsdf",1);
 				//路由定义
 			}
 		}
-
-
 		return true;
 	}
 
@@ -278,9 +276,7 @@ d("dfsdfsdfsdf",1);
 		} else {
 			return $url . $params;
 		}
-		// $url = trim(self::gethttp() . $_SERVER["HTTP_HOST"] . '/' . $group . $mod . $action . $param, '/') . $pre;
-
-		// return $url;
+		
 	}
 
 	public static
