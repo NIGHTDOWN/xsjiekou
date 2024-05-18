@@ -284,7 +284,7 @@ class DataSyncProcess
                 if($num<$this->batchSize){
                     $llop = false; 
                 }
-                $lastmaxid = $list[$num - 1][$this->pkey]; //从最后一条数据id开始；因为id可能不连续所以必须取最后一条
+                $sid = $list[$num - 1][$this->pkey]; //从最后一条数据id开始；因为id可能不连续所以必须取最后一条
                 $sql = "";
                 foreach ($list as $key => $row) {
                     // $sql.= implode(', ', $row).",";  
