@@ -31,7 +31,9 @@ class cartoon extends indexbase
 
         if ($detail) {
             $detail['inrack'] = M('rack', 'im')->in_rack($this->get_userid(), $type, $get['bookid']);
-            $detail['sahretag'] = implode(',', array_column($detail['data']['tags'], 'tag'));
+         
+            $tags=array_column($detail['data']['tags'], 'tag');
+            $detail['sahretag'] = implode(',',$tags );
             // d($detail);
             $detail['his'] = M('rack', 'im')->getbookhis($this->get_userid(), $type, $get['bookid']);
             $tjcache = 'tjcache' . $get['bookid'] . $detail['data']['type'];

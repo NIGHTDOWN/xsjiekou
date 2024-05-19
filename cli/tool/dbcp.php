@@ -422,7 +422,7 @@ class DataSyncProcessall
         $maxId1 = $this->getcount($this->db1, $this->table, $pkey);
         $maxId2 = $this->getcount($this->db2, $this->table, $pkey);
         $loutid= $this->getMaxId($this->db1, $this->table, $pkey);
-        if ($maxId1 <= $maxId2) {
+        if ($maxId1 == $maxId2) {
             // d($this->table."数据量一样不用同步");
             return false;
         }
@@ -475,12 +475,12 @@ class DataSyncProcessall
                         $r .= '\'' . $value . '\',';
                     }
                     $r = rtrim($r, ",");
-                    $sql = "({$r}),";
+                    $sql = $sql."({$r}),";
                     // unset($r);
-                    $sql = rtrim($sql, ",");
-                    $this->addsql($sql);
+                  
                 }
-                
+                  $sql = rtrim($sql, ",");
+                    $this->addsql($sql);
                 
              
             } else {

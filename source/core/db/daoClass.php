@@ -906,11 +906,14 @@ class daoClass
                 $this->l = $l;
                 return $this;
             }
+            $o1=intval($limit[0]);
+            $o2=intval($limit[1]);
             if (count($limit) != 1) {
-                $l = $word . intval($limit[0] * $limit[1]) . ',' . intval($limit[1]);
+              
+                $l = $word . ($o1 * $o2) . ',' . ($o2);
                 $this->l = $l;
             } else {
-                $l = $word . intval($limit[0]);
+                $l = $word . ($o1);
                 $this->l = $l;
             }
             return $this;
@@ -1039,9 +1042,12 @@ class daoClass
     }
     public function u($t, $ar, $where = null, $bool = true)
     {
-        if (sizeof($ar) == 0) {
-            return 0;
+        if(is_array($ar)){
+            if (sizeof($ar) == 0) {
+                return 0;
+            }
         }
+       
         $Stime = '';
         if ($this->debug) {
 

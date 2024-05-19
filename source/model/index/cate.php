@@ -13,7 +13,7 @@ class cate
     public function getlable($lable, $lang)
     {
        
-        if (!$lable) return false;
+        if (!$lable) return [];
         list($bool, $tags) = Y::$cache->get($this->tagindex);
 
 
