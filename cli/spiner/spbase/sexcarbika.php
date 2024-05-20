@@ -250,7 +250,7 @@ class sexcarbika extends Clibase
             "fid" => "id",
             'bpic_detail' => "bpic_detail",
             'tmpcate' => "tmpcate",
-            'tmptags' => "tmptags",
+            'tmptag' => "tmptag",
         ];
         $data = $book;
         $book=$bookh['comic'];
@@ -260,7 +260,7 @@ class sexcarbika extends Clibase
             $data['wordnum'] = $book['section'];
             $data['update_status'] = $book['finished']?1:2;
             // $data['tmptag'] = $data['finished']?1:2;
-            $data['tmptags'] = implode(",", $book['tags']);
+            $data['tmptag'] = implode(",", $book['tags']);
             $data['tmpcate'] =   implode(",", $book['categories']);
         }
       
