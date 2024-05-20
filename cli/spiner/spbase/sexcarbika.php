@@ -250,7 +250,7 @@ class sexcarbika extends Clibase
             "fid" => "id",
             'bpic_detail' => "bpic_detail",
             'tmpcate' => "tmpcate",
-            'tmptag' => "tmptag",
+            'tmptags' => "tmptags",
         ];
         $data = $book;
         $book=$bookh['comic'];
