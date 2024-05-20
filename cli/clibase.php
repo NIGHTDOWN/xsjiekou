@@ -868,6 +868,8 @@ d($cmd);
                 'category_id' => $category_id,
                 'cate_id' =>    $cate_id,
                 'lable' =>      $lable,
+                'tmptag' =>      @$data[$refield["tmptag"]],
+                'tmpcate' =>      @$data[$refield["tmpcate"]],
                 'cate_name' =>       @$data[$refield["lable"]],
             ];
 
