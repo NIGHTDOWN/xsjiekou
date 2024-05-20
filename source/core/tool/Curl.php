@@ -332,7 +332,29 @@ class Curl
 		}
 		return $content;
 	}
-
+	public static function getBashCurl($url, $data = [], $options = []) {  
+		$curlCommand = "curl -X GET '$url'"; // 默认使用GET请求  
+	  
+		// 如果提供了POST数据，则修改请求方法为POST并添加数据  
+		if (!empty($data)) {  
+			$curlCommand = "curl -X POST '$url' -d '" . http_build_query($data) . "'";  
+		}  
+	  
+		// 添加其他选项（例如headers）  
+		foreach ($options as $key => $value) {  
+			// if ($key === 'headers') {  
+				// foreach ($value as $headerKey => $headerValue) {  
+					$curlCommand .= " -H '$key: $value'";  
+				// }  
+			// } else {  
+			// 	// 对于其他选项，你可能需要根据你的需要添加更多逻辑  
+			// 	// 这里只是一个简单的示例，假设所有其他选项都是curl命令行支持的选项和值  
+			// 	$curlCommand .= " --$key $value";  
+			// }  
+		}  
+	  
+		return $curlCommand."   --compressed";  
+	}  
 
 	private function curl_redir_exec($ch)
 	{

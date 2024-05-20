@@ -121,7 +121,7 @@ class sexcar91 extends Clibase
                     // $this->thpush($book);
                 } else {
                     $this->getbookdetail($book);
-                    d($book,1);
+                   
                 }
             }
             return sizeof($data);
