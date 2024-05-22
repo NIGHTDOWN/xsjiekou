@@ -331,6 +331,7 @@ class sexcarbika extends Clibase
             $api = "comics/$remote_book_id/order/$remote_sec_id/pages?page=$page";
             $datas = $this->apisign($api, []);
             list($status, $bookh) = $this->getdata($datas, ["code", "data"], 200);
+            if(!isset($bookh['pages']))return;
             $blist=$bookh['pages']['docs'];
             if ($blist) {
                 foreach ($blist as $key => $value) {

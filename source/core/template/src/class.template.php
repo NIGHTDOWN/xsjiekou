@@ -34,7 +34,10 @@ class Template_Lite
   var $compiler_file     = 'class.compiler.php';
   var $compiler_class    = 'ng169\\template\\Template_Lite_Compiler';
   var $config_class      = 'config';
-
+  var $allow_php_tag;  
+  var $compile_check; 
+  var $_error_level;
+  var $_conf;
   // gzip output configuration
   var $send_now          = 1;
   var $force_compression = 0;
@@ -410,6 +413,7 @@ class Template_Lite
   function _get_resource($file)
   {
     $file           = $file;
+    $resource_timestamp=0;
     $_resource_name = explode(':', trim($file));
 
     if (count($_resource_name) == 1 || $_resource_name[0] == "file") {

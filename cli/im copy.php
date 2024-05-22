@@ -1,11 +1,6 @@
 <?php
 
 /**
- * 开启master
- * 选择子线程
- * 主线程管理子线程状态；已经转发消息
- * 另外开一个线程用于master心跳
- * 子线程记录接收消息
  */
 namespace ng169\cli;
 require_once    "./sock/sockbase.php";
@@ -13,17 +8,59 @@ require_once    "./sock/sockbase.php";
 use ng169\lib\Socket;
 use ng169\Y;
 use ng169\cli\sock\sockbase;
-
+  $ims=[]; //connectObj 客户端列表
 class connectObj
 {
     public $sock;
     public $index;
+    public $ishand=false;//是否握手
     public $type; //1表示server,2表示用户
-    public function connectObj(&$sk, $_type)
+    public $buffer; //1表示server,2表示用户
+    public function __construct(&$sk, $_type,&$data)
     {
-        $this->sock = &$sk;
-        $this->type = $_type;
         $this->index = intval($sk);
+        if(isset($ims[$this->index])){
+            return $ims[$this->index];
+        }else{
+            //压如对象指针
+             $ims[$this->index]=&$this; 
+             $this->sock = &$sk;
+             $this->type = $_type;
+        }
+        $this->buffer = &$data;
+        $this->hand();
+    }
+    public function hand(){
+        if($this->ishand)return false;
+        $buffer=&$this->buffer;
+        $socket=&$this->sock;
+        $line_with_key = substr($buffer, strpos($buffer, 'Sec-WebSocket-Key:') + 18);
+        $key = trim(substr($line_with_key, 0, strpos($line_with_key, "\r\n")));
+        d($key);
+        if(!$key)return false;
+        // 生成升级密匙,并拼接websocket升级头
+        $upgrade_key = base64_encode(sha1($key . "258EAFA5-E914-47DA-95CA-C5AB0DC85B11", true));// 升级key的算法
+        $upgrade_message = "HTTP/1.1 101 Switching Protocols\r\n";
+        $upgrade_message .= "Upgrade: websocket\r\n";
+        $upgrade_message .= "Sec-WebSocket-Version: 13\r\n";
+        $upgrade_message .= "Connection: Upgrade\r\n";
+        $upgrade_message .= "Sec-WebSocket-Accept:" . $upgrade_key . "\r\n\r\n";
+        d("握手了11111");
+        socket_write($socket, $upgrade_message, strlen($upgrade_message));// 向socket里写入升级信息
+        //  T('sock_client')->update(array('handshake'=>1),array('clientid'=>self::getindex($socket)));
+        // self::$sockets[self::getindex($socket)]['handshake'] = true;
+        // socket_getpeername($socket, $ip, $port);
+        // d("wos");
+        $this->ishand=true;
+        d("握手了");
+        return true;
+    }
+    //从数据库恢复
+    public function resetfromsql(){
+
+    }
+    public function savesql(){
+        
     }
     public function del()
     {
@@ -35,7 +72,7 @@ class connectObj
 }
 
 //数据库连接池
-class SqlPool extends Clibase
+class Im extends Clibase
 {
     private static $sqlserver; //数据库连接线程
     private static $connects; //所有连接
@@ -48,8 +85,8 @@ class SqlPool extends Clibase
     {
         Socket::$isServer = true;
         self::$server = new sockbase();
-        self::$server->onmsg(__NAMESPACE__ . '\SqlPool::inmsg');
-        self::$server->dismsg(__NAMESPACE__ . '\SqlPool::dis');
+        self::$server->onmsg(__NAMESPACE__ . '\Im::inmsg');
+        self::$server->dismsg(__NAMESPACE__ . '\Im::dis');
         $poolconf = \ng169\lib\Option::get('pool');
         self::$pwd = $poolconf['pwd'];
         self::$server->start($poolconf['ip'], $poolconf['port']);
@@ -93,14 +130,16 @@ class SqlPool extends Clibase
     static  $ml = [];
     public static function inmsg($clientsock, $data)
     {
-      
+        d($data);
         try {
             //心跳包忽略
-            if (strlen($data) < 5) {
+            if (strlen($data) < 1) {
                 return;
             }
+            $obj = new connectObj($clientsock, 2,$data);
             $dedata = self::decode($data);
-            $obj = new connectObj($clientsock, 1);
+            d("11111111");
+          
             //所有连接都记录在connect
             self::$connects[$obj->index] = $obj;
             if (!$dedata) return false; //无法解码表示数据不对;丢弃
@@ -132,6 +171,7 @@ class SqlPool extends Clibase
                     break;
                 default:
                     # code...
+                    d("zzzz");
                     break;
             }
         } catch (\Throwable $th) {
@@ -248,4 +288,4 @@ class SqlPool extends Clibase
 }
 //启动数据库连接池server
 
-new SqlPool();
+new Im();
