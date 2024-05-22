@@ -700,7 +700,12 @@ class Template_Lite
     }
     else {
       if ($php_function == "PHP") {
-        $variable = call_user_func_array($modifier, $arguments);
+    //  d($modifier);
+    //  d($arguments);
+    //     if($modifier=="sizeof" && !$arguments){
+    //       return null;
+    //     }
+        $variable = @call_user_func_array($modifier, $arguments);
       }
       else {
         $variable = call_user_func_array($this->_plugins["modifier"][$modifier], $arguments);
