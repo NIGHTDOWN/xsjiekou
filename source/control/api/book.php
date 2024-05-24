@@ -639,7 +639,6 @@ class book extends apibase
         M('version', 'im')->cheknew($this->head['version']);
         $data = get(['string' => ['page']]);
         $where['status'] = 1;
-
         $cityid = $this->head['cityid'];
         $where['lang'] = $cityid;
         $index = 'get_new1_' . $data['page'] . '_' . $cityid;

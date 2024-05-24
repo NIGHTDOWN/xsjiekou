@@ -37,11 +37,13 @@ class chat extends apibase
     public function control_set()
     {
         //关闭语言选择
-        if ($this->head['cityid'] == 1) {
-            //美国直接关闭语言选择 0关闭，1显示
-            $this->returnSuccess(1);
-        }
-        $this->returnSuccess(1);
+        $hide=T("option")->set_where(['option_name'=>'hidecity'])->get_one();
+        // if ($this->head['cityid'] == 1) {
+        //     //美国直接关闭语言选择 0关闭，1显示
+        //     $this->returnSuccess(1);
+        // }
+        $v= !$hide['option_value'];
+        $this->returnSuccess($v);
     }
     public function control_send()
     {

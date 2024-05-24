@@ -972,7 +972,6 @@ d($cmd);
             $field = $this->field;
         }
         $data = $remotedatas;
-
         if ($this->in_rmote_db) {
             $secnum = $this->sql(T($this->dbsec)->set_where([$this->db_id => $dbid, "status" => 1, 'isdelete' => 0])->get_sql(), 3);
         } else {
@@ -1102,7 +1101,14 @@ d($cmd);
             if ($this->in_rmote_db) {
                 $this->rmsqladd($this->dbcontent, $a2);
             } else {
-                T($this->dbcontent)->add($a2);
+                try {
+                    T($this->dbcontent)->add($a2);
+                } catch (\Throwable $th) {
+                    //throw $th;
+                    d($th);
+                  
+                }
+                
             }
         }
         return true;
