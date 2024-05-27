@@ -88,7 +88,7 @@ public function getClientLanguage(){
 		$this->head['lang']=$this->getClientLanguage();
 		
 		parent::$wrap_head = $this->head;
-		d($this->head,1);
+		
 		if ($this->needlogin()) {
 
 			$login = $this->checkLogin();
