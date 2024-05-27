@@ -969,7 +969,7 @@ class census extends Y
       
             //价格网页判断---有版本号或者有语言的就是正常用户；否则就是蜘蛛
         //天
-        if (!T('count_log')->set_filed('id')->get_one($insert) && $insert['version']!="") {
+        if (!T('count_log')->set_filed('id')->get_one($insert) && $insert['lang']!="") {
            
             try {
                 //code...
