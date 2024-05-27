@@ -966,10 +966,9 @@ class census extends Y
             unset($insert['idfa']);
             $insert['ip'] = Request::getip();
         }
-
+            //价格网页判断---有版本号或者有语言的就是正常用户；否则就是蜘蛛
         //天
-        if (!T('count_log')->set_filed('id')->get_one($insert)) {
-
+        if (!T('count_log')->set_filed('id')->get_one($insert) && $insert['version']!="") {
             try {
                 //code...
                 $this->_dayacount($uid);
@@ -1085,6 +1084,8 @@ class census extends Y
         } else {
             $w['num'] = 1;
             T('count_city')->add($w);
+         
+            
         }
     }
     public function _reg()

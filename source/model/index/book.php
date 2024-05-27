@@ -633,6 +633,7 @@ LnUG4Z69pKZHtL6ljwIDAQAB
             Y::$cache->set($similarcacheindex, $cache, G_DAY * 5);
         }
         $cache = array_diff($cache, [$bookid]);
+        if(sizeof($cache)<=0)return [];
         $ret = array_rand($cache, $num);
         $retbookid = [];
         foreach ($ret as $val) {

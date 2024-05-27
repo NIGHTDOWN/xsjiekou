@@ -64,7 +64,18 @@ class indexbase extends general
 		}
 		return $userid;
 	}
-
+public function getClientLanguage(){
+	$http_accept_language = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+	// 使用内置函数preg_match_all来提取语言代码
+	preg_match_all('/(af|am|ar|as|az|be|bg|bn|br|bs|ca|cs|cy|da|de|el|en|eo|es|et|eu|fa|fi|fr|fy|ga|gd|gl|gu|ha|he|hi|hr|hu|hy|ia|id|is|it|ja|jv|ka|kk|km|kn|ko|ku|ky|la|lb|ln|lo|lt|lv|mg|mk|ml|mn|mr|ms|mt|nb|nl|nn|no|oc|om|or|pa|pl|ps|pt|qu|rm|ro|ru|rw|se|si|sk|sl|sn|so|sq|sr|ss|st|sv|sw|ta|te|th|ti|tl|tn|to|tr|ts|tt|ug|uk|ur|uz|vi|wo|xh|xx|yi|yo|zh|zu)-(\w{2})/', $http_accept_language, $matches);
+	// 语言代码数组
+	if(isset($matches[0]) && isset($matches[0][0])){
+		$languages = $matches[0][0];
+		$languages = substr($languages, 0, 2);
+		return $languages;
+	}
+	return "";
+}
 	public
 	function __construct()
 	{
@@ -73,7 +84,11 @@ class indexbase extends general
 		$a = D_FUNC;
 		$login = 0;
 		$this->head = YRequest::get_head();
+		$this->head['version']="web1.0";
+		$this->head['lang']=$this->getClientLanguage();
+		
 		parent::$wrap_head = $this->head;
+		d($this->head,1);
 		if ($this->needlogin()) {
 
 			$login = $this->checkLogin();

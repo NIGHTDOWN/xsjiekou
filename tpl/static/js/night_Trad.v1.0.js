@@ -1625,6 +1625,9 @@ function yAjax(ur, ar, $fun, $obj, $lock) {
 
     yajaxobj = $obj;
     _load_view_show();
+    ar["version"]="web1.0";
+    var browserLanguage = navigator.language.split('-')[0];
+    ar["lang"]=browserLanguage;
     ar = makePost(ar);
     $async = $lock != undefined ? $lock : _ajax_asyn;
     $.ajax({

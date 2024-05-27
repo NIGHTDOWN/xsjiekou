@@ -28,7 +28,7 @@ class cartoon extends indexbase
         }
         $detail = M('book', 'im')->detail($get['bookid'], $this->get_userid(), $type);
         //判断是否已经添加书架
-
+     
         if ($detail) {
             $detail['inrack'] = M('rack', 'im')->in_rack($this->get_userid(), $type, $get['bookid']);
          
@@ -41,9 +41,12 @@ class cartoon extends indexbase
 
             if ($bool) {
                 if (sizeof($cache)) {
+                   
                     $detail = array_merge($detail, $cache);
+                  
                 }
             } else {
+              
                 $similars = M('book', 'im')->getsimilar($get['bookid'], $detail['data']['type'], 6);
 
                 $author = M('book', 'im')->getsimilarauthor($get['bookid'], $detail['data']['type'], 3);
