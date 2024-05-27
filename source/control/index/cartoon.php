@@ -57,13 +57,13 @@ class cartoon extends indexbase
                         $detailtmp['similar'][$k]['tags'] =  M('cate', 'im')->getlable($book['lable'], $book['lang']);
                     }
                 }
-                if (sizeof($author)) {
+                if (is_array($author) && sizeof($author)) {
                     $detailtmp['author'] = T('cartoon')->set_field('bpic,cartoon_id as book_id,' . $type . ' as type,other_name,lable,lang,`read`')->whereIn('cartoon_id', $author)->get_all();
                     foreach ($detailtmp['author']  as $k => $book) {
                         $detailtmp['author'][$k]['tags'] =  M('cate', 'im')->getlable($book['lable'], $book['lang']);
                     }
                 }
-                if (sizeof($detailtmp)) {
+                if (is_array($detailtmp) &&sizeof($detailtmp)) {
                     $detail = array_merge($detail, $detailtmp);
                     Y::$cache->set($tjcache, $detailtmp, G_DAY * 2);
                 }

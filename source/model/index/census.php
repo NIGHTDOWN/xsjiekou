@@ -946,29 +946,31 @@ class census extends Y
     public function logcount($uid)
     {
         $head = Y::$wrap_head;
-
         // d($head);
         $insert['uid'] = $uid;
         $insert['idfa'] = $head['idfa'];
         $devices = getdevicetype($head);
-
+       
         if (!$uid && !$devices) {
             //如果用户id 跟 idfa都是空；说明是模拟 提交，也可能是恶意提交
             //不计入统计数据
             $this->_errorlog();
             return false;
         }
-
+       
         //$this->_errorlog();
         $insert['devicetype'] = $devices;
         $insert['d'] = date('Ymd');
+        $insert['appversion'] = $head['version'];
         if (!$insert['idfa']) {
             unset($insert['idfa']);
             $insert['ip'] = Request::getip();
         }
+      
             //价格网页判断---有版本号或者有语言的就是正常用户；否则就是蜘蛛
         //天
         if (!T('count_log')->set_filed('id')->get_one($insert) && $insert['version']!="") {
+           
             try {
                 //code...
                 $this->_dayacount($uid);
@@ -995,6 +997,8 @@ class census extends Y
             $insert['appversion'] = $head['version'];
             $insert['action'] = D_MEDTHOD . D_FUNC;
             $insert['addtime'] = time();
+            $insert['webagent'] =$head['user-agent'];
+            
             T('count_log')->add($insert);
 
 
