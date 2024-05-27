@@ -18,7 +18,7 @@ class order extends apibase
         $arr['order_num'] = date('YmdHis') . str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT);
         $arr['price'] = $recharge['recharge_price'];
         $arr['pay_status'] = 0;
-        $arr['make_time'] = date('Y-m-d H:i:s', time());
+        $arr['make_time'] = time();
         $arr['dates'] = date('Ymd');
         $arr['fact_price'] = $recharge['recharge_price'];
         $arr['plat'] = $this->head['devicetype'];
