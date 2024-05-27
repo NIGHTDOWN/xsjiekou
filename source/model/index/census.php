@@ -995,9 +995,10 @@ class census extends Y
             //添加记录
             $insert['ip'] = Request::getip();
             $insert['appversion'] = $head['version'];
-            $insert['action'] = D_MEDTHOD . D_FUNC;
+            $insert['action'] =$head['lang'].D_MEDTHOD . D_FUNC;
             $insert['addtime'] = time();
             $insert['webagent'] =$head['user-agent'];
+          
             
             T('count_log')->add($insert);
 
