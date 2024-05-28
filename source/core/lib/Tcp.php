@@ -28,7 +28,6 @@ class Tcp extends Socket
 		} else {
 			self::$master = stream_socket_server("tcp://{$host}:{$port}", $errno, $errmsg, STREAM_SERVER_BIND | STREAM_SERVER_LISTEN);
 		}
-
 		if (!self::$master) {
 			self::error("错误代码：$errno--$errmsg \n");
 		}
@@ -42,29 +41,10 @@ class Tcp extends Socket
 	}
 	public function recv()
 	{
-
 		//这里在对消息处理时候开启子线程
-		// if(pcntl_fork() == 0)
-		// {   
-		//         $recv = socket_read($conn, 8192);
-		//         //处理数据
-		//         $send_data = "server: ".$recv;
-		//         socket_write($conn, $send_data);
-		//         socket_close($conn);
-		//         exit(0);
-		// }   
-		// else
-		// {   
-		//         socket_close($conn);
-		// }   
-
-
-
 		if (self::$EPOLL) {
-		
 			$this->epollmodel();
 		} else {
-			
 			while (!self::$stop) {
 				$this->selectmodel();
 			}
@@ -88,45 +68,7 @@ class Tcp extends Socket
 		}
 		foreach ($read as $socket) {
 			Socket::listen($socket);
-			// 如果可读的是服务器socket,则处理连接逻辑
-			// if ($socket == self::$master) {
-			// 	$client = stream_socket_accept(self::$master, 0, $remote_address);
-			// 	// 创建,绑定,监听后accept函数将会接受socket要来的连接,一旦有一个连接成功,将会返回一个新的socket资源用以交互,如果是一个多个连接的队列,只会处理第一个,如果没有连接的话,进程将会被阻塞,直到连接上.如果用set_socket_blocking或socket_set_noblock()设置了阻塞,会返回false;返回资源后,将会持续等待连接。
-			// 	if (false === $client) {
-			// 		self::error([
-			// 			'err_accept',
-			// 			$err_code = socket_last_error(),
-			// 			socket_strerror($err_code)
-			// 		]);
-			// 		continue;
-			// 	} else {
-			// 		self::connect($client);
-			// 		continue;
-			// 	}
-			// }
-			// else {
-			// 	// 如果可读的是其他已连接socket,则读取其数据,并处理应答逻辑
-			// 	$buffer = stream_socket_recvfrom($socket,  Tcp::$recvlength, 0);
-			// 	$bytes = strlen($buffer);
-			// 	/*socket_set_nonblock($bytes);*/
-			// 	//长度限制10000个字符
-			// 	if ($bytes < 9) {
-			// 		$recv_msg = self::disconnect($socket);
-			// 	} else {
-			// 		$hand = self::$sockets[self::getindex($socket)]['handshake'];
-			// 		if ($hand == 0) {
-			// 			self::handShake($socket, $buffer);
-			// 		} elseif ($hand == 2) {
-			// 			d($buffer);
-			// 			self::systemdeal($socket, $buffer);
-			// 		} elseif ($hand == 1) {
-			// 			$recv_msg = self::parse($buffer);
-			// 			if (self::dealMsg($socket, $recv_msg)) {
-			// 				self::conns(true);
-			// 			}
-			// 		}
-			// 	}
-			// }
+		
 		}
 	}
 	private function epollmodel()
@@ -145,23 +87,18 @@ class Tcp extends Socket
 	}
 	public static function _epoll_fun($socket)
 	{
-
-
 		$index = self::getindex($socket);
-
 		if (!isset(self::$sockets[$index])) {
 			//看看连接有没有被记录，没记录就建立链接，有记录就处理数
 			self::connect($socket); //创建新连接	
 			self::conns(true);
 			self::$event_base->add($socket, \ng169\lib\Epoll::READ, function ($conn) {
-
 				\ng169\lib\Tcp::_epoll_fun_con($conn);
 			});
 		}
 	}
 	public  static function _epoll_fun_con($socket)
 	{
-
 		Socket::listen($socket);
 		// $buffer = '';
 		// $index = self::getindex($socket);
@@ -198,13 +135,16 @@ class Tcp extends Socket
 	{
 		//		socket_getpeername($socket, $ip, $port);
 		$data = stream_socket_get_name($socket, true);
+		
 		list($ip, $port) = explode(':', $data);
 		$index = self::getindex($socket);
+		
 		$socket_info = [
 			'resource' => $socket,
 			'uname' => '',
 			'token' => '',
-			'handshake' => false,
+			// 'handshake' => false,
+			'handshake' => self::handShake($socket),	//tcp websock需要握手；最好是加个协议判断
 			'ip' => $ip,
 			'port' => $port,
 			'type' => 0,
@@ -218,6 +158,7 @@ class Tcp extends Socket
 		$insert['resource'] = serialize($socket);
 		$socket_info['clientid'] = $index;
 		self::$sockets[$index] = $socket_info;
+		// self::handShake($socket);
 	}
 	/**
 	 * 用公共握手算法握手
@@ -227,14 +168,23 @@ class Tcp extends Socket
 	 *
 	 * @return bool
 	 */
-	public static function handShake($socket, $buffer)
+	public static function handShake($socket)
 	{
-
+		// $buffer = stream_socket_recvfrom($socket,  self::$recvlength, 0);
+		$buffer =Socket::gettmpdata($socket);
+		$bytes = strlen($buffer);
+		if(!$bytes)return false;
 		// 获取到客户端的升级密匙
-		$line_with_key = substr($buffer, strpos($buffer, 'Sec-WebSocket-Key:') + 18);
-		$key           = trim(substr($line_with_key, 0, strpos($line_with_key, "\r\n")));
+		$key = '';
+		if (\preg_match("/Sec-WebSocket-Key: *(.*?)\r\n/i", $buffer, $match)) {
+			$key = $match[1];
+		} else {
+			// $connection->close("HTTP/1.1 200 WebSocket\r\nServer: workerman/" . Worker::VERSION . "\r\n\r\n<div style=\"text-align:center\"><h1>WebSocket</h1><hr>workerman/" . Worker::VERSION . "</div>",
+			// 	true);
+			return 0;
+		}
 		if (!$key) return false;
-		// 生成升级密匙,并拼接websocket升级头
+		// 生成升级密匙,并拼接websocket升级头  
 		$upgrade_key = base64_encode(sha1($key . "258EAFA5-E914-47DA-95CA-C5AB0DC85B11", true)); // 升级key的算法
 		$upgrade_message = "HTTP/1.1 101 Switching Protocols\r\n";
 		$upgrade_message .= "Upgrade: websocket\r\n";

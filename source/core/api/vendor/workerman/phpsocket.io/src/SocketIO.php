@@ -96,16 +96,12 @@ class SocketIO
     {
         $engine = new Engine();
         $engine->attach($srv, $opts);
-
         // Export http server
         $this->worker = $srv;
-
         // bind to engine events
         $this->bind($engine);
-
         return $this;
     }
-
     public function bind($engine): SocketIO
     {
         $this->engine = $engine;
@@ -113,7 +109,6 @@ class SocketIO
         $this->engine->origins = $this->_origins;
         return $this;
     }
-
     public function of($name, $fn = null)
     {
         if ($name[0] !== '/') {

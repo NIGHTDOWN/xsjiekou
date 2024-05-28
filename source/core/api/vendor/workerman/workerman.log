@@ -52,3 +52,15 @@ Stack trace:
 #13 G:\work\novel\xsjiekou\cli\im.php(98): Workerman\Worker::runAll()
 #14 G:\work\novel\xsjiekou\cli\im.php(104): ng169\cli\Im->init()
 #15 {main}
+2024-05-28 19:40:00 pid:1 TypeError: Argument 2 passed to PHPSocketIO\Engine\Engine::onWebSocketConnect() must be an object, string given, called in G:\work\novel\xsjiekou\source\core\api\vendor\workerman\workerman\Protocols\Websocket.php on line 450 and defined in G:\work\novel\xsjiekou\source\core\api\vendor\workerman\phpsocket.io\src\Engine\Engine.php:240
+Stack trace:
+#0 G:\work\novel\xsjiekou\source\core\api\vendor\workerman\workerman\Protocols\Websocket.php(450): PHPSocketIO\Engine\Engine->onWebSocketConnect(Object(Workerman\Connection\TcpConnection), 'GET / HTTP/1.1\r...')
+#1 G:\work\novel\xsjiekou\source\core\api\vendor\workerman\workerman\Protocols\Websocket.php(73): Workerman\Protocols\Websocket::dealHandshake('GET / HTTP/1.1\r...', Object(Workerman\Connection\TcpConnection))
+#2 G:\work\novel\xsjiekou\source\core\api\vendor\workerman\workerman\Connection\TcpConnection.php(609): Workerman\Protocols\Websocket::input('GET / HTTP/1.1\r...', Object(Workerman\Connection\TcpConnection))
+#3 G:\work\novel\xsjiekou\source\core\api\vendor\workerman\workerman\Events\Select.php(311): Workerman\Connection\TcpConnection->baseRead(Resource id #78)
+#4 G:\work\novel\xsjiekou\source\core\api\vendor\workerman\workerman\Worker.php(1488): Workerman\Events\Select->loop()
+#5 G:\work\novel\xsjiekou\source\core\api\vendor\workerman\workerman\Worker.php(1405): Workerman\Worker::forkWorkersForWindows()
+#6 G:\work\novel\xsjiekou\source\core\api\vendor\workerman\workerman\Worker.php(560): Workerman\Worker::forkWorkers()
+#7 G:\work\novel\xsjiekou\cli\im.php(98): Workerman\Worker::runAll()
+#8 G:\work\novel\xsjiekou\cli\im.php(104): ng169\cli\Im->init()
+#9 {main}
