@@ -8,7 +8,7 @@ use ng169\lib\Log as YLog;
 use ng169\lib\Socket;
 use ng169\lib\Job;
 
-/*use ng169\cache\Rediscache ;*/
+
 use ng169\lib\SocketCache;
 
 checktop();
@@ -100,31 +100,7 @@ class Tcp extends Socket
 	public  static function _epoll_fun_con($socket)
 	{
 		Socket::listen($socket);
-		// $buffer = '';
-		// $index = self::getindex($socket);
-
-		// $buffer = stream_socket_recvfrom($socket,  self::$recvlength, 0);
-
-		// $bytes = strlen($buffer);
-		// //		d($buffer);
-		// if ($bytes < 9) {
-		// 	$recv_msg = self::disconnect($socket);
-		// } else {
-		// 	if (self::$sockets[$index]['handshake'] != 1) {
-		// 		$bool = self::handShake($socket, $buffer);
-		// 		//这里不成功可能是后台直接推送的信息；要直接执行。			
-		// 		if (!$bool) {
-		// 			self::systemdeal($socket, $buffer);
-		// 		}
-		// 	} else {
-
-		// 		$recv_msg = self::parse($buffer);
-		// 		if (self::dealMsg($socket, $recv_msg)) {
-		// 			self::conns(true);
-		// 		}
-		// 	}
-		// }
-		//		self::$event_base->del($socket);
+	
 	}
 	/**
 	 * 将socket添加到已连接列表,但握手状态留空;

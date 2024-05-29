@@ -3,8 +3,8 @@
 
 var nScrollHight = 0;
 var lock = false;
-var readlink = "lookstory://com.ng.story/read?bookid=&type=2&secid=";
-var playlink = "https://play.google.com/store/apps/details?id=com.ng.story";
+var readlink = "lovenovel://com.ng.lovenovel/read?bookid=&type=2&secid=";
+var playlink = "https://play.google.com/store/apps/details?id=com.ng.lovenovel";
 var secid = '18100';
 var bookid = '53683';
 var type = 1;

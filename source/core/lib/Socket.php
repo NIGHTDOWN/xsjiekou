@@ -445,7 +445,6 @@ class Socket extends Y
 	 */
 	public static function disconnect($socket)
 	{
-
 		if (self::$EPOLL) {
 			self::$event_base->del($socket);	//epoll退出
 		}
@@ -472,7 +471,6 @@ class Socket extends Y
 				T('sock_client')->update(array('online'   => 0, 'handshake' => 0), array('clientid' => self::getindex($socket)));
 			}
 		}
-
 		unset(self::$sockets[self::getindex($socket)]);
 		self::conns(false);
 		if (self::$disMsg) {
@@ -482,8 +480,38 @@ class Socket extends Y
 		return true;
 	}
 
+	/**
+	 * 消息发送时候需要编码
+	 */
+	public static function inparse($content) {
+        $len = strlen($content);
+    //第一个字节
+    $char_seq = chr(0x80 | 1);
 
+    $b_2 = 0;
+    //fill length
+    if ($len > 0 && $len <= 125) {
+        $char_seq .= chr(($b_2 | $len));
+    } else if ($len <= 65535) {
+        $char_seq .= chr(($b_2 | 126));
+        $char_seq .= (chr($len >> 8) . chr($len & 0xff));
+    } else {
+        $char_seq .= chr(($b_2 | 127));
+        $char_seq .=
+            (chr($len >> 56)
+                . chr($len >> 48)
+                . chr($len >> 40)
+                . chr($len >> 32)
+                . chr($len >> 24)
+                . chr($len >> 16)
+                . chr($len >> 8)
+                . chr($len >> 0));
+    }
+    $char_seq .= $content;
+	return $char_seq;
+    // $this->writeToSocket($client_socket, $char_seq);
 
+ }
 	/**
 	 * 解析数据
 	 *
@@ -921,6 +949,9 @@ class Socket extends Y
 		$bytes = strlen($msg);
 		self::info("收到消息" . $msg);
 		//长度限制10000个字符
+		if($bytes === 0){
+			$recv_msg = self::disconnect($socket);
+		}
 		if ($bytes < 2) {
 			//心跳必须大于三个字节,空数据可能是客户端断开的消息
 

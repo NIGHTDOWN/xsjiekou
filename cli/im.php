@@ -2,7 +2,9 @@
 
 /**
  */
+
 namespace ng169\cli;
+
 require_once    "./sock/sockbase.php";
 
 use ng169\lib\Socket;
@@ -10,35 +12,66 @@ use ng169\Y;
 use ng169\cli\sock\sockbase;
 use Socket as GlobalSocket;
 
-  $ims=[]; //connectObj 客户端列表
+$ims = []; //connectObj 客户端列表
 class connectObj
 {
     public $sock;
     public $index;
-    public $ishand=false;//是否握手
+    public $ishand = false; //是否握手
     public $type; //1表示server,2表示用户
     public $buffer; //1表示server,2表示用户
-    public function __construct(&$sk, $_type,&$data)
+    public function __construct(&$sk, $_type, &$data)
     {
         $this->index = intval($sk);
-        if(isset($ims[$this->index])){
+        if (isset($ims[$this->index])) {
             return $ims[$this->index];
-        }else{
+        } else {
             //压如对象指针
-             $ims[$this->index]=&$this; 
-             $this->sock = &$sk;
-             $this->type = $_type;
+            $ims[$this->index] = &$this;
+            $this->sock = &$sk;
+            $this->type = $_type;
         }
         $this->buffer = &$data;
-     
     }
-   
-    //从数据库恢复
-    public function resetfromsql(){
+    private function checkmsg($dedata)
+    {
 
+        if ($dedata['msgid'] > 0) {
+            return $dedata['msgid'];
+        } else {
+            return false;
+        }
     }
-    public function savesql(){
-        
+    private function msgisok($msgid, $dbbackid)
+    {
+        $msg = ["type" => 2, "msgid" => $msgid, 'dbid' => $dbbackid];
+        im::send($this->getsk(), $msg);
+    }
+
+    public function dealmsg($dedata)
+    {
+
+        //消息返回状态成功；
+        $id = $this->checkmsg($dedata);
+        $msg = json_decode($dedata['msg'], 1);
+        if ($id) {
+            $msdbid = M("chat", "im")->msgindb($dedata['fromuid'], $msg['contenttype'], $msg['content']);
+            if ($msdbid) {
+                //返回状态给客户端
+                $this->msgisok($id, $msdbid);
+            }
+            //消息入库
+        }
+
+        //消息入库；
+        //消息通知客服
+    }
+    //从数据库恢复
+    public function resetfromsql()
+    {
+    }
+    public function savesql()
+    {
     }
     public function del()
     {
@@ -73,8 +106,8 @@ class Im extends Clibase
     public static function decode($data)
     {
         //三步；websocket协议编码；反base64；转json对象
-        $data= Socket::parse( $data);
-        $data= base64_decode($data);
+        $data = Socket::parse($data);
+        $data = base64_decode($data);
         return json_decode($data, 1);
     }
     //消息编码
@@ -84,6 +117,7 @@ class Im extends Clibase
     }
     public static function dis($clientsock)
     {
+        d("下线" . intval($clientsock));
         $key = intval($clientsock);
         if (isset(self::$sqlserver[$key])) {
             unset(self::$sqlserver[$key]);
@@ -111,74 +145,67 @@ class Im extends Clibase
     //这里的data是带长度的封包；不带长度的需要用socket::getolddata获取源数据
     public static function inmsg($clientsock, $data)
     {
-
         try {
             //心跳包忽略
             if (strlen($data) < 1) {
                 return;
             }
             //装载对象
-            if(isset(self::$connects[intval($clientsock)])){
+            if (isset(self::$connects[intval($clientsock)])) {
                 $obj = self::$connects[intval($clientsock)];
-            }else{
-                $obj = new connectObj($clientsock, 2,$data);
+            } else {
+                $obj = new connectObj($clientsock, 2, $data);
                 self::$connects[intval($clientsock)] = $obj;
             }
-           
             $dedata = self::decode($data);
             //所有连接都记录在connect
             if (!$dedata) return false; //无法解码表示数据不对;丢弃
             switch ($dedata['type']) {
                 case '1': //这里是连接数据库的
-                  
                     //处理server注册
                     break;
                 case '2': //这里是连接php-fpm的,连接端不用注册
                     //一半线程读.一半线程写
                     //这里要绑定执行sql的服务跟来源客户端,以便返回
                     //空闲随机取一个服务,绑定忙碌;
-                  
                     break;
                 case '3': //这里是连接php-fpm的,连接端不用注册
                     //这里要获取回传客户端
                     // $oob = self::$connects[self::$key];
-                  
                     break;
                 default:
-                
-                    # code...
-                  //消息入库
-                 
-                //消息返回状态成功；
-                d($dedata);
-                self::send($obj,"1234fdsfdsfsdfdsfsdfdsfsdfsdfdsfsdfsdfsdf");
-                stream_socket_sendto($clientsock, $dedata, 0);
-                //消息入库；
-                //消息通知客服
-
-
-                break;
+                    //消息入库
+                    //消息返回状态成功；
+                    $obj->dealmsg($dedata);
+                    
+                    break;
             }
         } catch (\Throwable $th) {
             //throw $th;
             d($th);
         }
     }
-    private static function send($obj, $data)
+    //想sock发送消息
+    public static function send($obj, $data)
     {
         if ($obj) {
-            d(intval($obj->getsk()));
-            stream_socket_sendto($obj->getsk(), $data, 0);
+            d(intval($obj));
+            if (is_array($data)) {
+                $data = json_encode($data, 1);
+            }
+            $data = base64_encode($data);
+            $msg = Socket::inparse($data);
+            stream_socket_sendto($obj,  $msg, 0);
             d("发送了啊");
             // \ng169\lib\Socket::senddecodeMsg($obj->getsk(), $data);
         }
     }
-   
 
- 
 
-  
-   
+
+
+
+
     //输出信息
     public static function UiShow()
     {

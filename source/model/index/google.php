@@ -16,7 +16,7 @@ checktop();
 class google extends Y
 {
     /*com.aykj.lovechat*/
-    private $package_name = 'com.ng.story'; //包名
+    private $package_name = 'com.ng.lovenovel'; //包名
     private $oauth_file = "google.json"; //谷歌开发者后台下载的凭证
     // private $productpre = "com.ng.";
     //下载地址https://console.developers.google.com/apis/credentials?project=api-6521360320948974572-50110
