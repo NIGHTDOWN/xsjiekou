@@ -106,7 +106,6 @@
         function down() {
             _go_url('https://bc-video-h5.oss-cn-hongkong.aliyuncs.com/test/app-release.apk');
         }
-
         function _openAppUrl(appUrl) {
             var ua = navigator.userAgent.toLocaleLowerCase(),
                 openBrowser = null,
@@ -114,7 +113,6 @@
                 matchVersion = null,
                 openAppType = "",
                 downLoadUrl = playlink;
-
             //如果是在微信内部点击的时候
             if (ua.indexOf("micromessenger") != -1) {
                 _openAppUrl = function () {

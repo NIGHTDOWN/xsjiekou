@@ -40,6 +40,16 @@ class tb extends indexbase
         $dt = $tbsp->getbookdetaillink($get['pid']);
         Out::jout($dt);
     }
+    public function control_usenum()
+    {
+        $get = get(['string' => [ "appid" => 1]]);
+        // $tbsp = new taobaobase();
+        if (!$this->checkid($get['appid']))
+        Out::jout(0);
+        // $tbsp->setck($get['cookie']);
+       
+        Out::jout(1);
+    }
     private function checkid($appid)
     {
         // $get = get(['string' => ["appid" => 1]]);
