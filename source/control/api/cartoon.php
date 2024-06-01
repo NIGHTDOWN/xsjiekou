@@ -274,11 +274,13 @@ class cartoon extends apibase
         $where['lang'] = $cityid;
         $index = 'cartget_cartoon7_' . $get['page'] . "_" . $cityid;
         $cache = Y::$cache->get($index);
+       
         if ($cache[0]) {
             $this->returnSuccess($cache[1]);
         } else {
             // recommend_num
             $data = M('bookrandom', 'im')->getcartoon($this->head['cityid'], 5);
+           
             if (is_array($data) && sizeof($data)) {
                 foreach ($data as $key => $value) {
                     # code...
