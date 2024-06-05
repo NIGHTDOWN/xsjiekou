@@ -482,7 +482,6 @@ LnUG4Z69pKZHtL6ljwIDAQAB
             } else {
                 $w = ['cartoon_id' => $cartoon_id];
                 $data = T('cartoon')
-                    // ->field('other_name,cartoon_id as book_id,cartoon_id,bpic,bpic_dsl,writer_name,`desc`,cate_id,lable,category_id,likes,update_time,hits,collect,bpic_detail,update_status,isfree,`read`,end_share,share_banner,0 as isgroom,lang,`read`')
                     ->field('v.*,v.cartoon_id as book_id,2 as type')
                     ->where($w)
                     ->get_one();

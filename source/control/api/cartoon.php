@@ -109,13 +109,13 @@ class cartoon extends apibase
                 $author = M('book', 'im')->getsimilarauthor($get['bookid'], $detail['data']['type'], 3);
 
                 if (sizeof($similars)) {
-                    $detailtmp['similar'] = T('cartoon')->set_field('bpic,cartoon_id as book_id,' . $type . ' as type,other_name,lable,lang,`read`')->whereIn('cartoon_id', $similars)->get_all();
+                    $detailtmp['similar'] = T('cartoon')->set_field('bpic,cartoon_id as book_id,' . $type . ' as type,other_name,lable,lang,`read`')->whereIn('cartoon_id', $similars)->set_limit(50)->get_all();
                     foreach ($detailtmp['similar']  as $k => $book) {
                         $detailtmp['similar'][$k]['tags'] =  M('cate', 'im')->getlable($book['lable'], $book['lang']);
                     }
                 }
                 if (sizeof($author)) {
-                    $detailtmp['author'] = T('cartoon')->set_field('bpic,cartoon_id as book_id,' . $type . ' as type,other_name,lable,lang,`read`')->whereIn('cartoon_id', $author)->get_all();
+                    $detailtmp['author'] = T('cartoon')->set_field('bpic,cartoon_id as book_id,' . $type . ' as type,other_name,lable,lang,`read`')->whereIn('cartoon_id', $author)->set_limit(50)->get_all();
                     foreach ($detailtmp['author']  as $k => $book) {
                         $detailtmp['author'][$k]['tags'] =  M('cate', 'im')->getlable($book['lable'], $book['lang']);
                     }
