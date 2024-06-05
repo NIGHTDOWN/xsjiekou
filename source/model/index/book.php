@@ -458,7 +458,7 @@ LnUG4Z69pKZHtL6ljwIDAQAB
                 $owenDiscuss = T('discuss')
                     ->field('discuss_id,star,nick_name,discuss_time,content,users_id')
                     ->where($w)
-                    ->where(['users_id' => $this->uid])
+                    ->where(['users_id' => $uid])
                     ->order('discuss_time desc')
                     // ->limit(1)
                     ->get_one();
@@ -566,7 +566,7 @@ LnUG4Z69pKZHtL6ljwIDAQAB
                 $owenDiscuss = T('discuss')
                     ->field('discuss_id,star,nick_name,discuss_time,content,users_id')
                     ->where($w2)
-                    ->where(['users_id' => $this->uid])
+                    ->where(['users_id' => $uid])
                     ->order('discuss_time desc')
                     // ->limit(1)
                     ->get_one();

@@ -195,8 +195,8 @@ class daoClass
             $this->t = str_replace($this->f, $filed, $this->t);
             $this->f = $filed;
         } else {
-
-            $this->t = str_replace($this->f, $field_arr, $this->t);
+           $val=$field_arr."";
+            $this->t = str_replace($this->f, $val, $this->t);
             $this->f = $field_arr;
         }
         return $this;
@@ -343,9 +343,13 @@ class daoClass
               
                 if ($this->havepage) {
                     //注入
-                    $num=sizeof($ret);
-                    Page::getobj()->injection_offset(@$ret[0][$this->getkey()], @$ret[ $num- 1][$this->getkey()]);
-                }
+                    if(is_array($ret)){
+                        $num=sizeof($ret);
+                        Page::getobj()->injection_offset(@$ret[0][$this->getkey()], @$ret[ $num- 1][$this->getkey()]);
+          
+                    }
+                   
+                      }
 
                 break;
             case 1:
