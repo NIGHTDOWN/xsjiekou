@@ -29,7 +29,7 @@ class version
     //锁定旧版本
     public function lockold($version)
     {
-        $lockstring = __('版本太旧了，请更新到最新版本。下载地址') . "\n http://www.love-novel.com";
+        $lockstring = __('版本太旧了，请更新到最新版本。下载地址') . "\n https://www.love-novel.com";
        
         $dbversion = $this->getcache($this->stop_verion);
         if (!$dbversion) {

@@ -64,6 +64,14 @@ class book extends Y
             $str = preg_replace('|(?<!<br />)\s*\n|', "<br />\n", $str); // optionally make line breaks
         return $str;
     }
+    public function userReadHistory($users_id = '',$type = "", $book_id = "" ,$sec_id = ''){
+        if($type==1){
+            $this->user_read_history($users_id,$book_id,null,$sec_id);
+        }
+        if($type==2){
+            $this->user_read_history($users_id,null,$book_id,$sec_id);
+        }
+    }
     // 用户阅读历史,书架记录，更新书籍阅读数量
     public function user_read_history($users_id = '', $book_id = "", $cartoon_id = "", $sec_id = '')
     {
