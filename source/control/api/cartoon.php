@@ -177,7 +177,7 @@ class cartoon extends apibase
     //         'cart_section_id' => $cart_section_id,
     //     ];
     //     $commonModel = M('book', 'im');
-    //     $commonModel->user_read_history($users_id, "", $cartoon_id);
+  
     //     M('census', 'im')->uprackreadtime($this->get_userid(), $cartoon_id, 1, $cart_section_id);
     //     $data = T('cartoon_section')->field('cart_section_id,title,cartoon_id,likes,collects,update_time,isfree')->where($where)->where(['status' => 1])->where(['isdelete' => 0])->find();
     //     $content = T('cart_sec_content')->field('cart_sec_content,cart_sec_content_id')->where(['cart_section_id' => $data['cart_section_id']])->where(['isdelete' => 0])->find();
@@ -357,7 +357,8 @@ class cartoon extends apibase
             Y::$cache->set($index, $arr);
         }
         $commonModel = M('book', 'im');
-        $commonModel->user_read_history($users_id, "", $cartoon_id);
+        $commonModel->userReadHistory($users_id, 2, $cartoon_id);
+        
         M('bookcensus', 'im')->sceread($users_id, 2, $cartoon_id, $cart_section_id);
         if ($arr['isfree']) {
 

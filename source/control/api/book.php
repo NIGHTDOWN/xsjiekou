@@ -458,9 +458,7 @@ class book extends apibase
             'book_id' => $book_id,
             'section_id' => $section_id,
         ];
-
         // $commonModel = M('book', 'im');
-        // $commonModel->user_read_history($users_id, $book_id, "");
         // M('census', 'im')->uprackreadtime($this->get_userid(), $book_id, 1, $section_id); //更新书架记录
         $data = T($tpsec)->field('section_id,title,book_id,update_time,isfree,secnum,list_order')->where($where)->where(['status' => 1])->where(['isdelete' => 0])->find();
         if (!$data) {
@@ -842,16 +840,14 @@ class book extends apibase
         //这些都是要实时更新的
         //缓存中下一章获取失败就试着从数据库在获取一次
         $commonModel = M('book', 'im');
-        $commonModel->userReadHistory($this->get_userid(),$get['type'], $book_id, "");
+        $commonModel->userReadHistory($this->get_userid(),$get['type'], $book_id, $get['index']);
         M('bookcensus', 'im')->sceread($this->get_userid(), $get['type'], $get['book_id'], $get['section_id']);
         if ($this->get_userid()) {
             $arr['ispay'] = T('expend')->set_field('users_id')->where(['users_id' => $this->get_userid(), 'expend_type' => 1, $bid => $book_id, $f0 => $arr[$f0]])->get_one() ? 1 : 0;
         }
-
         if (!$arr['coin'] <= 0 && $arr['isfree'] != 0 && $get['type']==1) {
             $arr['coin'] = M('coin', 'im')->bookcalculate($arr['secnum'], 0.6);
         }
-
         $this->returnSuccess($arr);
     }
 }

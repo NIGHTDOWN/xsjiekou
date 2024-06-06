@@ -203,14 +203,14 @@ class rack extends Y
         return $a1;
     }
     //更新书籍历史记录，及书架记录
-    public function update($uid, $bookid, $type, $sid)
-    {
-        if ($type == 1) {
-            M('rack', 'im')->user_read_history($uid, $bookid, '', $sid);
-        } else {
-            M('rack', 'im')->user_read_history($uid, '', $bookid,  $sid);
-        }
-    }
+    // public function update($uid, $bookid, $type, $sid)
+    // {
+    //     if ($type == 1) {
+    //         M('rack', 'im')->user_read_history($uid, $bookid, '', $sid);
+    //     } else {
+    //         M('rack', 'im')->user_read_history($uid, '', $bookid,  $sid);
+    //     }
+    // }
     //获取阅读定位
     public function getpoint($uid, $bookid, $type, $groom)
     {

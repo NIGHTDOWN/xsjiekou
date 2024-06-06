@@ -78,7 +78,7 @@ class content
             Y::$cache->set($index, $arr, 7200);
         }
         $commonModel = M('book', 'im');
-        $commonModel->user_read_history($users_id, "", $cartoon_id, $cart_section_id);
+        $commonModel->userReadHistory($users_id, 2, $cartoon_id, $cart_section_id);
         M('bookcensus', 'im')->sceread($users_id, 2, $cartoon_id, $cart_section_id);
         if ($arr['isfree']) {
 
@@ -169,7 +169,7 @@ class content
         //这些都是要实时更新的
         //缓存中下一章获取失败就试着从数据库在获取一次
         $commonModel = M('book', 'im');
-        $commonModel->user_read_history($uid, $book_id, "", $section_id);
+        $commonModel->userReadHistory($uid,1, $book_id,  $section_id);
         M('bookcensus', 'im')->sceread($uid, 1, $book_id, $section_id);
         if ($arr['isfree']) {
             if ($uid) {

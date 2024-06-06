@@ -76,7 +76,7 @@ class task extends apibase
 		if (!$read_record) {
 			$where['addtime'] = time();
 			$where['num'] = 1;
-			// $where['readsec'] = $get['readsec'];
+			
 			T('usertask')->add($where);
 			M('census', 'im')->task_reward_count($where['uid'], $coin, $where['type']);
 			M('coin', 'im')->addstar($where['uid'], $coin);
@@ -89,7 +89,7 @@ class task extends apibase
 			}
 			$where2['addtime'] = time();
 			$where2['num'] = 1 + $read_record['num'];
-			// $where['readsec'] = $get['readsec'];
+		
 			T('usertask')->update($where2, $where);
 			M('census', 'im')->task_reward_count($where['uid'], $coin, $where['type']);
 			M('coin', 'im')->addstar($where['uid'], $coin);
@@ -100,7 +100,7 @@ class task extends apibase
 	public function control_ad()
 	{
 		// 1每日分享 2每日阅读 3邀请好友 4替好友充值 5每日看广告 6签到,7完善用户资料,8每日充值
-		// $get = get(['int' => ['readsec']]);
+	
 		$where['dates'] = date('Ymd');
 		$where['uid'] = $this->get_userid();
 		$where['type'] = 5;
@@ -113,7 +113,7 @@ class task extends apibase
 		if (!$read_record) {
 			$where['addtime'] = time();
 			$where['num'] = 1;
-			// $where['readsec'] = $get['readsec'];
+		
 			T('usertask')->add($where);
 			M('census', 'im')->task_reward_count($where['uid'], $coin, $where['type']);
 			M('coin', 'im')->addstar($where['uid'], $coin);
@@ -125,7 +125,7 @@ class task extends apibase
 			}
 			$where2['addtime'] = time();
 			$where2['num'] = 1 + $read_record['num'];
-			// $where['readsec'] = $get['readsec'];
+		
 			T('usertask')->update($where2, $where);
 			M('census', 'im')->task_reward_count($where['uid'], $coin, $where['type']);
 			M('coin', 'im')->addstar($where['uid'], $coin);
@@ -136,7 +136,7 @@ class task extends apibase
 	public function control_pay()
 	{
 		// 1每日分享 2每日阅读 3邀请好友 4替好友充值 5每日看广告 6签到,7完善用户资料,8每日充值
-		// $get = get(['int' => ['readsec']]);
+	
 		$where['dates'] = date('Ymd');
 		$where['uid'] = $this->get_userid();
 		$where['type'] = 8;
@@ -149,7 +149,7 @@ class task extends apibase
 		if (!$read_record) {
 			$where['addtime'] = time();
 			$where['num'] = 1;
-			// $where['readsec'] = $get['readsec'];
+		
 			T('usertask')->add($where);
 			M('census', 'im')->task_reward_count($where['uid'], $coin, 8);
 			M('coin', 'im')->addstar($where['uid'], $coin);
@@ -162,7 +162,7 @@ class task extends apibase
 	public function control_endeditinfo()
 	{
 		// 1每日分享 2每日阅读 3邀请好友 4替好友充值 5每日看广告 6签到,7完善用户资料,8每日充值
-		// $get = get(['int' => ['readsec']]);
+		
 		$user = parent::$wrap_user;
 		// {nickname: เต้าหู้กับซอส, more: 快快快, avater: null, sex: 2, borth: 1991-11-14 00:00:00.000}
 		if (!($user['nickname'] && $user['more'] && $user['avater'] && $user['sex'] && $user['borth'])) {
@@ -179,7 +179,7 @@ class task extends apibase
 			$where['dates'] = date('Ymd');
 			$where['addtime'] = time();
 			$where['num'] = 1;
-			// $where['readsec'] = $get['readsec'];
+		
 			T('usertask')->add($where);
 			M('census', 'im')->task_reward_count($where['uid'], $coin, $where['type']);
 			M('coin', 'im')->addstar($where['uid'], $coin);
@@ -192,7 +192,7 @@ class task extends apibase
 	public function control_readlocal()
 	{
 		// 1每日分享 2每日阅读 3邀请好友 4替好友充值 5每日看广告 6签到,7完善用户资料,8每日充值
-		// $get = get(['int' => ['readsec']]);
+	
 
 
 
@@ -205,7 +205,7 @@ class task extends apibase
 			$where['dates'] = date('Ymd');
 			$where['addtime'] = time();
 			$where['num'] = 1;
-			// $where['readsec'] = $get['readsec'];
+	
 			T('usertask')->add($where);
 			M('census', 'im')->task_reward_count($where['uid'], $coin, $where['type']);
 			M('coin', 'im')->addstar($where['uid'], $coin);
