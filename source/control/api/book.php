@@ -756,23 +756,26 @@ class book extends apibase
                 $bname = "book";
                 $bid = "book_id";
                 $f0 = "section_id";
-                $f1="section_id,title,book_id,update_time,isfree,secnum,list_order,coin";
-                $f2="sec_content,sec_content_id";
+                $f1 = "section_id,title,book_id,update_time,isfree,secnum,list_order,coin";
+                $f2 = "sec_content,sec_content_id";
                 # code...
                 break;
             case '2':
                 $bname = "cartoon";
                 $bid = "cartoon_id";
                 $f0 = "cart_section_id";
-                $f1="cart_section_id,title,cartoon_id,likes,collects,update_time,isfree,charge_coin,list_order";
-                $f2="cart_sec_content,cart_sec_content_dsl,cart_sec_content_id";
+                $f1 = "cart_section_id,title,cartoon_id,likes,collects,update_time,isfree,charge_coin,list_order";
+                $f2 = "cart_sec_content,cart_sec_content_dsl,cart_sec_content_id";
                 break;
+            default:
+            Out::jerror("数据类型错误", "", "21110");
+                return;
         }
 
-        $index = $bname.'content_' . $book_id . '_:' . $list_order;
+        $index = $bname . 'content_' . $book_id . '_:' . $list_order;
 
         $where = [
-            $bid=> $book_id,
+            $bid => $book_id,
             'list_order' => $list_order,
             'status' => 1
         ];
@@ -797,56 +800,55 @@ class book extends apibase
             if (!$content) {
                 Out::jerror('章节不存在或删除', null, '100153');
             }
-            if($get['type']==1){
-            $coin = $data['coin'];
-            $arr = $data;
-            $arr['update_time'] = strtotime($data['update_time']);
-            $arr['sec_content_id'] = $content['sec_content_id'];
+            if ($get['type'] == 1) {
+                $coin = $data['coin'];
+                $arr = $data;
+                $arr['update_time'] = strtotime($data['update_time']);
+                $arr['sec_content_id'] = $content['sec_content_id'];
 
-         
-            $arr['sec_content'] = M('book', 'im')->trimhtml($content['sec_content']);
-            $arr['coin'] = $coin;
-            if (!$arr['coin'] <= 0  && $arr['isfree'] != 0) {
-                $arr['coin'] = M('coin', 'im')->bookcalculate($arr['secnum'], 0.6);
+
+                $arr['sec_content'] = M('book', 'im')->trimhtml($content['sec_content']);
+                $arr['coin'] = $coin;
+                if (!$arr['coin'] <= 0  && $arr['isfree'] != 0) {
+                    $arr['coin'] = M('coin', 'im')->bookcalculate($arr['secnum'], 0.6);
+                }
+            } else {
+                $cart_sec_contents = json_decode($content['cart_sec_content'], true);
+                $arr = array(
+                    'cart_section_id' => $data['cart_section_id'],
+                    'title' => $data['title'],
+                    'cartoon_id' => $data['cartoon_id'],
+                    'hits' => $data['likes'],
+                    'coin' => $data['charge_coin'],
+                    'update_time' => strtotime($data['update_time']),
+                    'images' => $cart_sec_contents['cart_sec_content'],
+                    'images_dsl' => json_decode($content['cart_sec_content_dsl'], 1),
+                    'isfree' => $data['isfree'],
+                    'list_order' => $data['list_order'],
+                    'ispay' =>  0,
+                    // 'isvip' => M('user', 'im')->checkvip($this->uid),
+                );
             }
-        }else{
-            $cart_sec_contents = json_decode($content['cart_sec_content'], true);
-            $arr = array(
-                'cart_section_id' => $data['cart_section_id'],
-                'title' => $data['title'],
-                'cartoon_id' => $data['cartoon_id'],
-                'hits' => $data['likes'],
-                'coin' => $data['charge_coin'],
-                'update_time' => strtotime($data['update_time']),
-                'images' => $cart_sec_contents['cart_sec_content'],
-                'images_dsl' => json_decode($content['cart_sec_content_dsl'], 1),
-                'isfree' => $data['isfree'],
-                'list_order' => $data['list_order'],
-                'ispay' =>  0,
-                // 'isvip' => M('user', 'im')->checkvip($this->uid),
-            );
-        }
 
 
             $down = T($tpsec)->set_field('list_order')->set_where([$bid => $get['book_id'], 'isdelete' => 0, 'status' => 1])->set_where('list_order<' . $data['list_order'])->order_by(['f' => 'list_order', 's' => 'down'])->get_one();
             $arr['pre'] = $down['list_order'] ? $down['list_order'] : '0';
-           
+
             $up = T($tpsec)->set_field('list_order')->set_where([$bid => $get['book_id'], 'isdelete' => 0, 'status' => 1])->set_where('list_order>' . $data['list_order'])->order_by(['f' => 'list_order', 's' => 'up'])->get_one();
             $arr['next'] = $up['list_order'] ? $up['list_order'] : '0';
-           
+
             //内容容错自修复机制；缓存2天；后台修改了数据后2天重新覆盖
             Y::$cache->set($index, $arr, 2 * G_DAY);
         }
         //这些都是要实时更新的
         //缓存中下一章获取失败就试着从数据库在获取一次
         $commonModel = M('book', 'im');
-        $commonModel->userReadHistory($this->get_userid(),$get['type'], $book_id, $get['index']);
+        $commonModel->userReadHistory($this->get_userid(), $get['type'], $book_id, $get['index']);
         M('bookcensus', 'im')->sceread($this->get_userid(), $get['type'], $get['book_id'], $get['section_id']);
         if ($this->get_userid()) {
-            $arr['ispay'] = T('expend')->set_field('users_id')->where(['users_id' => $this->get_userid(), 'expend_type' => 1,"book_id" => $book_id, "section_id"=> $arr[$f0]])->get_one() ? 1 : 0;
-            d(T('expend')->set_field('users_id')->where(['users_id' => $this->get_userid(), 'expend_type' => 1,"book_id" => $book_id, "section_id"=> $arr[$f0]])->get_sql());
+            $arr['ispay'] = T('expend')->set_field('users_id')->where(['users_id' => $this->get_userid(), 'expend_type' => $get['type'], "book_id" => $book_id, "section_id" => $arr[$f0]])->get_one() ? 1 : 0;
         }
-        if (!$arr['coin'] <= 0 && $arr['isfree'] != 0 && $get['type']==1) {
+        if (!$arr['coin'] <= 0 && $arr['isfree'] != 0 && $get['type'] == 1) {
             $arr['coin'] = M('coin', 'im')->bookcalculate($arr['secnum'], 0.6);
         }
         $this->returnSuccess($arr);
