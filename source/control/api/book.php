@@ -843,7 +843,7 @@ class book extends apibase
         $commonModel->userReadHistory($this->get_userid(),$get['type'], $book_id, $get['index']);
         M('bookcensus', 'im')->sceread($this->get_userid(), $get['type'], $get['book_id'], $get['section_id']);
         if ($this->get_userid()) {
-            $arr['ispay'] = T('expend')->set_field('users_id')->where(['users_id' => $this->get_userid(), 'expend_type' => 1, $bid => $book_id, $f0 => $arr[$f0]])->get_one() ? 1 : 0;
+            $arr['ispay'] = T('expend')->set_field('users_id')->where(['users_id' => $this->get_userid(), 'expend_type' => 1,"book_id" => $book_id, "section_id"=> $arr[$f0]])->get_one() ? 1 : 0;
         }
         if (!$arr['coin'] <= 0 && $arr['isfree'] != 0 && $get['type']==1) {
             $arr['coin'] = M('coin', 'im')->bookcalculate($arr['secnum'], 0.6);
