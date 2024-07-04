@@ -92,13 +92,14 @@ class tb extends indexbase
         }
     }
     //营业厅
-    public function control_ydEcbdecode()
+    public function control_ydecbdecode()
     {
         $get = get(['string' => ["str" => 1]]);
         $get['str']=base64_decode($get['str']);
         $key = "910BB48C1B4DF9561B530E7340F1EEE82AEA9647635DE2985E56C08F0B3BA6FF14F9020B5F4C7A1A4E0CE74FF388CBB9A6A00F152FD3CEDE50093036DE258CF9,108BB491826D3F228CC15468FAF1F89DE37ABA7BC85B369E983E9432CC943927AE7C5DC23FAFEADCB9BF362B66E22F07EA194BF94176B315E400E494738A926F";
+        $data = hbyyt::decode($get['str']);
         $code = new Code();
-        $data = $code->decode($get['str'], $key);
+        $data = $code->decode($data, $key);
         if ($data) {
             Out::jout($data);
         } else {
