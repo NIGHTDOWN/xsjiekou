@@ -15,7 +15,7 @@ use ng169\Y;
 use ng169\cli\Clibase;
 use \ng169\tool\Code;
 use ng169\tool\Curl;
-use ng169\model\index\hbyyt
+use ng169\model\index\hbyyt;
 im(TOOL . "simplehtmldom/simple_html_dom.php");
 class sexcar extends Clibase
 {
