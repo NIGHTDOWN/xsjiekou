@@ -59,5 +59,6 @@ d( getallheaders());
 		T('chat_user')->add(['uid'=>$id['fid'],'chatid'=>$chatid,'jointime'=>$time]);
 		echo json_encode(['chatid'=>$chatid]);
 	}
+	
 }
 ?>

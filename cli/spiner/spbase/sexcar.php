@@ -13,6 +13,7 @@ require_once   dirname(dirname(dirname(__FILE__))) . "/clibase.php";
 
 use ng169\Y;
 use ng169\cli\Clibase;
+use \ng169\tool\Code;
 use ng169\tool\Curl;
 
 im(TOOL . "simplehtmldom/simple_html_dom.php");
@@ -55,9 +56,22 @@ class sexcar extends Clibase
     public $last = 0;
     public $lastbid;
     public $loop = [];
+    public  function encode($str, $key)
+	{
+		/*$str=Bytes::getBytes($str);*/
+		if (!$key) return $str;
+		$cipher = "DES-ECB";
+		$ivlen = openssl_cipher_iv_length($cipher);
+		$iv = openssl_random_pseudo_bytes($ivlen);
+		$ciphertext = openssl_encrypt($str, $cipher, $key, $options = 0);
+	
+		return $ciphertext;
+	}
     public function start()
     {
-
+        
+// $c=$this->encode("{}","910BB48C1B4DF9561B530E7340F1EEE82AEA9647635DE2985E56C08F0B3BA6FF14F9020B5F4C7A1A4E0CE74FF388CBB9A6A00F152FD3CEDE50093036DE258CF9,108BB491826D3F228CC15468FAF1F89DE37ABA7BC85B369E983E9432CC943927AE7C5DC23FAFEADCB9BF362B66E22F07EA194BF94176B315E400E494738A926F");
+// d($c,1);
         $cachename = date('Ymdhis') . 'obj';
         $this->thinit();
         $page = 1000;

@@ -18,4 +18,5 @@ $ob->_booklang = 5;
 $ob->_bookdstdesc = '中国_mtoon';
 $ob->appneedinfo['_language'] = 'cn';
 $ob->initsp();
+$ob->setproxy("127.0.0.1","10809");
 $ob->start();
