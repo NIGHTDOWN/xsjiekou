@@ -124,10 +124,11 @@ class Code
 		if (!$key) return $str;
 		$cipher = "DES-ECB";
 		$ivlen = openssl_cipher_iv_length($cipher);
-		$iv = openssl_random_pseudo_bytes($ivlen);
+		// $iv = openssl_random_pseudo_bytes($ivlen);
 		$ciphertext = openssl_encrypt($str, $cipher, $key, $options = 0);
 		/*d($ciphertext);
 $ciphertext=gzencode($ciphertext);*/
+
 		return $ciphertext;
 	}
 	//ase 128解密
@@ -137,7 +138,7 @@ $ciphertext=gzencode($ciphertext);*/
 		if (!$key) return $str;
 		$cipher = "DES-ECB";
 		$ivlen = openssl_cipher_iv_length($cipher);
-		$iv = openssl_random_pseudo_bytes($ivlen);
+		// $iv = openssl_random_pseudo_bytes($ivlen);
 		$original_plaintext = openssl_decrypt($str, $cipher, $key, $options = 0);
 		return $original_plaintext;
 	}
