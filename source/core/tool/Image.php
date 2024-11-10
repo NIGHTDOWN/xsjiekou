@@ -155,23 +155,28 @@ class Image
         // fclose($fp);
 
         // return $retname;
-        $imagick = new \Imagick();
-        $imagick->readImageBlob($img);
-        $image_width = $imagick->getImageWidth();
-        $image_height = $imagick->getImageHeight();
-        $imagick->setImageFormat('webp'); // 转换为webp格式
-        // 保存图片
-        $webp_image_name = str_replace('.' . $ext, '.webp', $image_name); // 替换文件扩展名为.webp
-        // d($webp_image_name);
-        // d($retname);
-        // d($image_name);
-        $imagick->writeImage($webp_image_name);
-        $imagick->clear();
-        $imagick->destroy();
-    
-        $file= str_replace($image_name, $webp_image_name, $retname); // 返回webp图片的路径
+        try {
+            $imagick = new \Imagick();
+            $imagick->readImageBlob($img);
+            $image_width = $imagick->getImageWidth();
+            $image_height = $imagick->getImageHeight();
+            $imagick->setImageFormat('webp'); // 转换为webp格式
+            // 保存图片
+            $webp_image_name = str_replace('.' . $ext, '.webp', $image_name); // 替换文件扩展名为.webp
+            // d($webp_image_name);
+            // d($retname);
+            // d($image_name);
+            $imagick->writeImage($webp_image_name);
+            $imagick->clear();
+            $imagick->destroy();
         
-        return [$file,$image_width,$image_height];
+            $file= str_replace($image_name, $webp_image_name, $retname); // 返回webp图片的路径
+            
+            return [$file,$image_width,$image_height];
+        } catch (\Throwable $th) {
+            d($th);
+            return false;
+        }
 
 
     }
