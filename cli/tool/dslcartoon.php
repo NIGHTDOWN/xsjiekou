@@ -220,21 +220,23 @@ class dslcartoon extends Clibase
         $size = sizeof($imgs);
 
         foreach ($imgs as $k => $img) {
-            $filename = $filenames . ($k + 1) ."_".rand(1,999). '.webp';
+            if($img['url']){
+                $filename = $filenames . ($k + 1) ."_".rand(1,999). '.webp';
            
 
-            $file = Image::imgtolocalwebp($img['url'], null, $filename, $p);
-
-            if ($file[0]) {
-                $mock = 'dsl:/' . $file[0];
-                $ret[$k]['url'] = $mock;
-                $ret[$k]['width'] = $file[1];
-                $ret[$k]['height'] = $file[2];
-                $size--;
-            } else {
-
-                d("$id/$listorder/$k/失败");
+                $file = Image::imgtolocalwebp($img['url'], null, $filename, $p);
+    
+                if ($file[0]) {
+                    $mock = 'dsl:/' . $file[0];
+                    $ret[$k]['url'] = $mock;
+                    $ret[$k]['width'] = $file[1];
+                    $ret[$k]['height'] = $file[2];
+                    $size--;
+                } else {
+                    d("$id/$listorder/$k/失败");
+                }
             }
+            
         }
 
         // if ($file) {
