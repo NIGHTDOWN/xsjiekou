@@ -5,7 +5,7 @@
 
 namespace ng169\cli\tool;
 
-require_once   dirname(dirname(__FILE__)) . "/clibase.php";
+require_once   (dirname(__FILE__)) . "/clibase.php";
 
 
 use ng169\Y;
