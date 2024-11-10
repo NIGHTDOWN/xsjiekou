@@ -55,7 +55,7 @@ class dslcartoon extends Clibase
 
         $w = ['status' => 1]; //审核状态正常的
         if ($this->bookid) {
-            $w['book_id'] = $this->bookid;
+            $w['cartoon_id'] = $this->bookid;
         }
 
         for ($i = 0; $i < 500; $i++) {
