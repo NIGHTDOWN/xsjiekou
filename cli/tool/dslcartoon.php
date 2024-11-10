@@ -111,7 +111,14 @@ class dslcartoon extends Clibase
 
                 list($dsl, $lost) = $this->fiximg($pic, $book['cartoon_id'], $book['list_order'], $book['cart_sec_content_dsl']);
                 T($this->db2)->update(['cart_sec_content_dsl' => json_encode($dsl), 'isdelete' => $lost], ['cart_section_id' => $book['cart_section_id']]);
-            } else if ($this->do == 4) {
+            } 
+            else if ($this->do == 3) {
+
+                list($dsl, $lost) = $this->getimg($pic, $book['cartoon_id'], $book['list_order']);
+
+
+                T($this->db2)->update(['cart_sec_content_dsl' => json_encode($dsl), 'isdelete' => $lost], ['cart_section_id' => $book['cart_section_id']]); }
+            else if ($this->do == 4) {
                 // if ($book['cart_sec_content_dsl']) {
                 //     return false;
                 // }
@@ -375,7 +382,7 @@ class dslcartoon extends Clibase
 
     public function help()
     {
-        d('1、检查把卡通详情图片抓取到本地生成dsl链接,参数lang 指定书籍类型，git 仓库类型github，gitee,bookid指定书籍id，max section_id最大，min section_id最小,path指定保存位置,dsl 更新dsl域名，更新链接是必须传，do 类型1抓取完成上传到图床之后更新服务器短dsl链接，类型2：修复没完全更新到本地的图片链接,3 初始化github每本漫画仓库,4 更新dsl链接,5直接更新cart_sec_content字段图片；域名,t开多少个线程执行拉取操作：例子php dsl.php lang=0 min=1000 max=5000 ');
+        d('1、检查把卡通详情图片抓取到本地生成dsl链接,参数lang 指定书籍类型，git 仓库类型github，gitee,bookid指定书籍id，max section_id最大，min section_id最小,path指定保存位置,dsl 更新dsl域名，更新链接是必须传，do 类型1抓取完成上传到图床之后更新服务器短dsl链接，类型2：修复没完全更新到本地的图片链接,3强制重新拉去覆盖,3 初始化github每本漫画仓库,4 更新dsl链接,5直接更新cart_sec_content字段图片；域名,t开多少个线程执行拉取操作：例子php dsl.php lang=0 min=1000 max=5000 ');
     }
     //重新排序书籍
     public function initgithub()
