@@ -192,9 +192,11 @@ class dslcartoon extends Clibase
 
             $file = Image::imgtolocalwebp($img, null, $filename, $p);
 
-            if ($file) {
-                $mock = 'dsl://' . $file;
+            if ($file[0]) {
+                $mock = 'dsl:/' . $file[0];
                 $ret[$k]['url'] = $mock;
+                $ret[$k]['width'] = $file[1];
+                $ret[$k]['height'] = $file[2];
                 $size--;
             } else {
 
@@ -223,9 +225,11 @@ class dslcartoon extends Clibase
 
             $file = Image::imgtolocalwebp($img['url'], null, $filename, $p);
 
-            if ($file) {
-                $mock = 'dsl://' . $file;
+            if ($file[0]) {
+                $mock = 'dsl:/' . $file[0];
                 $ret[$k]['url'] = $mock;
+                $ret[$k]['width'] = $file[1];
+                $ret[$k]['height'] = $file[2];
                 $size--;
             } else {
 
