@@ -182,8 +182,8 @@ class dslcartoon extends Clibase
 
             $img = $img['url'];
             // $img = 'http://pic.cc/' . "$id/$listorder/$index" . '.png';
-d($filename);
-            $file = Image::imgtolocal($img, null, $filename, $p);
+
+            $file = Image::imgtolocalwebp($img, null, $filename, $p);
 
             if ($file) {
                 $mock = 'dsl://' . $file;
