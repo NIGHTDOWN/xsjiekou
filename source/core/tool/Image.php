@@ -174,7 +174,7 @@ class Image
             
             return [$file,$image_width,$image_height];
         } catch (\Throwable $th) {
-            d($th);
+            // d($th);
             return false;
         }
 
