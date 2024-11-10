@@ -325,7 +325,7 @@ class dslcartoon extends Clibase
             $this->db2 = $this->db2 . '_' . $this->_booklang;
         }
 
-        $this->path = 'G:/img/cartoon_section';
+        $this->path = '/soft/cp/cartoon_section/"';
         if ($this->_booktype == 1) {
         }
         if (isset($gt['path'])) {
