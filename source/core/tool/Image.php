@@ -157,6 +157,8 @@ class Image
         // return $retname;
         $imagick = new \Imagick();
         $imagick->readImageBlob($img);
+        $image_width = $imagick->getImageWidth();
+        $image_height = $imagick->getImageHeight();
         $imagick->setImageFormat('webp'); // 转换为webp格式
         // 保存图片
         $webp_image_name = str_replace('.' . $ext, '.webp', $image_name); // 替换文件扩展名为.webp
@@ -168,8 +170,7 @@ class Image
         $imagick->destroy();
     
         $file= str_replace($image_name, $webp_image_name, $retname); // 返回webp图片的路径
-        $image_width = $imagick->getImageWidth();
-        $image_height = $imagick->getImageHeight();
+        
         return [$file,$image_width,$image_height];
 
 
