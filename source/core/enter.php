@@ -165,7 +165,7 @@ function is_cli()
     return preg_match("/cli/i", php_sapi_name()) ? true : false;
 }
 loadsysconf();
-
+d(LIB . 'loader.php');
 im(LIB . 'loader.php');
 
 

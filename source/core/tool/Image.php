@@ -66,8 +66,8 @@ class Image
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_PROXY, '192.168.2.106');
-        curl_setopt($ch, CURLOPT_PROXYPORT, '8888');
+        // curl_setopt($ch, CURLOPT_PROXY, '192.168.2.106');
+        // curl_setopt($ch, CURLOPT_PROXYPORT, '8888');
 
 
         $img = curl_exec($ch);
@@ -82,6 +82,93 @@ class Image
         fclose($fp);
 
         return $retname;
+    }
+    public static function imgtolocalwebp($path, $type = '', $savename = '', $savepath = null)
+    {
+        if ($path == "") {
+            return false;
+        }
+
+        $rootpath = $savepath ? $savepath : "/d/xs/pic/";
+
+        if ($type == '') {
+            $attchementdir = $rootpath;
+        } else {
+            $attchementdir = $rootpath . $type . '/';
+        }
+
+        if (!preg_match('/\/([^\/]+\.([a-z]{3,4}))$/i', $path, $matches)) {
+            // return false;
+        }
+        $ext = '';
+        if ($matches && $matches[2]) {
+            $ext = $matches[2];
+        }
+
+        if ($savename) {
+            $datedir = '';
+            $newName = $savename;
+        } else {
+            $datedir = date("Ym", time()) . "/" . date("d", time()) . "/" . date("H_i", time()) . "/";
+            $newName = substr(md5($path . rand(00000, 99999)), 8, 16) . '.' . $ext;
+        }
+
+        $path1 = $attchementdir . $datedir;
+        if ($savepath) {
+            $path1 = $savepath;
+        }
+
+
+
+        $image_name = $path1 . $newName;
+        // d($image_name);
+        File::createDir(dirname($image_name));
+        $retname = $type . '/' . $datedir . $newName;
+        if ($savepath) {
+            $retname = $newName;
+        }
+        $ch = curl_init($path);
+        curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.146 Safari/537.36");
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        // curl_setopt($ch, CURLOPT_REFERER, "https:\/\/www.taobao.com\/");
+        curl_setopt($ch, CURLOPT_TIMEOUT, 120);
+        // curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        // curl_setopt($ch, CURLOPT_PROXY, '192.168.2.106');
+        // curl_setopt($ch, CURLOPT_PROXYPORT, '8888');
+
+
+        $img = curl_exec($ch);
+        curl_close($ch);
+        if (!$img) {
+            return false;
+        }
+
+        // $fp = fopen($image_name, 'w');
+        // //抓取失败
+        // fwrite($fp, $img);
+        // fclose($fp);
+
+        // return $retname;
+        $imagick = new \Imagick();
+        $imagick->readImageBlob($img);
+        $imagick->setImageFormat('webp'); // 转换为webp格式
+    
+        // 保存图片
+        $webp_image_name = str_replace('.' . $ext, '.webp', $image_name); // 替换文件扩展名为.webp
+        $imagick->writeImage($webp_image_name);
+        $imagick->clear();
+        $imagick->destroy();
+    
+        return str_replace($image_name, $webp_image_name, $retname); // 返回webp图片的路径
+
+
+
     }
     public static function isimg($srcfile)
     {
