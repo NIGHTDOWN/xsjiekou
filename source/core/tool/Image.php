@@ -88,7 +88,7 @@ class Image
         if ($path == "") {
             return false;
         }
-d($path);
+
         $rootpath = $savepath ? $savepath : "/soft/cp/cartoon_section/";
 
         if ($type == '') {
