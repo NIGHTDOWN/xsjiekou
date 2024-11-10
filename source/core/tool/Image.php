@@ -162,6 +162,8 @@ class Image
         // 保存图片
         $webp_image_name = str_replace('.' . $ext, '.webp', $image_name); // 替换文件扩展名为.webp
         d($webp_image_name);
+        d($retname);
+        d($image_name);
         $imagick->writeImage($webp_image_name);
         $imagick->clear();
         $imagick->destroy();
