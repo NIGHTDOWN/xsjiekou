@@ -177,7 +177,7 @@ class dslcartoon extends Clibase
 //保存的图片要加随机数；避免直接猜出
         foreach ($imgs as $k => $img) {
             $index = $k + 1;
-            $filename = $filenames . $index ."_".rand(1,999). '.png';
+            $filename = $filenames . $index ."_".rand(1,999). '.webp';
 
 
             $img = $img['url'];

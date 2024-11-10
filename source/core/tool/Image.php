@@ -89,7 +89,7 @@ class Image
             return false;
         }
 
-        $rootpath = $savepath ? $savepath : "/d/xs/pic/";
+        $rootpath = $savepath ? $savepath : "/soft/cp/cartoon_section/";
 
         if ($type == '') {
             $attchementdir = $rootpath;
