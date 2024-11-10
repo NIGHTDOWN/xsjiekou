@@ -211,11 +211,10 @@ class dslcartoon extends Clibase
         $size = sizeof($imgs);
 
         foreach ($imgs as $k => $img) {
-            $filename = $filenames . ($k + 1) . '.png';
+            $filename = $filenames . ($k + 1) ."_".rand(1,999). '.webp';
+           
 
-
-
-            $file = Image::imgtolocal($img['url'], null, $filename, $p);
+            $file = Image::imgtolocalwebp($img['url'], null, $filename, $p);
 
             if ($file) {
                 $mock = 'dsl://' . $file;
@@ -325,7 +324,7 @@ class dslcartoon extends Clibase
             $this->db2 = $this->db2 . '_' . $this->_booklang;
         }
 
-        $this->path = '/soft/cp/cartoon_section/';
+        $this->path = '/soft/cp/cartoon_section';
         if ($this->_booktype == 1) {
         }
         if (isset($gt['path'])) {
