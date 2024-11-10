@@ -142,7 +142,7 @@ class dslcartoon extends Clibase
 
     public function loop($booklist)
     {
-        d("loopl");
+        
         if (!$booklist) {
             d('数据错误');
             return false;
