@@ -21,6 +21,7 @@ class Dbsql
             $this->link = new PDO($dsn, $dbuser, $dbpw, array(
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_TIMEOUT => 3,
+                // PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
                 PDO::ATTR_PERSISTENT=> true
             ));
             if (PHP_SAPI == 'cli') {
