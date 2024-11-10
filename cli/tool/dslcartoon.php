@@ -11,6 +11,7 @@ require_once   dirname(dirname(__FILE__)) . "/clibase.php";
 use ng169\Y;
 use ng169\tool\File;
 use \ng169\tool\Image;
+use \ng169\cli\Clibase;
 // dsl处理
 class dslcartoon extends Clibase
 {
