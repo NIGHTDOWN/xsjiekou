@@ -83,32 +83,77 @@ class dslcartoon extends Clibase
             $list = $list->get_all();
 
             if (sizeof($list) > 0) {
-                $this->loop($list);
+//这里的loop改成子线程执行；切子线程最多20个；
+//判断是否liunx
+                if (strpos(PHP_OS, 'Linux')!== false) {
+                    // 执行Linux命令
+                    $this->nthread($list);
+                } else {
+                    $this->loop($list);
+                }
+
+              
             } else {
                 break;
             }
         }
         d('执行完成');
     }
+
+    public function nthread($booklist){
+        $maxProcesses = 20; // 最多20个子进程
+        $activeProcesses = 0;
+        $pids = [];
+        foreach ($booklist as $book) {
+            // 创建新的子进程
+            $pid = pcntl_fork();
+    
+            if ($pid == -1) {
+                // 创建子进程失败
+                die('Could not fork');
+            } elseif ($pid == 0) {
+                // 子进程代码
+                $this->loop([$book]);
+                exit; // 子进程结束
+            } else {
+                // 父进程代码
+                $pids[] = $pid;
+                $activeProcesses++;
+    
+                // 限制并发进程数
+                if ($activeProcesses >= $maxProcesses) {
+                    // 等待子进程结束
+                    $status = 0;
+                    pcntl_wait($status);
+                    $activeProcesses--;
+                }
+            }
+        }
+    
+        // 等待所有子进程结束
+        while ($activeProcesses > 0) {
+            $status = 0;
+            pcntl_wait($status);
+            $activeProcesses--;
+        }
+
+    }
+
+
     public function loop($booklist)
     {
         if (!$booklist) {
             d('数据错误');
             return false;
         }
+        
         foreach ($booklist as $book) {
             $pic = $book['cart_sec_content'];
 
-
             if ($this->do == 0) {
-
-
                 list($dsl, $lost) = $this->getimg($pic, $book['cartoon_id'], $book['list_order']);
-
-
                 T($this->db2)->update(['cart_sec_content_dsl' => json_encode($dsl), 'isdelete' => $lost], ['cart_section_id' => $book['cart_section_id']]);
             } else if ($this->do == 2) {
-
                 list($dsl, $lost) = $this->fiximg($pic, $book['cartoon_id'], $book['list_order'], $book['cart_sec_content_dsl']);
                 T($this->db2)->update(['cart_sec_content_dsl' => json_encode($dsl), 'isdelete' => $lost], ['cart_section_id' => $book['cart_section_id']]);
             } 
@@ -122,7 +167,6 @@ class dslcartoon extends Clibase
                 // if ($book['cart_sec_content_dsl']) {
                 //     return false;
                 // }
-
                 if (!$this->dsldomain) {
                     d('缺少必要参数dsl域名', 1);
                 }

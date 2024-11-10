@@ -169,7 +169,6 @@ class Image
             $imagick->writeImage($webp_image_name);
             $imagick->clear();
             $imagick->destroy();
-        
             $file= str_replace($image_name, $webp_image_name, $retname); // 返回webp图片的路径
             
             return [$file,$image_width,$image_height];
