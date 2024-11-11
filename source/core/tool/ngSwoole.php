@@ -19,7 +19,11 @@ class ngSwoole
 
 
 
-
+ // Bug 修复：添加 onMessage 回调处理函数
+  $this->http->on('message', function ($ws, $frame) {
+    echo "Received message: {$frame->data}\n";
+    $ws->push($frame->fd, "Server: ". $frame->data);
+  });
     $ws = $this->http->on('websocket', function ($ws, $frame) {
       static $clients = [];
       if ($frame->opcode == WEBSOCKET_OPCODE_TEXT) {
