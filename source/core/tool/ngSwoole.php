@@ -2,9 +2,8 @@
 
 namespace ng169\tool;
 
-use Swoole\Http\Server;
+
 use Swoole\WebSocket\Server;
-use Swoole\Server\Port;
 
 class ngSwoole
 {
