@@ -57,23 +57,25 @@ class Im extends \ng169\cli\Clibase
     private function stop()
     {
         // 使用 shell_exec 执行命令，查找占用指定端口的进程 PID
-        $command = "netstat -ano | grep :{$this->port}";
-        $output = shell_exec($command);
+        // 使用 shell_exec 执行命令，查找占用指定端口的进程 PID
+    $command = "lsof -i :{$this->port} | grep LISTEN | awk '{print \$2}'";
+    $output = shell_exec($command);
 
-        // 解析输出，获取 PID
-        preg_match_all('/\s+(\d+)\s+/', $output, $matches);
-        $pids = $matches[1];
-d( $pids);
-        // 遍历 PID 列表，尝试终止每个进程
-        foreach ($pids as $pid) {
+    // 解析输出，获取 PID
+    $pids = explode(PHP_EOL, $output);
+d($pids);
+    // 遍历 PID 列表，尝试终止每个进程
+    foreach ($pids as $pid) {
+        if (!empty($pid)) {
             // 使用 kill 命令终止进程
-            $killCommand = "kill -9 $pid";
+            $killCommand = "kill -9 {$pid}";
             shell_exec($killCommand);
-            echo "Killed process with PID: $pid\n";
+            echo "Killed process with PID: {$pid}\n";
         }
+    }
 
-        // 输出停止信息
-        echo "Server stopped.\n";
+    // 输出停止信息
+    echo "Server stopped.\n";
         // $command = "netstat -ano | findstr :{$this->port}";
         // $output = shell_exec($command);
 
