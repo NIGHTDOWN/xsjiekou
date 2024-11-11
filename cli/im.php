@@ -42,35 +42,55 @@ class Im extends \ng169\cli\Clibase
             }
         }
     }
-  
+
     private function _start()
     {
         $sw = new \ng169\tool\ngSwoole();
         $sw->start($this->port);
     }
-    private function reload() {
+    private function reload()
+    {
         $this->stop();
         $this->_start();
     }
     private function status() {}
-    private function stop() {
-        $command = "netstat -ano | findstr :{$this->port}";
+    private function stop()
+    {
+        // 使用 shell_exec 执行命令，查找占用指定端口的进程 PID
+        $command = "netstat -ano | grep :{$this->port}";
         $output = shell_exec($command);
-    
+
         // 解析输出，获取 PID
         preg_match_all('/\s+(\d+)\s+/', $output, $matches);
         $pids = $matches[1];
-    
+
         // 遍历 PID 列表，尝试终止每个进程
         foreach ($pids as $pid) {
-            // 使用 taskkill 命令终止进程
-            $killCommand = "taskkill /F /PID $pid";
+            // 使用 kill 命令终止进程
+            $killCommand = "kill -9 $pid";
             shell_exec($killCommand);
             echo "Killed process with PID: $pid\n";
         }
-    
+
         // 输出停止信息
         echo "Server stopped.\n";
+        // $command = "netstat -ano | findstr :{$this->port}";
+        // $output = shell_exec($command);
+
+        // // 解析输出，获取 PID
+        // preg_match_all('/\s+(\d+)\s+/', $output, $matches);
+        // $pids = $matches[1];
+
+        // // 遍历 PID 列表，尝试终止每个进程
+        // foreach ($pids as $pid) {
+        //     // 使用 taskkill 命令终止进程
+        //     $killCommand = "taskkill /F /PID $pid";
+        //     shell_exec($killCommand);
+        //     echo "Killed process with PID: $pid\n";
+        // }
+
+        // // 输出停止信息
+        // echo "Server stopped.\n";
     }
     //帮助doc参数stop ；start ；reload；restart ；status ；stop ；start ；reloa
     public function help()
