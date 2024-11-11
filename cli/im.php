@@ -9,7 +9,7 @@ require_once    "clibase.php";
 
 im(TOOL."ngSwoole.php");
 
-class Im extends Clibase
+class Im extends \ng169\cli\Clibase
 {
     private static $sqlserver; //数据库连接线程
     private static $connects; //所有连接
