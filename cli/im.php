@@ -7,82 +7,80 @@ namespace ng169\tool;
 
 require_once    "clibase.php";
 
-im(TOOL."ngSwoole.php");
+im(TOOL . "ngSwoole.php");
 
 class Im extends \ng169\cli\Clibase
 {
-    private static $sqlserver; //数据库连接线程
-    private static $connects; //所有连接
-    private static $server; //所有连接
-    private static $skqueue = [];
-    private static $pwd = "";
-    // private static $ip;
-    // private static $port;
+    private $do;
+    private $port = 1199;
     public function __construct()
     {
-        $sw=new \ng169\tool\ngSwoole();
-        $sw->start("1199");
-     
+        parent::__construct(); //初始化帮助信息
+        $gt = $this->getargv(['do', 'port',]);
+        $this->do = $gt['do'];
+        $this->port = $gt['port'] ?? $this->port;
     }
-    //消息解码
-    public static function decode($data)
+    public function start()
     {
-        //三步；websocket协议编码；反base64；转json对象
-        $data = Socket::parse($data);
-        $data = base64_decode($data);
-        return json_decode($data, 1);
+
+        if (!$this->do) {
+            $this->_start();
+        } else {
+            switch ($this->do) {
+                case 'start':
+                    $this->_start();
+                    break;
+                case 'stop':
+                    $this->stop();
+                    break;
+                case 'reload':
+                    $this->reload();
+                    break;
+                case 'status':
+                    $this->status();
+                    break;
+            }
+        }
     }
-    //消息编码
-    public static function encode($data)
+  
+    private function _start()
     {
-        return json_encode($data);
+        $sw = new \ng169\tool\ngSwoole();
+        $sw->start($this->port);
     }
-   
-   
-    public static function inmsg($clientsock, $data)
-    {
-       
+    private function reload() {
+        $this->stop();
+        $this->_start();
     }
-    //想sock发送消息
-    public static function send($obj, $data)
-    {
-       
-    }
-
-
-
-
-
-
-    //输出信息
-    public static function UiShow()
-    {
-        return;
-        
-        // echo "服务信息:" . self::$server->ip . ":" . self::$server->port . "\n";
-        // echo "当前SqlServer连接池:" . sizeof(self::$sqlserver) . "\n";
-        // echo "当前所有连接数量:" . sizeof(self::$connects) . "\n";
-        // echo chr(3); // 输出文本结束控制字符，这样可以清除之前输出的文本内容
-        // echo chr(8); // 将前一个控制字符删掉，避免在控制台留下控制字符的标记
-        // // echo "\e[H\e[J";
-        // // echo "\r\n";
-        // // echo 123;
-        // // ncurses_erase();
-        // // system('clear');
-        // // system('cls');
+    private function status() {}
+    private function stop() {
+        $command = "netstat -ano | findstr :{$this->port}";
+        $output = shell_exec($command);
+    
+        // 解析输出，获取 PID
+        preg_match_all('/\s+(\d+)\s+/', $output, $matches);
+        $pids = $matches[1];
+    
+        // 遍历 PID 列表，尝试终止每个进程
+        foreach ($pids as $pid) {
+            // 使用 taskkill 命令终止进程
+            $killCommand = "taskkill /F /PID $pid";
+            shell_exec($killCommand);
+            echo "Killed process with PID: $pid\n";
+        }
+    
+        // 输出停止信息
+        echo "Server stopped.\n";
     }
     //帮助doc参数stop ；start ；reload；restart ；status ；stop ；start ；reloa
-    public function help(){
-
-
+    public function help()
+    {
+        d("接收参数do: start ；stop ；reload；status ；stop\n
+      接收参数port: 端口\n
+      ");
     }
 }
 //启动数据库连接池server
 
-new Im();
-
-
-
-
-
-
+$ob = new Im();
+$ob->start();
