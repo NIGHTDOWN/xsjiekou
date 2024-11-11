@@ -6,7 +6,7 @@ use Swoole\Http\Server;
 use Swoole\WebSocket\Server;
 use Swoole\Server\Port;
 
-class Swoole
+class ngSwoole
 {
 
   public $http;
