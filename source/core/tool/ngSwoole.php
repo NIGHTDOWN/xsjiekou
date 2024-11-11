@@ -21,12 +21,10 @@ class ngSwoole
       $response->header('Access-Control-Allow-Origin', '*');
       $response->header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
       $response->header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-
       if ($request->server['request_uri'] == '/ws') {
         // 如果是 WebSocket 握手请求，不做任何响应，因为 Swoole 会自动处理
         return;
       }
-
       $response->end("Welcome to WebSocket chat room!");
     });
 
