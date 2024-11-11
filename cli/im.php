@@ -60,10 +60,8 @@ class Im extends \ng169\cli\Clibase
         // 使用 shell_exec 执行命令，查找占用指定端口的进程 PID
     $command = "lsof -i :{$this->port} | grep LISTEN | awk '{print \$2}'";
     $output = shell_exec($command);
-
     // 解析输出，获取 PID
     $pids = explode(PHP_EOL, $output);
-d($pids);
     // 遍历 PID 列表，尝试终止每个进程
     foreach ($pids as $pid) {
         if (!empty($pid)) {
