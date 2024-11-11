@@ -11,22 +11,22 @@ im(TOOL . "ngSwoole.php");
 
 class Im extends \ng169\cli\Clibase
 {
-    private $do;
-    private $port = 1199;
+    public $dovo;
+    public $port = 1199;
     public function __construct()
     {
         parent::__construct(); //初始化帮助信息
         $gt = $this->getargv(['do', 'port',]);
-        $this->do = $gt['do'];
+        $this->dovo = $gt['do'];
         $this->port = $gt['port'] ?? $this->port;
     }
     public function start()
     {
 
-        if (!$this->do) {
+        if (!$this->dovo) {
             $this->_start();
         } else {
-            switch ($this->do) {
+            switch ($this->dovo) {
                 case 'start':
                     $this->_start();
                     break;
