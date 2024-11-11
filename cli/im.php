@@ -63,7 +63,7 @@ class Im extends \ng169\cli\Clibase
         // 解析输出，获取 PID
         preg_match_all('/\s+(\d+)\s+/', $output, $matches);
         $pids = $matches[1];
-
+d( $pids);
         // 遍历 PID 列表，尝试终止每个进程
         foreach ($pids as $pid) {
             // 使用 kill 命令终止进程
