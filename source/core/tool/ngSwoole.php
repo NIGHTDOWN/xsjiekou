@@ -12,7 +12,7 @@ class ngSwoole
   public function start($port)
   {
 
-    $this->http = new \Server('0.0.0.0', $port);
+    $this->http = new \Swoole\WebSocket\Server('0.0.0.0', $port);
     $this->http->on('request', function ($request, $response) {
       $response->end("Welcome to WebSocket chat room!");
     });
