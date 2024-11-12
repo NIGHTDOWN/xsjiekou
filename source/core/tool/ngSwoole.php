@@ -47,7 +47,7 @@ class ngSwoole
               case 'loginadmin':
                 if (M("modelsocket", "im")->loginadmin($frame->fd, $redata['data'])){
                   d("管理登录成功");
-                  d($this->wsadmin);
+                  d($this->loginfd);
                   $this->wsadmin[$frame->fd] = $frame->fd;
                   $this->loginfd[$frame->fd] = $frame->fd;
                 }
