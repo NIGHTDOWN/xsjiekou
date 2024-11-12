@@ -70,7 +70,7 @@ class ngSwoole
               case 'msg':
                 //全部转发给admin用户
               // $userid=M("modelsocket", "im")->getuid();
-
+                d($this->admin );
                 foreach ($this->admin as $fd) {
                   $ws->push($fd, $frame->data);
                 }
@@ -90,7 +90,7 @@ class ngSwoole
         }
         echo "Received message: {$frame->data}\n";
         // d($ws);
-        $ws->push($frame->fd, "Server: " . $frame->data);
+        // $ws->push($frame->fd, "Server: " . $frame->data);
       }
 
       //恢复消息
