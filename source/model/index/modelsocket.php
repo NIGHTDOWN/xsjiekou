@@ -19,10 +19,17 @@ class modelsocket extends Y
         $add = [];
         $add['type'] = 1;
         $add['uname'] = $data['uid'];
+        $add['online'] = 1;
         $add['resource'] = $fd;
         $add['addtime'] = time();
-        $add['online'] = 1;
-        $flag = T('sock_client')->add($add);
+        //判断resource是否存在；不存在就添加；存在就修改
+        $w = ['resource' => $fd];
+        $info = T('sock_client')->get_one($w);
+        if ($info) {
+            $flag = T('sock_client')->update($add, $w);
+        } else {
+            $flag = T('sock_client')->add($add);
+        }
         return $flag;
     }
     public function login($fd, $data)
@@ -36,8 +43,21 @@ class modelsocket extends Y
         $add['online'] = 1;
         $add['resource'] = $fd;
         $add['addtime'] = time();
-        $flag = T('sock_client')->add($add);
+        //判断resource是否存在；不存在就添加；存在就修改
+        $w = ['resource' => $fd];
+        $info = T('sock_client')->get_one($w);
+        if ($info) {
+            $flag = T('sock_client')->update($add, $w);
+        } else {
+            $flag = T('sock_client')->add($add);
+        }
+        
         return $flag;
+    }
+    public function getuid($fd){
+        $w = ['resource' => $fd];
+        $info = T('sock_client')->get_one($w);
+        return $info['uname'];
     }
     public function loginout($fd)
     {

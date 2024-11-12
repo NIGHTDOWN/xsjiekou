@@ -45,18 +45,17 @@ class ngSwoole
           if (isset($redata['action'])) {
             switch ($redata['action']) {
               case 'loginadmin':
-
-                if (M("modelsocket", "im")->loginadmin($frame->fd, $redata['data']))
+                if (M("modelsocket", "im")->loginadmin($frame->fd, $redata['data'])){
+                  $this->admin[$frame->fd] = $frame->fd;
                   $this->loginfd[$frame->fd] = $frame->fd;
+                }
                 break;
               case 'login':
-                if (M("modelsocket", "im")->login($frame->fd, $redata['data']))
+                if (M("modelsocket", "im")->login($frame->fd, $redata['data'])){
                   $this->loginfd[$frame->fd] = $frame->fd;
-
+                }
                 break;
               case 'heartbeat':
-
-
                 break;
               default:
                 //关闭连接
@@ -69,6 +68,14 @@ class ngSwoole
           if (isset($redata['action'])) {
             switch ($redata['action']) {
               case 'msg':
+                //全部转发给admin用户
+              // $userid=M("modelsocket", "im")->getuid();
+
+                foreach ($this->admin as $fd) {
+                  $ws->push($fd, $frame->data);
+                }
+                break;
+              case 'adminmsg':
                 break;
               case 'heartbeat':
 
