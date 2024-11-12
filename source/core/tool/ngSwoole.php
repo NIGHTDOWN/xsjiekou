@@ -10,8 +10,8 @@ class ngSwoole
 
   public $http;
   public $ws;
-  public $admin = []; //管理员   id=>[fd1,fd2,fd3]
-  public $client = []; //用户    id=>[fd1,fd2,fd3]
+  public $wsadmin = []; //管理员   id=>[fd1,fd2,fd3]
+  public $wsclient = []; //用户    id=>[fd1,fd2,fd3]
   public $loginfd = []; //用户    id=>[fd1,fd2,fd3]
   public function start($port)
   {
@@ -46,13 +46,17 @@ class ngSwoole
             switch ($redata['action']) {
               case 'loginadmin':
                 if (M("modelsocket", "im")->loginadmin($frame->fd, $redata['data'])){
-                  $this->admin[$frame->fd] = $frame->fd;
+                  d("管理登录成功");
+                  d($this->wsadmin);
+                  $this->wsadmin[$frame->fd] = $frame->fd;
                   $this->loginfd[$frame->fd] = $frame->fd;
                 }
                 break;
               case 'login':
                 if (M("modelsocket", "im")->login($frame->fd, $redata['data'])){
                   $this->loginfd[$frame->fd] = $frame->fd;
+                  $this->wsclient[$frame->fd] = $frame->fd;
+                  
                 }
                 break;
               case 'heartbeat':
@@ -60,7 +64,7 @@ class ngSwoole
               default:
                 //关闭连接
                 $ws->close($frame->fd);
-                break;;
+                break;
             }
           }
         } else {
@@ -70,8 +74,8 @@ class ngSwoole
               case 'msg':
                 //全部转发给admin用户
               // $userid=M("modelsocket", "im")->getuid();
-                d($this->admin );
-                foreach ($this->admin as $fd) {
+                d($this->wsadmin );
+                foreach ($this->wsadmin as $fd) {
                   $ws->push($fd, $frame->data);
                 }
                 break;
