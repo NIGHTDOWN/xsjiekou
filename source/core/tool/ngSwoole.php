@@ -78,6 +78,20 @@ class ngSwoole
                 }
                 break;
               case 'adminmsg':
+
+                // $userid=M("modelsocket", "im")->getuid();
+                $touid=$frame->data["data"]["touid"];
+                if(!$touid){
+                  d("未知接收用户");
+                }
+                $wsclient =   M("modelsocket", "im")->getclientfds($touid);
+                // d($wsclient);
+                foreach ($wsclient as $fd) {
+                  //转发给对应用户
+                  $ws->push($fd, $frame->data);
+                }
+
+
                 break;
               case 'heartbeat':
 

@@ -67,6 +67,13 @@ class modelsocket extends Y
         $adminids = array_column($info, 'resource');
         return $adminids;
     }
+    public function getclientfds($uid)
+    {
+        $w = ['type' => 0, "online" => 1, "uname" => $uid];
+        $info = T('sock_client')->get_all($w);
+        $ids = array_column($info,'resource');
+        return $ids;
+    }
     public function loginout($fd)
     {
         if (!$fd) return false;
