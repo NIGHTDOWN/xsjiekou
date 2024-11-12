@@ -126,8 +126,10 @@ class ngSwoole
       }
       M("modelsocket", "im")->loginout($fd);
     });
-
+    $this->http->on('start', function ( $server) {
+      echo "IM服务启动成功， 端口 {$port}\n";
+    });
     $this->http->start();
-    echo "Server started on port {$port}\n";
+    
   }
 }
