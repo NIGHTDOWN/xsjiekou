@@ -45,20 +45,15 @@ class ngSwoole
           if (isset($redata['action'])) {
             switch ($redata['action']) {
               case 'loginadmin':
-                if (M("modelsocket", "im")->loginadmin($frame->fd, $redata['data'])){
-                  d("管理登录成功");
-                 
+                if (M("modelsocket", "im")->loginadmin($frame->fd, $redata['data'])) {
                   $this->wsadmin[$frame->fd] = $frame->fd;
                   $this->loginfd[$frame->fd] = $frame->fd;
-                  d($this->loginfd);
-                  d($this->wsadmin);
                 }
                 break;
               case 'login':
-                if (M("modelsocket", "im")->login($frame->fd, $redata['data'])){
+                if (M("modelsocket", "im")->login($frame->fd, $redata['data'])) {
                   $this->loginfd[$frame->fd] = $frame->fd;
                   $this->wsclient[$frame->fd] = $frame->fd;
-                  
                 }
                 break;
               case 'heartbeat':
@@ -75,10 +70,10 @@ class ngSwoole
             switch ($redata['action']) {
               case 'msg':
                 //全部转发给admin用户
-              // $userid=M("modelsocket", "im")->getuid();
-                d($this->wsadmin );
-                d($this->loginfd );
-                foreach ($this->wsadmin as $fd) {
+                // $userid=M("modelsocket", "im")->getuid();
+                $wsadmin =   M("modelsocket", "im")->getadminfds();
+                d($wsadmin);
+                foreach ($wsadmin as $fd) {
                   $ws->push($fd, $frame->data);
                 }
                 break;

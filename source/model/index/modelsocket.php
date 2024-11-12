@@ -51,22 +51,30 @@ class modelsocket extends Y
         } else {
             $flag = T('sock_client')->add($add);
         }
-        
+
         return $flag;
     }
-    public function getuid($fd){
+    public function getuid($fd)
+    {
         $w = ['resource' => $fd];
         $info = T('sock_client')->get_one($w);
         return $info['uname'];
     }
+    public function getadminfds()
+    {
+        $w = ['type' => 1, "online" => 1];
+        $info = T('sock_client')->get_all($w);
+        $adminids = array_column($info, 'resource');
+        return $adminids;
+    }
     public function loginout($fd)
     {
         if (!$fd) return false;
-       
+
         $add = [];
         $add['online'] = 0;
         $w = ['resource' => $fd];
-        $flag = T('sock_client')->update($add,$w);
+        $flag = T('sock_client')->update($add, $w);
         return $flag;
     }
 }
