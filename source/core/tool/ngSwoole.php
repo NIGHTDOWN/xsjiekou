@@ -85,7 +85,7 @@ class ngSwoole
                   d("未知接收用户");
                 }
                 $wsclient =   M("modelsocket", "im")->getclientfds($touid);
-                // d($wsclient);
+               d($wsclient);
                 foreach ($wsclient as $fd) {
                   //转发给对应用户
                   $ws->push($fd, $frame->data);
