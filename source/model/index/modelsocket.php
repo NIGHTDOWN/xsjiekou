@@ -21,6 +21,7 @@ class modelsocket extends Y
         $add['uname'] = $data['uid'];
         $add['resource'] = $fd;
         $add['addtime'] = time();
+        $add['online'] = 1;
         $flag = T('sock_client')->add($add);
         return $flag;
     }
@@ -32,9 +33,20 @@ class modelsocket extends Y
         $add = [];
         $add['type'] = 0;
         $add['uname'] = $data['uid'];
+        $add['online'] = 1;
         $add['resource'] = $fd;
         $add['addtime'] = time();
         $flag = T('sock_client')->add($add);
+        return $flag;
+    }
+    public function loginout($fd)
+    {
+        if (!$fd) return false;
+       
+        $add = [];
+        $add['online'] = 0;
+        $w = ['resource' => $fd];
+        $flag = T('sock_client')->update($add,$w);
         return $flag;
     }
 }

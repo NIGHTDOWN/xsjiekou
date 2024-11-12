@@ -74,7 +74,7 @@ class ngSwoole
           }
         }
         echo "Received message: {$frame->data}\n";
-        d($ws);
+        // d($ws);
         $ws->push($frame->fd, "Server: " . $frame->data);
       }
 
