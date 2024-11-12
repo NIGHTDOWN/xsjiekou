@@ -113,6 +113,7 @@ class ngSwoole
       if (isset($this->admin[$fd])) {
         unset($this->admin[$fd]);
       }
+    });
 
     $this->http->start();
   }
