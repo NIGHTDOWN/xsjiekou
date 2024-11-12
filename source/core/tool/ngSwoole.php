@@ -80,7 +80,7 @@ class ngSwoole
               case 'adminmsg':
 
                 // $userid=M("modelsocket", "im")->getuid();
-                $touid=$frame->data["data"]["touid"];
+                $touid=$redata["touid"];
                 if(!$touid){
                   d("未知接收用户");
                 }
