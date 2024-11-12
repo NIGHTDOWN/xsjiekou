@@ -65,7 +65,7 @@ class ngSwoole
           if (isset($redata['action'])) {
             switch ($redata['action']) {
               case 'msg':
-
+                
               default:
                 //关闭连接
                 $ws->close($frame->fd);
@@ -113,6 +113,10 @@ class ngSwoole
       if (isset($this->admin[$fd])) {
         unset($this->admin[$fd]);
       }
+      if (isset($this->loginfd[$fd])) {
+        unset($this->loginfd[$fd]);
+      }
+      M("modelsocket", "im")->loginout($fd);
     });
 
     $this->http->start();
