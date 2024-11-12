@@ -54,10 +54,10 @@ class ngSwoole
                   $this->loginfd[$frame->fd] = $frame->fd;
 
                 break;
-                case 'heartbeat':
-                
-  
-                  break;
+              case 'heartbeat':
+
+
+                break;
               default:
                 //关闭连接
                 $ws->close($frame->fd);
@@ -69,7 +69,11 @@ class ngSwoole
           if (isset($redata['action'])) {
             switch ($redata['action']) {
               case 'msg':
+                break;
+              case 'heartbeat':
 
+
+                break;
               default:
                 //关闭连接
                 $ws->close($frame->fd);
