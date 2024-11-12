@@ -10,11 +10,13 @@ class ngSwoole
 
   public $http;
   public $ws;
+  public $port;
   public $wsadmin = []; //管理员   id=>[fd1,fd2,fd3]
   public $wsclient = []; //用户    id=>[fd1,fd2,fd3]
   public $loginfd = []; //用户    id=>[fd1,fd2,fd3]
   public function start($port)
   {
+$this->port = $port;
 
     $this->http = new \Swoole\WebSocket\Server('0.0.0.0', $port);
     $this->http->on('request', function ($request, $response) {
@@ -127,7 +129,7 @@ class ngSwoole
       M("modelsocket", "im")->loginout($fd);
     });
     $this->http->on('start', function ( $server) {
-      echo "IM服务启动成功， 端口 {$port}\n";
+      echo "IM服务启动成功， 端口 {$this->port}\n";
     });
     $this->http->start();
     
