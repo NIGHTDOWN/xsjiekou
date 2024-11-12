@@ -78,9 +78,9 @@ class ngSwoole
                 }
                 break;
               case 'adminmsg':
-
+                
                 // $userid=M("modelsocket", "im")->getuid();
-                $touid=$redata["touid"];
+                $touid=$redata['data']["touid"];
                 if(!$touid){
                   d("未知接收用户");
                 }
@@ -90,8 +90,6 @@ class ngSwoole
                   //转发给对应用户
                   $ws->push($fd, $frame->data);
                 }
-
-
                 break;
               case 'heartbeat':
 
@@ -112,28 +110,7 @@ class ngSwoole
       //恢复消息
 
     });
-    // $this->ws = $this->http->on('websocket', function ($ws, $frame) {
-    //   static $clients = [];
-    //   if ($frame->opcode == WEBSOCKET_OPCODE_TEXT) {
-    //     if ($frame->data == 'ping') {
-    //       $ws->push($frame->fd, 'pong');
-    //       return;
-    //     }
-    //     if ($frame->fd == -1) {
-    //       foreach ($clients as $fd) {
-    //         $ws->push($fd, $frame->data);
-    //       }
-    //     } else {
-    //       $clients[$frame->fd] = $frame->fd;
-    //       $ws->push($frame->fd, 'Welcome to WebSocket chat room!');
-    //       foreach ($clients as $fd) {
-    //         if ($fd != $frame->fd) {
-    //           $ws->push($fd, $frame->data);
-    //         }
-    //       }
-    //     }
-    //   }
-    // });
+   
     //断开连接
     $this->http->on('close', function ($ws, $fd) {
       // 从客户端列表中删除断开连接的客户端
