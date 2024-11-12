@@ -45,6 +45,7 @@ class Im extends \ng169\cli\Clibase
 
     private function _start()
     {
+        $this->cleardb();
         $sw = new \ng169\tool\ngSwoole();
         $sw->start($this->port);
     }
@@ -54,6 +55,10 @@ class Im extends \ng169\cli\Clibase
         $this->_start();
     }
     private function status() {}
+    private function cleardb() {
+        T("sock_client")->update(["online"=>0]);
+    }
+
     private function stop()
     {
         // 使用 shell_exec 执行命令，查找占用指定端口的进程 PID
