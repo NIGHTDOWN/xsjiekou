@@ -47,9 +47,11 @@ class ngSwoole
               case 'loginadmin':
                 if (M("modelsocket", "im")->loginadmin($frame->fd, $redata['data'])){
                   d("管理登录成功");
-                  d($this->loginfd);
+                 
                   $this->wsadmin[$frame->fd] = $frame->fd;
                   $this->loginfd[$frame->fd] = $frame->fd;
+                  d($this->loginfd);
+                  d($this->wsadmin);
                 }
                 break;
               case 'login':
@@ -75,6 +77,7 @@ class ngSwoole
                 //全部转发给admin用户
               // $userid=M("modelsocket", "im")->getuid();
                 d($this->wsadmin );
+                d($this->loginfd );
                 foreach ($this->wsadmin as $fd) {
                   $ws->push($fd, $frame->data);
                 }
