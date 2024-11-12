@@ -151,5 +151,6 @@ class ngSwoole
     });
 
     $this->http->start();
+    echo "Server started on port {$port}\n";
   }
 }
