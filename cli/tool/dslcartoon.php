@@ -101,7 +101,7 @@ class dslcartoon extends Clibase
     }
 
     public function nthread($booklist){
-        $maxProcesses = 3; // 最多20个子进程
+        $maxProcesses = 6; // 最多20个子进程
         $activeProcesses = 0;
         $pids = [];
         foreach ($booklist as $book) {
