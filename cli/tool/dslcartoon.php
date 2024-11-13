@@ -101,10 +101,13 @@ class dslcartoon extends Clibase
     }
 
     public function nthread($booklist){
-        $maxProcesses = 6; // 最多20个子进程
+        $maxProcesses = 10; // 最多20个子进程
         $activeProcesses = 0;
         $pids = [];
-        foreach ($booklist as $book) {
+        //吧$booklist拆分$maxProcesses等分
+        $chunkSize = ceil(count($booklist) / $maxProcesses);
+        $booklist = array_chunk($booklist, $chunkSize);
+        foreach ($booklist as $books) {
             // 创建新的子进程
             $pid = pcntl_fork();
     
@@ -113,7 +116,7 @@ class dslcartoon extends Clibase
                 die('Could not fork');
             } elseif ($pid == 0) {
                 // 子进程代码
-                $this->loop([$book]);
+                $this->loop($books);
                 exit; // 子进程结束
             } else {
                 // 父进程代码
