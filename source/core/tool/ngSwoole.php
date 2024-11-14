@@ -99,7 +99,7 @@ $this->port = $port;
                 break;
               default:
                 //关闭连接
-                // $ws->close($frame->fd);
+                 $ws->close($frame->fd);
                 break;;
             }
           }
