@@ -81,10 +81,11 @@ $this->port = $port;
                 //全部转发给admin用户
                 // $userid=M("modelsocket", "im")->getuid();
                 $wsadmin =   M("modelsocket", "im")->getadminfds();
-                d($wsadmin);
+                // d($wsadmin);
                 foreach ($wsadmin as $fd) {
                   $ws->push($fd, $frame->data);
                 }
+                echo "Received message: {$frame->data}\n";
                 break;
               case 'adminmsg':
                 
@@ -94,11 +95,13 @@ $this->port = $port;
                   d("未知接收用户");
                 }
                 $wsclient =   M("modelsocket", "im")->getclientfds($touid);
-               d($wsclient);
+              //  d($wsclient);
+             
                 foreach ($wsclient as $fd) {
                   //转发给对应用户
                   $ws->push($fd, $frame->data);
                 }
+                echo "Received message: {$frame->data}\n";
                 break;
               case 'heartbeat':
 
@@ -111,7 +114,7 @@ $this->port = $port;
             }
           }
         }
-        echo "Received message: {$frame->data}\n";
+       
         // d($ws);
         // $ws->push($frame->fd, "Server: " . $frame->data);
       }
