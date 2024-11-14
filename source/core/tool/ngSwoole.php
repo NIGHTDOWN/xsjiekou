@@ -70,6 +70,13 @@ $this->port = $port;
           //正常数据发送
           if (isset($redata['action'])) {
             switch ($redata['action']) {
+              case 'login':
+                //匿名重新登入
+                M("modelsocket", "im")->login($frame->fd, $redata['data']) ;
+                  $this->loginfd[$frame->fd] = $frame->fd;
+                  $this->wsclient[$frame->fd] = $frame->fd;
+               
+                break;
               case 'msg':
                 //全部转发给admin用户
                 // $userid=M("modelsocket", "im")->getuid();
