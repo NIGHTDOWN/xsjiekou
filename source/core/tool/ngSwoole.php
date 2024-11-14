@@ -61,8 +61,8 @@ $this->port = $port;
               case 'heartbeat':
                 break;
               default:
-                //关闭连接
-                $ws->close($frame->fd);
+                //关闭连接fsdfdsf
+                // $ws->close($frame->fd);
                 break;
             }
           }
