@@ -196,7 +196,7 @@ class Upfile
             return false;
         $file['name'] = $this->escapeStr($file['name']);
         //强制后缀加。webp
-        $file['ext'] = strtolower(substr(strrchr($file['name'], '.'), 1)).".webp";
+        $file['ext'] = strtolower(substr(strrchr($file['name'], '.'), 1));
         $file['size'] = intval($file['size']);
         if ($file['size'] < 300000) {
             $this->checkcontent = true;
@@ -206,7 +206,7 @@ class Upfile
         $file['tmp_name'] = $file['tmp_name'];
         $file['source'] = $path . '/' . $newName . '.' . $file['ext'];
         $file['path'] = $path;
-        $file['newName'] = $newName . '.' . $file['ext'];
+        $file['newName'] = $newName . '.' . $file['ext'].".webp";
         return $file;
     }
 
