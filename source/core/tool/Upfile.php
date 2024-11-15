@@ -225,14 +225,17 @@ class Upfile
 
             File::createDir($path);
         }
-d("sdfsdf");
-        if (function_exists('move_uploaded_file') && move_uploaded_file($tmpName, $filename)) {
+
+        if (function_exists('move_uploaded_file') && @move_uploaded_file($tmpName, $filename)) {
+            d("3234");
             @chmod($filename, 0777);
             return true;
         } elseif (@copy($tmpName, $filename)) {
+            d("1113234");
             @chmod($filename, 0777);
             return true;
         }
+        d("35345");
         return false;
     }
 
