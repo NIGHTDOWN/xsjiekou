@@ -207,6 +207,7 @@ class Upfile
         $file['source'] = $path . '/' . $newName . '.' . $file['ext'];
         $file['path'] = $path;
         $file['newName'] = $newName . '.' . $file['ext'].".webp";
+        d($file);
         return $file;
     }
 
