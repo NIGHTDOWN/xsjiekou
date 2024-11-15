@@ -153,6 +153,7 @@ class Upfile
 
         
          if(self::USE_REAL_PATH){
+            d($this->dir . $uploadInfo['path']);
             $result = $this->save($uploadInfo['tmp_name'], $this->dir . $uploadInfo['source'], $this->dir . $uploadInfo['path']);
 
          }   else{
