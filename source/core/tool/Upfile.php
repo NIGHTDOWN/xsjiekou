@@ -17,7 +17,7 @@ class Upfile
     const UPLOAD_ERR_NO_TMP_DIR = 4;
     const FILE_PATH = 'data/image/';
     const GL_FILE_PATH = 'data/illegal/';
-    const USE_REAL_PATH = 0;//是否使用绝对路径
+    const USE_REAL_PATH = 1;//是否使用绝对路径:0不使用绝对路径,1使用绝对路径
 
     /*private $attchementdir = 'data/attachment/';
     */
