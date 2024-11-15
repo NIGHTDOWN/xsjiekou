@@ -111,9 +111,9 @@ class Upfile
         //有用户id;
         //就用用户Id分组
         if (isset(Y::$wrap_user['uid'])) {
-            $userdir = '/pic/user/' . @Y::$wrap_user['uid'] . '/';
+            $userdir = '/user/' . @Y::$wrap_user['uid'] . '/';
         } else {
-            $userdir = '/pic/anony/';
+            $userdir = '/anony/';
         }
 
 
