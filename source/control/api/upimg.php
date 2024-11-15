@@ -37,8 +37,7 @@ class upimg extends apibase{
 			$out = null;
 			foreach($_FILES as $key => $name){
 				$a = $upobj->upload($key);
-				d($conf);
-				d($a);
+				
 				if(!$a['flag']){
 					/*M('log','am')->log(false,null,null,null,$a.error);*/
 					//					out($a['error'],null,$a['flag']);
