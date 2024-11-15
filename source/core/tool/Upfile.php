@@ -17,7 +17,7 @@ class Upfile
     const UPLOAD_ERR_NO_TMP_DIR = 4;
     const FILE_PATH = 'data/image/';
     const GL_FILE_PATH = 'data/illegal/';
-    const USE_REAL_PATH = 1;//是否使用绝对路径:0不使用绝对路径,1使用绝对路径
+    const USE_REAL_PATH = 0;//是否使用绝对路径
 
     /*private $attchementdir = 'data/attachment/';
     */
@@ -153,7 +153,6 @@ class Upfile
 
         
          if(self::USE_REAL_PATH){
-           
             $result = $this->save($uploadInfo['tmp_name'], $this->dir . $uploadInfo['source'], $this->dir . $uploadInfo['path']);
 
          }   else{
@@ -225,17 +224,14 @@ class Upfile
 
             File::createDir($path);
         }
-        d($filename);
+
         if (function_exists('move_uploaded_file') && @move_uploaded_file($tmpName, $filename)) {
-            d("3234");
             @chmod($filename, 0777);
             return true;
         } elseif (@copy($tmpName, $filename)) {
-            d("1113234");
             @chmod($filename, 0777);
             return true;
         }
-        d("35345");
         return false;
     }
 
