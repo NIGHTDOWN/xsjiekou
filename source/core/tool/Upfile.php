@@ -153,7 +153,7 @@ class Upfile
 
         
          if(self::USE_REAL_PATH){
-            d($this->dir . $uploadInfo['path']);
+           
             $result = $this->save($uploadInfo['tmp_name'], $this->dir . $uploadInfo['source'], $this->dir . $uploadInfo['path']);
 
          }   else{
@@ -225,8 +225,8 @@ class Upfile
 
             File::createDir($path);
         }
-
-        if (function_exists('move_uploaded_file') && @move_uploaded_file($tmpName, $filename)) {
+d("sdfsdf");
+        if (function_exists('move_uploaded_file') && move_uploaded_file($tmpName, $filename)) {
             @chmod($filename, 0777);
             return true;
         } elseif (@copy($tmpName, $filename)) {
