@@ -355,6 +355,7 @@ class Upfile
             'gif',
             'jpg',
             'jpeg',
+            'webp',
             'png'
         ))) {
             //check hex
