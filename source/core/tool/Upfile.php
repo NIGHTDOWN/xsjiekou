@@ -32,6 +32,7 @@ class Upfile
         'jpeg',
         'jpg',
         'png',
+        'webp',
         'swf',
         'flv',
         'rar',
