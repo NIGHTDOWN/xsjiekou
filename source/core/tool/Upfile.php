@@ -225,7 +225,7 @@ class Upfile
 
             File::createDir($path);
         }
-
+        d($filename);
         if (function_exists('move_uploaded_file') && @move_uploaded_file($tmpName, $filename)) {
             d("3234");
             @chmod($filename, 0777);
