@@ -194,7 +194,8 @@ class Upfile
         if (!$file['tmp_name'] || $file['tmp_name'] == '')
             return false;
         $file['name'] = $this->escapeStr($file['name']);
-        $file['ext'] = strtolower(substr(strrchr($file['name'], '.'), 1));
+        //强制后缀加。webp
+        $file['ext'] = strtolower(substr(strrchr($file['name'], '.'), 1)).".webp";
         $file['size'] = intval($file['size']);
         if ($file['size'] < 300000) {
             $this->checkcontent = true;
