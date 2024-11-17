@@ -146,6 +146,7 @@ class ngSwoole
     $this->http->start();
   }
   function send($ws, $fd, $data){
+    d($data);
     $ws->push($fd, $data);
   }
   function loginuser($ws, $fd, $uid){
