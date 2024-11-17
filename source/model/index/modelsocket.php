@@ -37,6 +37,17 @@ class modelsocket extends Y
         if (!$fd) return false;
         if (!$data) return false;
         if (!isset($data['uid'])) return false;
+        $clientInfo = socket_getpeername($fd, $ip, $port);
+        if ($clientInfo === false) {
+            // 处理获取信息失败的情况
+          d($ip);
+          d($port);
+        }
+
+        // 现在$ip和$port变量包含了客户端的IP地址和端口
+        // 你可以在这里使用它们
+        // 例如，打印出来
+        echo "客户端IP地址: " . $ip . ", 端口: " . $port;
         //从fd获取客户端ip以及端口
         // $ip = $this->http->getClientInfo($fd)['remote_ip'];
         // $port = $this->http->getClientInfo($fd)['remote_port'];
@@ -76,7 +87,7 @@ class modelsocket extends Y
     {
         $w = ['type' => 0, "online" => 1, "uname" => $uid];
         $info = T('sock_client')->get_all($w);
-        $ids = array_column($info,'resource');
+        $ids = array_column($info, 'resource');
         return $ids;
     }
     public function loginout($fd)
