@@ -16,7 +16,7 @@ class ngSwoole
   public $loginfd = []; //用户    id=>[fd1,fd2,fd3]
   public function start($port)
   {
-$this->port = $port;
+    $this->port = $port;
 
     $this->http = new \Swoole\WebSocket\Server('0.0.0.0', $port);
     $this->http->on('request', function ($request, $response) {
@@ -48,14 +48,15 @@ $this->port = $port;
             switch ($redata['action']) {
               case 'loginadmin':
                 (M("modelsocket", "im")->loginadmin($frame->fd, $redata['data']));
-                  $this->wsadmin[$frame->fd] = $frame->fd;
-                  $this->loginfd[$frame->fd] = $frame->fd;
+                $this->wsadmin[$frame->fd] = $frame->fd;
+                $this->loginfd[$frame->fd] = $frame->fd;
                 break;
               case 'login':
-                M("modelsocket", "im")->login($frame->fd, $redata['data'],$this->http) ;
-                  $this->loginfd[$frame->fd] = $frame->fd;
-                  $this->wsclient[$frame->fd] = $frame->fd;
-               
+
+                $this->loginfd[$frame->fd] = $frame->fd;
+                $this->wsclient[$frame->fd] = $frame->fd;
+                $uid = M("modelsocket", "im")->login($frame->fd, $redata['data'], $this->http);
+                $this->loginuser($ws, $frame->fd, $uid);
                 break;
               case 'heartbeat':
                 break;
@@ -71,34 +72,36 @@ $this->port = $port;
             switch ($redata['action']) {
               case 'login':
                 //匿名重新登入
-                M("modelsocket", "im")->login($frame->fd, $redata['data'],$this->http) ;
-                  $this->loginfd[$frame->fd] = $frame->fd;
-                  $this->wsclient[$frame->fd] = $frame->fd;
-               
+                $this->loginfd[$frame->fd] = $frame->fd;
+                $this->wsclient[$frame->fd] = $frame->fd;
+                $uid = M("modelsocket", "im")->login($frame->fd, $redata['data'], $this->http);
+                $this->loginuser($ws, $frame->fd, $uid);
                 break;
               case 'msg':
                 //全部转发给admin用户
-                // $userid=M("modelsocket", "im")->getuid();
+              
                 $wsadmin =   M("modelsocket", "im")->getadminfds();
                 // d($wsadmin);
                 foreach ($wsadmin as $fd) {
-                  $ws->push($fd, $frame->data);
+                  // $ws->push($fd, $frame->data);
+                  $this->send($ws, $fd, $frame->data);
                 }
                 echo "Received message: {$frame->data}\n";
                 break;
               case 'adminmsg':
-                
+
                 // $userid=M("modelsocket", "im")->getuid();
-                $touid=$redata['data']["touid"];
-                if(!$touid){
+                $touid = $redata['data']["touid"];
+                if (!$touid) {
                   d("未知接收用户");
                 }
                 $wsclient =   M("modelsocket", "im")->getclientfds($touid);
-              //  d($wsclient);
-             
+                //  d($wsclient);
+
                 foreach ($wsclient as $fd) {
                   //转发给对应用户
-                  $ws->push($fd, $frame->data);
+                  // $ws->push($fd, $frame->data);
+                  $this->send($ws, $fd, $frame->data);
                 }
                 echo "Received message: {$frame->data}\n";
                 break;
@@ -108,12 +111,12 @@ $this->port = $port;
                 break;
               default:
                 //关闭连接
-                 $ws->close($frame->fd);
+                $ws->close($frame->fd);
                 break;;
             }
           }
         }
-       
+
         // d($ws);
         // $ws->push($frame->fd, "Server: " . $frame->data);
       }
@@ -121,7 +124,7 @@ $this->port = $port;
       //恢复消息
 
     });
-   
+
     //断开连接
     $this->http->on('close', function ($ws, $fd) {
       // 从客户端列表中删除断开连接的客户端
@@ -137,10 +140,19 @@ $this->port = $port;
       }
       M("modelsocket", "im")->loginout($fd);
     });
-    $this->http->on('start', function ( $server) {
+    $this->http->on('start', function ($server) {
       echo "IM服务启动成功， 端口 {$this->port}\n";
     });
     $this->http->start();
-    
+  }
+  function send($ws, $fd, $data){
+    $ws->push($fd, $data);
+  }
+  function loginuser($ws, $fd, $uid){
+    $data=[
+      "action"=>"login",
+      "data"=>$uid,
+    ];
+    $ws->push($fd, $data);
   }
 }

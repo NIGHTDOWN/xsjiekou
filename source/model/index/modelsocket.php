@@ -69,7 +69,7 @@ class modelsocket extends Y
             $flag = T('sock_client')->add($add);
         }
 
-        return $flag;
+        return $uid;
     }
     //匿名用户插入生成的uid
     public function inanmous($uuid){
