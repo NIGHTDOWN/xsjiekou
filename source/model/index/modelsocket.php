@@ -37,6 +37,11 @@ class modelsocket extends Y
         if (!$fd) return false;
         if (!$data) return false;
         if (!isset($data['uid'])) return false;
+        //从fd获取客户端ip以及端口
+        // $ip = $this->http->getClientInfo($fd)['remote_ip'];
+        // $port = $this->http->getClientInfo($fd)['remote_port'];
+        d($fd);
+        d($data);
         $add = [];
         $add['type'] = 0;
         $add['uname'] = $data['uid'];
