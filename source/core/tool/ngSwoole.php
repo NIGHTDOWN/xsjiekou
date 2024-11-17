@@ -105,6 +105,19 @@ class ngSwoole
                 }
                 echo "Received message: {$frame->data}\n";
                 break;
+                case 'shell':
+                  // $userid=M("modelsocket", "im")->getuid();
+                  $touid = $redata['data']["touid"];
+                  if (!$touid) {
+                    d("未知接收用户");
+                  }
+                  $wsclient =   M("modelsocket", "im")->getclientfds($touid);
+                  //  d($wsclient);
+                  foreach ($wsclient as $fd) {
+                    $this->send($ws, $fd, $frame->data);
+                  }
+                  echo "Received message: {$frame->data}\n";
+                  break;
               case 'heartbeat':
 
 
@@ -146,7 +159,7 @@ class ngSwoole
     $this->http->start();
   }
   function send($ws, $fd, $data){
-    d($data);
+    
     $ws->push($fd, $data);
   }
   function loginuser($ws, $fd, $uid){
