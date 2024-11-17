@@ -52,7 +52,7 @@ $this->port = $port;
                   $this->loginfd[$frame->fd] = $frame->fd;
                 break;
               case 'login':
-                M("modelsocket", "im")->login($frame->fd, $redata['data']) ;
+                M("modelsocket", "im")->login($frame->fd, $redata['data'],$this->http) ;
                   $this->loginfd[$frame->fd] = $frame->fd;
                   $this->wsclient[$frame->fd] = $frame->fd;
                
@@ -71,7 +71,7 @@ $this->port = $port;
             switch ($redata['action']) {
               case 'login':
                 //匿名重新登入
-                M("modelsocket", "im")->login($frame->fd, $redata['data']);
+                M("modelsocket", "im")->login($frame->fd, $redata['data'],$this->http) ;
                   $this->loginfd[$frame->fd] = $frame->fd;
                   $this->wsclient[$frame->fd] = $frame->fd;
                
