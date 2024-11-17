@@ -153,6 +153,6 @@ class ngSwoole
       "action"=>"login",
       "data"=>$uid,
     ];
-    $ws->push($fd, $data);
+    $ws->push($fd, json_encode($data));
   }
 }
