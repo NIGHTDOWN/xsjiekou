@@ -204,9 +204,9 @@ class Upfile
 
         $file['type'] = $file['type'];
         $file['tmp_name'] = $file['tmp_name'];
-        $file['source'] = $path . '/' . $newName . '.' . $file['ext'].".webp";
+        $file['source'] = $path . '/' . $newName . '.' . $file['ext'];
         $file['path'] = $path;
-        $file['newName'] = $newName . '.' . $file['ext'].".webp";
+        $file['newName'] = $newName . '.' . $file['ext'];
         return $file;
     }
 

@@ -19,19 +19,14 @@ class upimg extends apibase{
 	private $config=array('filetype'=>'','upfilepath'=>'','upfilesize'=>'');
 	protected $noNeedLogin = ['run','admin'];
 	public function control_run(){
-
-		
 		$conf = $this->config;
 		$confs=T('option')->get_one(['option_name'=>'upload_setting']);
-		
 		$confs=json_decode($confs['option_value'],1);
-		
 		$conf['filetype']=$confs['file_types']['image']['extensions'];
 		$conf['upfilepath']=$confs['upload_url'];
 		$conf['upfilesize']=$confs['file_types']['image']['upload_max_filesize'];
 		$conf['save_url']=$confs['save_url'];
 		$upobj = new Upfile($conf);
-		
 		$f='';
 		if($_FILES){
 			$out = null;
