@@ -52,27 +52,35 @@ class daoClass
         $this->alias = $dbconf;
         $this->debug = G_DB_DEBUG;
         $dbs = Option::get('db');
-        if (isset($dbs[$dbconf])) {
-            $conf = $dbs[$dbconf];
-            $this->dbqz = $conf['dbpre'];
-            try {
-                if(SQL_CONNECT_TYPE==1){
-//连接sql pool
-                $poolconf= Option::get('pool');
-                $this->_db =new SocketClient( $poolconf['ip'], $poolconf['port']);
-                }else{
-                  $this->_db = new Dbsql($conf['dbhost'], $conf['dbuser'], $conf['dbpwd'], $conf['dbname'], $conf['charset']) or error(__('数据库配置不存在'));
+        if($dbconf){
+            if (isset($dbs[$dbconf])) {
+                $conf = $dbs[$dbconf];
+                $this->dbqz = $conf['dbpre'];
+                try {
+                    if(SQL_CONNECT_TYPE==1){
+                    //连接sql pool
+                    $poolconf= Option::get('pool');
+                    $this->_db =new SocketClient( $poolconf['ip'], $poolconf['port']);
+                    }else{
+                      $this->_db = new Dbsql($conf['dbhost'], $conf['dbuser'], $conf['dbpwd'], $conf['dbname'], $conf['charset']) or error(__('数据库配置不存在'));
+                    }
+                    //code...
+                } catch (\Throwable $th) {
+                    //throw $th;
+                    error(__('数据库连接失败/或者超时'));
                 }
-                //code...
-            } catch (\Throwable $th) {
-                //throw $th;
-                error(__('数据库连接失败/或者超时'));
+            } else {
+                error(__('数据库配置不存在'));
             }
-        } else {
-            error(__('数据库配置不存在'));
+        }else{
+            $this->_db = new XDbsql();
         }
+       
     }
-
+    //注入数据库连接---适用连接池；非一进入就初始化db
+    public function injectdb(){
+        $this->_db->injectdb($this->_db);
+    }
     /**
      * 初始化表模型
      * @param string $table

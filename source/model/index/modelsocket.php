@@ -3,12 +3,13 @@
 namespace ng169\model\index;
 
 use ng169\lib\Log;
+use ng169\model\XModel;
 use ng169\tool\Out;
 use ng169\Y;
 
 checktop();
 
-class modelsocket extends Y
+class modelsocket extends XModel
 {
     public function isonlie($fd) {}
     public function loginadmin($fd, $data)

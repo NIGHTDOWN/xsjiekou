@@ -5,33 +5,14 @@ namespace ng169\db;
 use \ng169\Y;
 use \PDO;
 
-class Dbsql
+class XDbsql
 {
     public $querynum = 0;
     public $link;
     public $charset;
-    public function __construct($dbhost, $dbuser, $dbpw, $dbname = '', $dbcharset =
-    'utf8', $pconnect = 1, $halt = true)
+    public function __construct()
     {
-        $dsn = G_DB_TYPE . ":host=$dbhost;dbname=$dbname;charset=$dbcharset";
-        try {
-            /* $this->link = new PDO($dsn, $dbuser, $dbpw,
-            array(PDO::ATTR_PERSISTENT=> true)); */
-           d("3333333");
-            $this->link = new PDO($dsn, $dbuser, $dbpw, array(
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_TIMEOUT => 3,
-                // PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                PDO::ATTR_PERSISTENT=> true
-            ));
-            if (PHP_SAPI == 'cli') {
-              
-                $query = $this->link->prepare("set session wait_timeout=31536000,interactive_timeout=31536000,net_read_timeout=10000");
-                $query->execute();
-            }
-        } catch (\Exception $e) {
-            error("Unable to connect: " . $e->getMessage());
-        }
+       
     }
     public function injectdb($db){
         $this->link=$db;
