@@ -208,7 +208,7 @@ class ngSwoole
   public function loginout($fd){
     \go(function () use ($fd) {
       $db = $this->getDb();
-      $user = M("modelsocket", "im")->loginout($db);
+      $user = M("modelsocket", "im")->loginout($db,$fd);
       $this->releaseDb($db);
     });
   }
