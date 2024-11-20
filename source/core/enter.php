@@ -19,6 +19,7 @@ function getip()
  */
 function im($F_file)
 {
+    d($F_file);
     if (file_exists($F_file)) {
 
         return require_once $F_file;
