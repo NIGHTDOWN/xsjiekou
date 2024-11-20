@@ -209,13 +209,14 @@ class ngSwoole
     \go(function () use ($fd) {
       $db = $this->getDb();
       $user = M("modelsocket", "im")->loginout($db);
+      $this->releaseDb($db);
     });
   }
   public function loginadmin($fd, $data){
     \go(function () use ($fd, $data) {
       $db = $this->getDb();
       $user = M("modelsocket", "im")->loginadmin($db,$fd, $data);
-      d($user);
+      $this->releaseDb($db);
     });
   }
   public function login($fd, $data){
@@ -223,6 +224,7 @@ class ngSwoole
       $db = $this->getDb();
       $uid = M("modelsocket", "im")->login($db,$fd, $data,$this->http);
       $this->loginuser($this->ws, $fd, $uid);
+      $this->releaseDb($db);
     });
   }
   public function getadminfds($fd, $data){
@@ -234,16 +236,18 @@ class ngSwoole
         // $ws->push($fd, $frame->data);
         $this->send($this->ws, $tfd, $data);
       }
+      $this->releaseDb($db);
     });
   }
   public function getclientfds($tuid, $data){
     \go(function () use ($tuid, $data) {
       $db = $this->getDb();
-      $wsadmin = M("modelsocket", "im")->getclientfds($tuid);
+      $wsadmin = M("modelsocket", "im")->getclientfds($db,$tuid);
       foreach ($wsadmin as $tfd) {
-        // $ws->push($fd, $frame->data);
+        
         $this->send($this->ws, $tfd, $data);
       }
+      $this->releaseDb($db);
     });
   }
 }
