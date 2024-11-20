@@ -3,12 +3,12 @@
 namespace ng169\model\index;
 
 use ng169\lib\Log;
-use ng169\model\XModel;
+use ng169\model\Xmodel;
 use ng169\tool\Out;
 use ng169\Y;
 checktop();
 
-class modelsocket extends XModel
+class modelsocket extends Xmodel
 {
     public function isonlie($fd) {}
     public function loginadmin(&$db,$fd, $data)
@@ -24,7 +24,7 @@ class modelsocket extends XModel
         $add['addtime'] = time();
         //判断resource是否存在；不存在就添加；存在就修改
         $w = ['resource' => $fd];
-        $model = new XModel('sock_client');
+        $model = new Xmodel('sock_client');
         $model=$model->injectdb($db);
         $info = $model->get_one($w);
         if ($info) {
@@ -64,7 +64,7 @@ class modelsocket extends XModel
         $add['addtime'] = time();
         //判断resource是否存在；不存在就添加；存在就修改
         $w = ['resource' => $fd];
-        $model = new XModel('sock_client');
+        $model = new Xmodel('sock_client');
         $model=$model->injectdb($db);
         $info = $model->get_one($w);
         if ($info) {
@@ -80,7 +80,7 @@ class modelsocket extends XModel
     {
         //判断是否存在
         $w = ['uuid' => $uuid];
-        $model = new XModel('anmous');
+        $model = new Xmodel('anmous');
         $model=$model->injectdb($db);
         $info = $model->set_field("uid")->get_one($w);
         if ($info) {
@@ -95,7 +95,7 @@ class modelsocket extends XModel
     public function getuid(&$db,$fd)
     {
         $w = ['resource' => $fd];
-        $model = new XModel('sock_client');
+        $model = new Xmodel('sock_client');
         $model=$model->injectdb($db);
         $info =  $model->get_all($w);
         return $info['uname'];
@@ -103,7 +103,7 @@ class modelsocket extends XModel
     public function getadminfds(&$db)
     {
         $w = ['type' => 0, "online" => 1];
-        $model = new XModel('sock_client');
+        $model = new Xmodel('sock_client');
         $model=$model->injectdb($db);
         $info =  $model->get_all($w);
         $adminids = array_column($info, 'resource');
@@ -112,7 +112,7 @@ class modelsocket extends XModel
     public function getclientfds(&$db,$uid)
     {
         $w = ['type' => [1, 2], "online" => 1, "uname" => $uid];
-        $model = new XModel('sock_client');
+        $model = new Xmodel('sock_client');
         $model=$model->injectdb($db);
         $info =  $model->get_all($w);
         $ids = array_column($info, 'resource');
@@ -124,7 +124,7 @@ class modelsocket extends XModel
         $add = [];
         $add['online'] = 0;
         $w = ['resource' => $fd];
-        $model = new XModel('sock_client');
+        $model = new Xmodel('sock_client');
         $model=$model->injectdb($db);
         $flag = $model->update($add, $w);
         return $flag;

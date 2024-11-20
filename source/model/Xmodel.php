@@ -7,7 +7,7 @@ use ng169\Y;
 
 checktop();
 
-class XModel extends Y
+class Xmodel extends Y
 {
     private $t;
     public $table;
