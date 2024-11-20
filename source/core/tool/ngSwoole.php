@@ -82,7 +82,7 @@ class ngSwoole
                 $this->login($frame->fd, $redata['data']);
                 break;
               case 'active':
-                $checkfd=$frame->data['data']; //通过发消息给；如果消息成功表示在线；不在表示不在线；
+                $checkfd=$redata['data']; //通过发消息给；如果消息成功表示在线；不在表示不在线；
                 try {
                   $this->send($ws, $checkfd, $checkfd);
                   $this->send($ws, $frame->fd, $checkfd);//回复管理员在线
