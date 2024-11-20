@@ -69,8 +69,10 @@ class modelsocket extends Xmodel
         $info = $model->get_one($w);
         if ($info) {
             $flag = $model->update($add, $w);
+            $add["id"]=$info["id"];
         } else {
             $flag = $model->add($add);
+            $add["id"]=$flag;
         }
 
         return $add;
