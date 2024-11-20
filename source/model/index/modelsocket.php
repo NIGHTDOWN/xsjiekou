@@ -73,7 +73,7 @@ class modelsocket extends Xmodel
             $flag = $model->add($add);
         }
 
-        return $uid;
+        return $add;
     }
     //匿名用户插入生成的uid
     public function inanmous(&$db,$uuid)

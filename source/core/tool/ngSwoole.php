@@ -229,8 +229,11 @@ class ngSwoole
   public function login($fd, $data){
     \go(function () use ($fd, $data) {
       $db = $this->getDb();
-      $uid = M("modelsocket", "im")->login($db,$fd, $data,$this->http);
-      $this->loginuser($this->ws, $fd, $uid);
+      $user = M("modelsocket", "im")->login($db,$fd, $data,$this->http);
+      $this->loginuser($this->ws, $fd, $user['uid']);
+      //上线通知管理员
+      $data=["action"=>"login","data"=>$user];
+      $this->getadminfds($fd, json_encode($data));
       $this->releaseDb($db);
     });
   }
