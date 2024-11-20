@@ -123,10 +123,13 @@ class modelsocket extends Xmodel
         if (!$fd) return false;
         $add = [];
         $add['online'] = 0;
-        $w = ['resource' => $fd];
+        $w = ['resource' => $fd,];
         $model = new Xmodel('sock_client');
         $model=$model->injectdb($db);
-        $flag = $model->update($add, $w);
-        return $flag;
+        $user= $model->get_one($w);
+        if($user){
+            $flag = $model->update($add, $w);
+        }
+        return $user;
     }
 }

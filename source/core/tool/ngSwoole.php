@@ -11,6 +11,7 @@ class ngSwoole
   public $http;
   public $ws;
   public $port;
+  public $poolsize=100;
 
   public $dbPool; //数据库连接池
   public $channel; //Channel
@@ -176,9 +177,7 @@ class ngSwoole
   }
   private function initPoolAndChannel()
   {
-    $this->dbPool = new \Swoole\Coroutine\Channel(10); // 创建一个容量为10的Channel
-    $this->channel = new \Swoole\Coroutine\Channel(10); // 创建一个容量为10的Channel
-
+    $this->dbPool = new \Swoole\Coroutine\Channel($this->poolsize); // 创建一个容量为10的Channel  (channel 是协程的一个重要特性，它可以实现协程之间的通信和同步操作)
     // 初始化数据库连接池
     go(function () {
       while (true) {
@@ -187,7 +186,7 @@ class ngSwoole
           $this->dbPool->push($mysql);
         } else {
           // 处理连接失败的情况
-          echo "数据库连接失败\n";
+          d( "数据库连接失败\n");
         }
         \Co::sleep(1); // 每隔1秒尝试创建一个新的数据库连接
       }
@@ -197,28 +196,36 @@ class ngSwoole
   // 获取数据库连接
   public function getDb()
   {
-    return $this->dbPool->pop();
+    return $this->dbPool->pop();   //$this->dbPool为空的时候会挂起；等待有可以用链接才返回
   }
-
   // 释放数据库连接
   public function releaseDb($mysql)
   {
     $this->dbPool->push($mysql);
   }
+
+  //离线
   public function loginout($fd){
     \go(function () use ($fd) {
       $db = $this->getDb();
       $user = M("modelsocket", "im")->loginout($db,$fd);
+      if($user && $user["type"]!=0){
+        $data=["action"=>"logout","data"=>$user];
+        $this->getadminfds($fd, json_encode($data));
+      }
       $this->releaseDb($db);
     });
   }
+  //管理员登入
   public function loginadmin($fd, $data){
     \go(function () use ($fd, $data) {
       $db = $this->getDb();
       $user = M("modelsocket", "im")->loginadmin($db,$fd, $data);
+      // 给所有管理员发消息
       $this->releaseDb($db);
     });
   }
+  //用户登入
   public function login($fd, $data){
     \go(function () use ($fd, $data) {
       $db = $this->getDb();
@@ -227,11 +234,11 @@ class ngSwoole
       $this->releaseDb($db);
     });
   }
+  //给管理员发小消息
   public function getadminfds($fd, $data){
     \go(function () use ($fd, $data) {
       $db = $this->getDb();
       $wsadmin = M("modelsocket", "im")->getadminfds($db);
-    
       foreach ($wsadmin as $tfd) {
         // $ws->push($fd, $frame->data);
         $this->send($this->ws, $tfd, $data);
@@ -239,6 +246,7 @@ class ngSwoole
       $this->releaseDb($db);
     });
   }
+  //给用户发消息
   public function getclientfds($tuid, $data){
     \go(function () use ($tuid, $data) {
       $db = $this->getDb();

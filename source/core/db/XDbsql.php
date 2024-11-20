@@ -25,10 +25,10 @@ class XDbsql
            
         
             $link = new PDO($dsn, $dbuser, $dbpw, array(
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_TIMEOUT => 3,
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,// 异常模式
+                PDO::ATTR_TIMEOUT => 3,// 超时时间
                 // PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                PDO::ATTR_PERSISTENT=> true
+                PDO::ATTR_PERSISTENT=> true // 持久连接
             ));
             return $link;
         } catch (\Exception $e) {
