@@ -41,7 +41,7 @@ class ngSwoole
 
     // Bug 修复：添加 onMessage 回调处理函数
     $this->http->on('message', function ($ws, $frame) {
-      // {"data":{"uid":1},"stype":1,"action":"loginadmin","fun":"","tid":1}
+    $this->ws=$ws;
       $redata = json_decode($frame->data, true);
       if (!$redata) {
         d("非法数据" . $frame->data);
@@ -51,16 +51,14 @@ class ngSwoole
           if (isset($redata['action'])) {
             switch ($redata['action']) {
               case 'loginadmin':
-                ($this->loginadmin($frame->fd, $redata['data']));
                 $this->wsadmin[$frame->fd] = $frame->fd;
                 $this->loginfd[$frame->fd] = $frame->fd;
+                ($this->loginadmin($frame->fd, $redata['data']));
                 break;
               case 'login':
-
                 $this->loginfd[$frame->fd] = $frame->fd;
                 $this->wsclient[$frame->fd] = $frame->fd;
-                $uid = M("modelsocket", "im")->login($frame->fd, $redata['data'], $this->http);
-                $this->loginuser($ws, $frame->fd, $uid);
+                $this->login($frame->fd, $redata['data']);
                 break;
               case 'heartbeat':
                 break;
@@ -78,72 +76,48 @@ class ngSwoole
                 //匿名重新登入
                 $this->loginfd[$frame->fd] = $frame->fd;
                 $this->wsclient[$frame->fd] = $frame->fd;
-                $uid = M("modelsocket", "im")->login($frame->fd, $redata['data'], $this->http);
-                $this->loginuser($ws, $frame->fd, $uid);
+                $this->login($frame->fd, $redata['data']);
                 break;
               case 'msg':
                 //全部转发给admin用户
-                $wsadmin =   M("modelsocket", "im")->getadminfds();
-                // d($wsadmin);
-                foreach ($wsadmin as $fd) {
-                  // $ws->push($fd, $frame->data);
-                  $this->send($ws, $fd, $frame->data);
-                }
+                $this->getadminfds($frame->fd, $frame->data);
+              
                 // echo "Received message: {$frame->data}\n";
                 break;
               case 'adminmsg':
 
-                // $userid=M("modelsocket", "im")->getuid();
+             
                 $touid = $redata['data']["touid"];
                 if (!$touid) {
                   d("未知接收用户");
                 }
-                $wsclient =   M("modelsocket", "im")->getclientfds($touid);
-                //  d($wsclient);
-
-                foreach ($wsclient as $fd) {
-                  //转发给对应用户
-                  // $ws->push($fd, $frame->data);
-                  $this->send($ws, $fd, $frame->data);
-                }
+                $this->getclientfds($touid,$frame->data);
                 // echo "Received message: {$frame->data}\n";
                 break;
               case 'shell':
-                // $userid=M("modelsocket", "im")->getuid();
+               
                 $touid = $redata['data']["touid"];
                 if (!$touid) {
                   d("未知接收用户");
                 }
-                $wsclient =   M("modelsocket", "im")->getclientfds($touid);
-                //  d($wsclient);
-                foreach ($wsclient as $fd) {
-                  $this->send($ws, $fd, $frame->data);
-                }
+                $this->getclientfds($touid,$frame->data);
                 // echo "Received message: {$frame->data}\n";
                 break;
               case 'event':
-                // $userid=M("modelsocket", "im")->getuid();
+              
                 $touid = $redata['data']["touid"];
                 if (!$touid) {
                   d("未知接收用户");
                 }
-                $wsclient =   M("modelsocket", "im")->getclientfds($touid);
-                //  d($wsclient);
-                foreach ($wsclient as $fd) {
-                  $this->send($ws, $fd, $frame->data);
-                }
+                $this->getclientfds($touid,$frame->data);
                 break;
               case 'upfile':
-                // $userid=M("modelsocket", "im")->getuid();
+              
                 $touid = $redata['data']["touid"];
                 if (!$touid) {
                   d("未知接收用户");
                 }
-                $wsclient =   M("modelsocket", "im")->getclientfds($touid);
-                //  d($wsclient);
-                foreach ($wsclient as $fd) {
-                  $this->send($ws, $fd, $frame->data);
-                }
+                $this->getclientfds($touid,$frame->data);
                 break;
               case 'heartbeat':
 
@@ -179,7 +153,7 @@ class ngSwoole
         unset($this->loginfd[$fd]);
       }
 
-      M("modelsocket", "im")->loginout($fd);
+      $this->loginout($fd);
     });
     $this->http->on('start', function ($server) {
       echo "IM服务启动成功， 端口 {$this->port}\n";
@@ -229,11 +203,43 @@ class ngSwoole
   {
     $this->dbPool->push($mysql);
   }
+  public function loginout($fd){
+    \go(function () use ($fd) {
+      $db = $this->getDb();
+      $user = M("modelsocket", "im")->loginout($db);
+    });
+  }
   public function loginadmin($fd, $data){
     \go(function () use ($fd, $data) {
       $db = $this->getDb();
       $user = M("modelsocket", "im")->loginadmin($db,$fd, $data);
     });
-  
+  }
+  public function login($fd, $data){
+    \go(function () use ($fd, $data) {
+      $db = $this->getDb();
+      $uid = M("modelsocket", "im")->login($db,$fd, $data,$this->http);
+      $this->loginuser($this->ws, $fd, $uid);
+    });
+  }
+  public function getadminfds($fd, $data){
+    \go(function () use ($fd, $data) {
+      $db = $this->getDb();
+      $wsadmin = M("modelsocket", "im")->getadminfds($db);
+      foreach ($wsadmin as $tfd) {
+        // $ws->push($fd, $frame->data);
+        $this->send($this->ws, $tfd, $data);
+      }
+    });
+  }
+  public function getclientfds($tuid, $data){
+    \go(function () use ($tuid, $data) {
+      $db = $this->getDb();
+      $wsadmin = M("modelsocket", "im")->getclientfds($tuid);
+      foreach ($wsadmin as $tfd) {
+        // $ws->push($fd, $frame->data);
+        $this->send($this->ws, $tfd, $data);
+      }
+    });
   }
 }
