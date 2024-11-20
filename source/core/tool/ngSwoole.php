@@ -83,13 +83,14 @@ class ngSwoole
                 break;
               case 'active':
                 $checkfd=$redata['data']; //通过发消息给；如果消息成功表示在线；不在表示不在线；
-                try {
-                  $this->send($ws, $checkfd, $frame->data);
-                  $this->send($ws, $frame->fd, $frame->data);//回复管理员在线
-                } catch (\Throwable $th) {
+                if (!$ws->exist($checkfd)) {
                   $ws->close($checkfd);
                   $this->loginout($checkfd); // 下线处理
                 }
+                else {
+                  $this->send($ws, $checkfd, $frame->data);
+                  $this->send($ws, $frame->fd, $frame->data);//回复管理员在线
+                } 
                 break;
               case 'msg':
                 //全部转发给admin用户
@@ -175,6 +176,12 @@ class ngSwoole
   }
   function send($ws, $fd, $data)
   {
+    // PHP Warning:  Swoole\WebSocket\Server::push(): the connected client of connection[9] is not a websocket client or closed in /d/www/xsjiekou/source/core/tool/ngSwoole.php on line 178
+//捕获这个warn
+    if (!$ws->exist($fd)) {
+      d("用户已离线");
+      return;
+    }
     $ws->push($fd, $data);
   }
   function loginuser($ws, $fd, $uid)
