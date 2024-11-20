@@ -143,7 +143,7 @@ class Xmodel extends Y
 
 
         if ($idArr) {
-
+d($this->table);
             $data = $this->table->w($idArr, $p)->s('1', null, null, $sql);
 
             return $data;
