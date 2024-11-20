@@ -28,7 +28,7 @@ class XDbsql
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,// 异常模式
                 PDO::ATTR_TIMEOUT => 3,// 超时时间
                 // PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                PDO::ATTR_PERSISTENT=> true // 持久连接
+                PDO::ATTR_PERSISTENT=> false // 持久连接
             ));
             return $link;
         } catch (\Exception $e) {

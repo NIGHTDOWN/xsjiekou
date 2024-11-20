@@ -211,16 +211,27 @@ class ngSwoole
   }
 
   // 获取数据库连接
-  public function getDb()
-  {
-    return $this->dbPool->pop();   //$this->dbPool为空的时候会挂起；等待有可以用链接才返回
-  }
+  public function getDb() {
+    $db = $this->dbPool->pop();
+    if (!$db || !$this->checkDbConnection($db)) {
+        // $this->releaseDb($db); // 释放无效的连接
+        $db = daoClass::getdbobj("main");
+    }
+    return $db;
+}
   // 释放数据库连接
   public function releaseDb($mysql)
   {
     $this->dbPool->push($mysql);
   }
-
+  private function checkDbConnection($db) {
+    try {
+        $db->query("SELECT 1");
+        return true;
+    } catch (\PDOException $e) {
+        return false;
+    }
+}
   //离线
   public function loginout($fd)
   {
