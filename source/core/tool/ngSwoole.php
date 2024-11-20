@@ -42,6 +42,8 @@ class ngSwoole
     // Bug 修复：添加 onMessage 回调处理函数
     $this->http->on('message', function ($ws, $frame) {
     $this->ws=$ws;
+    echo "Received message: {$frame->data}\n";
+      // 处理接收到的消息
       $redata = json_decode($frame->data, true);
       if (!$redata) {
         d("非法数据" . $frame->data);
