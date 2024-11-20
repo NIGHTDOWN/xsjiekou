@@ -228,6 +228,7 @@ class ngSwoole
     \go(function () use ($fd, $data) {
       $db = $this->getDb();
       $wsadmin = M("modelsocket", "im")->getadminfds($db);
+      d($wsadmin);
       foreach ($wsadmin as $tfd) {
         // $ws->push($fd, $frame->data);
         $this->send($this->ws, $tfd, $data);
