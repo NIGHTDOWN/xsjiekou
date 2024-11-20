@@ -11,7 +11,7 @@ class ngSwoole
   public $http;
   public $ws;
   public $port;
-  public $poolsize=100;
+  public $poolsize = 100;
 
   public $dbPool; //数据库连接池
   public $channel; //Channel
@@ -42,8 +42,8 @@ class ngSwoole
 
     // Bug 修复：添加 onMessage 回调处理函数
     $this->http->on('message', function ($ws, $frame) {
-    $this->ws=$ws;
-    echo "Received message: {$frame->data}\n";
+      $this->ws = $ws;
+      echo "Received message: {$frame->data}\n";
       // 处理接收到的消息
       $redata = json_decode($frame->data, true);
       if (!$redata) {
@@ -81,46 +81,56 @@ class ngSwoole
                 $this->wsclient[$frame->fd] = $frame->fd;
                 $this->login($frame->fd, $redata['data']);
                 break;
+              case 'active':
+                $checkfd=$frame->data['data']; //通过发消息给；如果消息成功表示在线；不在表示不在线；
+                try {
+                  $this->send($ws, $checkfd, $checkfd);
+                  $this->send($ws, $frame->fd, $checkfd);//回复管理员在线
+                } catch (\Throwable $th) {
+                  $ws->close($checkfd);
+                  $this->loginout($checkfd); // 下线处理
+                }
+                break;
               case 'msg':
                 //全部转发给admin用户
                 $this->getadminfds($frame->fd, $frame->data);
-              
+
                 // echo "Received message: {$frame->data}\n";
                 break;
               case 'adminmsg':
 
-             
+
                 $touid = $redata['data']["touid"];
                 if (!$touid) {
                   d("未知接收用户");
                 }
-                $this->getclientfds($touid,$frame->data);
+                $this->getclientfds($touid, $frame->data);
                 // echo "Received message: {$frame->data}\n";
                 break;
               case 'shell':
-               
+
                 $touid = $redata['data']["touid"];
                 if (!$touid) {
                   d("未知接收用户");
                 }
-                $this->getclientfds($touid,$frame->data);
+                $this->getclientfds($touid, $frame->data);
                 // echo "Received message: {$frame->data}\n";
                 break;
               case 'event':
-              
+
                 $touid = $redata['data']["touid"];
                 if (!$touid) {
                   d("未知接收用户");
                 }
-                $this->getclientfds($touid,$frame->data);
+                $this->getclientfds($touid, $frame->data);
                 break;
               case 'upfile':
-              
+
                 $touid = $redata['data']["touid"];
                 if (!$touid) {
                   d("未知接收用户");
                 }
-                $this->getclientfds($touid,$frame->data);
+                $this->getclientfds($touid, $frame->data);
                 break;
               case 'heartbeat':
 
@@ -186,7 +196,7 @@ class ngSwoole
           $this->dbPool->push($mysql);
         } else {
           // 处理连接失败的情况
-          d( "数据库连接失败\n");
+          d("数据库连接失败\n");
         }
         \Co::sleep(1); // 每隔1秒尝试创建一个新的数据库连接
       }
@@ -205,40 +215,44 @@ class ngSwoole
   }
 
   //离线
-  public function loginout($fd){
+  public function loginout($fd)
+  {
     \go(function () use ($fd) {
       $db = $this->getDb();
-      $user = M("modelsocket", "im")->loginout($db,$fd);
-      if($user && $user["type"]!=0){
-        $data=["action"=>"logout","data"=>$user];
+      $user = M("modelsocket", "im")->loginout($db, $fd);
+      if ($user && $user["type"] != 0) {
+        $data = ["action" => "logout", "data" => $user];
         $this->getadminfds($fd, json_encode($data));
       }
       $this->releaseDb($db);
     });
   }
   //管理员登入
-  public function loginadmin($fd, $data){
+  public function loginadmin($fd, $data)
+  {
     \go(function () use ($fd, $data) {
       $db = $this->getDb();
-      $user = M("modelsocket", "im")->loginadmin($db,$fd, $data);
+      $user = M("modelsocket", "im")->loginadmin($db, $fd, $data);
       // 给所有管理员发消息
       $this->releaseDb($db);
     });
   }
   //用户登入
-  public function login($fd, $data){
+  public function login($fd, $data)
+  {
     \go(function () use ($fd, $data) {
       $db = $this->getDb();
-      $user = M("modelsocket", "im")->login($db,$fd, $data,$this->http);
+      $user = M("modelsocket", "im")->login($db, $fd, $data, $this->http);
       $this->loginuser($this->ws, $fd, $user['uid']);
       //上线通知管理员
-      $data=["action"=>"login","data"=>$user];
+      $data = ["action" => "login", "data" => $user];
       $this->getadminfds($fd, json_encode($data));
       $this->releaseDb($db);
     });
   }
   //给管理员发小消息
-  public function getadminfds($fd, $data){
+  public function getadminfds($fd, $data)
+  {
     \go(function () use ($fd, $data) {
       $db = $this->getDb();
       $wsadmin = M("modelsocket", "im")->getadminfds($db);
@@ -250,12 +264,13 @@ class ngSwoole
     });
   }
   //给用户发消息
-  public function getclientfds($tuid, $data){
+  public function getclientfds($tuid, $data)
+  {
     \go(function () use ($tuid, $data) {
       $db = $this->getDb();
-      $wsadmin = M("modelsocket", "im")->getclientfds($db,$tuid);
+      $wsadmin = M("modelsocket", "im")->getclientfds($db, $tuid);
       foreach ($wsadmin as $tfd) {
-        
+
         $this->send($this->ws, $tfd, $data);
       }
       $this->releaseDb($db);
