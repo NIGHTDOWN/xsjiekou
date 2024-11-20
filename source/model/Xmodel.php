@@ -17,7 +17,7 @@ class Xmodel extends Y
         $this->table = $this->dbdao->injectdb($db);
         return $this;
     }
-    public function __construct($table, $filedar = null)
+    public function __construct($table=null, $filedar = null)
     {
 
         $this->t = $table;
