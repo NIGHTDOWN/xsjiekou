@@ -17,6 +17,24 @@ class XDbsql
     public function injectdb($db){
         $this->link=$db;
     }
+    public function getdb($dbhost, $dbuser, $dbpw, $dbname = '', $dbcharset =
+    'utf8', $pconnect = 1, $halt = true)
+    {
+        $dsn = G_DB_TYPE . ":host=$dbhost;dbname=$dbname;charset=$dbcharset";
+        try {
+           
+        
+            $link = new PDO($dsn, $dbuser, $dbpw, array(
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_TIMEOUT => 3,
+                // PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_PERSISTENT=> true
+            ));
+            return $link;
+        } catch (\Exception $e) {
+            error("Unable to connect: " . $e->getMessage());
+        }
+    }
     /**
      * 执行查询
      * @param string $sql

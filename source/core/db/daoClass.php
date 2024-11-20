@@ -77,6 +77,27 @@ class daoClass
         }
        
     }
+      public static function getdbobj($dbconf = 'main')
+    {
+        $dbs = Option::get('db');
+        if($dbconf){
+            if (isset($dbs[$dbconf])) {
+                $conf = $dbs[$dbconf];
+                try {
+                      $XDbsql = new XDbsql();
+                      $dbobj = $XDbsql ->getdb($conf['dbhost'], $conf['dbuser'], $conf['dbpwd'], $conf['dbname'], $conf['charset']) or error(__('数据库配置不存在'));
+                   return $dbobj;
+                    //code...
+                } catch (\Throwable $th) {
+                    //throw $th;
+                    error(__('数据库连接失败/或者超时'));
+                }
+            } else {
+                error(__('数据库配置不存在'));
+            }
+        }
+       
+    }
     //注入数据库连接---适用连接池；非一进入就初始化db
     public function injectdb(){
         $this->_db->injectdb($this->_db);

@@ -2,7 +2,7 @@
 
 namespace ng169\tool;
 
-
+use ng169\db\daoClass;
 use Swoole\WebSocket\Server;
 
 class ngSwoole
@@ -36,8 +36,8 @@ class ngSwoole
       }
       $response->end("Welcome to WebSocket chat room!");
     });
- // 初始化数据库连接池和Channel
- $this->initPoolAndChannel();
+    // 初始化数据库连接池和Channel
+    $this->initPoolAndChannel();
 
     // Bug 修复：添加 onMessage 回调处理函数
     $this->http->on('message', function ($ws, $frame) {
@@ -188,7 +188,6 @@ class ngSwoole
   }
   function send($ws, $fd, $data)
   {
-
     $ws->push($fd, $data);
   }
   function loginuser($ws, $fd, $uid)
@@ -201,41 +200,33 @@ class ngSwoole
   }
   private function initPoolAndChannel()
   {
-      $this->dbPool = new \Swoole\Coroutine\Channel(10); // 创建一个容量为10的Channel
-      $this->channel = new \Swoole\Coroutine\Channel(10); // 创建一个容量为10的Channel
+    $this->dbPool = new \Swoole\Coroutine\Channel(10); // 创建一个容量为10的Channel
+    $this->channel = new \Swoole\Coroutine\Channel(10); // 创建一个容量为10的Channel
 
-      // 初始化数据库连接池
-      go(function () {
-          while (true) {
-              $mysql = new MySQL();
-              $connected = $mysql->connect([
-                  'host' => '127.0.0.1',
-                  'port' => 3306,
-                  'user' => 'root',
-                  'password' => 'password',
-                  'database' => 'database_name',
-                  'timeout' => 2,
-              ]);
-              if ($connected) {
-                  $this->dbPool->push($mysql);
-              } else {
-                  // 处理连接失败的情况
-                  echo "数据库连接失败\n";
-              }
-              Co::sleep(1); // 每隔1秒尝试创建一个新的数据库连接
-          }
-      });
+    // 初始化数据库连接池
+    go(function () {
+      while (true) {
+        $mysql = daoClass::getdbobj("main");
+        if ($mysql) {
+          $this->dbPool->push($mysql);
+        } else {
+          // 处理连接失败的情况
+          echo "数据库连接失败\n";
+        }
+        Co::sleep(1); // 每隔1秒尝试创建一个新的数据库连接
+      }
+    });
   }
 
   // 获取数据库连接
   public function getDb()
   {
-      return $this->dbPool->pop();
+    return $this->dbPool->pop();
   }
 
   // 释放数据库连接
   public function releaseDb($mysql)
   {
-      $this->dbPool->push($mysql);
+    $this->dbPool->push($mysql);
   }
 }
