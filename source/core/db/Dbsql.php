@@ -17,7 +17,7 @@ class Dbsql
         try {
             /* $this->link = new PDO($dsn, $dbuser, $dbpw,
             array(PDO::ATTR_PERSISTENT=> true)); */
-           d("3333333");
+         
             $this->link = new PDO($dsn, $dbuser, $dbpw, array(
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_TIMEOUT => 3,
