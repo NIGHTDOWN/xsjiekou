@@ -12,9 +12,10 @@ class XModel extends Y
     private $t;
     public $table;
     private $dbdao;
-    public function injectdb($db)
+    public function injectdb(&$db)
     {
         $this->table = $this->dbdao->injectdb($db);
+        return $this;
     }
     public function __construct($table, $filedar = null)
     {
@@ -26,7 +27,8 @@ class XModel extends Y
     }
     public function addid($inArr, $auto = 1)
     {
-        $ids = T($this->t)->set_field('id')->order_by(['s' => 'down', 'f' => 'id'])->get_one();
+
+        $ids = $this->table->set_field('id')->order_by(['s' => 'down', 'f' => 'id'])->get_one();
         $id = $ids['id'] + 1;
         $inArr['id'] = $id;
         $f = $this->dbdao->i($this->t, $inArr);

@@ -51,7 +51,7 @@ class ngSwoole
           if (isset($redata['action'])) {
             switch ($redata['action']) {
               case 'loginadmin':
-                (M("modelsocket", "im")->loginadmin($frame->fd, $redata['data']));
+                ($this->loginadmin($frame->fd, $redata['data']));
                 $this->wsadmin[$frame->fd] = $frame->fd;
                 $this->loginfd[$frame->fd] = $frame->fd;
                 break;
@@ -83,7 +83,6 @@ class ngSwoole
                 break;
               case 'msg':
                 //全部转发给admin用户
-
                 $wsadmin =   M("modelsocket", "im")->getadminfds();
                 // d($wsadmin);
                 foreach ($wsadmin as $fd) {
@@ -179,6 +178,7 @@ class ngSwoole
       if (isset($this->loginfd[$fd])) {
         unset($this->loginfd[$fd]);
       }
+
       M("modelsocket", "im")->loginout($fd);
     });
     $this->http->on('start', function ($server) {
@@ -228,5 +228,12 @@ class ngSwoole
   public function releaseDb($mysql)
   {
     $this->dbPool->push($mysql);
+  }
+  public function loginadmin($fd, $data){
+    \go(function () use ($fd, $data) {
+      $db = $this->getDb();
+      $user = M("modelsocket", "im")->loginadmin($db,$fd, $data);
+    });
+  
   }
 }

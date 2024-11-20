@@ -14,7 +14,7 @@ class XDbsql
     {
        
     }
-    public function injectdb($db){
+    public function injectdb(&$db){
         $this->link=$db;
     }
     public function getdb($dbhost, $dbuser, $dbpw, $dbname = '', $dbcharset =

@@ -6,13 +6,12 @@ use ng169\lib\Log;
 use ng169\model\XModel;
 use ng169\tool\Out;
 use ng169\Y;
-
 checktop();
 
 class modelsocket extends XModel
 {
     public function isonlie($fd) {}
-    public function loginadmin($fd, $data)
+    public function loginadmin(&$db,$fd, $data)
     {
         if (!$fd) return false;
         if (!$data) return false;
@@ -25,33 +24,35 @@ class modelsocket extends XModel
         $add['addtime'] = time();
         //判断resource是否存在；不存在就添加；存在就修改
         $w = ['resource' => $fd];
-        $info = T('sock_client')->get_one($w);
+        $model = new XModel('sock_client');
+        $model=$model->injectdb($db);
+        $info = $model->get_one($w);
         if ($info) {
-            $flag = T('sock_client')->update($add, $w);
+            $flag = $model->update($add, $w);
         } else {
-            $flag = T('sock_client')->add($add);
+            $flag = $model->add($add);
         }
         return $flag;
     }
-    public function login($fd, $data,$http=null)
+    public function login(&$db,$fd, $data, $http = null)
     {
         if (!$fd) return false;
         if (!$data) return false;
         if (!isset($data['uid'])) return false;
-      
+
         //从fd获取客户端ip以及端口
         $ip = $http->getClientInfo($fd)['remote_ip'];
         $port = $http->getClientInfo($fd)['remote_port'];
         // $ip = $this->http->getClientInfo($fd)['remote_ip'];
         // $port = $this->http->getClientInfo($fd)['remote_port'];
-       
-        if($data['uid']==0){
+
+        if ($data['uid'] == 0) {
             $uuid = $data['uuid'];
-            $uid = $this->inanmous($uuid);
-            $type=2;
-        }else{
+            $uid = $this->inanmous($db,$uuid);
+            $type = 2;
+        } else {
             $uid = $data['uid'];
-            $type=1;
+            $type = 1;
         }
         $add = [];
         $add['type'] = $type;
@@ -63,57 +64,69 @@ class modelsocket extends XModel
         $add['addtime'] = time();
         //判断resource是否存在；不存在就添加；存在就修改
         $w = ['resource' => $fd];
-        $info = T('sock_client')->get_one($w);
+        $model = new XModel('sock_client');
+        $model=$model->injectdb($db);
+        $info = $model->get_one($w);
         if ($info) {
-            $flag = T('sock_client')->update($add, $w);
+            $flag = $model->update($add, $w);
         } else {
-            $flag = T('sock_client')->add($add);
+            $flag = $model->add($add);
         }
 
         return $uid;
     }
     //匿名用户插入生成的uid
-    public function inanmous($uuid){
+    public function inanmous(&$db,$uuid)
+    {
         //判断是否存在
         $w = ['uuid' => $uuid];
-        $info = T('anmous')->set_field("uid")->get_one($w);
+        $model = new XModel('anmous');
+        $model=$model->injectdb($db);
+        $info = $model->set_field("uid")->get_one($w);
         if ($info) {
             return $info['uid'];
         }
         $add = [];
         $add['uuid'] = $uuid;
         $add['addtime'] = time();
-        $id = T('anmous')->add($add);
+        $id = $model->add($add);
         return $id;
     }
-    public function getuid($fd)
+    public function getuid(&$db,$fd)
     {
         $w = ['resource' => $fd];
-        $info = T('sock_client')->get_one($w);
+        $model = new XModel('sock_client');
+        $model=$model->injectdb($db);
+        $info =  $model->get_all($w);
         return $info['uname'];
     }
-    public function getadminfds()
+    public function getadminfds(&$db)
     {
         $w = ['type' => 0, "online" => 1];
-        $info = T('sock_client')->get_all($w);
+        $model = new XModel('sock_client');
+        $model=$model->injectdb($db);
+        $info =  $model->get_all($w);
         $adminids = array_column($info, 'resource');
         return $adminids;
     }
-    public function getclientfds($uid)
+    public function getclientfds(&$db,$uid)
     {
-        $w = ['type' => [1,2], "online" => 1, "uname" => $uid];
-        $info = T('sock_client')->get_all($w);
+        $w = ['type' => [1, 2], "online" => 1, "uname" => $uid];
+        $model = new XModel('sock_client');
+        $model=$model->injectdb($db);
+        $info =  $model->get_all($w);
         $ids = array_column($info, 'resource');
         return $ids;
     }
-    public function loginout($fd)
+    public function loginout(&$db,$fd)
     {
         if (!$fd) return false;
-
         $add = [];
         $add['online'] = 0;
         $w = ['resource' => $fd];
-        $flag = T('sock_client')->update($add, $w);
+        $model = new XModel('sock_client');
+        $model=$model->injectdb($db);
+        $flag = $model->update($add, $w);
         return $flag;
     }
 }

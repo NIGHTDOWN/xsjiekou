@@ -99,8 +99,8 @@ class daoClass
        
     }
     //注入数据库连接---适用连接池；非一进入就初始化db
-    public function injectdb(){
-        $this->_db->injectdb($this->_db);
+    public function injectdb(&$db){
+        $this->_db->injectdb($db);
     }
     /**
      * 初始化表模型

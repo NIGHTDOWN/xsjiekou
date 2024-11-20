@@ -33,7 +33,7 @@ class Dbsql
             error("Unable to connect: " . $e->getMessage());
         }
     }
-    public function injectdb($db){
+    public function injectdb(&$db){
         $this->link=$db;
     }
     /**
