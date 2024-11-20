@@ -14,7 +14,7 @@ class Xmodel extends Y
     private $dbdao;
     public function injectdb(&$db)
     {
-        $this->table = $this->dbdao->injectdb($db);
+         $this->dbdao->injectdb($db);
         return $this;
     }
     public function __construct($table=null, $filedar = null)
@@ -143,7 +143,7 @@ class Xmodel extends Y
 
 
         if ($idArr) {
-d($this->table);
+
             $data = $this->table->w($idArr, $p)->s('1', null, null, $sql);
 
             return $data;
