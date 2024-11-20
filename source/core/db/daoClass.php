@@ -52,6 +52,10 @@ class daoClass
         $this->alias = $dbconf;
         $this->debug = G_DB_DEBUG;
         $dbs = Option::get('db');
+        if($dbconf=="none"){
+            $this->_db = new XDbsql();
+            return $this;
+        }
         if($dbconf){
             if (isset($dbs[$dbconf])) {
                 $conf = $dbs[$dbconf];
@@ -72,8 +76,6 @@ class daoClass
             } else {
                 error(__('数据库配置不存在'));
             }
-        }else{
-            $this->_db = new XDbsql();
         }
        
     }

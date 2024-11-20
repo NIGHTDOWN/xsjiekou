@@ -21,7 +21,7 @@ class Xmodel extends Y
     {
 
         $this->t = $table;
-        $this->dbdao = new daoClass();
+        $this->dbdao = new daoClass("none");
 
         $this->table = $this->dbdao->t($this->t, $filedar);
     }
