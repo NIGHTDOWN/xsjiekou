@@ -125,6 +125,7 @@ class modelsocket extends Xmodel
         if (!$fd) return false;
         $add = [];
         $add['online'] = 0;
+        $add['outtime'] = time();
         $w = ['resource' => $fd,];
         $model = new Xmodel('sock_client');
         $model=$model->injectdb($db);
