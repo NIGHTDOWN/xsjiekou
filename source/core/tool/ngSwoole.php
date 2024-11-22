@@ -39,13 +39,13 @@ class ngSwoole
     });
     // 初始化数据库连接池和Channel
     $this->initPoolAndChannel();
-    $this->http->set([
-      'worker_num'               => 3,
-      // 表示 10 秒遍历所有连接
-      'heartbeat_check_interval' => 10,
-      // 表示连接最大允许空闲的时间
-      'heartbeat_idle_time'	   => 60,
-  ]);
+  //   $this->http->set([
+  //     'worker_num'               => 3,
+  //     // 表示 10 秒遍历所有连接
+  //     'heartbeat_check_interval' => 10,
+  //     // 表示连接最大允许空闲的时间
+  //     'heartbeat_idle_time'	   => 60,
+  // ]);
     // Bug 修复：添加 onMessage 回调处理函数
     $this->http->on('message', function ($ws, $frame) {
       $this->ws = $ws;
