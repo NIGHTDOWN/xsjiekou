@@ -82,15 +82,15 @@ class ngSwoole
                 $this->login($frame->fd, $redata['data']);
                 break;
               case 'active':
-                $checkfd=$redata['data']; //通过发消息给；如果消息成功表示在线；不在表示不在线；
+                $checkfd = $redata['data']; //通过发消息给；如果消息成功表示在线；不在表示不在线；
                 if (!$ws->exist($checkfd)) {
-                  $ws->close($checkfd);
+
                   $this->loginout($checkfd); // 下线处理
-                }
-                else {
+                } else {
+
                   $this->send($ws, $checkfd, $frame->data);
-                  $this->send($ws, $frame->fd, $frame->data);//回复管理员在线
-                } 
+                  $this->send($ws, $frame->fd, $frame->data); //回复管理员在线
+                }
                 break;
               case 'msg':
                 //全部转发给admin用户
@@ -177,12 +177,30 @@ class ngSwoole
   function send($ws, $fd, $data)
   {
     // PHP Warning:  Swoole\WebSocket\Server::push(): the connected client of connection[9] is not a websocket client or closed in /d/www/xsjiekou/source/core/tool/ngSwoole.php on line 178
-//捕获这个warn
+    //捕获这个warn
     if (!$ws->exist($fd)) {
       d("用户已离线");
       return;
     }
-    $ws->push($fd, $data);
+
+    try {
+      // 尝试向客户端发送数据
+      $ws->push($fd, $data);
+    } catch (\Exception $e) {
+      // 发送失败，可能客户端已断开连接
+      d("发送消息失败，客户端可能已断开连接");
+      $this->loginout($fd);
+      // 从相关列表中移除该客户端
+      if (isset($this->wsclient[$fd])) {
+        unset($this->wsclient[$fd]);
+      }
+      if (isset($this->wsadmin[$fd])) {
+        unset($this->wsadmin[$fd]);
+      }
+      if (isset($this->loginfd[$fd])) {
+        unset($this->loginfd[$fd]);
+      }
+    }
   }
   function loginuser($ws, $fd, $uid)
   {
@@ -211,27 +229,29 @@ class ngSwoole
   }
 
   // 获取数据库连接
-  public function getDb() {
+  public function getDb()
+  {
     $db = $this->dbPool->pop();
     if (!$db || !$this->checkDbConnection($db)) {
-        // $this->releaseDb($db); // 释放无效的连接
-        $db = daoClass::getdbobj("main");
+      // $this->releaseDb($db); // 释放无效的连接
+      $db = daoClass::getdbobj("main");
     }
     return $db;
-}
+  }
   // 释放数据库连接
   public function releaseDb($mysql)
   {
     $this->dbPool->push($mysql);
   }
-  private function checkDbConnection($db) {
+  private function checkDbConnection($db)
+  {
     try {
-        $db->query("SELECT 1");
-        return true;
+      $db->query("SELECT 1");
+      return true;
     } catch (\PDOException $e) {
-        return false;
+      return false;
     }
-}
+  }
   //离线
   public function loginout($fd)
   {
@@ -243,6 +263,7 @@ class ngSwoole
         $this->getadminfds($fd, json_encode($data));
       }
       $this->releaseDb($db);
+      $this->ws->close($fd);
     });
   }
   //管理员登入
