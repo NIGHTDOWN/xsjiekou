@@ -185,7 +185,23 @@ class ngSwoole
 
     try {
       // 尝试向客户端发送数据
-      $ws->push($fd, $data);
+      $result =$ws->push($fd, $data);
+      d($result);
+      if ($result === false) {
+        // 发送失败，可能客户端已断开连接
+        d("发送消息失败，客户端可能已断开连接");
+        $this->loginout($fd);
+        // 从相关列表中移除该客户端
+        if (isset($this->wsclient[$fd])) {
+            unset($this->wsclient[$fd]);
+        }
+        if (isset($this->wsadmin[$fd])) {
+            unset($this->wsadmin[$fd]);
+        }
+        if (isset($this->loginfd[$fd])) {
+            unset($this->loginfd[$fd]);
+        }
+    }
     } catch (\Exception $e) {
       // 发送失败，可能客户端已断开连接
       d("发送消息失败，客户端可能已断开连接");
