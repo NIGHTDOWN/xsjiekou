@@ -39,7 +39,13 @@ class ngSwoole
     });
     // 初始化数据库连接池和Channel
     $this->initPoolAndChannel();
-
+    $this->http->set([
+      'worker_num'               => 3,
+      // 表示 10 秒遍历所有连接
+      'heartbeat_check_interval' => 10,
+      // 表示连接最大允许空闲的时间
+      'heartbeat_idle_time'	   => 60,
+  ]);
     // Bug 修复：添加 onMessage 回调处理函数
     $this->http->on('message', function ($ws, $frame) {
       $this->ws = $ws;
@@ -186,7 +192,7 @@ class ngSwoole
     try {
       // 尝试向客户端发送数据
       $result =$ws->push($fd, $data);
-      d($result);
+    
       if ($result === false) {
         // 发送失败，可能客户端已断开连接
         d("发送消息失败，客户端可能已断开连接");
