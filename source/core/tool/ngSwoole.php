@@ -163,6 +163,7 @@ class ngSwoole
     $this->http->on('close', function ($ws, $fd) {
       // 从客户端列表中删除断开连接的客户端
       d("断开连接");
+      d($fd);
       if (isset($this->client[$fd])) {
         unset($this->client[$fd]);
       }
