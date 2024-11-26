@@ -2,7 +2,6 @@
 
 /**统计缺失的章节，并且去掉重复章节 */
 
-
 namespace ng169\cli\tool;
 
 require_once   dirname(dirname(__FILE__)) . "/clibase.php";
@@ -11,6 +10,7 @@ require_once   dirname(dirname(__FILE__)) . "/clibase.php";
 use ng169\Y;
 use ng169\tool\File;
 use \ng169\tool\Image;
+use \ng169\cli\Clibase;
 // dsl处理
 class dsl extends Clibase
 {
