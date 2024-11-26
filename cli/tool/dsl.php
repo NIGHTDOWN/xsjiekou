@@ -51,7 +51,7 @@ class dsl extends Clibase
 
         $w = '';
         if ($this->bookid) {
-            $w = ['book_id' => $this->bookid];
+            $w = [$this->dbid => $this->bookid];
         }
 
         for ($i = 0; $i < 500; $i++) {
