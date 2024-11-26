@@ -35,7 +35,7 @@ class dsl extends Clibase
         "version" => "1.3.5",
         "language" => "MS",
     ];
-
+    
     //一些临时数据，无需变动
     public $list = [];
 
@@ -139,7 +139,7 @@ class dsl extends Clibase
             // d($pic);
 
             if (!$this->do) {
-               
+                // d($pic);
                 $dsl = $this->getimg($pic, $book['book_id']);
 // d($dsl,1);
                 if (!$dsl) {
@@ -168,7 +168,15 @@ class dsl extends Clibase
     {
         $p = $this->path;
         $filename = $this->_booktype . '_' . $id . '.webp';
-        $file = Image::imgtolocalwebp($img, null, $filename, $p);
+        $proxy=[];
+        if($this->ip){
+            $proxy=[
+                'ip' => $this->ip,
+                'port' => $this->port,
+            ];
+        }
+
+        $file = Image::imgtolocalwebp($img, null, $filename, $p,$proxy);
         // d($file );
         $mock = 'dsl://' . $file[0];
         if ($file) {
@@ -181,6 +189,7 @@ class dsl extends Clibase
     // 获取远程小说列表，根据实际情况修改fun
     public function do($ip, $port)
     {
+        $this->proxylist;
     }
 
     public function sb($proxystr)
@@ -198,7 +207,7 @@ class dsl extends Clibase
     public function __construct()
     {
         parent::__construct(); //初始化帮助信息
-        $gt = $this->getargv(['type', 'do', 'bookid', 'path', 'max']);
+        $gt = $this->getargv(['type', 'do', 'bookid', 'path', 'max',"proxy"]);
 
         if (isset($gt['type'])) {
             $this->_booktype = $gt['type'];
@@ -213,7 +222,13 @@ class dsl extends Clibase
             $this->db = 'cartoon';
             $this->dbid = $this->db . '_id';
         }
-
+        if (isset($gt['proxy'])) {
+            $proxy = explode(':', $gt['proxy']);
+            $this->ip = $proxy[0];
+            $this->port = $proxy[1];
+            p($this->ip . ':' . $this->port);
+            return;
+        }
         $this->path = '/soft/cp/cartoon_section/' . $this->db . '/';
         if ($this->_booktype == 1) {
         }
@@ -231,7 +246,7 @@ class dsl extends Clibase
 
     public function help()
     {
-        d('1、检查把图片抓取到本地生成dsl链接,参数type 指定书籍类型，bookid指定书籍id，path指定保存位置，do是否抓取完成上传到图床之后更新服务器短dsl链接；域名：例子php dsl.php type=1');
+        d('1、检查把图片抓取到本地生成dsl链接,参数type 指定书籍类型，bookid指定书籍id，path指定保存位置，do是否抓取完成上传到图床之后更新服务器短dsl链接；域名：例子php dsl.php type=1 proxy=127.0.0.1:8080');
     }
     //重新排序书籍
 

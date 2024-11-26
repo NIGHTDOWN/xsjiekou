@@ -229,6 +229,14 @@ class dslcartoon extends Clibase
         $filenames = '/' . $this->_booklang . "/$id/$listorder/";
 
         $size = sizeof($imgs);
+        $proxy=[];
+        if($this->ip){
+            $proxy=[
+                'ip' => $this->ip,
+                'port' => $this->port,
+            ];
+        }
+        
 //保存的图片要加随机数；避免直接猜出
         foreach ($imgs as $k => $img) {
             $index = $k + 1;
@@ -237,8 +245,8 @@ class dslcartoon extends Clibase
 
             $img = $img['url'];
             // $img = 'http://pic.cc/' . "$id/$listorder/$index" . '.png';
-
-            $file = Image::imgtolocalwebp($img, null, $filename, $p);
+            
+            $file = Image::imgtolocalwebp($img, null, $filename, $p,$proxy);
 
             if ($file[0]) {
                 $mock = 'dsl:/' . $file[0];
@@ -355,7 +363,7 @@ class dslcartoon extends Clibase
     public function __construct()
     {
         parent::__construct(); //初始化帮助信息
-        $gt = $this->getargv(['lang', 'do', 'bookid', 'path', 'max', 'min', 'dsl', 'git', 't']);
+        $gt = $this->getargv(['lang', 'do', 'bookid', 'path', 'max', 'min', 'dsl', 'git', 't',"proxy"]);
 
 
         $this->setdomain($this->_domian);
@@ -376,6 +384,13 @@ class dslcartoon extends Clibase
         }
         if (isset($gt['dsl'])) {
             $this->dsldomain = $gt['dsl'];
+        }
+        if (isset($gt['proxy'])) {
+            $proxy = explode(':', $gt['proxy']);
+            $this->ip = $proxy[0];
+            $this->port = $proxy[1];
+            p($this->ip . ':' . $this->port);
+            return;
         }
         $this->db = 'cartoon_section';
         $this->db2 = 'cart_sec_content';
@@ -436,7 +451,7 @@ class dslcartoon extends Clibase
 
     public function help()
     {
-        d('1、检查把卡通详情图片抓取到本地生成dsl链接,参数lang 指定书籍类型，git 仓库类型github，gitee,bookid指定书籍id，max section_id最大，min section_id最小,path指定保存位置,dsl 更新dsl域名，更新链接是必须传，do 类型1抓取完成上传到图床之后更新服务器短dsl链接，类型2：修复没完全更新到本地的图片链接,6强制重新拉去覆盖,3 初始化github每本漫画仓库,4 更新dsl链接,5直接更新cart_sec_content字段图片；域名,t开多少个线程执行拉取操作：例子php dsl.php lang=0 min=1000 max=5000 ');
+        d('1、检查把卡通详情图片抓取到本地生成dsl链接,参数lang 指定书籍类型，git 仓库类型github，gitee,bookid指定书籍id，max section_id最大，min section_id最小,path指定保存位置,dsl 更新dsl域名，更新链接是必须传，do 类型1抓取完成上传到图床之后更新服务器短dsl链接，类型2：修复没完全更新到本地的图片链接,6强制重新拉去覆盖,3 初始化github每本漫画仓库,4 更新dsl链接,5直接更新cart_sec_content字段图片；域名,t开多少个线程执行拉取操作：例子php dsl.php lang=0 min=1000 max=5000 proxy=127.0.0.1:8080');
     }
     //重新排序书籍
     public function initgithub()

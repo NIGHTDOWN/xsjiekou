@@ -83,7 +83,7 @@ class Image
 
         return $retname;
     }
-    public static function imgtolocalwebp($path, $type = '', $savename = '', $savepath = null)
+    public static function imgtolocalwebp($path, $type = '', $savename = '', $savepath = null,$proxy=[])
     {
         if ($path == "") {
             return false;
@@ -139,6 +139,10 @@ class Image
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        if($proxy && $proxy['ip']&& $proxy['port']){
+            curl_setopt($ch, CURLOPT_PROXY, $proxy['ip']);
+            curl_setopt($ch, CURLOPT_PROXYPORT, $proxy['port']);
+        }
         // curl_setopt($ch, CURLOPT_PROXY, '192.168.2.106');
         // curl_setopt($ch, CURLOPT_PROXYPORT, '8888');
 
