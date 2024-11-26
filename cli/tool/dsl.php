@@ -95,7 +95,7 @@ class dsl extends Clibase
             if (!$this->do) {
                
                 $dsl = $this->getimg($pic, $book['book_id']);
-
+d($dsl,1);
                 if (!$dsl) {
                     d($book['book_id'] . '失败');
                 } else {
