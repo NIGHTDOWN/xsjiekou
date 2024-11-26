@@ -121,8 +121,8 @@ d($dsl,1);
     public function getimg($img, $id)
     {
         $p = $this->path;
-        $filename = $this->_booktype . '_' . $id . '.png';
-        $file = Image::imgtolocal($img, null, $filename, $p);
+        $filename = $this->_booktype . '_' . $id . '.webp';
+        $file = Image::imgtolocalwebp($img, null, $filename, $p);
         $mock = 'dsl://' . $file;
         if ($file) {
             return $mock;
@@ -167,7 +167,7 @@ d($dsl,1);
             $this->dbid = $this->db . '_id';
         }
 
-        $this->path = 'D:/soft/work/img/' . $this->db . '/';
+        $this->path = '/soft/cp/cartoon_section/' . $this->db . '/';
         if ($this->_booktype == 1) {
         }
         if (isset($gt['path'])) {
