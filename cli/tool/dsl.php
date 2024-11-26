@@ -146,7 +146,7 @@ class dsl extends Clibase
                     d($book['book_id'] . '失败');
                 } else {
                     T($this->db)->update(['bpic_dsl' => $dsl], [$this->dbid => $book['book_id']]);
-                    d($dsl);
+                    // d($dsl);
                 }
             } else {
                 $setdsl = "dsl://" . $this->db . '/' . $this->_booktype . "_" . $book['book_id'] . '.png';
