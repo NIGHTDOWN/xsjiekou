@@ -56,7 +56,7 @@ class dsl extends Clibase
 
         for ($i = 0; $i < 500; $i++) {
             # code...
-            $list = T($this->db)->set_field($this->dbid . ' as book_id,bpic_dsl,bpic')->set_limit([$i, 1000]);
+            $list = T($this->db)->set_field($this->dbid . ' as book_id,bpic_dsl,bpic')->set_limit([$i, 3000]);
             if ($w) {
                 // 指定具体id书籍
                 $list = $list->set_where($w);
@@ -67,12 +67,58 @@ class dsl extends Clibase
             $list = $list->get_all();
 
             if (sizeof($list) > 0) {
-                $this->loop($list);
+                if (strpos(PHP_OS, 'Linux')!== false) {
+                    // 执行Linux命令
+                    $this->nthread($list);
+                } else {
+                    $this->loop($list);
+                }
             } else {
                 break;
             }
         }
         d('执行完成');
+    }
+    public function nthread($booklist){
+        $maxProcesses = 10; // 最多20个子进程
+        $activeProcesses = 0;
+        $pids = [];
+        //吧$booklist拆分$maxProcesses等分
+        $chunkSize = ceil(count($booklist) / $maxProcesses);
+        $booklist = array_chunk($booklist, $chunkSize);
+        foreach ($booklist as $books) {
+            // 创建新的子进程
+            $pid = pcntl_fork();
+    
+            if ($pid == -1) {
+                // 创建子进程失败
+                die('Could not fork');
+            } elseif ($pid == 0) {
+                // 子进程代码
+                $this->loop($books);
+                exit; // 子进程结束
+            } else {
+                // 父进程代码
+                $pids[] = $pid;
+                $activeProcesses++;
+    
+                // 限制并发进程数
+                if ($activeProcesses >= $maxProcesses) {
+                    // 等待子进程结束
+                    $status = 0;
+                    pcntl_wait($status);
+                    $activeProcesses--;
+                }
+            }
+        }
+    
+        // 等待所有子进程结束
+        while ($activeProcesses > 0) {
+            $status = 0;
+            pcntl_wait($status);
+            $activeProcesses--;
+        }
+
     }
     public function loop($booklist)
     {
