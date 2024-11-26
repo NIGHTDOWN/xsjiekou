@@ -123,8 +123,8 @@ d($dsl,1);
         $p = $this->path;
         $filename = $this->_booktype . '_' . $id . '.webp';
         $file = Image::imgtolocalwebp($img, null, $filename, $p);
-        d($file );
-        $mock = 'dsl://' . $file;
+        // d($file );
+        $mock = 'dsl://' . $file[0];
         if ($file) {
             return $mock;
         }
