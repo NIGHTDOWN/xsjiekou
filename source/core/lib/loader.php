@@ -121,7 +121,7 @@ class Loader
 
     }
     end :
-    d($realdir);
+
     //空间映射路劲
     return $realdir;
   }
