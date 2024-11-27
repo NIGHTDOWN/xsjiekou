@@ -1,5 +1,5 @@
 <?php
-namespace ng169\control\api;
+namespace ng169\control\apiv1;
 
 
 use ng169\control\apiv1base;
