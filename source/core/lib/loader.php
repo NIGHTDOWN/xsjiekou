@@ -82,7 +82,7 @@ class Loader
   */
   private static function findFile($class)
   {
-   
+   d($class);
     // 检测命名空间别名
     if (!self::$namespace)self::_init();
 
