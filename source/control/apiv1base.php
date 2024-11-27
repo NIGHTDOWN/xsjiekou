@@ -253,8 +253,8 @@ class apiv1base extends general
         // d($hash_data);
         //  d($secret);
         $_apiSign = hash_hmac('md5', $hash_data, $secret);
-        d($_apiSign);
-        d($apiSign);
+        // d($_apiSign);
+        // d($apiSign);
         if ($_apiSign != $apiSign) {
             Out::jerror('apiSign不正确', null, '10008');
         }
