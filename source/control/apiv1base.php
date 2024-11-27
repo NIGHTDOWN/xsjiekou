@@ -248,9 +248,9 @@ class apiv1base extends general
             $hash_data .= htmlspecialchars_decode($v);
         }
         //  d($AllPar);
-        // d($AllPar);
-        // d($this->head);
-        // d($hash_data);
+        d($AllPar);
+        d($this->head);
+        d($hash_data);
         //  d($secret);
         $_apiSign = hash_hmac('md5', $hash_data, $secret);
        
