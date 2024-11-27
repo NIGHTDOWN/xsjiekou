@@ -45,7 +45,7 @@ class apiv1base extends general
         $c = D_MEDTHOD;
         $a = D_FUNC;
         $this->init_head();
-        //$this->_checkSign();//验证签名
+        $this->_checkSign();//验证签名
 
         //$this->redis = Rediscache::getRedis();
         if (!in_array('*', $this->noNeedLogin)) {
@@ -212,7 +212,7 @@ class apiv1base extends general
         $token = $this->head['token'];
         $apiVersion = $this->head['version'];
         $deviceType = $this->head['devicetype'];
-        $deviceToken = $this->head['devicetoken'];
+        $deviceToken = $this->head['idfa'];
 
         if (!$apiKey) {
             Out::jerror('apiKey不能空', null, '10003');
