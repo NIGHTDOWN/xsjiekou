@@ -82,7 +82,7 @@ class Loader
   */
   private static function findFile($class)
   {
-   d($class);
+   
     // 检测命名空间别名
     if (!self::$namespace)self::_init();
 
@@ -118,8 +118,10 @@ class Loader
       else {
         $realdir = $dir.FG.$realdir;
       }
+
     }
     end :
+    d($realdir);
     //空间映射路劲
     return $realdir;
   }
