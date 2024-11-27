@@ -206,17 +206,17 @@ class apiv1base extends general
     protected function _checkSign()
     {
 
-        $apiKey = $this->head['apikey'];
+      
         $apiSign = $this->head['apisign'];
         $timestamp = $this->head['timestamp'];
         $token = $this->head['token'];
         $apiVersion = $this->head['version'];
         $deviceType = $this->head['devicetype'];
         $deviceToken = $this->head['idfa'];
-
-        if (!$apiKey) {
-            Out::jerror('apiKey不能空', null, '10003');
-        }
+        $apiKey = $this->DeviceTypesSecret[$deviceType]['key'];
+        // if (!$apiKey) {
+        //     Out::jerror('apiKey不能空', null, '10003');
+        // }
         if (!$apiSign) {
             Out::jerror('apiSign不能为空', null, '10004');
         }
@@ -227,9 +227,9 @@ class apiv1base extends general
         if (!in_array($deviceType, $this->allowedDeviceTypes)) {
             Out::jerror('deviceType不正确', null, '10006');
         }
-        if ($this->DeviceTypesSecret[$deviceType]['key'] != $apiKey) {
-            Out::jerror('apiKey不正确', null, '10007');
-        }
+        // if ($this->DeviceTypesSecret[$deviceType]['key'] != $apiKey) {
+        //     Out::jerror('apiKey不正确', null, '10007');
+        // }
         $secret = $this->DeviceTypesSecret[$deviceType]['secret'];
 
         //获取所有请求的参数
