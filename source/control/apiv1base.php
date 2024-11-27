@@ -252,7 +252,8 @@ class apiv1base extends general
         // d($this->head);
         // d($hash_data);
         //  d($secret);
-        $_apiSign = hash_hmac('md5', $hash_data, $secret);
+        // $_apiSign = hash_hmac('md5', $hash_data, $secret);
+        $_apiSign = md5($hash_data.$secret);
         // d($_apiSign);
         // d($apiSign);
         if ($_apiSign != $apiSign) {
