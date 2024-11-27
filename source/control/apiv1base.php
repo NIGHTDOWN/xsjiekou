@@ -237,9 +237,9 @@ class apiv1base extends general
         $AllPar['apiKey'] = $apiKey;
         $AllPar['timestamp'] = $timestamp;
         $AllPar['deviceType'] = $deviceType;
-        $AllPar['version'] = $apiVersion;
+        // $AllPar['version'] = $apiVersion;
         $AllPar['tokens'] = $token;
-        $AllPar['deviceToken'] = $deviceToken;
+        // $AllPar['deviceToken'] = $deviceToken;
         $AllPar = (array_filter($AllPar)); //根据键对数组进行升序排序
         ksort($AllPar);
         $hash_data = '';
