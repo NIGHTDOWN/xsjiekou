@@ -208,13 +208,15 @@ class dsl extends Clibase
     {
         parent::__construct(); //初始化帮助信息
         $gt = $this->getargv(['type', 'do', 'bookid', 'path', 'max',"proxy"]);
-d($gt);
+
         if (isset($gt['type'])) {
             $this->_booktype = $gt['type'];
         }
         if (isset($gt['bookid'])) {
             $this->bookid = $gt['bookid'];
         }
+        d($this->_booktype );
+
         if ($this->_booktype == 1) {
             $this->db = 'book';
             $this->dbid = $this->db . '_id';
