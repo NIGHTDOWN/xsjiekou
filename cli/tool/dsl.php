@@ -175,7 +175,7 @@ class dsl extends Clibase
                 'port' => $this->port,
             ];
         }
-d($p,1);
+
         $file = Image::imgtolocalwebp($img, null, $filename, $p,$proxy);
         // d($file );
         $mock = 'dsl://' . $file[0];
@@ -208,7 +208,7 @@ d($p,1);
     {
         parent::__construct(); //初始化帮助信息
         $gt = $this->getargv(['type', 'do', 'bookid', 'path', 'max',"proxy"]);
-
+d($gt);
         if (isset($gt['type'])) {
             $this->_booktype = $gt['type'];
         }
