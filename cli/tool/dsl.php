@@ -234,13 +234,13 @@ class dsl extends Clibase
         }
        
         $this->path = '/soft/cp/cartoon_section/' . $this->db . '/';
-        d($this->path);
+       
         if ($this->_booktype == 1) {
         }
         if (isset($gt['path'])) {
             $this->path = $gt['path'];
         }
-        d($this->path);
+      
         if (isset($gt['do'])) {
             $this->do = $gt['do'];
             // die();
