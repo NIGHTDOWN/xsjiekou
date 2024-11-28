@@ -20,13 +20,13 @@ class index extends apiv1base
     // }
     public function control_dsl()
     {
-       
+     $dsl=  M("version","im")->getdsl();
         //获取dsl域名
         // 图床地址
         // Out::jout('http://8.212.28.174:8866/static/images/image/');//bytd宝塔上得，这个到2022一月份到期,
         
         // Out::jout('http://120.79.197.237/image/'); //这里是h5服务器得
-        Out::jout('http://47.119.145.216/image/'); //这里是测试服务器
+        Out::jout($dsl); //这里是测试服务器
         // Out::jout('https://gitee.com/lookstory/image/raw/master/'); //这里是gitee上得
 
     }

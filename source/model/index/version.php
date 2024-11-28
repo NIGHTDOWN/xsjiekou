@@ -10,6 +10,7 @@ checktop();
 class version
 {
     public $stop_verion = 'stop_verion';
+    public $dsldomain = 'dsl_domain';
     public $check_version = 'check_version';
     public function getcache($name)
     {
@@ -25,6 +26,10 @@ class version
             Y::$cache->set($name, $version, G_DAY);
             return $version;
         }
+    }
+    public function getdsl(){
+        $dbversion = $this->getcache($this->dsldomain);
+        return $dbversion;
     }
     //锁定旧版本
     public function lockold($version)
