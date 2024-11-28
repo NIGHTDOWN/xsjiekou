@@ -178,7 +178,7 @@ class dsl extends Clibase
 
         $file = Image::imgtolocalwebp($img, null, $filename, $p,$proxy);
         // d($file );
-        $mock = 'dsl://' . $file[0];
+        $mock = 'dsl://' .$this->db."/". $file[0];
         if ($file) {
             return $mock;
         }
