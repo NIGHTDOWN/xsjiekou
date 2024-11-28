@@ -215,7 +215,7 @@ class dsl extends Clibase
         if (isset($gt['bookid'])) {
             $this->bookid = $gt['bookid'];
         }
-        d($this->_booktype );
+      
 
         if ($this->_booktype == 1) {
             $this->db = 'book';
@@ -224,6 +224,7 @@ class dsl extends Clibase
             $this->db = 'cartoon';
             $this->dbid = $this->db . '_id';
         }
+
         if (isset($gt['proxy'])) {
             $proxy = explode(':', $gt['proxy']);
             $this->ip = $proxy[0];
@@ -231,6 +232,7 @@ class dsl extends Clibase
             p($this->ip . ':' . $this->port);
             return;
         }
+        d($this->db);
         $this->path = '/soft/cp/cartoon_section/' . $this->db . '/';
         if ($this->_booktype == 1) {
         }
