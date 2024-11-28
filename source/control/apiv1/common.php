@@ -38,13 +38,13 @@ class common extends apiv1base
             $order = "recharge desc";
         }
         $book = T('book')
-            ->field('book_id,other_name,`desc`,bpic,writer_name,isfree,update_status,1 as type')
+            ->field('book_id,other_name,`desc`,bpic,writer_name,isfree,update_status,1 as type,bpic_dsl,lable,cate_id')
             ->where($where)
             ->order($order)->set_global_where(['lang' => $cityid])
             ->set_limit([$get['page'], $size])
             ->get_all();
         $cartoon = T('cartoon')
-            ->field('cartoon_id,other_name,`desc`,bpic,writer_name,isfree,update_status,2 as type')
+            ->field('cartoon_id,other_name,`desc`,bpic,writer_name,isfree,update_status,2 as type,bpic_dsl,lable,cate_id')
             ->where($where)->set_global_where(['lang' => $cityid])
             ->order($order)
             ->set_limit([$get['page'], $size])
