@@ -232,14 +232,14 @@ class dsl extends Clibase
             p($this->ip . ':' . $this->port);
             return;
         }
-        d($this->db);
+       
         $this->path = '/soft/cp/cartoon_section/' . $this->db . '/';
         if ($this->_booktype == 1) {
         }
         if (isset($gt['path'])) {
             $this->path = $gt['path'];
         }
-
+        d($this->path);
         if (isset($gt['do'])) {
             $this->do = $gt['do'];
             // die();
