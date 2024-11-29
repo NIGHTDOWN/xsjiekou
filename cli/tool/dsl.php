@@ -61,7 +61,7 @@ class dsl extends Clibase
                 // 指定具体id书籍
                 $list = $list->set_where($w);
             }
-            if($this->do){
+            if(!$this->do){
                 $list = $list->set_where(' ISNULL(bpic_dsl) ');
             }else{
                 $list = $list->set_where(' bpic_dsl IS NOT NULL ');
