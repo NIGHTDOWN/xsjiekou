@@ -127,10 +127,16 @@ class dsl extends Clibase
             return false;
         }
         foreach ($booklist as $book) {
-           
+           if(!$this->do){
             if ($book['bpic_dsl']) {
                 return false;
             }
+           }else{
+            if (!$book['bpic_dsl']) {
+                return false;
+            }
+           }
+            
             $pic = $book['bpic'];
 
             // $reg = "/http[\S]*\.webp/";
@@ -149,7 +155,7 @@ class dsl extends Clibase
                     // d($dsl);
                 }
             } else {
-                $setdsl = "dsl://" . $this->db . '/' . $this->_booktype . "_" . $book['book_id'] . '.png';
+                $setdsl = "dsl://" . $this->db . '/' . $this->_booktype . "_" . $book['book_id'] . '.webp';
                 T($this->db)->update(['bpic_dsl' =>  $setdsl], [$this->dbid => $book['book_id']]);
             }
         }
