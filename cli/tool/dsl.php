@@ -65,6 +65,8 @@ class dsl extends Clibase
                 $list = $list->set_where(' ISNULL(bpic_dsl) ');
             }else{
                 $list = $list->set_where(' bpic_dsl IS NOT NULL ');
+                $list = $list->set_where(" `bpic_dsl` like 'dsl://2_%'");
+               
             }
              
             // $list = $list->set_where(' bpic like "%webp-%" ');
