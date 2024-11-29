@@ -57,7 +57,7 @@ class dsl extends Clibase
         for ($i = 0; $i < 5000; $i++) {
             //这里改成id做标记；因为任务执行完成后；该条件下；总量变了；导致limit取的少了，所以这里做个判断；
             $list = T($this->db)->set_field($this->dbid . ' as book_id,bpic_dsl,bpic')->set_limit(3000);
-            $list = $list->set_where(' book_id>'.$id.' ');
+            $list = $list->set_where(' '.$this->dbid.'>'.$id.' ');
             if ($w) {
                 // 指定具体id书籍
                 $list = $list->set_where($w);
