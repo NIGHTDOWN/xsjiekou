@@ -67,12 +67,13 @@ class dsl extends Clibase
             $list = $list->get_all();
 
             if (sizeof($list) > 0) {
-                if (strpos(PHP_OS, 'Linux')!== false && !$this->bookid) {
-                    // 执行Linux命令
-                    $this->nthread($list);
-                } else {
-                    $this->loop($list);
-                }
+                $this->loop($list);
+                // if (strpos(PHP_OS, 'Linux')!== false && !$this->bookid) {
+                //     // 执行Linux命令
+                //     $this->nthread($list);
+                // } else {
+                //     $this->loop($list);
+                // }
             } else {
                 break;
             }
