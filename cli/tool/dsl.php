@@ -137,7 +137,7 @@ class dsl extends Clibase
                 return false;
             }
            }
-            
+            d($book['bpic_dsl']);
             $pic = $book['bpic'];
 
             // $reg = "/http[\S]*\.webp/";
