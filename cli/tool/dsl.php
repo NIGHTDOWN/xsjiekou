@@ -54,7 +54,7 @@ class dsl extends Clibase
             $w = [$this->dbid => $this->bookid];
         }
 
-        for ($i = 0; $i < 500; $i++) {
+        for ($i = 0; $i < 5000; $i++) {
             # code...
             $list = T($this->db)->set_field($this->dbid . ' as book_id,bpic_dsl,bpic')->set_limit([$i, 3000]);
             if ($w) {
