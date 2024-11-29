@@ -74,13 +74,13 @@ class dsl extends Clibase
             $list = $list->get_all(null,1);
 
             if (sizeof($list) > 0) {
-                $this->loop($list);
-                // if (strpos(PHP_OS, 'Linux')!== false && !$this->bookid) {
-                //     // 执行Linux命令
-                //     $this->nthread($list);
-                // } else {
-                //     $this->loop($list);
-                // }
+                // $this->loop($list);
+                if (strpos(PHP_OS, 'Linux')!== false && !$this->bookid) {
+                    // 执行Linux命令
+                    $this->nthread($list);
+                } else {
+                    $this->loop($list);
+                }
             } else {
                 break;
             }
@@ -88,7 +88,7 @@ class dsl extends Clibase
         d('执行完成');
     }
     public function nthread($booklist){
-        $maxProcesses = 2; // 最多20个子进程
+        $maxProcesses = 5; // 最多20个子进程
         $activeProcesses = 0;
         $pids = [];
         //吧$booklist拆分$maxProcesses等分
