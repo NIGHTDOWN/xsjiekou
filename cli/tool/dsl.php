@@ -80,7 +80,7 @@ class dsl extends Clibase
         d('执行完成');
     }
     public function nthread($booklist){
-        $maxProcesses = 10; // 最多20个子进程
+        $maxProcesses = 3; // 最多20个子进程
         $activeProcesses = 0;
         $pids = [];
         //吧$booklist拆分$maxProcesses等分
