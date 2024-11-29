@@ -53,10 +53,11 @@ class dsl extends Clibase
         if ($this->bookid) {
             $w = [$this->dbid => $this->bookid];
         }
-
+        $id = 0;
         for ($i = 0; $i < 5000; $i++) {
-            # code...
-            $list = T($this->db)->set_field($this->dbid . ' as book_id,bpic_dsl,bpic')->set_limit([$i, 3000]);
+            //这里改成id做标记；因为任务执行完成后；该条件下；总量变了；导致limit取的少了，所以这里做个判断；
+            $list = T($this->db)->set_field($this->dbid . ' as book_id,bpic_dsl,bpic')->set_limit(3000);
+            $list = $list->set_where(' book_id>'.$id.' ');
             if ($w) {
                 // 指定具体id书籍
                 $list = $list->set_where($w);
@@ -68,12 +69,12 @@ class dsl extends Clibase
                 $list = $list->set_where(" `bpic_dsl` like 'dsl://".$this->_booktype."_%'");
                
             }
-             
             // $list = $list->set_where(' bpic like "%webp-%" ');
             // $list = $list->set_where(' book_id>2000 ');
-            $list = $list->get_all(null,1);
-
-            if (sizeof($list) > 0) {
+            $list = $list->get_all();
+            $sz=sizeof($list);
+            if ($sz > 0) {
+                $id=$list[$sz-1]['book_id'];
                 // $this->loop($list);
                 if (strpos(PHP_OS, 'Linux')!== false && !$this->bookid) {
                     // 执行Linux命令
