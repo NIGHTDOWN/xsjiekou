@@ -69,7 +69,7 @@ class dsl extends Clibase
              
             // $list = $list->set_where(' bpic like "%webp-%" ');
             // $list = $list->set_where(' book_id>2000 ');
-            $list = $list->get_all();
+            $list = $list->get_all(null,1);
 
             if (sizeof($list) > 0) {
                 $this->loop($list);
