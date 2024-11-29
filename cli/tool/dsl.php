@@ -61,7 +61,12 @@ class dsl extends Clibase
                 // 指定具体id书籍
                 $list = $list->set_where($w);
             }
-            // $list = $list->set_where(' ISNULL(bpic_dsl) ');
+            if($this->do){
+                $list = $list->set_where(' ISNULL(bpic_dsl) ');
+            }else{
+                $list = $list->set_where(' bpic_dsl IS NOT NULL ');
+            }
+             
             // $list = $list->set_where(' bpic like "%webp-%" ');
             // $list = $list->set_where(' book_id>2000 ');
             $list = $list->get_all();
@@ -137,7 +142,7 @@ class dsl extends Clibase
                 return false;
             }
            }
-            d($book['bpic_dsl']);
+            
             $pic = $book['bpic'];
 
             // $reg = "/http[\S]*\.webp/";
