@@ -97,8 +97,8 @@ class pdd extends \ng169\cli\Clibase
             "device" => "LM-G820"
         );
         $this->spiner->setproxy("192.168.10.11","6666");
-      
-        $ret = $this->post("url", $pdata);
+      $url="https://mdkd-api.pinduoduo.com/api/orion/op/cabinet/in/new";
+        $ret = $this->post($url, $pdata);
         d($ret);
     }
     public function getenc(){
