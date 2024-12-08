@@ -96,7 +96,8 @@ class pdd extends \ng169\cli\Clibase
             "extend_type" => "1",
             "device" => "LM-G820"
         );
-       $this->setproxy("192.168.10.11","6666");
+        $this->spiner->setproxy("192.168.10.11","6666");
+      
         $ret = $this->post("url", $pdata);
         d($ret);
     }
