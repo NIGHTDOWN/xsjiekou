@@ -13,7 +13,7 @@ class pdd extends \ng169\cli\Clibase
     public $port = 1199;
     public function __construct()
     {
-        d("sdfsdfsdf");
+       
         parent::__construct(); //初始化帮助信息
         $gt = $this->getargv(['do', 'port',]);
         $this->dovo = $gt['do'];
@@ -96,7 +96,7 @@ class pdd extends \ng169\cli\Clibase
             "extend_type" => "1",
             "device" => "LM-G820"
         );
-        d(1111);
+       $this->setproxy("192.168.10.11","6666");
         $ret = $this->post("url", $pdata);
         d($ret);
     }
