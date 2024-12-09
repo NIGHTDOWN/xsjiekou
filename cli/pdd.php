@@ -103,7 +103,7 @@ class pdd extends \ng169\cli\Clibase
     }
     public function getenc()
     {
-       
+
         $url = "http://121.199.168.122:8090/edge/call";
         $pddhead = array("Content-Type" => "application/json;charset=utf-8",);
         $this->head($pddhead);
@@ -144,7 +144,7 @@ class pdd extends \ng169\cli\Clibase
       "device": "MI 8"
     }
 }';
-$this->spiner->setproxy("192.168.10.11", "6666");
+        $this->spiner->setproxy("192.168.10.11", "6666");
         $ret = $this->post($url, $data);
         d($ret);
     }
