@@ -93,7 +93,7 @@ class index extends indexbase
         //shelf_number 货架号
         $get = get(['string' => ['customer_name'=>1,  'waybill_code'=>1,  'pickup_code'=>1,"wp_code"=>1,"wp_name"=>1,"mobile"=>1,"shelf_number"=>1 ]]);
         $tk = 'x_eyJ0IjoiRFZFcGo4TXhMRzB6V3p4aGlrcjZVWG0vZDN0N1F5bmhaSjhpaWdUdklYdjNyaW5mWUdXclJ0dzBrQTg3aWMrTCIsInYiOjEsInMiOjEwMDYsInUiOjM1MDg2MDIyMzUwfQ==';
-        $clientid = "aUzXyNcq";
+        $clientid = "XPY2CY3l";
         $etg = "XPY2CY3l";
         $anti_content = "";
         $mcmd_enc = "";
