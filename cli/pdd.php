@@ -13,7 +13,6 @@ class pdd extends \ng169\cli\Clibase
     public $port = 1199;
     public function __construct()
     {
-       
         parent::__construct(); //初始化帮助信息
         $gt = $this->getargv(['do', 'port',]);
         $this->dovo = $gt['do'];
@@ -96,13 +95,54 @@ class pdd extends \ng169\cli\Clibase
             "extend_type" => "1",
             "device" => "LM-G820"
         );
-        $this->spiner->setproxy("192.168.10.11","6666");
-      $url="https://mdkd-api.pinduoduo.com/api/orion/op/cabinet/in/new";
-        $ret = $this->post($url, '{"is_virtual":"false","customer_type":"0","waybill_code":"JT5500393983848","mobile_type":"0","temporary_mobile_status":"false","modify_wp":"false","modify_waybill_code":"false","type":"1","modify_customer_name":"false","receiver_type":"0","pickup_code":"6-8-1","courier_id":"0","mobile_last_four":"","name_source":"100","wp_code":"JTSD","wp_name":"极兔速递","mobile":"13112234215","is_manual_input":"false","shelf_number":"6-8","modify_pickup_code":"false","in_cabinet_type":"1","modify_mobile":"true","receiver_type_confirm":"false","confirm_flag":"false","customer_name":"yang","extend_type":"1","device":"LM-G820"}');
-        d($ret);
+        $this->getenc();
+    //     $this->spiner->setproxy("192.168.10.11","6666");
+    //   $url="https://mdkd-api.pinduoduo.com/api/orion/op/cabinet/in/new";
+    //     $ret = $this->post($url, '{"is_virtual":"false","customer_type":"0","waybill_code":"JT5500393983848","mobile_type":"0","temporary_mobile_status":"false","modify_wp":"false","modify_waybill_code":"false","type":"1","modify_customer_name":"false","receiver_type":"0","pickup_code":"6-8-1","courier_id":"0","mobile_last_four":"","name_source":"100","wp_code":"JTSD","wp_name":"极兔速递","mobile":"13112234215","is_manual_input":"false","shelf_number":"6-8","modify_pickup_code":"false","in_cabinet_type":"1","modify_mobile":"true","receiver_type_confirm":"false","confirm_flag":"false","customer_name":"yang","extend_type":"1","device":"LM-G820"}');
+    //     d($ret);
     }
     public function getenc(){
-        
+        $this->spiner->setproxy("192.168.10.11","6666");
+        $url="http://121.199.168.122:8090/edge/call";
+        $data='{
+    "group": "com.xunmeng.station",
+    "action": "api_ddmc_anti_gen",
+    "clientid": "aUzXyNcq",
+    "latitude": "28.422705",
+    "longitude": "118.53839",
+"header":{},
+"url":"https://mdkd-api.pinduoduo.com/api/orion/op/cabinet/in/new",
+"params":{
+      "is_virtual": "false",
+      "customer_type": "99",
+      "waybill_code": "JT5331939111248",
+      "temporary_mobile_status": "false",
+      "modify_wp": "false",
+      "modify_waybill_code": "false",
+      "type": 1,
+      "modify_customer_name": "false",
+      "receiver_type": "0",
+      "pickup_code": "E2-09-1004",
+      "courier_id": "0",
+      "mobile_last_four": "",
+      "name_source": 200,
+      "wp_code": "JTSD",
+      "wp_name": "极兔",
+      "mobile": "1*2**8*2957",
+      "is_manual_input": "false",
+      "shelf_number": "E2-09",
+      "modify_pickup_code": "true",
+      "in_cabinet_type": "1",
+      "modify_mobile": "false",
+      "receiver_type_confirm": "false",
+      "confirm_flag": "false",
+      "customer_name": "大坚强",
+      "extend_type": "1",
+      "device": "MI 8"
+    }
+}';
+        $ret = $this->post($url, $data);
+        d($ret);
     }
 
 
