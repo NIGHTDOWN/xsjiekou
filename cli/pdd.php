@@ -46,6 +46,7 @@ class pdd extends \ng169\cli\Clibase
 
         $this->init();
         $tk = 'x_eyJ0IjoiRFZFcGo4TXhMRzB6V3p4aGlrcjZVWG0vZDN0N1F5bmhaSjhpaWdUdklYdjNyaW5mWUdXclJ0dzBrQTg3aWMrTCIsInYiOjEsInMiOjEwMDYsInUiOjM1MDg2MDIyMzUwfQ==';
+        $clientid = "aUzXyNcq";
         $etg = "XPY2CY3l";
         $pddhead = array(
             "p-appname" => "DDStore",
@@ -96,7 +97,7 @@ class pdd extends \ng169\cli\Clibase
             "extend_type" => "1",
             "device" => "LM-G820"
         );
-        $this->getenc($url,$etg,json_encode($pdata));
+        $this->getenc($url,$clientid,json_encode($pdata));
         $this->head($pddhead);
 
 
