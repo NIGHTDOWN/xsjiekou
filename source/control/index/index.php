@@ -84,7 +84,14 @@ class index extends indexbase
     }
     public function control_pdd()
     {
-        $get = get(['string' => ['id',  'type' ]]);
+        //customer_name   客户名称
+        //waybill_code   运单号
+        //pickup_code 取货点
+        //wp_code 网点
+        //wp_name 网点名称
+        //mobile 手机号
+        //shelf_number 货架号
+        $get = get(['string' => ['customer_name'=>1,  'waybill_code'=>1,  'pickup_code'=>1,"wp_code"=>1,"wp_name"=>1,"mobile"=>1,"shelf_number"=>1 ]]);
         $tk = 'x_eyJ0IjoiRFZFcGo4TXhMRzB6V3p4aGlrcjZVWG0vZDN0N1F5bmhaSjhpaWdUdklYdjNyaW5mWUdXclJ0dzBrQTg3aWMrTCIsInYiOjEsInMiOjEwMDYsInUiOjM1MDg2MDIyMzUwfQ==';
         $clientid = "aUzXyNcq";
         $etg = "XPY2CY3l";
@@ -96,7 +103,7 @@ class index extends indexbase
         $pdata = array(
             "is_virtual" => "false",
             "customer_type" => "0",
-            "waybill_code" => "JT5500393983850",
+            "waybill_code" => $get['waybill_code'],
             "mobile_type" => "0",
             "temporary_mobile_status" => "false",
             "modify_wp" => "false",
@@ -104,21 +111,21 @@ class index extends indexbase
             "type" => "1",
             "modify_customer_name" => "false",
             "receiver_type" => "0",
-            "pickup_code" => "6-9-1",
+            "pickup_code" => $get['pickup_code'],
             "courier_id" => "0",
             "mobile_last_four" => "",
             "name_source" => "100",
-            "wp_code" => "JTSD",
-            "wp_name" => "极兔速递",
-            "mobile" => "13112234215",
+            "wp_code" => $get['wp_code'],
+            "wp_name" => $get['wp_name'],
+            "mobile" => $get['mobile'],
             "is_manual_input" => "false",
-            "shelf_number" => "6-9",
+            "shelf_number" =>  $get['shelf_number'],
             "modify_pickup_code" => "false",
             "in_cabinet_type" => "1",
             "modify_mobile" => "true",
             "receiver_type_confirm" => "false",
             "confirm_flag" => "false",
-            "customer_name" => "yang",
+            "customer_name" => $get['customer_name'],
             "extend_type" => "1",
             "device" => "LM-G820"
         );
