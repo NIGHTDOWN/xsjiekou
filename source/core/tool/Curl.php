@@ -149,10 +149,10 @@ class Curl
 		// );
 		@curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-		// curl_setopt($curl, CURLOPT_ENCODING, 'gzip');
+		curl_setopt($curl, CURLOPT_ENCODING, 'gzip, deflate');
+		
 		$content = curl_exec($curl);
 		$status = curl_getinfo($curl);
-
 		curl_close($curl);
 		$this->unset();
 		if (intval($status['http_code']) == 200) {
