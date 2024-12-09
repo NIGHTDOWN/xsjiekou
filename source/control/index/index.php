@@ -99,7 +99,8 @@ class index extends indexbase
         $mcmd_enc = "";
         $rctk_sign = "";
         $rctk = "";
-        $url = "https://mdkd-api.pinduoduo.com/api/orion/op/cabinet/in/new";
+        // $url = "https://mdkd-api.pinduoduo.com/api/orion/op/cabinet/in/new";
+        $url = "https://mdkd-api.pinduoduo.com/api/orion/op/candidate/package/in";
         $pdata = array(
             "is_virtual" => "false",
             "customer_type" => "0",
