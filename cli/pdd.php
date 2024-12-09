@@ -46,11 +46,12 @@ class pdd extends \ng169\cli\Clibase
 
         $this->init();
         $tk = 'x_eyJ0IjoiRFZFcGo4TXhMRzB6V3p4aGlrcjZVWG0vZDN0N1F5bmhaSjhpaWdUdklYdjNyaW5mWUdXclJ0dzBrQTg3aWMrTCIsInYiOjEsInMiOjEwMDYsInUiOjM1MDg2MDIyMzUwfQ==';
+        $etg = "XPY2CY3l";
         $pddhead = array(
             "p-appname" => "DDStore",
             "cookie" => "SUB_PASS_ID=$tk",
             "device-name" => "LM-G820",
-            "ETag" => "XPY2CY3l",
+            "ETag" => $etg,
             "AccessToken" => $tk,
             "anti-content" => "2afnoTqAPQ+aMHbYl32sIaFEgxrl4INNIk1xgzy6L02jTph0PWGXXHaCRQmC/P5KmU9I02s02DJQqYDVn4AsUHdo5co8AicfKPfRlK253MNzFObN0NjDj0pZRz19jYuVmx2P5XBssQPln2fO+mA8bOzyjCk/7nrWBUiS06RoG/qe7J0tt/hcPH8caDtdLd8VBsTan3GMRiSyWfpa4wYEPZip6WxwEwASZjTWCyDqXDVtCpK7ZGn0md2RxLjHymPbTbsQkbig5gnpKbfxFMm9BL6ojttzBQlCkyfAz22ZNPxrmnshrsLzNjyoN2QYcDFk4SEeQbLR40viOgY7dfugSTaUu/oUYJiLdbkKMc9XLAzNWSuDyeIrf1Xz4C8vAw6hArqmfsfhQqlLJ8+u+s1d5Xc5IMxVqR8OrwBIT01L3pBqz6+dbFxGYw8NLF3DXSwx9ROOaSy3K8EndkV5+mUhUDnewfmpjvRojUU0FDXMpuu//Mcyy6QIsrsOswMothLut8gQUF/Rb8DwAUL3YMOA5To6Uj6qNa9wsu98dfqnKd7PI4udQAPgrmmfAGjYEhDLYHw",
             "Referer" => "Android",
@@ -65,7 +66,7 @@ class pdd extends \ng169\cli\Clibase
             "rctk" => "rctk_plat=com.xunmeng.station.eagle.android&rctk_ver=0.0.1&rctk_ts=1733676161125&rctk_nonce=Cx7vpP6N96Mu6KOsG5TLUeQ4v0HtxMZT&rctk_rpkg=0&rctk_dev=a9plipURS/dI=",
             "vip" => "81.69.68.235"
         );
-        $this->head($pddhead);
+        $url="https://mdkd-api.pinduoduo.com/api/orion/op/cabinet/in/new";
         $pdata = array(
             "is_virtual" => "false",
             "customer_type" => "0",
@@ -95,13 +96,16 @@ class pdd extends \ng169\cli\Clibase
             "extend_type" => "1",
             "device" => "LM-G820"
         );
-        $this->getenc();
+        $this->getenc($url,$etg,json_encode($pdata));
+        $this->head($pddhead);
+
+
         //     $this->spiner->setproxy("192.168.10.11","6666");
-        //   $url="https://mdkd-api.pinduoduo.com/api/orion/op/cabinet/in/new";
+           $url="https://mdkd-api.pinduoduo.com/api/orion/op/cabinet/in/new";
         //     $ret = $this->post($url, '{"is_virtual":"false","customer_type":"0","waybill_code":"JT5500393983848","mobile_type":"0","temporary_mobile_status":"false","modify_wp":"false","modify_waybill_code":"false","type":"1","modify_customer_name":"false","receiver_type":"0","pickup_code":"6-8-1","courier_id":"0","mobile_last_four":"","name_source":"100","wp_code":"JTSD","wp_name":"极兔速递","mobile":"13112234215","is_manual_input":"false","shelf_number":"6-8","modify_pickup_code":"false","in_cabinet_type":"1","modify_mobile":"true","receiver_type_confirm":"false","confirm_flag":"false","customer_name":"yang","extend_type":"1","device":"LM-G820"}');
         //     d($ret);
     }
-    public function getenc()
+    public function getenc($signurl, $clientid, $senddata)
     {
 
         $url = "http://121.199.168.122:8090/edge/call";
@@ -110,43 +114,23 @@ class pdd extends \ng169\cli\Clibase
         $data = '{
     "group": "com.xunmeng.station",
     "action": "api_ddmc_anti_gen",
-    "clientid": "aUzXyNcq",
+    "clientid": "'. $clientid. '",
     "latitude": "28.422705",
     "longitude": "118.53839",
-"header":{},
-"url":"https://mdkd-api.pinduoduo.com/api/orion/op/cabinet/in/new",
-"params":{
-      "is_virtual": "false",
-      "customer_type": "99",
-      "waybill_code": "JT5331939111248",
-      "temporary_mobile_status": "false",
-      "modify_wp": "false",
-      "modify_waybill_code": "false",
-      "type": 1,
-      "modify_customer_name": "false",
-      "receiver_type": "0",
-      "pickup_code": "E2-09-1004",
-      "courier_id": "0",
-      "mobile_last_four": "",
-      "name_source": 200,
-      "wp_code": "JTSD",
-      "wp_name": "极兔",
-      "mobile": "1*2**8*2957",
-      "is_manual_input": "false",
-      "shelf_number": "E2-09",
-      "modify_pickup_code": "true",
-      "in_cabinet_type": "1",
-      "modify_mobile": "false",
-      "receiver_type_confirm": "false",
-      "confirm_flag": "false",
-      "customer_name": "大坚强",
-      "extend_type": "1",
-      "device": "MI 8"
-    }
-}';
+    "header":{},
+    "url":"' . $signurl . '",
+    "params":' . $senddata . '
+    }';
         $this->spiner->setproxy("192.168.10.11", "6666");
         $ret = $this->post($url, $data);
-        d($ret);
+        if($ret){
+            $ret=json_decode($ret,true);
+            $etg=$ret['data'];
+            
+            return $etg;
+        }else{
+            return false;
+        }
     }
 
 
