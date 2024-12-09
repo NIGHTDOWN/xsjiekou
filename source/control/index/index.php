@@ -7,6 +7,7 @@ use FacebookAds\Api;
 use ng169\cache\Rediscache;
 use ng169\control\indexbase;
 use ng169\lib\Log;
+use ng169\tool\Out;
 
 checktop();
 
@@ -131,6 +132,7 @@ class index extends indexbase
             $rctk_sign = $signs['rctk-sign'];
             $rctk = $signs['rctk'];
         } else {
+            Out::jerror("获取sign失败");
             d("获取sign	失败");
             return false;
         }
@@ -157,8 +159,8 @@ class index extends indexbase
         $ycurl->head($pddhead);
         $ycurl->setproxy("192.168.10.11", "6666");
         $ret =$ycurl->post($url, json_encode($pdata));
-        d($ret);
-
+        // d($ret);
+        Out::jerror($ret);
     }
     public function getenc($signurl, $clientid, $senddata)
     {
@@ -181,7 +183,7 @@ class index extends indexbase
 
         if ($ret) {
             $ret = json_decode($ret, true);
-            d($ret);
+            // d($ret);
             $etg = $ret['data'];
 
             return $etg;
