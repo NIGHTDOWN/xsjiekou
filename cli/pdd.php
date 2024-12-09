@@ -126,15 +126,15 @@ class pdd extends \ng169\cli\Clibase
         $pddhead = array("Content-Type" => "application/json;charset=utf-8",);
         $this->head($pddhead);
         $data = '{
-    "group": "com.xunmeng.station",
-    "action": "api_ddmc_anti_gen",
-    "clientid": "' . $clientid . '",
-    "latitude": "28.422705",
-    "longitude": "118.53839",
-    "header":{},
-    "url":"' . $signurl . '",
-    "params":' . $senddata . '
-    }';
+        "group": "com.xunmeng.station",
+        "action": "api_ddmc_anti_gen",
+        "clientid": "' . $clientid . '",
+        "latitude": "28.422705",
+        "longitude": "118.53839",
+        "header":{},
+        "url":"' . $signurl . '",
+        "params":' . $senddata . '
+        }';
         $this->spiner->setproxy("192.168.10.11", "6666");
         $ret = $this->post($url, $data);
 
