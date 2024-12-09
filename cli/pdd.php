@@ -56,7 +56,7 @@ class pdd extends \ng169\cli\Clibase
         $pdata = array(
             "is_virtual" => "false",
             "customer_type" => "0",
-            "waybill_code" => "JT5500393983848",
+            "waybill_code" => "JT5500393983850",
             "mobile_type" => "0",
             "temporary_mobile_status" => "false",
             "modify_wp" => "false",
@@ -72,7 +72,7 @@ class pdd extends \ng169\cli\Clibase
             "wp_name" => "极兔速递",
             "mobile" => "13112234215",
             "is_manual_input" => "false",
-            "shelf_number" => "6-8",
+            "shelf_number" => "6-9",
             "modify_pickup_code" => "false",
             "in_cabinet_type" => "1",
             "modify_mobile" => "true",
