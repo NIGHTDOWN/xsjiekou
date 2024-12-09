@@ -124,9 +124,10 @@ class pdd extends \ng169\cli\Clibase
     }';
         $this->spiner->setproxy("192.168.10.11", "6666");
         $ret = $this->post($url, $data);
-        d($ret);
+      
         if($ret){
             $ret=json_decode($ret,true);
+            d($ret);
             $etg=$ret['data'];
             
             return $etg;
