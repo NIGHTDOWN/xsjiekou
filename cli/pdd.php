@@ -64,7 +64,7 @@ class pdd extends \ng169\cli\Clibase
             "type" => "1",
             "modify_customer_name" => "false",
             "receiver_type" => "0",
-            "pickup_code" => "6-8-1",
+            "pickup_code" => "6-9-1",
             "courier_id" => "0",
             "mobile_last_four" => "",
             "name_source" => "100",
