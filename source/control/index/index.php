@@ -166,7 +166,8 @@ class index extends indexbase
         $ycurl->head($pddhead);
         $ycurl->setproxy("192.168.10.11", "6666");
         $ret =$ycurl->post($url, json_encode($pdata));
-        d($ret);
+        // d($ret);
+        Log::txt($ret);
         Out::jerror($ret);
     }
     public function getenc($signurl, $clientid, $senddata)
