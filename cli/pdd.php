@@ -97,7 +97,9 @@ class pdd extends \ng169\cli\Clibase
             "extend_type" => "1",
             "device" => "LM-G820"
         );
-        $this->getenc($url,$clientid,json_encode($pdata));
+        $signs=$this->getenc($url,$clientid,json_encode($pdata));
+        d($signs);
+        d("dfsdfdsf");
         $this->head($pddhead);
 
 
