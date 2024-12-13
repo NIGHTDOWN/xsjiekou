@@ -67,13 +67,11 @@ function imgtolocal2($table, $prikey, $imgkey)
 	
 					$json[$key2]['url'] = $new;
 				}
-			
                 //T($table)->update([$imgkey=>$new],$val);
             }
         }
         //d($json, 1);
         $json = ['cart_sec_content' => $json];
-
         //d(json_encode($json), 1);
         T($table)->update(['cart_sec_content' => json_encode($json)], [$prikey => $val[$prikey]]);
         // if (strpos($val[$imgkey], $domain) !== false) {
@@ -83,7 +81,6 @@ function imgtolocal2($table, $prikey, $imgkey)
         //     $new = $domain . '/' . $file;
         //     //T($table)->update([$imgkey=>$new],$val);
         // }
-        
         //$file=Image::imgtolocal($val[$imgkey]);
     }
 }
