@@ -396,7 +396,7 @@ class book extends apibase
             if (!$data) {
                 Out::jerror('小说或章节不存在', null, '100154');
             }
-            $content = T($tpsecc)->field('sec_content,sec_content_id')->where(['section_id' => $data['section_id']])->where(['isdelete' => 0])->find();
+            $content = T($tpsecc,null,"content")->field('sec_content,sec_content_id')->where(['section_id' => $data['section_id']])->where(['isdelete' => 0])->find();
             // 引入aes加密
             if (!$content) {
                 Out::jerror('章节不存在或删除', null, '100153');
@@ -467,7 +467,7 @@ class book extends apibase
         if ($data['isfree'] != 0) {
             Out::jerror('收费章节，请下载app阅读', null, '104154');
         }
-        $content = T($tpsecc)->field('sec_content,sec_content_id')->where(['section_id' => $data['section_id']])->where(['isdelete' => 0])->find();
+        $content = T($tpsecc,null,"content")->field('sec_content,sec_content_id')->where(['section_id' => $data['section_id']])->where(['isdelete' => 0])->find();
         // 引入aes加密
         if (!$content) {
             Out::jerror('章节不存在或删除', null, '100153');
@@ -795,7 +795,7 @@ class book extends apibase
             if (!$data) {
                 Out::jerror('小说或章节不存在', null, '100154');
             }
-            $content = T($tpsecc)->field($f2)->where([$f0 => $data[$f0]])->where(['isdelete' => 0])->find();
+            $content = T($tpsecc,null,"content")->field($f2)->where([$f0 => $data[$f0]])->where(['isdelete' => 0])->find();
             // 引入aes加密
             if (!$content) {
                 Out::jerror('章节不存在或删除', null, '100153');

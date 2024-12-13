@@ -1,7 +1,8 @@
 <?php
 
 
-namespace ng169\control\apiv1;
+namespace ng169\control\api;
+
 use ng169\control\apiv1base;
 use ng169\tool\Url as YUrl;
 use ng169\tool\Upfile;
@@ -130,7 +131,7 @@ class aysnb extends apiv1base
 			// T($this->dbcontent)->add($a2);
 		}
 		// d('插入');
-		T($dbsecc)->add($a2);
+		T($dbsecc,null,"content")->add($a2);
 		Out::jout('章节插入成功');
 	}
 }

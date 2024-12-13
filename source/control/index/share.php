@@ -29,7 +29,7 @@ class share extends indexbase
         M('census', 'im')->shareclick($users_id, $book_id, 1, $get['nap']);
         $section = T($tpsec)->field('section_id,title,list_order')->where($w)->order('section_id')->find();
         $len = mb_strlen($section['title'], 'utf-8');
-        $section_content = T($tpsecc)->field('sec_content')->where(['section_id' => $section['section_id']])->order('sec_content_id')->find();
+        $section_content = T($tpsecc,null,"content")->field('sec_content')->where(['section_id' => $section['section_id']])->order('sec_content_id')->find();
         // $section_content['sec_content'] = htmlspecialchars_decode($section_content['sec_content']);
         //把换行替换成<p />
         // $section_content['sec_content'] = str_replace(array("\r\n", "\r", "\n"), ['<br/>',"<p/>"],  $section_content['sec_content']);
@@ -81,7 +81,7 @@ class share extends indexbase
         $tpsecc = M('book', 'im')->gettpseccontent(2, $list['lang']);
         M('census', 'im')->shareclick($users_id, $cartoon_id, 2, $get['nap']);
         $cartoon_section = T($tpsec)->field('cart_section_id,list_order')->where($w)->order('cart_section_id')->find();
-        $cart_section_content = T($tpsecc)
+        $cart_section_content = T($tpsecc,null,"content")
 
             ->field('v.cart_sec_content,v.cart_section_id')->where(['v.cart_section_id' => $cartoon_section['cart_section_id']])->order('cart_sec_content_id')->get_one();
         if ($cart_section_content) {

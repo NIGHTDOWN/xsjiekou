@@ -45,7 +45,7 @@ class content
                 return false;
                 // Out::jerror('章节不存在', null, '102222');
             }
-            $content = T($tpsecc)->field('cart_sec_content,cart_sec_content_dsl,cart_sec_content_id')->where(['cart_section_id' => $data['cart_section_id']])->where(['isdelete' => 0])->find();
+            $content = T($tpsecc,null,"content")->field('cart_sec_content,cart_sec_content_dsl,cart_sec_content_id')->where(['cart_section_id' => $data['cart_section_id']])->where(['isdelete' => 0])->find();
 
             // aes加密
             $cart_sec_contents = json_decode($content['cart_sec_content'], true);
@@ -136,7 +136,7 @@ class content
                 return false;
                 // Out::jerror('小说或章节不存在', null, '100154');
             }
-            $content = T($tpsecc)->field('sec_content,sec_content_id')->where(['section_id' => $data['section_id']])->where(['isdelete' => 0])->find();
+            $content = T($tpsecc,null,"content")->field('sec_content,sec_content_id')->where(['section_id' => $data['section_id']])->where(['isdelete' => 0])->find();
             // 引入aes加密
             if (!$content) {
                 return false;

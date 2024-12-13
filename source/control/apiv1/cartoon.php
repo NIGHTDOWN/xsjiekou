@@ -1,6 +1,6 @@
 <?php
 
-namespace ng169\control\apiv1;
+namespace ng169\control\api;
 
 use ng169\control\apiv1base;
 use ng169\tool\Out;
@@ -328,7 +328,7 @@ class cartoon extends apiv1base
             if (!$data) {
                 Out::jerror('章节不存在', null, '102222');
             }
-            $content = T($tpsecc)->field('cart_sec_content,cart_sec_content_dsl,cart_sec_content_id')->where(['cart_section_id' => $data['cart_section_id']])->where(['isdelete' => 0])->find();
+            $content = T($tpsecc,null,"content")->field('cart_sec_content,cart_sec_content_dsl,cart_sec_content_id')->where(['cart_section_id' => $data['cart_section_id']])->where(['isdelete' => 0])->find();
 
             // aes加密
             $cart_sec_contents = json_decode($content['cart_sec_content'], true);
@@ -407,7 +407,7 @@ class cartoon extends apiv1base
         if ($data['isfree'] != 0) {
             Out::jerror('收费章节，请下载app阅读', null, '105154');
         }
-        $content = T($tpsecc)->field('cart_sec_content,cart_sec_content_dsl,cart_sec_content_id')->where(['cart_section_id' => $data['cart_section_id']])->where(['isdelete' => 0])->find();
+        $content = T($tpsecc,null,"content")->field('cart_sec_content,cart_sec_content_dsl,cart_sec_content_id')->where(['cart_section_id' => $data['cart_section_id']])->where(['isdelete' => 0])->find();
         // $discuss = T('discuss_cart_section')
         //     ->field('cart_sec_discuss_id,star,nick_name,discuss_time,content')
         //     ->where(['cart_section_id' => $cart_section_id])

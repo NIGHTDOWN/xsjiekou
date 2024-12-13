@@ -103,7 +103,6 @@ class aysn extends Clibase
             'secnum' => $num,
             'book' => $book,
             'lang' => $lang,
-
         ]);
 
 
