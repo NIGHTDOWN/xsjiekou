@@ -36,7 +36,10 @@ class daoClass
     private $thispage = 0;
     private $alias;
     private $cache;
-    public function getpre(){
+    //数据库实列
+    public static $dbinstants = [];
+    public function getpre()
+    {
         return $this->dbqz;
     }
     /**
@@ -52,21 +55,34 @@ class daoClass
         $this->alias = $dbconf;
         $this->debug = G_DB_DEBUG;
         $dbs = Option::get('db');
-        if($dbconf=="none"){
+        if ($dbconf == "none") {
             $this->_db = new XDbsql();
             return $this;
         }
-        if($dbconf){
+        if ($dbconf) {
             if (isset($dbs[$dbconf])) {
                 $conf = $dbs[$dbconf];
                 $this->dbqz = $conf['dbpre'];
                 try {
-                    if(SQL_CONNECT_TYPE==1){
-                    //连接sql pool
-                    $poolconf= Option::get('pool');
-                    $this->_db =new SocketClient( $poolconf['ip'], $poolconf['port']);
-                    }else{
-                      $this->_db = new Dbsql($conf['dbhost'], $conf['dbuser'], $conf['dbpwd'], $conf['dbname'], $conf['charset']) or error(__('数据库配置不存在'));
+                    if (SQL_CONNECT_TYPE == 1) {
+                        //连接sql pool
+                        $poolconf = Option::get('pool');
+                        $this->_db = new SocketClient($poolconf['ip'], $poolconf['port']);
+                    } else {
+                        if (isset(self::$dbinstants[$dbconf])) {
+                            $this->_db = self::$dbinstants[$dbconf];
+                        } else {
+
+                            // $this->_db = new Dbsql($conf['dbhost'], $conf['dbuser'], $conf['dbpwd'], $conf['dbname'], $conf['charset']) or error(__('数据库配置不存在'));
+                            try {
+                                $db = new Dbsql($conf['dbhost'], $conf['dbuser'], $conf['dbpwd'], $conf['dbname'], $conf['charset']);
+                                $this->_db = $db;
+                                self::$dbinstants[$dbconf] = $this->_db;
+                            } catch (\Throwable $th) {
+                                //throw $th;
+                                error(__('数据库配置不存在'));
+                            }
+                        }
                     }
                     //code...
                 } catch (\Throwable $th) {
@@ -77,18 +93,17 @@ class daoClass
                 error(__('数据库配置不存在'));
             }
         }
-       
     }
-      public static function getdbobj($dbconf = 'main')
+    public static function getdbobj($dbconf = 'main')
     {
         $dbs = Option::get('db');
-        if($dbconf){
+        if ($dbconf) {
             if (isset($dbs[$dbconf])) {
                 $conf = $dbs[$dbconf];
                 try {
-                      $XDbsql = new XDbsql();
-                      $dbobj = $XDbsql ->getdb($conf['dbhost'], $conf['dbuser'], $conf['dbpwd'], $conf['dbname'], $conf['charset']) or error(__('数据库配置不存在'));
-                   return $dbobj;
+                    $XDbsql = new XDbsql();
+                    $dbobj = $XDbsql->getdb($conf['dbhost'], $conf['dbuser'], $conf['dbpwd'], $conf['dbname'], $conf['charset']) or error(__('数据库配置不存在'));
+                    return $dbobj;
                     //code...
                 } catch (\Throwable $th) {
                     //throw $th;
@@ -98,10 +113,10 @@ class daoClass
                 error(__('数据库配置不存在'));
             }
         }
-       
     }
     //注入数据库连接---适用连接池；非一进入就初始化db
-    public function injectdb(&$db){
+    public function injectdb(&$db)
+    {
         $this->_db->injectdb($db);
     }
     /**
@@ -226,7 +241,7 @@ class daoClass
             $this->t = str_replace($this->f, $filed, $this->t);
             $this->f = $filed;
         } else {
-           $val=$field_arr."";
+            $val = $field_arr . "";
             $this->t = str_replace($this->f, $val, $this->t);
             $this->f = $field_arr;
         }
@@ -371,16 +386,14 @@ class daoClass
             case 0:
                 $ret = $this->_db->query($sql);
                 //在这里记录偏移量保存在cookie 保存类型为当前筛选列，
-              
+
                 if ($this->havepage) {
                     //注入
-                    if(is_array($ret)){
-                        $num=sizeof($ret);
-                        Page::getobj()->injection_offset(@$ret[0][$this->getkey()], @$ret[ $num- 1][$this->getkey()]);
-          
+                    if (is_array($ret)) {
+                        $num = sizeof($ret);
+                        Page::getobj()->injection_offset(@$ret[0][$this->getkey()], @$ret[$num - 1][$this->getkey()]);
                     }
-                   
-                      }
+                }
 
                 break;
             case 1:
@@ -628,30 +641,32 @@ class daoClass
         }
         return $this;
     }
-    public function havetable($tbname){
-        $tables=$this->getalltable();
-      
-        if(in_array($tbname,$tables)){
-        return true;
-        }else{
+    public function havetable($tbname)
+    {
+        $tables = $this->getalltable();
+
+        if (in_array($tbname, $tables)) {
+            return true;
+        } else {
             return false;
         }
     }
     //获取库的所有表
-    public function getalltable(){
-        $sql="SHOW TABLES";
-        $ret= $this->_db->query($sql);
-        $tb=[];
-        foreach($ret as $tbb){
-            foreach($tbb as $b){
+    public function getalltable()
+    {
+        $sql = "SHOW TABLES";
+        $ret = $this->_db->query($sql);
+        $tb = [];
+        foreach ($ret as $tbb) {
+            foreach ($tbb as $b) {
                 // $b= trim("$b",$this->dbqz);
-                $b = substr($b, strlen($this->dbqz)); 
-                array_push($tb,$b);
+                $b = substr($b, strlen($this->dbqz));
+                array_push($tb, $b);
             }
         }
-      
+
         // $ret=array_column($ret,'Tables_in_Novel2');
-      return $tb;
+        return $tb;
     }
     /**
      * 获取表结构主键（使用缓存 ）
@@ -677,12 +692,14 @@ class daoClass
     {
         return $this->getkey();
     }
-    public function getone($sql){
-    return $this->_db->getone($sql);
+    public function getone($sql)
+    {
+        return $this->_db->getone($sql);
     }
-    public function getall($sql){
+    public function getall($sql)
+    {
         return $this->_db->query($sql);
-     }
+    }
     /**
      * 获取表所有健名
      * @param boolean $p
@@ -732,11 +749,12 @@ class daoClass
 
         return $key;
     }
-    public function gettablesql($table){
-        $tb=$this->getpre().$table;
-       $ssql= "SHOW CREATE TABLE `$tb`";
-       $data = $this->_db->query($ssql);
-       if(!$data)return "";
+    public function gettablesql($table)
+    {
+        $tb = $this->getpre() . $table;
+        $ssql = "SHOW CREATE TABLE `$tb`";
+        $data = $this->_db->query($ssql);
+        if (!$data) return "";
         return $data[0];
     }
     /**
@@ -744,12 +762,12 @@ class daoClass
      *
      * @return array
      */
-    public function gettableinfo($tablename=null)
+    public function gettableinfo($tablename = null)
     {
 
-        $tbname = $tablename?($this->dbqz.$tablename):$this->tablename;
+        $tbname = $tablename ? ($this->dbqz . $tablename) : $this->tablename;
         $sql = 'DESCRIBE ' . $tbname;
-        $index =$this->alias.md5($sql);
+        $index = $this->alias . md5($sql);
 
         /*if(self::$loopcache>self::LOOPMAX)return false;*/
         //这里的缓存必须非mysql缓存；否则死循环
@@ -759,7 +777,7 @@ class daoClass
 
         if (!$bool) {
             $data = $this->_db->query($sql);
-            $cache->set($index, $data,G_DAY);
+            $cache->set($index, $data, G_DAY);
         }
         /* d($data);*/
         return $data;
@@ -941,10 +959,10 @@ class daoClass
                 $this->l = $l;
                 return $this;
             }
-            $o1=intval($limit[0]);
-            $o2=intval($limit[1]);
+            $o1 = intval($limit[0]);
+            $o2 = intval($limit[1]);
             if (count($limit) != 1) {
-              
+
                 $l = $word . ($o1 * $o2) . ',' . ($o2);
                 $this->l = $l;
             } else {
@@ -1062,10 +1080,11 @@ class daoClass
         return $ret;
         /*return $this->_db->exec($t, $ar, $auto);*/
     }
-    public function exec($sql){
-      return  $this->_db->exec($sql);
+    public function exec($sql)
+    {
+        return  $this->_db->exec($sql);
     }
-   
+
     public function insert($t, $ar)
     {
         $this->i($t, $ar);
@@ -1077,12 +1096,12 @@ class daoClass
     }
     public function u($t, $ar, $where = null, $bool = true)
     {
-        if(is_array($ar)){
+        if (is_array($ar)) {
             if (sizeof($ar) == 0) {
                 return 0;
             }
         }
-       
+
         $Stime = '';
         if ($this->debug) {
 

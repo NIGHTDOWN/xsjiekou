@@ -151,3 +151,70 @@ cip: 223.73.200.58
 Content-Length: 134
 
 {"result":{"result":0,"total":1,"success_number":1,"has_next":false},"toast":{"message":"入库成功1个","type":"3"},"success":true}
+
+
+
+
+
+出库网页版
+curl 'https://mdkd-api.pinduoduo.com/api/orion/op/cabinet/out/batch' \
+  -H 'authority: mdkd-api.pinduoduo.com' \
+  -H 'accept: application/json, text/plain, */*' \
+  -H 'accept-language: zh-CN,zh;q=0.9' \
+  -H 'anti-content: 0aqAfxnYgOSgYgE2N0OGPnLLdgTVGIZCawYHbOiasZ4ZTsD_sHZpuIv_yU8UjpfDMkpItDaPQsag4xYJ9QaS2zFPfwdVt5TRCtvUsxgA4IydwTFIkYsOTuwJ-paGXG9DaLWaNaMx9349l7lXFog3irSSOKvCLWfxwzt1XnDenMafhMkrTkbL6ZnG6jVZ21rwgbC184mMXkRVlWPAAaqAfkHlbJ-saaDSPFi97R28YLu2KVEDWHu7siOM3R24hEe79syajzoC6Yt-30KR2-YHgNCf82F5_PAEAAorN951BgWoCiC4vc2_j9uAoRR2x86uR0xvJ1J4iR4BAoHuCbDV-i9q7gwplg7DjiQGhxCZfifeAWza6_0TCrkvGqkSQesdIeObWAL8dEr6zmHGwXNDcG21tDVOVTyI_wwhbk803V-aUEejxiJl6s86cFPOv6mMy0YQXfGfkA-wcjZVWomJTcl2oPDMvm8i77ahlTwAfDqA4wlUsVcGRWFAkNUgov2JMxwdU2RQtca_FgIeMAXbTWXUb1ctj3wEzM74gbZshGYEfp-zPDOSWBBfQpTEbGTpTmO_Ym53sVEHiYZLjvJZ7ksR3P0N7OS7dH5cVAKkDlD01vxKS6mR61Be__mCWBfif4_d6Gk8Lk__LkXIfoyZIPExm1zWgTl5WEtV3pS17TYusCYVSN1aF4ElRgLNiRvUihRrkdK6BV1_RbCGBEEreVH0amt-cYu5tVjXlM88iFrhRQZpl7XIFWg6Jk3ReQjRcQZN' \
+  -H 'content-type: application/json' \
+  -H 'cookie: _bee=q6cYvc3r2TjHscpJYyof9j64fX9lQmFH; _f77=b8939c9f-a543-4049-9c55-063b106834e0; _a42=a5f87e83-5de1-4a71-8985-82901c311e34; rckk=q6cYvc3r2TjHscpJYyof9j64fX9lQmFH; ru1k=b8939c9f-a543-4049-9c55-063b106834e0; ru2k=a5f87e83-5de1-4a71-8985-82901c311e34; api_uid=rBUUmmdUXtVwwit7NPctAg==; jrpl=JFADM6d2qPLYtxbPR5cEaOamVxxXJHvK; njrpl=JFADM6d2qPLYtxbPR5cEaOamVxxXJHvK; dilx=~9R4AA3U9lCpB2p2wPkt4; SUB_PASS_ID=x_eyJ0Ijoib2k2RHFOZ2ZRY0FPQ2k4ZWhSRE1ZMmhGZGxDZTJyZjFrOHJIeUxsakZZUHVMZC9hSmM2Z0gxYlRHK3M5Z1hkYSIsInYiOjEsInMiOjEwMDYsInUiOjM1MDg2MDIyMzUwfQ==; JSESSIONID=F419BC7510E297468CB5AA95BF22F47E' \
+  -H 'etag: q6cYvc3r2TjHscpJYyof9j64fX9lQmFH' \
+  -H 'origin: https://mdkd.pinduoduo.com' \
+  -H 'p-appname: DDStore-PC' \
+  -H 'pdd-id: q6cYvc3r2TjHscpJYyof9j64fX9lQmFH' \
+  -H 'referer: https://mdkd.pinduoduo.com/packageList?start_in_cabinet_date=1731254400000&end_in_cabinet_date=1733846399999&content=4215&stay_days_list=-4&search_type=1&selected=false' \
+  -H 'sec-ch-ua: "Chromium";v="122", "Not(A:Brand";v="24", "Google Chrome";v="122"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "Windows"' \
+  -H 'sec-fetch-dest: empty' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-site: same-site' \
+  -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.6261.95 Safari/537.36' \
+  -H 'verifyauthtoken: ATOYVA2q-L5_srmqr1exsA5be1dd2eee51f5786' \
+  --data-raw '{"package_ids":["3356096103778369622"],"device":"PC","out_flag":0}'
+
+返回
+{
+    "result": true,
+    "toast": {
+        "audio_list": [
+            "pop_success"
+        ],
+        "message": "出库成功1个",
+        "type": "3"
+    },
+    "success": true
+}
+
+
+
+app出库
+POST https://mdkd-api.pinduoduo.com/api/orion/op/cabinet/out/batch HTTP/1.1
+p-appname: DDStore
+VerifyAuthToken: NuFzbfapuU5aLUqJSm5Ldw08abb287e22552340
+cookie: SUB_PASS_ID=x_eyJ0IjoiTUJ3TFlzTVNHQ2d2TFV5RWJWREhIRE9DYStlcEw5aXhMcjd2Q1NYa1dlUUlOeWN5Z0tINmJ3QUJ1NEZiZm9sSCIsInYiOjEsInMiOjEwMDYsInUiOjM1MDg2MDIyMzUwfQ==
+device-name: LM-G820
+ETag: XPY2CY3l
+AccessToken: x_eyJ0IjoiTUJ3TFlzTVNHQ2d2TFV5RWJWREhIRE9DYStlcEw5aXhMcjd2Q1NYa1dlUUlOeWN5Z0tINmJ3QUJ1NEZiZm9sSCIsInYiOjEsInMiOjEwMDYsInUiOjM1MDg2MDIyMzUwfQ==
+anti-content: 2af3SJT0YrMsKrR+qpSnO02IUGemLzqjQOAGEBHS30WfNfbFC93Jlyq9wuKVCw8VzzcVnyNq/+VdCW5rVr1JrY+fGgH8NfE9lPwv7Cm5SpUDmSuabZTIdmlqVlWmLenk7knJtypkbOp1OLmGe8xf1LXev3Z7Qkj80FhHErWoH5GwksqQIGbyl8f/KjeRVIPYJ6FdH11WdFm28eaROmdwthG6HOIvb0fBMhW6udMbZncAh02CaNtZ7veO2XusUTF0RAE5pkKXExtQ/bSneXk66YeXD3S5PY9dS6b4ubMkEIRnExGaANoCtNK20/B1nq/W71lbfO8eqZV7++TffwMVnwsVqxFEfkFcYMCbUOR+NiN2txCCruw484NFr8a/Mge1j1DFikO2akYJWvhRht4Go5X6GZgpETXWrc18KsDUF+PdJLKJhOTugvmFrWZr5gJE5a7z6xLzGuiE23Om5f4BPOD7ThQITHCO/cHLfhng3FHxz4sY4Em9ctwJrMELEcnaWPqy7FurxVrGiCuqxztNYVMBtyEIhBxI6GZxgqZFL2g+tCTLkSnKwYezu/8UrOcOBHX
+Referer: Android
+User-Agent: Dalvik/2.1.0 (Linux; U; Android 10; LM-G820 Build/QKQ1.191222.002)station_android_version/3.21.0 PackegeName/com.xunmeng.station AppVersion/3.21.0 DeviceType/Mobile AppName/DDStore pstation_android_version/3.21.0
+mcmd-enc: AAAAAAAAAAAAAAAAAAAAAMb2AT3qoQufYThizCDRf3x/UdRZnX0rgmNOKuVmleYVa4mLmTW/1gjSHNSlXudiLMDCg9az3i0OdBYED/KzakHqNIDueku6XEfZ+inHge+VD2qNGwzxV3HEL+HnZPIeeg==
+site-code: A002683024
+PDD-CONFIG: V4:069.032100
+Content-Type: application/json;charset=utf-8
+Content-Length: 73
+Host: mdkd-api.pinduoduo.com
+Connection: Keep-Alive
+Accept-Encoding: gzip
+rctk-sign: qcp7lQdipskeCxhpDS+WNmxELlbWlYxbF0Xuq49bJ/k=
+rctk: rctk_plat=com.xunmeng.station.eagle.android&rctk_ver=0.0.1&rctk_ts=1733769981223&rctk_nonce=4lVLZvcLjI8w8u0syDZbiEyIZWxFtCRr&rctk_rpkg=0&rctk_dev=a9plipURS/dI=
+vip: 81.69.68.235
+
+{"out_flag":"0","package_ids":["3357577012768604179"],"device":"LM-G820"}

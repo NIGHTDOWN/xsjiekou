@@ -13,11 +13,12 @@ class Amodel extends Y
     public $table;
     private $dbdao;
 
-    public function __construct($table, $filedar = null)
+    public function __construct($table, $filedar = null,$dbconf=null)
     {
 
         $this->t = $table;
-        $this->dbdao = new daoClass;
+        
+        $this->dbdao = new daoClass($dbconf);
         $this->table = $this->dbdao->t($this->t, $filedar);
 
     }
