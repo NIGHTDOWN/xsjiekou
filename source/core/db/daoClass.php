@@ -50,7 +50,9 @@ class daoClass
      */
     public function __construct($dbconf = 'main')
     {
-
+if($dbconf==null){
+    $dbconf = 'main';
+}
         $this->dbqz = DB_PREFIX;
         $this->alias = $dbconf;
         $this->debug = G_DB_DEBUG;

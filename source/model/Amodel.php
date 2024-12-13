@@ -17,7 +17,7 @@ class Amodel extends Y
     {
 
         $this->t = $table;
-        
+      
         $this->dbdao = new daoClass($dbconf);
         $this->table = $this->dbdao->t($this->t, $filedar);
 
