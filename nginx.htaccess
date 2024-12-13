@@ -1,4 +1,4 @@
-  location / {
+location / {
             index  index.html index.htm index.php;
             #autoindex  on;
              #/**********************************nginx?????????*****************************************************/
@@ -12,3 +12,23 @@
            }
         }
        
+        location ~ \.php(.*)$ {
+            fastcgi_pass   127.0.0.1:9000;
+            fastcgi_index  index.php;
+            fastcgi_split_path_info  ^((?U).+\.php)(/?.+)$;
+            fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+            fastcgi_param  PATH_INFO  $fastcgi_path_info;
+            fastcgi_param  PATH_TRANSLATED  $document_root$fastcgi_path_info;
+            include        fastcgi_params;
+        }
+        #??????
+        #?????
+      location /?????????/* {
+                           root  /?????????/;     
+                           add_header Access-Control-Allow-Origin '*';
+                           add_header Access-Control-Allow-Credentials 'true';
+                           add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
+                           add_header Access-Control-Allow-Headers 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type';
+                           expires 30d;
+                           }
+
