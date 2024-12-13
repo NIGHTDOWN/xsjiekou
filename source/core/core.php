@@ -178,7 +178,7 @@ class Y
     }
 
    
-    public static function table($name)
+    public static function table($name,$pm1=null,$pm2=null)
     {
         $file = 'model';
         if (\ng169\tool\Request::getGet('m') == 'admin') {
@@ -188,6 +188,6 @@ class Y
         }
         /*require_once (MODEL . $file);*/
         $calss = "\\ng169\\model\\" . $file;
-        return new $calss($name);
+        return new $calss($name,$pm1,$pm2);
     }
 }

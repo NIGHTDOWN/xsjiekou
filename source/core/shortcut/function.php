@@ -8,9 +8,9 @@ use ng169\tool\Session as YSession;
 use ng169\lib\Lang;
 
 @checktop();
-function T($name)
+function T($name,$pm1=null,$pm2=null)
 {
-	return Y::table($name);
+	return Y::table($name,$pm1,$pm2);
 }
 
 function p($str)

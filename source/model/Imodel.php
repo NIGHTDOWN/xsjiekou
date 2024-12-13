@@ -17,9 +17,9 @@ class Imodel extends Y
     {
 
         $this->t = $table;
-        d($dbconf);
+         
         $this->dbdao = new daoClass($dbconf);
-   d($this->dbdao);
+        
         $this->table = $this->dbdao->t($this->t, $filedar);
     }
     public function addid($inArr, $auto = 1)
