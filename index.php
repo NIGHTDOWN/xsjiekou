@@ -20,8 +20,7 @@ header('Access-Control-Allow-Headers:*');
 /*header('Access-Control-Allow-Headers:');*/
 
 define('ROOT',__DIR__.'/');
-echo 111;
-die(1);
+
 require_once ROOT.'source/core/enter.php';
 APP::run();
 
