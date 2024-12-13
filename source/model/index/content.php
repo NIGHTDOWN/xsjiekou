@@ -136,6 +136,7 @@ class content
                 return false;
                 // Out::jerror('小说或章节不存在', null, '100154');
             }
+            d("dfsdfsdf");
             $content = T($tpsecc,null,"content")->field('sec_content,sec_content_id')->where(['section_id' => $data['section_id']])->where(['isdelete' => 0])->find();
             // 引入aes加密
             if (!$content) {
