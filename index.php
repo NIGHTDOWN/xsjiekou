@@ -1,7 +1,7 @@
 <?php
 
 namespace ng169;
-echo 111;die();
+
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     header('Access-Control-Allow-Methods: POST');
     header('Access-Control-Allow-Headers: Content-Type');
