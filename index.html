@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>二进制转文本</title>
+</head>
+<body>
+    <script>
+        var binary = "00110010 00110000  00110010 00110100";  //这里输入学号对应的二进制
+        function binaryToText(binary) {
+            var text = "";
+            var binaryArray = binary.split(" ");
+            for (var i = 0; i < binaryArray.length; i++) {
+                var decimal = parseInt(binaryArray[i], 2);
+                text += String.fromCharCode(decimal);
+            }
+            return text;
+        }
+       //在写一个把上面的text转成对应的ASCII码对应8位二进制的函数
+        function textToASCII(text) {
+            var ascii = "";
+            for (var i = 0; i < text.length; i++) {
+                var decimal = text.charCodeAt(i);
+                var binary = decimal.toString(2);
+                while (binary.length < 8) {
+                    binary = "0" + binary;
+                }
+                ascii += binary + " ";  
+            }
+            return ascii;
+        }
+         
+        var text = binaryToText(binary);
+        document.write(text);
+        document.write("<br>");
+        document.write(textToASCII(text));
+    </script>
+</body>
+</html>

@@ -201,4 +201,10 @@ class index extends indexbase
             return false;
         }
     }
+    public function control_qr()
+	{
+		$get = get(array('string' => array('url' => 1)));
+
+        \ng169\tool\Image::qr($get['url']);
+	}
 }
