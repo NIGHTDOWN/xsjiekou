@@ -204,8 +204,8 @@ class index extends indexbase
     public function control_qr()
 	{
 		$get = get(array('string' => array('url' => 1)));
-        $txt=base64_decode($get['url']);
+        // $txt=base64_decode($get['url']);
         
-        \ng169\tool\Image::qr($txt);
+        \ng169\tool\Image::qr($get['url']);
 	}
 }
