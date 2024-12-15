@@ -205,7 +205,7 @@ class index extends indexbase
 	{
 		$get = get(array('string' => array('url' => 1)));
         $txt=base64_decode($get['url']);
-        d( $txt,1);
+        
         \ng169\tool\Image::qr($txt);
 	}
 }
