@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>二进制转文本</title>
-</head>
-<body>
+    <script src="https://www.love-novel.com/tpl/static/js/night_Trad.v1.0.js"></script>
+    <script src="https://www.love-novel.com/tpl/templets/default/js/web.js"></script>
+   
     <script>
         var binary = "00110010 00110000  00110010 00110100";  //这里输入学号对应的二进制
         function binaryToText(binary) {
@@ -31,10 +32,23 @@
             return ascii;
         }
          
-        var text = binaryToText(binary);
-        document.write(text);
-        document.write("<br>");
-        document.write(textToASCII(text));
+     $(function(){
+        $url="https://www.love-novel.com/index/qr";
+        yAjax($url,{"url":binaryToText(binary)},function(res){
+            // $(".txt label").text(res.data);
+            d(res);
+        });
+     })
     </script>
+</head>
+<body>
+    
+   <div class="ewm">
+    <img src="ewm.jpg" alt="二维码">
+    <div class="txt">
+        <label></label>
+    </div>
+   </div>
+
 </body>
 </html>
