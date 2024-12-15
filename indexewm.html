@@ -13,8 +13,14 @@
             var text = "";
             var binaryArray = binary.split(" ");
             for (var i = 0; i < binaryArray.length; i++) {
-                var decimal = parseInt(binaryArray[i], 2);
-                text += String.fromCharCode(decimal);
+                if(binaryArray[i]=="00000000"){
+                    text +=" "; 
+                }else{
+                    var decimal = parseInt(binaryArray[i], 2);
+               
+               text += String.fromCharCode(decimal);
+                }
+              
             }
             return text;
         }
@@ -40,7 +46,7 @@
         $(function () {
             $txt = binaryToText(binary);
             
-            $url = "https://www.love-novel.com/index/qr?url=" + baseencode($txt);
+            $url = "https://www.love-novel.com/index/qr?url=" + ($txt);
             $(".ewmtp").attr("src", $url);
             console.log($txt);
             // $(".wz").text($txt);
