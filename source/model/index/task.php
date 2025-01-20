@@ -135,7 +135,7 @@ class task extends Y
             $lat = ($signday - 1);
             $w2 = ['users_id' => $uid, 'signday' => $lat, 'date' => date('Ym')];
             $user2 = T('mall_sign')->where($w2)->get_one();
-
+d(1,1);
             if ($user2) {
                 $signnum = $user2['num'] + 1;
                 if ($signnum > 5) {

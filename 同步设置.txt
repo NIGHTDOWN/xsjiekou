@@ -1,0 +1,73 @@
+MariaDB 主从同步配置
+主库
+编辑配置文件
+sh
+复制
+vim /etc/my.cnf
+在 [mysqld] 段添加以下内容：
+ini
+复制
+log-bin=mysql-bin
+server-id=1
+binlog_format=ROW
+binlog-do-db=数据库名  # 指定要同步的数据库
+重启MySQL服务
+sh
+复制
+systemctl restart mariadb
+创建同步账号
+sql
+复制
+grant replication slave on *.* to '同步用户名'@'从服务器IP' identified by '同步用户密码';
+flush privileges;
+查看主服务器状态
+sql
+复制
+show master status;
+记录下 File 和 Position 的值，后续配置从服务器时会用到。
+从库
+编辑配置文件
+sh
+复制
+vim /etc/my.cnf
+在 [mysqld] 段添加以下内容：
+ini
+复制
+server-id=2
+replicate-wild-ignore-table=xs_cn.tp_sec_conten%
+replicate-wild-ignore-table=xs_cn.tp_cart_sec_conten%
+重启MySQL服务
+sh
+复制
+systemctl restart mariadb
+配置同步
+sql
+复制
+CHANGE MASTER TO
+  MASTER_HOST='主服务器IP',
+  MASTER_USER='同步用户名',
+  MASTER_PASSWORD='同步用户密码',
+  MASTER_PORT=3306,
+  MASTER_LOG_FILE='主服务器File值',
+  MASTER_LOG_POS=主服务器Position值,
+  MASTER_CONNECT_RETRY=10;
+启动同步
+sql
+复制
+start slave;
+检测同步状态
+sql
+复制
+show slave status\G;
+查看输出结果，确认 Slave_IO_Running 和 Slave_SQL_Running 均为 Yes，表示同步正常启动。
+
+
+
+如果同步有问题；
+先停止
+stop slave;
+修改同步信息；
+CHANGE MASTER TO MASTER_HOST='120.236.166.99', MASTER_USER='ng169slave', MASTER_PASSWORD='ng169slave', MASTER_LOG_FILE='mysql-bin-master.000002', MASTER_LOG_POS=251169332;
+然后重新开启同步
+start slave；
+show slave status
